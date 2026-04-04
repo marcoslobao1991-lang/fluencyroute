@@ -1,7 +1,6 @@
 // ═══════════════════════════════════════════════════════════════
 // POST /api/blog/generate
-// Gera artigo completo via Sonnet 4.6, salva no Supabase
-// Chamado pelo n8n cron ou manualmente
+// Skyscraper SEO: busca top results PT+EN, analisa, gera artigo melhor
 // ═══════════════════════════════════════════════════════════════
 
 const SUPA_URL = "https://petrtewismhpzidcmmwb.supabase.co";
@@ -16,45 +15,116 @@ const supa = async (path: string, opts: RequestInit = {}) => {
   return fetch(`${SUPA_URL}${path}`, { ...opts, headers: { ...h, ...(opts.headers as Record<string, string>) } });
 };
 
-const BLOG_PROMPT = `Você é um redator SEO especialista em ensino de inglês. Você escreve para o blog da Fluency Route, uma plataforma que ensina inglês através de músicas usando repetição musical científica.
+// ── Google Search via SerpAPI or fallback to Google custom search ──
+async function searchGoogle(query: string, lang: string = "pt-BR"): Promise<string[]> {
+  // Use Google Custom Search JSON API (free 100 queries/day)
+  const cx = process.env.GOOGLE_SEARCH_CX;
+  const apiKey = process.env.GOOGLE_SEARCH_KEY;
 
-AUTOR: Marcos Lobão — fundador da Fluency Route, músico, professor de inglês, pai. Estudou aquisição de linguagem por anos e criou um método baseado em pesquisas de McGill, MIT e Nature Neuroscience. Já ajudou centenas de alunos.
+  if (!cx || !apiKey) {
+    console.log(`[BLOG] Google Search not configured, skipping skyscraper for: "${query}"`);
+    return [];
+  }
 
-PRODUTO: Plataforma com 134 músicas originais em inglês, séries cantadas (Friends, HIMYM), TED Talks cantados, Lab de pronúncia com IA, Scene Challenge (game), Library de livros, Skill Scan (avaliação). R$99/mês plano anual.
+  try {
+    const params = new URLSearchParams({
+      key: apiKey, cx, q: query, num: "5",
+      lr: lang === "en" ? "lang_en" : "lang_pt",
+      gl: lang === "en" ? "us" : "br",
+    });
+    const res = await fetch(`https://www.googleapis.com/customsearch/v1?${params}`);
+    if (!res.ok) return [];
+    const data = await res.json();
+    return (data.items || []).map((item: any) => item.snippet || "").filter(Boolean);
+  } catch { return []; }
+}
+
+// ── Fetch and extract text from a URL ──
+async function fetchPageContent(url: string): Promise<string> {
+  try {
+    const res = await fetch(url, {
+      headers: { "User-Agent": "Mozilla/5.0 (compatible; FluencyRouteBot/1.0)" },
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!res.ok) return "";
+    const html = await res.text();
+    // Extract text: strip tags, scripts, styles
+    return html
+      .replace(/<script[\s\S]*?<\/script>/gi, "")
+      .replace(/<style[\s\S]*?<\/style>/gi, "")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 3000); // first 3000 chars
+  } catch { return ""; }
+}
+
+// ── VSL knowledge base (core arguments, data, voice) ──
+const VSL_KNOWLEDGE = `
+CONHECIMENTO BASE DO MARCOS E DA FLUENCY ROUTE (use isso naturalmente nos artigos):
+
+HISTÓRIA: Marcos Lobão nunca fez intercâmbio, aprendeu inglês do Brasil. Trabalhou como vendedor para empresa americana, convencendo americano a comprar. Filho de músico profissional, cresceu dentro da música.
+
+CONFISSÃO: Apesar de milhares de alunos que aprenderam, havia um grupo grande que desistia. Marcos mediu: esses alunos não passavam de 15h de treino em meses. Os que deram certo tinham 100-150h nos primeiros meses. Não eram mais inteligentes — só persistiram mais.
+
+DESCOBERTA CHAVE: Taxa de abandono é 90%+ em TODO curso de idiomas. Estudo de Chris Nelson (2014): 150 funcionários do governo americano com tudo a favor — só 1 chegou ao final. O problema não é conteúdo, é FORMATO.
+
+A CIÊNCIA: O cérebro tem 2 camadas de aprendizado. Consciente (superficial, lento como tartaruga) e Subconsciente (30.000x mais rápido). Fluência precisa do subconsciente. Só repetição coloca informação lá.
+
+FADIGA COGNITIVA: Estudos de McGill mostram que após 20-23 minutos de estudo consciente, o cérebro cansa e para de absorver. Por isso cursos tradicionais falham — formato de aula excede o limite cognitivo.
+
+A SOLUÇÃO — MÚSICA: Pesquisa de Robert Zatorre (McGill/Nature Neuroscience) provou que música ativa dopamina + memória ao mesmo tempo. Universidade de Edinburgh: grupo com música aprendeu DOBRO das palavras. O cérebro quer repetir música — e repetição é o único caminho pro subconsciente.
+
+SÉRIE CANTADA: Cenas de séries (Friends, HIMYM) transformadas em música. Ouve 30-40x no trânsito/academia/trabalho porque gruda. Quando a cena real toca, entende tudo sem legenda e sem esforço.
+
+DADOS: Plataforma com 134 músicas originais, alunos em 30+ países, mais de 1 milhão de horas reproduzidas. Aluno que morava fora e fazia aula presencial nos EUA largou tudo pra usar a plataforma.
+
+PRODUTO: 6 módulos progressivos, Séries Cantadas (Friends, HIMYM, TAHM), TED Talks Cantados, Lab de Pronúncia com IA, Scene Challenge (game com cenas reais), Library de livros, Skill Scan (avaliação a cada 15 dias). R$49/mês no plano anual.
+
+GARANTIAS: 7 dias incondicional + 90 dias de aplicação real.
+
+VOZ DO MARCOS — use frases como:
+- "Eu poderia ter parado ali. Mas quis entender por que essas pessoas desistiam."
+- "Não adianta tentar usar o consciente que tem velocidade de tartaruga e ser fluente em inglês."
+- "A música hackeia o cérebro pra querer repetir. E repetição é tudo."
+- "Listening é o big domino. Quando o ouvido destrava, todo o resto vem junto."
+- "A gente não ensina inglês. A gente treina o seu cérebro pra adquirir inglês."
+`;
+
+const BLOG_PROMPT = `Você é um redator SEO de elite que escreve para o blog da Fluency Route. Seu objetivo é criar o MELHOR artigo da internet sobre cada keyword.
+
+${VSL_KNOWLEDGE}
 
 REGRAS DE ESCRITA:
-1. Tom: conversa entre amigos que manjam de inglês. Direto, sem enrolação, sem "neste artigo vamos abordar..."
-2. Parágrafos curtos (3-4 linhas máximo). Quebre em blocos visuais
-3. H2s devem ser PERGUNTAS REAIS que as pessoas fazem no Google
-4. Primeiros 150 caracteres: RESPOSTA DIRETA à pergunta principal (GEO — AI Overviews pegam isso)
-5. Inclua pelo menos uma citação/experiência pessoal do Marcos entre aspas
-6. Use dados quando possível ("estudos mostram que...", "segundo pesquisa de McGill...")
-7. Linguagem natural em português brasileiro. Sem "outrossim", "ademais", "neste sentido"
-8. Keyword principal deve aparecer no título, H1, primeiro parágrafo, e 3-5 vezes naturalmente no texto
-9. Internal linking: sugira 2-3 slugs de artigos relacionados que poderiam existir
-10. CTA sutil a cada ~500 palavras: variações de "Quer testar isso na prática? Conheça o método Fluency Route"
-11. Termine com seção FAQ (3-5 perguntas frequentes com respostas curtas)
-12. NUNCA use: "neste artigo", "vamos explorar", "é importante ressaltar", "em conclusão"
-13. Mínimo 2000 palavras, máximo 3000
+1. Tom: conversa entre amigos que manjam de inglês. Direto, sem enrolação. O Marcos fala como vendedor que entende de gente, não como professor formal.
+2. Parágrafos curtos (3-4 linhas máximo). Quebre em blocos visuais.
+3. H2s devem ser PERGUNTAS REAIS que as pessoas fazem no Google.
+4. Primeiros 150 caracteres: RESPOSTA DIRETA à pergunta principal (GEO — AI Overviews pegam isso).
+5. Inclua 2-3 citações/experiências do Marcos entre aspas usando o conhecimento base acima.
+6. Use dados científicos reais (McGill, Zatorre, Edinburgh, Chris Nelson) quando relevante.
+7. Linguagem natural em português brasileiro. Sem "outrossim", "ademais", "neste sentido", "é importante ressaltar".
+8. Keyword principal: título, primeiro parágrafo, e 4-6 vezes naturalmente no texto.
+9. Internal linking: sugira 2-3 slugs de artigos relacionados.
+10. CTA sutil a cada ~600 palavras conectando com o produto Fluency Route naturalmente.
+11. Termine com seção FAQ (4-5 perguntas frequentes com respostas de 2-3 frases).
+12. NUNCA use: "neste artigo", "vamos explorar", "em conclusão", "sem mais delongas".
+13. MÍNIMO 2500 PALAVRAS. Isso é obrigatório. Conte mentalmente. Se tiver menos que 2500, continue escrevendo.
+14. Use > blockquotes para citações do Marcos.
+15. Cada H2 deve ter pelo menos 300 palavras de conteúdo antes do próximo H2.
 
-FORMATO DE RESPOSTA — JSON PURO (sem markdown fences):
+FORMATO — JSON PURO (sem markdown fences, sem \`\`\`):
 {
   "title": "Título SEO < 60 chars com keyword",
   "slug": "url-amigavel-sem-acentos",
-  "meta_description": "155 chars max, com gancho emocional e keyword",
+  "meta_description": "155 chars max, gancho emocional + keyword",
   "keyword": "keyword principal",
-  "cluster": "cluster do tópico",
-  "content": "Artigo COMPLETO em markdown (## H2, ### H3, **bold**, - listas, > citações)",
-  "faq": [
-    {"q": "pergunta?", "a": "resposta curta"},
-    {"q": "pergunta?", "a": "resposta curta"},
-    {"q": "pergunta?", "a": "resposta curta"}
-  ],
-  "related_posts": ["slug-relacionado-1", "slug-relacionado-2", "slug-relacionado-3"]
+  "cluster": "cluster",
+  "content": "Artigo COMPLETO em markdown ## H2, ### H3, **bold**, - listas, > citações",
+  "faq": [{"q": "?", "a": "resposta 2-3 frases"}],
+  "related_posts": ["slug-1", "slug-2", "slug-3"]
 }`;
 
 export async function POST(request: Request) {
-  // Auth: n8n sends API key or admin secret
   const authHeader = request.headers.get("authorization");
   const validKey = process.env.BLOG_API_KEY || process.env.ADMIN_SECRET;
   if (!validKey || authHeader !== `Bearer ${validKey}`) {
@@ -79,24 +149,66 @@ export async function POST(request: Request) {
       topic_id = topics[0].id;
     }
 
-    // Check if slug already exists (avoid duplicates)
+    // Check duplicates
     const slugCheck = await supa(
       `/rest/v1/blog_posts?keyword=eq.${encodeURIComponent(keyword)}&select=id&limit=1`
     );
     const existing = await slugCheck.json();
     if (Array.isArray(existing) && existing.length > 0) {
-      // Mark topic as published if it exists
       if (topic_id) {
         await supa(`/rest/v1/blog_topics?id=eq.${topic_id}`, {
           method: "PATCH", body: JSON.stringify({ status: "published" }),
         });
       }
-      return Response.json({ error: "Article already exists for this keyword", existing: existing[0].id }, { status: 409 });
+      return Response.json({ error: "Article already exists", existing: existing[0].id }, { status: 409 });
     }
 
-    // Generate article with GPT-4.1
     console.log(`[BLOG] Generating article for: "${keyword}" (${cluster})`);
 
+    // ══ SKYSCRAPER: Analyze top results ══
+    let skyscraperContext = "";
+    const isBranded = cluster === "branded";
+
+    if (!isBranded) {
+      console.log(`[BLOG] Skyscraper: searching PT + EN...`);
+
+      // Translate keyword to English for gringo search
+      const translateRes = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${OPENAI_KEY}` },
+        body: JSON.stringify({
+          model: "gpt-4.1-nano",
+          max_tokens: 50,
+          messages: [{ role: "user", content: `Translate to English (just the translation, nothing else): "${keyword}"` }],
+        }),
+      });
+      const translateData = await translateRes.json();
+      const keywordEN = translateData.choices?.[0]?.message?.content?.trim() || "";
+
+      // Search in both languages
+      const [resultsPT, resultsEN] = await Promise.all([
+        searchGoogle(keyword, "pt-BR"),
+        keywordEN ? searchGoogle(keywordEN, "en") : Promise.resolve([]),
+      ]);
+
+      if (resultsPT.length > 0 || resultsEN.length > 0) {
+        skyscraperContext = `\n\nANÁLISE DOS TOP RESULTADOS DO GOOGLE (use como referência pra cobrir tudo e fazer MELHOR):
+
+TOP RESULTADOS EM PORTUGUÊS:
+${resultsPT.length > 0 ? resultsPT.map((s, i) => `${i + 1}. ${s}`).join("\n") : "Nenhum resultado encontrado."}
+
+TOP RESULTADOS EM INGLÊS (conteúdo gringo validado):
+${resultsEN.length > 0 ? resultsEN.map((s, i) => `${i + 1}. ${s}`).join("\n") : "Nenhum resultado encontrado."}
+
+INSTRUÇÃO: Seu artigo deve cobrir TUDO que os top resultados cobrem + adicionar o ângulo único da Fluency Route (método musical, ciência, experiência do Marcos). Identifique GAPS nos resultados acima e preencha.`;
+
+        console.log(`[BLOG] Skyscraper: ${resultsPT.length} PT + ${resultsEN.length} EN results`);
+      }
+    } else {
+      skyscraperContext = `\n\nESTE É UM ARTIGO BRANDED — você é a autoridade máxima. Use conhecimento direto das VSLs do Marcos. Fale como dono do produto, com orgulho mas sem arrogância. Responda as dúvidas reais que as pessoas teriam antes de comprar.`;
+    }
+
+    // ══ GENERATE ARTICLE ══
     const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -105,12 +217,23 @@ export async function POST(request: Request) {
       },
       body: JSON.stringify({
         model: "gpt-4.1",
-        max_tokens: 8000,
+        max_tokens: 12000,
         messages: [
           { role: "system", content: BLOG_PROMPT },
           {
             role: "user",
-            content: `Escreva um artigo completo para a keyword: "${keyword}"\nCluster: ${cluster}\n\nLembre-se: resposta direta nos primeiros 150 chars, H2s como perguntas reais, experiência do Marcos, dados científicos, FAQ no final. JSON puro na resposta.`,
+            content: `Escreva um artigo completo para a keyword: "${keyword}"
+Cluster: ${cluster}
+${skyscraperContext}
+
+LEMBRE-SE:
+- MÍNIMO 2500 PALAVRAS (obrigatório, se tiver menos continue escrevendo)
+- Resposta direta nos primeiros 150 chars
+- H2s como perguntas reais
+- Citações do Marcos entre > blockquotes
+- Dados científicos reais
+- FAQ com 4-5 perguntas no final
+- JSON PURO na resposta (sem markdown fences)`,
           },
         ],
       }),
@@ -125,16 +248,16 @@ export async function POST(request: Request) {
     const openaiData = await openaiRes.json();
     const rawText = openaiData.choices?.[0]?.message?.content || "";
 
-    // Parse JSON from response
+    // Parse JSON
     const jsonMatch = rawText.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
-      console.error("[BLOG] Failed to parse JSON from Sonnet response");
+      console.error("[BLOG] Failed to parse JSON");
       return Response.json({ error: "Failed to parse article JSON", raw: rawText.slice(0, 500) }, { status: 500 });
     }
 
     const article = JSON.parse(jsonMatch[0]);
 
-    // Append FAQ to content as markdown
+    // Append FAQ
     let fullContent = article.content || "";
     if (article.faq && article.faq.length > 0) {
       fullContent += "\n\n## Perguntas Frequentes\n\n";
@@ -143,7 +266,10 @@ export async function POST(request: Request) {
       }
     }
 
-    // Save to Supabase
+    const wordCount = fullContent.split(/\s+/).length;
+    console.log(`[BLOG] Generated: "${article.title}" — ${wordCount} words`);
+
+    // Save
     const postData = {
       slug: article.slug,
       title: article.title,
@@ -164,11 +290,10 @@ export async function POST(request: Request) {
     if (!saveRes.ok) {
       const err = await saveRes.text();
       console.error("[BLOG] Failed to save:", err);
-      return Response.json({ error: "Failed to save article", details: err }, { status: 500 });
+      return Response.json({ error: "Failed to save", details: err }, { status: 500 });
     }
 
-    const saved = await saveRes.json();
-    console.log(`[BLOG] Published: "${article.title}" → /blog/${article.slug}`);
+    console.log(`[BLOG] Published: /blog/${article.slug}`);
 
     // Mark topic as published
     if (topic_id) {
@@ -177,23 +302,13 @@ export async function POST(request: Request) {
       });
     }
 
-    // Build FAQ schema for the response
-    const faqSchema = article.faq?.length > 0 ? {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: article.faq.map((f: { q: string; a: string }) => ({
-        "@type": "Question",
-        name: f.q,
-        acceptedAnswer: { "@type": "Answer", text: f.a },
-      })),
-    } : null;
-
     return Response.json({
       ok: true,
       slug: article.slug,
       title: article.title,
       url: `/blog/${article.slug}`,
-      faqSchema,
+      wordCount,
+      skyscraper: !isBranded,
       tokens: {
         input: openaiData.usage?.prompt_tokens,
         output: openaiData.usage?.completion_tokens,
