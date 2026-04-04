@@ -118,14 +118,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {/* TOC */}
         {headings.length > 2 && headings.length <= 12 && (
-          <nav style={{ marginBottom: 40, padding: 20, borderRadius: 12, background: "#f8f8f8", border: "1px solid #eee" }}>
-            <p style={{ fontSize: 12, fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: 1, marginBottom: 12 }}>Neste artigo</p>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 6 }}>
+          <details style={{ marginBottom: 40, borderRadius: 12, background: "#f8f8f8", border: "1px solid #eee", overflow: "hidden" }}>
+            <summary style={{ padding: "16px 20px", fontSize: 13, fontWeight: 700, color: "#555", cursor: "pointer", listStyle: "none", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <span>Neste artigo</span>
+              <span style={{ fontSize: 11, color: "#aaa", fontWeight: 400 }}>{headings.length} tópicos</span>
+            </summary>
+            <ul style={{ listStyle: "none", padding: "0 20px 16px", margin: 0, display: "flex", flexDirection: "column", gap: 6, borderTop: "1px solid #eee", paddingTop: 12 }}>
               {headings.map((h, i) => (
                 <li key={i}><a href={`#${h.id}`} style={{ fontSize: 13, color: "#555", textDecoration: "none", lineHeight: 1.6 }}>{h.text}</a></li>
               ))}
             </ul>
-          </nav>
+          </details>
         )}
 
         {/* Content */}
