@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { trackViewContent } from '../lib/pixel'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import './vsl.css'
@@ -30,6 +31,9 @@ export default function VSLPage() {
   const [sticky, setSticky] = useState(false)
 
   useEffect(() => {
+    // Track VSL view
+    trackViewContent('VSL')
+
     // Vturb SDK script
     if (!document.querySelector('script[src*="smartplayer-wc"]')) {
       const s = document.createElement('script')
