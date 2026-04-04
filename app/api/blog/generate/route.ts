@@ -1,6 +1,6 @@
 // ═══════════════════════════════════════════════════════════════
 // POST /api/blog/generate
-// Skyscraper SEO: busca top results PT+EN, analisa, gera artigo melhor
+// Modelagem: busca #1 gringo, extrai conteúdo, modela em PT-BR
 // ═══════════════════════════════════════════════════════════════
 
 const SUPA_URL = "https://petrtewismhpzidcmmwb.supabase.co";
@@ -15,19 +15,16 @@ const supa = async (path: string, opts: RequestInit = {}) => {
   return fetch(`${SUPA_URL}${path}`, { ...opts, headers: { ...h, ...(opts.headers as Record<string, string>) } });
 };
 
-// ── Serper.dev Google Search (2500 free/month) ──
-async function searchSerper(query: string, lang: string = "pt"): Promise<{ title: string; snippet: string }[]> {
+// ── Serper.dev search ──
+async function searchSerper(query: string, lang: string = "en"): Promise<{ title: string; url: string; snippet: string }[]> {
   const apiKey = process.env.SERPER_API_KEY;
-  if (!apiKey) {
-    console.log(`[BLOG] Serper not configured, skipping skyscraper`);
-    return [];
-  }
+  if (!apiKey) return [];
   try {
     const res = await fetch("https://google.serper.dev/search", {
       method: "POST",
       headers: { "X-API-KEY": apiKey, "Content-Type": "application/json" },
       body: JSON.stringify({
-        q: query, num: 5,
+        q: query, num: 3,
         gl: lang === "en" ? "us" : "br",
         hl: lang === "en" ? "en" : "pt-br",
       }),
@@ -36,74 +33,95 @@ async function searchSerper(query: string, lang: string = "pt"): Promise<{ title
     const data = await res.json();
     return (data.organic || []).map((item: any) => ({
       title: item.title || "",
+      url: item.link || "",
       snippet: item.snippet || "",
     }));
   } catch { return []; }
 }
 
-// ── VSL knowledge base (core arguments, data, voice) ──
-const VSL_KNOWLEDGE = `
-CONHECIMENTO BASE DO MARCOS E DA FLUENCY ROUTE (use isso naturalmente nos artigos):
+// ── Fetch page content as text ──
+async function fetchPage(url: string): Promise<string> {
+  try {
+    const res = await fetch(url, {
+      headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" },
+      signal: AbortSignal.timeout(10000),
+    });
+    if (!res.ok) return "";
+    const html = await res.text();
+    return html
+      .replace(/<script[\s\S]*?<\/script>/gi, "")
+      .replace(/<style[\s\S]*?<\/style>/gi, "")
+      .replace(/<nav[\s\S]*?<\/nav>/gi, "")
+      .replace(/<footer[\s\S]*?<\/footer>/gi, "")
+      .replace(/<header[\s\S]*?<\/header>/gi, "")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 8000);
+  } catch { return ""; }
+}
 
-HISTÓRIA: Marcos Lobão nunca fez intercâmbio, aprendeu inglês do Brasil. Trabalhou como vendedor para empresa americana, convencendo americano a comprar. Filho de músico profissional, cresceu dentro da música.
+// ── Prompt ──
+const BLOG_PROMPT = `Você é um redator SEO de elite. Vai receber um artigo em inglês que é o #1 do Google pra uma keyword. Sua missão: MODELAR esse artigo em português brasileiro.
 
-CONFISSÃO: Apesar de milhares de alunos que aprenderam, havia um grupo grande que desistia. Marcos mediu: esses alunos não passavam de 15h de treino em meses. Os que deram certo tinham 100-150h nos primeiros meses. Não eram mais inteligentes — só persistiram mais.
+MODELAR significa:
+- Mesma estrutura de H2s e tópicos
+- Mesma profundidade e completude
+- Mesmo tamanho ou MAIOR
+- Mas com TOM, EXEMPLOS e ÂNGULO diferentes — adaptado pro público brasileiro
+- NÃO é tradução literal. É reescrita completa com a mesma espinha dorsal.
 
-DESCOBERTA CHAVE: Taxa de abandono é 90%+ em TODO curso de idiomas. Estudo de Chris Nelson (2014): 150 funcionários do governo americano com tudo a favor — só 1 chegou ao final. O problema não é conteúdo, é FORMATO.
+AUTOR: Marcos Lobão — aprendeu inglês sozinho no Brasil, sem intercâmbio. Músico de família.
 
-A CIÊNCIA: O cérebro tem 2 camadas de aprendizado. Consciente (superficial, lento como tartaruga) e Subconsciente (30.000x mais rápido). Fluência precisa do subconsciente. Só repetição coloca informação lá.
+REGRAS ABSOLUTAS:
+1. CONTEÚDO PURO sobre a keyword. NÃO é propaganda.
+2. NUNCA mencione: nome de produto, plataforma, app, número de músicas, módulos, features, preço. NADA.
+3. ÚNICO CTA: na última linha do artigo, escreva exatamente: "Quer aprender inglês com a gente? [Assista nossa aula grátis.](/vsl)"
+4. ZERO CTAs no meio do artigo.
+5. Tom: conversa entre amigos. Direto, sem enrolação.
+6. Parágrafos curtos (3-4 linhas).
+7. H2s = perguntas reais que brasileiros pesquisam no Google.
+8. Primeiros 150 chars: RESPOSTA DIRETA (GEO/AI Overviews).
+9. 1-2 citações do Marcos em > blockquotes (experiência pessoal, não vendedor).
+10. Português brasileiro natural. Sem "outrossim", "ademais", "neste sentido".
+11. Keyword no título + primeiro parágrafo + 4-6x natural no texto.
+12. FAQ 4-5 perguntas no final.
+13. NUNCA: "neste artigo", "vamos explorar", "em conclusão", "sem mais delongas".
+14. MÍNIMO 2500 PALAVRAS. Se o artigo original tem 3000, faça 3000+. OBRIGATÓRIO.
+15. Cada H2: mínimo 300 palavras antes do próximo.
 
-FADIGA COGNITIVA: Estudos de McGill mostram que após 20-23 minutos de estudo consciente, o cérebro cansa e para de absorver. Por isso cursos tradicionais falham — formato de aula excede o limite cognitivo.
-
-A SOLUÇÃO — MÚSICA: Pesquisa de Robert Zatorre (McGill/Nature Neuroscience) provou que música ativa dopamina + memória ao mesmo tempo. Universidade de Edinburgh: grupo com música aprendeu DOBRO das palavras. O cérebro quer repetir música — e repetição é o único caminho pro subconsciente.
-
-SÉRIE CANTADA: Cenas de séries (Friends, HIMYM) transformadas em música. Ouve 30-40x no trânsito/academia/trabalho porque gruda. Quando a cena real toca, entende tudo sem legenda e sem esforço.
-
-DADOS: Plataforma com 134 músicas originais, alunos em 30+ países, mais de 1 milhão de horas reproduzidas. Aluno que morava fora e fazia aula presencial nos EUA largou tudo pra usar a plataforma.
-
-PRODUTO: 6 módulos progressivos, Séries Cantadas (Friends, HIMYM, TAHM), TED Talks Cantados, Lab de Pronúncia com IA, Scene Challenge (game com cenas reais), Library de livros, Skill Scan (avaliação a cada 15 dias). R$49/mês no plano anual.
-
-GARANTIAS: 7 dias incondicional + 90 dias de aplicação real.
-
-VOZ DO MARCOS — use frases como:
-- "Eu poderia ter parado ali. Mas quis entender por que essas pessoas desistiam."
-- "Não adianta tentar usar o consciente que tem velocidade de tartaruga e ser fluente em inglês."
-- "A música hackeia o cérebro pra querer repetir. E repetição é tudo."
-- "Listening é o big domino. Quando o ouvido destrava, todo o resto vem junto."
-- "A gente não ensina inglês. A gente treina o seu cérebro pra adquirir inglês."
-`;
-
-const BLOG_PROMPT = `Você é um redator SEO de elite que escreve para o blog da Fluency Route. Seu objetivo é criar o MELHOR artigo da internet sobre cada keyword.
-
-${VSL_KNOWLEDGE}
-
-REGRAS DE ESCRITA:
-1. Tom: conversa entre amigos que manjam de inglês. Direto, sem enrolação. O Marcos fala como vendedor que entende de gente, não como professor formal.
-2. Parágrafos curtos (3-4 linhas máximo). Quebre em blocos visuais.
-3. H2s devem ser PERGUNTAS REAIS que as pessoas fazem no Google.
-4. Primeiros 150 caracteres: RESPOSTA DIRETA à pergunta principal (GEO — AI Overviews pegam isso).
-5. Inclua 2-3 citações/experiências do Marcos entre aspas usando o conhecimento base acima.
-6. Use dados científicos reais (McGill, Zatorre, Edinburgh, Chris Nelson) quando relevante.
-7. Linguagem natural em português brasileiro. Sem "outrossim", "ademais", "neste sentido", "é importante ressaltar".
-8. Keyword principal: título, primeiro parágrafo, e 4-6 vezes naturalmente no texto.
-9. Internal linking: sugira 2-3 slugs de artigos relacionados.
-10. CTA sutil a cada ~600 palavras conectando com o produto Fluency Route naturalmente.
-11. Termine com seção FAQ (4-5 perguntas frequentes com respostas de 2-3 frases).
-12. NUNCA use: "neste artigo", "vamos explorar", "em conclusão", "sem mais delongas".
-13. MÍNIMO 2500 PALAVRAS. Isso é obrigatório. Conte mentalmente. Se tiver menos que 2500, continue escrevendo.
-14. Use > blockquotes para citações do Marcos.
-15. Cada H2 deve ter pelo menos 300 palavras de conteúdo antes do próximo H2.
-
-FORMATO — JSON PURO (sem markdown fences, sem \`\`\`):
+FORMATO — JSON PURO (sem markdown fences):
 {
-  "title": "Título SEO < 60 chars com keyword",
+  "title": "Título SEO < 60 chars com keyword em PT",
   "slug": "url-amigavel-sem-acentos",
-  "meta_description": "155 chars max, gancho emocional + keyword",
-  "keyword": "keyword principal",
+  "meta_description": "155 chars, gancho emocional + keyword",
+  "keyword": "keyword em português",
   "cluster": "cluster",
-  "content": "Artigo COMPLETO em markdown ## H2, ### H3, **bold**, - listas, > citações",
-  "faq": [{"q": "?", "a": "resposta 2-3 frases"}],
+  "content": "Artigo COMPLETO em markdown. Última linha: CTA pra aula grátis.",
+  "faq": [{"q": "pergunta?", "a": "resposta 2-3 frases"}],
   "related_posts": ["slug-1", "slug-2", "slug-3"]
+}`;
+
+const BRANDED_PROMPT = `Você é um redator SEO. Escreva um artigo sobre a marca/produto Fluency Route.
+
+CONTEXTO: Fluency Route é uma escola de inglês online fundada por Marcos Lobão. O método é baseado em repetição musical — usar música pra hackear o cérebro e adquirir inglês naturalmente. Marcos nunca fez intercâmbio, aprendeu inglês do Brasil, trabalhou como vendedor pra empresa americana.
+
+REGRAS:
+1. Responda as dúvidas reais que alguém teria ao pesquisar essa keyword.
+2. Tom honesto e direto — como o dono falando sobre seu produto sem ser forçado.
+3. NUNCA mencione preço ou valor.
+4. Última linha: "Quer conhecer o método? [Assista nossa aula grátis.](/vsl)"
+5. Parágrafos curtos, H2s como perguntas reais, FAQ no final.
+6. MÍNIMO 2000 PALAVRAS.
+7. 1-2 citações do Marcos em > blockquotes.
+
+FORMATO — JSON PURO:
+{
+  "title": "< 60 chars", "slug": "url", "meta_description": "155 chars",
+  "keyword": "kw", "cluster": "branded",
+  "content": "markdown completo",
+  "faq": [{"q": "?", "a": "resp"}],
+  "related_posts": ["slug-1", "slug-2"]
 }`;
 
 export async function POST(request: Request) {
@@ -145,78 +163,92 @@ export async function POST(request: Request) {
       return Response.json({ error: "Article already exists", existing: existing[0].id }, { status: 409 });
     }
 
-    console.log(`[BLOG] Generating article for: "${keyword}" (${cluster})`);
-
-    // ══ SKYSCRAPER: Analyze top results ══
-    let skyscraperContext = "";
     const isBranded = cluster === "branded";
+    console.log(`[BLOG] ${isBranded ? "BRANDED" : "MODELAGEM"}: "${keyword}"`);
 
-    if (!isBranded) {
-      console.log(`[BLOG] Skyscraper: searching PT + EN...`);
+    let userMessage = "";
+    let systemPrompt = "";
+    let sourceUrl = "";
 
-      // Translate keyword to English for gringo search
+    if (isBranded) {
+      // ── BRANDED: generate directly ──
+      systemPrompt = BRANDED_PROMPT;
+      userMessage = `Escreva artigo para: "${keyword}"\nCluster: branded\nMÍNIMO 2000 PALAVRAS. JSON puro.`;
+
+    } else {
+      // ── MODELAGEM: find #1 gringo, fetch content, model it ──
+
+      // Translate keyword to EN
       const translateRes = await fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${OPENAI_KEY}` },
         body: JSON.stringify({
           model: "gpt-4.1-nano",
           max_tokens: 50,
-          messages: [{ role: "user", content: `Translate to English (just the translation, nothing else): "${keyword}"` }],
+          messages: [{ role: "user", content: `Translate to English for a Google search (just the translation): "${keyword}"` }],
         }),
       });
-      const translateData = await translateRes.json();
-      const keywordEN = translateData.choices?.[0]?.message?.content?.trim() || "";
+      const kwEN = (await translateRes.json()).choices?.[0]?.message?.content?.trim() || keyword;
+      console.log(`[BLOG] EN keyword: "${kwEN}"`);
 
-      // Search in both languages via Serper
-      const [resultsPT, resultsEN] = await Promise.all([
-        searchSerper(keyword, "pt"),
-        keywordEN ? searchSerper(keywordEN, "en") : Promise.resolve([]),
-      ]);
+      // Search Google EN for #1
+      const results = await searchSerper(kwEN, "en");
 
-      if (resultsPT.length > 0 || resultsEN.length > 0) {
-        skyscraperContext = `\n\nANÁLISE DOS TOP RESULTADOS DO GOOGLE (use como referência pra cobrir tudo e fazer MELHOR):
+      if (results.length > 0) {
+        // Try to fetch full content of #1
+        let sourceContent = "";
+        for (const r of results) {
+          // Skip PDFs, YouTube, Reddit
+          if (r.url.includes('.pdf') || r.url.includes('youtube.com') || r.url.includes('reddit.com')) continue;
+          console.log(`[BLOG] Fetching #1: ${r.url}`);
+          sourceUrl = r.url;
+          sourceContent = await fetchPage(r.url);
+          if (sourceContent.length > 500) break;
+        }
 
-TOP RESULTADOS EM PORTUGUÊS:
-${resultsPT.length > 0 ? resultsPT.map((r, i) => `${i + 1}. "${r.title}" — ${r.snippet}`).join("\n") : "Nenhum resultado encontrado."}
+        if (sourceContent.length > 500) {
+          console.log(`[BLOG] Source content: ${sourceContent.length} chars from ${sourceUrl}`);
+          systemPrompt = BLOG_PROMPT;
+          userMessage = `KEYWORD EM PORTUGUÊS: "${keyword}"
+CLUSTER: ${cluster}
 
-TOP RESULTADOS EM INGLÊS (conteúdo gringo validado):
-${resultsEN.length > 0 ? resultsEN.map((r, i) => `${i + 1}. "${r.title}" — ${r.snippet}`).join("\n") : "Nenhum resultado encontrado."}
+ARTIGO #1 DO GOOGLE (em inglês) — MODELE ESTE:
+Source: ${sourceUrl}
 
-INSTRUÇÃO: Seu artigo deve cobrir TUDO que os top resultados cobrem + adicionar o ângulo único da Fluency Route (método musical, ciência, experiência do Marcos). Identifique GAPS nos resultados acima e preencha. Faça o artigo DEFINITIVAMENTE MELHOR que todos esses.`;
+${sourceContent}
 
-        console.log(`[BLOG] Skyscraper: ${resultsPT.length} PT + ${resultsEN.length} EN results`);
+---
+MODELE o artigo acima em português brasileiro. Mesma estrutura, mesma profundidade, tamanho igual ou maior. Tom do Marcos, adaptado pro BR. MÍNIMO 2500 PALAVRAS. JSON puro.`;
+        } else {
+          // Fallback: use snippets if can't fetch full page
+          console.log(`[BLOG] Couldn't fetch full page, using snippets`);
+          systemPrompt = BLOG_PROMPT;
+          const snippets = results.map((r, i) => `${i + 1}. "${r.title}" — ${r.snippet}`).join("\n");
+          userMessage = `KEYWORD EM PORTUGUÊS: "${keyword}"
+CLUSTER: ${cluster}
+
+TOP RESULTADOS DO GOOGLE EM INGLÊS (modele o melhor):
+${snippets}
+
+Escreva o artigo em PT-BR modelando a estrutura dos top results. MÍNIMO 2500 PALAVRAS. JSON puro.`;
+        }
+      } else {
+        // No results, generate from scratch
+        systemPrompt = BLOG_PROMPT;
+        userMessage = `KEYWORD EM PORTUGUÊS: "${keyword}"\nCLUSTER: ${cluster}\n\nSem referência disponível. Escreva o melhor artigo possível sobre esta keyword. MÍNIMO 2500 PALAVRAS. JSON puro.`;
       }
-    } else {
-      skyscraperContext = `\n\nESTE É UM ARTIGO BRANDED — você é a autoridade máxima. Use conhecimento direto das VSLs do Marcos. Fale como dono do produto, com orgulho mas sem arrogância. Responda as dúvidas reais que as pessoas teriam antes de comprar.`;
     }
 
-    // ══ GENERATE ARTICLE ══
+    // ══ GENERATE ══
     const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${OPENAI_KEY}`,
-      },
+      headers: { "Content-Type": "application/json", "Authorization": `Bearer ${OPENAI_KEY}` },
       body: JSON.stringify({
         model: "gpt-4.1",
-        max_tokens: 12000,
+        max_tokens: 16000,
         messages: [
-          { role: "system", content: BLOG_PROMPT },
-          {
-            role: "user",
-            content: `Escreva um artigo completo para a keyword: "${keyword}"
-Cluster: ${cluster}
-${skyscraperContext}
-
-LEMBRE-SE:
-- MÍNIMO 2500 PALAVRAS (obrigatório, se tiver menos continue escrevendo)
-- Resposta direta nos primeiros 150 chars
-- H2s como perguntas reais
-- Citações do Marcos entre > blockquotes
-- Dados científicos reais
-- FAQ com 4-5 perguntas no final
-- JSON PURO na resposta (sem markdown fences)`,
-          },
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userMessage },
         ],
       }),
     });
@@ -230,11 +262,10 @@ LEMBRE-SE:
     const openaiData = await openaiRes.json();
     const rawText = openaiData.choices?.[0]?.message?.content || "";
 
-    // Parse JSON
     const jsonMatch = rawText.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
       console.error("[BLOG] Failed to parse JSON");
-      return Response.json({ error: "Failed to parse article JSON", raw: rawText.slice(0, 500) }, { status: 500 });
+      return Response.json({ error: "Failed to parse", raw: rawText.slice(0, 500) }, { status: 500 });
     }
 
     const article = JSON.parse(jsonMatch[0]);
@@ -252,32 +283,30 @@ LEMBRE-SE:
     console.log(`[BLOG] Generated: "${article.title}" — ${wordCount} words`);
 
     // Save
-    const postData = {
-      slug: article.slug,
-      title: article.title,
-      meta_description: article.meta_description,
-      content: fullContent,
-      keyword: article.keyword || keyword,
-      cluster: article.cluster || cluster,
-      related_posts: article.related_posts || [],
-      status: "published",
-      published_at: new Date().toISOString(),
-    };
-
     const saveRes = await supa("/rest/v1/blog_posts", {
       method: "POST",
-      body: JSON.stringify(postData),
+      body: JSON.stringify({
+        slug: article.slug,
+        title: article.title,
+        meta_description: article.meta_description,
+        content: fullContent,
+        keyword: article.keyword || keyword,
+        cluster: article.cluster || cluster,
+        related_posts: article.related_posts || [],
+        status: "published",
+        published_at: new Date().toISOString(),
+      }),
     });
 
     if (!saveRes.ok) {
       const err = await saveRes.text();
-      console.error("[BLOG] Failed to save:", err);
-      return Response.json({ error: "Failed to save", details: err }, { status: 500 });
+      console.error("[BLOG] Save failed:", err);
+      return Response.json({ error: "Save failed", details: err }, { status: 500 });
     }
 
     console.log(`[BLOG] Published: /blog/${article.slug}`);
 
-    // Mark topic as published
+    // Mark topic
     if (topic_id) {
       await supa(`/rest/v1/blog_topics?id=eq.${topic_id}`, {
         method: "PATCH", body: JSON.stringify({ status: "published" }),
@@ -290,11 +319,8 @@ LEMBRE-SE:
       title: article.title,
       url: `/blog/${article.slug}`,
       wordCount,
-      skyscraper: !isBranded,
-      tokens: {
-        input: openaiData.usage?.prompt_tokens,
-        output: openaiData.usage?.completion_tokens,
-      },
+      source: sourceUrl || "branded/direct",
+      tokens: { input: openaiData.usage?.prompt_tokens, output: openaiData.usage?.completion_tokens },
     });
 
   } catch (err: any) {

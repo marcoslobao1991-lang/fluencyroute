@@ -76,42 +76,48 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </div>
       </header>
 
+      {/* Hero banner */}
+      <div style={{
+        background: "linear-gradient(135deg, #0A0A0A 0%, #0d2926 50%, #0A0A0A 100%)",
+        padding: "48px 24px 40px", borderBottom: "1px solid #eee",
+      }}>
+        <div style={{ maxWidth: 680, margin: "0 auto" }}>
+          <nav style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginBottom: 20 }}>
+            <Link href="/" style={{ color: "rgba(255,255,255,0.35)", textDecoration: "none" }}>Home</Link>
+            {" / "}
+            <Link href="/blog" style={{ color: "rgba(255,255,255,0.35)", textDecoration: "none" }}>Blog</Link>
+            {" / "}
+            <span style={{ color: "rgba(255,255,255,0.55)" }}>{post.title}</span>
+          </nav>
+
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16, flexWrap: "wrap" }}>
+            {post.cluster && (
+              <span style={{ fontSize: 10, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "#4ECDC4", padding: "4px 10px", borderRadius: 6, background: "rgba(78,205,196,0.1)", border: "1px solid rgba(78,205,196,0.2)" }}>{post.cluster}</span>
+            )}
+            <span style={{ fontSize: 12, color: "rgba(255,255,255,0.35)" }}>{minutes} min de leitura</span>
+          </div>
+
+          <h1 style={{ fontSize: "clamp(28px, 5vw, 38px)", fontWeight: 800, lineHeight: 1.2, letterSpacing: "-0.03em", color: "#fff", marginBottom: 20 }}>
+            {post.title}
+          </h1>
+
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <Link href="/about" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
+              <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(78,205,196,0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 700, color: "#4ECDC4" }}>M</div>
+              <span style={{ fontSize: 13, color: "rgba(255,255,255,0.7)", fontWeight: 500 }}>Marcos Lobão</span>
+            </Link>
+            <span style={{ fontSize: 12, color: "rgba(255,255,255,0.2)" }}>·</span>
+            <span style={{ fontSize: 12, color: "rgba(255,255,255,0.35)" }}>
+              {post.published_at ? new Date(post.published_at).toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" }) : ""}
+            </span>
+          </div>
+        </div>
+      </div>
+
       <article style={{ maxWidth: 680, margin: "0 auto", padding: "40px 24px 80px" }}>
-        {/* Breadcrumb */}
-        <nav style={{ fontSize: 12, color: "#999", marginBottom: 24 }}>
-          <Link href="/" style={{ color: "#999", textDecoration: "none" }}>Home</Link>
-          {" / "}
-          <Link href="/blog" style={{ color: "#999", textDecoration: "none" }}>Blog</Link>
-          {" / "}
-          <span style={{ color: "#666" }}>{post.title}</span>
-        </nav>
-
-        {/* Meta */}
-        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16, flexWrap: "wrap" }}>
-          {post.cluster && (
-            <span style={{ fontSize: 10, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: T, padding: "4px 10px", borderRadius: 6, background: `${T}10`, border: `1px solid ${T}20` }}>{post.cluster}</span>
-          )}
-          <span style={{ fontSize: 12, color: "#aaa" }}>{minutes} min de leitura</span>
-        </div>
-
-        <h1 style={{ fontSize: "clamp(28px, 5vw, 38px)", fontWeight: 800, lineHeight: 1.2, letterSpacing: "-0.03em", color: "#111", marginBottom: 16 }}>
-          {post.title}
-        </h1>
-
-        {/* Author + date */}
-        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 36 }}>
-          <Link href="/about" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
-            <div style={{ width: 32, height: 32, borderRadius: 8, background: `${T}15`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 700, color: T }}>M</div>
-            <span style={{ fontSize: 13, color: "#555", fontWeight: 500 }}>Marcos Lobão</span>
-          </Link>
-          <span style={{ fontSize: 12, color: "#ccc" }}>·</span>
-          <span style={{ fontSize: 12, color: "#aaa" }}>
-            {post.published_at ? new Date(post.published_at).toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" }) : ""}
-          </span>
-        </div>
 
         {/* TOC */}
-        {headings.length > 2 && (
+        {headings.length > 2 && headings.length <= 12 && (
           <nav style={{ marginBottom: 40, padding: 20, borderRadius: 12, background: "#f8f8f8", border: "1px solid #eee" }}>
             <p style={{ fontSize: 12, fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: 1, marginBottom: 12 }}>Neste artigo</p>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 6 }}>
