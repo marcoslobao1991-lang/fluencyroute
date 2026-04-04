@@ -6,7 +6,7 @@
 
 const SUPA_URL = "https://petrtewismhpzidcmmwb.supabase.co";
 const SUPA_KEY = process.env.SUPABASE_SERVICE_KEY!;
-const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY!;
+const OPENAI_KEY = process.env.OPENAI_API_KEY!;
 
 const supa = async (path: string, opts: RequestInit = {}) => {
   const h: Record<string, string> = {
@@ -94,35 +94,36 @@ export async function POST(request: Request) {
       return Response.json({ error: "Article already exists for this keyword", existing: existing[0].id }, { status: 409 });
     }
 
-    // Generate article with Sonnet
+    // Generate article with GPT-4.1
     console.log(`[BLOG] Generating article for: "${keyword}" (${cluster})`);
 
-    const anthropicRes = await fetch("https://api.anthropic.com/v1/messages", {
+    const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": ANTHROPIC_KEY,
-        "anthropic-version": "2023-06-01",
+        "Authorization": `Bearer ${OPENAI_KEY}`,
       },
       body: JSON.stringify({
-        model: "claude-sonnet-4-6-20250514",
+        model: "gpt-4.1",
         max_tokens: 8000,
-        system: BLOG_PROMPT,
-        messages: [{
-          role: "user",
-          content: `Escreva um artigo completo para a keyword: "${keyword}"\nCluster: ${cluster}\n\nLembre-se: resposta direta nos primeiros 150 chars, H2s como perguntas reais, experiência do Marcos, dados científicos, FAQ no final. JSON puro na resposta.`,
-        }],
+        messages: [
+          { role: "system", content: BLOG_PROMPT },
+          {
+            role: "user",
+            content: `Escreva um artigo completo para a keyword: "${keyword}"\nCluster: ${cluster}\n\nLembre-se: resposta direta nos primeiros 150 chars, H2s como perguntas reais, experiência do Marcos, dados científicos, FAQ no final. JSON puro na resposta.`,
+          },
+        ],
       }),
     });
 
-    if (!anthropicRes.ok) {
-      const err = await anthropicRes.text();
-      console.error("[BLOG] Sonnet error:", err);
-      return Response.json({ error: "Sonnet API error", details: err }, { status: 500 });
+    if (!openaiRes.ok) {
+      const err = await openaiRes.text();
+      console.error("[BLOG] GPT-4.1 error:", err);
+      return Response.json({ error: "GPT-4.1 API error", details: err }, { status: 500 });
     }
 
-    const anthropicData = await anthropicRes.json();
-    const rawText = anthropicData.content?.[0]?.text || "";
+    const openaiData = await openaiRes.json();
+    const rawText = openaiData.choices?.[0]?.message?.content || "";
 
     // Parse JSON from response
     const jsonMatch = rawText.match(/\{[\s\S]*\}/);
@@ -194,8 +195,8 @@ export async function POST(request: Request) {
       url: `/blog/${article.slug}`,
       faqSchema,
       tokens: {
-        input: anthropicData.usage?.input_tokens,
-        output: anthropicData.usage?.output_tokens,
+        input: openaiData.usage?.prompt_tokens,
+        output: openaiData.usage?.completion_tokens,
       },
     });
 
