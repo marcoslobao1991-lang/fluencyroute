@@ -15,48 +15,30 @@ const supa = async (path: string, opts: RequestInit = {}) => {
   return fetch(`${SUPA_URL}${path}`, { ...opts, headers: { ...h, ...(opts.headers as Record<string, string>) } });
 };
 
-// ── Google Search via SerpAPI or fallback to Google custom search ──
-async function searchGoogle(query: string, lang: string = "pt-BR"): Promise<string[]> {
-  // Use Google Custom Search JSON API (free 100 queries/day)
-  const cx = process.env.GOOGLE_SEARCH_CX;
-  const apiKey = process.env.GOOGLE_SEARCH_KEY;
-
-  if (!cx || !apiKey) {
-    console.log(`[BLOG] Google Search not configured, skipping skyscraper for: "${query}"`);
+// ── Serper.dev Google Search (2500 free/month) ──
+async function searchSerper(query: string, lang: string = "pt"): Promise<{ title: string; snippet: string }[]> {
+  const apiKey = process.env.SERPER_API_KEY;
+  if (!apiKey) {
+    console.log(`[BLOG] Serper not configured, skipping skyscraper`);
     return [];
   }
-
   try {
-    const params = new URLSearchParams({
-      key: apiKey, cx, q: query, num: "5",
-      lr: lang === "en" ? "lang_en" : "lang_pt",
-      gl: lang === "en" ? "us" : "br",
+    const res = await fetch("https://google.serper.dev/search", {
+      method: "POST",
+      headers: { "X-API-KEY": apiKey, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        q: query, num: 5,
+        gl: lang === "en" ? "us" : "br",
+        hl: lang === "en" ? "en" : "pt-br",
+      }),
     });
-    const res = await fetch(`https://www.googleapis.com/customsearch/v1?${params}`);
     if (!res.ok) return [];
     const data = await res.json();
-    return (data.items || []).map((item: any) => item.snippet || "").filter(Boolean);
+    return (data.organic || []).map((item: any) => ({
+      title: item.title || "",
+      snippet: item.snippet || "",
+    }));
   } catch { return []; }
-}
-
-// ── Fetch and extract text from a URL ──
-async function fetchPageContent(url: string): Promise<string> {
-  try {
-    const res = await fetch(url, {
-      headers: { "User-Agent": "Mozilla/5.0 (compatible; FluencyRouteBot/1.0)" },
-      signal: AbortSignal.timeout(8000),
-    });
-    if (!res.ok) return "";
-    const html = await res.text();
-    // Extract text: strip tags, scripts, styles
-    return html
-      .replace(/<script[\s\S]*?<\/script>/gi, "")
-      .replace(/<style[\s\S]*?<\/style>/gi, "")
-      .replace(/<[^>]+>/g, " ")
-      .replace(/\s+/g, " ")
-      .trim()
-      .slice(0, 3000); // first 3000 chars
-  } catch { return ""; }
 }
 
 // ── VSL knowledge base (core arguments, data, voice) ──
@@ -185,22 +167,22 @@ export async function POST(request: Request) {
       const translateData = await translateRes.json();
       const keywordEN = translateData.choices?.[0]?.message?.content?.trim() || "";
 
-      // Search in both languages
+      // Search in both languages via Serper
       const [resultsPT, resultsEN] = await Promise.all([
-        searchGoogle(keyword, "pt-BR"),
-        keywordEN ? searchGoogle(keywordEN, "en") : Promise.resolve([]),
+        searchSerper(keyword, "pt"),
+        keywordEN ? searchSerper(keywordEN, "en") : Promise.resolve([]),
       ]);
 
       if (resultsPT.length > 0 || resultsEN.length > 0) {
         skyscraperContext = `\n\nANÁLISE DOS TOP RESULTADOS DO GOOGLE (use como referência pra cobrir tudo e fazer MELHOR):
 
 TOP RESULTADOS EM PORTUGUÊS:
-${resultsPT.length > 0 ? resultsPT.map((s, i) => `${i + 1}. ${s}`).join("\n") : "Nenhum resultado encontrado."}
+${resultsPT.length > 0 ? resultsPT.map((r, i) => `${i + 1}. "${r.title}" — ${r.snippet}`).join("\n") : "Nenhum resultado encontrado."}
 
 TOP RESULTADOS EM INGLÊS (conteúdo gringo validado):
-${resultsEN.length > 0 ? resultsEN.map((s, i) => `${i + 1}. ${s}`).join("\n") : "Nenhum resultado encontrado."}
+${resultsEN.length > 0 ? resultsEN.map((r, i) => `${i + 1}. "${r.title}" — ${r.snippet}`).join("\n") : "Nenhum resultado encontrado."}
 
-INSTRUÇÃO: Seu artigo deve cobrir TUDO que os top resultados cobrem + adicionar o ângulo único da Fluency Route (método musical, ciência, experiência do Marcos). Identifique GAPS nos resultados acima e preencha.`;
+INSTRUÇÃO: Seu artigo deve cobrir TUDO que os top resultados cobrem + adicionar o ângulo único da Fluency Route (método musical, ciência, experiência do Marcos). Identifique GAPS nos resultados acima e preencha. Faça o artigo DEFINITIVAMENTE MELHOR que todos esses.`;
 
         console.log(`[BLOG] Skyscraper: ${resultsPT.length} PT + ${resultsEN.length} EN results`);
       }
