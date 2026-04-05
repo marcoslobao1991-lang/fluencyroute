@@ -1,0 +1,85 @@
+{
+  "generated_at": "2026-04-05T00:09:37.297Z",
+  "hook": "Você entende essa cena de Friends?",
+  "cta": "Segue pra mais quizzes! 🍿",
+  "scenes": [
+    {
+      "scene_id": 4132,
+      "episode": "friends-s01e19",
+      "scene_order": 41,
+      "en": "Being with Barry, it was safe and it was easy, but there was no heat.",
+      "pt": "Estar com Barry era seguro e fácil, mas não havia calor.",
+      "media_url": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e19/Friends_S01_E19_0.03.04.850-0.03.08.478.mp4",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Estar com Barry era seguro e fácil, mas não havia calor.",
+          "correct": true
+        },
+        {
+          "letter": "B",
+          "text": "Eu não sei o que dizer",
+          "correct": false
+        },
+        {
+          "letter": "C",
+          "text": "Isso não faz sentido",
+          "correct": false
+        }
+      ],
+      "correct_letter": "A"
+    },
+    {
+      "scene_id": 5253,
+      "episode": "friends-s01e13",
+      "scene_order": 169,
+      "en": "We'll go to a hotel.",
+      "pt": "Iremos para um hotel.",
+      "media_url": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e13/Friends_S01_E13_0.11.43.327-0.11.44.662.mp4",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Iremos para um hotel.",
+          "correct": true
+        },
+        {
+          "letter": "B",
+          "text": "Isso não faz sentido",
+          "correct": false
+        },
+        {
+          "letter": "C",
+          "text": "Eu não sei o que dizer",
+          "correct": false
+        }
+      ],
+      "correct_letter": "A"
+    },
+    {
+      "scene_id": 4489,
+      "episode": "friends-s01e05",
+      "scene_order": 58,
+      "en": "Oh. You wanna hear a freakish coincidence?",
+      "pt": "Oh. Você quer ouvir uma coincidência bizarra?",
+      "media_url": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e05/Friends_S01_E05_0.04.30.937-0.04.36.318.mp4",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Isso não faz sentido",
+          "correct": false
+        },
+        {
+          "letter": "B",
+          "text": "Eu não sei o que dizer",
+          "correct": false
+        },
+        {
+          "letter": "C",
+          "text": "Oh. Você quer ouvir uma coincidência bizarra?",
+          "correct": true
+        }
+      ],
+      "correct_letter": "C"
+    }
+  ]
+}

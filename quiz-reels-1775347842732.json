@@ -1,0 +1,85 @@
+{
+  "generated_at": "2026-04-05T00:10:42.731Z",
+  "hook": "Você entende essa cena de Friends?",
+  "cta": "Segue pra mais quizzes! 🍿",
+  "scenes": [
+    {
+      "scene_id": 4138,
+      "episode": "friends-s01e19",
+      "scene_order": 47,
+      "en": "I mean, do you think you can ever have both?",
+      "pt": "Quer dizer, você acha que pode ter os dois?",
+      "media_url": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e19/Friends_S01_E19_0.03.20.491-0.03.22.451.mp4",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Quero dizer, você acha que nunca pode ter os dois?",
+          "correct": false
+        },
+        {
+          "letter": "B",
+          "text": "Quero dizer, você pensa que pode ter ambos?",
+          "correct": false
+        },
+        {
+          "letter": "C",
+          "text": "Quer dizer, você acha que pode ter os dois?",
+          "correct": true
+        }
+      ],
+      "correct_letter": "C"
+    },
+    {
+      "scene_id": 5090,
+      "episode": "friends-s01e13",
+      "scene_order": 6,
+      "en": "That's a relatively open weave And I can still see your nippular area.",
+      "pt": "Esse pano está relativamente aberto E eu ainda posso ver sua área mamilar.",
+      "media_url": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e13/Friends_S01_E13_0.00.28.778-0.00.34.391.mp4",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Esse pano está relativamente aberto E eu ainda posso ver sua área mamilar.",
+          "correct": true
+        },
+        {
+          "letter": "B",
+          "text": "Esse pano está relativamente fechado E eu ainda não posso ver sua área mamilar.",
+          "correct": false
+        },
+        {
+          "letter": "C",
+          "text": "Essa trama está relativamente aberta E eu ainda posso sentir sua área mamilar.",
+          "correct": false
+        }
+      ],
+      "correct_letter": "A"
+    },
+    {
+      "scene_id": 4500,
+      "episode": "friends-s01e05",
+      "scene_order": 69,
+      "en": "- Anyway, 6, 7-ish? - Sure.",
+      "pt": "- Enfim, 6, 7-ish? - Certo. <br><br>(Ish é um sufixo que é usando quando algo é aproximado mas não é exatamente, como por exemplo blu-ish é usado para dizer azulado, 7-ish quer dizer mais ou menos às 7 horas.)",
+      "media_url": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e05/Friends_S01_E05_0.05.16.649-0.05.19.067.mp4",
+      "options": [
+        {
+          "letter": "A",
+          "text": "- Enfim, 6, 7-ish? - Errado. <br><br>(Ish é um sufixo que indica dúvida, usado quando algo não é certo, como em blu-ish que significa azulado, 7-ish quer dizer exatamente às 7 horas.)",
+          "correct": false
+        },
+        {
+          "letter": "B",
+          "text": "- Enfim, 6, 7-ish? - Certo. <br><br>(Ish é um sufixo que é usando quando algo é aproximado mas não é exatamente, como por exemplo blu-ish é usado para dizer azulado, 7-ish quer dizer mais ou menos às 7 horas.)",
+          "correct": true
+        },
+        {
+          "letter": "C",
+          "text": "- Enfim, 6, 7-ish. - Claro. <br><br>(Ish é um sufixo usado para enfatizar certeza, como em blu-ish que significa muito azul, 7-ish quer dizer exatamente às 7 horas.)",
+          "correct": false
+        }
+      ],
+      "correct_letter": "B"
+    }
+  ]
+}

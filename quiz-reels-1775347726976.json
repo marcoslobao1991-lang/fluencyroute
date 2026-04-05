@@ -1,0 +1,85 @@
+{
+  "generated_at": "2026-04-05T00:08:46.976Z",
+  "hook": "Você entende essa cena de Friends?",
+  "cta": "Segue pra mais quizzes! 🍿",
+  "scenes": [
+    {
+      "scene_id": 4491,
+      "episode": "friends-s01e05",
+      "scene_order": 60,
+      "en": "- Who? - Me.",
+      "pt": "- Quem? - Eu.",
+      "media_url": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e05/Friends_S01_E05_0.04.38.945-0.04.40.362.mp4",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Isso não faz sentido",
+          "correct": false
+        },
+        {
+          "letter": "B",
+          "text": "Eu não sei o que dizer",
+          "correct": false
+        },
+        {
+          "letter": "C",
+          "text": "- Quem? - Eu.",
+          "correct": true
+        }
+      ],
+      "correct_letter": "C"
+    },
+    {
+      "scene_id": 5113,
+      "episode": "friends-s01e13",
+      "scene_order": 29,
+      "en": "Okay, can we change the subject, please?",
+      "pt": "Ok, podemos mudar de assunto, por favor?",
+      "media_url": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e13/Friends_S01_E13_0.02.38.491-0.02.40.787.mp4",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Ok, podemos mudar de assunto, por favor?",
+          "correct": true
+        },
+        {
+          "letter": "B",
+          "text": "Eu não sei o que dizer",
+          "correct": false
+        },
+        {
+          "letter": "C",
+          "text": "Isso não faz sentido",
+          "correct": false
+        }
+      ],
+      "correct_letter": "A"
+    },
+    {
+      "scene_id": 4485,
+      "episode": "friends-s01e05",
+      "scene_order": 54,
+      "en": "Because I'm wearing a dress that accents my boobs.",
+      "pt": "Porque estou usando um vestido que destaca meus peitos.",
+      "media_url": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e05/Friends_S01_E05_0.04.11.209-0.04.14.253.mp4",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Isso não faz sentido",
+          "correct": false
+        },
+        {
+          "letter": "B",
+          "text": "Porque estou usando um vestido que destaca meus peitos.",
+          "correct": true
+        },
+        {
+          "letter": "C",
+          "text": "Eu não sei o que dizer",
+          "correct": false
+        }
+      ],
+      "correct_letter": "B"
+    }
+  ]
+}

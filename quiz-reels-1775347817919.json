@@ -1,0 +1,85 @@
+{
+  "generated_at": "2026-04-05T00:10:17.918Z",
+  "hook": "Você entende essa cena de Friends?",
+  "cta": "Segue pra mais quizzes! 🍿",
+  "scenes": [
+    {
+      "scene_id": 4435,
+      "episode": "friends-s01e05",
+      "scene_order": 4,
+      "en": "A bra. Right out the sleeve.",
+      "pt": "Um sutiã. Direto pela manga.",
+      "media_url": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e05/Friends_S01_E05_0.00.10.347-0.00.12.428.mp4",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Um sutiã. Direto pela manga.",
+          "correct": true
+        },
+        {
+          "letter": "B",
+          "text": "Acho que ele disse outra coisa",
+          "correct": false
+        },
+        {
+          "letter": "C",
+          "text": "Não entendi essa parte",
+          "correct": false
+        }
+      ],
+      "correct_letter": "A"
+    },
+    {
+      "scene_id": 4759,
+      "episode": "friends-s01e05",
+      "scene_order": 328,
+      "en": "What a beautiful story.",
+      "pt": "Que bela história.",
+      "media_url": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e05/Friends_S01_E05_0.22.18.003-0.22.19.463.mp4",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Acho que ele disse outra coisa",
+          "correct": false
+        },
+        {
+          "letter": "B",
+          "text": "Não entendi essa parte",
+          "correct": false
+        },
+        {
+          "letter": "C",
+          "text": "Que bela história.",
+          "correct": true
+        }
+      ],
+      "correct_letter": "C"
+    },
+    {
+      "scene_id": 4358,
+      "episode": "friends-s01e19",
+      "scene_order": 267,
+      "en": "No, no, no. No, no. This is just vintage Rachel.",
+      "pt": "Não não não. Não não. Esta é apenas a clássica Rachel.",
+      "media_url": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e19/Friends_S01_E19_0.17.35.916-0.17.38.389.mp4",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Acho que ele disse outra coisa",
+          "correct": false
+        },
+        {
+          "letter": "B",
+          "text": "Não entendi essa parte",
+          "correct": false
+        },
+        {
+          "letter": "C",
+          "text": "Não não não. Não não. Esta é apenas a clássica Rachel.",
+          "correct": true
+        }
+      ],
+      "correct_letter": "C"
+    }
+  ]
+}

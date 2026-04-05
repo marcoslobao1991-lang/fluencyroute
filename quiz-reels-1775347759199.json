@@ -1,0 +1,85 @@
+{
+  "generated_at": "2026-04-05T00:09:19.198Z",
+  "hook": "Você entende essa cena de Friends?",
+  "cta": "Segue pra mais quizzes! 🍿",
+  "scenes": [
+    {
+      "scene_id": 5332,
+      "episode": "friends-s01e13",
+      "scene_order": 248,
+      "en": "For God's sake, Joey. Really.",
+      "pt": "Pelo amor de Deus, Joey. Sério.",
+      "media_url": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e13/Friends_S01_E13_0.17.03.106-0.17.05.982.mp4",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Pelo amor de Deus, Joey. Sério.",
+          "correct": true
+        },
+        {
+          "letter": "B",
+          "text": "Eu não sei o que dizer",
+          "correct": false
+        },
+        {
+          "letter": "C",
+          "text": "Isso não faz sentido",
+          "correct": false
+        }
+      ],
+      "correct_letter": "A"
+    },
+    {
+      "scene_id": 5330,
+      "episode": "friends-s01e13",
+      "scene_order": 246,
+      "en": "Things were fine the way they were.",
+      "pt": "As coisas estavam bem do jeito que estavam.",
+      "media_url": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e13/Friends_S01_E13_0.16.57.683-0.16.59.934.mp4",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Isso não faz sentido",
+          "correct": false
+        },
+        {
+          "letter": "B",
+          "text": "Eu não sei o que dizer",
+          "correct": false
+        },
+        {
+          "letter": "C",
+          "text": "As coisas estavam bem do jeito que estavam.",
+          "correct": true
+        }
+      ],
+      "correct_letter": "C"
+    },
+    {
+      "scene_id": 4151,
+      "episode": "friends-s01e19",
+      "scene_order": 60,
+      "en": "...and, like, buses going really fast.",
+      "pt": "...e, tipo, ônibus indo muito rápido.",
+      "media_url": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e19/Friends_S01_E19_0.03.59.989-0.04.02.282.mp4",
+      "options": [
+        {
+          "letter": "A",
+          "text": "...e, tipo, ônibus indo muito rápido.",
+          "correct": true
+        },
+        {
+          "letter": "B",
+          "text": "Eu não sei o que dizer",
+          "correct": false
+        },
+        {
+          "letter": "C",
+          "text": "Isso não faz sentido",
+          "correct": false
+        }
+      ],
+      "correct_letter": "A"
+    }
+  ]
+}
