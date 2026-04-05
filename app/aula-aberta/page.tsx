@@ -86,10 +86,10 @@ export default function AulaAbertaPage() {
             right: 16,
           }}>
             <p style={{ fontSize: 10, fontWeight: 600, letterSpacing: 3, textTransform: "uppercase", color: "#4ECDC4", opacity: 0.8, marginBottom: 4 }}>
-              AULA GRÁTIS
+              SÉRIES CANTADAS
             </p>
             <p style={{ fontSize: 14, fontWeight: 700, color: "rgba(255,255,255,0.7)", lineHeight: 1.3 }}>
-              O método das Séries Cantadas
+              Descubra o que é isso
             </p>
           </div>
         </div>

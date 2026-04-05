@@ -86,7 +86,7 @@ export function CaptureForm() {
             transition: "all 0.3s ease",
           }}
         >
-          QUERO ASSISTIR A AULA
+          VER SÉRIES CANTADAS
         </button>
       </div>
 
@@ -161,7 +161,7 @@ export function CaptureForm() {
           Oi, {name.trim().split(" ")[0]}! 👋
         </p>
         <p style={{ fontSize: 14, color: "rgba(255,255,255,0.35)", marginBottom: 12 }}>
-          Qual seu WhatsApp pra liberar a aula?
+          Qual seu WhatsApp pra liberar o acesso?
         </p>
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           <input
@@ -203,7 +203,7 @@ export function CaptureForm() {
               transition: "all 0.3s ease",
             }}
           >
-            {loading ? "Preparando sua aula..." : "ASSISTIR AULA GRÁTIS"}
+            {loading ? "Liberando acesso..." : "VER SÉRIES CANTADAS"}
           </button>
         </div>
       </div>
