@@ -1,10 +1,11 @@
 "use client";
 
-export function VideoBanner({ videoUrl }: { videoUrl: string }) {
+export function VideoBanner({ videoUrl, onPlay }: { videoUrl: string; onPlay?: () => void }) {
   return (
     <div
       onClick={() => {
-        document.getElementById("capture-section")?.scrollIntoView({ behavior: "smooth" });
+        if (onPlay) onPlay();
+        else document.getElementById("capture-section")?.scrollIntoView({ behavior: "smooth" });
       }}
       style={{
         position: "relative",

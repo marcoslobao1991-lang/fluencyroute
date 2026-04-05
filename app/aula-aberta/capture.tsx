@@ -1,0 +1,189 @@
+"use client";
+
+import { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+function formatPhone(value: string): string {
+  const digits = value.replace(/\D/g, "").slice(0, 11);
+  if (digits.length <= 2) return digits;
+  if (digits.length <= 7) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+}
+
+const VIDEO_URL = "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e01/Friends_S01_E01_0.01.11.369-0.01.14.528.mp4";
+
+export function CaptureSection() {
+  const [step, setStep] = useState(0);
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const nameRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (step === 1) setTimeout(() => nameRef.current?.focus(), 300);
+    if (step === 2) setTimeout(() => phoneRef.current?.focus(), 300);
+  }, [step]);
+
+  const openForm = () => { if (step === 0) setStep(1); };
+  const handleName = () => {
+    if (name.trim().length < 2) { setError("Digite seu nome"); return; }
+    setError(""); setStep(2);
+  };
+  const handleSubmit = async () => {
+    const digits = phone.replace(/\D/g, "");
+    if (digits.length < 10) { setError("WhatsApp inválido"); return; }
+    setError(""); setLoading(true);
+    try {
+      await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: name.trim(), phone: digits, source: "aula-aberta" }),
+      });
+      router.push("/vsl");
+    } catch { setError("Erro. Tente novamente."); setLoading(false); }
+  };
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") { e.preventDefault(); step === 1 ? handleName() : handleSubmit(); }
+  };
+
+  return (
+    <>
+      {/* Video banner */}
+      <div
+        onClick={openForm}
+        style={{
+          position: "relative", width: "100%", paddingTop: "56.25%",
+          borderRadius: 16, overflow: "hidden", marginBottom: 32, cursor: "pointer",
+          border: "1px solid rgba(78,205,196,0.1)",
+          boxShadow: "0 0 60px rgba(78,205,196,0.08)",
+        }}
+      >
+        <video autoPlay muted loop playsInline style={{
+          position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover",
+        }}>
+          <source src={VIDEO_URL} type="video/mp4" />
+        </video>
+        <div style={{
+          position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
+          background: "linear-gradient(180deg, rgba(3,3,5,0.3) 0%, rgba(3,3,5,0.7) 100%)",
+        }} />
+        {/* Waveform */}
+        <div style={{ position: "absolute", top: 12, right: 12, display: "flex", alignItems: "flex-end", gap: 2, height: 16 }}>
+          {[3, 5, 2, 4, 3, 5, 2, 4, 3].map((h, i) => (
+            <div key={i} style={{
+              width: 2, borderRadius: 1, background: "#4ECDC4", opacity: 0.6,
+              animation: `wave 1.2s ease-in-out ${i * 0.1}s infinite alternate`, height: h * 2,
+            }} />
+          ))}
+          <span style={{ fontSize: 9, color: "#4ECDC4", opacity: 0.6, marginLeft: 4, fontWeight: 600 }}>♪ Repetição Musical</span>
+        </div>
+        {/* Play */}
+        <div style={{
+          position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)",
+          width: 56, height: 56, borderRadius: "50%",
+          background: "rgba(78,205,196,0.15)", border: "2px solid rgba(78,205,196,0.3)",
+          display: "flex", alignItems: "center", justifyContent: "center", backdropFilter: "blur(8px)",
+        }}>
+          <div style={{ width: 0, height: 0, borderTop: "10px solid transparent", borderBottom: "10px solid transparent", borderLeft: "16px solid #4ECDC4", marginLeft: 3 }} />
+        </div>
+        <div style={{ position: "absolute", bottom: 12, left: 14 }}>
+          <p style={{ fontSize: 10, fontWeight: 600, letterSpacing: 3, textTransform: "uppercase", color: "#4ECDC4", opacity: 0.8 }}>SÉRIES CANTADAS</p>
+        </div>
+      </div>
+
+      {/* Headline */}
+      <div style={{ textAlign: "center", marginBottom: 32 }}>
+        <h1 style={{ fontSize: "clamp(22px, 5.5vw, 30px)", fontWeight: 800, lineHeight: 1.25, letterSpacing: "-0.03em", marginBottom: 12 }}>
+          Transformamos Episódios de Série em Música.
+        </h1>
+        <p style={{ fontSize: "clamp(15px, 4vw, 18px)", fontWeight: 400, color: "rgba(255,255,255,0.5)", lineHeight: 1.5, marginBottom: 8 }}>
+          E isso destravou o inglês dos nossos piores alunos.
+        </p>
+        <p style={{ fontSize: 13, fontWeight: 600, color: "#4ECDC4", opacity: 0.8 }}>Liberamos por tempo limitado.</p>
+      </div>
+
+      {/* Form */}
+      <div style={{ width: "100%", minHeight: 120, position: "relative" }}>
+        {/* Step 0: CTA */}
+        <div style={{
+          transition: "all 0.4s ease", opacity: step === 0 ? 1 : 0,
+          transform: step === 0 ? "translateY(0)" : "translateY(-20px)",
+          pointerEvents: step === 0 ? "auto" : "none",
+          position: step === 0 ? "relative" : "absolute", top: 0, left: 0, right: 0,
+        }}>
+          <button onClick={openForm} style={{
+            width: "100%", padding: "18px 24px", fontSize: 16, fontWeight: 800,
+            fontFamily: "inherit", background: "#4ECDC4", color: "#000", border: "none",
+            borderRadius: 12, cursor: "pointer", boxShadow: "0 0 30px rgba(78,205,196,0.2)",
+          }}>VER SÉRIES CANTADAS</button>
+        </div>
+
+        {/* Step 1: Name */}
+        <div style={{
+          transition: "all 0.4s ease", opacity: step === 1 ? 1 : 0,
+          transform: step === 1 ? "translateY(0)" : step < 1 ? "translateY(20px)" : "translateY(-20px)",
+          pointerEvents: step === 1 ? "auto" : "none",
+          position: step === 1 ? "relative" : "absolute", top: 0, left: 0, right: 0,
+        }}>
+          <p style={{ fontSize: 14, color: "rgba(255,255,255,0.5)", marginBottom: 12, fontWeight: 500, textAlign: "center" }}>Qual seu primeiro nome?</p>
+          <div style={{ display: "flex", gap: 8 }}>
+            <input ref={nameRef} type="text" placeholder="Seu nome" value={name}
+              onChange={e => { setName(e.target.value); setError(""); }} onKeyDown={handleKeyDown}
+              style={{
+                flex: 1, padding: "16px 20px", fontSize: 16, fontFamily: "inherit", fontWeight: 500,
+                background: "rgba(255,255,255,0.06)", border: "1px solid rgba(78,205,196,0.2)",
+                borderRadius: 12, color: "#fff", outline: "none", boxSizing: "border-box",
+              }} />
+            <button onClick={handleName} style={{
+              width: 52, height: 52, borderRadius: 12, border: "none", background: "#4ECDC4",
+              color: "#000", cursor: "pointer", fontSize: 20, fontWeight: 800, flexShrink: 0,
+            }}>→</button>
+          </div>
+        </div>
+
+        {/* Step 2: Phone */}
+        <div style={{
+          transition: "all 0.4s ease", opacity: step === 2 ? 1 : 0,
+          transform: step === 2 ? "translateY(0)" : "translateY(20px)",
+          pointerEvents: step === 2 ? "auto" : "none",
+          position: step === 2 ? "relative" : "absolute", top: 0, left: 0, right: 0,
+        }}>
+          <p style={{ fontSize: 14, color: "rgba(255,255,255,0.5)", marginBottom: 4, fontWeight: 500, textAlign: "center" }}>
+            Oi, {name.trim().split(" ")[0]}! 👋
+          </p>
+          <p style={{ fontSize: 14, color: "rgba(255,255,255,0.35)", marginBottom: 12, textAlign: "center" }}>
+            Qual seu WhatsApp pra liberar o acesso?
+          </p>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <input ref={phoneRef} type="tel" placeholder="(11) 99999-9999" value={phone}
+              onChange={e => { setPhone(formatPhone(e.target.value)); setError(""); }} onKeyDown={handleKeyDown}
+              style={{
+                width: "100%", padding: "16px 20px", fontSize: 16, fontFamily: "inherit", fontWeight: 500,
+                background: "rgba(255,255,255,0.06)", border: "1px solid rgba(78,205,196,0.2)",
+                borderRadius: 12, color: "#fff", outline: "none", boxSizing: "border-box",
+              }} />
+            <button onClick={handleSubmit} disabled={loading} style={{
+              width: "100%", padding: "18px 24px", fontSize: 16, fontWeight: 800, fontFamily: "inherit",
+              background: loading ? "rgba(78,205,196,0.5)" : "#4ECDC4", color: "#000",
+              border: "none", borderRadius: 12, cursor: loading ? "default" : "pointer",
+              boxShadow: loading ? "none" : "0 0 30px rgba(78,205,196,0.2)",
+            }}>{loading ? "Liberando acesso..." : "VER SÉRIES CANTADAS"}</button>
+          </div>
+        </div>
+
+        {error && <p style={{ fontSize: 12, color: "#FF6B6B", textAlign: "center", marginTop: 8, position: "absolute", bottom: -24, left: 0, right: 0 }}>{error}</p>}
+      </div>
+
+      <style>{`
+        @keyframes wave { 0% { height: 4px; } 100% { height: 14px; } }
+        input::placeholder { color: rgba(255,255,255,0.25); }
+        input:focus { border-color: rgba(78,205,196,0.4) !important; background: rgba(255,255,255,0.08) !important; }
+        button:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 0 40px rgba(78,205,196,0.3) !important; }
+        button:active:not(:disabled) { transform: translateY(0); }
+      `}</style>
+    </>
+  );
+}
