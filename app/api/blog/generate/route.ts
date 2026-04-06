@@ -126,7 +126,7 @@ FORMATO — JSON PURO:
 
 export async function POST(request: Request) {
   const authHeader = request.headers.get("authorization");
-  const validKey = process.env.BLOG_API_KEY || process.env.ADMIN_SECRET;
+  const validKey = (process.env.BLOG_API_KEY || process.env.ADMIN_SECRET || "").trim();
   if (!validKey || authHeader !== `Bearer ${validKey}`) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
