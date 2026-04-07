@@ -41,3 +41,11 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# Build artifacts
+reels/
+scripts/*.mp3
+scripts/aula-*
+scripts/carousel-*
+scripts/quiz-batch-*
+public/.next/

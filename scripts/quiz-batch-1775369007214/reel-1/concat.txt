@@ -1,3 +1,0 @@
-file 'ext_0.mp4'
-file 'ext_1.mp4'
-file 'ext_2.mp4'
