@@ -1,0 +1,16 @@
+{
+  "batchSize": 2,
+  "generatedAt": "2026-04-05T05:46:22.780Z",
+  "reels": [
+    {
+      "reel": 1,
+      "dir": "scripts\\quiz-batch-1775367969222\\reel-1",
+      "hook": "SÓ 1% ACERTA AS 3"
+    },
+    {
+      "reel": 2,
+      "dir": "scripts\\quiz-batch-1775367969222\\reel-2",
+      "hook": "FLUENTE ACERTA AS 3"
+    }
+  ]
+}

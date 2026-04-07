@@ -1,0 +1,44 @@
+{
+  "hook": "90% ERRA ESSA FRASE",
+  "scenes": [
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e19/Friends_S01_E19_0.12.59.111-0.13.02.098.mp4",
+      "en": "- Luisa. From homeroom. - Yes!",
+      "blankWord": "homeroom",
+      "options": [
+        "homeroom",
+        "hallway",
+        "library",
+        "classroom"
+      ],
+      "correctIndex": 0,
+      "clipDurationFrames": 90
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e05/Friends_S01_E05_0.02.41.956-0.02.43.663.mp4",
+      "en": "You're breaking up with Tony?",
+      "blankWord": "breaking",
+      "options": [
+        "bringing",
+        "breaking",
+        "taking",
+        "making"
+      ],
+      "correctIndex": 1,
+      "clipDurationFrames": 51
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e05/Friends_S01_E05_0.19.41.513-0.19.44.097.mp4",
+      "en": "I hit her in the eye! I hit her in the eye!",
+      "blankWord": "hit",
+      "options": [
+        "find",
+        "take",
+        "see",
+        "hit"
+      ],
+      "correctIndex": 3,
+      "clipDurationFrames": 78
+    }
+  ]
+}

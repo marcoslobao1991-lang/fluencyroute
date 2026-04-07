@@ -1,0 +1,45 @@
+{
+  "hook": "90% ERRA ESSA FRASE",
+  "renderMode": "preview",
+  "scenes": [
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e05/Friends_S01_E05_0.17.26.920-0.17.29.073.mp4",
+      "en": "I can't even do laundry!",
+      "blankWord": "laundry",
+      "options": [
+        "cleaning",
+        "dishes",
+        "laundry",
+        "ironing"
+      ],
+      "correctIndex": 2,
+      "clipDurationFrames": 65
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e13/Friends_S01_E13_0.07.35.287-0.07.38.540.mp4",
+      "en": "- What's the matter with Rog? - Nothing. It's a little thing.",
+      "blankWord": "matter",
+      "options": [
+        "matter",
+        "issue",
+        "trouble",
+        "problem"
+      ],
+      "correctIndex": 0,
+      "clipDurationFrames": 98
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e05/Friends_S01_E05_0.13.46.033-0.13.47.994.mp4",
+      "en": "- How did that happen? - Oh, my God!",
+      "blankWord": "happen",
+      "options": [
+        "happen",
+        "occur",
+        "listen",
+        "change"
+      ],
+      "correctIndex": 0,
+      "clipDurationFrames": 60
+    }
+  ]
+}

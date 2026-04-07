@@ -1,0 +1,31 @@
+{
+  "reel": 1,
+  "hook": "SÓ 1% ACERTA AS 3",
+  "scenes": [
+    {
+      "id": 5268,
+      "episode": "friends-s01e13",
+      "en": "- Six years is long enough. - What kind of change?",
+      "blankWord": "change",
+      "correctIndex": 0,
+      "clipDurationFrames": 76
+    },
+    {
+      "id": 4632,
+      "episode": "friends-s01e05",
+      "en": "- You're a lucky man. - Yeah.",
+      "blankWord": "lucky",
+      "correctIndex": 0,
+      "clipDurationFrames": 40
+    },
+    {
+      "id": 5216,
+      "episode": "friends-s01e13",
+      "en": "- Listen, thanks for everything, Mon. - No problem.",
+      "blankWord": "everything",
+      "correctIndex": 0,
+      "clipDurationFrames": 85
+    }
+  ],
+  "generatedAt": "2026-04-05T06:03:33.297Z"
+}

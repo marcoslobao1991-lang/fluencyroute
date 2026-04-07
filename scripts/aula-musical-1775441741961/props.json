@@ -1,0 +1,293 @@
+{
+  "hook": "VOCÊ SE IMPORTARIA DE ME AJUDAR?",
+  "explanation": "Use 'would you mind' para pedir algo educadamente ou fazer perguntas gentis.",
+  "audioUrl": "https://cdn.apipass.dev/apipass/results/task_377cfe4f281f47cb_1_audio.mp3",
+  "localAudio": "scripts\\aula-musical-1775441741961\\music.mp3",
+  "musicDuration": 200.16,
+  "vocalStart": 22.860000610351562,
+  "vocalEnd": 200.10000610351562,
+  "phrases": [
+    {
+      "en": "Would you mind if I stayed?",
+      "pt": "Você se importaria se eu ficasse?",
+      "startFrame": 686,
+      "endFrame": 898,
+      "words": [
+        {
+          "word": "To",
+          "startFrame": 686,
+          "endFrame": 689
+        },
+        {
+          "word": "your",
+          "startFrame": 689,
+          "endFrame": 690
+        },
+        {
+          "word": "right",
+          "startFrame": 690,
+          "endFrame": 696
+        },
+        {
+          "word": "is",
+          "startFrame": 696,
+          "endFrame": 696
+        },
+        {
+          "word": "the",
+          "startFrame": 696,
+          "endFrame": 893
+        },
+        {
+          "word": "Baguio",
+          "startFrame": 893,
+          "endFrame": 895
+        },
+        {
+          "word": "Botanical",
+          "startFrame": 895,
+          "endFrame": 897
+        },
+        {
+          "word": "Garden",
+          "startFrame": 897,
+          "endFrame": 898
+        }
+      ]
+    },
+    {
+      "en": "Would you mind opening the door?",
+      "pt": "Você se importaria de abrir a porta?",
+      "startFrame": 686,
+      "endFrame": 898,
+      "words": [
+        {
+          "word": "To",
+          "startFrame": 686,
+          "endFrame": 689
+        },
+        {
+          "word": "your",
+          "startFrame": 689,
+          "endFrame": 690
+        },
+        {
+          "word": "right",
+          "startFrame": 690,
+          "endFrame": 696
+        },
+        {
+          "word": "is",
+          "startFrame": 696,
+          "endFrame": 696
+        },
+        {
+          "word": "the",
+          "startFrame": 696,
+          "endFrame": 893
+        },
+        {
+          "word": "Baguio",
+          "startFrame": 893,
+          "endFrame": 895
+        },
+        {
+          "word": "Botanical",
+          "startFrame": 895,
+          "endFrame": 897
+        },
+        {
+          "word": "Garden",
+          "startFrame": 897,
+          "endFrame": 898
+        }
+      ]
+    },
+    {
+      "en": "Would you mind passing the salt?",
+      "pt": "Você se importaria de passar o sal?",
+      "startFrame": 686,
+      "endFrame": 898,
+      "words": [
+        {
+          "word": "To",
+          "startFrame": 686,
+          "endFrame": 689
+        },
+        {
+          "word": "your",
+          "startFrame": 689,
+          "endFrame": 690
+        },
+        {
+          "word": "right",
+          "startFrame": 690,
+          "endFrame": 696
+        },
+        {
+          "word": "is",
+          "startFrame": 696,
+          "endFrame": 696
+        },
+        {
+          "word": "the",
+          "startFrame": 696,
+          "endFrame": 893
+        },
+        {
+          "word": "Baguio",
+          "startFrame": 893,
+          "endFrame": 895
+        },
+        {
+          "word": "Botanical",
+          "startFrame": 895,
+          "endFrame": 897
+        },
+        {
+          "word": "Garden",
+          "startFrame": 897,
+          "endFrame": 898
+        }
+      ]
+    },
+    {
+      "en": "Would you mind speaking up please?",
+      "pt": "Você se importaria de falar mais alto, por favor?",
+      "startFrame": 4492,
+      "endFrame": 4499,
+      "words": [
+        {
+          "word": "To",
+          "startFrame": 4492,
+          "endFrame": 4493
+        },
+        {
+          "word": "your",
+          "startFrame": 4493,
+          "endFrame": 4493
+        },
+        {
+          "word": "left",
+          "startFrame": 4493,
+          "endFrame": 4494
+        },
+        {
+          "word": "is",
+          "startFrame": 4494,
+          "endFrame": 4495
+        },
+        {
+          "word": "the",
+          "startFrame": 4495,
+          "endFrame": 4495
+        },
+        {
+          "word": "Baguio",
+          "startFrame": 4495,
+          "endFrame": 4496
+        },
+        {
+          "word": "Botanical",
+          "startFrame": 4496,
+          "endFrame": 4498
+        },
+        {
+          "word": "Garden",
+          "startFrame": 4498,
+          "endFrame": 4498
+        },
+        {
+          "word": "To",
+          "startFrame": 4498,
+          "endFrame": 4499
+        },
+        {
+          "word": "your",
+          "startFrame": 4499,
+          "endFrame": 4499
+        },
+        {
+          "word": "right",
+          "startFrame": 4499,
+          "endFrame": 4499
+        },
+        {
+          "word": "is",
+          "startFrame": 4499,
+          "endFrame": 4499
+        },
+        {
+          "word": "the",
+          "startFrame": 4499,
+          "endFrame": 4499
+        },
+        {
+          "word": "Baguio",
+          "startFrame": 4499,
+          "endFrame": 4499
+        },
+        {
+          "word": "Botanical",
+          "startFrame": 4499,
+          "endFrame": 4499
+        },
+        {
+          "word": "Garden",
+          "startFrame": 4499,
+          "endFrame": 4499
+        }
+      ]
+    },
+    {
+      "en": "Would you mind waiting a bit?",
+      "pt": "Você se importaria de esperar um pouco?",
+      "startFrame": 5315,
+      "endFrame": 5399,
+      "words": [
+        {
+          "word": "To",
+          "startFrame": 5315,
+          "endFrame": 5357
+        },
+        {
+          "word": "your",
+          "startFrame": 5357,
+          "endFrame": 5399
+        },
+        {
+          "word": "left",
+          "startFrame": 5399,
+          "endFrame": 5399
+        },
+        {
+          "word": "is",
+          "startFrame": 5399,
+          "endFrame": 5399
+        },
+        {
+          "word": "the",
+          "startFrame": 5399,
+          "endFrame": 5399
+        },
+        {
+          "word": "Baguio",
+          "startFrame": 5399,
+          "endFrame": 5399
+        },
+        {
+          "word": "Botanical",
+          "startFrame": 5399,
+          "endFrame": 5399
+        },
+        {
+          "word": "Garden",
+          "startFrame": 5399,
+          "endFrame": 5399
+        }
+      ]
+    }
+  ],
+  "totalFrames": 6123,
+  "generatedAt": "2026-04-06T02:16:02.453Z"
+}

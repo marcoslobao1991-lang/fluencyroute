@@ -1,0 +1,31 @@
+{
+  "reel": 4,
+  "hook": "APOSTO QUE VOCÊ ERRA A 3ª",
+  "scenes": [
+    {
+      "id": 4257,
+      "episode": "friends-s01e19",
+      "en": "Ross, I'm doing everything that I can.",
+      "blankWord": "everything",
+      "correctIndex": 0,
+      "clipDurationFrames": 54
+    },
+    {
+      "id": 5107,
+      "episode": "friends-s01e13",
+      "en": "- Does anybody else? - Okay.",
+      "blankWord": "else",
+      "correctIndex": 3,
+      "clipDurationFrames": 44
+    },
+    {
+      "id": 5266,
+      "episode": "friends-s01e13",
+      "en": "That sounds weird when it's not followed by, \"No, thanks, it's late.\"",
+      "blankWord": "followed",
+      "correctIndex": 1,
+      "clipDurationFrames": 104
+    }
+  ],
+  "generatedAt": "2026-04-05T17:17:24.952Z"
+}

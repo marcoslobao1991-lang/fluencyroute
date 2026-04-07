@@ -1,0 +1,31 @@
+{
+  "batchSize": 5,
+  "generatedAt": "2026-04-05T15:48:28.917Z",
+  "reels": [
+    {
+      "reel": 1,
+      "dir": "scripts\\quiz-batch-1775404083458\\reel-1",
+      "hook": "SÓ 1% ACERTA AS 3"
+    },
+    {
+      "reel": 2,
+      "dir": "scripts\\quiz-batch-1775404083458\\reel-2",
+      "hook": "FLUENTE ACERTA AS 3"
+    },
+    {
+      "reel": 3,
+      "dir": "scripts\\quiz-batch-1775404083458\\reel-3",
+      "hook": "90% ERRA ESSA FRASE"
+    },
+    {
+      "reel": 4,
+      "dir": "scripts\\quiz-batch-1775404083458\\reel-4",
+      "hook": "APOSTO QUE VOCÊ ERRA A 3ª"
+    },
+    {
+      "reel": 5,
+      "dir": "scripts\\quiz-batch-1775404083458\\reel-5",
+      "hook": "VOCÊ ENTENDE ESSA CENA?"
+    }
+  ]
+}

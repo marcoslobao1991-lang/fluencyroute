@@ -1,0 +1,255 @@
+/* ═══════════════════════════════════════════════════════════════
+   VSL PAGE — DARK GLASSMORPHISM HIGH-TECH
+   ═══════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700;800&display=swap');
+
+/* ── RESET ── */
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: clip }
+body { background: #030305; overflow-x: clip }
+::selection { background: rgba(78,205,196,0.19); color: #4ECDC4 }
+img { max-width: 100%; height: auto }
+
+/* ── VTURB HIDDEN (Vturb controls reveal via displayHiddenElements) ── */
+.esconder { display: none !important }
+
+/* ── NOISE TEXTURE (disabled — was causing Vturb player to vanish on scroll) ── */
+
+/* ── SECTION ── */
+.vsl-section { padding: 64px 20px; margin: 0 auto; position: relative }
+
+/* ── RADIAL GLOW ORBS ── */
+.glow-teal { position: relative; overflow: hidden }
+.glow-teal::before {
+  content: ''; position: absolute; top: 30%; left: 50%; width: 800px; height: 800px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse, rgba(78,205,196,0.09) 0%, transparent 60%);
+  pointer-events: none; z-index: 0;
+}
+.glow-red { position: relative; overflow: hidden }
+.glow-red::before {
+  content: ''; position: absolute; top: 40%; left: 50%; width: 700px; height: 700px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse, rgba(255,107,107,0.07) 0%, transparent 55%);
+  pointer-events: none; z-index: 0;
+}
+.glow-purple { position: relative; overflow: hidden }
+.glow-purple::before {
+  content: ''; position: absolute; top: 35%; left: 50%; width: 700px; height: 700px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse, rgba(167,139,250,0.08) 0%, transparent 55%);
+  pointer-events: none; z-index: 0;
+}
+
+/* ── RESPONSIVE GRIDS ── */
+.rg { display: grid; grid-template-columns: 1fr; gap: 12px }
+.rg2 { display: grid; grid-template-columns: 1fr; gap: 16px }
+.rg-series { grid-template-columns: 1fr !important }
+
+/* ── CTA BUTTON — ULTRA HIGH-TECH ── */
+.cta-btn {
+  display: flex; width: 100%; justify-content: center; align-items: center; gap: 8px;
+  padding: 20px 32px; border-radius: 8px;
+  background: linear-gradient(160deg, #22d4a8, #4ECDC4, #3ba89e);
+  color: #000; font-size: 14px; font-weight: 800;
+  letter-spacing: .5px; text-transform: uppercase; text-decoration: none; text-align: center;
+  position: relative; overflow: hidden; cursor: pointer;
+  transition: all .3s; -webkit-appearance: none;
+  border: 1px solid rgba(255,255,255,.2);
+  box-shadow:
+    0 0 30px rgba(78,205,196,0.2),
+    0 0 60px rgba(78,205,196,0.1),
+    0 0 120px rgba(78,205,196,0.05),
+    inset 0 1px 0 rgba(255,255,255,.25),
+    inset 0 -1px 0 rgba(0,0,0,.1);
+  animation: ctaGlow 3s ease-in-out infinite;
+  text-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+.cta-btn:active { transform: scale(0.97) }
+
+/* Continuous shimmer sweep */
+.cta-btn::before {
+  content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+  background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,.25) 45%, rgba(255,255,255,.35) 50%, rgba(255,255,255,.25) 55%, transparent 80%);
+  animation: ctaShimmer 3s ease-in-out infinite;
+}
+
+/* Scan line across button */
+.cta-btn::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent 10%, rgba(255,255,255,.4) 50%, transparent 90%);
+  animation: ctaScan 2.5s ease-in-out infinite;
+}
+
+@keyframes ctaShimmer {
+  0% { left: -100% }
+  50%, 100% { left: 150% }
+}
+@keyframes ctaScan {
+  0% { top: -1px; opacity: 0 }
+  30% { opacity: .6 }
+  70% { opacity: .6 }
+  100% { top: calc(100% + 1px); opacity: 0 }
+}
+@keyframes ctaGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 30px rgba(78,205,196,0.15),
+      0 0 60px rgba(78,205,196,0.08),
+      0 0 120px rgba(78,205,196,0.03),
+      inset 0 1px 0 rgba(255,255,255,.2);
+  }
+  50% {
+    box-shadow:
+      0 0 40px rgba(78,205,196,0.25),
+      0 0 80px rgba(78,205,196,0.15),
+      0 0 160px rgba(78,205,196,0.06),
+      inset 0 1px 0 rgba(255,255,255,.3);
+  }
+}
+.cta-pulse { animation: ctaGlow 2s ease-in-out infinite }
+
+/* ── STICKY CTA ── */
+.sticky-cta {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+  padding: 16px 16px calc(env(safe-area-inset-bottom, 0px) + 16px);
+  text-align: center; transform: translateY(100%);
+  transition: all .5s cubic-bezier(.16,1,.3,1);
+  background: linear-gradient(to top, rgba(3,3,5,.97) 50%, transparent);
+  pointer-events: none; display: flex; justify-content: center;
+}
+.sticky-cta.show { transform: translateY(0); pointer-events: all }
+.sticky-cta .cta-btn { font-size: 12px; padding: 16px 24px; max-width: 380px; animation: none }
+
+/* ── DETAILS/SUMMARY ── */
+details summary { list-style: none; -webkit-tap-highlight-color: transparent }
+details summary::-webkit-details-marker { display: none }
+
+/* ── ANIMATED BORDER GLOW ── */
+@property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false }
+@keyframes borderSpin { to { --angle: 360deg } }
+.glass-glow {
+  position: relative; border-radius: 11px; padding: 1px;
+  background: conic-gradient(from var(--angle), transparent 60%, rgba(78,205,196,0.19) 75%, rgba(167,139,250,0.16) 85%, transparent 95%);
+  animation: borderSpin 6s linear infinite;
+}
+.glass-glow > * { border-radius: 10px; position: relative; z-index: 1 }
+
+/* ── SECONDARY PLAN BUTTONS ── */
+.plan-btn {
+  margin-top: 14px; text-align: center; padding: 12px 0; border-radius: 10px;
+  font-size: 12px; font-weight: 700; letter-spacing: 1px;
+  position: relative; overflow: hidden; cursor: pointer;
+  transition: all .3s;
+}
+.plan-btn::before {
+  content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+  background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,.08) 50%, transparent 70%);
+  animation: ctaShimmer 4s ease-in-out infinite;
+}
+
+/* ── SEPARATOR ── */
+.sep { height: 1px; max-width: 280px; margin: 0 auto; background: linear-gradient(90deg, transparent, rgba(78,205,196,0.08), rgba(167,139,250,0.06), transparent) }
+
+/* ── GRID OVERLAY ── */
+.vsl-grid {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(78,205,196,0.04) 0, rgba(78,205,196,0.04) 1px, transparent 1px, transparent 80px),
+    repeating-linear-gradient(90deg, rgba(78,205,196,0.04) 0, rgba(78,205,196,0.04) 1px, transparent 1px, transparent 80px);
+  mask-image: radial-gradient(ellipse 80% 50% at 50% 30%, rgba(0,0,0,.4), transparent);
+  -webkit-mask-image: radial-gradient(ellipse 80% 50% at 50% 30%, rgba(0,0,0,.4), transparent);
+}
+
+/* ── SCAN LINE ── */
+/* .vsl-scanline disabled — was z-index 9998 over player */
+.vsl-scanline::after {
+  content: ''; position: absolute; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent 5%, rgba(78,205,196,0.08) 30%, rgba(78,205,196,0.16) 50%, rgba(78,205,196,0.08) 70%, transparent 95%);
+  box-shadow: 0 0 20px rgba(78,205,196,0.06), 0 0 40px rgba(78,205,196,0.03);
+  animation: scanMove 8s linear infinite;
+}
+@keyframes scanMove { from { top: -2px } to { top: 100vh } }
+
+/* ── HUD CORNERS ── */
+.hud { --hud-c: rgba(78,205,196,0.33); --hud-l: 24px; --hud-w: 1.5px; position: relative }
+.hud::after {
+  content: ''; position: absolute; inset: -1px; z-index: 2; pointer-events: none;
+  background:
+    linear-gradient(var(--hud-c), var(--hud-c)) 0 0 / var(--hud-l) var(--hud-w) no-repeat,
+    linear-gradient(var(--hud-c), var(--hud-c)) 0 0 / var(--hud-w) var(--hud-l) no-repeat,
+    linear-gradient(var(--hud-c), var(--hud-c)) 100% 0 / var(--hud-l) var(--hud-w) no-repeat,
+    linear-gradient(var(--hud-c), var(--hud-c)) 100% 0 / var(--hud-w) var(--hud-l) no-repeat,
+    linear-gradient(var(--hud-c), var(--hud-c)) 0 100% / var(--hud-l) var(--hud-w) no-repeat,
+    linear-gradient(var(--hud-c), var(--hud-c)) 0 100% / var(--hud-w) var(--hud-l) no-repeat,
+    linear-gradient(var(--hud-c), var(--hud-c)) 100% 100% / var(--hud-l) var(--hud-w) no-repeat,
+    linear-gradient(var(--hud-c), var(--hud-c)) 100% 100% / var(--hud-w) var(--hud-l) no-repeat;
+}
+.hud-red { --hud-c: rgba(255,107,107,0.33) }
+.hud-purple { --hud-c: rgba(167,139,250,0.33) }
+
+/* ── PARTICLES ── */
+.vsl-particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden }
+.vsl-particles i { position: absolute; width: 2px; height: 2px; border-radius: 50%; opacity: 0 }
+.vsl-particles i:nth-child(1) { left: 10%; top: 18%; background: #4ECDC4; box-shadow: 0 0 6px #4ECDC4; animation: pFloat 14s ease-in-out infinite 0s }
+.vsl-particles i:nth-child(2) { left: 88%; top: 12%; background: #A78BFA; box-shadow: 0 0 6px #A78BFA; animation: pFloat 11s ease-in-out infinite 2s }
+.vsl-particles i:nth-child(3) { left: 40%; top: 55%; background: #4ECDC4; box-shadow: 0 0 6px #4ECDC4; animation: pFloat 16s ease-in-out infinite 4s }
+.vsl-particles i:nth-child(4) { left: 72%; top: 70%; background: #A78BFA; box-shadow: 0 0 6px #A78BFA; animation: pFloat 13s ease-in-out infinite 1s }
+.vsl-particles i:nth-child(5) { left: 22%; top: 82%; background: #4ECDC4; box-shadow: 0 0 6px #4ECDC4; animation: pFloat 15s ease-in-out infinite 3s }
+.vsl-particles i:nth-child(6) { left: 93%; top: 42%; background: #A78BFA; box-shadow: 0 0 6px #A78BFA; animation: pFloat 12s ease-in-out infinite 5s }
+@keyframes pFloat {
+  0%, 100% { opacity: 0; transform: translateY(0) scale(1) }
+  20% { opacity: .5 }
+  50% { opacity: .35; transform: translateY(-50px) scale(1.8) }
+  80% { opacity: .5 }
+}
+
+/* ── GRAPH COMMONS ── */
+.graph-container { position: relative; width: 100%; overflow: hidden }
+.graph-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; fill: rgba(255,255,255,0.35);
+}
+.graph-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+}
+
+/* ── CAROUSEL COMMONS ── */
+.carousel-track {
+  display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; scrollbar-width: none; padding: 0 20px;
+}
+.carousel-track::-webkit-scrollbar { display: none }
+.carousel-track > * { scroll-snap-align: center; flex-shrink: 0 }
+.carousel-dots { display: flex; justify-content: center; gap: 6px; margin-top: 16px }
+.carousel-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.12); border: none; cursor: pointer;
+  transition: all .3s;
+}
+.carousel-dot.active { width: 28px; border-radius: 4px; background: #4ECDC4 }
+
+/* ══════════════════════════════════════════════════════════════
+   DESKTOP
+   ══════════════════════════════════════════════════════════════ */
+@media (min-width: 768px) {
+  .vsl-section { padding: 100px 24px }
+  .rg { grid-template-columns: 1fr 1fr }
+  .rg2 { grid-template-columns: 1fr 1fr }
+  .rg-series { grid-template-columns: 1fr 1fr 1fr !important }
+  .cta-btn { width: auto; display: inline-flex; padding: 20px 48px; font-size: 14px }
+  .cta-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    border-color: rgba(255,255,255,.35);
+    box-shadow:
+      0 0 50px rgba(78,205,196,0.3),
+      0 0 100px rgba(78,205,196,0.15),
+      0 0 200px rgba(78,205,196,0.06),
+      0 8px 20px rgba(0,0,0,.4),
+      inset 0 1px 0 rgba(255,255,255,.35) !important;
+  }
+  .sticky-cta .cta-btn { font-size: 13px; padding: 16px 36px; width: auto; display: inline-flex }
+}

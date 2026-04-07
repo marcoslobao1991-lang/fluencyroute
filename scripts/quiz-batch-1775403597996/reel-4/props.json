@@ -1,0 +1,45 @@
+{
+  "hook": "APOSTO QUE VOCÊ ERRA A 3ª",
+  "renderMode": "preview",
+  "scenes": [
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e19/Friends_S01_E19_0.07.29.491-0.07.32.410.mp4",
+      "en": "Whoa, oh. Why is the air in here so negative?",
+      "blankWord": "negative",
+      "options": [
+        "dark",
+        "negative",
+        "heavy",
+        "stale"
+      ],
+      "correctIndex": 1,
+      "clipDurationFrames": 88
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e13/Friends_S01_E13_0.13.07.620-0.13.10.121.mp4",
+      "en": "- What are you doing? - Just trying to get comfortable.",
+      "blankWord": "comfortable",
+      "options": [
+        "relaxed",
+        "comfortable",
+        "settled",
+        "cozy"
+      ],
+      "correctIndex": 1,
+      "clipDurationFrames": 75
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e05/Friends_S01_E05_0.07.37.626-0.07.40.402.mp4",
+      "en": "Well, you may wanna rethink the dirty underwear.",
+      "blankWord": "dirty",
+      "options": [
+        "dirty",
+        "smelly",
+        "fresh",
+        "clean"
+      ],
+      "correctIndex": 0,
+      "clipDurationFrames": 84
+    }
+  ]
+}

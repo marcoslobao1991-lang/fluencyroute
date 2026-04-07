@@ -1,0 +1,31 @@
+{
+  "reel": 1,
+  "hook": "SÓ 1% ACERTA AS 3",
+  "scenes": [
+    {
+      "id": 4292,
+      "episode": "friends-s01e19",
+      "en": "- You have no idea who I am, do you? - No.",
+      "blankWord": "idea",
+      "correctIndex": 3,
+      "clipDurationFrames": 90
+    },
+    {
+      "id": 4719,
+      "episode": "friends-s01e05",
+      "en": "It's just my lens. It's my lens.",
+      "blankWord": "lens",
+      "correctIndex": 2,
+      "clipDurationFrames": 65
+    },
+    {
+      "id": 4337,
+      "episode": "friends-s01e19",
+      "en": "- Oh, come here, Marcel. - Step aside, ladies.",
+      "blankWord": "aside",
+      "correctIndex": 1,
+      "clipDurationFrames": 65
+    }
+  ],
+  "generatedAt": "2026-04-05T15:48:08.894Z"
+}

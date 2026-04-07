@@ -1,0 +1,45 @@
+{
+  "hook": "FLUENTE ACERTA AS 3",
+  "renderMode": "preview",
+  "scenes": [
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e05/Friends_S01_E05_0.14.11.934-0.14.13.252.mp4",
+      "en": "- You're a lucky man. - Yeah.",
+      "blankWord": "lucky",
+      "options": [
+        "crazy",
+        "funny",
+        "happy",
+        "lucky"
+      ],
+      "correctIndex": 3,
+      "clipDurationFrames": 40
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e05/Friends_S01_E05_0.03.18.031-0.03.21.076.mp4",
+      "en": "It was horrible! He called me \"young lady.\"",
+      "blankWord": "called",
+      "options": [
+        "called",
+        "named",
+        "said",
+        "told"
+      ],
+      "correctIndex": 0,
+      "clipDurationFrames": 91
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e05/Friends_S01_E05_0.19.29.088-0.19.30.711.mp4",
+      "en": "- Oh, my God! - Ow!",
+      "blankWord": "God",
+      "options": [
+        "gal",
+        "God",
+        "man",
+        "guy"
+      ],
+      "correctIndex": 1,
+      "clipDurationFrames": 49
+    }
+  ]
+}

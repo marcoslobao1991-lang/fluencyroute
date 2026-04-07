@@ -1,0 +1,45 @@
+{
+  "hook": "VOCÊ ENTENDE ESSA CENA?",
+  "renderMode": "preview",
+  "scenes": [
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e19/Friends_S01_E19_0.11.14.465-0.11.19.886.mp4",
+      "en": "Heh. Marcel is an illegal exotic animal.",
+      "blankWord": "illegal",
+      "options": [
+        "wild",
+        "exotic",
+        "illegal",
+        "rare"
+      ],
+      "correctIndex": 2,
+      "clipDurationFrames": 163
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e05/Friends_S01_E05_0.11.30.109-0.11.32.567.mp4",
+      "en": "Hey, hey, hey! Her stuff wasn't in it!",
+      "blankWord": "stuff",
+      "options": [
+        "food",
+        "gear",
+        "money",
+        "stuff"
+      ],
+      "correctIndex": 3,
+      "clipDurationFrames": 74
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e19/Friends_S01_E19_0.01.36.846-0.01.40.709.mp4",
+      "en": "My mother sends me the engagement notices for inspiration.",
+      "blankWord": "inspiration",
+      "options": [
+        "inspiration",
+        "information",
+        "motivation",
+        "encouragement"
+      ],
+      "correctIndex": 0,
+      "clipDurationFrames": 116
+    }
+  ]
+}

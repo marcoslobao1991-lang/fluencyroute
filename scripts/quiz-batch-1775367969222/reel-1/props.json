@@ -1,0 +1,45 @@
+{
+  "hook": "SÓ 1% ACERTA AS 3",
+  "renderMode": "chroma",
+  "scenes": [
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e13/Friends_S01_E13_0.08.38.643-0.08.41.186.mp4",
+      "en": "- Oh, so you think I'm a failure? - Isn't he good?",
+      "blankWord": "failure",
+      "options": [
+        "cheater",
+        "liar",
+        "traitor",
+        "failure"
+      ],
+      "correctIndex": 3,
+      "clipDurationFrames": 76
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e13/Friends_S01_E13_0.19.57.321-0.19.59.739.mp4",
+      "en": "You're not? See, that's why you're so great.",
+      "blankWord": "great",
+      "options": [
+        "great",
+        "smart",
+        "nice",
+        "cool"
+      ],
+      "correctIndex": 0,
+      "clipDurationFrames": 73
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e13/Friends_S01_E13_0.06.15.666-0.06.18.945.mp4",
+      "en": "He's, like, actually some spy working for the CIA.",
+      "blankWord": "spy",
+      "options": [
+        "spy",
+        "agent",
+        "thief",
+        "soldier"
+      ],
+      "correctIndex": 0,
+      "clipDurationFrames": 99
+    }
+  ]
+}

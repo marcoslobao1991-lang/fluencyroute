@@ -1,0 +1,44 @@
+{
+  "hook": "FLUENTE ACERTA AS 3",
+  "scenes": [
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e13/Friends_S01_E13_0.15.03.277-0.15.06.620.mp4",
+      "en": "Fasten your seat belts, it's pee-pee time.",
+      "blankWord": "Fasten",
+      "options": [
+        "Fasten",
+        "Unfasten",
+        "Tighten",
+        "Loosen"
+      ],
+      "correctIndex": 0,
+      "clipDurationFrames": 101
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e05/Friends_S01_E05_0.10.48.898-0.10.50.842.mp4",
+      "en": "Yeah, well, now you're kind of not.",
+      "blankWord": "kind",
+      "options": [
+        "type",
+        "form",
+        "sort",
+        "kind"
+      ],
+      "correctIndex": 3,
+      "clipDurationFrames": 59
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e19/Friends_S01_E19_0.12.26.746-0.12.29.205.mp4",
+      "en": "Yes, but there isn't always time.",
+      "blankWord": "always",
+      "options": [
+        "sometimes",
+        "often",
+        "never",
+        "always"
+      ],
+      "correctIndex": 3,
+      "clipDurationFrames": 74
+    }
+  ]
+}

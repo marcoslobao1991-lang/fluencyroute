@@ -1,0 +1,31 @@
+{
+  "reel": 4,
+  "hook": "APOSTO QUE VOCÊ ERRA A 3ª",
+  "scenes": [
+    {
+      "id": 4206,
+      "episode": "friends-s01e19",
+      "en": "Whoa, oh. Why is the air in here so negative?",
+      "blankWord": "negative",
+      "correctIndex": 1,
+      "clipDurationFrames": 88
+    },
+    {
+      "id": 5273,
+      "episode": "friends-s01e13",
+      "en": "- What are you doing? - Just trying to get comfortable.",
+      "blankWord": "comfortable",
+      "correctIndex": 1,
+      "clipDurationFrames": 75
+    },
+    {
+      "id": 4539,
+      "episode": "friends-s01e05",
+      "en": "Well, you may wanna rethink the dirty underwear.",
+      "blankWord": "dirty",
+      "correctIndex": 0,
+      "clipDurationFrames": 84
+    }
+  ],
+  "generatedAt": "2026-04-05T15:40:19.949Z"
+}

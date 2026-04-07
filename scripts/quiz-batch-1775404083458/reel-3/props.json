@@ -1,0 +1,45 @@
+{
+  "hook": "90% ERRA ESSA FRASE",
+  "renderMode": "preview",
+  "scenes": [
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e05/Friends_S01_E05_0.09.07.060-0.09.10.325.mp4",
+      "en": "I had the most supremely awful day.",
+      "blankWord": "awful",
+      "options": [
+        "awful",
+        "happy",
+        "funny",
+        "great"
+      ],
+      "correctIndex": 0,
+      "clipDurationFrames": 99
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e05/Friends_S01_E05_0.13.07.369-0.13.09.914.mp4",
+      "en": "- A whole other machine for your colors. - Colors.",
+      "blankWord": "Colors",
+      "options": [
+        "Colors",
+        "Shades",
+        "Tones",
+        "Hues"
+      ],
+      "correctIndex": 0,
+      "clipDurationFrames": 78
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e19/Friends_S01_E19_0.19.13.652-0.19.16.862.mp4",
+      "en": "- Oh, come on, Luisa. - Sorry, prom queen.",
+      "blankWord": "queen",
+      "options": [
+        "star",
+        "leader",
+        "queen",
+        "princess"
+      ],
+      "correctIndex": 2,
+      "clipDurationFrames": 96
+    }
+  ]
+}

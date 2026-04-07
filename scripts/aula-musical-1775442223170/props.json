@@ -1,0 +1,285 @@
+{
+  "hook": "VOCÊ SE IMPORTARIA DE PEDIR ISSO?",
+  "explanation": "Use 'would you mind' para pedir algo educadamente ou perguntar se algo incomoda alguém.",
+  "audioUrl": "https://cdn.apipass.dev/apipass/results/task_e4a50ef620b04df9_1_audio.mp3",
+  "localAudio": "scripts\\aula-musical-1775442223170\\music.mp3",
+  "musicDuration": 123.744,
+  "vocalStart": 4.980000019073486,
+  "vocalEnd": 113.9800033569336,
+  "phrases": [
+    {
+      "en": "Would you mind closing the door?",
+      "pt": "Você se importaria de fechar a porta?",
+      "startFrame": 502,
+      "endFrame": 643,
+      "words": [
+        {
+          "word": "Would",
+          "startFrame": 502,
+          "endFrame": 543
+        },
+        {
+          "word": "you",
+          "startFrame": 543,
+          "endFrame": 584
+        },
+        {
+          "word": "mind",
+          "startFrame": 584,
+          "endFrame": 592
+        },
+        {
+          "word": "closing",
+          "startFrame": 592,
+          "endFrame": 618
+        },
+        {
+          "word": "the",
+          "startFrame": 618,
+          "endFrame": 643
+        },
+        {
+          "word": "door",
+          "startFrame": 643,
+          "endFrame": 643
+        }
+      ]
+    },
+    {
+      "en": "Would you mind if I sat here?",
+      "pt": "Você se importaria se eu me sentasse aqui?",
+      "startFrame": 663,
+      "endFrame": 876,
+      "words": [
+        {
+          "word": "Would",
+          "startFrame": 663,
+          "endFrame": 677
+        },
+        {
+          "word": "you",
+          "startFrame": 677,
+          "endFrame": 701
+        },
+        {
+          "word": "mind",
+          "startFrame": 701,
+          "endFrame": 703
+        },
+        {
+          "word": "if",
+          "startFrame": 703,
+          "endFrame": 732
+        },
+        {
+          "word": "I",
+          "startFrame": 732,
+          "endFrame": 748
+        },
+        {
+          "word": "sat",
+          "startFrame": 748,
+          "endFrame": 751
+        },
+        {
+          "word": "here",
+          "startFrame": 751,
+          "endFrame": 771
+        },
+        {
+          "word": "Would",
+          "startFrame": 771,
+          "endFrame": 788
+        },
+        {
+          "word": "you",
+          "startFrame": 788,
+          "endFrame": 795
+        },
+        {
+          "word": "mind",
+          "startFrame": 795,
+          "endFrame": 821
+        },
+        {
+          "word": "helping",
+          "startFrame": 821,
+          "endFrame": 839
+        },
+        {
+          "word": "me",
+          "startFrame": 839,
+          "endFrame": 851
+        },
+        {
+          "word": "tonight",
+          "startFrame": 851,
+          "endFrame": 876
+        }
+      ]
+    },
+    {
+      "en": "Would you mind helping me tonight?",
+      "pt": "Você se importaria de me ajudar hoje à noite?",
+      "startFrame": 663,
+      "endFrame": 876,
+      "words": [
+        {
+          "word": "Would",
+          "startFrame": 663,
+          "endFrame": 677
+        },
+        {
+          "word": "you",
+          "startFrame": 677,
+          "endFrame": 701
+        },
+        {
+          "word": "mind",
+          "startFrame": 701,
+          "endFrame": 703
+        },
+        {
+          "word": "if",
+          "startFrame": 703,
+          "endFrame": 732
+        },
+        {
+          "word": "I",
+          "startFrame": 732,
+          "endFrame": 748
+        },
+        {
+          "word": "sat",
+          "startFrame": 748,
+          "endFrame": 751
+        },
+        {
+          "word": "here",
+          "startFrame": 751,
+          "endFrame": 771
+        },
+        {
+          "word": "Would",
+          "startFrame": 771,
+          "endFrame": 788
+        },
+        {
+          "word": "you",
+          "startFrame": 788,
+          "endFrame": 795
+        },
+        {
+          "word": "mind",
+          "startFrame": 795,
+          "endFrame": 821
+        },
+        {
+          "word": "helping",
+          "startFrame": 821,
+          "endFrame": 839
+        },
+        {
+          "word": "me",
+          "startFrame": 839,
+          "endFrame": 851
+        },
+        {
+          "word": "tonight",
+          "startFrame": 851,
+          "endFrame": 876
+        }
+      ]
+    },
+    {
+      "en": "Would you mind turning down the sound?",
+      "pt": "Você se importaria de diminuir o volume?",
+      "startFrame": 893,
+      "endFrame": 982,
+      "words": [
+        {
+          "word": "Would",
+          "startFrame": 893,
+          "endFrame": 898
+        },
+        {
+          "word": "you",
+          "startFrame": 898,
+          "endFrame": 907
+        },
+        {
+          "word": "mind",
+          "startFrame": 907,
+          "endFrame": 924
+        },
+        {
+          "word": "turning",
+          "startFrame": 924,
+          "endFrame": 939
+        },
+        {
+          "word": "down",
+          "startFrame": 939,
+          "endFrame": 952
+        },
+        {
+          "word": "the",
+          "startFrame": 952,
+          "endFrame": 982
+        },
+        {
+          "word": "sound",
+          "startFrame": 982,
+          "endFrame": 982
+        }
+      ]
+    },
+    {
+      "en": "Would you mind waiting just a little?",
+      "pt": "Você se importaria de esperar só um pouco?",
+      "startFrame": 1007,
+      "endFrame": 1093,
+      "words": [
+        {
+          "word": "Would",
+          "startFrame": 1007,
+          "endFrame": 1010
+        },
+        {
+          "word": "you",
+          "startFrame": 1010,
+          "endFrame": 1023
+        },
+        {
+          "word": "mind",
+          "startFrame": 1023,
+          "endFrame": 1035
+        },
+        {
+          "word": "waiting",
+          "startFrame": 1035,
+          "endFrame": 1048
+        },
+        {
+          "word": "just",
+          "startFrame": 1048,
+          "endFrame": 1065
+        },
+        {
+          "word": "a",
+          "startFrame": 1065,
+          "endFrame": 1093
+        },
+        {
+          "word": "little",
+          "startFrame": 1093,
+          "endFrame": 1093
+        }
+      ]
+    }
+  ],
+  "totalFrames": 3510,
+  "generatedAt": "2026-04-06T02:23:56.892Z",
+  "localAudioCut": "scripts\\aula-musical-1775442223170\\music_cut.mp3",
+  "cutOffset": 2.9800000190734863
+}

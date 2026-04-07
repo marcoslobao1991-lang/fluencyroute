@@ -1,0 +1,31 @@
+{
+  "reel": 3,
+  "hook": "90% ERRA ESSA FRASE",
+  "scenes": [
+    {
+      "id": 4687,
+      "episode": "friends-s01e05",
+      "en": "I can't even do laundry!",
+      "blankWord": "laundry",
+      "correctIndex": 2,
+      "clipDurationFrames": 65
+    },
+    {
+      "id": 5185,
+      "episode": "friends-s01e13",
+      "en": "- What's the matter with Rog? - Nothing. It's a little thing.",
+      "blankWord": "matter",
+      "correctIndex": 0,
+      "clipDurationFrames": 98
+    },
+    {
+      "id": 4627,
+      "episode": "friends-s01e05",
+      "en": "- How did that happen? - Oh, my God!",
+      "blankWord": "happen",
+      "correctIndex": 0,
+      "clipDurationFrames": 60
+    }
+  ],
+  "generatedAt": "2026-04-05T15:40:15.019Z"
+}

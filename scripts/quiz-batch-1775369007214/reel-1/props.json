@@ -1,0 +1,45 @@
+{
+  "hook": "SÓ 1% ACERTA AS 3",
+  "renderMode": "preview",
+  "scenes": [
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e13/Friends_S01_E13_0.12.38.430-0.12.40.950.mp4",
+      "en": "- Six years is long enough. - What kind of change?",
+      "blankWord": "change",
+      "options": [
+        "change",
+        "charge",
+        "choice",
+        "chance"
+      ],
+      "correctIndex": 0,
+      "clipDurationFrames": 76
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e05/Friends_S01_E05_0.14.11.934-0.14.13.252.mp4",
+      "en": "- You're a lucky man. - Yeah.",
+      "blankWord": "lucky",
+      "options": [
+        "lucky",
+        "happy",
+        "funny",
+        "crazy"
+      ],
+      "correctIndex": 0,
+      "clipDurationFrames": 40
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e13/Friends_S01_E13_0.09.25.273-0.09.28.108.mp4",
+      "en": "- Listen, thanks for everything, Mon. - No problem.",
+      "blankWord": "everything",
+      "options": [
+        "everything",
+        "something",
+        "everything",
+        "nothing"
+      ],
+      "correctIndex": 0,
+      "clipDurationFrames": 85
+    }
+  ]
+}

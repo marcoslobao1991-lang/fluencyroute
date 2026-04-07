@@ -1,0 +1,44 @@
+{
+  "hook": "APOSTO QUE VOCÊ ERRA A 3ª",
+  "scenes": [
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e19/Friends_S01_E19_0.10.54.820-0.10.56.612.mp4",
+      "en": "Ross, I'm doing everything that I can.",
+      "blankWord": "everything",
+      "options": [
+        "everything",
+        "nothing",
+        "something",
+        "anything"
+      ],
+      "correctIndex": 0,
+      "clipDurationFrames": 54
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e13/Friends_S01_E13_0.02.21.307-0.02.22.726.mp4",
+      "en": "- Does anybody else? - Okay.",
+      "blankWord": "else",
+      "options": [
+        "still",
+        "also",
+        "ever",
+        "else"
+      ],
+      "correctIndex": 3,
+      "clipDurationFrames": 44
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e13/Friends_S01_E13_0.12.26.579-0.12.30.024.mp4",
+      "en": "That sounds weird when it's not followed by, \"No, thanks, it's late.\"",
+      "blankWord": "followed",
+      "options": [
+        "heard",
+        "followed",
+        "liked",
+        "called"
+      ],
+      "correctIndex": 1,
+      "clipDurationFrames": 104
+    }
+  ]
+}

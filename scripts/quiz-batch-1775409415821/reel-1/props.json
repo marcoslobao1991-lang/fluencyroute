@@ -1,0 +1,44 @@
+{
+  "hook": "SÓ 1% ACERTA AS 3",
+  "scenes": [
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e13/Friends_S01_E13_0.16.04.254-0.16.06.282.mp4",
+      "en": "- So, what's going on? - Nothing.",
+      "blankWord": "Nothing",
+      "options": [
+        "Nothing",
+        "Something",
+        "Anything",
+        "Everything"
+      ],
+      "correctIndex": 0,
+      "clipDurationFrames": 61
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e05/Friends_S01_E05_0.10.04.270-0.10.09.467.mp4",
+      "en": "I'm gonna get another espresso. More latte? No.",
+      "blankWord": "another",
+      "options": [
+        "any",
+        "each",
+        "another",
+        "some"
+      ],
+      "correctIndex": 2,
+      "clipDurationFrames": 156
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e13/Friends_S01_E13_0.01.56.282-0.01.58.867.mp4",
+      "en": "He's so cute. And he likes you so much.",
+      "blankWord": "cute",
+      "options": [
+        "funny",
+        "cute",
+        "kind",
+        "smart"
+      ],
+      "correctIndex": 1,
+      "clipDurationFrames": 78
+    }
+  ]
+}

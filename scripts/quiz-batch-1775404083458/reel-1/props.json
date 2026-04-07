@@ -1,0 +1,45 @@
+{
+  "hook": "SÓ 1% ACERTA AS 3",
+  "renderMode": "preview",
+  "scenes": [
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e19/Friends_S01_E19_0.13.03.449-0.13.06.452.mp4",
+      "en": "- You have no idea who I am, do you? - No.",
+      "blankWord": "idea",
+      "options": [
+        "notion",
+        "thought",
+        "clue",
+        "idea"
+      ],
+      "correctIndex": 3,
+      "clipDurationFrames": 90
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e05/Friends_S01_E05_0.19.34.840-0.19.37.009.mp4",
+      "en": "It's just my lens. It's my lens.",
+      "blankWord": "lens",
+      "options": [
+        "glass",
+        "focus",
+        "lens",
+        "frame"
+      ],
+      "correctIndex": 2,
+      "clipDurationFrames": 65
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e19/Friends_S01_E19_0.16.04.630-0.16.06.798.mp4",
+      "en": "- Oh, come here, Marcel. - Step aside, ladies.",
+      "blankWord": "aside",
+      "options": [
+        "around",
+        "aside",
+        "close",
+        "ahead"
+      ],
+      "correctIndex": 1,
+      "clipDurationFrames": 65
+    }
+  ]
+}

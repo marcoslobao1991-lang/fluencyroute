@@ -1,0 +1,31 @@
+{
+  "reel": 3,
+  "hook": "90% ERRA ESSA FRASE",
+  "scenes": [
+    {
+      "id": 4291,
+      "episode": "friends-s01e19",
+      "en": "- Luisa. From homeroom. - Yes!",
+      "blankWord": "homeroom",
+      "correctIndex": 0,
+      "clipDurationFrames": 90
+    },
+    {
+      "id": 4460,
+      "episode": "friends-s01e05",
+      "en": "You're breaking up with Tony?",
+      "blankWord": "breaking",
+      "correctIndex": 1,
+      "clipDurationFrames": 51
+    },
+    {
+      "id": 4721,
+      "episode": "friends-s01e05",
+      "en": "I hit her in the eye! I hit her in the eye!",
+      "blankWord": "hit",
+      "correctIndex": 3,
+      "clipDurationFrames": 78
+    }
+  ],
+  "generatedAt": "2026-04-05T17:17:20.032Z"
+}

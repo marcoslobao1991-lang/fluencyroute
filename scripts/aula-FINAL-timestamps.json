@@ -1,0 +1,618 @@
+[
+  {
+    "text": "Would you mind closing the window please Would you mind sending me that report today",
+    "startFrame": 90,
+    "endFrame": 388,
+    "words": [
+      {
+        "word": "Would",
+        "startFrame": 90,
+        "endFrame": 123
+      },
+      {
+        "word": "you",
+        "startFrame": 123,
+        "endFrame": 131
+      },
+      {
+        "word": "mind",
+        "startFrame": 131,
+        "endFrame": 154
+      },
+      {
+        "word": "closing",
+        "startFrame": 154,
+        "endFrame": 185
+      },
+      {
+        "word": "the",
+        "startFrame": 185,
+        "endFrame": 214
+      },
+      {
+        "word": "window",
+        "startFrame": 214,
+        "endFrame": 214
+      },
+      {
+        "word": "please",
+        "startFrame": 218,
+        "endFrame": 232
+      },
+      {
+        "word": "Would",
+        "startFrame": 250,
+        "endFrame": 250
+      },
+      {
+        "word": "you",
+        "startFrame": 250,
+        "endFrame": 251
+      },
+      {
+        "word": "mind",
+        "startFrame": 251,
+        "endFrame": 279
+      },
+      {
+        "word": "sending",
+        "startFrame": 279,
+        "endFrame": 296
+      },
+      {
+        "word": "me",
+        "startFrame": 296,
+        "endFrame": 311
+      },
+      {
+        "word": "that",
+        "startFrame": 311,
+        "endFrame": 329
+      },
+      {
+        "word": "report",
+        "startFrame": 329,
+        "endFrame": 346
+      },
+      {
+        "word": "today",
+        "startFrame": 346,
+        "endFrame": 388
+      }
+    ]
+  },
+  {
+    "text": "Would you mind passing the salt at dinner Would you mind holding the line a moment Would you mind if I borrow your phone quick",
+    "startFrame": 430,
+    "endFrame": 820,
+    "words": [
+      {
+        "word": "Would",
+        "startFrame": 430,
+        "endFrame": 463
+      },
+      {
+        "word": "you",
+        "startFrame": 463,
+        "endFrame": 486
+      },
+      {
+        "word": "mind",
+        "startFrame": 486,
+        "endFrame": 493
+      },
+      {
+        "word": "passing",
+        "startFrame": 493,
+        "endFrame": 523
+      },
+      {
+        "word": "the",
+        "startFrame": 523,
+        "endFrame": 543
+      },
+      {
+        "word": "salt",
+        "startFrame": 543,
+        "endFrame": 544
+      },
+      {
+        "word": "at",
+        "startFrame": 544,
+        "endFrame": 558
+      },
+      {
+        "word": "dinner",
+        "startFrame": 558,
+        "endFrame": 570
+      },
+      {
+        "word": "Would",
+        "startFrame": 575,
+        "endFrame": 578
+      },
+      {
+        "word": "you",
+        "startFrame": 578,
+        "endFrame": 602
+      },
+      {
+        "word": "mind",
+        "startFrame": 602,
+        "endFrame": 607
+      },
+      {
+        "word": "holding",
+        "startFrame": 607,
+        "endFrame": 634
+      },
+      {
+        "word": "the",
+        "startFrame": 634,
+        "endFrame": 646
+      },
+      {
+        "word": "line",
+        "startFrame": 646,
+        "endFrame": 658
+      },
+      {
+        "word": "a",
+        "startFrame": 658,
+        "endFrame": 684
+      },
+      {
+        "word": "moment",
+        "startFrame": 684,
+        "endFrame": 684
+      },
+      {
+        "word": "Would",
+        "startFrame": 688,
+        "endFrame": 694
+      },
+      {
+        "word": "you",
+        "startFrame": 694,
+        "endFrame": 711
+      },
+      {
+        "word": "mind",
+        "startFrame": 711,
+        "endFrame": 724
+      },
+      {
+        "word": "if",
+        "startFrame": 724,
+        "endFrame": 744
+      },
+      {
+        "word": "I",
+        "startFrame": 744,
+        "endFrame": 769
+      },
+      {
+        "word": "borrow",
+        "startFrame": 769,
+        "endFrame": 769
+      },
+      {
+        "word": "your",
+        "startFrame": 769,
+        "endFrame": 781
+      },
+      {
+        "word": "phone",
+        "startFrame": 781,
+        "endFrame": 805
+      },
+      {
+        "word": "quick",
+        "startFrame": 805,
+        "endFrame": 820
+      }
+    ]
+  },
+  {
+    "text": "Would you mind turning down the music please",
+    "startFrame": 873,
+    "endFrame": 1073,
+    "words": [
+      {
+        "word": "Would",
+        "startFrame": 873,
+        "endFrame": 911
+      },
+      {
+        "word": "you",
+        "startFrame": 911,
+        "endFrame": 921
+      },
+      {
+        "word": "mind",
+        "startFrame": 921,
+        "endFrame": 944
+      },
+      {
+        "word": "turning",
+        "startFrame": 944,
+        "endFrame": 971
+      },
+      {
+        "word": "down",
+        "startFrame": 971,
+        "endFrame": 987
+      },
+      {
+        "word": "the",
+        "startFrame": 987,
+        "endFrame": 1007
+      },
+      {
+        "word": "music",
+        "startFrame": 1007,
+        "endFrame": 1029
+      },
+      {
+        "word": "please",
+        "startFrame": 1041,
+        "endFrame": 1073
+      }
+    ]
+  },
+  {
+    "text": "Would you mind helping me with these bags",
+    "startFrame": 1130,
+    "endFrame": 1267,
+    "words": [
+      {
+        "word": "Would",
+        "startFrame": 1130,
+        "endFrame": 1138
+      },
+      {
+        "word": "you",
+        "startFrame": 1138,
+        "endFrame": 1154
+      },
+      {
+        "word": "mind",
+        "startFrame": 1154,
+        "endFrame": 1172
+      },
+      {
+        "word": "helping",
+        "startFrame": 1172,
+        "endFrame": 1197
+      },
+      {
+        "word": "me",
+        "startFrame": 1197,
+        "endFrame": 1213
+      },
+      {
+        "word": "with",
+        "startFrame": 1213,
+        "endFrame": 1227
+      },
+      {
+        "word": "these",
+        "startFrame": 1227,
+        "endFrame": 1244
+      },
+      {
+        "word": "bags",
+        "startFrame": 1244,
+        "endFrame": 1267
+      }
+    ]
+  },
+  {
+    "text": "Would you mind repeating that I didn't catch",
+    "startFrame": 1357,
+    "endFrame": 1634,
+    "words": [
+      {
+        "word": "Would",
+        "startFrame": 1357,
+        "endFrame": 1362
+      },
+      {
+        "word": "you",
+        "startFrame": 1362,
+        "endFrame": 1390
+      },
+      {
+        "word": "mind",
+        "startFrame": 1390,
+        "endFrame": 1393
+      },
+      {
+        "word": "repeating",
+        "startFrame": 1393,
+        "endFrame": 1418
+      },
+      {
+        "word": "that",
+        "startFrame": 1418,
+        "endFrame": 1437
+      },
+      {
+        "word": "I",
+        "startFrame": 1437,
+        "endFrame": 1462
+      },
+      {
+        "word": "didn't",
+        "startFrame": 1462,
+        "endFrame": 1480
+      },
+      {
+        "word": "catch",
+        "startFrame": 1480,
+        "endFrame": 1634
+      }
+    ]
+  },
+  {
+    "text": "Would you mind closing the window please Would you mind sending me that report today",
+    "startFrame": 1895,
+    "endFrame": 2188,
+    "words": [
+      {
+        "word": "Would",
+        "startFrame": 1895,
+        "endFrame": 1925
+      },
+      {
+        "word": "you",
+        "startFrame": 1925,
+        "endFrame": 1931
+      },
+      {
+        "word": "mind",
+        "startFrame": 1931,
+        "endFrame": 1954
+      },
+      {
+        "word": "closing",
+        "startFrame": 1954,
+        "endFrame": 1984
+      },
+      {
+        "word": "the",
+        "startFrame": 1984,
+        "endFrame": 2012
+      },
+      {
+        "word": "window",
+        "startFrame": 2012,
+        "endFrame": 2012
+      },
+      {
+        "word": "please",
+        "startFrame": 2015,
+        "endFrame": 2030
+      },
+      {
+        "word": "Would",
+        "startFrame": 2041,
+        "endFrame": 2041
+      },
+      {
+        "word": "you",
+        "startFrame": 2041,
+        "endFrame": 2050
+      },
+      {
+        "word": "mind",
+        "startFrame": 2050,
+        "endFrame": 2067
+      },
+      {
+        "word": "sending",
+        "startFrame": 2067,
+        "endFrame": 2097
+      },
+      {
+        "word": "me",
+        "startFrame": 2097,
+        "endFrame": 2110
+      },
+      {
+        "word": "that",
+        "startFrame": 2110,
+        "endFrame": 2130
+      },
+      {
+        "word": "report",
+        "startFrame": 2130,
+        "endFrame": 2149
+      },
+      {
+        "word": "today",
+        "startFrame": 2149,
+        "endFrame": 2188
+      }
+    ]
+  },
+  {
+    "text": "Would you mind passing the salt at dinner Would you mind holding the line a moment Would you mind if I borrow your phone quick",
+    "startFrame": 2233,
+    "endFrame": 2624,
+    "words": [
+      {
+        "word": "Would",
+        "startFrame": 2233,
+        "endFrame": 2263
+      },
+      {
+        "word": "you",
+        "startFrame": 2263,
+        "endFrame": 2291
+      },
+      {
+        "word": "mind",
+        "startFrame": 2291,
+        "endFrame": 2295
+      },
+      {
+        "word": "passing",
+        "startFrame": 2295,
+        "endFrame": 2323
+      },
+      {
+        "word": "the",
+        "startFrame": 2323,
+        "endFrame": 2335
+      },
+      {
+        "word": "salt",
+        "startFrame": 2335,
+        "endFrame": 2344
+      },
+      {
+        "word": "at",
+        "startFrame": 2344,
+        "endFrame": 2357
+      },
+      {
+        "word": "dinner",
+        "startFrame": 2357,
+        "endFrame": 2370
+      },
+      {
+        "word": "Would",
+        "startFrame": 2375,
+        "endFrame": 2377
+      },
+      {
+        "word": "you",
+        "startFrame": 2377,
+        "endFrame": 2405
+      },
+      {
+        "word": "mind",
+        "startFrame": 2405,
+        "endFrame": 2410
+      },
+      {
+        "word": "holding",
+        "startFrame": 2410,
+        "endFrame": 2435
+      },
+      {
+        "word": "the",
+        "startFrame": 2435,
+        "endFrame": 2446
+      },
+      {
+        "word": "line",
+        "startFrame": 2446,
+        "endFrame": 2457
+      },
+      {
+        "word": "a",
+        "startFrame": 2457,
+        "endFrame": 2485
+      },
+      {
+        "word": "moment",
+        "startFrame": 2485,
+        "endFrame": 2485
+      },
+      {
+        "word": "Would",
+        "startFrame": 2485,
+        "endFrame": 2495
+      },
+      {
+        "word": "you",
+        "startFrame": 2495,
+        "endFrame": 2510
+      },
+      {
+        "word": "mind",
+        "startFrame": 2510,
+        "endFrame": 2523
+      },
+      {
+        "word": "if",
+        "startFrame": 2523,
+        "endFrame": 2543
+      },
+      {
+        "word": "I",
+        "startFrame": 2543,
+        "endFrame": 2570
+      },
+      {
+        "word": "borrow",
+        "startFrame": 2570,
+        "endFrame": 2570
+      },
+      {
+        "word": "your",
+        "startFrame": 2570,
+        "endFrame": 2580
+      },
+      {
+        "word": "phone",
+        "startFrame": 2580,
+        "endFrame": 2602
+      },
+      {
+        "word": "quick",
+        "startFrame": 2602,
+        "endFrame": 2624
+      }
+    ]
+  },
+  {
+    "text": "Would you mind turning down the music please",
+    "startFrame": 2710,
+    "endFrame": 2854,
+    "words": [
+      {
+        "word": "Would",
+        "startFrame": 2710,
+        "endFrame": 2713
+      },
+      {
+        "word": "you",
+        "startFrame": 2713,
+        "endFrame": 2728
+      },
+      {
+        "word": "mind",
+        "startFrame": 2728,
+        "endFrame": 2747
+      },
+      {
+        "word": "turning",
+        "startFrame": 2747,
+        "endFrame": 2773
+      },
+      {
+        "word": "down",
+        "startFrame": 2773,
+        "endFrame": 2787
+      },
+      {
+        "word": "the",
+        "startFrame": 2787,
+        "endFrame": 2829
+      },
+      {
+        "word": "music",
+        "startFrame": 2829,
+        "endFrame": 2829
+      },
+      {
+        "word": "please",
+        "startFrame": 2852,
+        "endFrame": 2854
+      }
+    ]
+  }
+]

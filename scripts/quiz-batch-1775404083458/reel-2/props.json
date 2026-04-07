@@ -1,0 +1,45 @@
+{
+  "hook": "FLUENTE ACERTA AS 3",
+  "renderMode": "preview",
+  "scenes": [
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e13/Friends_S01_E13_0.10.51.942-0.10.54.737.mp4",
+      "en": "Or, uh, jumping to catch a Frisbee.",
+      "blankWord": "catch",
+      "options": [
+        "hold",
+        "grab",
+        "kick",
+        "catch"
+      ],
+      "correctIndex": 3,
+      "clipDurationFrames": 85
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e19/Friends_S01_E19_0.03.00.263-0.03.02.556.mp4",
+      "en": "I guess it's not about no guys.",
+      "blankWord": "guys",
+      "options": [
+        "girls",
+        "guys",
+        "times",
+        "plans"
+      ],
+      "correctIndex": 1,
+      "clipDurationFrames": 69
+    },
+    {
+      "videoUrl": "https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/friends/friends-s01e05/Friends_S01_E05_0.08.46.609-0.08.49.429.mp4",
+      "en": "This is nice. We never do anything, just the two of us.",
+      "blankWord": "nice",
+      "options": [
+        "nice",
+        "cold",
+        "mean",
+        "fast"
+      ],
+      "correctIndex": 0,
+      "clipDurationFrames": 85
+    }
+  ]
+}

@@ -1,0 +1,386 @@
+[
+  {
+    "en": "Would you mind closing the window please",
+    "pt": "Você se importaria de fechar a janela?",
+    "startFrame": 60,
+    "endFrame": 202,
+    "words": [
+      {
+        "word": "Would",
+        "startFrame": 60,
+        "endFrame": 93
+      },
+      {
+        "word": "you",
+        "startFrame": 93,
+        "endFrame": 101
+      },
+      {
+        "word": "mind",
+        "startFrame": 101,
+        "endFrame": 124
+      },
+      {
+        "word": "closing",
+        "startFrame": 124,
+        "endFrame": 155
+      },
+      {
+        "word": "the",
+        "startFrame": 155,
+        "endFrame": 184
+      },
+      {
+        "word": "window",
+        "startFrame": 184,
+        "endFrame": 184
+      },
+      {
+        "word": "please",
+        "startFrame": 188,
+        "endFrame": 202
+      }
+    ]
+  },
+  {
+    "en": "Would you mind sending me that report today",
+    "pt": "Você se importaria de me enviar o relatório?",
+    "startFrame": 220,
+    "endFrame": 358,
+    "words": [
+      {
+        "word": "Would",
+        "startFrame": 220,
+        "endFrame": 220
+      },
+      {
+        "word": "you",
+        "startFrame": 220,
+        "endFrame": 221
+      },
+      {
+        "word": "mind",
+        "startFrame": 221,
+        "endFrame": 249
+      },
+      {
+        "word": "sending",
+        "startFrame": 249,
+        "endFrame": 266
+      },
+      {
+        "word": "me",
+        "startFrame": 266,
+        "endFrame": 281
+      },
+      {
+        "word": "that",
+        "startFrame": 281,
+        "endFrame": 299
+      },
+      {
+        "word": "report",
+        "startFrame": 299,
+        "endFrame": 316
+      },
+      {
+        "word": "today",
+        "startFrame": 316,
+        "endFrame": 358
+      }
+    ]
+  },
+  {
+    "en": "Would you mind passing the salt at dinner",
+    "pt": "Você se importaria de passar o sal no jantar?",
+    "startFrame": 400,
+    "endFrame": 540,
+    "words": [
+      {
+        "word": "Would",
+        "startFrame": 400,
+        "endFrame": 433
+      },
+      {
+        "word": "you",
+        "startFrame": 433,
+        "endFrame": 456
+      },
+      {
+        "word": "mind",
+        "startFrame": 456,
+        "endFrame": 463
+      },
+      {
+        "word": "passing",
+        "startFrame": 463,
+        "endFrame": 493
+      },
+      {
+        "word": "the",
+        "startFrame": 493,
+        "endFrame": 513
+      },
+      {
+        "word": "salt",
+        "startFrame": 513,
+        "endFrame": 514
+      },
+      {
+        "word": "at",
+        "startFrame": 514,
+        "endFrame": 528
+      },
+      {
+        "word": "dinner",
+        "startFrame": 528,
+        "endFrame": 540
+      }
+    ]
+  },
+  {
+    "en": "Would you mind holding the line a moment",
+    "pt": "Você se importaria de aguardar na linha?",
+    "startFrame": 545,
+    "endFrame": 654,
+    "words": [
+      {
+        "word": "Would",
+        "startFrame": 545,
+        "endFrame": 548
+      },
+      {
+        "word": "you",
+        "startFrame": 548,
+        "endFrame": 572
+      },
+      {
+        "word": "mind",
+        "startFrame": 572,
+        "endFrame": 577
+      },
+      {
+        "word": "holding",
+        "startFrame": 577,
+        "endFrame": 604
+      },
+      {
+        "word": "the",
+        "startFrame": 604,
+        "endFrame": 616
+      },
+      {
+        "word": "line",
+        "startFrame": 616,
+        "endFrame": 628
+      },
+      {
+        "word": "a",
+        "startFrame": 628,
+        "endFrame": 654
+      },
+      {
+        "word": "moment",
+        "startFrame": 654,
+        "endFrame": 654
+      }
+    ]
+  },
+  {
+    "en": "Would you mind if I borrow your phone quick",
+    "pt": "Você se importaria se eu pegasse seu celular?",
+    "startFrame": 658,
+    "endFrame": 790,
+    "words": [
+      {
+        "word": "Would",
+        "startFrame": 658,
+        "endFrame": 664
+      },
+      {
+        "word": "you",
+        "startFrame": 664,
+        "endFrame": 681
+      },
+      {
+        "word": "mind",
+        "startFrame": 681,
+        "endFrame": 694
+      },
+      {
+        "word": "if",
+        "startFrame": 694,
+        "endFrame": 714
+      },
+      {
+        "word": "I",
+        "startFrame": 714,
+        "endFrame": 739
+      },
+      {
+        "word": "borrow",
+        "startFrame": 739,
+        "endFrame": 739
+      },
+      {
+        "word": "your",
+        "startFrame": 739,
+        "endFrame": 751
+      },
+      {
+        "word": "phone",
+        "startFrame": 751,
+        "endFrame": 775
+      },
+      {
+        "word": "quick",
+        "startFrame": 775,
+        "endFrame": 790
+      }
+    ]
+  },
+  {
+    "en": "Would you mind turning down the music please",
+    "pt": "Você se importaria de abaixar a música?",
+    "startFrame": 843,
+    "endFrame": 1043,
+    "words": [
+      {
+        "word": "Would",
+        "startFrame": 843,
+        "endFrame": 881
+      },
+      {
+        "word": "you",
+        "startFrame": 881,
+        "endFrame": 891
+      },
+      {
+        "word": "mind",
+        "startFrame": 891,
+        "endFrame": 914
+      },
+      {
+        "word": "turning",
+        "startFrame": 914,
+        "endFrame": 941
+      },
+      {
+        "word": "down",
+        "startFrame": 941,
+        "endFrame": 957
+      },
+      {
+        "word": "the",
+        "startFrame": 957,
+        "endFrame": 977
+      },
+      {
+        "word": "music",
+        "startFrame": 977,
+        "endFrame": 999
+      },
+      {
+        "word": "please",
+        "startFrame": 1011,
+        "endFrame": 1043
+      }
+    ]
+  },
+  {
+    "en": "Would you mind helping me with these bags",
+    "pt": "Você se importaria de me ajudar com essas sacolas?",
+    "startFrame": 1100,
+    "endFrame": 1237,
+    "words": [
+      {
+        "word": "Would",
+        "startFrame": 1100,
+        "endFrame": 1108
+      },
+      {
+        "word": "you",
+        "startFrame": 1108,
+        "endFrame": 1124
+      },
+      {
+        "word": "mind",
+        "startFrame": 1124,
+        "endFrame": 1142
+      },
+      {
+        "word": "helping",
+        "startFrame": 1142,
+        "endFrame": 1167
+      },
+      {
+        "word": "me",
+        "startFrame": 1167,
+        "endFrame": 1183
+      },
+      {
+        "word": "with",
+        "startFrame": 1183,
+        "endFrame": 1197
+      },
+      {
+        "word": "these",
+        "startFrame": 1197,
+        "endFrame": 1214
+      },
+      {
+        "word": "bags",
+        "startFrame": 1214,
+        "endFrame": 1237
+      }
+    ]
+  },
+  {
+    "en": "Would you mind repeating that I didn't catch",
+    "pt": "Você se importaria de repetir? Não entendi.",
+    "startFrame": 1327,
+    "endFrame": 1604,
+    "words": [
+      {
+        "word": "Would",
+        "startFrame": 1327,
+        "endFrame": 1332
+      },
+      {
+        "word": "you",
+        "startFrame": 1332,
+        "endFrame": 1360
+      },
+      {
+        "word": "mind",
+        "startFrame": 1360,
+        "endFrame": 1363
+      },
+      {
+        "word": "repeating",
+        "startFrame": 1363,
+        "endFrame": 1388
+      },
+      {
+        "word": "that",
+        "startFrame": 1388,
+        "endFrame": 1407
+      },
+      {
+        "word": "I",
+        "startFrame": 1407,
+        "endFrame": 1432
+      },
+      {
+        "word": "didn't",
+        "startFrame": 1432,
+        "endFrame": 1450
+      },
+      {
+        "word": "catch",
+        "startFrame": 1450,
+        "endFrame": 1604
+      }
+    ]
+  }
+]
