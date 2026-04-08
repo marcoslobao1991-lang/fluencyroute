@@ -3,7 +3,7 @@
 import { useEffect, useState, lazy, Suspense } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { trackViewContent } from '../lib/pixel'
+import { trackViewContent, trackInitiateCheckout, genEventId, getFbCookies } from '../lib/pixel'
 import '../vsl2/vsl.css'
 import { C, FONT } from '../vsl2/design'
 import { Fade, Glass, Label, S, Grad, useInView } from '../vsl2/primitives'
@@ -611,8 +611,19 @@ export default function RotaFluenciaPage() {
 // CTA BUTTON — points to /subscribe
 // ═══════════════════════════════════════════════════════════════
 function Btn({ text = 'QUERO FAZER PARTE', compact }: { text?: string; compact?: boolean }) {
+  const handleClick = () => {
+    const eid = genEventId()
+    trackInitiateCheckout(eid)
+    const { fbc, fbp } = getFbCookies()
+    fetch('/api/meta-capi', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ event: 'InitiateCheckout', eventId: eid, fbc, fbp }),
+    }).catch(() => {})
+  }
   return (
     <a href="https://pay.kiwify.com.br/DlmRal3" target="_blank" rel="noopener noreferrer" className="cta-btn"
+      onClick={handleClick}
       style={compact ? { padding: '14px 20px', fontSize: 15 } : undefined}
     >
       <span style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
