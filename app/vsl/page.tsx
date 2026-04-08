@@ -612,7 +612,7 @@ export default function RotaFluenciaPage() {
 // ═══════════════════════════════════════════════════════════════
 function Btn({ text = 'QUERO FAZER PARTE', compact }: { text?: string; compact?: boolean }) {
   return (
-    <Link href="/subscribe" prefetch={true} className="cta-btn"
+    <a href="https://pay.kiwify.com.br/DlmRal3" target="_blank" rel="noopener noreferrer" className="cta-btn"
       style={compact ? { padding: '14px 20px', fontSize: 15 } : undefined}
     >
       <span style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
@@ -621,7 +621,7 @@ function Btn({ text = 'QUERO FAZER PARTE', compact }: { text?: string; compact?:
           <path d="M5 12h14M12 5l7 7-7 7" />
         </svg>
       </span>
-    </Link>
+    </a>
   )
 }
 

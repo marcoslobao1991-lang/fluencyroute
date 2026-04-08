@@ -40,7 +40,7 @@ export const C = {
   glowRed: 'rgba(255,107,107,0.05)',
 } as const
 
-export const CTA_URL = 'https://go.fluencyroute.com.br/subscribe2'
+export const CTA_URL = 'https://pay.kiwify.com.br/DlmRal3'
 
 export const FONT = {
   body: "'Inter', -apple-system, sans-serif",
