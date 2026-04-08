@@ -31,7 +31,7 @@ async function sendText(phone, message) {
 /** Notify Marcos of a new sale */
 export async function notifySale({ name, email, phone, method, installments, amount, utms }) {
   const valor = method === 'pix' ? 'R$996 PIX à vista' : `${installments}x R$${(amount / 100 / installments).toFixed(2)} cartão`;
-  const produto = 'Inglês Cantado';
+  const produto = 'Rota da Fluência';
   let msg = `💰 *Venda Realizada!*\n📦 ${produto}\n\n👤 ${name}\n📧 ${email}\n📱 ${phone || 'não informado'}\n💳 ${valor}`;
   // UTMs
   const u = utms || {};
@@ -53,6 +53,6 @@ export async function notifySale({ name, email, phone, method, installments, amo
 /** Send welcome message to new student */
 export async function sendWelcome({ name, email, password, phone }) {
   if (!phone) return;
-  const msg = `🎉 *Bem-vindo ao Inglês Cantado, ${name.split(' ')[0]}!*\n\nSua conta foi criada com sucesso.\n\n🔑 *Seus dados de acesso:*\n📧 E-mail: ${email}\n🔒 Senha: ${password}\n\n👉 Acesse agora: https://app.fluencyroute.com.br\n\n⚠️ Troque sua senha no primeiro acesso.\n\nQualquer dúvida, responda essa mensagem. 💬`;
+  const msg = `🎉 *Bem-vindo à Rota da Fluência, ${name.split(' ')[0]}!*\n\nSua conta foi criada com sucesso.\n\n🔑 *Seus dados de acesso:*\n📧 E-mail: ${email}\n🔒 Senha: ${password}\n\n👉 Acesse agora: https://app.fluencyroute.com.br\n\n⚠️ Troque sua senha no primeiro acesso.\n\nQualquer dúvida, responda essa mensagem. 💬`;
   return sendText(phone, msg);
 }
