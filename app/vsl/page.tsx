@@ -608,7 +608,7 @@ export default function RotaFluenciaPage() {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// CTA BUTTON — points to /subscribe
+// CTA BUTTON — points to Kiwify checkout
 // ═══════════════════════════════════════════════════════════════
 function Btn({ text = 'QUERO FAZER PARTE', compact }: { text?: string; compact?: boolean }) {
   const handleClick = () => {

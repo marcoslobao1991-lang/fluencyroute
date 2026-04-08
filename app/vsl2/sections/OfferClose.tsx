@@ -32,7 +32,7 @@ const FAQ = [
   ['Quanto tempo por dia?', '3 músicas, ~15 minutos. Trânsito, academia, antes de dormir. Nos momentos que antes eram desperdiçados.'],
   ['O conteúdo atualiza?', 'Todo mês entram episódios e músicas novas. A plataforma cresce com você.'],
   ['E a garantia?', '30 dias. 100% de volta. 1 clique dentro da plataforma. Sem perguntas, sem email, sem nada.'],
-  ['Formas de pagamento?', 'Cartão, PIX, boleto. Checkout seguro e acesso imediato.'],
+  ['Formas de pagamento?', 'Cartão, PIX ou boleto. Checkout seguro pela Kiwify com acesso imediato.'],
   ['Funciona no celular?', 'Foi feito pro celular. Funciona em qualquer tela com navegador.'],
   ['Por que tão barato?', 'Sem sala, sem professor, sem estrutura física. Todo o investimento vai pra tecnologia e conteúdo. E sim — esse preço é de lançamento.'],
 ]
@@ -80,11 +80,7 @@ export function OfferDirect() {
               <span style={{ fontFamily: FONT.mono, fontSize: 9, fontWeight: 600, color: C.t4, letterSpacing: 2 }}>PAGAMENTO 100% SEGURO</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <img src="/pagarme.svg" alt="Pagar.me" style={{ height: 14, filter: 'brightness(0) invert(1)', opacity: 0.35 }} />
-              <span style={{ color: C.t4, fontSize: 8, opacity: 0.3 }}>+</span>
-              <img src="/stone.png" alt="Grupo Stone" style={{ height: 13, filter: 'brightness(0) invert(1)', opacity: 0.35 }} />
-              <span style={{ color: C.t4, fontSize: 8, opacity: 0.3 }}>·</span>
-              <span style={{ fontFamily: FONT.mono, fontSize: 8, color: C.t4, opacity: 0.35, letterSpacing: 1 }}>SSL 256-BIT</span>
+              <span style={{ fontFamily: FONT.mono, fontSize: 8, color: C.t4, opacity: 0.35, letterSpacing: 1 }}>KIWIFY · SSL 256-BIT</span>
             </div>
           </div>
         </Fade>
@@ -170,10 +166,9 @@ export function OfferPrice() {
             </div>
           </Fade>
 
-          {/* Pagar.me / Stone — Premium trust block */}
+          {/* Trust block */}
           <Fade delay={0.15}>
             <Glass hud style={{ padding: '24px 22px', marginTop: 16, textAlign: 'center' }}>
-              {/* Lock icon + title */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 16 }}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={C.teal} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
@@ -181,34 +176,15 @@ export function OfferPrice() {
                 <span style={{ fontFamily: FONT.mono, fontSize: 12, fontWeight: 700, color: C.teal, letterSpacing: 3 }}>PAGAMENTO 100% SEGURO</span>
               </div>
 
-              {/* Logos */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 24, marginBottom: 16 }}>
-                <div style={{
-                  padding: '10px 16px', borderRadius: 8, background: 'rgba(255,255,255,0.06)',
-                  border: `1px solid ${C.border}`, display: 'flex', alignItems: 'center',
-                }}>
-                  <img src="/pagarme.svg" alt="Pagar.me" style={{ height: 22, filter: 'brightness(0) invert(1)', opacity: 0.85 }} />
-                </div>
-                <div style={{ color: C.t4, fontSize: 10 }}>+</div>
-                <div style={{
-                  padding: '10px 16px', borderRadius: 8, background: 'rgba(255,255,255,0.06)',
-                  border: `1px solid ${C.border}`, display: 'flex', alignItems: 'center',
-                }}>
-                  <img src="/stone.png" alt="Grupo Stone" style={{ height: 20, filter: 'brightness(0) invert(1)', opacity: 0.85 }} />
-                </div>
-              </div>
-
-              {/* Description */}
               <p style={{ fontSize: 14, color: C.t2, lineHeight: 1.7, maxWidth: 400, margin: '0 auto' }}>
-                Processado pela <strong style={{ color: C.t1 }}>Pagar.me</strong>, empresa do <strong style={{ color: C.t1 }}>Grupo Stone</strong> — a mesma infraestrutura que processa milhões de transações por dia no Brasil.
+                Checkout processado pela <strong style={{ color: C.t1 }}>Kiwify</strong> — uma das maiores plataformas de produtos digitais do Brasil. Seus dados estão protegidos.
               </p>
 
-              {/* Payment methods */}
               <div style={{
                 display: 'flex', justifyContent: 'center', gap: 8, marginTop: 16,
                 flexWrap: 'wrap',
               }}>
-                {['PIX', 'Crédito'].map((m, i) => (
+                {['PIX', 'Cartão', 'Boleto'].map((m, i) => (
                   <span key={i} style={{
                     fontFamily: FONT.mono, fontSize: 13, fontWeight: 700, color: C.t3,
                     letterSpacing: 1, padding: '5px 12px', borderRadius: 6,
@@ -217,7 +193,6 @@ export function OfferPrice() {
                 ))}
               </div>
 
-              {/* SSL line */}
               <p style={{ fontFamily: FONT.mono, fontSize: 13, color: C.t4, marginTop: 14, letterSpacing: 1 }}>
                 SSL 256-BIT · DADOS CRIPTOGRAFADOS · ACESSO IMEDIATO
               </p>
