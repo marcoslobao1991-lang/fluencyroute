@@ -45,9 +45,9 @@ export async function sendServerEvent(eventName, userData = {}, customData = {},
     },
     custom_data: {
       currency: customData.currency || 'BRL',
-      value: customData.value || 99.00,
+      value: customData.value || 289.00,
       order_id: customData.order_id || undefined,
-      content_name: customData.content_name || 'Inglês Cantado — Plano Anual',
+      content_name: customData.content_name || 'Rota da Fluência Essencial',
       content_type: 'product',
     },
   }

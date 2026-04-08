@@ -1,12 +1,93 @@
 'use client'
 
-import { useEffect, useState, lazy, Suspense } from 'react'
+import { useEffect, useState, useRef, useCallback, lazy, Suspense } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { trackViewContent, trackInitiateCheckout, genEventId, getFbCookies } from '../lib/pixel'
 import '../vsl2/vsl.css'
 import { C, FONT } from '../vsl2/design'
 import { Fade, Glass, Label, S, Grad, useInView } from '../vsl2/primitives'
+
+// ═══════════════════════════════════════════════════════════════
+// ADVANCED TRACKING — UTMs, scroll depth, time on page
+// ═══════════════════════════════════════════════════════════════
+
+const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'sck'] as const
+
+function getUtmsFromUrl(): Record<string, string> {
+  if (typeof window === 'undefined') return {}
+  const params = new URLSearchParams(window.location.search)
+  const utms: Record<string, string> = {}
+  UTM_KEYS.forEach(k => {
+    const v = params.get(k)
+    if (v) utms[k] = v
+  })
+  return utms
+}
+
+function buildCheckoutUrl(base: string, utms: Record<string, string>): string {
+  const url = new URL(base)
+  Object.entries(utms).forEach(([k, v]) => url.searchParams.set(k, v))
+  return url.toString()
+}
+
+/** Sends event to browser pixel + server CAPI in parallel */
+function trackDual(event: string, eventId?: string) {
+  const eid = eventId || genEventId()
+  const { fbc, fbp } = getFbCookies()
+  // Browser pixel
+  if (typeof window !== 'undefined' && (window as any).fbq) {
+    (window as any).fbq('track', event, {
+      content_name: 'Rota da Fluência Essencial',
+      currency: 'BRL',
+      value: 289.00,
+    }, { eventID: eid })
+  }
+  // Server CAPI
+  fetch('/api/track', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ event, eventId: eid, fbc, fbp }),
+  }).catch(() => {})
+}
+
+function useScrollDepth() {
+  const firedRef = useRef(new Set<number>())
+  useEffect(() => {
+    const thresholds = [25, 50, 75, 100]
+    const handler = () => {
+      const scrollPct = Math.round(
+        (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
+      )
+      thresholds.forEach(t => {
+        if (scrollPct >= t && !firedRef.current.has(t)) {
+          firedRef.current.add(t)
+          trackDual(`ScrollDepth_${t}`)
+        }
+      })
+    }
+    window.addEventListener('scroll', handler, { passive: true })
+    return () => window.removeEventListener('scroll', handler)
+  }, [])
+}
+
+function useTimeOnPage() {
+  useEffect(() => {
+    const milestones = [30, 60, 120, 300, 600] // seconds
+    const fired = new Set<number>()
+    const start = Date.now()
+    const interval = setInterval(() => {
+      const elapsed = Math.floor((Date.now() - start) / 1000)
+      milestones.forEach(m => {
+        if (elapsed >= m && !fired.has(m)) {
+          fired.add(m)
+          trackDual(`TimeOnPage_${m}s`)
+        }
+      })
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [])
+}
 
 // Lazy load heavy graph components — only downloaded after reveal
 const VocabCoverage = lazy(() => import('../vsl2/graphs/VocabCoverage').then(m => ({ default: m.VocabCoverage })))
@@ -102,10 +183,18 @@ export default function RotaFluenciaPage() {
   const [revealed, setRevealed] = useState(false)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [seriesPaused, setSeriesPaused] = useState(false)
+  const [utms, setUtms] = useState<Record<string, string>>({})
+
+  // Advanced tracking hooks
+  useScrollDepth()
+  useTimeOnPage()
 
   useEffect(() => {
-    // Track view
-    trackViewContent('Rota da Fluência')
+    // Capture UTMs from URL
+    setUtms(getUtmsFromUrl())
+
+    // Track view (dual: browser + server)
+    trackDual('ViewContent')
 
     // Vturb SDK
     if (!document.querySelector('script[src*="smartplayer-wc"]')) {
@@ -210,7 +299,7 @@ export default function RotaFluenciaPage() {
             </p>
             <PriceBlock />
             <div style={{ marginTop: 24 }}>
-              <Btn text="QUERO FAZER PARTE" />
+              <Btn text="QUERO FAZER PARTE" utms={utms} />
             </div>
           </div>
         </Fade>
@@ -274,7 +363,7 @@ export default function RotaFluenciaPage() {
               </p>
             </div>
             <div style={{ marginTop: 24, textAlign: 'center' }}>
-              <Btn text="COMEÇAR AGORA" />
+              <Btn text="COMEÇAR AGORA" utms={utms} />
             </div>
           </Glass>
         </Fade>
@@ -323,7 +412,7 @@ export default function RotaFluenciaPage() {
           <div style={{ textAlign: 'center' }}>
             <PriceBlock />
             <div style={{ marginTop: 24 }}>
-              <Btn text="QUERO FAZER PARTE" />
+              <Btn text="QUERO FAZER PARTE" utms={utms} />
             </div>
           </div>
         </Fade>
@@ -438,7 +527,7 @@ export default function RotaFluenciaPage() {
 
           <Fade delay={0.2}>
             <div style={{ textAlign: 'center', marginTop: 28 }}>
-              <Btn text="COMEÇAR AGORA" />
+              <Btn text="COMEÇAR AGORA" utms={utms} />
             </div>
           </Fade>
         </S>
@@ -517,7 +606,7 @@ export default function RotaFluenciaPage() {
               </p>
             </div>
             <div style={{ marginTop: 24, textAlign: 'center' }}>
-              <Btn text="GARANTIR MINHA VAGA" />
+              <Btn text="GARANTIR MINHA VAGA" utms={utms} />
             </div>
           </Glass>
         </Fade>
@@ -582,7 +671,7 @@ export default function RotaFluenciaPage() {
             </h2>
             <PriceBlock />
             <div style={{ marginTop: 24 }}>
-              <Btn text="QUERO FAZER PARTE" />
+              <Btn text="QUERO FAZER PARTE" utms={utms} />
             </div>
           </div>
         </Fade>
@@ -601,7 +690,7 @@ export default function RotaFluenciaPage() {
 
       {/* ═══ STICKY CTA ═══ */}
       <div className={`esconder sticky-cta ${sticky ? 'show' : ''}`}>
-        <Btn compact text="COMEÇAR POR R$29/MÊS" />
+        <Btn compact text="COMEÇAR POR R$29/MÊS" utms={utms} />
       </div>
     </div>
   )
@@ -610,19 +699,13 @@ export default function RotaFluenciaPage() {
 // ═══════════════════════════════════════════════════════════════
 // CTA BUTTON — points to Kiwify checkout
 // ═══════════════════════════════════════════════════════════════
-function Btn({ text = 'QUERO FAZER PARTE', compact }: { text?: string; compact?: boolean }) {
+function Btn({ text = 'QUERO FAZER PARTE', compact, utms = {} }: { text?: string; compact?: boolean; utms?: Record<string, string> }) {
+  const checkoutUrl = buildCheckoutUrl('https://pay.kiwify.com.br/DlmRal3', utms)
   const handleClick = () => {
-    const eid = genEventId()
-    trackInitiateCheckout(eid)
-    const { fbc, fbp } = getFbCookies()
-    fetch('/api/meta-capi', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ event: 'InitiateCheckout', eventId: eid, fbc, fbp }),
-    }).catch(() => {})
+    trackDual('InitiateCheckout')
   }
   return (
-    <a href="https://pay.kiwify.com.br/DlmRal3" target="_blank" rel="noopener noreferrer" className="cta-btn"
+    <a href={checkoutUrl} target="_blank" rel="noopener noreferrer" className="cta-btn"
       onClick={handleClick}
       style={compact ? { padding: '14px 20px', fontSize: 15 } : undefined}
     >

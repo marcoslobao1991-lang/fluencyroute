@@ -69,17 +69,17 @@ export function trackViewContent(contentName?: string) {
 
 export function trackInitiateCheckout(eventId?: string) {
   trackEvent('InitiateCheckout', {
-    content_name: 'Inglês Cantado — Plano Anual',
+    content_name: 'Rota da Fluência Essencial',
     currency: 'BRL',
-    value: 99.00,
+    value: 289.00,
   }, eventId)
 }
 
 export function trackAddPaymentInfo(method: 'card' | 'pix', eventId?: string) {
   trackEvent('AddPaymentInfo', {
-    content_name: 'Inglês Cantado — Plano Anual',
+    content_name: 'Rota da Fluência Essencial',
     currency: 'BRL',
-    value: 99.00,
+    value: 289.00,
     payment_method: method,
   }, eventId)
 }
@@ -90,9 +90,9 @@ export function trackPurchase(
   eventId?: string
 ) {
   trackEventWithUser('Purchase', userData, {
-    content_name: 'Inglês Cantado — Plano Anual',
+    content_name: 'Rota da Fluência Essencial',
     currency: 'BRL',
-    value: 99.00,
+    value: 289.00,
     order_id: orderId,
   }, eventId)
 }
