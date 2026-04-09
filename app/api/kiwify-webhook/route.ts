@@ -143,9 +143,38 @@ export async function POST(req: NextRequest) {
     const firstName = name.split(' ')[0] || 'aluno'
     const phone = (customer.mobile || '').replace(/\D/g, '')
     const orderId = body.order_id || body.subscription_id || String(Date.now())
+
+    // ═══ DEDUP: skip if already processed ═══
+    const dedupCheck = await fetch(`${SUPA_URL}/rest/v1/orders?pagarme_order_id=eq.${encodeURIComponent(orderId)}&select=id`, {
+      headers: { 'apikey': SUPA_SERVICE_KEY, 'Authorization': `Bearer ${SUPA_SERVICE_KEY}` },
+    }).then(r => r.json()).catch(() => [])
+    if (dedupCheck.length > 0) {
+      console.log(`[Kiwify] Duplicate webhook for order ${orderId}, skipping`)
+      return NextResponse.json({ ok: true, duplicate: true })
+    }
     const value = body.Commissions?.charge_amount || body.Product?.price || 0
     const productName = body.Product?.product_name || 'Fluency Route'
     const eventId = `kiwify-${orderId}`
+
+    // ═══ 0. SAVE ORDER (dedup anchor) ═══
+    await fetch(`${SUPA_URL}/rest/v1/orders`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPA_SERVICE_KEY,
+        'Authorization': `Bearer ${SUPA_SERVICE_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal',
+      },
+      body: JSON.stringify({
+        pagarme_order_id: orderId,
+        customer_name: name,
+        customer_email: email,
+        product: productName,
+        amount_cents: Math.round(parseFloat(value) * 100) || 0,
+        payment_method: 'kiwify',
+        status: 'paid',
+      }),
+    }).catch(e => console.error('[Kiwify] Failed to save order:', e.message))
 
     // ═══ 1. META CAPI — Purchase ═══
     const userData: Record<string, any> = { country: [hash('br')] }
