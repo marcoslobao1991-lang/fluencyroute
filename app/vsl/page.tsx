@@ -570,7 +570,7 @@ export default function RotaFluenciaPage() {
                 <p>&#10003; Feedback Personalizado (R$997) — <span style={{ color: C.teal, fontWeight: 700 }}>GRÁTIS</span></p>
                 <p>&#10003; Suporte Individual por WhatsApp (R$797) — <span style={{ color: C.teal, fontWeight: 700 }}>GRÁTIS</span></p>
                 <p style={{ marginTop: 12, color: C.t1, fontWeight: 700 }}>Total: Mais de R$5.000</p>
-                <p style={{ fontSize: 16, fontWeight: 800, color: C.teal, marginTop: 4 }}>Hoje por apenas R$29/mês</p>
+                <p style={{ fontSize: 16, fontWeight: 800, color: C.teal, marginTop: 4 }}>Hoje por apenas R$49/mês</p>
               </div>
             </Glass>
           </div>
@@ -690,7 +690,7 @@ export default function RotaFluenciaPage() {
 
       {/* ═══ STICKY CTA ═══ */}
       <div className={`esconder sticky-cta ${sticky ? 'show' : ''}`}>
-        <Btn compact text="COMEÇAR POR R$29/MÊS" utms={utms} />
+        <Btn compact text="COMEÇAR POR R$49/MÊS" utms={utms} />
       </div>
     </div>
   )
@@ -700,7 +700,7 @@ export default function RotaFluenciaPage() {
 // CTA BUTTON — points to Kiwify checkout
 // ═══════════════════════════════════════════════════════════════
 function Btn({ text = 'QUERO FAZER PARTE', compact, utms = {} }: { text?: string; compact?: boolean; utms?: Record<string, string> }) {
-  const checkoutUrl = buildCheckoutUrl('https://pay.kiwify.com.br/DlmRal3', utms)
+  const checkoutUrl = buildCheckoutUrl('https://pay.kiwify.com.br/jTO3lIy', utms)
   const handleClick = () => {
     trackDual('InitiateCheckout')
   }
@@ -735,7 +735,7 @@ function PriceBlock() {
         background: C.gradText, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
         lineHeight: 1.1, marginTop: 4,
       }}>
-        R$29<span style={{ fontSize: '0.45em', fontWeight: 700 }}>/mês</span>
+        R$49<span style={{ fontSize: '0.45em', fontWeight: 700 }}>/mês</span>
       </p>
       <p style={{ fontSize: 13, color: C.t3, marginTop: 4 }}>12x no cartão</p>
     </div>
