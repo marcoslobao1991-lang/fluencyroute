@@ -243,9 +243,27 @@ export async function POST(req: NextRequest) {
           },
         }],
       }),
-    }).then(r => r.json()).catch(() => ({ error: 'meta failed' }))
+    }).then(r => r.json()).catch((e) => ({ error: { message: `fetch threw: ${e?.message || 'unknown'}` } }))
 
     console.log(`[CAPI] Purchase ${orderId}: ${JSON.stringify(metaRes)}`)
+
+    // ═══ CAPI FAILURE ALERT — warn Marcos on WhatsApp if Meta didn't accept the event ═══
+    const capiOk = metaRes && !metaRes.error && metaRes.events_received === 1
+    if (!capiOk) {
+      const reason = metaRes?.error?.message || metaRes?.error || 'events_received != 1'
+      const alertMsg = `🚨 *CAPI Purchase FAIL — Fluency Route*
+
+order: ${orderId}
+email: ${email}
+valor: R$${valueReais.toFixed(2)}
+motivo: ${typeof reason === 'string' ? reason : JSON.stringify(reason)}
+trace: ${metaRes?.fbtrace_id || 'none'}
+
+Investigar: Meta Events Manager → Diagnóstico`
+      sendWhatsApp(MARCOS_PHONE, alertMsg).catch(e =>
+        console.error('[Kiwify] Failed to send CAPI alert:', e?.message)
+      )
+    }
 
     // ═══ 2. CRIAR CONTA SUPABASE ═══
     let password: string | null = null
