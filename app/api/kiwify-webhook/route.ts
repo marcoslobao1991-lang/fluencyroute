@@ -152,7 +152,10 @@ export async function POST(req: NextRequest) {
       console.log(`[Kiwify] Duplicate webhook for order ${orderId}, skipping`)
       return NextResponse.json({ ok: true, duplicate: true })
     }
-    const value = body.Commissions?.charge_amount || body.Product?.price || 0
+    // Kiwify sends monetary values in CENTS (integer). Normalize both units.
+    const rawValue = body.Commissions?.charge_amount ?? body.Product?.price ?? 0
+    const valueCents = typeof rawValue === 'string' ? parseInt(rawValue, 10) || 0 : Math.round(Number(rawValue) || 0)
+    const valueReais = valueCents / 100
     const productName = body.Product?.product_name || 'Fluency Route'
     const eventId = `kiwify-${orderId}`
 
@@ -170,7 +173,7 @@ export async function POST(req: NextRequest) {
         customer_name: name,
         customer_email: email,
         product: productName,
-        amount_cents: Math.round(parseFloat(value) * 100) || 0,
+        amount_cents: valueCents,
         payment_method: 'kiwify',
         status: 'paid',
       }),
@@ -234,7 +237,7 @@ export async function POST(req: NextRequest) {
           user_data: userData,
           custom_data: {
             currency: 'BRL',
-            value: parseFloat(value) || 0,
+            value: valueReais,
             content_name: productName,
             order_id: orderId,
           },
@@ -307,7 +310,7 @@ Qualquer dúvida é só responder essa mensagem! 💬`
 👤 ${name}
 📧 ${email}
 📱 ${phone || 'sem telefone'}
-💵 R$${parseFloat(value).toFixed(2)}
+💵 R$${valueReais.toFixed(2)}
 📦 ${productName}
 🆔 ${orderId}
 ${isNew ? '🆕 Conta criada' : '♻️ Conta existente'}`
