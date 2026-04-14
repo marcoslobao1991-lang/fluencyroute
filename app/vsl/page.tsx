@@ -697,11 +697,65 @@ export default function RotaFluenciaPage() {
 }
 
 // ═══════════════════════════════════════════════════════════════
+// CART STITCHING — captures fbc/fbp/ua/ip before hop to Kiwify
+// so the webhook can enrich the Purchase CAPI with full user_data
+// ═══════════════════════════════════════════════════════════════
+function getOrCreateSessionId(): string {
+  if (typeof window === 'undefined') return ''
+  try {
+    const existing = sessionStorage.getItem('fr_sid')
+    if (existing) return existing
+    const nid = `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 12)}`
+    sessionStorage.setItem('fr_sid', nid)
+    return nid
+  } catch {
+    return `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 12)}`
+  }
+}
+
+function saveCheckoutSession(sessionId: string) {
+  if (typeof window === 'undefined' || !sessionId) return
+  const { fbc, fbp } = getFbCookies()
+  const p = new URLSearchParams(window.location.search)
+  const payload = {
+    session_id: sessionId,
+    fbc,
+    fbp,
+    fbclid: p.get('fbclid') || undefined,
+    utm_source: p.get('utm_source') || undefined,
+    utm_medium: p.get('utm_medium') || undefined,
+    utm_campaign: p.get('utm_campaign') || undefined,
+    utm_content: p.get('utm_content') || undefined,
+    utm_term: p.get('utm_term') || undefined,
+    sck: p.get('sck') || undefined,
+  }
+  try {
+    const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' })
+    const ok = navigator.sendBeacon?.('/api/checkout-session', blob)
+    if (!ok) throw new Error('no beacon')
+  } catch {
+    fetch('/api/checkout-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      keepalive: true,
+    }).catch(() => {})
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
 // CTA BUTTON — points to Kiwify checkout
 // ═══════════════════════════════════════════════════════════════
 function Btn({ text = 'QUERO FAZER PARTE', compact, utms = {} }: { text?: string; compact?: boolean; utms?: Record<string, string> }) {
-  const checkoutUrl = buildCheckoutUrl('https://pay.kiwify.com.br/jTO3lIy', utms)
+  const [sid, setSid] = useState('')
+  useEffect(() => { setSid(getOrCreateSessionId()) }, [])
+  const checkoutUrl = buildCheckoutUrl(
+    'https://pay.kiwify.com.br/jTO3lIy',
+    sid ? { ...utms, s_id: sid } : utms
+  )
   const handleClick = () => {
+    const effectiveSid = sid || getOrCreateSessionId()
+    saveCheckoutSession(effectiveSid)
     trackDual('InitiateCheckout')
   }
   return (

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import PurchaseTrigger from './PurchaseTrigger'
 
 export const metadata: Metadata = {
   title: 'Compra Confirmada — Fluency Route',
@@ -15,6 +16,7 @@ export default function ObrigadoPage() {
       justifyContent: 'center',
       padding: '40px 20px',
     }}>
+      <PurchaseTrigger />
       <div style={{
         maxWidth: 520,
         width: '100%',

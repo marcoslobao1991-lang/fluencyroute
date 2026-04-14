@@ -176,15 +176,50 @@ export async function POST(req: NextRequest) {
       }),
     }).catch(e => console.error('[Kiwify] Failed to save order:', e.message))
 
-    // ═══ 1. META CAPI — Purchase ═══
-    const userData: Record<string, any> = { country: [hash('br')] }
+    // ═══ 1a. CART STITCHING — lookup browser-side data by session_id ═══
+    const trackingParams: Record<string, any> =
+      body.TrackingParameters || body.tracking_parameters || body.trackingParameters || {}
+    const sessionId: string | null =
+      trackingParams.s_id || trackingParams.session_id || body.s_id || null
+
+    let stitched: Record<string, any> = {}
+    if (sessionId) {
+      try {
+        const r = await fetch(
+          `${SUPA_URL}/rest/v1/checkout_sessions?session_id=eq.${encodeURIComponent(sessionId)}&select=*&limit=1`,
+          { headers: { apikey: SUPA_SERVICE_KEY, Authorization: `Bearer ${SUPA_SERVICE_KEY}` } }
+        )
+        const rows = await r.json()
+        if (Array.isArray(rows) && rows[0]) stitched = rows[0]
+        console.log(`[Kiwify] Session stitch ${sessionId}: ${stitched.session_id ? 'hit' : 'miss'}`)
+      } catch (e: any) {
+        console.warn('[Kiwify] Session lookup failed:', e?.message)
+      }
+    }
+
+    // ═══ 1b. META CAPI — Purchase (fully enriched) ═══
+    const address = customer.address || customer.Address || {}
+    const cpfRaw = String(customer.CPF || customer.cpf || customer.document || '').replace(/\D/g, '')
+
+    const userData: Record<string, any> = {
+      country: [hash('br')],
+    }
     if (email) userData.em = [hash(email)]
     if (phone) userData.ph = [hash(phone)]
     if (name) {
-      const parts = name.split(' ')
-      userData.fn = [hash(parts[0] || '')]
+      const parts = name.split(' ').filter(Boolean)
+      if (parts[0]) userData.fn = [hash(parts[0])]
       if (parts.length > 1) userData.ln = [hash(parts.slice(1).join(' '))]
     }
+    if (cpfRaw) userData.external_id = [hash(cpfRaw)]
+    if (address.city) userData.ct = [hash(String(address.city))]
+    if (address.state) userData.st = [hash(String(address.state))]
+    const zipRaw = String(address.zipcode || address.zip_code || address.zip || '').replace(/\D/g, '')
+    if (zipRaw) userData.zp = [hash(zipRaw)]
+    if (stitched.fbc) userData.fbc = stitched.fbc
+    if (stitched.fbp) userData.fbp = stitched.fbp
+    if (stitched.ip) userData.client_ip_address = stitched.ip
+    if (stitched.ua) userData.client_user_agent = stitched.ua
 
     const metaRes = await fetch(`${META_API}?access_token=${ACCESS_TOKEN}`, {
       method: 'POST',
