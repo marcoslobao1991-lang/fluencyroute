@@ -40,7 +40,7 @@ function trackDual(event: string, eventId?: string) {
     (window as any).fbq('track', event, {
       content_name: 'Rota da Fluência Essencial',
       currency: 'BRL',
-      value: 29.00,
+      value: 289.00,
     }, { eventID: eid })
   }
   // Server CAPI
