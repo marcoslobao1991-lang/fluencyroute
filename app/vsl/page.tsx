@@ -40,7 +40,7 @@ function trackDual(event: string, eventId?: string) {
     (window as any).fbq('track', event, {
       content_name: 'Rota da Fluência Essencial',
       currency: 'BRL',
-      value: 289.00,
+      value: 29.00,
     }, { eventID: eid })
   }
   // Server CAPI
@@ -570,7 +570,7 @@ export default function RotaFluenciaPage() {
                 <p>&#10003; Feedback Personalizado (R$997) — <span style={{ color: C.teal, fontWeight: 700 }}>GRÁTIS</span></p>
                 <p>&#10003; Suporte Individual por WhatsApp (R$797) — <span style={{ color: C.teal, fontWeight: 700 }}>GRÁTIS</span></p>
                 <p style={{ marginTop: 12, color: C.t1, fontWeight: 700 }}>Total: Mais de R$5.000</p>
-                <p style={{ fontSize: 16, fontWeight: 800, color: C.teal, marginTop: 4 }}>Hoje por apenas R$49/mês</p>
+                <p style={{ fontSize: 16, fontWeight: 800, color: C.teal, marginTop: 4 }}>Hoje por apenas R$29/mês</p>
               </div>
             </Glass>
           </div>
@@ -690,7 +690,7 @@ export default function RotaFluenciaPage() {
 
       {/* ═══ STICKY CTA ═══ */}
       <div className={`esconder sticky-cta ${sticky ? 'show' : ''}`}>
-        <Btn compact text="COMEÇAR POR R$49/MÊS" utms={utms} />
+        <Btn compact text="COMEÇAR POR R$29/MÊS" utms={utms} />
       </div>
     </div>
   )
@@ -750,7 +750,7 @@ function Btn({ text = 'QUERO FAZER PARTE', compact, utms = {} }: { text?: string
   const [sid, setSid] = useState('')
   useEffect(() => { setSid(getOrCreateSessionId()) }, [])
   const checkoutUrl = buildCheckoutUrl(
-    'https://pay.kiwify.com.br/jTO3lIy',
+    'https://pay.kiwify.com.br/DlmRal3',
     sid ? { ...utms, s_id: sid } : utms
   )
   const handleClick = () => {
@@ -789,7 +789,7 @@ function PriceBlock() {
         background: C.gradText, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
         lineHeight: 1.1, marginTop: 4,
       }}>
-        R$49<span style={{ fontSize: '0.45em', fontWeight: 700 }}>/mês</span>
+        R$29<span style={{ fontSize: '0.45em', fontWeight: 700 }}>/mês</span>
       </p>
       <p style={{ fontSize: 13, color: C.t3, marginTop: 4 }}>12x no cartão</p>
     </div>
