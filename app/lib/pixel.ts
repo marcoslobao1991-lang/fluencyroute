@@ -16,13 +16,34 @@ export function genEventId(): string {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`
 }
 
-/** Get fbclid-based cookies for CAPI matching */
+/** Get fbclid-based cookies for CAPI matching — builds fbc from fbclid if cookie not set */
 export function getFbCookies(): { fbc?: string; fbp?: string } {
   if (typeof document === 'undefined') return {}
   const cookies = document.cookie.split('; ')
-  const fbc = cookies.find(c => c.startsWith('_fbc='))?.split('=')[1]
+  let fbc = cookies.find(c => c.startsWith('_fbc='))?.split('=')[1]
   const fbp = cookies.find(c => c.startsWith('_fbp='))?.split('=')[1]
+  if (!fbc) {
+    const fbclid = new URLSearchParams(window.location.search).get('fbclid')
+    if (fbclid) fbc = `fb.1.${Date.now()}.${fbclid}`
+  }
   return { fbc, fbp }
+}
+
+/** Get client IP via external API */
+export let cachedIp: string | null = null
+export async function getClientIp(): Promise<string | null> {
+  if (cachedIp) return cachedIp
+  try {
+    const r = await fetch('https://api.ipify.org?format=json')
+    const d = await r.json()
+    cachedIp = d.ip
+    return cachedIp
+  } catch { return null }
+}
+
+/** Get user agent */
+export function getUserAgent(): string {
+  return typeof navigator !== 'undefined' ? navigator.userAgent : ''
 }
 
 /** Track standard event with event_id for dedup */

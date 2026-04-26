@@ -12,10 +12,14 @@ export async function POST(req: NextRequest) {
     }
 
     const ip =
+      body.client_ip_address ||
       req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
       req.headers.get('x-real-ip') ||
       ''
-    const ua = req.headers.get('user-agent') || ''
+    const ua =
+      body.client_user_agent ||
+      req.headers.get('user-agent') ||
+      ''
 
     const row = {
       session_id,

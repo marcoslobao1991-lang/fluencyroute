@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef, useCallback, lazy, Suspense } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { trackViewContent, trackInitiateCheckout, genEventId, getFbCookies } from '../lib/pixel'
+import { trackViewContent, trackInitiateCheckout, genEventId, getFbCookies, getClientIp, getUserAgent, cachedIp } from '../lib/pixel'
 import '../vsl2/vsl.css'
 import { C, FONT } from '../vsl2/design'
 import { Fade, Glass, Label, S, Grad, useInView } from '../vsl2/primitives'
@@ -31,23 +31,49 @@ function buildCheckoutUrl(base: string, utms: Record<string, string>): string {
   return url.toString()
 }
 
+/** Read external_id anônimo do cookie _fluency_uid (criado no PageViewTracker) */
+function getExternalId(): string {
+  try {
+    if (typeof document === 'undefined') return ''
+    const m = document.cookie.match(/(?:^|;\s*)_fluency_uid=([^;]+)/)
+    return m ? decodeURIComponent(m[1]) : ''
+  } catch { return '' }
+}
+
 /** Sends event to browser pixel + server CAPI in parallel */
-function trackDual(event: string, eventId?: string) {
+async function trackDual(event: string, eventId?: string) {
   const eid = eventId || genEventId()
   const { fbc, fbp } = getFbCookies()
+  const ip = await getClientIp()
+  const ua = getUserAgent()
+  const extId = getExternalId()
   // Browser pixel
   if (typeof window !== 'undefined' && (window as any).fbq) {
     (window as any).fbq('track', event, {
       content_name: 'Rota da Fluência Essencial',
       currency: 'BRL',
       value: 289.00,
+      content_ids: ['fluency-annual'],
+      content_type: 'product',
     }, { eventID: eid })
   }
-  // Server CAPI
+  // Server CAPI — inclui external_id anônimo pra subir EMQ mesmo sem form
   fetch('/api/track', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ event, eventId: eid, fbc, fbp }),
+    body: JSON.stringify({
+      event,
+      eventId: eid,
+      fbc, fbp,
+      external_id: extId,
+      client_ip_address: ip,
+      client_user_agent: ua,
+      value: 289.00,
+      currency: 'BRL',
+      content_name: 'Rota da Fluência Essencial',
+      content_ids: ['fluency-annual'],
+      content_type: 'product',
+    }),
   }).catch(() => {})
 }
 
@@ -190,8 +216,45 @@ export default function RotaFluenciaPage() {
   useTimeOnPage()
 
   useEffect(() => {
+    // Pre-fetch IP for tracking
+    getClientIp()
     // Capture UTMs from URL
     setUtms(getUtmsFromUrl())
+
+    // ── Capture Vturb sck via postMessage (fires before any click) ──
+    const handleVturbMessage = (event: MessageEvent) => {
+      try {
+        if (!event.data || event.data.mime !== 'smartplayer/message-text-v4') return
+        if (event.data.type !== 'UpdateUrlParams') return
+        const sck = event.data.sck || event.data.data?.sck
+        if (sck) {
+          const { fbc, fbp } = getFbCookies()
+          const payload = {
+            session_id: getOrCreateSessionId() + '-sck-' + Date.now().toString(36),
+            fbc,
+            fbp,
+            fbclid: new URLSearchParams(window.location.search).get('fbclid') || undefined,
+            client_ip_address: cachedIp || undefined,
+            client_user_agent: getUserAgent() || undefined,
+            sck,
+            ...getUtmsFromUrl(),
+          }
+          try {
+            const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' })
+            const ok = navigator.sendBeacon?.('/api/checkout-session', blob)
+            if (!ok) throw new Error('no beacon')
+          } catch {
+            fetch('/api/checkout-session', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload),
+              keepalive: true,
+            }).catch(() => {})
+          }
+        }
+      } catch {}
+    }
+    window.addEventListener('message', handleVturbMessage)
 
     // Track view (dual: browser + server)
     trackDual('ViewContent')
@@ -215,6 +278,8 @@ export default function RotaFluenciaPage() {
     const delaySeconds = 1260
     const storageKey = 'rota_fluencia_revealed'
     const alreadyRevealed = localStorage.getItem(storageKey) === '1'
+    // preview/dev: ?reveal=1 mostra tudo de cara (não persiste em localStorage)
+    const previewReveal = new URLSearchParams(location.search).get('reveal') === '1'
 
     const doReveal = () => {
       document.querySelectorAll('.esconder').forEach(el => el.classList.remove('esconder'))
@@ -222,7 +287,10 @@ export default function RotaFluenciaPage() {
       setRevealed(true)
     }
 
-    if (alreadyRevealed) {
+    if (previewReveal) {
+      document.querySelectorAll('.esconder').forEach(el => el.classList.remove('esconder'))
+      setRevealed(true)
+    } else if (alreadyRevealed) {
       doReveal()
     } else {
       const revealTimer = setTimeout(doReveal, delaySeconds * 1000)
@@ -232,7 +300,10 @@ export default function RotaFluenciaPage() {
     // Sticky CTA on scroll
     const fn = () => setSticky(window.scrollY > 600)
     window.addEventListener('scroll', fn)
-    return () => window.removeEventListener('scroll', fn)
+    return () => {
+      window.removeEventListener('scroll', fn)
+      window.removeEventListener('message', handleVturbMessage)
+    }
   }, [])
 
   const cardW = 240
@@ -251,9 +322,9 @@ export default function RotaFluenciaPage() {
       <section style={{ maxWidth: 600, margin: '0 auto', padding: '32px 20px 0' }}>
         <Fade>
           <h1 style={{
-            fontSize: 'clamp(16px, 4vw, 22px)', fontWeight: 700, lineHeight: 1.35,
+            fontSize: 'clamp(14px, 3.6vw, 20px)', fontWeight: 700, lineHeight: 1.3,
             textAlign: 'center', color: C.t1, letterSpacing: '-0.02em',
-            marginBottom: 20, padding: '0 12px',
+            marginBottom: 20, padding: '0 8px',
           }}>
             O <span style={{ color: C.teal, fontWeight: 800 }}>Método de Repetição</span> que obriga o seu cérebro a entender inglês em tempo recorde
           </h1>
@@ -570,7 +641,7 @@ export default function RotaFluenciaPage() {
                 <p>&#10003; Feedback Personalizado (R$997) — <span style={{ color: C.teal, fontWeight: 700 }}>GRÁTIS</span></p>
                 <p>&#10003; Suporte Individual por WhatsApp (R$797) — <span style={{ color: C.teal, fontWeight: 700 }}>GRÁTIS</span></p>
                 <p style={{ marginTop: 12, color: C.t1, fontWeight: 700 }}>Total: Mais de R$5.000</p>
-                <p style={{ fontSize: 16, fontWeight: 800, color: C.teal, marginTop: 4 }}>Hoje por apenas R$29/mês</p>
+                <p style={{ fontSize: 16, fontWeight: 800, color: C.teal, marginTop: 4 }}>Hoje por apenas R$19/mês</p>
               </div>
             </Glass>
           </div>
@@ -690,7 +761,7 @@ export default function RotaFluenciaPage() {
 
       {/* ═══ STICKY CTA ═══ */}
       <div className={`esconder sticky-cta ${sticky ? 'show' : ''}`}>
-        <Btn compact text="COMEÇAR POR R$29/MÊS" utms={utms} />
+        <Btn compact text="COMEÇAR POR R$19/MÊS" utms={utms} />
       </div>
     </div>
   )
@@ -722,6 +793,8 @@ function saveCheckoutSession(sessionId: string) {
     fbc,
     fbp,
     fbclid: p.get('fbclid') || undefined,
+    client_ip_address: cachedIp || undefined,
+    client_user_agent: getUserAgent() || undefined,
     utm_source: p.get('utm_source') || undefined,
     utm_medium: p.get('utm_medium') || undefined,
     utm_campaign: p.get('utm_campaign') || undefined,
@@ -746,21 +819,68 @@ function saveCheckoutSession(sessionId: string) {
 // ═══════════════════════════════════════════════════════════════
 // CTA BUTTON — points to Kiwify checkout
 // ═══════════════════════════════════════════════════════════════
+// IMPORTANT: Vturb player injects `?sck=XXX` into any outgoing checkout
+// links AFTER it loads. By the time the user clicks, the anchor's href
+// contains sck, but the stitch row we saved on page mount has sck=null.
+// The Kiwify webhook needs sck (not fbclid — Kiwify drops fbclid) to look
+// up the stitch row, so we MUST persist a fresh stitch row at click time
+// with the sck that Vturb just wrote into the href.
 function Btn({ text = 'QUERO FAZER PARTE', compact, utms = {} }: { text?: string; compact?: boolean; utms?: Record<string, string> }) {
   const [sid, setSid] = useState('')
+  const anchorRef = useRef<HTMLAnchorElement>(null)
   useEffect(() => { setSid(getOrCreateSessionId()) }, [])
   const checkoutUrl = buildCheckoutUrl(
-    'https://pay.kiwify.com.br/DlmRal3',
-    sid ? { ...utms, s_id: sid } : utms
+    'https://pay.kiwify.com.br/ESzq5JN',
+    sid ? { ...utms, s1: sid } : utms
   )
+  // Last-moment stitch upsert: on mousedown (fires BEFORE click), read the
+  // anchor's current href (Vturb may have updated it with sck), and send
+  // a fresh checkout_sessions row with that sck. sendBeacon survives unload.
+  const handleMouseDown = () => {
+    try {
+      const a = anchorRef.current
+      if (!a) return
+      const u = new URL(a.href)
+      const currentSck = u.searchParams.get('sck')
+      if (!currentSck) return // nothing new to stitch
+      const { fbc, fbp } = getFbCookies()
+      const p = new URLSearchParams(window.location.search)
+      const payload = JSON.stringify({
+        session_id: (sid || getOrCreateSessionId()) + '-click-' + Date.now().toString(36),
+        fbc,
+        fbp,
+        fbclid: p.get('fbclid') || undefined,
+        client_ip_address: cachedIp || undefined,
+        client_user_agent: getUserAgent() || undefined,
+        sck: currentSck,
+        utm_source: p.get('utm_source') || undefined,
+        utm_medium: p.get('utm_medium') || undefined,
+        utm_campaign: p.get('utm_campaign') || undefined,
+        utm_content: p.get('utm_content') || undefined,
+        utm_term: p.get('utm_term') || undefined,
+      })
+      try {
+        const blob = new Blob([payload], { type: 'application/json' })
+        const ok = navigator.sendBeacon?.('/api/checkout-session', blob)
+        if (!ok) throw new Error('beacon refused')
+      } catch {
+        fetch('/api/checkout-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: payload,
+          keepalive: true,
+        }).catch(() => {})
+      }
+    } catch {}
+  }
   const handleClick = () => {
     const effectiveSid = sid || getOrCreateSessionId()
     saveCheckoutSession(effectiveSid)
     trackDual('InitiateCheckout')
   }
   return (
-    <a href={checkoutUrl} target="_blank" rel="noopener noreferrer" className="cta-btn"
-      onClick={handleClick}
+    <a ref={anchorRef} href={checkoutUrl} target="_blank" rel="noopener noreferrer" className="cta-btn"
+      onClick={(e) => { handleMouseDown(); handleClick(); }}
       style={compact ? { padding: '14px 20px', fontSize: 15 } : undefined}
     >
       <span style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
@@ -779,17 +899,26 @@ function Btn({ text = 'QUERO FAZER PARTE', compact, utms = {} }: { text?: string
 function PriceBlock() {
   return (
     <div style={{ textAlign: 'center' }}>
+      <span style={{
+        display: 'inline-flex', alignItems: 'center', gap: 6,
+        padding: '5px 12px', borderRadius: 999,
+        background: 'linear-gradient(135deg,#ff3d6e,#ff8a3d)',
+        color: '#fff', fontSize: 11, fontWeight: 800, letterSpacing: '0.3px',
+        textTransform: 'uppercase', boxShadow: '0 4px 14px rgba(255,61,110,.35)',
+        marginBottom: 10,
+      }}>🔥 Últimas vagas com desconto</span>
       <p style={{ fontSize: 16, color: C.t2 }}>
         De <span style={{ textDecoration: 'line-through', color: C.red }}>R$497</span>
       </p>
-      <p style={{ fontSize: 14, color: C.t2, marginTop: 4 }}>Hoje por apenas:</p>
+      <p style={{ fontSize: 13, color: C.t3, marginTop: 2, textDecoration: 'line-through' }}>antes R$29/mês</p>
+      <p style={{ fontSize: 14, color: C.t2, marginTop: 6 }}>Hoje por apenas:</p>
       <p style={{
         fontSize: 'clamp(40px, 10vw, 56px)', fontWeight: 900,
         fontFamily: FONT.mono, letterSpacing: '-0.04em',
         background: C.gradText, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
         lineHeight: 1.1, marginTop: 4,
       }}>
-        R$29<span style={{ fontSize: '0.45em', fontWeight: 700 }}>/mês</span>
+        R$19<span style={{ fontSize: '0.45em', fontWeight: 700 }}>/mês</span>
       </p>
       <p style={{ fontSize: 13, color: C.t3, marginTop: 4 }}>12x no cartão</p>
     </div>

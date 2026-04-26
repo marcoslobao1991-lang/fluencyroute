@@ -180,6 +180,8 @@ export default function CheckoutPage() {
   const [utms, setUtms] = useState<Record<string, string>>({})
   const [selectOpen, setSelectOpen] = useState(false)
   const [touched, setTouched] = useState<Record<string, boolean>>({})
+  // Anonymous external_id persistido em cookie — cross-subdomain
+  const extIdRef = useRef<string>('')
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -285,12 +287,38 @@ export default function CheckoutPage() {
       const v = p.get(k); if (v) u[k] = v
     })
     setUtms(u)
+
+    // External ID anônimo persistente (cookie _fluency_uid, compartilhado com landing/VSL)
+    let extId = ''
+    try {
+      const m = document.cookie.match(/(?:^|;\s*)_fluency_uid=([^;]+)/)
+      extId = m ? decodeURIComponent(m[1]) : ''
+      if (!extId) {
+        extId = (typeof crypto !== 'undefined' && (crypto as any).randomUUID)
+          ? (crypto as any).randomUUID()
+          : `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 14)}`
+        document.cookie = `_fluency_uid=${encodeURIComponent(extId)}; path=/; domain=.fluencyroute.com.br; max-age=${60 * 60 * 24 * 365 * 2}; SameSite=Lax`
+      }
+    } catch {}
+    extIdRef.current = extId
+
     const eid = genEventId()
     trackInitiateCheckout(eid)
-    // Server-side InitiateCheckout
     const { fbc, fbp } = getFbCookies()
+    // Server-side InitiateCheckout com external_id
     fetch('/api/track', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ event: 'InitiateCheckout', eventId: eid, fbc, fbp }) }).catch(() => {})
+      body: JSON.stringify({
+        event: 'InitiateCheckout',
+        eventId: eid,
+        fbc, fbp,
+        external_id: extId,
+        value: 496,
+        currency: 'BRL',
+        content_name: 'Inglês Cantado — Plano Anual',
+        content_ids: ['fluency-annual'],
+        content_type: 'product',
+      }),
+    }).catch(() => {})
   }, [])
 
   const handleSubmit = async () => {
@@ -309,6 +337,42 @@ export default function CheckoutPage() {
     const purchaseEid = genEventId()
     const { fbc, fbp } = getFbCookies()
     trackAddPaymentInfo(method as 'card' | 'pix', addPaymentEid)
+
+    // Server-side AddPaymentInfo + Lead com user_data completo (EMQ 8+)
+    const userDataPayload = {
+      fbc, fbp,
+      email,
+      phone: phone.replace(/\D/g, ''),
+      cpf: cpf.replace(/\D/g, ''),
+      name,
+      external_id: extIdRef.current,
+      city: cidade || undefined,
+      state: estado || undefined,
+      zip: cep ? cep.replace(/\D/g, '') : undefined,
+    }
+    fetch('/api/track', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        event: 'AddPaymentInfo',
+        eventId: addPaymentEid,
+        ...userDataPayload,
+        value: 496,
+        currency: 'BRL',
+        content_name: 'Inglês Cantado — Plano Anual',
+        content_ids: ['fluency-annual'],
+        content_type: 'product',
+      }),
+    }).catch(() => {})
+    const leadEid = genEventId()
+    fetch('/api/track', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        event: 'Lead',
+        eventId: leadEid,
+        ...userDataPayload,
+        content_name: 'Inglês Cantado',
+      }),
+    }).catch(() => {})
     try {
       const res = await fetch('/api/checkout', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },

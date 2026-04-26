@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: ['192.168.0.5', '192.168.0.0/24'],
   async redirects() {
     return [
       { source: '/aula-vsl', destination: '/vsl2', permanent: true },
