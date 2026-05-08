@@ -56,16 +56,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <img height="1" width="1" style={{ display: 'none' }}
             src="https://www.facebook.com/tr?id=938768337634102&ev=PageView&noscript=1" />
         </noscript>
-        {/* Google Ads (gtag.js) — base global. Event 'conversion' disparado em /obrigado via PurchaseTrigger. */}
+        {/* Google gtag.js — UM script base, DOIS configs:
+            - GA4 (G-Z35QLQE3PQ) — analytics + Enhanced Conversions
+            - Google Ads (AW-16694165189) — conversion event /obrigado via PurchaseTrigger */}
         <Script
           id="gtag-base"
           strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=AW-16694165189"
+          src="https://www.googletagmanager.com/gtag/js?id=G-Z35QLQE3PQ"
         />
         <Script id="gtag-init" strategy="afterInteractive">{`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
+          gtag('config', 'G-Z35QLQE3PQ');
           gtag('config', 'AW-16694165189');
         `}</Script>
         {/* Prefetch checkout pra abertura instantânea */}
