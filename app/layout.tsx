@@ -56,6 +56,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <img height="1" width="1" style={{ display: 'none' }}
             src="https://www.facebook.com/tr?id=938768337634102&ev=PageView&noscript=1" />
         </noscript>
+        {/* Google Ads (gtag.js) — base global. Event 'conversion' disparado em /obrigado via PurchaseTrigger. */}
+        <Script
+          id="gtag-base"
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=AW-16694165189"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'AW-16694165189');
+        `}</Script>
         {/* Prefetch checkout pra abertura instantânea */}
         <link rel="dns-prefetch" href="https://go.fluencyroute.com.br" />
         <link rel="preconnect" href="https://go.fluencyroute.com.br" />
