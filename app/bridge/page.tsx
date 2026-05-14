@@ -15,9 +15,9 @@ const L = {
   bg2: '#ffffff',
   bg3: '#f3f1ec',
   text: '#1c1b1a',
-  textDim: 'rgba(28,27,26,.70)',
-  textMuted: 'rgba(28,27,26,.48)',
-  textFaint: 'rgba(28,27,26,.25)',
+  textDim: 'rgba(28,27,26,.72)',
+  textMuted: 'rgba(28,27,26,.58)',
+  textFaint: 'rgba(28,27,26,.42)',
   border: 'rgba(0,0,0,.10)',
   borderLight: 'rgba(0,0,0,.05)',
   borderStrong: 'rgba(0,0,0,.18)',
@@ -542,18 +542,24 @@ export default function BridgePage() {
     setVslUrl(buildVslUrl())
     try { trackViewContent('bridge-rota') } catch {}
 
-    // Prefetch da VSL — bundle Next.js carregado em background
-    try { router.prefetch('/vsl') } catch {}
+    // Defer prefetch até depois do LCP (não competir por banda no critical path)
+    let link: HTMLLinkElement | null = null
+    const prefetchTimer = setTimeout(() => {
+      try { router.prefetch('/vsl') } catch {}
+      try {
+        link = document.createElement('link')
+        link.rel = 'prefetch'
+        link.href = '/vsl'
+        link.as = 'document'
+        ;(link as any).fetchPriority = 'low'
+        document.head.appendChild(link)
+      } catch {}
+    }, 1800)
 
-    // Backup: <link rel="prefetch"> pro HTML/recursos
-    try {
-      const link = document.createElement('link')
-      link.rel = 'prefetch'
-      link.href = '/vsl'
-      link.as = 'document'
-      document.head.appendChild(link)
-      return () => { try { document.head.removeChild(link) } catch {} }
-    } catch {}
+    return () => {
+      clearTimeout(prefetchTimer)
+      if (link) { try { document.head.removeChild(link) } catch {} }
+    }
   }, [router])
 
   return (
