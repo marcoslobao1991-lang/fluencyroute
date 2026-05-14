@@ -318,18 +318,8 @@ export default function RotaFluenciaPage() {
 
       {/* ═══ HEADER ═══ */}
 
-      {/* ═══ HERO — HEADLINE + VIDEO ═══ */}
-      <section style={{ maxWidth: 600, margin: '0 auto', padding: '32px 20px 0' }}>
-        <Fade>
-          <h1 style={{
-            fontSize: 'clamp(16px, 4vw, 22px)', fontWeight: 700, lineHeight: 1.25,
-            textAlign: 'center', color: C.t1, letterSpacing: '-0.02em',
-            marginBottom: 20, padding: '0 8px',
-          }}>
-            Isso é <span style={{ color: C.teal, fontWeight: 800 }}>sem graça</span>, mas me deixou fluente em inglês.
-          </h1>
-        </Fade>
-
+      {/* ═══ HERO — VIDEO ═══ */}
+      <section style={{ maxWidth: 600, margin: '0 auto', padding: '40px 20px 0' }}>
         <Fade delay={0.15}>
           <div id="ifr_67d1c8ba61d59aeb47caf87d_wrapper" style={{ maxWidth: 400, margin: '0 auto', borderRadius: 12, overflow: 'hidden', border: `1px solid ${C.border}` }}>
             <div style={{ position: 'relative', paddingTop: '177.78%', background: C.bg2 }} id="ifr_67d1c8ba61d59aeb47caf87d_aspect">
