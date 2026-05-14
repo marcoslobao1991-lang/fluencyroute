@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { trackViewContent } from '../lib/pixel'
 
 // ═══════════════════════════════════════════════════════════════
@@ -147,38 +148,39 @@ function GraphVariety() {
         </text>
         <line x1="30" y1="215" x2="570" y2="215" stroke={L.borderLight} strokeWidth="1" strokeDasharray="3 5" />
 
-        {/* ─── OUTPUT: embolado ─── */}
+        {/* ─── OUTPUT: embolado + stat ─── */}
         <defs>
           <filter id="blurVariety">
-            <feGaussianBlur stdDeviation="1.4" />
+            <feGaussianBlur stdDeviation="4.5" />
           </filter>
         </defs>
 
-        <g filter="url(#blurVariety)" opacity="0.85" transform="translate(0, 260)">
-          <path d="M 30 30 Q 60 5 90 30 T 150 40 T 210 15 T 270 35 T 330 25 T 390 45 T 450 20 T 510 30 T 570 25" fill="none" stroke={L.textFaint} strokeWidth="2" />
-          <path d="M 30 25 Q 75 45 120 25 T 180 10 T 240 40 T 300 20 T 360 30 T 420 15 T 480 40 T 570 30" fill="none" stroke={L.textFaint} strokeWidth="2" opacity="0.7" />
-          <path d="M 30 35 Q 85 15 145 40 T 235 25 T 325 35 T 415 18 T 505 30 T 570 22" fill="none" stroke={L.textFaint} strokeWidth="2" opacity="0.5" />
-        </g>
-
-        {/* texto embolado */}
+        {/* Frase real do produto (Friends) embolada — quase ilegível */}
         <text
-          x="300" y="370"
+          x="300" y="285"
           fontFamily={FONT.mono}
-          fontSize="32"
+          fontSize="36"
           fontWeight="700"
-          fill={L.textDim}
+          fill={L.textFaint}
           textAnchor="middle"
-          letterSpacing="-3"
+          letterSpacing="-4"
           filter="url(#blurVariety)"
         >
           theresnothingtotell
         </text>
-
-        <text x="300" y="425" fontFamily={FONT.mono} fontSize="14" fontWeight="700" letterSpacing="2.5" fill={L.textMuted} textAnchor="middle">
-          TUDO GRUDADO · NADA SEPARÁVEL
-        </text>
-        <text x="300" y="455" fontFamily={FONT.body} fontSize="13" fill={L.textFaint} textAnchor="middle" fontStyle="italic">
+        <text x="300" y="318" fontFamily={FONT.body} fontSize="12" fill={L.textMuted} textAnchor="middle" fontStyle="italic">
           (a frase real: "There's nothing to tell.")
+        </text>
+
+        {/* BIG STAT — "~12%" */}
+        <text x="300" y="395" fontFamily={FONT.body} fontSize="72" fontWeight="900" fill={L.text} textAnchor="middle" letterSpacing="-0.04em">
+          ~12%
+        </text>
+        <text x="300" y="425" fontFamily={FONT.mono} fontSize="13" fontWeight="700" letterSpacing="3" fill={L.textMuted} textAnchor="middle">
+          DO DIÁLOGO REAL
+        </text>
+        <text x="300" y="460" fontFamily={FONT.body} fontSize="13" fill={L.textDim} textAnchor="middle" fontStyle="italic">
+          é o que chega no ouvido
         </text>
       </svg>
 
@@ -236,59 +238,61 @@ function GraphRepetition() {
         <line x1="30" y1="225" x2="570" y2="225" stroke={L.accentSoft} strokeWidth="1" />
         <line x1="30" y1="225" x2="570" y2="225" stroke={L.accent} strokeWidth="1" strokeDasharray="3 5" opacity="0.5" />
 
-        {/* ─── OUTPUT: nítido ─── */}
-        <g transform="translate(0, 270)">
-          <line x1="30" y1="50" x2="570" y2="50" stroke={L.borderLight} strokeWidth="1" />
+        {/* ─── OUTPUT: progressão temporal + stat ─── */}
+        <defs>
+          <filter id="blurR1">
+            <feGaussianBlur stdDeviation="4" />
+          </filter>
+          <filter id="blurR2">
+            <feGaussianBlur stdDeviation="2.4" />
+          </filter>
+          <filter id="blurR3">
+            <feGaussianBlur stdDeviation="1.1" />
+          </filter>
+        </defs>
 
-          {/* 4 picos limpos */}
-          {[120, 250, 380, 490].map((cx, i) => (
-            <g key={i}>
-              <path
-                d={`M ${cx - 30} 50 Q ${cx - 18} ${30 + i} ${cx - 6} ${15 - i} L ${cx} ${10} L ${cx + 6} ${17 - i} Q ${cx + 18} ${33 + i} ${cx + 30} 50`}
-                fill="none"
-                stroke={L.accent}
-                strokeWidth="2.5"
-                strokeLinecap="round"
-              />
-              <path
-                d={`M ${cx - 30} 50 Q ${cx - 18} ${70 - i} ${cx - 6} ${85 + i} L ${cx} ${90} L ${cx + 6} ${83 + i} Q ${cx + 18} ${67 - i} ${cx + 30} 50`}
-                fill="none"
-                stroke={L.accent}
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                opacity="0.55"
-              />
-            </g>
-          ))}
-        </g>
+        {/* 4 estágios da mesma frase clareando */}
+        {/* Stage 1 — 1ª vez (totalmente borrado) */}
+        <text x="80" y="270" fontFamily={FONT.mono} fontSize="11" fontWeight="700" letterSpacing="2" fill={L.textMuted} textAnchor="middle">1ª VEZ</text>
+        <text x="80" y="305" fontFamily={FONT.mono} fontSize="13" fontWeight="700" fill={L.textFaint} textAnchor="middle" letterSpacing="-2" filter="url(#blurR1)">
+          theresnothingtotell
+        </text>
 
-        {/* divisores entre palavras */}
-        {[185, 315, 445].map((x, i) => (
-          <line key={i} x1={x} y1="315" x2={x} y2="405" stroke={L.accent} strokeWidth="1" strokeDasharray="3 4" opacity="0.32" />
+        {/* Stage 2 — algumas vezes */}
+        <text x="225" y="270" fontFamily={FONT.mono} fontSize="11" fontWeight="700" letterSpacing="2" fill={L.textMuted} textAnchor="middle">+ ALGUMAS</text>
+        <text x="225" y="305" fontFamily={FONT.mono} fontSize="13" fontWeight="700" fill={L.textDim} textAnchor="middle" letterSpacing="-1" filter="url(#blurR2)">
+          there's nothingtotell
+        </text>
+
+        {/* Stage 3 — várias vezes */}
+        <text x="375" y="270" fontFamily={FONT.mono} fontSize="11" fontWeight="700" letterSpacing="2" fill={L.accent} textAnchor="middle">+ VÁRIAS</text>
+        <text x="375" y="305" fontFamily={FONT.mono} fontSize="13" fontWeight="700" fill={L.text} textAnchor="middle" filter="url(#blurR3)">
+          there's nothing totell
+        </text>
+
+        {/* Stage 4 — ? vezes (revelado na aula) */}
+        <text x="525" y="270" fontFamily={FONT.mono} fontSize="11" fontWeight="800" letterSpacing="2" fill={L.accent} textAnchor="middle">? VEZES</text>
+        <text x="525" y="305" fontFamily={FONT.body} fontSize="14" fontWeight="800" fill={L.accent} textAnchor="middle">
+          There's nothing to tell.
+        </text>
+
+        {/* setas progressivas entre stages */}
+        {[148, 298, 448].map((x, i) => (
+          <g key={i}>
+            <line x1={x} y1="300" x2={x + 14} y2="300" stroke={L.accent} strokeWidth="2" opacity={0.4 + i * 0.18} strokeLinecap="round" />
+            <polygon points={`${x + 10},296 ${x + 18},300 ${x + 10},304`} fill={L.accent} opacity={0.4 + i * 0.18} />
+          </g>
         ))}
 
-        {/* palavras nítidas */}
-        {words.map((w, i) => {
-          const cx = [120, 250, 380, 490][i]
-          return (
-            <g key={i}>
-              <rect x={cx - 52} y="378" width="104" height="38" rx="4" fill={L.accent} opacity="0.10" />
-              <text
-                x={cx} y="403"
-                fontFamily={FONT.body}
-                fontSize="19"
-                fontWeight="800"
-                fill={L.text}
-                textAnchor="middle"
-              >
-                {w}
-              </text>
-            </g>
-          )
-        })}
-
-        <text x="300" y="445" fontFamily={FONT.mono} fontSize="14" fontWeight="700" letterSpacing="2.5" fill={L.accent} textAnchor="middle">
-          CADA PALAVRA SEPARADA · DESTACÁVEL
+        {/* BIG STAT — "~94%" */}
+        <text x="300" y="395" fontFamily={FONT.body} fontSize="72" fontWeight="900" fill={L.accent} textAnchor="middle" letterSpacing="-0.04em">
+          ~94%
+        </text>
+        <text x="300" y="425" fontFamily={FONT.mono} fontSize="13" fontWeight="700" letterSpacing="3" fill={L.accent} textAnchor="middle">
+          DO DIÁLOGO REAL
+        </text>
+        <text x="300" y="460" fontFamily={FONT.body} fontSize="13" fill={L.textDim} textAnchor="middle" fontStyle="italic">
+          é o que chega no ouvido
         </text>
       </svg>
 
@@ -507,12 +511,26 @@ function CalloutMinute({ vslUrl }: { vslUrl: string }) {
 // ─── PAGE ──────────────────────────────────────────────────────
 
 export default function BridgePage() {
+  const router = useRouter()
   const [vslUrl, setVslUrl] = useState('/vsl')
 
   useEffect(() => {
     setVslUrl(buildVslUrl())
     try { trackViewContent('bridge-rota') } catch {}
-  }, [])
+
+    // Prefetch da VSL — bundle Next.js carregado em background
+    try { router.prefetch('/vsl') } catch {}
+
+    // Backup: <link rel="prefetch"> pro HTML/recursos
+    try {
+      const link = document.createElement('link')
+      link.rel = 'prefetch'
+      link.href = '/vsl'
+      link.as = 'document'
+      document.head.appendChild(link)
+      return () => { try { document.head.removeChild(link) } catch {} }
+    } catch {}
+  }, [router])
 
   return (
     <div style={{
