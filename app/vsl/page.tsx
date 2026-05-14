@@ -322,11 +322,11 @@ export default function RotaFluenciaPage() {
       <section style={{ maxWidth: 600, margin: '0 auto', padding: '32px 20px 0' }}>
         <Fade>
           <h1 style={{
-            fontSize: 'clamp(14px, 3.6vw, 20px)', fontWeight: 700, lineHeight: 1.3,
+            fontSize: 'clamp(16px, 4vw, 22px)', fontWeight: 700, lineHeight: 1.25,
             textAlign: 'center', color: C.t1, letterSpacing: '-0.02em',
             marginBottom: 20, padding: '0 8px',
           }}>
-            O <span style={{ color: C.teal, fontWeight: 800 }}>Método de Repetição</span> que obriga o seu cérebro a entender inglês em tempo recorde
+            Isso é <span style={{ color: C.teal, fontWeight: 800 }}>sem graça</span>, mas me deixou fluente em inglês.
           </h1>
         </Fade>
 
