@@ -127,62 +127,62 @@ function GraphVariety() {
         E não treinam nada até o automático.
       </p>
 
-      <svg viewBox="0 0 600 480" style={{ width: '100%', height: 'auto', display: 'block' }} aria-hidden>
-        {/* ─── INPUT: conteúdos diferentes ─── */}
-        <text x="30" y="38" fontFamily={FONT.mono} fontSize="15" fontWeight="700" letterSpacing="2.5" fill={L.textMuted}>
-          O QUE ELES CONSOMEM
-        </text>
+      {/* ─── INPUT: SVG só com os ícones ─── */}
+      <p style={{ fontFamily: FONT.mono, fontSize: 'clamp(13px, 2.8vw, 16px)', fontWeight: 700, letterSpacing: 2.5, color: L.textMuted, textTransform: 'uppercase', marginBottom: 16 }}>
+        O que eles consomem
+      </p>
 
+      <svg viewBox="0 0 600 220" style={{ width: '100%', height: 'auto', display: 'block', marginBottom: 24 }} aria-hidden>
         {inputs.map((d, i) => (
           <g key={i}>
             <rect x={d.x - 55} y={d.y - 25} width="110" height="46" rx="6" fill={L.bg3} stroke={L.textFaint} strokeWidth="1.3" />
-            <text x={d.x} y={d.y + 5} fontFamily={FONT.mono} fontSize="16" fontWeight="700" fill={L.textDim} textAnchor="middle">
+            <text x={d.x} y={d.y + 6} fontFamily={FONT.mono} fontSize="18" fontWeight="700" fill={L.textDim} textAnchor="middle">
               {d.label}
             </text>
           </g>
         ))}
-
-        {/* divider arrow embolado */}
-        <text x="300" y="210" fontFamily={FONT.mono} fontSize="15" fontWeight="700" letterSpacing="2.5" fill={L.textMuted} textAnchor="middle">
-          → CONSEQUÊNCIA NO OUVIDO ↓
-        </text>
-        <line x1="30" y1="215" x2="570" y2="215" stroke={L.borderLight} strokeWidth="1" strokeDasharray="3 5" />
-
-        {/* ─── OUTPUT: embolado + stat ─── */}
-        <defs>
-          <filter id="blurVariety">
-            <feGaussianBlur stdDeviation="4.5" />
-          </filter>
-        </defs>
-
-        {/* Frase real do produto (Friends) embolada — quase ilegível */}
-        <text
-          x="300" y="285"
-          fontFamily={FONT.mono}
-          fontSize="36"
-          fontWeight="700"
-          fill={L.textFaint}
-          textAnchor="middle"
-          letterSpacing="-4"
-          filter="url(#blurVariety)"
-        >
-          theresnothingtotell
-        </text>
-        <text x="300" y="318" fontFamily={FONT.body} fontSize="12" fill={L.textMuted} textAnchor="middle" fontStyle="italic">
-          (a frase real: "There's nothing to tell.")
-        </text>
-
-        {/* BIG STAT — "~12%" */}
-        <text x="300" y="395" fontFamily={FONT.body} fontSize="72" fontWeight="900" fill={L.text} textAnchor="middle" letterSpacing="-0.04em">
-          ~12%
-        </text>
-        <text x="300" y="425" fontFamily={FONT.mono} fontSize="13" fontWeight="700" letterSpacing="3" fill={L.textMuted} textAnchor="middle">
-          DO DIÁLOGO REAL
-        </text>
-        <text x="300" y="460" fontFamily={FONT.body} fontSize="13" fill={L.textDim} textAnchor="middle" fontStyle="italic">
-          é o que chega no ouvido
-        </text>
       </svg>
+
+      {/* ─── divider ─── */}
+      <div style={{ textAlign: 'center', margin: '20px 0', fontFamily: FONT.mono, fontSize: 'clamp(13px, 2.8vw, 16px)', fontWeight: 700, letterSpacing: 2.5, color: L.textMuted, textTransform: 'uppercase' }}>
+        → consequência no ouvido ↓
+      </div>
+      <div style={{ height: 1, background: L.border, marginBottom: 28 }} />
+
+      {/* ─── OUTPUT: HTML responsivo ─── */}
+      <div style={{ textAlign: 'center', padding: '12px 0 8px' }}>
+        <p style={{
+          fontFamily: FONT.mono,
+          fontSize: 'clamp(24px, 6.8vw, 40px)',
+          fontWeight: 700,
+          color: L.textFaint,
+          letterSpacing: '-0.04em',
+          filter: 'blur(5px)',
+          marginBottom: 12,
+        }}>
+          theresnothingtotell
+        </p>
+        <p style={{ fontSize: 'clamp(13px, 2.8vw, 15px)', color: L.textMuted, fontStyle: 'italic', marginBottom: 36 }}>
+          (a frase real: "There's nothing to tell.")
+        </p>
+
+        <p style={{
+          fontSize: 'clamp(56px, 14vw, 88px)',
+          fontWeight: 900,
+          color: L.text,
+          letterSpacing: '-0.05em',
+          lineHeight: 1,
+          marginBottom: 12,
+        }}>
+          ~12%
+        </p>
+        <p style={{ fontFamily: FONT.mono, fontSize: 'clamp(13px, 2.8vw, 16px)', fontWeight: 700, letterSpacing: 3, color: L.textMuted, textTransform: 'uppercase', marginBottom: 12 }}>
+          do diálogo real
+        </p>
+        <p style={{ fontSize: 'clamp(14px, 2.9vw, 16px)', color: L.textDim, fontStyle: 'italic' }}>
+          é o que chega no ouvido
+        </p>
+      </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginTop: 24, padding: '18px 22px', background: L.bg3, borderRadius: 4 }}>
         <EarIcon color={L.text} size={26} />
@@ -211,90 +211,91 @@ function GraphRepetition() {
         E treinam até virar automático.
       </p>
 
-      <svg viewBox="0 0 600 480" style={{ width: '100%', height: 'auto', display: 'block' }} aria-hidden>
-        {/* ─── INPUT: mesmo trecho repetido ─── */}
-        <text x="30" y="38" fontFamily={FONT.mono} fontSize="15" fontWeight="700" letterSpacing="2.5" fill={L.accent}>
-          TREINO CONCENTRADO
-        </text>
+      {/* ─── INPUT: mesmo trecho repetido (SVG só dos boxes) ─── */}
+      <p style={{ fontFamily: FONT.mono, fontSize: 'clamp(13px, 2.8vw, 16px)', fontWeight: 700, letterSpacing: 2.5, color: L.accent, textTransform: 'uppercase', marginBottom: 16 }}>
+        Treino concentrado
+      </p>
 
+      <svg viewBox="0 0 600 130" style={{ width: '100%', height: 'auto', display: 'block', marginBottom: 12 }} aria-hidden>
         {reps.map((_, i) => (
-          <g key={i} transform={`translate(${110 + i * 95}, 95)`}>
-            <rect x="-52" y="-25" width="104" height="50" rx="6" fill={L.accent} opacity={0.18 + i * 0.10} stroke={L.accent} strokeWidth="1.5" />
-            <text x="0" y="6" fontFamily={FONT.body} fontSize="15" fontWeight="700" fill={i >= 3 ? L.bg2 : L.text} textAnchor="middle">
+          <g key={i} transform={`translate(${110 + i * 95}, 65)`}>
+            <rect x="-52" y="-28" width="104" height="56" rx="6" fill={L.accent} opacity={0.18 + i * 0.10} stroke={L.accent} strokeWidth="1.5" />
+            <text x="0" y="6" fontFamily={FONT.body} fontSize="17" fontWeight="700" fill={i >= 3 ? L.bg2 : L.text} textAnchor="middle">
               mesmo trecho
             </text>
           </g>
         ))}
-
-        {/* indicador de repetição contínua */}
-        <text x="300" y="170" fontFamily={FONT.mono} fontSize="15" fontWeight="700" letterSpacing="2.5" fill={L.accent} textAnchor="middle">
-          repetido até virar familiar
-        </text>
-
-        {/* divider */}
-        <text x="300" y="210" fontFamily={FONT.mono} fontSize="15" fontWeight="700" letterSpacing="2.5" fill={L.accent} textAnchor="middle">
-          → CONSEQUÊNCIA NO OUVIDO ↓
-        </text>
-        <line x1="30" y1="225" x2="570" y2="225" stroke={L.accentSoft} strokeWidth="1" />
-        <line x1="30" y1="225" x2="570" y2="225" stroke={L.accent} strokeWidth="1" strokeDasharray="3 5" opacity="0.5" />
-
-        {/* ─── OUTPUT: progressão temporal + stat ─── */}
-        <defs>
-          <filter id="blurR1">
-            <feGaussianBlur stdDeviation="4" />
-          </filter>
-          <filter id="blurR2">
-            <feGaussianBlur stdDeviation="2.4" />
-          </filter>
-          <filter id="blurR3">
-            <feGaussianBlur stdDeviation="1.1" />
-          </filter>
-        </defs>
-
-        {/* 4 estágios da mesma frase clareando */}
-        {/* Stage 1 — 1ª vez (totalmente borrado) */}
-        <text x="80" y="270" fontFamily={FONT.mono} fontSize="11" fontWeight="700" letterSpacing="2" fill={L.textMuted} textAnchor="middle">1ª VEZ</text>
-        <text x="80" y="305" fontFamily={FONT.mono} fontSize="13" fontWeight="700" fill={L.textFaint} textAnchor="middle" letterSpacing="-2" filter="url(#blurR1)">
-          theresnothingtotell
-        </text>
-
-        {/* Stage 2 — algumas vezes */}
-        <text x="225" y="270" fontFamily={FONT.mono} fontSize="11" fontWeight="700" letterSpacing="2" fill={L.textMuted} textAnchor="middle">+ ALGUMAS</text>
-        <text x="225" y="305" fontFamily={FONT.mono} fontSize="13" fontWeight="700" fill={L.textDim} textAnchor="middle" letterSpacing="-1" filter="url(#blurR2)">
-          there's nothingtotell
-        </text>
-
-        {/* Stage 3 — várias vezes */}
-        <text x="375" y="270" fontFamily={FONT.mono} fontSize="11" fontWeight="700" letterSpacing="2" fill={L.accent} textAnchor="middle">+ VÁRIAS</text>
-        <text x="375" y="305" fontFamily={FONT.mono} fontSize="13" fontWeight="700" fill={L.text} textAnchor="middle" filter="url(#blurR3)">
-          there's nothing totell
-        </text>
-
-        {/* Stage 4 — ? vezes (revelado na aula) */}
-        <text x="525" y="270" fontFamily={FONT.mono} fontSize="11" fontWeight="800" letterSpacing="2" fill={L.accent} textAnchor="middle">? VEZES</text>
-        <text x="525" y="305" fontFamily={FONT.body} fontSize="14" fontWeight="800" fill={L.accent} textAnchor="middle">
-          There's nothing to tell.
-        </text>
-
-        {/* setas progressivas entre stages */}
-        {[148, 298, 448].map((x, i) => (
-          <g key={i}>
-            <line x1={x} y1="300" x2={x + 14} y2="300" stroke={L.accent} strokeWidth="2" opacity={0.4 + i * 0.18} strokeLinecap="round" />
-            <polygon points={`${x + 10},296 ${x + 18},300 ${x + 10},304`} fill={L.accent} opacity={0.4 + i * 0.18} />
-          </g>
-        ))}
-
-        {/* BIG STAT — "~94%" */}
-        <text x="300" y="395" fontFamily={FONT.body} fontSize="72" fontWeight="900" fill={L.accent} textAnchor="middle" letterSpacing="-0.04em">
-          ~94%
-        </text>
-        <text x="300" y="425" fontFamily={FONT.mono} fontSize="13" fontWeight="700" letterSpacing="3" fill={L.accent} textAnchor="middle">
-          DO DIÁLOGO REAL
-        </text>
-        <text x="300" y="460" fontFamily={FONT.body} fontSize="13" fill={L.textDim} textAnchor="middle" fontStyle="italic">
-          é o que chega no ouvido
-        </text>
       </svg>
+
+      <p style={{ textAlign: 'center', fontFamily: FONT.mono, fontSize: 'clamp(13px, 2.8vw, 15px)', fontWeight: 700, letterSpacing: 2, color: L.accent, textTransform: 'uppercase', marginBottom: 20 }}>
+        repetido até virar familiar
+      </p>
+
+      {/* ─── divider ─── */}
+      <div style={{ textAlign: 'center', margin: '12px 0', fontFamily: FONT.mono, fontSize: 'clamp(13px, 2.8vw, 16px)', fontWeight: 700, letterSpacing: 2.5, color: L.accent, textTransform: 'uppercase' }}>
+        → consequência no ouvido ↓
+      </div>
+      <div style={{ height: 1, background: L.accent, opacity: 0.3, marginBottom: 28 }} />
+
+      {/* ─── OUTPUT: progressão temporal em HTML responsivo ─── */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 36 }}>
+        {[
+          { label: '1ª VEZ', text: 'theresnothingtotell', blur: 5, color: L.textFaint, weight: 700, mono: true },
+          { label: '+ ALGUMAS', text: "there's nothingtotell", blur: 3, color: L.textDim, weight: 700, mono: true },
+          { label: '+ VÁRIAS', text: "there's nothing totell", blur: 1.4, color: L.text, weight: 700, mono: true },
+          { label: '? VEZES', text: "There's nothing to tell.", blur: 0, color: L.accent, weight: 800, mono: false, highlight: true },
+        ].map((s, i) => (
+          <div key={i} style={{
+            display: 'flex', alignItems: 'center', gap: 14,
+            padding: '14px 18px',
+            background: s.highlight ? L.accentSoft : 'transparent',
+            border: s.highlight ? `1px solid ${L.accent}` : `1px solid ${L.borderLight}`,
+            borderRadius: 6,
+          }}>
+            <span style={{
+              fontFamily: FONT.mono,
+              fontSize: 'clamp(12px, 2.6vw, 14px)',
+              fontWeight: 800,
+              letterSpacing: 2,
+              color: s.highlight ? L.accent : L.textMuted,
+              minWidth: 92,
+            }}>
+              {s.label}
+            </span>
+            <span style={{
+              fontFamily: s.mono ? FONT.mono : FONT.body,
+              fontSize: 'clamp(15px, 3.6vw, 20px)',
+              fontWeight: s.weight,
+              color: s.color,
+              filter: s.blur ? `blur(${s.blur}px)` : 'none',
+              letterSpacing: s.mono ? '-1px' : 'normal',
+              flex: 1,
+            }}>
+              {s.text}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* BIG STAT */}
+      <div style={{ textAlign: 'center', padding: '8px 0' }}>
+        <p style={{
+          fontSize: 'clamp(56px, 14vw, 88px)',
+          fontWeight: 900,
+          color: L.accent,
+          letterSpacing: '-0.05em',
+          lineHeight: 1,
+          marginBottom: 12,
+        }}>
+          ~94%
+        </p>
+        <p style={{ fontFamily: FONT.mono, fontSize: 'clamp(13px, 2.8vw, 16px)', fontWeight: 700, letterSpacing: 3, color: L.accent, textTransform: 'uppercase', marginBottom: 12 }}>
+          do diálogo real
+        </p>
+        <p style={{ fontSize: 'clamp(14px, 2.9vw, 16px)', color: L.textDim, fontStyle: 'italic' }}>
+          é o que chega no ouvido
+        </p>
+      </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginTop: 24, padding: '18px 22px', background: L.accentSoft, borderRadius: 4 }}>
         <EarIcon color={L.accent} size={26} />
