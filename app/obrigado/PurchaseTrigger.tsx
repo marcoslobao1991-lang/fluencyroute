@@ -17,18 +17,36 @@ declare global {
 
 export default function PurchaseTrigger() {
   useEffect(() => {
-    if (typeof window === 'undefined' || typeof window.gtag !== 'function') return
-    // Tenta capturar transaction_id da URL (Kiwify pode ou não passar)
+    if (typeof window === 'undefined') return
+
     const params = new URLSearchParams(window.location.search)
     const transactionId =
       params.get('order_id') ||
       params.get('transaction_id') ||
       params.get('id') ||
       ''
-    window.gtag('event', 'conversion', {
-      send_to: 'AW-16694165189/0RG8CLaZpvkaEMX9spg-',
-      transaction_id: transactionId,
-    })
+
+    let fired = false
+    const fire = () => {
+      if (fired) return
+      if (typeof window.gtag !== 'function') return
+      fired = true
+      window.gtag('event', 'conversion', {
+        send_to: 'AW-16694165189/0RG8CLaZpvkaEMX9spg-',
+        transaction_id: transactionId,
+      })
+    }
+
+    // Tenta imediatamente. Se gtag ainda não carregou (lazyOnload),
+    // faz polling de 200ms até 10s. Resolve race condition no /obrigado.
+    fire()
+    if (fired) return
+    const start = Date.now()
+    const interval = setInterval(() => {
+      fire()
+      if (fired || Date.now() - start > 10000) clearInterval(interval)
+    }, 200)
+    return () => clearInterval(interval)
   }, [])
   return null
 }

@@ -62,10 +62,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             - Google Ads (AW-16694165189) — conversion event /obrigado via PurchaseTrigger */}
         <Script
           id="gtag-base"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           src="https://www.googletagmanager.com/gtag/js?id=G-Z35QLQE3PQ"
         />
-        <Script id="gtag-init" strategy="afterInteractive">{`
+        <Script id="gtag-init" strategy="lazyOnload">{`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
