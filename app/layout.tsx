@@ -72,9 +72,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           gtag('config', 'G-Z35QLQE3PQ');
           gtag('config', 'AW-16694165189');
         `}</Script>
-        {/* Prefetch checkout pra abertura instantânea */}
-        <link rel="dns-prefetch" href="https://go.fluencyroute.com.br" />
-        <link rel="preconnect" href="https://go.fluencyroute.com.br" />
+        {/* go.fluencyroute.com.br não é usado direto pelo browser nas rotas atuais
+            (apenas server-side em webhooks). Preconnect/dns-prefetch removido —
+            evita aviso 'Pré-conexão não usada' do Lighthouse. */}
       </head>
       <body style={{ margin: 0, padding: 0, background: "#0A0A0A", color: "#fff", fontFamily: "var(--font-dm-sans), sans-serif" }}>
         <PageViewTracker />
