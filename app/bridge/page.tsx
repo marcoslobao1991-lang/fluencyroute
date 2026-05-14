@@ -470,14 +470,6 @@ function CalloutMinute({ vslUrl }: { vslUrl: string }) {
         A aula que te mostra isso na prática está aqui:
       </p>
 
-      {/* Seta animada */}
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: 8, marginBottom: 20 }}>
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.65)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-          style={{ animation: 'bridgeArrowBounce 1.8s ease-in-out infinite' }}>
-          <path d="M12 5v14M5 12l7 7 7-7" />
-        </svg>
-      </div>
-
       {/* Botão CTA integrado */}
       <a href={vslUrl} style={{
         display: 'inline-flex',
@@ -496,6 +488,7 @@ function CalloutMinute({ vslUrl }: { vslUrl: string }) {
         transition: 'transform .15s ease, filter .15s ease',
         width: '100%',
         maxWidth: 440,
+        marginTop: 16,
         boxShadow: '0 10px 30px rgba(15,118,110,.32)',
       }}
         onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.filter = 'brightness(1.1)' }}
@@ -505,6 +498,36 @@ function CalloutMinute({ vslUrl }: { vslUrl: string }) {
           <path d="M5 12h14M12 5l7 7-7 7" />
         </svg>
       </a>
+
+      {/* 3 setas embaixo apontando pra cima/meio (convergindo no botão) */}
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: 32, marginTop: 22 }}>
+        {[-22, 0, 22].map((rot, i) => (
+          <span
+            key={i}
+            style={{
+              display: 'inline-block',
+              transform: `rotate(${rot}deg)`,
+              transformOrigin: 'center',
+            }}
+          >
+            <svg
+              width="28" height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="rgba(255,255,255,.75)"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              style={{
+                animation: 'bridgeArrowUp 1.6s ease-in-out infinite',
+                animationDelay: `${i * 0.15}s`,
+              }}
+            >
+              <path d="M12 19V5M5 12l7-7 7 7" />
+            </svg>
+          </span>
+        ))}
+      </div>
     </aside>
   )
 }
@@ -628,6 +651,10 @@ export default function BridgePage() {
           @keyframes bridgeArrowBounce {
             0%, 100% { transform: translateY(0); opacity: 0.5; }
             50% { transform: translateY(6px); opacity: 1; }
+          }
+          @keyframes bridgeArrowUp {
+            0%, 100% { transform: translateY(0); opacity: 0.55; }
+            50% { transform: translateY(-7px); opacity: 1; }
           }
         `}</style>
 
