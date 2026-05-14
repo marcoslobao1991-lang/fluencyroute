@@ -153,11 +153,11 @@ function GraphVariety() {
       <div style={{ textAlign: 'center', padding: '12px 0 8px' }}>
         <p style={{
           fontFamily: FONT.mono,
-          fontSize: 'clamp(24px, 6.8vw, 40px)',
+          fontSize: 'clamp(26px, 7vw, 42px)',
           fontWeight: 700,
-          color: L.textFaint,
+          color: L.textDim,
           letterSpacing: '-0.04em',
-          filter: 'blur(5px)',
+          filter: 'blur(2.8px)',
           marginBottom: 12,
         }}>
           theresnothingtotell
