@@ -391,13 +391,13 @@ export default function BridgePage() {
         {step === 'gate' && !returning && !aulaFrame && (
           <section style={{ textAlign: 'center', paddingTop: 18 }}>
             <p style={{ fontSize: 12, fontWeight: 800, color: C.violet, letterSpacing: 2.5, textTransform: 'uppercase', marginBottom: 12 }}>
-              Desafio · 3 minutos · grátis
+              O teste do loop de repetição · 3 min
             </p>
             <h1 style={{ fontSize: 'clamp(28px, 7vw, 40px)', fontWeight: 800, lineHeight: 1.08, letterSpacing: '-0.035em', marginBottom: 12 }}>
               Você entende uma cena de série <span style={{ color: C.violet }}>sem legenda</span>?
             </h1>
             <p style={{ fontSize: 16, color: C.dim, fontWeight: 500, lineHeight: 1.5, maxWidth: 400, margin: '0 auto 18px' }}>
-              Aposto que não. E em 3 minutos eu te provo que o motivo <strong style={{ color: C.ink }}>não é o que você pensa</strong>.
+              Com o loop de repetição? <strong style={{ color: C.ink }}>Aposto que SIM</strong> — até com o seu ouvido, em 3 minutos. Vem provar.
             </p>
           </section>
         )}
@@ -509,7 +509,7 @@ export default function BridgePage() {
                 animation: isPlayStep(step) || step === 'gate' ? 'softPulse 2.2s ease-in-out infinite' : 'none',
               }}>
                 <PlayIcon size={15} color={isPlayStep(step) || step === 'gate' ? '#fff' : C.violet} />
-                {step === 'gate' ? (aulaFrame ? 'Fazer o teste e liberar a aula' : 'Fazer o teste agora')
+                {step === 'gate' ? (aulaFrame ? 'Fazer o teste e liberar a aula' : 'Provar em 3 minutos')
                   : step === 'play1' ? 'Ouvir a cena · 1ª vez'
                   : step === 'play2' ? 'De novo · 2ª vez'
                   : step === 'play3' ? 'Mais uma · 3ª vez'
