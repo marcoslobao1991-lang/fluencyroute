@@ -107,6 +107,12 @@ export function usePronunciation() {
     }
   }, []);
 
+  // esquenta o mic ANTES do toque (permissão + stream vivos) → gravar vira
+  // instantâneo. Chamado quando a Manu narra o convite do shadowing.
+  const prime = useCallback(() => {
+    ensure().catch(() => {});
+  }, [ensure]);
+
   const stopRecording = useCallback(() => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
@@ -297,7 +303,7 @@ export function usePronunciation() {
     }
   }, []);
 
-  return { record, assessWav, stopRecording, release, recording, processing, error, setError };
+  return { record, assessWav, stopRecording, release, prime, recording, processing, error, setError };
 }
 
 function resampleTo16k(input: Float32Array, srcRate: number): Float32Array {

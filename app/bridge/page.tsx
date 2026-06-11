@@ -184,6 +184,9 @@ export default function BridgePage() {
       setMood('happy')
       setStep('shadow')
       speak(['m7', 'm8', 'm9'])
+      // permissão de mic aparece ENQUANTO ela diz "habilita o microfone" —
+      // e o toque em gravar vira instantâneo (stream já vivo)
+      pron.prime()
     }
   }, [speak])
 
