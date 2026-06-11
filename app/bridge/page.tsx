@@ -59,7 +59,7 @@ function buildVslUrl(content = 'bridge'): string {
   return url.pathname + url.search
 }
 
-type Step = 'gate' | 'play1' | 'honest' | 'play2' | 'play3' | 'play4' | 'shadow' | 'ab' | 'score' | 'denied'
+type Step = 'gate' | 'play1' | 'honest' | 'play2' | 'play3' | 'play4' | 'shadow' | 'ab' | 'score' | 'denied' | 'closeout'
 
 const isPlayStep = (s: Step) => s === 'play1' || s === 'play2' || s === 'play3' || s === 'play4'
 
@@ -83,7 +83,7 @@ function diagRecipe(r: PronResult) {
 }
 
 const PROGRESS: Record<Step, number> = {
-  gate: 0, play1: 12, honest: 25, play2: 40, play3: 52, play4: 64, shadow: 78, ab: 88, score: 100, denied: 100,
+  gate: 0, play1: 12, honest: 25, play2: 40, play3: 52, play4: 64, shadow: 78, ab: 88, score: 100, denied: 100, closeout: 100,
 }
 
 export default function BridgePage() {
@@ -311,7 +311,8 @@ export default function BridgePage() {
   }
 
   const res = res2 || res1
-  const showSkip = step !== 'gate' && step !== 'play1' && step !== 'score' && step !== 'denied'
+  // no shadowing a fuga digna substitui o link cru; nas telas de CTA não há pra onde pular
+  const showSkip = step !== 'gate' && step !== 'play1' && step !== 'shadow' && step !== 'score' && step !== 'denied' && step !== 'closeout'
 
   // ════════════════════════════════════════════════════════════════════
   return (
@@ -464,7 +465,7 @@ export default function BridgePage() {
         )}
 
         {/* repetição livre no fim — cada play ensaia a crença do método */}
-        {(step === 'score' || step === 'denied') && (
+        {(step === 'score' || step === 'denied' || step === 'closeout') && (
           <p style={{ fontSize: 13, color: C.dim, fontWeight: 600, textAlign: 'center', marginTop: 10, marginBottom: 6, animation: 'fadeUp .4s ease' }}>
             ↻ repete a cena à vontade — cada play grava mais fundo no ouvido
           </p>
@@ -530,6 +531,34 @@ export default function BridgePage() {
             <p style={{ fontSize: 13, color: C.dim, marginTop: 12, fontWeight: 600 }}>
               {pron.recording ? 'Fala agora — paro sozinha quando você terminar' : attempt === 2 ? '2ª tentativa — mostra que evoluiu' : 'Toca pra gravar · pode errar à vontade'}
             </p>
+
+            {/* fuga DIGNA: quem não quer falar agora sai pelo fechamento completo,
+                não pelo link cru — e a ordem do método valida a escolha */}
+            {!pron.recording && attempt === 1 && (
+              <div style={{ marginTop: 26, paddingTop: 18, borderTop: `1px solid ${C.border}` }}>
+                <p style={{ fontSize: 13, color: C.dim, fontWeight: 500, marginBottom: 10, lineHeight: 1.5 }}>
+                  No método, o shadowing vem <strong>depois</strong> do ouvido treinado — pular agora é normal.
+                </p>
+                <button onClick={() => {
+                  try { frTrack('shadow_skip') } catch {}
+                  setStep('closeout')
+                  speak(['m_skip_shadow', 'm_pattern', 'm12'])
+                }} style={{
+                  background: C.bg, border: `1.5px solid ${C.border}`, borderRadius: 12,
+                  padding: '13px 20px', fontSize: 14, fontWeight: 700, color: C.ink,
+                  cursor: 'pointer', fontFamily: FONT, boxShadow: C.shadowSm,
+                }}>
+                  Ver o loop completo com séries →
+                </button>
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* ─── FECHAMENTO de quem pulou o shadowing ─────────────────── */}
+        {step === 'closeout' && (
+          <section style={{ animation: 'fadeUp .4s ease' }}>
+            <FinalCta vslUrl={vslUrl} onClick={() => goVsl('closeout')} />
           </section>
         )}
 

@@ -3580,5 +3580,166 @@
         "s": 10.02
       }
     ]
+  },
+  "m_skip_shadow": {
+    "text": "Relaxa! Zero drama. Shadowing geralmente vem depois de treinar bastante o ouvido. Pular agora tá até na ordem certa do método. O que importava, você já provou. Seu ouvido destrava com repetição. Agora deixa eu te mostrar o resto.",
+    "words": [
+      {
+        "w": "Relaxa",
+        "s": 0
+      },
+      {
+        "w": "Zero",
+        "s": 1.1
+      },
+      {
+        "w": "drama",
+        "s": 1.4
+      },
+      {
+        "w": "Shadowing",
+        "s": 2.4
+      },
+      {
+        "w": "geralmente",
+        "s": 2.72
+      },
+      {
+        "w": "vem",
+        "s": 3.22
+      },
+      {
+        "w": "depois",
+        "s": 3.44
+      },
+      {
+        "w": "de",
+        "s": 3.88
+      },
+      {
+        "w": "treinar",
+        "s": 4.02
+      },
+      {
+        "w": "bastante",
+        "s": 4.2
+      },
+      {
+        "w": "o",
+        "s": 4.54
+      },
+      {
+        "w": "ouvido",
+        "s": 4.9
+      },
+      {
+        "w": "Pular",
+        "s": 5.44
+      },
+      {
+        "w": "agora",
+        "s": 5.48
+      },
+      {
+        "w": "tá",
+        "s": 5.88
+      },
+      {
+        "w": "até",
+        "s": 6.2
+      },
+      {
+        "w": "na",
+        "s": 6.46
+      },
+      {
+        "w": "ordem",
+        "s": 6.64
+      },
+      {
+        "w": "certa",
+        "s": 6.74
+      },
+      {
+        "w": "do",
+        "s": 7.02
+      },
+      {
+        "w": "método",
+        "s": 7.42
+      },
+      {
+        "w": "O",
+        "s": 7.94
+      },
+      {
+        "w": "que",
+        "s": 8.02
+      },
+      {
+        "w": "importava",
+        "s": 8.16
+      },
+      {
+        "w": "você",
+        "s": 8.66
+      },
+      {
+        "w": "já",
+        "s": 8.82
+      },
+      {
+        "w": "provou",
+        "s": 9.06
+      },
+      {
+        "w": "Seu",
+        "s": 9.9
+      },
+      {
+        "w": "ouvido",
+        "s": 10.3
+      },
+      {
+        "w": "destrava",
+        "s": 10.64
+      },
+      {
+        "w": "com",
+        "s": 11.1
+      },
+      {
+        "w": "repetição",
+        "s": 11.28
+      },
+      {
+        "w": "Agora",
+        "s": 12.28
+      },
+      {
+        "w": "deixa",
+        "s": 12.58
+      },
+      {
+        "w": "eu",
+        "s": 12.82
+      },
+      {
+        "w": "te",
+        "s": 12.94
+      },
+      {
+        "w": "mostrar",
+        "s": 13.18
+      },
+      {
+        "w": "o",
+        "s": 13.18
+      },
+      {
+        "w": "resto",
+        "s": 13.52
+      }
+    ]
   }
 }
