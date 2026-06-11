@@ -32,6 +32,8 @@ interface Row {
   id: string
   ts: string
   utm_source: string | null
+  utm_campaign: string | null
+  utm_content: string | null
   fbclid: string | null
 }
 
@@ -40,7 +42,7 @@ async function fetchRows(days: number): Promise<Row[]> {
   if (!key) return []
   const since = new Date(Date.now() - days * 86400000).toISOString()
   // variant=B = só a bridge nova (a antiga acumulou meses de eventos e estourava timeout)
-  const url = `${SUPA_URL}/rest/v1/funnel_events?funnel=eq.ingles&page=eq.bridge&variant=eq.B&ts=gte.${since}&select=id,event,detail,session_id,ts,utm_source,fbclid&order=ts.desc`
+  const url = `${SUPA_URL}/rest/v1/funnel_events?funnel=eq.ingles&page=eq.bridge&variant=eq.B&ts=gte.${since}&select=id,event,detail,session_id,ts,utm_source,utm_campaign,utm_content,fbclid&order=ts.desc`
   const headers = { apikey: key, Authorization: `Bearer ${key}` }
   // 1ª página traz o total; o resto baixa em PARALELO (cap 30k linhas)
   const first = await fetch(url, { headers: { ...headers, Range: '0-999', Prefer: 'count=exact' }, cache: 'no-store' })
@@ -152,6 +154,70 @@ export default async function BridgeMetrics({ searchParams }: { searchParams: Pr
             {toVsl.size} <span style={{ fontSize: 14, color: dim, fontWeight: 700 }}>· {top ? Math.round((toVsl.size / top) * 100) : 0}% do topo</span>
           </span>
         </div>
+
+        {/* por ANÚNCIO — qual criativo puxa clique e qual puxa jornada */}
+        {(() => {
+          const byAd: Record<string, Record<string, Set<string>>> = {}
+          const adOf: Record<string, string> = {}
+          for (const r of rows) {
+            const sid = r.session_id || r.id
+            if (!adOf[sid] && (r.utm_content || r.utm_campaign)) {
+              adOf[sid] = (r.utm_content || r.utm_campaign || '?').slice(0, 38)
+            }
+          }
+          for (const r of rows) {
+            const sid = r.session_id || r.id
+            const ad = adOf[sid] || '(sem utm_content)'
+            byAd[ad] = byAd[ad] || {}
+            const evKey = r.event === 'skip_click' ? 'cta_click' : r.event
+            byAd[ad][evKey] = byAd[ad][evKey] || new Set()
+            byAd[ad][evKey].add(sid)
+          }
+          const ads = Object.entries(byAd)
+            .map(([ad, ev]) => ({
+              ad,
+              n: ev.pageview?.size || 0,
+              seen: ev.gate_seen?.size || 0,
+              gate: ev.gate_click?.size || 0,
+              loop: ev.loop_done?.size || 0,
+              vsl: ev.cta_click?.size || 0,
+            }))
+            .sort((a, b) => b.n - a.n)
+            .slice(0, 14)
+          if (!ads.length) return null
+          const cell: React.CSSProperties = { padding: '7px 8px', fontSize: 13, fontWeight: 700, textAlign: 'right' }
+          return (
+            <div style={{ ...card, overflowX: 'auto' }}>
+              <p style={{ fontSize: 12, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', color: dim, marginBottom: 12 }}>
+                Por anúncio (utm_content)
+              </p>
+              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <thead>
+                  <tr style={{ color: dim, fontSize: 11, textTransform: 'uppercase', letterSpacing: 1 }}>
+                    <th style={{ ...cell, textAlign: 'left' }}>anúncio</th>
+                    <th style={cell}>visitas</th>
+                    <th style={cell}>viu 3s</th>
+                    <th style={cell}>aposta</th>
+                    <th style={cell}>loop</th>
+                    <th style={cell}>→VSL</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {ads.map(a => (
+                    <tr key={a.ad} style={{ borderTop: '1px solid rgba(25,20,39,.06)' }}>
+                      <td style={{ ...cell, textAlign: 'left', fontWeight: 600, maxWidth: 180, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{a.ad}</td>
+                      <td style={cell}>{a.n}</td>
+                      <td style={{ ...cell, color: a.seen ? ink : dim }}>{a.seen}</td>
+                      <td style={{ ...cell, color: a.gate ? violet : red }}>{a.gate}{a.seen ? ` (${Math.round((a.gate / a.seen) * 100)}%)` : ''}</td>
+                      <td style={cell}>{a.loop}</td>
+                      <td style={{ ...cell, color: a.vsl ? green : dim }}>{a.vsl}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )
+        })()}
 
         {/* quiz honesto */}
         <div style={card}>
