@@ -12,16 +12,11 @@ export const maxDuration = 30
 const SUPA_URL = 'https://petrtewismhpzidcmmwb.supabase.co'
 const KEY_PARAM = 'rota97'
 
+// advertorial (variante A): jornada é ler → clicar. Eventos da demo
+// (variante B, /bridge-demo) simplesmente zeram aqui — sem erro.
 const STEPS: [string, string][] = [
   ['pageview', 'Visitou a página'],
   ['gate_seen', 'Humano real (3s+ visível)'],
-  ['gate_click', 'Aceitou a aposta'],
-  ['listen_done', 'Ouviu a cena (1ª vez)'],
-  ['honest_answer', 'Respondeu "entendeu?"'],
-  ['loop_done', 'Completou as 4 repetições'],
-  ['shadow_start', 'Tentou falar (pediu mic)'],
-  ['rec_done', 'Gravou a própria voz'],
-  ['score', 'Recebeu o diagnóstico'],
   ['cta_click', 'Clicou pra VSL (CTA)'],
 ]
 
@@ -41,8 +36,9 @@ async function fetchRows(days: number): Promise<Row[]> {
   const key = process.env.SUPABASE_SERVICE_KEY
   if (!key) return []
   const since = new Date(Date.now() - days * 86400000).toISOString()
-  // variant=B = só a bridge nova (a antiga acumulou meses de eventos e estourava timeout)
-  const url = `${SUPA_URL}/rest/v1/funnel_events?funnel=eq.ingles&page=eq.bridge&variant=eq.B&ts=gte.${since}&select=id,event,detail,session_id,ts,utm_source,utm_campaign,utm_content,fbclid&order=ts.desc`
+  // variant=A = advertorial restaurado (linha de frente desde 12/06);
+  // a demo guiada vive em /bridge-demo com page=bridge-demo
+  const url = `${SUPA_URL}/rest/v1/funnel_events?funnel=eq.ingles&page=eq.bridge&variant=eq.A&ts=gte.${since}&select=id,event,detail,session_id,ts,utm_source,utm_campaign,utm_content,fbclid&order=ts.desc`
   const headers = { apikey: key, Authorization: `Bearer ${key}` }
   // 1ª página traz o total; o resto baixa em PARALELO (cap 30k linhas)
   const first = await fetch(url, { headers: { ...headers, Range: '0-999', Prefer: 'count=exact' }, cache: 'no-store' })
