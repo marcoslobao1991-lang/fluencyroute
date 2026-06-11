@@ -1,0 +1,1065 @@
+{
+  "q1_short": {
+    "text": "Menos de um ano? Chegou cedo na aula certa! Vem comigo!",
+    "words": [
+      {
+        "w": "Menos",
+        "s": 0
+      },
+      {
+        "w": "de",
+        "s": 0.34
+      },
+      {
+        "w": "um",
+        "s": 0.52
+      },
+      {
+        "w": "ano",
+        "s": 0.68
+      },
+      {
+        "w": "Chegou",
+        "s": 1.22
+      },
+      {
+        "w": "cedo",
+        "s": 1.4
+      },
+      {
+        "w": "na",
+        "s": 1.6
+      },
+      {
+        "w": "aula",
+        "s": 1.74
+      },
+      {
+        "w": "certa",
+        "s": 1.92
+      },
+      {
+        "w": "Vem",
+        "s": 2.38
+      },
+      {
+        "w": "comigo",
+        "s": 2.44
+      }
+    ]
+  },
+  "q1_long": {
+    "text": "anos nessa luta. E eu já te adianto, a culpa nunca foi sua. Continua!",
+    "words": [
+      {
+        "w": "anos",
+        "s": 0
+      },
+      {
+        "w": "nessa",
+        "s": 0.34
+      },
+      {
+        "w": "luta",
+        "s": 0.56
+      },
+      {
+        "w": "E",
+        "s": 1.26
+      },
+      {
+        "w": "eu",
+        "s": 1.26
+      },
+      {
+        "w": "já",
+        "s": 1.42
+      },
+      {
+        "w": "te",
+        "s": 1.56
+      },
+      {
+        "w": "adianto",
+        "s": 1.72
+      },
+      {
+        "w": "a",
+        "s": 2.44
+      },
+      {
+        "w": "culpa",
+        "s": 2.58
+      },
+      {
+        "w": "nunca",
+        "s": 2.68
+      },
+      {
+        "w": "foi",
+        "s": 2.96
+      },
+      {
+        "w": "sua",
+        "s": 3.12
+      },
+      {
+        "w": "Continua",
+        "s": 3.8
+      }
+    ]
+  },
+  "q2_embolou": {
+    "text": "Embolou tudo, né? Eu sabia! Guarda essa resposta. Ela é a chave!",
+    "words": [
+      {
+        "w": "Embolou",
+        "s": 0
+      },
+      {
+        "w": "tudo",
+        "s": 0.38
+      },
+      {
+        "w": "né",
+        "s": 0.78
+      },
+      {
+        "w": "Eu",
+        "s": 1.1
+      },
+      {
+        "w": "sabia",
+        "s": 1.32
+      },
+      {
+        "w": "Guarda",
+        "s": 2.36
+      },
+      {
+        "w": "essa",
+        "s": 2.42
+      },
+      {
+        "w": "resposta",
+        "s": 2.56
+      },
+      {
+        "w": "Ela",
+        "s": 3.32
+      },
+      {
+        "w": "é",
+        "s": 3.44
+      },
+      {
+        "w": "a",
+        "s": 3.56
+      },
+      {
+        "w": "chave",
+        "s": 3.9
+      }
+    ]
+  },
+  "q2_soltas": {
+    "text": "Pega a palavra solta e perde o fio do meio. Clássico. Anota aí. Isso tem nome.",
+    "words": [
+      {
+        "w": "Pega",
+        "s": 0
+      },
+      {
+        "w": "a",
+        "s": 0.24
+      },
+      {
+        "w": "palavra",
+        "s": 0.64
+      },
+      {
+        "w": "solta",
+        "s": 0.64
+      },
+      {
+        "w": "e",
+        "s": 1.02
+      },
+      {
+        "w": "perde",
+        "s": 1.38
+      },
+      {
+        "w": "o",
+        "s": 1.44
+      },
+      {
+        "w": "fio",
+        "s": 1.62
+      },
+      {
+        "w": "do",
+        "s": 1.66
+      },
+      {
+        "w": "meio",
+        "s": 1.82
+      },
+      {
+        "w": "Clássico",
+        "s": 2.84
+      },
+      {
+        "w": "Anota",
+        "s": 3.64
+      },
+      {
+        "w": "aí",
+        "s": 3.74
+      },
+      {
+        "w": "Isso",
+        "s": 4.3
+      },
+      {
+        "w": "tem",
+        "s": 4.42
+      },
+      {
+        "w": "nome",
+        "s": 4.58
+      }
+    ]
+  },
+  "q2_travo": {
+    "text": "Entende mais trava na resposta? Então, o teu caso está mais avançado do que você imagina.",
+    "words": [
+      {
+        "w": "Entende",
+        "s": 0
+      },
+      {
+        "w": "mais",
+        "s": 0.4
+      },
+      {
+        "w": "trava",
+        "s": 0.7
+      },
+      {
+        "w": "na",
+        "s": 0.96
+      },
+      {
+        "w": "resposta",
+        "s": 1.08
+      },
+      {
+        "w": "Então",
+        "s": 2.1
+      },
+      {
+        "w": "o",
+        "s": 2.28
+      },
+      {
+        "w": "teu",
+        "s": 2.3
+      },
+      {
+        "w": "caso",
+        "s": 2.56
+      },
+      {
+        "w": "está",
+        "s": 2.58
+      },
+      {
+        "w": "mais",
+        "s": 2.8
+      },
+      {
+        "w": "avançado",
+        "s": 3.06
+      },
+      {
+        "w": "do",
+        "s": 3.42
+      },
+      {
+        "w": "que",
+        "s": 3.56
+      },
+      {
+        "w": "você",
+        "s": 3.62
+      },
+      {
+        "w": "imagina",
+        "s": 3.82
+      }
+    ]
+  },
+  "q_mid": {
+    "text": "Deixa eu te adiantar uma coisa, isso que você marcou tem nome, e não é falta de capacidade. Quase lá!",
+    "words": [
+      {
+        "w": "Deixa",
+        "s": 0
+      },
+      {
+        "w": "eu",
+        "s": 0.24
+      },
+      {
+        "w": "te",
+        "s": 0.32
+      },
+      {
+        "w": "adiantar",
+        "s": 0.54
+      },
+      {
+        "w": "uma",
+        "s": 0.64
+      },
+      {
+        "w": "coisa",
+        "s": 0.78
+      },
+      {
+        "w": "isso",
+        "s": 1.54
+      },
+      {
+        "w": "que",
+        "s": 1.58
+      },
+      {
+        "w": "você",
+        "s": 1.68
+      },
+      {
+        "w": "marcou",
+        "s": 1.92
+      },
+      {
+        "w": "tem",
+        "s": 2.26
+      },
+      {
+        "w": "nome",
+        "s": 2.56
+      },
+      {
+        "w": "e",
+        "s": 3.12
+      },
+      {
+        "w": "não",
+        "s": 3.18
+      },
+      {
+        "w": "é",
+        "s": 3.32
+      },
+      {
+        "w": "falta",
+        "s": 3.52
+      },
+      {
+        "w": "de",
+        "s": 3.68
+      },
+      {
+        "w": "capacidade",
+        "s": 4.24
+      },
+      {
+        "w": "Quase",
+        "s": 4.74
+      },
+      {
+        "w": "lá",
+        "s": 4.8
+      }
+    ]
+  },
+  "q3": {
+    "text": "Recomeçar não é fracasso, tá? É teimosia do bem. Última pergunta. Capricha!",
+    "words": [
+      {
+        "w": "Recomeçar",
+        "s": 0
+      },
+      {
+        "w": "não",
+        "s": 0.7
+      },
+      {
+        "w": "é",
+        "s": 0.98
+      },
+      {
+        "w": "fracasso",
+        "s": 1.22
+      },
+      {
+        "w": "tá",
+        "s": 1.66
+      },
+      {
+        "w": "É",
+        "s": 2.1
+      },
+      {
+        "w": "teimosia",
+        "s": 2.24
+      },
+      {
+        "w": "do",
+        "s": 2.74
+      },
+      {
+        "w": "bem",
+        "s": 2.94
+      },
+      {
+        "w": "Última",
+        "s": 3.76
+      },
+      {
+        "w": "pergunta",
+        "s": 3.84
+      },
+      {
+        "w": "Capricha",
+        "s": 4.58
+      }
+    ]
+  },
+  "q4": {
+    "text": "Perfeito! Era exatamente isso que eu precisava! Haha, segura aí que eu vou montar o teu diagnóstico!",
+    "words": [
+      {
+        "w": "Perfeito",
+        "s": 0.3
+      },
+      {
+        "w": "Era",
+        "s": 1.1
+      },
+      {
+        "w": "exatamente",
+        "s": 1.18
+      },
+      {
+        "w": "isso",
+        "s": 1.96
+      },
+      {
+        "w": "que",
+        "s": 2.1
+      },
+      {
+        "w": "eu",
+        "s": 2.18
+      },
+      {
+        "w": "precisava",
+        "s": 2.38
+      },
+      {
+        "w": "Haha",
+        "s": 2.94
+      },
+      {
+        "w": "segura",
+        "s": 3.74
+      },
+      {
+        "w": "aí",
+        "s": 3.86
+      },
+      {
+        "w": "que",
+        "s": 3.98
+      },
+      {
+        "w": "eu",
+        "s": 4.04
+      },
+      {
+        "w": "vou",
+        "s": 4.14
+      },
+      {
+        "w": "montar",
+        "s": 4.2
+      },
+      {
+        "w": "o",
+        "s": 4.36
+      },
+      {
+        "w": "teu",
+        "s": 4.52
+      },
+      {
+        "w": "diagnóstico",
+        "s": 4.64
+      }
+    ]
+  },
+  "res_embolou": {
+    "text": "Deu diagnóstico, ouvido embolado. O nativo emenda tudo e ninguém nunca treinou teu cérebro pra separar os sons. Não é vocabulário, não é gramática, é ouvido. E ouvido se conserta com treino de repetição. O Marcos gravou uma aula mostrando esse treino exato. Assiste agora. Vale por mim!",
+    "words": [
+      {
+        "w": "Deu",
+        "s": 0
+      },
+      {
+        "w": "diagnóstico",
+        "s": 0.18
+      },
+      {
+        "w": "ouvido",
+        "s": 1.22
+      },
+      {
+        "w": "embolado",
+        "s": 1.44
+      },
+      {
+        "w": "O",
+        "s": 2.66
+      },
+      {
+        "w": "nativo",
+        "s": 2.76
+      },
+      {
+        "w": "emenda",
+        "s": 3.04
+      },
+      {
+        "w": "tudo",
+        "s": 3.32
+      },
+      {
+        "w": "e",
+        "s": 3.66
+      },
+      {
+        "w": "ninguém",
+        "s": 4.08
+      },
+      {
+        "w": "nunca",
+        "s": 4.26
+      },
+      {
+        "w": "treinou",
+        "s": 4.6
+      },
+      {
+        "w": "teu",
+        "s": 4.8
+      },
+      {
+        "w": "cérebro",
+        "s": 5.24
+      },
+      {
+        "w": "pra",
+        "s": 5.32
+      },
+      {
+        "w": "separar",
+        "s": 5.52
+      },
+      {
+        "w": "os",
+        "s": 5.82
+      },
+      {
+        "w": "sons",
+        "s": 6.12
+      },
+      {
+        "w": "Não",
+        "s": 6.9
+      },
+      {
+        "w": "é",
+        "s": 6.9
+      },
+      {
+        "w": "vocabulário",
+        "s": 7.1
+      },
+      {
+        "w": "não",
+        "s": 7.78
+      },
+      {
+        "w": "é",
+        "s": 7.9
+      },
+      {
+        "w": "gramática",
+        "s": 8.1
+      },
+      {
+        "w": "é",
+        "s": 8.68
+      },
+      {
+        "w": "ouvido",
+        "s": 8.8
+      },
+      {
+        "w": "E",
+        "s": 9.48
+      },
+      {
+        "w": "ouvido",
+        "s": 9.76
+      },
+      {
+        "w": "se",
+        "s": 9.96
+      },
+      {
+        "w": "conserta",
+        "s": 10.38
+      },
+      {
+        "w": "com",
+        "s": 10.54
+      },
+      {
+        "w": "treino",
+        "s": 10.78
+      },
+      {
+        "w": "de",
+        "s": 10.98
+      },
+      {
+        "w": "repetição",
+        "s": 11.2
+      },
+      {
+        "w": "O",
+        "s": 12.14
+      },
+      {
+        "w": "Marcos",
+        "s": 12.3
+      },
+      {
+        "w": "gravou",
+        "s": 12.48
+      },
+      {
+        "w": "uma",
+        "s": 12.76
+      },
+      {
+        "w": "aula",
+        "s": 13.12
+      },
+      {
+        "w": "mostrando",
+        "s": 13.12
+      },
+      {
+        "w": "esse",
+        "s": 13.46
+      },
+      {
+        "w": "treino",
+        "s": 13.72
+      },
+      {
+        "w": "exato",
+        "s": 13.88
+      },
+      {
+        "w": "Assiste",
+        "s": 15
+      },
+      {
+        "w": "agora",
+        "s": 15.08
+      },
+      {
+        "w": "Vale",
+        "s": 15.72
+      },
+      {
+        "w": "por",
+        "s": 15.92
+      },
+      {
+        "w": "mim",
+        "s": 16.08
+      }
+    ]
+  },
+  "res_soltas": {
+    "text": "Eu-diagnóstico. Ouvido picado. Você reconhece as palavras, mas teu ouvido não foi treinado pra pegar a emenda. E é na emenda que o inglês de verdade acontece. Isso se resolve com treino de repetição. E o Marcos mostra o passo a passo na aula. Vai lá agora!",
+    "words": [
+      {
+        "w": "Eu",
+        "s": 0
+      },
+      {
+        "w": "diagnóstico",
+        "s": 0.24
+      },
+      {
+        "w": "Ouvido",
+        "s": 1.28
+      },
+      {
+        "w": "picado",
+        "s": 1.34
+      },
+      {
+        "w": "Você",
+        "s": 2.24
+      },
+      {
+        "w": "reconhece",
+        "s": 2.3
+      },
+      {
+        "w": "as",
+        "s": 2.64
+      },
+      {
+        "w": "palavras",
+        "s": 3.18
+      },
+      {
+        "w": "mas",
+        "s": 3.42
+      },
+      {
+        "w": "teu",
+        "s": 3.54
+      },
+      {
+        "w": "ouvido",
+        "s": 3.7
+      },
+      {
+        "w": "não",
+        "s": 4
+      },
+      {
+        "w": "foi",
+        "s": 4.22
+      },
+      {
+        "w": "treinado",
+        "s": 4.36
+      },
+      {
+        "w": "pra",
+        "s": 4.7
+      },
+      {
+        "w": "pegar",
+        "s": 4.86
+      },
+      {
+        "w": "a",
+        "s": 5.06
+      },
+      {
+        "w": "emenda",
+        "s": 5.44
+      },
+      {
+        "w": "E",
+        "s": 5.92
+      },
+      {
+        "w": "é",
+        "s": 6.02
+      },
+      {
+        "w": "na",
+        "s": 6.14
+      },
+      {
+        "w": "emenda",
+        "s": 6.32
+      },
+      {
+        "w": "que",
+        "s": 6.58
+      },
+      {
+        "w": "o",
+        "s": 6.78
+      },
+      {
+        "w": "inglês",
+        "s": 7.12
+      },
+      {
+        "w": "de",
+        "s": 7.14
+      },
+      {
+        "w": "verdade",
+        "s": 7.32
+      },
+      {
+        "w": "acontece",
+        "s": 7.52
+      },
+      {
+        "w": "Isso",
+        "s": 8.68
+      },
+      {
+        "w": "se",
+        "s": 8.72
+      },
+      {
+        "w": "resolve",
+        "s": 9
+      },
+      {
+        "w": "com",
+        "s": 9.16
+      },
+      {
+        "w": "treino",
+        "s": 9.42
+      },
+      {
+        "w": "de",
+        "s": 9.58
+      },
+      {
+        "w": "repetição",
+        "s": 9.8
+      },
+      {
+        "w": "E",
+        "s": 10.48
+      },
+      {
+        "w": "o",
+        "s": 10.56
+      },
+      {
+        "w": "Marcos",
+        "s": 10.78
+      },
+      {
+        "w": "mostra",
+        "s": 10.96
+      },
+      {
+        "w": "o",
+        "s": 11.24
+      },
+      {
+        "w": "passo",
+        "s": 11.62
+      },
+      {
+        "w": "a",
+        "s": 11.62
+      },
+      {
+        "w": "passo",
+        "s": 11.88
+      },
+      {
+        "w": "na",
+        "s": 11.88
+      },
+      {
+        "w": "aula",
+        "s": 12.12
+      },
+      {
+        "w": "Vai",
+        "s": 12.86
+      },
+      {
+        "w": "lá",
+        "s": 12.9
+      },
+      {
+        "w": "agora",
+        "s": 13.1
+      }
+    ]
+  },
+  "res_travo": {
+    "text": "Eu diagnóstico boca travada com o ouvido quase lá. Teu cérebro entende, mas nunca automatizou a resposta. E automático só vem com repetição. A aula do Marcos mostra como destravar isso rápido. Assiste agora. Teu caso anda ligeiro.",
+    "words": [
+      {
+        "w": "Eu",
+        "s": 0
+      },
+      {
+        "w": "diagnóstico",
+        "s": 0.22
+      },
+      {
+        "w": "boca",
+        "s": 0.74
+      },
+      {
+        "w": "travada",
+        "s": 1.16
+      },
+      {
+        "w": "com",
+        "s": 1.6
+      },
+      {
+        "w": "o",
+        "s": 1.88
+      },
+      {
+        "w": "ouvido",
+        "s": 2.02
+      },
+      {
+        "w": "quase",
+        "s": 2.18
+      },
+      {
+        "w": "lá",
+        "s": 2.54
+      },
+      {
+        "w": "Teu",
+        "s": 3.5
+      },
+      {
+        "w": "cérebro",
+        "s": 3.72
+      },
+      {
+        "w": "entende",
+        "s": 3.8
+      },
+      {
+        "w": "mas",
+        "s": 4.2
+      },
+      {
+        "w": "nunca",
+        "s": 4.34
+      },
+      {
+        "w": "automatizou",
+        "s": 4.54
+      },
+      {
+        "w": "a",
+        "s": 5.24
+      },
+      {
+        "w": "resposta",
+        "s": 5.74
+      },
+      {
+        "w": "E",
+        "s": 6.18
+      },
+      {
+        "w": "automático",
+        "s": 6.36
+      },
+      {
+        "w": "só",
+        "s": 6.76
+      },
+      {
+        "w": "vem",
+        "s": 7.02
+      },
+      {
+        "w": "com",
+        "s": 7.14
+      },
+      {
+        "w": "repetição",
+        "s": 7.32
+      },
+      {
+        "w": "A",
+        "s": 8.38
+      },
+      {
+        "w": "aula",
+        "s": 8.5
+      },
+      {
+        "w": "do",
+        "s": 8.54
+      },
+      {
+        "w": "Marcos",
+        "s": 8.76
+      },
+      {
+        "w": "mostra",
+        "s": 8.96
+      },
+      {
+        "w": "como",
+        "s": 9.22
+      },
+      {
+        "w": "destravar",
+        "s": 9.46
+      },
+      {
+        "w": "isso",
+        "s": 9.84
+      },
+      {
+        "w": "rápido",
+        "s": 10.06
+      },
+      {
+        "w": "Assiste",
+        "s": 11.22
+      },
+      {
+        "w": "agora",
+        "s": 11.28
+      },
+      {
+        "w": "Teu",
+        "s": 12
+      },
+      {
+        "w": "caso",
+        "s": 12.1
+      },
+      {
+        "w": "anda",
+        "s": 12.26
+      },
+      {
+        "w": "ligeiro",
+        "s": 12.46
+      }
+    ]
+  }
+}

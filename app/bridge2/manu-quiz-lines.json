@@ -1,0 +1,13 @@
+{
+  "q1_short": { "vibe": "comemora", "text": "Menos de um ano? Chegou cedo na aula certa. Vem comigo." },
+  "q1_long": { "vibe": "conspira", "text": "Anos nessa luta... e eu já te adianto: a culpa nunca foi sua. Continua." },
+  "q2_embolou": { "vibe": "provoca", "text": "Embolou tudo, né? EU SABIA. Guarda essa resposta — ela é a chave." },
+  "q2_soltas": { "vibe": "provoca", "text": "Pega palavra solta e perde o fio do meio... clássico. Anota aí, que isso tem nome." },
+  "q2_travo": { "vibe": "encoraja", "text": "Entende mas TRAVA na resposta? Então teu caso tá mais avançado do que você imagina." },
+  "q_mid": { "vibe": "conspira", "text": "Deixa eu te adiantar uma coisa: isso que você marcou tem NOME — e não é falta de capacidade. Quase lá." },
+  "q3": { "vibe": "encoraja", "text": "Recomeçar não é fracasso, tá? É teimosia do bem. Última pergunta, capricha." },
+  "q4": { "vibe": "comemora", "text": "PERFEITO! Era exatamente isso que eu precisava. Segura aí que eu vou montar o teu diagnóstico." },
+  "res_embolou": { "vibe": "conspira", "text": "Teu diagnóstico: OUVIDO EMBOLADO. O nativo emenda tudo, e ninguém nunca treinou o teu cérebro pra separar os sons. Não é vocabulário, não é gramática — é ouvido. E ouvido se conserta com treino de repetição. O Marcos gravou uma aula mostrando esse treino exato. Assiste agora — vale por mim." },
+  "res_soltas": { "vibe": "conspira", "text": "Teu diagnóstico: OUVIDO PICADO. Você reconhece as palavras, mas o teu ouvido nunca foi treinado pra pegar a EMENDA entre elas — e é na emenda que o inglês de verdade acontece. Isso se resolve com treino de repetição, e o Marcos mostra o passo a passo na aula. Vai lá agora." },
+  "res_travo": { "vibe": "comemora", "text": "Teu diagnóstico: BOCA TRAVADA — com ouvido quase lá. Teu cérebro entende, mas nunca AUTOMATIZOU a resposta. E automático só vem com repetição. A aula do Marcos mostra como destravar isso rápido. Assiste agora — teu caso anda LIGEIRO." }
+}

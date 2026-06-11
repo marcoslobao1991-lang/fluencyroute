@@ -10,7 +10,8 @@ import { execSync } from "node:child_process";
 import path from "node:path";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
-const OUT = path.join(ROOT, "public", "bridge", "manu");
+const outArgEarly = process.argv.find((a) => a.startsWith("--out="));
+const OUT = outArgEarly ? path.resolve(ROOT, outArgEarly.split("=")[1]) : path.join(ROOT, "public", "bridge", "manu");
 mkdirSync(OUT, { recursive: true });
 
 const env = readFileSync(path.join(ROOT, ".env.local"), "utf8");
@@ -20,8 +21,11 @@ if (!KEY) {
   process.exit(1);
 }
 
-const LINES = JSON.parse(readFileSync(path.join(ROOT, "app", "bridge", "manu-lines.json"), "utf8"));
-const CAPTIONS_FILE = path.join(ROOT, "app", "bridge", "manu-captions.json");
+// --file e --out permitem gerar outros roteiros (ex: quiz da /bridge2)
+const fileArg = process.argv.find((a) => a.startsWith("--file="));
+const LINES_PATH = fileArg ? path.resolve(ROOT, fileArg.split("=")[1]) : path.join(ROOT, "app", "bridge", "manu-lines.json");
+const LINES = JSON.parse(readFileSync(LINES_PATH, "utf8"));
+const CAPTIONS_FILE = LINES_PATH.replace(/-lines\.json$/, "-captions.json").replace(/manu-lines\.json$/, "manu-captions.json");
 const captions = existsSync(CAPTIONS_FILE) ? JSON.parse(readFileSync(CAPTIONS_FILE, "utf8")) : {};
 
 const onlyArg = process.argv.find((a) => a.startsWith("--only"));
