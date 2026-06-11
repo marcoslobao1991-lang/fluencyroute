@@ -87,7 +87,10 @@ const PROGRESS: Record<Step, number> = {
 }
 
 export default function BridgePage() {
-  const [step, setStep] = useState<Step>('gate')
+  // SEM gate: a primeira tela JÁ É o 1º play (a ação mais treinada da
+  // internet é apertar play). 'gate' só existe pra quem já completou.
+  const [step, setStep] = useState<Step>('play1')
+  const [engaged, setEngaged] = useState(false) // primeiro toque dado?
   const [captionId, setCaptionId] = useState<LineId | null>(null)
   const [speaking, setSpeaking] = useState(false)
   const [mood, setMood] = useState<ManuMood>('idle')
@@ -111,20 +114,25 @@ export default function BridgePage() {
 
   useEffect(() => {
     setVslUrl(buildVslUrl())
-    try { setReturning(localStorage.getItem('fr_bridge_done') === '1') } catch {}
+    try {
+      if (localStorage.getItem('fr_bridge_done') === '1') {
+        setReturning(true)
+        setStep('gate') // tela "olha quem voltou"
+      }
+    } catch {}
     try { trackViewContent('bridge-rota') } catch {}
     try { frTrack('pageview') } catch {}
   }, [])
 
-  // gate vivo: a cena roda em loop MUDO e embaçada na primeira tela
+  // hero vivo: a cena roda em loop MUDO e embaçada até o primeiro toque
   useEffect(() => {
     const v = videoRef.current
     if (!v) return
-    if (step === 'gate' && !returning) {
+    if (step === 'play1' && !engaged) {
       v.muted = true
       v.play().catch(() => {}) // autoplay mudo; se bloquear, fica o frame parado (ok)
     }
-  }, [step, returning])
+  }, [step, engaged])
 
   // separa humano real de PREFETCH do Meta (que dispara pageview sem ninguém
   // olhando): gate_seen só com a aba VISÍVEL por 3s contínuos
@@ -226,28 +234,12 @@ export default function BridgePage() {
   }, [speak])
 
   // ─── beats ──────────────────────────────────────────────────────────
-  const start = () => {
-    try { frTrack('gate_click', 'loop') } catch {}
+  // quem voltou e quer refazer: volta pro hero colapsado
+  const redo = () => {
+    try { frTrack('redo_click') } catch {}
+    setReturning(false)
+    setEngaged(false)
     setStep('play1')
-    speak(['m0', 'm1'])
-    // para o loop do gate; o 1º play oficial reseta e toca COM som
-    try {
-      const v = videoRef.current
-      if (v) {
-        v.pause()
-        v.currentTime = 0
-      }
-    } catch {}
-    // aquece a sequência do listening (~1MB) — o resto carrega sob demanda
-    try {
-      const warm: LineId[] = ['m2_all', 'm2_some', 'm2_none', 'm3', 'm4', 'm6', 'm7']
-      preloadRef.current = warm.map(id => {
-        const a = new Audio()
-        a.preload = 'auto'
-        a.src = `/bridge/manu/${id}.mp3`
-        return a
-      })
-    } catch {}
   }
 
   const answerHonest = (k: 'all' | 'some' | 'none') => {
@@ -372,17 +364,17 @@ export default function BridgePage() {
       </header>
 
       <main style={{ maxWidth: 560, margin: '0 auto', padding: '20px 20px 80px' }}>
-        {/* ─── GATE — secret lead do loop de repetição + cena VIVA ───── */}
-        {step === 'gate' && !returning && (
-          <section style={{ textAlign: 'center', paddingTop: 18 }}>
+        {/* ─── HERO colapsado — a 1ª tela JÁ É o 1º play ──────────────── */}
+        {step === 'play1' && !engaged && (
+          <section style={{ textAlign: 'center', paddingTop: 14 }}>
             <p style={{ fontSize: 12, fontWeight: 800, color: C.violet, letterSpacing: 2.5, textTransform: 'uppercase', marginBottom: 12 }}>
               O loop de repetição · 3 minutos · grátis
             </p>
-            <h1 style={{ fontSize: 'clamp(27px, 6.8vw, 38px)', fontWeight: 800, lineHeight: 1.1, letterSpacing: '-0.035em', marginBottom: 12 }}>
+            <h1 style={{ fontSize: 'clamp(26px, 6.6vw, 36px)', fontWeight: 800, lineHeight: 1.1, letterSpacing: '-0.035em', marginBottom: 10 }}>
               Existe um <span style={{ color: C.violet }}>loop de repetição</span> que destrava o ouvido de qualquer adulto.
             </h1>
-            <p style={{ fontSize: 16, color: C.dim, fontWeight: 500, lineHeight: 1.5, maxWidth: 400, margin: '0 auto 18px' }}>
-              A Manu liga ele no SEU ouvido agora — e em 3 minutos você entende uma cena de série sem legenda. <strong style={{ color: C.ink }}>Aposto que sim.</strong>
+            <p style={{ fontSize: 15.5, color: C.dim, fontWeight: 500, lineHeight: 1.5, maxWidth: 400, margin: '0 auto 16px' }}>
+              Ele começa nessa cena aqui embaixo. Aperta o play — <strong style={{ color: C.ink }}>sem legenda, velocidade real</strong> — e deixa o resto comigo.
             </p>
           </section>
         )}
@@ -406,7 +398,7 @@ export default function BridgePage() {
               Conhecer o método completo →
             </a>
             <p style={{ marginTop: 20 }}>
-              <button onClick={() => { try { frTrack('redo_click') } catch {}; start() }} style={{
+              <button onClick={redo} style={{
                 background: 'none', border: 'none', color: C.dim, fontSize: 13, fontWeight: 600,
                 cursor: 'pointer', textDecoration: 'underline', textUnderlineOffset: 3, fontFamily: FONT,
               }}>
@@ -416,8 +408,8 @@ export default function BridgePage() {
           </section>
         )}
 
-        {/* ─── BARRA DA MANU (legenda sempre visível = funciona sem som) ── */}
-        {step !== 'gate' && (
+        {/* ─── BARRA DA MANU (aparece quando ela fala pela 1ª vez) ──────── */}
+        {step !== 'gate' && (captionId || pron.recording || engaged) && (
           <div style={{
             display: 'flex', gap: 14, alignItems: 'flex-start',
             background: C.bgSoft, border: `1px solid ${C.border}`, borderRadius: 20,
@@ -444,7 +436,7 @@ export default function BridgePage() {
         {/* ─── A CENA — protagonista, visível a jornada inteira.
              No GATE ela roda em LOOP MUDO embaçada: movimento + curiosidade
              ("o que ela tá falando?") — feed de Instagram clica em vídeo. ── */}
-        <div style={step === 'gate' && returning
+        <div style={step === 'gate'
           ? { position: 'absolute' as const, width: 1, height: 1, opacity: 0, pointerEvents: 'none' as const, overflow: 'hidden' }
           : { borderRadius: 20, overflow: 'hidden', boxShadow: C.shadow, marginBottom: 8, position: 'relative' as const, animation: 'fadeUp .4s ease', background: '#000' }}>
           {/* o MUNDO entra em foco junto com o ouvido: 12px → 7px → 3px → nítido */}
@@ -453,18 +445,31 @@ export default function BridgePage() {
             src="/bridge/scene.mp4"
             playsInline
             preload="auto"
-            loop={step === 'gate'} // loop SÓ no gate — depois o onEnded dirige a jornada
+            loop={step === 'play1' && !engaged} // loop SÓ pré-toque — depois o onEnded dirige a jornada
             onEnded={onSceneEnd}
             style={{
               width: '100%', display: 'block',
-              filter: step === 'gate' || step === 'play1' || step === 'honest' ? 'blur(12px)' : step === 'play2' ? 'blur(7px)' : step === 'play3' ? 'blur(3px)' : 'none',
+              // brightness compensa a cena escura (blur escuro = caixa preta morta)
+              filter: step === 'play1' || step === 'honest' ? 'blur(12px) brightness(1.35)' : step === 'play2' ? 'blur(7px) brightness(1.2)' : step === 'play3' ? 'blur(3px) brightness(1.08)' : 'none',
               transform: 'scale(1.06)', // esconde a borda clara do blur
               transition: 'filter 1s ease',
             }}
           />
           {!sceneBusy && (
             <button onClick={() => {
-              if (step === 'gate') { start(); return }
+              if (step === 'play1' && !engaged) {
+                setEngaged(true)
+                try { frTrack('gate_click', 'play') } catch {}
+                try {
+                  const warm: LineId[] = ['m_honest', 'm2_all', 'm2_some', 'm2_none', 'm3', 'm4', 'm6', 'm7']
+                  preloadRef.current = warm.map(id => {
+                    const a = new Audio()
+                    a.preload = 'auto'
+                    a.src = `/bridge/manu/${id}.mp3`
+                    return a
+                  })
+                } catch {}
+              }
               const n = step === 'play1' ? '1' : step === 'play2' ? '2' : step === 'play3' ? '3' : step === 'play4' ? '4' : 're'
               try { frTrack('listen_click', n) } catch {}
               playScene()
@@ -481,7 +486,7 @@ export default function BridgePage() {
                 animation: isPlayStep(step) || step === 'gate' ? 'softPulse 2.2s ease-in-out infinite' : 'none',
               }}>
                 <PlayIcon size={15} color={isPlayStep(step) || step === 'gate' ? '#fff' : C.violet} />
-                {step === 'gate' ? 'Ligar o loop no meu ouvido'
+                {step === 'play1' && !engaged ? 'Ouvir a cena · sem legenda'
                   : step === 'play1' ? 'Ouvir a cena · 1ª vez'
                   : step === 'play2' ? 'De novo · 2ª vez'
                   : step === 'play3' ? 'Mais uma · 3ª vez'
@@ -493,18 +498,10 @@ export default function BridgePage() {
           )}
         </div>
 
-        {step === 'gate' && !returning && (
-          <>
-            <p style={{ fontSize: 13, color: C.dim, fontWeight: 600, textAlign: 'center', marginTop: 10, animation: 'fadeUp .4s ease' }}>
-              grátis · sem cadastro · 🔊 com som fica melhor
-            </p>
-          </>
-        )}
-
         {/* ─── PLAY 1 — o desafio ───────────────────────────────────── */}
         {step === 'play1' && (
           <p style={{ fontSize: 13, color: C.dim, fontWeight: 600, textAlign: 'center', marginTop: 10, animation: 'fadeUp .4s ease' }}>
-            🔊 som ligado? · cena real · velocidade de nativo · sem legenda
+            {engaged ? '🔊 som ligado? · cena real · velocidade de nativo · sem legenda' : 'grátis · sem cadastro · 🔊 liga o som'}
           </p>
         )}
 

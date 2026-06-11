@@ -2559,75 +2559,111 @@
     ]
   },
   "m_honest": {
-    "text": "E aí? Entendeu o que ela disse? Seja honesto comigo, ninguém está olhando. Pode confessar aí embaixo.",
+    "text": "Oi, oi! Eu sou a Manu, sua nova teacher. E aí? Entendeu o que ela disse? Seja honesto comigo. Ninguém está olhando. Pode confessar aí embaixo.",
     "words": [
       {
-        "w": "E",
+        "w": "Oi",
         "s": 0
       },
       {
-        "w": "aí",
-        "s": 0.16
+        "w": "oi",
+        "s": 0.28
       },
       {
-        "w": "Entendeu",
+        "w": "Eu",
+        "s": 0.72
+      },
+      {
+        "w": "sou",
         "s": 0.94
       },
       {
-        "w": "o",
-        "s": 1.46
+        "w": "a",
+        "s": 1.04
       },
       {
-        "w": "que",
-        "s": 1.64
+        "w": "Manu",
+        "s": 1.16
       },
       {
-        "w": "ela",
-        "s": 1.64
+        "w": "sua",
+        "s": 1.68
       },
       {
-        "w": "disse",
-        "s": 1.98
+        "w": "nova",
+        "s": 1.82
       },
       {
-        "w": "Seja",
-        "s": 2.94
+        "w": "teacher",
+        "s": 2.06
       },
       {
-        "w": "honesto",
-        "s": 3.04
-      },
-      {
-        "w": "comigo",
-        "s": 3.32
-      },
-      {
-        "w": "ninguém",
-        "s": 4.28
-      },
-      {
-        "w": "está",
-        "s": 4.32
-      },
-      {
-        "w": "olhando",
-        "s": 4.52
-      },
-      {
-        "w": "Pode",
-        "s": 5.34
-      },
-      {
-        "w": "confessar",
-        "s": 5.38
+        "w": "E",
+        "s": 2.86
       },
       {
         "w": "aí",
-        "s": 5.74
+        "s": 2.94
+      },
+      {
+        "w": "Entendeu",
+        "s": 3.58
+      },
+      {
+        "w": "o",
+        "s": 3.82
+      },
+      {
+        "w": "que",
+        "s": 3.94
+      },
+      {
+        "w": "ela",
+        "s": 3.94
+      },
+      {
+        "w": "disse",
+        "s": 4.14
+      },
+      {
+        "w": "Seja",
+        "s": 4.96
+      },
+      {
+        "w": "honesto",
+        "s": 5.1
+      },
+      {
+        "w": "comigo",
+        "s": 5.38
+      },
+      {
+        "w": "Ninguém",
+        "s": 6.14
+      },
+      {
+        "w": "está",
+        "s": 6.16
+      },
+      {
+        "w": "olhando",
+        "s": 6.34
+      },
+      {
+        "w": "Pode",
+        "s": 7.14
+      },
+      {
+        "w": "confessar",
+        "s": 7.2
+      },
+      {
+        "w": "aí",
+        "s": 7.58
       },
       {
         "w": "embaixo",
-        "s": 6.1
+        "s": 7.72
       }
     ]
   },
