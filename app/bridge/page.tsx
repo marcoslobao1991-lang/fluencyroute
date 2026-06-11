@@ -344,10 +344,10 @@ export default function BridgePage() {
               Não é truque, é uma demonstração. E uma aposta — que você vai querer perder.
             </p>
             <button onClick={start} style={{ ...btnPrimary, fontSize: 17, padding: '20px 34px' }}>
-              <PlayIcon size={18} /> Começar — liga o som
+              Aceitar a aposta 😏
             </button>
             <p style={{ fontSize: 12, color: C.dim, marginTop: 16, fontWeight: 500 }}>
-              Sem cadastro · experiência guiada por voz
+              3 minutos · sem cadastro · 🔊 com som fica melhor
             </p>
           </section>
         )}
@@ -456,7 +456,7 @@ export default function BridgePage() {
         {/* ─── PLAY 1 — o desafio ───────────────────────────────────── */}
         {step === 'play1' && (
           <p style={{ fontSize: 13, color: C.dim, fontWeight: 600, textAlign: 'center', marginTop: 10, animation: 'fadeUp .4s ease' }}>
-            Cena real · velocidade de nativo · sem legenda
+            🔊 som ligado? · cena real · velocidade de nativo · sem legenda
           </p>
         )}
 
