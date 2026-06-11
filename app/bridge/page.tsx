@@ -116,6 +116,16 @@ export default function BridgePage() {
     try { frTrack('pageview') } catch {}
   }, [])
 
+  // gate vivo: a cena roda em loop MUDO e embaçada na primeira tela
+  useEffect(() => {
+    const v = videoRef.current
+    if (!v) return
+    if (step === 'gate' && !returning) {
+      v.muted = true
+      v.play().catch(() => {}) // autoplay mudo; se bloquear, fica o frame parado (ok)
+    }
+  }, [step, returning])
+
   // separa humano real de PREFETCH do Meta (que dispara pageview sem ninguém
   // olhando): gate_seen só com a aba VISÍVEL por 3s contínuos
   useEffect(() => {
@@ -220,10 +230,15 @@ export default function BridgePage() {
     try { frTrack('gate_click') } catch {}
     setStep('play1')
     speak(['m0', 'm1'])
-    // aquece os assets com o gesto do usuário (autoplay liberado a partir daqui).
-    // Só a sequência do listening (~1MB) — o resto carrega sob demanda; a
-    // legenda aparece instantânea de qualquer jeito, 3.4MB de uma vez mata 4G.
-    try { videoRef.current?.load() } catch {}
+    // para o loop do gate; o 1º play oficial reseta e toca COM som
+    try {
+      const v = videoRef.current
+      if (v) {
+        v.pause()
+        v.currentTime = 0
+      }
+    } catch {}
+    // aquece a sequência do listening (~1MB) — o resto carrega sob demanda
     try {
       const warm: LineId[] = ['m2_all', 'm2_some', 'm2_none', 'm3', 'm4', 'm6', 'm7']
       preloadRef.current = warm.map(id => {
@@ -357,26 +372,17 @@ export default function BridgePage() {
       </header>
 
       <main style={{ maxWidth: 560, margin: '0 auto', padding: '20px 20px 80px' }}>
-        {/* ─── GATE ─────────────────────────────────────────────────── */}
+        {/* ─── GATE — desafio + cena VIVA (loop mudo embaçado) ────────── */}
         {step === 'gate' && !returning && (
-          <section style={{ textAlign: 'center', paddingTop: 48 }}>
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 28 }}>
-              <ManuOrb size={120} mood="happy" />
-            </div>
-            <p style={{ fontSize: 14, fontWeight: 700, color: C.violet, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 14 }}>
-              Oi. Eu sou a Manu.
+          <section style={{ textAlign: 'center', paddingTop: 18 }}>
+            <p style={{ fontSize: 12, fontWeight: 800, color: C.violet, letterSpacing: 2.5, textTransform: 'uppercase', marginBottom: 12 }}>
+              Desafio · 3 minutos · grátis
             </p>
-            <h1 style={{ fontSize: 'clamp(30px, 7.4vw, 44px)', fontWeight: 800, lineHeight: 1.06, letterSpacing: '-0.035em', marginBottom: 18 }}>
-              Vou fazer você entender uma cena de série <span style={{ color: C.violet }}>sem legenda</span>.<br />Em 3 minutos.
+            <h1 style={{ fontSize: 'clamp(28px, 7vw, 40px)', fontWeight: 800, lineHeight: 1.08, letterSpacing: '-0.035em', marginBottom: 12 }}>
+              Você entende uma cena de série <span style={{ color: C.violet }}>sem legenda</span>?
             </h1>
-            <p style={{ fontSize: 17, color: C.dim, fontWeight: 500, lineHeight: 1.5, maxWidth: 380, margin: '0 auto 36px' }}>
-              Não é truque, é uma demonstração. E uma aposta — que você vai querer perder.
-            </p>
-            <button onClick={start} style={{ ...btnPrimary, fontSize: 17, padding: '20px 34px' }}>
-              Aceitar a aposta 😏
-            </button>
-            <p style={{ fontSize: 12, color: C.dim, marginTop: 16, fontWeight: 500 }}>
-              3 minutos · sem cadastro · 🔊 com som fica melhor
+            <p style={{ fontSize: 16, color: C.dim, fontWeight: 500, lineHeight: 1.5, maxWidth: 400, margin: '0 auto 18px' }}>
+              Aposto que não. E em 3 minutos eu te provo que o motivo <strong style={{ color: C.ink }}>não é o que você pensa</strong>.
             </p>
           </section>
         )}
@@ -435,8 +441,10 @@ export default function BridgePage() {
           </div>
         )}
 
-        {/* ─── A CENA — protagonista, visível a jornada inteira ──────── */}
-        <div style={step === 'gate'
+        {/* ─── A CENA — protagonista, visível a jornada inteira.
+             No GATE ela roda em LOOP MUDO embaçada: movimento + curiosidade
+             ("o que ela tá falando?") — feed de Instagram clica em vídeo. ── */}
+        <div style={step === 'gate' && returning
           ? { position: 'absolute' as const, width: 1, height: 1, opacity: 0, pointerEvents: 'none' as const, overflow: 'hidden' }
           : { borderRadius: 20, overflow: 'hidden', boxShadow: C.shadow, marginBottom: 8, position: 'relative' as const, animation: 'fadeUp .4s ease', background: '#000' }}>
           {/* o MUNDO entra em foco junto com o ouvido: 12px → 7px → 3px → nítido */}
@@ -445,16 +453,18 @@ export default function BridgePage() {
             src="/bridge/scene.mp4"
             playsInline
             preload="auto"
+            loop={step === 'gate'} // loop SÓ no gate — depois o onEnded dirige a jornada
             onEnded={onSceneEnd}
             style={{
               width: '100%', display: 'block',
-              filter: step === 'play1' ? 'blur(12px)' : step === 'honest' ? 'blur(12px)' : step === 'play2' ? 'blur(7px)' : step === 'play3' ? 'blur(3px)' : 'none',
+              filter: step === 'gate' || step === 'play1' || step === 'honest' ? 'blur(12px)' : step === 'play2' ? 'blur(7px)' : step === 'play3' ? 'blur(3px)' : 'none',
               transform: 'scale(1.06)', // esconde a borda clara do blur
               transition: 'filter 1s ease',
             }}
           />
-          {step !== 'gate' && !sceneBusy && (
+          {!sceneBusy && (
             <button onClick={() => {
+              if (step === 'gate') { start(); return }
               const n = step === 'play1' ? '1' : step === 'play2' ? '2' : step === 'play3' ? '3' : step === 'play4' ? '4' : 're'
               try { frTrack('listen_click', n) } catch {}
               playScene()
@@ -464,14 +474,15 @@ export default function BridgePage() {
             }}>
               <span style={{
                 display: 'inline-flex', alignItems: 'center', gap: 10,
-                background: isPlayStep(step) ? `linear-gradient(135deg, ${C.violet}, ${C.violetD})` : C.bg,
-                color: isPlayStep(step) ? '#fff' : C.ink,
-                fontWeight: 800, fontSize: 15, padding: '15px 24px', borderRadius: 999, fontFamily: FONT,
+                background: isPlayStep(step) || step === 'gate' ? `linear-gradient(135deg, ${C.violet}, ${C.violetD})` : C.bg,
+                color: isPlayStep(step) || step === 'gate' ? '#fff' : C.ink,
+                fontWeight: 800, fontSize: step === 'gate' ? 16 : 15, padding: step === 'gate' ? '18px 30px' : '15px 24px', borderRadius: 999, fontFamily: FONT,
                 boxShadow: C.shadow, letterSpacing: '0.02em',
-                animation: isPlayStep(step) ? 'softPulse 2.2s ease-in-out infinite' : 'none',
+                animation: isPlayStep(step) || step === 'gate' ? 'softPulse 2.2s ease-in-out infinite' : 'none',
               }}>
-                <PlayIcon size={15} color={isPlayStep(step) ? '#fff' : C.violet} />
-                {step === 'play1' ? 'Ouvir a cena · 1ª vez'
+                <PlayIcon size={15} color={isPlayStep(step) || step === 'gate' ? '#fff' : C.violet} />
+                {step === 'gate' ? 'Fazer o teste agora'
+                  : step === 'play1' ? 'Ouvir a cena · 1ª vez'
                   : step === 'play2' ? 'De novo · 2ª vez'
                   : step === 'play3' ? 'Mais uma · 3ª vez'
                   : step === 'play4' ? 'Agora lendo · 4ª vez'
@@ -481,6 +492,12 @@ export default function BridgePage() {
             </button>
           )}
         </div>
+
+        {step === 'gate' && !returning && (
+          <p style={{ fontSize: 13, color: C.dim, fontWeight: 600, textAlign: 'center', marginTop: 10, animation: 'fadeUp .4s ease' }}>
+            grátis · sem cadastro · 🔊 com som fica melhor
+          </p>
+        )}
 
         {/* ─── PLAY 1 — o desafio ───────────────────────────────────── */}
         {step === 'play1' && (
