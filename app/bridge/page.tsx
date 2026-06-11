@@ -99,10 +99,6 @@ export default function BridgePage() {
   const [myUrl, setMyUrl] = useState<string | null>(null)
   const [vslUrl, setVslUrl] = useState('/vsl')
   const [returning, setReturning] = useState(false)
-  // gate CONGRUENTE com a promessa do ad (sem tocar nos ads validados):
-  // ads de "assista a aula" → frame "a Manu segurou sua aula 3 min".
-  // ads de demo (lista abaixo) e tráfego sem utm → frame desafio.
-  const [aulaFrame, setAulaFrame] = useState(false)
 
   const manuRef = useRef<HTMLAudioElement | null>(null)
   const videoRef = useRef<HTMLVideoElement | null>(null)
@@ -116,15 +112,6 @@ export default function BridgePage() {
   useEffect(() => {
     setVslUrl(buildVslUrl())
     try { setReturning(localStorage.getItem('fr_bridge_done') === '1') } catch {}
-    try {
-      // anúncios estilo DEMO (mostram o app) ficam no gate desafio;
-      // o resto do tráfego de campanha veio de promessa de AULA
-      const DEMO_ADS = ['ad2.4'] // adicionar prefixos de novos ads de demo aqui
-      const p = new URLSearchParams(window.location.search)
-      const content = p.get('utm_content') || ''
-      const isCampaign = !!(p.get('utm_source') || p.get('fbclid'))
-      setAulaFrame(isCampaign && !DEMO_ADS.some(a => content.startsWith(a)))
-    } catch {}
     try { trackViewContent('bridge-rota') } catch {}
     try { frTrack('pageview') } catch {}
   }, [])
@@ -240,7 +227,7 @@ export default function BridgePage() {
 
   // ─── beats ──────────────────────────────────────────────────────────
   const start = () => {
-    try { frTrack('gate_click', aulaFrame ? 'aula' : 'desafio') } catch {}
+    try { frTrack('gate_click', 'loop') } catch {}
     setStep('play1')
     speak(['m0', 'm1'])
     // para o loop do gate; o 1º play oficial reseta e toca COM som
@@ -385,10 +372,8 @@ export default function BridgePage() {
       </header>
 
       <main style={{ maxWidth: 560, margin: '0 auto', padding: '20px 20px 80px' }}>
-        {/* ─── GATE — desafio + cena VIVA (loop mudo embaçado).
-             Duas molduras pela promessa do ad: DESAFIO (demo) vs AULA
-             (a Manu interceptou você na porta da sala). ─────────────── */}
-        {step === 'gate' && !returning && !aulaFrame && (
+        {/* ─── GATE — secret lead do loop de repetição + cena VIVA ───── */}
+        {step === 'gate' && !returning && (
           <section style={{ textAlign: 'center', paddingTop: 18 }}>
             <p style={{ fontSize: 12, fontWeight: 800, color: C.violet, letterSpacing: 2.5, textTransform: 'uppercase', marginBottom: 12 }}>
               O loop de repetição · 3 minutos · grátis
@@ -398,19 +383,6 @@ export default function BridgePage() {
             </h1>
             <p style={{ fontSize: 16, color: C.dim, fontWeight: 500, lineHeight: 1.5, maxWidth: 400, margin: '0 auto 18px' }}>
               A Manu liga ele no SEU ouvido agora — e em 3 minutos você entende uma cena de série sem legenda. <strong style={{ color: C.ink }}>Aposto que sim.</strong>
-            </p>
-          </section>
-        )}
-        {step === 'gate' && !returning && aulaFrame && (
-          <section style={{ textAlign: 'center', paddingTop: 18 }}>
-            <p style={{ fontSize: 12, fontWeight: 800, color: C.violet, letterSpacing: 2.5, textTransform: 'uppercase', marginBottom: 12 }}>
-              Sua aula está pronta 👇
-            </p>
-            <h1 style={{ fontSize: 'clamp(27px, 6.8vw, 38px)', fontWeight: 800, lineHeight: 1.1, letterSpacing: '-0.035em', marginBottom: 12 }}>
-              Mas a teacher quer te provar <span style={{ color: C.violet }}>uma coisa</span> antes.
-            </h1>
-            <p style={{ fontSize: 16, color: C.dim, fontWeight: 500, lineHeight: 1.5, maxWidth: 400, margin: '0 auto 18px' }}>
-              3 minutos com a Manu e a aula fica <strong style={{ color: C.ink }}>10x mais óbvia</strong>. Ela é teimosa — não adianta discutir.
             </p>
           </section>
         )}
@@ -509,7 +481,7 @@ export default function BridgePage() {
                 animation: isPlayStep(step) || step === 'gate' ? 'softPulse 2.2s ease-in-out infinite' : 'none',
               }}>
                 <PlayIcon size={15} color={isPlayStep(step) || step === 'gate' ? '#fff' : C.violet} />
-                {step === 'gate' ? (aulaFrame ? 'Fazer o teste e liberar a aula' : 'Ligar o loop no meu ouvido')
+                {step === 'gate' ? 'Ligar o loop no meu ouvido'
                   : step === 'play1' ? 'Ouvir a cena · 1ª vez'
                   : step === 'play2' ? 'De novo · 2ª vez'
                   : step === 'play3' ? 'Mais uma · 3ª vez'
@@ -526,14 +498,6 @@ export default function BridgePage() {
             <p style={{ fontSize: 13, color: C.dim, fontWeight: 600, textAlign: 'center', marginTop: 10, animation: 'fadeUp .4s ease' }}>
               grátis · sem cadastro · 🔊 com som fica melhor
             </p>
-            {/* quem veio pela AULA tem a porta dela à vista — promessa do ad honrada */}
-            {aulaFrame && (
-              <p style={{ textAlign: 'center', marginTop: 14 }}>
-                <a href={vslUrl} onClick={() => { try { frTrack('gate_skip', 'aula') } catch {} }} style={{ fontSize: 13, color: C.dim, fontWeight: 600, textDecoration: 'underline', textUnderlineOffset: 3 }}>
-                  ir direto pra aula →
-                </a>
-              </p>
-            )}
           </>
         )}
 
