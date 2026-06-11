@@ -7,6 +7,7 @@
 import React from 'react'
 
 export const dynamic = 'force-dynamic'
+export const maxDuration = 30
 
 const SUPA_URL = 'https://petrtewismhpzidcmmwb.supabase.co'
 const KEY_PARAM = 'rota97'
@@ -35,18 +36,24 @@ async function fetchRows(days: number): Promise<Row[]> {
   const key = process.env.SUPABASE_SERVICE_KEY
   if (!key) return []
   const since = new Date(Date.now() - days * 86400000).toISOString()
-  const url = `${SUPA_URL}/rest/v1/funnel_events?funnel=eq.ingles&page=eq.bridge&ts=gte.${since}&select=id,event,detail,session_id,ts&order=ts.desc`
-  const out: Row[] = []
-  // pagina de 1000 em 1000 (PostgREST capa em 1000 por request)
-  for (let from = 0; from < 50000; from += 1000) {
-    const r = await fetch(url, {
-      headers: { apikey: key, Authorization: `Bearer ${key}`, Range: `${from}-${from + 999}` },
-      cache: 'no-store',
-    })
-    if (!r.ok) break
-    const batch: Row[] = await r.json()
-    out.push(...batch)
-    if (batch.length < 1000) break
+  // variant=B = só a bridge nova (a antiga acumulou meses de eventos e estourava timeout)
+  const url = `${SUPA_URL}/rest/v1/funnel_events?funnel=eq.ingles&page=eq.bridge&variant=eq.B&ts=gte.${since}&select=id,event,detail,session_id,ts&order=ts.desc`
+  const headers = { apikey: key, Authorization: `Bearer ${key}` }
+  // 1ª página traz o total; o resto baixa em PARALELO (cap 30k linhas)
+  const first = await fetch(url, { headers: { ...headers, Range: '0-999', Prefer: 'count=exact' }, cache: 'no-store' })
+  if (!first.ok) return []
+  const out: Row[] = await first.json()
+  const total = Math.min(parseInt((first.headers.get('content-range') || '').split('/')[1] || '0', 10) || 0, 30000)
+  if (total > 1000) {
+    const pages: Promise<Row[]>[] = []
+    for (let from = 1000; from < total; from += 1000) {
+      pages.push(
+        fetch(url, { headers: { ...headers, Range: `${from}-${from + 999}` }, cache: 'no-store' })
+          .then(r => (r.ok ? r.json() : []))
+          .catch(() => [])
+      )
+    }
+    for (const batch of await Promise.all(pages)) out.push(...batch)
   }
   return out
 }
@@ -64,7 +71,11 @@ function uniq(rows: Row[], event: string, detailPrefix?: string): number {
 export default async function BridgeMetrics({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const sp = await searchParams
   if (sp.k !== KEY_PARAM) {
-    return <p style={{ fontFamily: 'monospace', padding: 40 }}>401</p>
+    return (
+      <p style={{ fontFamily: 'monospace', padding: 40, fontSize: 14, lineHeight: 1.6 }}>
+        401 — faltou a chave.<br />Abre com: /bridge-metrics<strong>?k=...</strong>
+      </p>
+    )
   }
   const days = Math.max(1, Math.min(90, parseInt(String(sp.days || '7'), 10) || 7))
   const rows = (await fetchRows(days)).filter(r => r.event !== 'speech_token')
