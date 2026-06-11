@@ -14,7 +14,8 @@ const KEY_PARAM = 'rota97'
 
 const STEPS: [string, string][] = [
   ['pageview', 'Visitou a página'],
-  ['gate_click', 'Ligou o som e começou'],
+  ['gate_seen', 'Humano real (3s+ visível)'],
+  ['gate_click', 'Aceitou a aposta'],
   ['listen_done', 'Ouviu a cena (1ª vez)'],
   ['honest_answer', 'Respondeu "entendeu?"'],
   ['loop_done', 'Completou as 4 repetições'],
@@ -30,6 +31,8 @@ interface Row {
   session_id: string | null
   id: string
   ts: string
+  utm_source: string | null
+  fbclid: string | null
 }
 
 async function fetchRows(days: number): Promise<Row[]> {
@@ -37,7 +40,7 @@ async function fetchRows(days: number): Promise<Row[]> {
   if (!key) return []
   const since = new Date(Date.now() - days * 86400000).toISOString()
   // variant=B = só a bridge nova (a antiga acumulou meses de eventos e estourava timeout)
-  const url = `${SUPA_URL}/rest/v1/funnel_events?funnel=eq.ingles&page=eq.bridge&variant=eq.B&ts=gte.${since}&select=id,event,detail,session_id,ts&order=ts.desc`
+  const url = `${SUPA_URL}/rest/v1/funnel_events?funnel=eq.ingles&page=eq.bridge&variant=eq.B&ts=gte.${since}&select=id,event,detail,session_id,ts,utm_source,fbclid&order=ts.desc`
   const headers = { apikey: key, Authorization: `Bearer ${key}` }
   // 1ª página traz o total; o resto baixa em PARALELO (cap 30k linhas)
   const first = await fetch(url, { headers: { ...headers, Range: '0-999', Prefer: 'count=exact' }, cache: 'no-store' })
@@ -78,7 +81,15 @@ export default async function BridgeMetrics({ searchParams }: { searchParams: Pr
     )
   }
   const days = Math.max(1, Math.min(90, parseInt(String(sp.days || '7'), 10) || 7))
-  const rows = (await fetchRows(days)).filter(r => r.event !== 'speech_token')
+  const showAll = sp.all === '1'
+  let rows = (await fetchRows(days)).filter(r => r.event !== 'speech_token')
+  // padrão: SÓ tráfego de campanha (sessão com utm/fbclid em qualquer evento).
+  // Testes internos (Marcos/dev) não têm UTM → ficam fora. ?all=1 inclui tudo.
+  if (!showAll) {
+    const campaign = new Set<string>()
+    for (const r of rows) if (r.utm_source || r.fbclid) campaign.add(r.session_id || r.id)
+    rows = rows.filter(r => campaign.has(r.session_id || r.id))
+  }
 
   const counts = STEPS.map(([ev]) => uniq(rows, ev))
   const top = counts[0] || 0
@@ -103,9 +114,11 @@ export default async function BridgeMetrics({ searchParams }: { searchParams: Pr
         <h1 style={{ fontSize: 26, fontWeight: 800, letterSpacing: '-0.03em', marginBottom: 4 }}>Funil /bridge</h1>
         <p style={{ fontSize: 13, color: dim, fontWeight: 600, marginBottom: 24 }}>
           últimos {days} dias · sessões únicas · {rows.length} eventos ·{' '}
+          <strong style={{ color: showAll ? '#f04438' : '#16b364' }}>{showAll ? 'TUDO (inclui testes internos)' : 'só tráfego de campanha'}</strong> ·{' '}
           {[7, 14, 30].map(d => (
-            <a key={d} href={`?k=${KEY_PARAM}&days=${d}`} style={{ color: violet, marginRight: 8 }}>{d}d</a>
+            <a key={d} href={`?k=${KEY_PARAM}&days=${d}${showAll ? '&all=1' : ''}`} style={{ color: violet, marginRight: 8 }}>{d}d</a>
           ))}
+          <a href={`?k=${KEY_PARAM}&days=${days}${showAll ? '' : '&all=1'}`} style={{ color: violet }}>{showAll ? 'ver só campanha' : 'ver tudo'}</a>
         </p>
 
         {/* funil etapa a etapa */}

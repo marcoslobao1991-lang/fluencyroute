@@ -116,6 +116,31 @@ export default function BridgePage() {
     try { frTrack('pageview') } catch {}
   }, [])
 
+  // separa humano real de PREFETCH do Meta (que dispara pageview sem ninguém
+  // olhando): gate_seen só com a aba VISÍVEL por 3s contínuos
+  useEffect(() => {
+    let t: number | null = null
+    let fired = false
+    const arm = () => {
+      if (fired) return
+      if (document.visibilityState === 'visible' && t === null) {
+        t = window.setTimeout(() => {
+          fired = true
+          try { frTrack('gate_seen') } catch {}
+        }, 3000)
+      } else if (document.visibilityState !== 'visible' && t !== null) {
+        clearTimeout(t)
+        t = null
+      }
+    }
+    arm()
+    document.addEventListener('visibilitychange', arm)
+    return () => {
+      document.removeEventListener('visibilitychange', arm)
+      if (t) clearTimeout(t)
+    }
+  }, [])
+
   // ─── motor de fala da Manu (MP3 estático + legenda sempre visível) ──
   const stopManu = useCallback(() => {
     const a = manuRef.current
