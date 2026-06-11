@@ -391,13 +391,13 @@ export default function BridgePage() {
         {step === 'gate' && !returning && !aulaFrame && (
           <section style={{ textAlign: 'center', paddingTop: 18 }}>
             <p style={{ fontSize: 12, fontWeight: 800, color: C.violet, letterSpacing: 2.5, textTransform: 'uppercase', marginBottom: 12 }}>
-              O teste do loop de repetição · 3 min
+              O loop de repetição · 3 minutos · grátis
             </p>
-            <h1 style={{ fontSize: 'clamp(28px, 7vw, 40px)', fontWeight: 800, lineHeight: 1.08, letterSpacing: '-0.035em', marginBottom: 12 }}>
-              Você entende uma cena de série <span style={{ color: C.violet }}>sem legenda</span>?
+            <h1 style={{ fontSize: 'clamp(27px, 6.8vw, 38px)', fontWeight: 800, lineHeight: 1.1, letterSpacing: '-0.035em', marginBottom: 12 }}>
+              Existe um <span style={{ color: C.violet }}>loop de repetição</span> que destrava o ouvido de qualquer adulto.
             </h1>
             <p style={{ fontSize: 16, color: C.dim, fontWeight: 500, lineHeight: 1.5, maxWidth: 400, margin: '0 auto 18px' }}>
-              Com o loop de repetição? <strong style={{ color: C.ink }}>Aposto que SIM</strong> — até com o seu ouvido, em 3 minutos. Vem provar.
+              A Manu liga ele no SEU ouvido agora — e em 3 minutos você entende uma cena de série sem legenda. <strong style={{ color: C.ink }}>Aposto que sim.</strong>
             </p>
           </section>
         )}
@@ -509,7 +509,7 @@ export default function BridgePage() {
                 animation: isPlayStep(step) || step === 'gate' ? 'softPulse 2.2s ease-in-out infinite' : 'none',
               }}>
                 <PlayIcon size={15} color={isPlayStep(step) || step === 'gate' ? '#fff' : C.violet} />
-                {step === 'gate' ? (aulaFrame ? 'Fazer o teste e liberar a aula' : 'Provar em 3 minutos')
+                {step === 'gate' ? (aulaFrame ? 'Fazer o teste e liberar a aula' : 'Ligar o loop no meu ouvido')
                   : step === 'play1' ? 'Ouvir a cena · 1ª vez'
                   : step === 'play2' ? 'De novo · 2ª vez'
                   : step === 'play3' ? 'Mais uma · 3ª vez'
