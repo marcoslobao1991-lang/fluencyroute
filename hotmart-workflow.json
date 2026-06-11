@@ -1,0 +1,69 @@
+{
+  "name": "Hotmart → Meta CAPI (Purchase US)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "hotmart-purchase",
+        "responseMode": "onReceived"
+      },
+      "name": "Webhook Hotmart",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "hotmart-purchase"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": false },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.body.event }}",
+              "rightValue": "PURCHASE_APPROVED",
+              "operator": { "type": "string", "operation": "equals" }
+            }
+          ]
+        }
+      },
+      "name": "Só Purchase Approved",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const crypto = require('crypto');\nconst h = (v) => crypto.createHash('sha256').update(v).digest('hex');\n\nconst body = $input.first().json.body;\nconst buyer = body.data?.buyer || {};\nconst purchase = body.data?.purchase || {};\nconst price = purchase.original_offer_price || {};\n\nconst email = (buyer.email || '').toLowerCase().trim();\nconst fn = (buyer.first_name || buyer.name?.split(' ')[0] || '').toLowerCase();\nconst ln = (buyer.last_name || buyer.name?.split(' ').slice(1).join(' ') || '').toLowerCase();\nconst phone = (buyer.checkout_phone || '').replace(/\\D/g, '');\nconst tx = purchase.transaction || String(Date.now());\n\nreturn [{\n  json: {\n    data: [{\n      event_name: 'Purchase',\n      event_time: Math.floor(Date.now()/1000),\n      event_id: 'hotmart-' + tx,\n      action_source: 'website',\n      user_data: {\n        em: email ? [h(email)] : undefined,\n        fn: fn ? [h(fn)] : undefined,\n        ln: ln ? [h(ln)] : undefined,\n        ph: phone ? [h(phone)] : undefined,\n        country: [h('us')]\n      },\n      custom_data: {\n        currency: price.currency_value || 'USD',\n        value: price.value || 0,\n        content_name: body.data?.product?.name || 'Hotmart Product',\n        order_id: tx\n      }\n    }]\n  }\n}];"
+      },
+      "name": "Build CAPI Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [750, 250]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v21.0/690970750622464/events",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            { "name": "access_token", "value": "EAAE7kNZCsFUoBRAZBVZCBwCQoSVtUhHgo9wLZCC34RpCGFA50AFpqlG4ZCmOknMH1mFasHdpjGjRXZBwCafUZBS9GLo53doHmaLqIUtUzeNUwl9VTBaCIplWmlZCxj0W8GZBemBcM5olck6tz0ScMESlRFlUm18UMLpKo9GWvjKje4R1r87zBeW1ZBM0I7RJ3c3rGxLQZDZD" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}"
+      },
+      "name": "Meta CAPI Purchase",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1000, 250]
+    }
+  ],
+  "connections": {
+    "Webhook Hotmart": { "main": [[{ "node": "Só Purchase Approved", "type": "main", "index": 0 }]] },
+    "Só Purchase Approved": { "main": [[{ "node": "Build CAPI Payload", "type": "main", "index": 0 }], []] },
+    "Build CAPI Payload": { "main": [[{ "node": "Meta CAPI Purchase", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "timezone": "America/Sao_Paulo" }
+}

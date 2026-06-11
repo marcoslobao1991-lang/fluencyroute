@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+<title>Biblioteca de Hooks · 80+ templates pra conteúdo educacional</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;padding:20px 14px 80px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto}
+h1{font-size:20px;font-weight:800;letter-spacing:-.02em;margin-bottom:4px}
+h1 em{font-style:normal;color:#A78BFA}
+.sub{font-size:12px;color:rgba(255,255,255,.45);margin:4px 0 24px}
+.sub b{color:#fff}
+h2.section{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#A78BFA;margin:36px 0 12px;font-weight:700}
+h2.section.g{color:#34d399} h2.section.y{color:#fbbf24}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:9px;margin:12px 0 20px}
+.card{background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.16);border-radius:13px;padding:13px 14px}
+.card .n{font-size:21px;font-weight:900;letter-spacing:-.02em;line-height:1.1;color:#A78BFA}
+.card .n.g{color:#34d399} .card .n.y{color:#fbbf24}
+.card .l{font-size:9.5px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.5);margin-top:4px;font-weight:700}
+.card .r{font-size:11px;color:rgba(255,255,255,.75);margin-top:5px;line-height:1.4}
+table{width:100%;border-collapse:collapse;font-size:12px;margin:8px 0 24px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;overflow:hidden}
+th,td{padding:9px 11px;border-bottom:1px solid rgba(255,255,255,.05);text-align:left;vertical-align:top}
+thead th{font-size:9.5px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.45);background:rgba(255,255,255,.03);font-weight:700}
+tbody tr:last-child td{border-bottom:none}
+td b{color:#fbbf24;font-weight:700}
+.cat{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:18px 20px;margin:14px 0}
+.cat-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:10px}
+.cat h3{font-size:15px;font-weight:800;letter-spacing:-.014em;color:#fff}
+.cat h3 .num{color:#A78BFA;font-weight:900;margin-right:6px}
+.cat-tag{font-size:10.5px;color:rgba(255,255,255,.5);font-style:italic}
+.cat-desc{font-size:12px;color:rgba(255,255,255,.65);margin-bottom:12px;line-height:1.6}
+.cat-desc b{color:#fff;font-weight:700}
+.tpl{background:rgba(0,0,0,.4);border-left:3px solid #A78BFA;border-radius:0 6px 6px 0;padding:9px 12px;margin:6px 0;font-size:12px;line-height:1.55;color:rgba(255,255,255,.85)}
+.tpl em{color:#fbbf24;font-style:normal;font-weight:600}
+.ex{font-size:11px;color:rgba(167,139,250,.7);margin-top:4px;font-style:italic;padding-left:14px;border-left:2px solid rgba(167,139,250,.2)}
+.warn{background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.18);border-radius:10px;padding:10px 13px;margin:10px 0 0;font-size:11.5px;color:rgba(251,191,36,.9);line-height:1.5}
+.warn b{color:#fbbf24;font-weight:700}
+.principles{background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.18);border-radius:13px;padding:18px 20px;margin:14px 0 20px}
+.principles h4{font-size:11px;font-weight:800;letter-spacing:1.5px;color:#34d399;text-transform:uppercase;margin-bottom:12px}
+.principles p{font-size:12.5px;color:rgba(255,255,255,.85);line-height:1.7;margin-bottom:8px}
+.principles p b{color:#fff;font-weight:700}
+.principles ul{font-size:12px;color:rgba(255,255,255,.75);line-height:1.75;padding-left:18px;margin:6px 0}
+.principles li b{color:#fff}
+.sources{font-size:10.5px;color:rgba(255,255,255,.4);line-height:1.7;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.06)}
+.sources b{color:rgba(255,255,255,.7)}
+.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:6px;margin:14px 0 20px;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:14px 16px}
+.toc a{color:rgba(167,139,250,.85);text-decoration:none;font-size:11.5px;line-height:1.7;padding:2px 6px;border-radius:4px;display:block}
+.toc a:hover{background:rgba(139,92,246,.1);color:#fff}
+.toc a .n{color:rgba(255,255,255,.4);font-weight:700;margin-right:6px}
+</style></head><body><div class="wrap">
+
+<h1>🎣 Biblioteca de Hooks <em>· 80+ templates pra conteúdo educacional</em></h1>
+<div class="sub">20 categorias · padrão Hormozi / Brunson / Halbert / Kane / Dan Koe · validado em 23 reels BR + 8 fontes vivas · foco em <b>ensinar conceitos</b> (não venda direta)</div>
+
+<h2 class="section">Resumo operacional</h2>
+<div class="cards">
+  <div class="card"><div class="n">3s</div><div class="l">Janela útil</div><div class="r">Retenção ≥65% nos primeiros 3s multiplica impressões por 4-7x</div></div>
+  <div class="card"><div class="n g">70-20-10</div><div class="l">Hormozi mix</div><div class="r">70% replica winners · 20% adapta de outro nicho · 10% experimento</div></div>
+  <div class="card"><div class="n y">10→3→3</div><div class="l">Hookpoint test</div><div class="r">Escreve 10 → seleciona 3 → mostra pra 3 pessoas → publica só o que ganha 2 votos</div></div>
+  <div class="card"><div class="n">20</div><div class="l">Categorias</div><div class="r">Famílias de hook cobertas — combine 2 categorias pra ângulo novo</div></div>
+</div>
+
+<h2 class="section y">Hierarquia de retenção (validada OpusClip + Topmost Ads)</h2>
+<table>
+  <thead><tr><th>Ranking</th><th>Categoria</th><th>Por quê</th></tr></thead>
+  <tbody>
+    <tr><td>🥇 1</td><td><b>Stat Shock</b></td><td>Novelty bias + número específico para o scroll</td></tr>
+    <tr><td>🥈 2</td><td><b>Curiosity Gap</b></td><td>Tensão de fechamento (Zeigarnik) — cérebro precisa fechar o loop</td></tr>
+    <tr><td>🥉 3</td><td><b>Anti-Pitch / Pattern Interrupt</b></td><td>Quebra o esperado antes da decisão consciente</td></tr>
+    <tr><td>4</td><td>Story Open Loop</td><td>Bond emocional rápido — exige especificidade narrativa</td></tr>
+    <tr><td>5</td><td>Question genérica</td><td>Mais fraco — só funciona se segmentar callout cirúrgico</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section g">Pareamento Schwartz × Hook (qual usar pra cada awareness)</h2>
+<table>
+  <thead><tr><th>Awareness</th><th>Estado mental do viewer</th><th>Hooks ideais</th></tr></thead>
+  <tbody>
+    <tr><td><b>Unaware</b></td><td>Não sabe que tem problema</td><td>Pattern Interrupt + Meta self-reference</td></tr>
+    <tr><td><b>Problem-Aware</b></td><td>Sente dor, não sabe nome</td><td>Enemy + Question direta + Tese geracional</td></tr>
+    <tr><td><b>Solution-Aware</b></td><td>Sabe que existe solução</td><td>Contrast/Comparison + Stat Shock</td></tr>
+    <tr><td><b>Product-Aware</b></td><td>Conhece soluções, compara</td><td>Authority + Journey/Transformation</td></tr>
+    <tr><td><b>Most Aware</b></td><td>Pronto pra comprar</td><td>Time Compression + Listicle (modo direto)</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section">Halbert's Specificity Rule</h2>
+<div class="principles">
+  <p><b>"Be specific or be silent."</b> — a regra que atravessa toda categoria.</p>
+  <ul>
+    <li>❌ "muito dinheiro" → ✅ <b>"R$ 2.400"</b></li>
+    <li>❌ "rápido" → ✅ <b>"em 11 dias"</b></li>
+    <li>❌ "muita gente" → ✅ <b>"73% dos professores"</b></li>
+    <li>❌ "estudo recente" → ✅ <b>"Stanford, 2023"</b></li>
+    <li>❌ "muitos anos" → ✅ <b>"12 anos e 4 meses"</b></li>
+  </ul>
+  <p style="margin-top:10px">Especificidade absurda gera credibilidade automática. Cérebro do viewer interpreta detalhe como prova.</p>
+</div>
+
+<h2 class="section">Índice das 20 categorias</h2>
+<div class="toc">
+  <a href="#c1"><span class="n">01</span>Curiosity Gap</a>
+  <a href="#c2"><span class="n">02</span>Pattern Interrupt</a>
+  <a href="#c3"><span class="n">03</span>Pergunta retórica</a>
+  <a href="#c4"><span class="n">04</span>Concept/Condicional</a>
+  <a href="#c5"><span class="n">05</span>Alarme/Epidemia</a>
+  <a href="#c6"><span class="n">06</span>Caso pessoal</a>
+  <a href="#c7"><span class="n">07</span>Reveal polêmico</a>
+  <a href="#c8"><span class="n">08</span>Tese geracional</a>
+  <a href="#c9"><span class="n">09</span>Contrarian</a>
+  <a href="#c10"><span class="n">10</span>Stat Shock</a>
+  <a href="#c11"><span class="n">11</span>Authority Reveal</a>
+  <a href="#c12"><span class="n">12</span>Listicle</a>
+  <a href="#c13"><span class="n">13</span>Negação direta</a>
+  <a href="#c14"><span class="n">14</span>Identity-based</a>
+  <a href="#c15"><span class="n">15</span>Future-pacing</a>
+  <a href="#c16"><span class="n">16</span>Meta/Self-ref</a>
+  <a href="#c17"><span class="n">17</span>Comparison</a>
+  <a href="#c18"><span class="n">18</span>Mistério/Segredo</a>
+  <a href="#c19"><span class="n">19</span>Confissão pública</a>
+  <a href="#c20"><span class="n">20</span>Time Compression</a>
+</div>
+
+<!-- ====== CATEGORIA 1 ====== -->
+<div class="cat" id="c1">
+  <div class="cat-head"><h3><span class="num">01</span>Curiosity Gap</h3><span class="cat-tag">o mais usado em viral edu</span></div>
+  <div class="cat-desc">Você sinaliza informação valiosa do outro lado do vídeo sem entregar. Cérebro entra em <b>tensão de fechamento</b> (Zeigarnik). É o <b>open loop</b> do Hormozi.</div>
+  <div class="tpl">"Existe <em>[coisa rara]</em> que <em>[resultado absurdo]</em>. 97% das pessoas não sabe."</div>
+  <div class="tpl">"Tem <em>[um detalhe que ninguém percebeu]</em> dentro de <em>[coisa famosa]</em>. Olha:"</div>
+  <div class="tpl">"O motivo real de <em>[fenômeno comum]</em> não é <em>[explicação óbvia]</em>. É <em>[coisa estranha]</em>."</div>
+  <div class="tpl">"Eu vi uma coisa em <em>[lugar/dado]</em> que mudou como eu penso sobre <em>[tema]</em>."</div>
+  <div class="tpl">"Você usa <em>[coisa do dia a dia]</em> todo dia e nunca percebeu <em>[detalhe contraintuitivo]</em>."</div>
+  <div class="tpl">"Existe um padrão escondido em <em>[coisa comum]</em>. Quando você ver, não consegue mais ignorar."</div>
+  <div class="tpl">"Ninguém fala sobre isso, mas <em>[fenômeno comum]</em> acontece por causa de <em>[insight escondido]</em>."</div>
+  <div class="tpl">"Isso parece bobagem, mas é o motivo de <em>[resultado raro]</em> acontecer."</div>
+  <div class="warn"><b>NÃO use quando:</b> o payoff é fraco. Curiosity gap sem entrega gera unfollow rápido. Brendan Kane: "a promessa do hook precisa ser cumprida nos primeiros 15s ou o algoritmo te pune via watch time".</div>
+</div>
+
+<!-- ====== CATEGORIA 2 ====== -->
+<div class="cat" id="c2">
+  <div class="cat-head"><h3><span class="num">02</span>Pattern Interrupt / Anti-Pitch</h3><span class="cat-tag">sequestra atenção antes da decisão consciente</span></div>
+  <div class="cat-desc">Quebra o esperado. Em vez de "vou te ensinar X", contraria o que a maioria diz. Para o scroll + posiciona contrarian de cara.</div>
+  <div class="tpl">"Pare de <em>[comportamento padrão da audiência]</em> se você <em>[objetivo dela]</em>."</div>
+  <div class="tpl">"Você está fazendo <em>[ação esperada]</em> do jeito errado. Aqui está por quê:"</div>
+  <div class="tpl">"Esquece <em>[conselho clássico]</em>. Faz <em>[coisa contraintuitiva]</em>."</div>
+  <div class="tpl">"Eu não disse <em>[palavra esperada]</em>. Eu disse <em>[palavra inesperada]</em>."</div>
+  <div class="tpl">"Não <em>[verbo comum]</em>. Só <em>[verbo inesperado]</em>."</div>
+  <div class="tpl">"<em>[Profissão/autoridade]</em> mentiu pra você sobre <em>[tema]</em>. A verdade é:"</div>
+  <div class="tpl">"Opinião impopular: <em>[conselho aceito]</em> é, na verdade, terrível."</div>
+  <div class="tpl">"Respeitosamente, esse tipo de conteúdo precisa parar."</div>
+  <div class="ex">Ex real: "Pare de cobrar por hora — eis o que fazer no lugar." (StoryCut)</div>
+  <div class="warn"><b>NÃO use quando:</b> você não tem mecanismo alternativo robusto na sequência. Anti-pitch sem prova vira ranting.</div>
+</div>
+
+<!-- ====== CATEGORIA 3 ====== -->
+<div class="cat" id="c3">
+  <div class="cat-head"><h3><span class="num">03</span>Pergunta retórica direta</h3><span class="cat-tag">alta vulnerabilidade — força auto-diagnóstico</span></div>
+  <div class="cat-desc">Pergunta que <b>assume</b> a dor. Não yes/no genérica. Quanto mais específica e desconfortável, maior CTR.</div>
+  <div class="tpl">"Você não tem medo de <em>[medo universal silencioso]</em>?"</div>
+  <div class="tpl">"Quando foi a última vez que você <em>[coisa rara/dolorosa]</em>?"</div>
+  <div class="tpl">"Quanto tempo faz que <em>[comportamento que indica problema]</em>?"</div>
+  <div class="tpl">"O que você faria se descobrisse que <em>[crença base estava errada]</em>?"</div>
+  <div class="tpl">"Por que <em>[resultado X]</em> nunca acontece com <em>[identidade da audiência]</em>?"</div>
+  <div class="tpl">"Já se perguntou por que <em>[fenômeno comum]</em>?"</div>
+  <div class="tpl">"Sou só eu, ou <em>[observação compartilhada]</em>?"</div>
+  <div class="ex">Ex real Hanah Franklin (2.4M plays): "Você não tem medo de morrer e ninguém perceber?"</div>
+</div>
+
+<!-- ====== CATEGORIA 4 ====== -->
+<div class="cat" id="c4">
+  <div class="cat-head"><h3><span class="num">04</span>Concept / Condicional ousado</h3><span class="cat-tag">Tay.ldantas style — 1.3M plays/vídeo</span></div>
+  <div class="cat-desc">Você projeta um cenário hipotético e descreve com detalhe. Cérebro do viewer entra no jogo.</div>
+  <div class="tpl">"Se eu fosse criar <em>[produto/conceito]</em>, é assim que eu faria. Eu chamaria de <em>[nome]</em>..."</div>
+  <div class="tpl">"Se <em>[tipo de pessoa]</em> fosse fazer <em>[tarefa]</em>, seria assim:"</div>
+  <div class="tpl">"Se <em>[coisa antiga]</em> existisse hoje, seria <em>[versão modernizada]</em>."</div>
+  <div class="tpl">"Se eu pudesse refazer <em>[decisão da vida]</em>, eu <em>[escolha contraintuitiva]</em>."</div>
+  <div class="tpl">"E se eu te dissesse que existe um jeito simples de <em>[resultado]</em>?"</div>
+  <div class="warn"><b>NÃO use sem bom fechamento.</b> Concept reel sem payoff é frustrante.</div>
+</div>
+
+<!-- ====== CATEGORIA 5 ====== -->
+<div class="cat" id="c5">
+  <div class="cat-head"><h3><span class="num">05</span>Alarme / Epidemia</h3><span class="cat-tag">Liliana Limongi style</span></div>
+  <div class="cat-desc">Você anuncia um <b>problema invisível espalhando</b>. Ativa medo coletivo + urgência. Funciona em saúde, educação, dinheiro.</div>
+  <div class="tpl">"A geração de <em>[identidade]</em> que <em>[problema invisível]</em> já está entre nós."</div>
+  <div class="tpl">"<em>[Comportamento normalizado]</em> está sabotando silenciosamente <em>[resultado importante]</em>."</div>
+  <div class="tpl">"Tem uma epidemia de <em>[problema]</em> e ninguém tá falando sobre isso."</div>
+  <div class="tpl">"<em>[X% de pessoas]</em> vão <em>[consequência sombria]</em> e nem sabem disso."</div>
+  <div class="tpl">"O que <em>[especialistas]</em> não te contam sobre <em>[tema comum]</em>:"</div>
+</div>
+
+<!-- ====== CATEGORIA 6 ====== -->
+<div class="cat" id="c6">
+  <div class="cat-head"><h3><span class="num">06</span>Caso pessoal (1ª pessoa íntima)</h3><span class="cat-tag">storytelling — gera bond em 2-3s</span></div>
+  <div class="cat-desc">Você abre uma história pessoal com gancho específico. Especificidade narrativa (data, lugar, número) separa Halbert de qualquer um.</div>
+  <div class="tpl">"O que aconteceu com <em>[pessoa próxima]</em> é a prova que <em>[tese controversa]</em>."</div>
+  <div class="tpl">"Eu tinha <em>[idade/situação]</em> quando descobri <em>[insight que mudou tudo]</em>."</div>
+  <div class="tpl">"<em>[Pessoa próxima]</em> não acreditou em mim quando eu disse <em>[tese]</em>. Agora ela <em>[resultado]</em>."</div>
+  <div class="tpl">"Eu fiz <em>[experimento]</em> por <em>[tempo]</em>. O que aconteceu mudou tudo."</div>
+  <div class="tpl">"Há <em>[tempo]</em> eu <em>[situação ruim]</em>. Hoje eu <em>[resultado]</em>. Aqui está o que mudou:"</div>
+  <div class="tpl">"Em <em>[ano]</em>, um <em>[tipo de pessoa]</em> fez <em>[ação pequena]</em> e mudou <em>[resultado grande]</em>."</div>
+</div>
+
+<!-- ====== CATEGORIA 7 ====== -->
+<div class="cat" id="c7">
+  <div class="cat-head"><h3><span class="num">07</span>Reveal polêmico</h3><span class="cat-tag">Hanah Franklin style — vulnerabilidade extrema</span></div>
+  <div class="cat-desc">Você confessa algo socialmente proibido ou expõe segredo. Risco alto, recompensa alta.</div>
+  <div class="tpl">"<em>[Pessoa próxima]</em> me traiu com <em>[coisa inesperada]</em>. E isso me ensinou <em>[lição]</em>."</div>
+  <div class="tpl">"Eu fui demitido em <em>[data específica]</em>. Hoje eu <em>[contraste forte]</em>. O que aconteceu no meio:"</div>
+  <div class="tpl">"<em>[Algo socialmente proibido]</em> que eu fazia escondido. Até que <em>[evento]</em>:"</div>
+  <div class="tpl">"Meu maior segredo profissional é <em>[coisa que parece pequena]</em>."</div>
+  <div class="warn"><b>NÃO use sem história real.</b> Audiência cheira fake em 2s.</div>
+</div>
+
+<!-- ====== CATEGORIA 8 ====== -->
+<div class="cat" id="c8">
+  <div class="cat-head"><h3><span class="num">08</span>Tese geracional / coletiva</h3><span class="cat-tag">"nós, geração X..."</span></div>
+  <div class="cat-desc">Você nomeia um traço comum a um recorte demográfico. Cria coesão "nós" — viewer se identifica.</div>
+  <div class="tpl">"Nós, <em>[recorte demográfico]</em>, somos a geração mais <em>[adjetivo]</em>. E não é por <em>[razão óbvia]</em>."</div>
+  <div class="tpl">"Toda <em>[identidade]</em> passa por <em>[fase universal]</em> e ninguém fala disso."</div>
+  <div class="tpl">"<em>[Geração X]</em> foi a última a <em>[experiência única]</em>. E isso explica <em>[comportamento atual]</em>."</div>
+</div>
+
+<!-- ====== CATEGORIA 9 ====== -->
+<div class="cat" id="c9">
+  <div class="cat-head"><h3><span class="num">09</span>Contrarian / Myth-Bust</h3><span class="cat-tag">Dan Koe APAG framework</span></div>
+  <div class="cat-desc">Foco em <b>derrubar uma crença específica</b> (vs anti-pitch que derruba comportamento). Pareie sempre com fonte primária.</div>
+  <div class="tpl">"Mito: <em>[crença popular]</em>. Verdade: <em>[revelação]</em>."</div>
+  <div class="tpl">"Você ouviu que <em>[mito]</em>. Aqui está o que a ciência diz na real."</div>
+  <div class="tpl">"Hot take: <em>[coisa popular]</em> é superestimada."</div>
+  <div class="tpl">"A verdade desconfortável sobre <em>[tópico]</em> que ninguém quer ouvir."</div>
+  <div class="tpl">"<em>[Conselho popular]</em> tá te fazendo perder dinheiro/tempo/saúde. A verdade é o oposto."</div>
+  <div class="tpl">"Quanto mais você <em>[esforço esperado]</em>, menos <em>[resultado desejado]</em>. Aqui está por quê:"</div>
+  <div class="warn"><b>NÃO use em temas sensíveis sem fonte primária.</b> Myth-busting sem fonte = clickbait.</div>
+</div>
+
+<!-- ====== CATEGORIA 10 ====== -->
+<div class="cat" id="c10">
+  <div class="cat-head"><h3><span class="num">10</span>Stat Shock</h3><span class="cat-tag">🥇 #1 em retenção segundo OpusClip</span></div>
+  <div class="cat-desc">Estatística contraintuitiva ou número grande. Aumenta pause-rate em 2.5x. Use <b>número específico</b>, nunca redondo.</div>
+  <div class="tpl">"<em>[N%]</em> das pessoas faz <em>[X]</em> errado — e nem sabe."</div>
+  <div class="tpl">"Apenas <em>[N%]</em> de <em>[grupo]</em> sabe disso sobre <em>[tópico]</em>."</div>
+  <div class="tpl">"<em>[N%]</em> de <em>[grupo]</em> vai falhar em <em>[período]</em> por causa de <em>[razão]</em>."</div>
+  <div class="tpl">"<em>[N]</em> em cada <em>[N]</em> <em>[grupo]</em> comete esse erro."</div>
+  <div class="tpl">"Fato curioso: <em>[estatística inesperada]</em>. Aqui está o porquê."</div>
+  <div class="tpl">"<em>[Universidade/instituição]</em> acabou de provar o que a gente suspeitava."</div>
+  <div class="ex">Ex: "Cafezinho não te desidrata — a ciência diz outra coisa." (Topmost Ads)</div>
+  <div class="warn"><b>Especificidade absurda vence.</b> "47%" funciona, "50%" não. Stat inventada destrói credibilidade.</div>
+</div>
+
+<!-- ====== CATEGORIA 11 ====== -->
+<div class="cat" id="c11">
+  <div class="cat-head"><h3><span class="num">11</span>Authority / Expert Reveal</h3><span class="cat-tag">Cialdini autoridade + curiosity gap</span></div>
+  <div class="cat-desc">Você se posiciona como insider revelando algo. Hormozi: ideal pra Problem-Aware / Solution-Aware.</div>
+  <div class="tpl">"Sou <em>[profissão por X anos]</em>. Aqui vai o que eu nunca posto no perfil profissional."</div>
+  <div class="tpl">"Como <em>[profissional]</em>, a forma que a maioria faz <em>[coisa]</em> me dá vontade de chorar."</div>
+  <div class="tpl">"Eu trabalhei <em>[N anos]</em> em <em>[setor]</em>. Esse é o conselho que dou pros meus amigos."</div>
+  <div class="tpl">"Estudei <em>[N exemplos / clientes]</em> e encontrei UM padrão."</div>
+  <div class="tpl">"<em>[Universidade/instituição]</em> acabou de provar o que a gente suspeitava sobre <em>[tópico]</em>."</div>
+  <div class="tpl">"<em>[Profissão]</em> me contou um truque de <em>[valor irrisório]</em> que ninguém ensina."</div>
+  <div class="warn"><b>NÃO use sem autoridade real.</b> Se você é beginner, use Journey (cat. 17/transformação) no lugar.</div>
+</div>
+
+<!-- ====== CATEGORIA 12 ====== -->
+<div class="cat" id="c12">
+  <div class="cat-head"><h3><span class="num">12</span>Listicle / Numbered</h3><span class="cat-tag">cérebro entende o "fim" e relaxa</span></div>
+  <div class="cat-desc">Promessa de N itens cria expectativa cognitiva clara. <b>Sweet spot: 3-5 itens.</b> Mais de 7, retenção desaba.</div>
+  <div class="tpl">"<em>[N]</em> sinais de que você <em>[problema/condição]</em>."</div>
+  <div class="tpl">"<em>[N]</em> coisas que parecem ilegais de saber sobre <em>[tópico]</em>."</div>
+  <div class="tpl">"<em>[N]</em> erros que você tá cometendo com <em>[tópico]</em>."</div>
+  <div class="tpl">"<em>[N]</em> coisas que eu queria ter sabido antes de <em>[marco]</em>."</div>
+  <div class="tpl">"<em>[N]</em> passos pra <em>[resultado]</em> — direto ao ponto."</div>
+  <div class="tpl">"<em>[N]</em> hacks subestimados pra <em>[resultado]</em>."</div>
+  <div class="tpl">"<em>[N]</em> mitos sobre <em>[tópico]</em> desmontados em <em>[N segundos]</em>."</div>
+</div>
+
+<!-- ====== CATEGORIA 13 ====== -->
+<div class="cat" id="c13">
+  <div class="cat-head"><h3><span class="num">13</span>Negação direta</h3><span class="cat-tag">imperativo + urgência</span></div>
+  <div class="cat-desc">Comando direto pra parar algo. Funciona quando segue com mecanismo claro do "por quê".</div>
+  <div class="tpl">"NÃO faça <em>[ação X]</em> antes de saber isso:"</div>
+  <div class="tpl">"NUNCA <em>[comportamento comum]</em> se você <em>[objetivo]</em>."</div>
+  <div class="tpl">"Se você ainda <em>[hábito]</em>, pare AGORA. Aqui está o motivo:"</div>
+</div>
+
+<!-- ====== CATEGORIA 14 ====== -->
+<div class="cat" id="c14">
+  <div class="cat-head"><h3><span class="num">14</span>Identity-based</h3><span class="cat-tag">callout cirúrgico</span></div>
+  <div class="cat-desc">Você nomeia traços ou comportamentos que sinalizam identidade. Viewer pensa "isso sou eu" e fica.</div>
+  <div class="tpl">"Toda <em>[identidade negativa]</em> faz essas 3 coisas. Você se reconhece em alguma?"</div>
+  <div class="tpl">"Se você <em>[comportamento sutil]</em>, você é <em>[identidade categoria]</em>."</div>
+  <div class="tpl">"Existem <em>[N]</em> tipos de <em>[identidade]</em>. Qual é o seu?"</div>
+  <div class="tpl">"<em>[Identidade aspiracional]</em> tem essa característica em comum. Você tem?"</div>
+  <div class="tpl">"Se você se identifica com <em>[3 traços]</em>, assiste."</div>
+  <div class="tpl">"PSA pra <em>[grupo específico]</em>: <em>[revelação grande]</em>."</div>
+</div>
+
+<!-- ====== CATEGORIA 15 ====== -->
+<div class="cat" id="c15">
+  <div class="cat-head"><h3><span class="num">15</span>Future-pacing alarmante</h3><span class="cat-tag">loss aversion + identidade futura</span></div>
+  <div class="cat-desc">Você projeta o viewer pro futuro com previsão sombria ou aspiracional. Brendan Kane usa como hook prime.</div>
+  <div class="tpl">"Em <em>[N anos]</em>, <em>[tendência]</em> vai <em>[acontecer]</em> — e a maioria não tá pronta."</div>
+  <div class="tpl">"Daqui a <em>[N anos]</em>, todo mundo vai estar fazendo <em>[X]</em>. Comece agora."</div>
+  <div class="tpl">"<em>[Coisa]</em> está oficialmente morta. Eis o que vem agora."</div>
+  <div class="tpl">"Se você fizer isso por <em>[tempo curto]</em>, em <em>[tempo médio]</em> você <em>[resultado]</em>."</div>
+  <div class="tpl">"Daqui a um ano você vai se arrepender de não ter <em>[ação]</em>."</div>
+  <div class="tpl">"Quem não souber <em>[habilidade]</em> em <em>[data]</em> vai ficar pra trás."</div>
+  <div class="warn"><b>NÃO use sem mecanismo claro do porquê.</b> Predição vaga = unfollow.</div>
+</div>
+
+<!-- ====== CATEGORIA 16 ====== -->
+<div class="cat" id="c16">
+  <div class="cat-head"><h3><span class="num">16</span>Meta / Self-Reference</h3><span class="cat-tag">quebra a 4ª parede</span></div>
+  <div class="cat-desc">Comenta o próprio conteúdo, o algoritmo, ou o ato de assistir. Use 1 a cada 10 vídeos no máximo.</div>
+  <div class="tpl">"Se esse vídeo aparecer pra você, é sinal."</div>
+  <div class="tpl">"Salva isso antes que tirem do ar."</div>
+  <div class="tpl">"Você não devia estar vendo isso de graça."</div>
+  <div class="tpl">"O algoritmo NÃO quer que você veja isso."</div>
+  <div class="tpl">"Eu vou apagar esse vídeo em <em>[tempo]</em>."</div>
+  <div class="tpl">"Assista até o final — não tô esperando esse final."</div>
+  <div class="warn"><b>NÃO repita.</b> Vira batido rápido. Use parcimoniosamente.</div>
+</div>
+
+<!-- ====== CATEGORIA 17 ====== -->
+<div class="cat" id="c17">
+  <div class="cat-head"><h3><span class="num">17</span>Comparison / Before-After</h3><span class="cat-tag">split-screen visual</span></div>
+  <div class="cat-desc">Lado A vs Lado B visível em 1s. Cérebro precisa entender qual "venceu". Ótimo pra ensinar diferenças conceituais.</div>
+  <div class="tpl">"Antes eu <em>[estado A]</em>. Hoje eu <em>[estado B]</em>. Uma coisa mudou:"</div>
+  <div class="tpl">"<em>[Identidade A]</em> faz <em>[X]</em>. <em>[Identidade B]</em> faz <em>[Y]</em>. Adivinha qual vence."</div>
+  <div class="tpl">"<em>[Ano antigo]</em> X <em>[ano novo]</em>. O que mudou em <em>[tema]</em>:"</div>
+  <div class="tpl">"De <em>[estado ruim]</em> a <em>[estado bom]</em> em <em>[tempo curto]</em>. O método:"</div>
+  <div class="tpl">"Isto é o que <em>[grupo A]</em> faz. Isto é o que <em>[grupo B]</em> faz. Veja a diferença."</div>
+  <div class="tpl">"<em>[Versão cara]</em> vs <em>[versão barata]</em>: mesma função, metade do preço."</div>
+  <div class="warn"><b>NÃO use sem visual de contraste.</b> Em áudio puro o hook morre.</div>
+</div>
+
+<!-- ====== CATEGORIA 18 ====== -->
+<div class="cat" id="c18">
+  <div class="cat-head"><h3><span class="num">18</span>Mistério / Segredo</h3><span class="cat-tag">curiosity gap + autoridade</span></div>
+  <div class="cat-desc">Você sugere informação reservada/proibida. Híbrido de Curiosity Gap (cat 1) + Authority (cat 11).</div>
+  <div class="tpl">"Tem um truque de <em>[profissão]</em> que ninguém ensina. Eu vou te contar:"</div>
+  <div class="tpl">"Por trás de toda <em>[pessoa de sucesso]</em> tem <em>[hábito secreto]</em>. Aqui está:"</div>
+  <div class="tpl">"<em>[N]</em> segredos de <em>[autoridade]</em> guardados pra clientes pagantes."</div>
+  <div class="tpl">"A <em>[indústria]</em> não quer que você saiba disso."</div>
+  <div class="tpl">"Eis o segredo sujo que <em>[indústria]</em> esconde."</div>
+</div>
+
+<!-- ====== CATEGORIA 19 ====== -->
+<div class="cat" id="c19">
+  <div class="cat-head"><h3><span class="num">19</span>Confissão pública</h3><span class="cat-tag">vulnerabilidade calculada</span></div>
+  <div class="cat-desc">Você assume algo que pessoa decente normalmente esconderia. Cria autenticidade + conexão.</div>
+  <div class="tpl">"Eu fiz <em>[coisa que pessoa decente não faria]</em>. E não me arrependo. Olha por quê:"</div>
+  <div class="tpl">"Pelos próximos 60 segundos vou ser brutalmente honesto sobre <em>[tema]</em>."</div>
+  <div class="tpl">"Vou perder seguidores com isso, mas precisa ser dito:"</div>
+  <div class="tpl">"Eu nunca contei isso pra ninguém, mas..."</div>
+  <div class="tpl">"Tem <em>[N anos]</em> que eu guardo esse segredo."</div>
+</div>
+
+<!-- ====== CATEGORIA 20 ====== -->
+<div class="cat" id="c20">
+  <div class="cat-head"><h3><span class="num">20</span>Time Compression</h3><span class="cat-tag">Hormozi signature</span></div>
+  <div class="cat-desc">Você comprime aprendizado num tempo curto. Oferece <b>ROI cognitivo claro</b> de cara.</div>
+  <div class="tpl">"Em <em>[tempo curto]</em> eu te ensino o que demorou <em>[tempo longo]</em> pra eu aprender."</div>
+  <div class="tpl">"Domine <em>[tópico complexo]</em> em <em>[tempo curto]</em>."</div>
+  <div class="tpl">"Tudo que você precisa saber sobre <em>[tópico]</em> em <em>[N segundos]</em>."</div>
+  <div class="tpl">"Eu vou resumir <em>[N anos de estudo / N livros]</em> em <em>[tempo curto]</em>."</div>
+  <div class="tpl">"A única coisa que você precisa saber sobre <em>[tópico]</em>."</div>
+  <div class="tpl">"Se eu pudesse ensinar <em>[tópico]</em> em UM vídeo, seria esse."</div>
+  <div class="warn"><b>NÃO prometa o que não vai entregar.</b> Promessa de compressão sem payoff destrói credibilidade no segundo vídeo.</div>
+</div>
+
+<h2 class="section">Como combinar categorias pra ângulo novo</h2>
+<div class="principles">
+  <p>Hooks ficam mais fortes quando você <b>cruza 2 categorias</b>. Exemplos da decodificação dos 23 reels BR analisados:</p>
+  <ul>
+    <li><b>Tay.ldantas</b> = Concept (cat 4) + Authority (cat 11)</li>
+    <li><b>Liliana Limongi</b> = Pergunta retórica (cat 3) + Stat Shock (cat 10) + Listicle (cat 12)</li>
+    <li><b>Elias Maman</b> = Concept (cat 4) + Future-pacing (cat 15)</li>
+    <li><b>Hanah Franklin</b> = Pergunta retórica (cat 3) + Reveal polêmico (cat 7) + Tese geracional (cat 8)</li>
+  </ul>
+  <p style="margin-top:10px"><b>Receita:</b> escolha 1 categoria <em>cognitiva</em> (1, 3, 4, 9, 10, 15) + 1 categoria <em>emocional</em> (5, 6, 7, 8, 14, 19).</p>
+</div>
+
+<h2 class="section">Workflow recomendado pra escrever hook</h2>
+<table>
+  <thead><tr><th>Passo</th><th>Ação</th><th>Tempo</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Identifique o awareness do viewer (tabela Schwartz acima)</td><td>1 min</td></tr>
+    <tr><td>2</td><td>Pegue 2 categorias compatíveis (cognitiva + emocional)</td><td>1 min</td></tr>
+    <tr><td>3</td><td>Escreva <b>10 variações</b> usando templates</td><td>15 min</td></tr>
+    <tr><td>4</td><td>Aplique Halbert: troque palavras vagas por específicas</td><td>5 min</td></tr>
+    <tr><td>5</td><td>Selecione os 3 melhores</td><td>3 min</td></tr>
+    <tr><td>6</td><td>Mostre pra 3 pessoas, publique o que ganhar 2 votos</td><td>30 min</td></tr>
+  </tbody>
+</table>
+
+<div class="sources">
+<b>Fontes vivas (2025-2026):</b> Hormozi (Solopreneur Code) · Brendan Kane (Hook Point) · Dan Koe (APAG framework) · Ship30for30 (85 open loop methods) · Halbert (specificity) · OpusClip TikTok Hook Formulas · Topmost Ads Educational Hooks 2025 · StoryCut 150 Viral Hooks · Retiplex 47 Viral Hook Ideas · Submagic 50+ Best Hooks · Brendan Kane Viral Post Academy · Copy Brothers Open Loops · CapCut BR Ganchos · Evoé Vídeo Marketing 20 Ganchos · Midiática Ganchos Copywriting<br><br>
+<b>Validação BR (23 reels decodificados, 10M+ plays):</b> Tay.ldantas · Dra. Liliana Limongi · Hanah Franklin · Elias Maman
+</div>
+
+</div></body></html>

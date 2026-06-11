@@ -1,0 +1,164 @@
+// ═══════════════════════════════════════════════════════════════════
+//  /bridge-metrics?k=rota97 — funil da /bridge beat a beat.
+//  Lê funnel_events (server-side, service key) e mostra: quantos entram,
+//  onde travam, % etapa a etapa, respostas do quiz, bandas de score.
+//  ?days=7 muda a janela. Sessões únicas (session_id), não pageloads.
+// ═══════════════════════════════════════════════════════════════════
+import React from 'react'
+
+export const dynamic = 'force-dynamic'
+
+const SUPA_URL = 'https://petrtewismhpzidcmmwb.supabase.co'
+const KEY_PARAM = 'rota97'
+
+const STEPS: [string, string][] = [
+  ['pageview', 'Visitou a página'],
+  ['gate_click', 'Ligou o som e começou'],
+  ['listen_done', 'Ouviu a cena (1ª vez)'],
+  ['honest_answer', 'Respondeu "entendeu?"'],
+  ['loop_done', 'Completou as 4 repetições'],
+  ['shadow_start', 'Tentou falar (pediu mic)'],
+  ['rec_done', 'Gravou a própria voz'],
+  ['score', 'Recebeu o diagnóstico'],
+  ['cta_click', 'Clicou pra VSL (CTA)'],
+]
+
+interface Row {
+  event: string
+  detail: string | null
+  session_id: string | null
+  id: string
+  ts: string
+}
+
+async function fetchRows(days: number): Promise<Row[]> {
+  const key = process.env.SUPABASE_SERVICE_KEY
+  if (!key) return []
+  const since = new Date(Date.now() - days * 86400000).toISOString()
+  const url = `${SUPA_URL}/rest/v1/funnel_events?funnel=eq.ingles&page=eq.bridge&ts=gte.${since}&select=id,event,detail,session_id,ts&order=ts.desc`
+  const out: Row[] = []
+  // pagina de 1000 em 1000 (PostgREST capa em 1000 por request)
+  for (let from = 0; from < 50000; from += 1000) {
+    const r = await fetch(url, {
+      headers: { apikey: key, Authorization: `Bearer ${key}`, Range: `${from}-${from + 999}` },
+      cache: 'no-store',
+    })
+    if (!r.ok) break
+    const batch: Row[] = await r.json()
+    out.push(...batch)
+    if (batch.length < 1000) break
+  }
+  return out
+}
+
+function uniq(rows: Row[], event: string, detailPrefix?: string): number {
+  const s = new Set<string>()
+  for (const r of rows) {
+    if (r.event !== event) continue
+    if (detailPrefix && !(r.detail || '').startsWith(detailPrefix)) continue
+    s.add(r.session_id || r.id)
+  }
+  return s.size
+}
+
+export default async function BridgeMetrics({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const sp = await searchParams
+  if (sp.k !== KEY_PARAM) {
+    return <p style={{ fontFamily: 'monospace', padding: 40 }}>401</p>
+  }
+  const days = Math.max(1, Math.min(90, parseInt(String(sp.days || '7'), 10) || 7))
+  const rows = (await fetchRows(days)).filter(r => r.event !== 'speech_token')
+
+  const counts = STEPS.map(([ev]) => uniq(rows, ev))
+  const top = counts[0] || 0
+  const honest = { all: uniq(rows, 'honest_answer', 'all'), some: uniq(rows, 'honest_answer', 'some'), none: uniq(rows, 'honest_answer', 'none') }
+  const bands = { high: uniq(rows, 'score', 'high'), mid: uniq(rows, 'score', 'mid'), low: uniq(rows, 'score', 'low') }
+  const extras = {
+    skip: uniq(rows, 'skip_click'),
+    micDenied: uniq(rows, 'mic_denied'),
+    blocked: uniq(rows, 'assess_blocked'),
+    returning: uniq(rows, 'redo_click'),
+    assessFail: uniq(rows, 'assess_fail'),
+  }
+  const toVsl = new Set<string>()
+  for (const r of rows) if (r.event === 'cta_click' || r.event === 'skip_click') toVsl.add(r.session_id || r.id)
+
+  const ink = '#191427', dim = '#8b8499', violet = '#7c5cff', soft = '#f6f5fb', green = '#16b364', red = '#f04438', amber = '#f59e0b'
+  const card: React.CSSProperties = { background: '#fff', border: '1px solid rgba(25,20,39,.08)', borderRadius: 16, padding: '22px 24px', marginBottom: 16 }
+
+  return (
+    <div style={{ background: soft, minHeight: '100vh', fontFamily: "var(--font-dm-sans), sans-serif", color: ink, padding: '32px 16px' }}>
+      <main style={{ maxWidth: 640, margin: '0 auto' }}>
+        <h1 style={{ fontSize: 26, fontWeight: 800, letterSpacing: '-0.03em', marginBottom: 4 }}>Funil /bridge</h1>
+        <p style={{ fontSize: 13, color: dim, fontWeight: 600, marginBottom: 24 }}>
+          últimos {days} dias · sessões únicas · {rows.length} eventos ·{' '}
+          {[7, 14, 30].map(d => (
+            <a key={d} href={`?k=${KEY_PARAM}&days=${d}`} style={{ color: violet, marginRight: 8 }}>{d}d</a>
+          ))}
+        </p>
+
+        {/* funil etapa a etapa */}
+        <div style={card}>
+          {STEPS.map(([ev, label], i) => {
+            const n = counts[i]
+            const pTop = top ? Math.round((n / top) * 100) : 0
+            const prev = i > 0 ? counts[i - 1] : n
+            const pPrev = prev ? Math.round((n / prev) * 100) : 0
+            const drop = i > 0 && pPrev < 50
+            return (
+              <div key={ev} style={{ marginBottom: i < STEPS.length - 1 ? 14 : 0 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13.5, fontWeight: 700, marginBottom: 4 }}>
+                  <span>{label}</span>
+                  <span style={{ color: drop ? red : ink }}>
+                    {n} <span style={{ color: dim, fontWeight: 600 }}>· {pTop}% do topo{i > 0 ? ` · ${pPrev}% da etapa anterior` : ''}</span>
+                  </span>
+                </div>
+                <div style={{ height: 12, background: soft, borderRadius: 999, overflow: 'hidden' }}>
+                  <div style={{ height: '100%', width: `${pTop}%`, background: drop ? red : violet, borderRadius: 999 }} />
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* destino final */}
+        <div style={{ ...card, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ fontSize: 14, fontWeight: 800 }}>Foram pra VSL (CTA + pular)</span>
+          <span style={{ fontSize: 26, fontWeight: 900, color: violet }}>
+            {toVsl.size} <span style={{ fontSize: 14, color: dim, fontWeight: 700 }}>· {top ? Math.round((toVsl.size / top) * 100) : 0}% do topo</span>
+          </span>
+        </div>
+
+        {/* quiz honesto */}
+        <div style={card}>
+          <p style={{ fontSize: 12, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', color: dim, marginBottom: 12 }}>“Entendeu o que ela disse?”</p>
+          {([['Entendi tudo', honest.all, green], ['Palavras soltas', honest.some, amber], ['Embolou tudo', honest.none, red]] as [string, number, string][]).map(([l, n, c]) => (
+            <div key={l} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, fontWeight: 700, marginBottom: 6 }}>
+              <span>{l}</span><span style={{ color: c }}>{n}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* score + saídas */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+          <div style={card}>
+            <p style={{ fontSize: 12, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', color: dim, marginBottom: 12 }}>Bandas de score</p>
+            {([['Alto (80+)', bands.high, green], ['Médio (55-79)', bands.mid, amber], ['Baixo (<55)', bands.low, red]] as [string, number, string][]).map(([l, n, c]) => (
+              <div key={l} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, fontWeight: 700, marginBottom: 6 }}>
+                <span>{l}</span><span style={{ color: c }}>{n}</span>
+              </div>
+            ))}
+          </div>
+          <div style={card}>
+            <p style={{ fontSize: 12, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', color: dim, marginBottom: 12 }}>Sinais</p>
+            {([['Pularam a demo', extras.skip], ['Mic negado', extras.micDenied], ['Avaliação falhou', extras.assessFail], ['Trava de custo', extras.blocked], ['Refizeram', extras.returning]] as [string, number][]).map(([l, n]) => (
+              <div key={l} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, fontWeight: 700, marginBottom: 6 }}>
+                <span>{l}</span><span>{n}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </main>
+    </div>
+  )
+}

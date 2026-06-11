@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>5 Bridges · Português Cantado · análise sênior</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#0a0a0a; --bg2:rgba(255,255,255,.04); --bg3:rgba(255,255,255,.02); --bg-dark:#000;
+    --ink:#fff; --mute:rgba(255,255,255,.62); --dim:rgba(255,255,255,.4); --faint:rgba(255,255,255,.25);
+    --border:rgba(255,255,255,.08); --border-light:rgba(255,255,255,.05);
+    --p:#A78BFA; --p2:#7C3AED; --p-soft:rgba(139,92,246,.12);
+    --g:#34d399; --g-soft:rgba(16,185,129,.12);
+    --r:#f87171; --r-soft:rgba(248,113,113,.12);
+    --y:#fbbf24; --y-soft:rgba(251,191,36,.12);
+    --blue:#60a5fa; --blue-soft:rgba(96,165,250,.12);
+  }
+  body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;padding:18px 14px 80px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto}
+  .wrap-narrow{max-width:1080px;margin:0 auto}
+
+  h1.title{font-size:19px;font-weight:800;letter-spacing:-.01em;line-height:1.2;margin:0 0 4px;color:#fff}
+  h1.title em{font-style:normal;color:#A78BFA}
+  .head-eyebrow{display:inline-block;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#A78BFA;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.30);padding:4px 9px;border-radius:99px;margin-bottom:6px}
+  .lead{font-size:12px;color:rgba(255,255,255,.4);max-width:760px;line-height:1.5;margin:2px 0 22px}
+  .lead b{color:#fff;font-weight:600}
+
+  .stat-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:9px;margin:14px 0}
+  .stat-strip .cell{background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.16);border-radius:13px;padding:13px 14px}
+  .stat-strip .lbl{font-size:9.5px;font-weight:600;letter-spacing:1px;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:4px}
+  .stat-strip .val{font-size:23px;font-weight:900;letter-spacing:-.02em;color:#fff;line-height:1.1}
+  .stat-strip .val small{font-size:13px;color:rgba(255,255,255,.55);font-weight:500;letter-spacing:0}
+  .stat-strip .val.g{color:#34d399}
+  .stat-strip .val.r{color:#f87171}
+
+  h2.section{font-size:11px;text-transform:uppercase;letter-spacing:1.8px;color:#A78BFA;margin:26px 0 10px;font-weight:700}
+
+  .summary{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:12px;overflow:hidden}
+  .summary table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:560px}
+  .summary th,.summary td{padding:8px 11px;border-bottom:1px solid rgba(255,255,255,.04);text-align:left;vertical-align:top;white-space:nowrap}
+  .summary thead th{font-size:9.5px;letter-spacing:.9px;text-transform:uppercase;color:rgba(255,255,255,.42);background:rgba(255,255,255,.02);font-weight:700}
+  .summary tbody tr:last-child td{border-bottom:none}
+  .summary tbody tr:hover{background:rgba(139,92,246,.04)}
+  .summary .nm{font-weight:700;color:#fff}
+  .summary .nm small{display:block;font-weight:500;color:rgba(255,255,255,.45);font-size:11px;margin-top:2px;white-space:normal}
+  .pill{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:1px;padding:2px 7px;border-radius:99px;text-transform:uppercase}
+  .pill.high{background:rgba(16,185,129,.12);color:#34d399}
+  .pill.med{background:rgba(251,191,36,.12);color:#fbbf24}
+  .pill.low{background:rgba(248,113,113,.12);color:#f87171}
+  .pill.blue{background:rgba(96,165,250,.12);color:#60a5fa}
+  .pill.gold{background:rgba(251,191,36,.12);color:#fbbf24}
+
+  .idea{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:13px;padding:14px 16px;margin:10px 0;position:relative}
+  .idea-num{position:absolute;top:12px;right:16px;font-size:30px;font-weight:800;color:rgba(255,255,255,.06);line-height:1;letter-spacing:-.025em}
+  .idea-tag{font-size:9.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:#A78BFA;margin-bottom:4px;display:inline-block}
+  .idea-tag.gold{color:#fbbf24}
+  .idea-tag.g{color:#34d399}
+  .idea-tag.r{color:#f87171}
+  .idea-tag.blue{color:#60a5fa}
+  .idea h3{font-size:14px;font-weight:800;letter-spacing:-.012em;line-height:1.3;margin-bottom:3px;color:#fff;padding-right:50px}
+  .idea .tagline{font-size:11.5px;color:rgba(255,255,255,.5);margin-bottom:10px;font-style:italic;line-height:1.5}
+
+  .mock{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:12px 14px;margin:9px 0 11px}
+  .mock-tag{font-size:9px;font-weight:800;letter-spacing:1.3px;color:rgba(255,255,255,.32);text-transform:uppercase;margin-bottom:8px}
+  .mock-eyebrow{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:#A78BFA;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);padding:3px 9px;border-radius:99px;margin-bottom:8px}
+  .mock-h1{font-size:13.5px;font-weight:800;letter-spacing:-.012em;line-height:1.3;margin-bottom:5px;color:#fff}
+  .mock-h1 em{font-style:normal;color:#A78BFA}
+  .mock-sub{font-size:12px;color:rgba(255,255,255,.55);margin-bottom:10px;line-height:1.55}
+  .mock-player{background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.18);border-radius:8px;padding:9px;margin:9px 0;display:flex;align-items:center;gap:9px}
+  .mock-play-btn{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#8B5CF6,#7C3AED);display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;font-size:11px}
+  .mock-play-info{flex:1;min-width:0}
+  .mock-play-info .t{font-size:11.5px;font-weight:700;color:#fff}
+  .mock-play-info .s{font-size:10.5px;color:rgba(255,255,255,.5)}
+  .mock-cta{display:inline-block;background:#fff;color:#0a0a0a;padding:7px 14px;border-radius:6px;font-size:10.5px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;margin-top:5px}
+  .mock-microsub{font-size:10.5px;color:rgba(255,255,255,.45);margin-top:6px;font-style:italic}
+
+  .analysis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:7px;margin:10px 0}
+  .ablock{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);border-radius:8px;padding:9px 11px}
+  .ablock .ah{font-size:9.5px;font-weight:800;letter-spacing:1.3px;color:#A78BFA;text-transform:uppercase;margin-bottom:3px}
+  .ablock .ah.r{color:#f87171}
+  .ablock .ah.g{color:#34d399}
+  .ablock .ah.blue{color:#60a5fa}
+  .ablock .av{font-size:11.5px;color:rgba(255,255,255,.8);line-height:1.5}
+  .ablock .av b{color:#fff;font-weight:700}
+
+  .copy-block{background:rgba(0,0,0,.5);color:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.05);border-radius:8px;padding:11px 13px;margin:9px 0;font-size:11.5px;line-height:1.65}
+  .copy-block .copy-h{color:#A78BFA;font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;margin-bottom:7px;font-weight:800}
+  .copy-block .copy-line{margin:2px 0}
+  .copy-block em{color:#34d399;font-style:normal;font-weight:500}
+
+  .rationale{font-size:12.5px;color:rgba(255,255,255,.7);line-height:1.6;margin:9px 0}
+  .rationale b{color:#fff;font-weight:600}
+  .rationale em{font-style:normal;background:rgba(139,92,246,.12);padding:0 4px;border-radius:2px;color:#A78BFA;font-weight:500}
+
+  .footer-rec{background:rgba(0,0,0,.5);color:#fafaf7;border:1px solid rgba(255,255,255,.06);border-radius:13px;padding:16px 18px;margin:24px 0 10px}
+  .footer-rec h2{color:#fff;font-size:15px;font-weight:800;letter-spacing:-.012em;margin-bottom:6px}
+  .footer-rec p{color:rgba(255,255,255,.6);font-size:12.5px;line-height:1.6;margin-bottom:7px}
+  .footer-rec ol{padding-left:18px;color:rgba(255,255,255,.6);font-size:12px;line-height:1.65}
+  .footer-rec ol li{margin:5px 0}
+  .footer-rec ol li b{color:#fff}
+  .footer-rec .winner{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:#34d399;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25);padding:3px 9px;border-radius:99px;margin-bottom:10px}
+
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+  @media (max-width:560px){
+    .stat-strip{flex-direction:column}
+    .stat-strip .cell{border-right:none;border-bottom:1px solid rgba(255,255,255,.05)}
+    .stat-strip .cell:last-child{border-bottom:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="wrap-narrow">
+  <span class="head-eyebrow">Análise sênior · 14/05/2026</span>
+  <h1 class="title">5 hipóteses pra dobrar a CTR do <em>Português Cantado</em></h1>
+  <p class="lead">
+    Você tá em <b>13-25% CTR bridge→VSL</b> conforme variante. Benchmark cold cheap pra info-produto BR é <b>30-60%</b>. Tem espaço pra dobrar — e o gargalo principal é <b>Bridge→Play: só 24%</b> dos visitantes apertam play. As 5 ideias abaixo atacam isso com hipóteses diferentes. Cada uma analisada como copywriter sênior: psicologia + copy literal + risco + retenção VSL.
+  </p>
+
+  <div class="stat-strip">
+    <div class="cell"><div class="lbl">CTR atual hl-vsl</div><div class="val">25,6<small>%</small></div></div>
+    <div class="cell"><div class="lbl">Benchmark cold BR</div><div class="val g">30-60<small>%</small></div></div>
+    <div class="cell"><div class="lbl">Play rate hoje</div><div class="val r">24<small>% (gargalo)</small></div></div>
+    <div class="cell"><div class="lbl">Oceano azul</div><div class="val">áudio embed<small> em bridge</small></div></div>
+  </div>
+</div>
+
+<h2 class="section">Sumário comparativo</h2>
+<div class="summary">
+<table>
+<thead><tr>
+  <th>#</th><th>Bridge</th><th>CTR hipótese</th><th>Retenção VSL</th><th>Complexidade</th><th>Oceano azul</th><th>Risco principal</th>
+</tr></thead>
+<tbody>
+<tr>
+  <td><b>1</b></td>
+  <td class="nm">História específica<small>1ª pessoa + áudio (Halbert/Brunson)</small></td>
+  <td><span class="pill high">22-30%</span></td>
+  <td><span class="pill high">Alta</span></td>
+  <td><span class="pill med">2h</span></td>
+  <td><span class="pill med">Médio</span></td>
+  <td>Autenticidade do nome/foto</td>
+</tr>
+<tr>
+  <td><b>2</b></td>
+  <td class="nm">Anti-pitch pattern interrupt<small>"Não estude crase. Só ouça."</small></td>
+  <td><span class="pill high">25-35%</span></td>
+  <td><span class="pill high">Alta</span></td>
+  <td><span class="pill high">1h</span></td>
+  <td><span class="pill high">Sim</span></td>
+  <td>Soar promessa fácil demais</td>
+</tr>
+<tr>
+  <td><b>3</b></td>
+  <td class="nm">Demo de 14 segundos + teste<small>Música → questão real → "acertou?"</small></td>
+  <td><span class="pill gold">30-50%</span></td>
+  <td><span class="pill high">Altíssima</span></td>
+  <td><span class="pill low">4-6h</span></td>
+  <td><span class="pill high">Sim</span></td>
+  <td>Interatividade técnica + escolha da questão</td>
+</tr>
+<tr>
+  <td><b>4</b></td>
+  <td class="nm">Quiz segmentador 3 perguntas<small>BetterMe-style, único no nicho BR</small></td>
+  <td><span class="pill gold">35-50%</span></td>
+  <td><span class="pill high">Muito alta</span></td>
+  <td><span class="pill low">4-6h</span></td>
+  <td><span class="pill high">Sim</span></td>
+  <td>Implementação multi-tela</td>
+</tr>
+<tr>
+  <td><b>5</b></td>
+  <td class="nm">Curiosity gap MaVeReTI<small>Macete secreto · revelação por play</small></td>
+  <td><span class="pill high">22-30%</span></td>
+  <td><span class="pill med">Média</span></td>
+  <td><span class="pill high">1h</span></td>
+  <td><span class="pill high">Sim</span></td>
+  <td>Saciamento se revelar demais</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- IDEIA 1 — História Específica -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="idea">
+  <div class="idea-num">01</div>
+  <span class="idea-tag">História · Halbert/Brunson</span>
+  <h3>"Carla, 34, errou crase 3x na prova do TJ-SP. Reprovou por 2 pontos."</h3>
+  <p class="tagline">Bridge editorial estilo reportagem, 200-300 palavras, player abaixo da história. Cérebro frio rejeita pitch — absorve história.</p>
+
+  <div class="mock">
+    <div class="mock-tag">▼ Mockup da bridge</div>
+    <span class="mock-eyebrow">▶ Reportagem · 60s leitura</span>
+    <p class="mock-h1">Reprovou no TJ-SP por <em>2 pontos</em>. 6 meses depois passou no BB cantando a regra no ônibus.</p>
+    <p class="mock-sub">"Foi por causa de 3 crases. Estudei 4 anos pra Direito. Lia regra, fazia simulado, lembrava. Mas na hora da prova travou. Aí um amigo músico me mandou um áudio. Aqui está ele."</p>
+    <div class="mock-player">
+      <div class="mock-play-btn">▶</div>
+      <div class="mock-play-info"><div class="t">Os 5 Proibidões da Crase</div><div class="s">Aula 01 grátis · 4min</div></div>
+    </div>
+    <a class="mock-cta">Quero o método inteiro →</a>
+    <div class="mock-microsub">+1MM plays · 7d garantia</div>
+  </div>
+
+  <p class="rationale">
+    <b>Por que funciona:</b> cérebro em scroll FB cold tem <em>filtro anti-anúncio</em> mas <em>não tem filtro anti-história</em>. Halbert demonstrou nos anos 80 com cartas de vendas; Brunson formalizou em "Hook-Story-Offer". Nome próprio + cidade + número específico (2 pontos, 3 crases) = camadas de credibilidade que pitch genérico não tem. A imperfeição da história ("estudei 4 anos, ainda errei") aumenta empatia.
+  </p>
+  <div class="analysis">
+    <div class="ablock"><div class="ah">CTR hipótese</div><div class="av"><b>22-30%</b> · História cold converte 1,5-2x advertorial editorial puro. Pesquisa DTC Funnels.</div></div>
+    <div class="ablock"><div class="ah g">Retenção VSL</div><div class="av"><b>Alta.</b> Lead chega esperando ver o método que mudou a Carla. VSL atual (4 caminhos + 25 músicas) realiza a expectativa.</div></div>
+    <div class="ablock"><div class="ah r">Risco</div><div class="av"><b>Autenticidade.</b> Se Carla não existir, parece fake. Foto humana é crítica.</div></div>
+    <div class="ablock"><div class="ah blue">Mitigação</div><div class="av">Usar aprovada real com permissão OU disclaimer "*nome fictício, depoimento real" no rodapé.</div></div>
+  </div>
+
+  <div class="copy-block">
+    <div class="copy-h">Copy literal (pronta pra colar)</div>
+    <div class="copy-line">EYEBROW: <em>▶ REPORTAGEM · 60s LEITURA</em></div>
+    <div class="copy-line">H1: <em>Reprovou no TJ-SP por 2 pontos. 6 meses depois passou no BB cantando a regra no ônibus.</em></div>
+    <div class="copy-line">SUB: <em>"Foi por causa de 3 crases. Estudei 4 anos pra Direito. Lia regra, fazia simulado, lembrava. Mas na hora da prova travou. Aí um amigo músico me mandou um áudio. Aqui está ele."</em></div>
+    <div class="copy-line">PLAYER: Os 5 Proibidões da Crase</div>
+    <div class="copy-line">CTA: <em>Quero o método inteiro →</em></div>
+    <div class="copy-line">MICRO: <em>+1MM plays · 7d garantia</em></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- IDEIA 2 — Anti-Pitch Pattern Interrupt -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="idea">
+  <div class="idea-num">02</div>
+  <span class="idea-tag g">Pattern Interrupt · Cold cheap</span>
+  <h3>"Não estude crase. Só ouça."</h3>
+  <p class="tagline">Headline que NEGA o que o concurseiro tá fazendo. Pattern interrupt forçado + entrega imediata via player above-fold.</p>
+
+  <div class="mock dark">
+    <div class="mock-tag" style="color:rgba(255,255,255,.4)">▼ Mockup da bridge</div>
+    <span class="mock-eyebrow">▶ Aperta o play</span>
+    <p class="mock-h1">Não estude crase.<br><em>Só ouça.</em></p>
+    <p class="mock-sub">Apostila ativa 1 caminho neural. Música ativa 4 — por isso você esquece poema em 3 dias e canta refrão décadas. Aqui está a regra inteira em 4 minutos.</p>
+    <div class="mock-player" style="background:rgba(139,92,246,.12)">
+      <div class="mock-play-btn">▶</div>
+      <div class="mock-play-info" style="color:#fff"><div class="t" style="color:#fff">Os 5 Proibidões da Crase</div><div class="s" style="color:rgba(255,255,255,.5)">+1MM plays · 4min</div></div>
+    </div>
+    <a class="mock-cta" style="background:linear-gradient(135deg,#7C3AED,#5B21B6)">Continuar →</a>
+  </div>
+
+  <p class="rationale">
+    <b>Por que funciona:</b> a maioria dos ads PT do nicho concursos promete "estude mais", "estude melhor", "domine X". Cérebro do concurseiro tá <em>calibrado a ignorar</em> esse padrão. "Não estude" QUEBRA o frame — força o scroll a parar. Schwartz chama isso de "claim conflitante" — quando você nega o que o público espera ouvir, eles param pra entender por quê. A música tocando logo abaixo entrega a razão SEM exigir leitura.
+  </p>
+  <div class="analysis">
+    <div class="ablock"><div class="ah">CTR hipótese</div><div class="av"><b>25-35%</b> · Pattern interrupt em cold típico dobra CTR vs hook positivo genérico.</div></div>
+    <div class="ablock"><div class="ah g">Retenção VSL</div><div class="av"><b>Alta.</b> Lead chega curioso ("como assim não estudar?") — VSL entrega ciência dos 4 caminhos.</div></div>
+    <div class="ablock"><div class="ah r">Risco</div><div class="av"><b>Soar milagre.</b> "Não estude" pode parecer promessa fácil — concurseiro sério desconfia.</div></div>
+    <div class="ablock"><div class="ah blue">Mitigação</div><div class="av">Sub-headline explica ciência ("4 caminhos neurais") imediato. Player com letra visível = prova.</div></div>
+  </div>
+
+  <div class="copy-block">
+    <div class="copy-h">Copy literal</div>
+    <div class="copy-line">EYEBROW: <em>▶ APERTA O PLAY</em></div>
+    <div class="copy-line">H1: <em>Não estude crase. Só ouça.</em></div>
+    <div class="copy-line">SUB: <em>Apostila ativa 1 caminho neural. Música ativa 4 — por isso você esquece poema em 3 dias e canta refrão décadas. Aqui está a regra inteira em 4 minutos.</em></div>
+    <div class="copy-line">PLAYER: Os 5 Proibidões da Crase · +1MM plays</div>
+    <div class="copy-line">CTA: <em>Continuar →</em></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- IDEIA 3 — Demo de 14 segundos + teste -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="idea">
+  <div class="idea-num">03</div>
+  <span class="idea-tag gold">Demo + Teste · Aposta forte</span>
+  <h3>"Em 14 segundos você grava uma regra que CESPE cobra em 7 de 10 provas."</h3>
+  <p class="tagline">Promessa específica → entrega na hora → teste real → feedback. O cara <strong>sente</strong> o método funcionando no próprio cérebro.</p>
+
+  <div class="mock">
+    <div class="mock-tag">▼ Mockup da bridge — sequência</div>
+    <span class="mock-eyebrow gold" style="color:#B45309;background:rgba(180,83,9,.10);border-color:rgba(180,83,9,.22)">▶ TESTE RÁPIDO · 60s</span>
+    <p class="mock-h1">Em <em>14 segundos</em> você grava uma regra que CESPE cobra em <em>7 de 10 provas</em>.</p>
+    <p class="mock-sub">Aperta o play. Eu te dou 14 segundos. Depois 1 frase de questão real. <b>Aposto que você marca certo.</b></p>
+    <div class="mock-player">
+      <div class="mock-play-btn">▶</div>
+      <div class="mock-play-info"><div class="t">Os 5 Proibidões · 14s teaser</div><div class="s">⏱ countdown ativo</div></div>
+    </div>
+    <p class="mock-sub" style="margin-top:18px;padding:16px;background:var(--bg3);border-radius:6px;border-left:3px solid var(--p)">
+      <b style="color:var(--ink)">Pronto.</b> Agora — qual frase tem crase certa?<br>
+      <span style="display:inline-block;background:#fff;border:1px solid var(--border);padding:8px 14px;border-radius:4px;margin:8px 6px 0 0">A · "Entregue à Vossa Excelência"</span>
+      <span style="display:inline-block;background:#fff;border:1px solid var(--border);padding:8px 14px;border-radius:4px;margin:8px 0 0 0">B · "Entregue a Vossa Excelência"</span>
+    </p>
+    <p class="mock-sub" style="background:var(--g-soft);padding:12px 14px;border-radius:6px;color:var(--g);font-weight:600">
+      ✓ Acertou. (Tratamento não aceita crase — você acabou de gravar.)
+    </p>
+    <a class="mock-cta">Ver o método inteiro (24 macetes assim) →</a>
+  </div>
+
+  <p class="rationale">
+    <b>Por que funciona:</b> 3 mecanismos psicológicos empilhados em 60s. <em>(1) Promessa específica</em> "14 segundos + 7 de 10 provas" = mensurável, não vago. <em>(2) Demonstração</em> = o cara EXPERIMENTA a habilidade nascendo. <em>(3) Compromisso comportamental</em> = depois de fazer o teste, o cérebro cria evidência interna de que o método FUNCIONA. Não é argumento dele — é experiência dele. Cialdini chama isso de "commitment & consistency" — depois de ter agido como "alguém que respondeu certo", o cara precisa fechar o loop comprando.
+  </p>
+  <div class="analysis">
+    <div class="ablock"><div class="ah">CTR hipótese</div><div class="av"><b>30-50%</b> · Demos interativas em cold com promessa específica + comprovação convertem 2-3x.</div></div>
+    <div class="ablock"><div class="ah g">Retenção VSL</div><div class="av"><b>Altíssima.</b> Lead chega na VSL <em>já tendo provado pra si mesmo</em>. VSL vira "ok já comprei a ideia, mostra os outros 24 macetes".</div></div>
+    <div class="ablock"><div class="ah r">Risco</div><div class="av"><b>Complexidade técnica</b> + a questão tem que ser BOA. Se for óbvia demais, o cara desconfia. Se for difícil demais, ele erra e fica chateado.</div></div>
+    <div class="ablock"><div class="ah blue">Mitigação</div><div class="av">Questão escolhida: 70% acertam naturalmente. Os 30% que erram veem feedback educativo (não punitivo) e ainda assim ganham curiosidade.</div></div>
+  </div>
+
+  <div class="copy-block">
+    <div class="copy-h">Copy literal · sequência completa</div>
+    <div class="copy-line">EYEBROW: <em>▶ TESTE RÁPIDO · 60s</em></div>
+    <div class="copy-line">H1: <em>Em 14 segundos você grava uma regra que CESPE cobra em 7 de 10 provas.</em></div>
+    <div class="copy-line">SUB: <em>Aperta o play. Eu te dou 14 segundos. Depois 1 frase de questão real. Aposto que você marca certo.</em></div>
+    <div class="copy-line">PLAYER: 14s teaser com countdown visual</div>
+    <div class="copy-line">PERGUNTA: <em>Qual frase tem crase certa?</em></div>
+    <div class="copy-line">A · <em>"Entregue à Vossa Excelência"</em></div>
+    <div class="copy-line">B · <em>"Entregue a Vossa Excelência"</em></div>
+    <div class="copy-line">FEEDBACK ACERTO: <em>✓ Acertou. Tratamento não aceita crase — você acabou de gravar.</em></div>
+    <div class="copy-line">FEEDBACK ERRO: <em>Quase. A música canta exatamente esse caso aos 0:32. Quer ouvir a regra inteira?</em></div>
+    <div class="copy-line">CTA: <em>Ver o método inteiro (24 macetes assim) →</em></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- IDEIA 4 — Quiz Segmentador -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="idea">
+  <div class="idea-num">04</div>
+  <span class="idea-tag gold">Quiz · Maior alavanca</span>
+  <h3>"Que tipo de concurseiro você é? (3 perguntas, 20s)"</h3>
+  <p class="tagline">Compromisso progressivo + diagnóstico personalizado + resultado segmentado. ZERO concorrente no nicho concursos BR usa isso. BetterMe e Noom escalaram pra $billions com esse formato.</p>
+
+  <div class="mock">
+    <div class="mock-tag">▼ Mockup da bridge — 4 telas</div>
+
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:14px 0">
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mute);margin-bottom:8px">TELA 1 · entrada</div>
+        <div style="font-size:14px;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:6px">Que tipo de concurseiro você é?</div>
+        <div style="font-size:12px;color:var(--mute);margin-bottom:10px">3 perguntas · 20 segundos · receba método prescrito pro seu perfil</div>
+        <span style="display:inline-block;background:var(--p);color:#fff;padding:8px 16px;border-radius:4px;font-size:11px;font-weight:800;letter-spacing:.5px">COMEÇAR →</span>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mute);margin-bottom:8px">TELA 2 · Q1</div>
+        <div style="font-size:13px;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:8px">Há quanto tempo você estuda?</div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <div style="background:#fff;border:1px solid var(--border);padding:7px 10px;border-radius:4px;font-size:12px">Menos de 1 ano</div>
+          <div style="background:#fff;border:1px solid var(--border);padding:7px 10px;border-radius:4px;font-size:12px">1 a 3 anos</div>
+          <div style="background:#fff;border:1px solid var(--border);padding:7px 10px;border-radius:4px;font-size:12px">3+ anos</div>
+        </div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mute);margin-bottom:8px">TELA 3 · Q2</div>
+        <div style="font-size:13px;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:8px">Qual sua maior dor em Português?</div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <div style="background:#fff;border:1px solid var(--border);padding:7px 10px;border-radius:4px;font-size:12px">Esqueço a regra na hora da prova</div>
+          <div style="background:#fff;border:1px solid var(--border);padding:7px 10px;border-radius:4px;font-size:12px">Decoro mas confundo entre regras parecidas</div>
+          <div style="background:#fff;border:1px solid var(--border);padding:7px 10px;border-radius:4px;font-size:12px">Não consigo nem chegar a decorar — esqueço logo</div>
+        </div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--p);border-radius:6px;padding:14px;box-shadow:0 4px 14px rgba(124,58,237,.12)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--p);margin-bottom:8px;font-weight:700">RESULTADO</div>
+        <div style="font-size:14px;font-weight:800;color:var(--ink);margin-bottom:6px">Você é Concurseiro Esquecedor</div>
+        <div style="font-size:11.5px;color:var(--mute);line-height:1.5;margin-bottom:10px">73% dos que respondem como você reprovam por Português. Tem uma razão científica — e ela funciona pra cabeças que esquecem rápido.</div>
+        <div style="background:#fff;border:1px dashed var(--border);padding:8px 10px;border-radius:4px;font-size:11px;color:var(--ink);font-weight:700;margin-bottom:8px">▶ Sua aula prescrita: Os 5 Proibidões da Crase (4min)</div>
+        <span style="display:inline-block;background:var(--ink);color:#fff;padding:7px 14px;border-radius:4px;font-size:11px;font-weight:800;letter-spacing:.5px">VER MÉTODO COMPLETO →</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="rationale">
+    <b>Por que funciona:</b> <em>(1) Compromisso progressivo</em> de Cialdini — quem clicou "Começar" investiu 5 segundos; precisa fechar o loop. Quem respondeu 3 perguntas investiu 20s; precisa ver resultado. <em>(2) Personalização percebida</em> — "73% como você" sente único, mesmo sendo cálculo simples. <em>(3) Prescrição com autoridade</em> — "Sua aula prescrita" vira recomendação médica, não venda. <em>(4) Audience custom Meta</em> — cada perfil gera audiência custom pra rmkt cirúrgico depois (Esquecedor vê ad diferente de Confuso).
+  </p>
+  <div class="analysis">
+    <div class="ablock"><div class="ah">CTR hipótese</div><div class="av"><b>35-50%</b> · Brunson Cold Traffic Bridge consistentemente bate isso. BetterMe quiz funnel é o exemplo gigante.</div></div>
+    <div class="ablock"><div class="ah g">Retenção VSL</div><div class="av"><b>Muito alta.</b> Lead chega na VSL <em>já segmentado</em>, com expectativa específica ("método pra cabeças que esquecem"). VSL pode até adaptar copy futuramente por perfil.</div></div>
+    <div class="ablock"><div class="ah r">Risco</div><div class="av"><b>Implementação</b> · 4 telas + lógica de resultado + UTMs por perfil. Não trivial em HTML estático.</div></div>
+    <div class="ablock"><div class="ah blue">Mitigação</div><div class="av">Single-page com show/hide via JS. 1 HTML, ~400 linhas. ~4-6h dev. Já mapeei lógica.</div></div>
+  </div>
+
+  <div class="copy-block">
+    <div class="copy-h">Copy literal · 3 perfis de resultado</div>
+    <div class="copy-line"><b style="color:#fbbf24">PERFIL A · Esquecedor</b> (esqueço regra na prova)</div>
+    <div class="copy-line"><em>"Você é Concurseiro Esquecedor. 73% dos que respondem como você reprovam por Português. Sua aula prescrita: Os 5 Proibidões da Crase."</em></div>
+    <div class="copy-line">&nbsp;</div>
+    <div class="copy-line"><b style="color:#fbbf24">PERFIL B · Confuso</b> (decoro mas confundo)</div>
+    <div class="copy-line"><em>"Você é Concurseiro Confuso. Conhece a teoria — só não acessa na hora da pressão. Sua aula prescrita: o macete que separa regras parecidas em 4 minutos."</em></div>
+    <div class="copy-line">&nbsp;</div>
+    <div class="copy-line"><b style="color:#fbbf24">PERFIL C · Maratonista</b> (não consigo decorar nada)</div>
+    <div class="copy-line"><em>"Você é Concurseiro Maratonista. Tá esgotado de tanto estudar — apostila não entra mais. Sua aula prescrita: o método que decora sem você esforçar."</em></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- IDEIA 5 — Curiosity Gap MaVeReTI -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="idea">
+  <div class="idea-num">05</div>
+  <span class="idea-tag blue">Curiosity gap · Específico do produto</span>
+  <h3>"Existe uma palavra de 8 letras que decora 5 regras da crase ao mesmo tempo."</h3>
+  <p class="tagline">Curiosity gap fechado SÓ pelo player. Lead aperta play exatamente porque NÃO sabe a palavra — e quando descobre, está convencido.</p>
+
+  <div class="mock">
+    <div class="mock-tag">▼ Mockup da bridge</div>
+    <span class="mock-eyebrow blue" style="color:var(--blue);background:var(--blue-soft);border-color:rgba(30,64,175,.22)">▶ Curiosidade · 60s</span>
+    <p class="mock-h1">Existe uma palavra de <em>8 letras</em> que decora <em>5 regras</em> da crase ao mesmo tempo.</p>
+    <p class="mock-sub">97% dos concurseiros nunca ouviram falar. Quem aprende, acerta crase no automático. Tá nessa música — apareceu em 7 das últimas 10 provas CESPE.</p>
+    <div class="mock-player">
+      <div class="mock-play-btn">▶</div>
+      <div class="mock-play-info"><div class="t">Os 5 Proibidões da Crase</div><div class="s">Aperta o play pra descobrir a palavra · 4min</div></div>
+    </div>
+    <a class="mock-cta">Tem 24 macetes assim · ver método →</a>
+    <div class="mock-microsub">+1MM plays</div>
+  </div>
+
+  <p class="rationale">
+    <b>Por que funciona:</b> Loewenstein (Information Gap Theory) — curiosidade dispara quando há gap pequeno e específico entre o que você sabe e o que você poderia saber. "Palavra de 8 letras" é estranho-específico-suficiente pra criar coceira mental. <em>O gap só fecha pelo play</em>, não pelo scroll — força o comportamento que queremos (Bridge→Play, hoje 24%, possível subir pra 50%+). E o gap é REAL: a palavra (MaVeReTI) é única, memorável, ensinada SÓ no produto.
+  </p>
+  <div class="analysis">
+    <div class="ablock"><div class="ah">CTR hipótese</div><div class="av"><b>22-30%</b> · curiosity gap puro converte forte mas fica abaixo de demo interativa.</div></div>
+    <div class="ablock"><div class="ah g">Retenção VSL</div><div class="av"><b>Média.</b> Lead que descobriu MaVeReTI pode sentir <em>"já tenho o segredo, pra que pagar?"</em>. Aqui mora o risco real.</div></div>
+    <div class="ablock"><div class="ah r">Risco</div><div class="av"><b>Saciamento.</b> Se a música revela MaVeReTI e explica direito, lead aprende e sai. <em>É exatamente sua hipótese de "pelando demais" — pode acontecer aqui.</em></div></div>
+    <div class="ablock"><div class="ah blue">Mitigação</div><div class="av">CTA após player muda foco pra <em>os outros 24 macetes</em> (Concordância, Pontuação, Regência...). MaVeReTI vira "amostra grátis", não produto completo.</div></div>
+  </div>
+
+  <div class="copy-block">
+    <div class="copy-h">Copy literal</div>
+    <div class="copy-line">EYEBROW: <em>▶ CURIOSIDADE · 60s</em></div>
+    <div class="copy-line">H1: <em>Existe uma palavra de 8 letras que decora 5 regras da crase ao mesmo tempo.</em></div>
+    <div class="copy-line">SUB: <em>97% dos concurseiros nunca ouviram falar. Quem aprende, acerta crase no automático. Tá nessa música — apareceu em 7 das últimas 10 provas CESPE.</em></div>
+    <div class="copy-line">PLAYER: Os 5 Proibidões · "Aperta o play pra descobrir a palavra"</div>
+    <div class="copy-line">CTA: <em>Tem 24 macetes assim · ver método →</em></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- RECOMENDAÇÃO FINAL -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="footer-rec">
+  <div class="winner">🏆 Aposta principal</div>
+  <h2>Ordem sugerida de teste (custo crescente, valor crescente)</h2>
+  <p>Não monte todas. Roda em série, deixa cada uma acumular ≥150 visitas antes de declarar vencedor. Critério de morte: se CTR ficar abaixo de 18% em N≥150, mata e vai pra próxima.</p>
+
+  <ol>
+    <li><b>Semana 1 · Idea 2 (Anti-pitch)</b> — 1h dev, copia o esqueleto da hl-vsl que tá no ar, troca headline e sub. Apost: 25-35% CTR + retenção VSL alta. Se passar de 25%, mantém e escala. <span class="winner" style="font-size:9px;padding:2px 8px;margin-left:6px">comecar AQUI</span></li>
+    <li><b>Semana 2 · Idea 1 (História específica)</b> — 2h dev. Tem que conseguir foto+nome (real ou disclaimer) antes. Roda em paralelo com Idea 2 vencedora.</li>
+    <li><b>Semana 3 · Idea 4 (Quiz)</b> — 4-6h dev. Maior aposta de upside (35-50% CTR) mas maior custo de implementação. Faz quando tiver baseline forte.</li>
+    <li><b>Semana 4 · Idea 3 (Demo+teste)</b> — 4-6h dev. Aposta mais ousada. Só vale se as 3 anteriores deram caminho mas sem teto.</li>
+    <li><b>Backlog · Idea 5 (Curiosity MaVeReTI)</b> — 1h dev mas risco de saciamento (sua hipótese de "pelando demais"). Roda só se identificarmos que o gargalo é "fazer apertar play" e não retenção VSL.</li>
+  </ol>
+
+  <p style="margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1)">
+    <b style="color:#fff">Minha aposta principal:</b> <b style="color:#34d399">Idea 2 (Anti-pitch)</b> primeiro porque <em>custo baixo + retenção VSL alta + match perfeito com tráfego cold cheap R$97</em>. Se bater 30%+ CTR, é o teu novo baseline. Depois disso, Idea 4 (Quiz) pra maximizar upside.
+  </p>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,3584 @@
+{
+  "m0": {
+    "text": "E aí! Que bom te ver aqui! Eu sou a Manu, sua nova teacher favorita. Bora resolver esse inglês? Seguinte, eu tenho três minutos e uma aposta com você. O motivo de você travar no inglês não é o que você pensa. Bora descobrir?",
+    "words": [
+      {
+        "w": "E",
+        "s": 0
+      },
+      {
+        "w": "aí",
+        "s": 0.2
+      },
+      {
+        "w": "Que",
+        "s": 0.92
+      },
+      {
+        "w": "bom",
+        "s": 1.16
+      },
+      {
+        "w": "te",
+        "s": 1.34
+      },
+      {
+        "w": "ver",
+        "s": 1.52
+      },
+      {
+        "w": "aqui",
+        "s": 1.62
+      },
+      {
+        "w": "Eu",
+        "s": 2.22
+      },
+      {
+        "w": "sou",
+        "s": 2.34
+      },
+      {
+        "w": "a",
+        "s": 2.44
+      },
+      {
+        "w": "Manu",
+        "s": 2.54
+      },
+      {
+        "w": "sua",
+        "s": 3.02
+      },
+      {
+        "w": "nova",
+        "s": 3.16
+      },
+      {
+        "w": "teacher",
+        "s": 3.42
+      },
+      {
+        "w": "favorita",
+        "s": 3.7
+      },
+      {
+        "w": "Bora",
+        "s": 4.66
+      },
+      {
+        "w": "resolver",
+        "s": 4.7
+      },
+      {
+        "w": "esse",
+        "s": 4.9
+      },
+      {
+        "w": "inglês",
+        "s": 5.1
+      },
+      {
+        "w": "Seguinte",
+        "s": 5.88
+      },
+      {
+        "w": "eu",
+        "s": 6.46
+      },
+      {
+        "w": "tenho",
+        "s": 6.54
+      },
+      {
+        "w": "três",
+        "s": 6.68
+      },
+      {
+        "w": "minutos",
+        "s": 7.06
+      },
+      {
+        "w": "e",
+        "s": 7.36
+      },
+      {
+        "w": "uma",
+        "s": 7.62
+      },
+      {
+        "w": "aposta",
+        "s": 7.96
+      },
+      {
+        "w": "com",
+        "s": 7.98
+      },
+      {
+        "w": "você",
+        "s": 8.2
+      },
+      {
+        "w": "O",
+        "s": 8.76
+      },
+      {
+        "w": "motivo",
+        "s": 8.98
+      },
+      {
+        "w": "de",
+        "s": 9.18
+      },
+      {
+        "w": "você",
+        "s": 9.32
+      },
+      {
+        "w": "travar",
+        "s": 9.56
+      },
+      {
+        "w": "no",
+        "s": 9.8
+      },
+      {
+        "w": "inglês",
+        "s": 10
+      },
+      {
+        "w": "não",
+        "s": 10.28
+      },
+      {
+        "w": "é",
+        "s": 10.78
+      },
+      {
+        "w": "o",
+        "s": 10.88
+      },
+      {
+        "w": "que",
+        "s": 11
+      },
+      {
+        "w": "você",
+        "s": 11.02
+      },
+      {
+        "w": "pensa",
+        "s": 11.3
+      },
+      {
+        "w": "Bora",
+        "s": 12.36
+      },
+      {
+        "w": "descobrir",
+        "s": 12.4
+      }
+    ]
+  },
+  "m1": {
+    "text": "Regra número 1. Zero mentira aqui, tá? Aperta o play nessa cena aí embaixo. Série de verdade, nativo falando na velocidade de verdade. Legenda? Não tem amor.",
+    "words": [
+      {
+        "w": "Regra",
+        "s": 0
+      },
+      {
+        "w": "número",
+        "s": 0.3
+      },
+      {
+        "w": "1",
+        "s": 0.6
+      },
+      {
+        "w": "Zero",
+        "s": 1.44
+      },
+      {
+        "w": "mentira",
+        "s": 1.44
+      },
+      {
+        "w": "aqui",
+        "s": 1.78
+      },
+      {
+        "w": "tá",
+        "s": 2.06
+      },
+      {
+        "w": "Aperta",
+        "s": 2.86
+      },
+      {
+        "w": "o",
+        "s": 2.92
+      },
+      {
+        "w": "play",
+        "s": 3.1
+      },
+      {
+        "w": "nessa",
+        "s": 3.26
+      },
+      {
+        "w": "cena",
+        "s": 3.48
+      },
+      {
+        "w": "aí",
+        "s": 3.7
+      },
+      {
+        "w": "embaixo",
+        "s": 3.84
+      },
+      {
+        "w": "Série",
+        "s": 4.84
+      },
+      {
+        "w": "de",
+        "s": 4.84
+      },
+      {
+        "w": "verdade",
+        "s": 5.02
+      },
+      {
+        "w": "nativo",
+        "s": 5.64
+      },
+      {
+        "w": "falando",
+        "s": 6.06
+      },
+      {
+        "w": "na",
+        "s": 6.38
+      },
+      {
+        "w": "velocidade",
+        "s": 6.58
+      },
+      {
+        "w": "de",
+        "s": 6.9
+      },
+      {
+        "w": "verdade",
+        "s": 7.26
+      },
+      {
+        "w": "Legenda",
+        "s": 8.08
+      },
+      {
+        "w": "Não",
+        "s": 8.94
+      },
+      {
+        "w": "tem",
+        "s": 9.04
+      },
+      {
+        "w": "amor",
+        "s": 9.24
+      }
+    ]
+  },
+  "m2_all": {
+    "text": "Entendeu tudo? Sério? Então me conta o que ela disse. Tô esperando. Brincadeira! Se entendeu mesmo, você é raríssimo. Fica aí comigo, que agora vem a parte boa.",
+    "words": [
+      {
+        "w": "Entendeu",
+        "s": 0
+      },
+      {
+        "w": "tudo",
+        "s": 0.32
+      },
+      {
+        "w": "Sério",
+        "s": 1.34
+      },
+      {
+        "w": "Então",
+        "s": 1.66
+      },
+      {
+        "w": "me",
+        "s": 1.78
+      },
+      {
+        "w": "conta",
+        "s": 2.02
+      },
+      {
+        "w": "o",
+        "s": 2.06
+      },
+      {
+        "w": "que",
+        "s": 2.16
+      },
+      {
+        "w": "ela",
+        "s": 2.18
+      },
+      {
+        "w": "disse",
+        "s": 2.38
+      },
+      {
+        "w": "Tô",
+        "s": 3.02
+      },
+      {
+        "w": "esperando",
+        "s": 3.12
+      },
+      {
+        "w": "Brincadeira",
+        "s": 4.16
+      },
+      {
+        "w": "Se",
+        "s": 5.18
+      },
+      {
+        "w": "entendeu",
+        "s": 5.34
+      },
+      {
+        "w": "mesmo",
+        "s": 5.6
+      },
+      {
+        "w": "você",
+        "s": 6.22
+      },
+      {
+        "w": "é",
+        "s": 6.24
+      },
+      {
+        "w": "raríssimo",
+        "s": 6.42
+      },
+      {
+        "w": "Fica",
+        "s": 7.26
+      },
+      {
+        "w": "aí",
+        "s": 7.3
+      },
+      {
+        "w": "comigo",
+        "s": 7.46
+      },
+      {
+        "w": "que",
+        "s": 7.88
+      },
+      {
+        "w": "agora",
+        "s": 8
+      },
+      {
+        "w": "vem",
+        "s": 8.12
+      },
+      {
+        "w": "a",
+        "s": 8.24
+      },
+      {
+        "w": "parte",
+        "s": 8.48
+      },
+      {
+        "w": "boa",
+        "s": 8.48
+      }
+    ]
+  },
+  "m2_some": {
+    "text": "Pegou umas palavras soltas, né? Clássico. Você conhece essas palavras. Separadinhas. Aí o nativo emenda tudo num bolo só e o seu ouvido apaga. Não é culpa sua. Ninguém nunca te treinou pra isso.",
+    "words": [
+      {
+        "w": "Pegou",
+        "s": 0
+      },
+      {
+        "w": "umas",
+        "s": 0.22
+      },
+      {
+        "w": "palavras",
+        "s": 0.46
+      },
+      {
+        "w": "soltas",
+        "s": 0.66
+      },
+      {
+        "w": "né",
+        "s": 1.14
+      },
+      {
+        "w": "Clássico",
+        "s": 2
+      },
+      {
+        "w": "Você",
+        "s": 2.68
+      },
+      {
+        "w": "conhece",
+        "s": 2.8
+      },
+      {
+        "w": "essas",
+        "s": 3.14
+      },
+      {
+        "w": "palavras",
+        "s": 3.38
+      },
+      {
+        "w": "Separadinhas",
+        "s": 4.38
+      },
+      {
+        "w": "Aí",
+        "s": 5.44
+      },
+      {
+        "w": "o",
+        "s": 5.56
+      },
+      {
+        "w": "nativo",
+        "s": 5.72
+      },
+      {
+        "w": "emenda",
+        "s": 5.92
+      },
+      {
+        "w": "tudo",
+        "s": 6.14
+      },
+      {
+        "w": "num",
+        "s": 6.42
+      },
+      {
+        "w": "bolo",
+        "s": 6.58
+      },
+      {
+        "w": "só",
+        "s": 6.76
+      },
+      {
+        "w": "e",
+        "s": 7.12
+      },
+      {
+        "w": "o",
+        "s": 7.36
+      },
+      {
+        "w": "seu",
+        "s": 7.5
+      },
+      {
+        "w": "ouvido",
+        "s": 7.64
+      },
+      {
+        "w": "apaga",
+        "s": 7.8
+      },
+      {
+        "w": "Não",
+        "s": 8.62
+      },
+      {
+        "w": "é",
+        "s": 8.7
+      },
+      {
+        "w": "culpa",
+        "s": 8.94
+      },
+      {
+        "w": "sua",
+        "s": 8.94
+      },
+      {
+        "w": "Ninguém",
+        "s": 9.8
+      },
+      {
+        "w": "nunca",
+        "s": 9.8
+      },
+      {
+        "w": "te",
+        "s": 10.1
+      },
+      {
+        "w": "treinou",
+        "s": 10.42
+      },
+      {
+        "w": "pra",
+        "s": 10.46
+      },
+      {
+        "w": "isso",
+        "s": 10.66
+      }
+    ]
+  },
+  "m2_none": {
+    "text": "Embolou tudo, né? Eu sabia! Agora segura essa. A frase só tem palavra de quinta série. QUINTA SÉRIE! O problema não é o seu vocabulário, meu bem. É o seu ouvido.",
+    "words": [
+      {
+        "w": "Embolou",
+        "s": 0
+      },
+      {
+        "w": "tudo",
+        "s": 0.44
+      },
+      {
+        "w": "né",
+        "s": 0.98
+      },
+      {
+        "w": "Eu",
+        "s": 1.46
+      },
+      {
+        "w": "sabia",
+        "s": 1.7
+      },
+      {
+        "w": "Agora",
+        "s": 2.58
+      },
+      {
+        "w": "segura",
+        "s": 2.78
+      },
+      {
+        "w": "essa",
+        "s": 3.06
+      },
+      {
+        "w": "A",
+        "s": 3.8
+      },
+      {
+        "w": "frase",
+        "s": 4.02
+      },
+      {
+        "w": "só",
+        "s": 4.22
+      },
+      {
+        "w": "tem",
+        "s": 4.5
+      },
+      {
+        "w": "palavra",
+        "s": 4.64
+      },
+      {
+        "w": "de",
+        "s": 4.96
+      },
+      {
+        "w": "quinta",
+        "s": 5.26
+      },
+      {
+        "w": "série",
+        "s": 5.32
+      },
+      {
+        "w": "QUINTA",
+        "s": 6.24
+      },
+      {
+        "w": "SÉRIE",
+        "s": 6.42
+      },
+      {
+        "w": "O",
+        "s": 7.66
+      },
+      {
+        "w": "problema",
+        "s": 7.88
+      },
+      {
+        "w": "não",
+        "s": 8.08
+      },
+      {
+        "w": "é",
+        "s": 8.32
+      },
+      {
+        "w": "o",
+        "s": 8.44
+      },
+      {
+        "w": "seu",
+        "s": 8.62
+      },
+      {
+        "w": "vocabulário",
+        "s": 8.82
+      },
+      {
+        "w": "meu",
+        "s": 9.08
+      },
+      {
+        "w": "bem",
+        "s": 9.26
+      },
+      {
+        "w": "É",
+        "s": 9.98
+      },
+      {
+        "w": "o",
+        "s": 10.08
+      },
+      {
+        "w": "seu",
+        "s": 10.28
+      },
+      {
+        "w": "ouvido",
+        "s": 10.4
+      }
+    ]
+  },
+  "m3": {
+    "text": "e ouvido, a gente não conserta estudando mais gramática, não, conserta repetindo. Roda a mesma cena de novo e presta atenção no som, vai!",
+    "words": [
+      {
+        "w": "e",
+        "s": 0
+      },
+      {
+        "w": "ouvido",
+        "s": 0.14
+      },
+      {
+        "w": "a",
+        "s": 0.82
+      },
+      {
+        "w": "gente",
+        "s": 1.12
+      },
+      {
+        "w": "não",
+        "s": 1.12
+      },
+      {
+        "w": "conserta",
+        "s": 1.3
+      },
+      {
+        "w": "estudando",
+        "s": 1.58
+      },
+      {
+        "w": "mais",
+        "s": 1.92
+      },
+      {
+        "w": "gramática",
+        "s": 2.22
+      },
+      {
+        "w": "não",
+        "s": 3.4
+      },
+      {
+        "w": "conserta",
+        "s": 4.12
+      },
+      {
+        "w": "repetindo",
+        "s": 4.3
+      },
+      {
+        "w": "Roda",
+        "s": 5.68
+      },
+      {
+        "w": "a",
+        "s": 5.74
+      },
+      {
+        "w": "mesma",
+        "s": 6.04
+      },
+      {
+        "w": "cena",
+        "s": 6.08
+      },
+      {
+        "w": "de",
+        "s": 6.28
+      },
+      {
+        "w": "novo",
+        "s": 6.46
+      },
+      {
+        "w": "e",
+        "s": 6.62
+      },
+      {
+        "w": "presta",
+        "s": 7.14
+      },
+      {
+        "w": "atenção",
+        "s": 7.16
+      },
+      {
+        "w": "no",
+        "s": 7.46
+      },
+      {
+        "w": "som",
+        "s": 7.82
+      },
+      {
+        "w": "vai",
+        "s": 8.34
+      }
+    ]
+  },
+  "m4": {
+    "text": "Opa! Já separou um pedacinho ali, né? Eu vi! De novo! Confia na tia!",
+    "words": [
+      {
+        "w": "Opa",
+        "s": 0
+      },
+      {
+        "w": "Já",
+        "s": 0.68
+      },
+      {
+        "w": "separou",
+        "s": 0.8
+      },
+      {
+        "w": "um",
+        "s": 1.1
+      },
+      {
+        "w": "pedacinho",
+        "s": 1.2
+      },
+      {
+        "w": "ali",
+        "s": 1.54
+      },
+      {
+        "w": "né",
+        "s": 1.74
+      },
+      {
+        "w": "Eu",
+        "s": 2.18
+      },
+      {
+        "w": "vi",
+        "s": 2.36
+      },
+      {
+        "w": "De",
+        "s": 2.94
+      },
+      {
+        "w": "novo",
+        "s": 3
+      },
+      {
+        "w": "Confia",
+        "s": 3.82
+      },
+      {
+        "w": "na",
+        "s": 3.96
+      },
+      {
+        "w": "tia",
+        "s": 4.16
+      }
+    ]
+  },
+  "m6": {
+    "text": "Agora olha a frase na tela, viu? Palavrinha de iniciante, eu te falei. Roda de novo, lendo junto. Aposto que agora é impossível não entender.",
+    "words": [
+      {
+        "w": "Agora",
+        "s": 0
+      },
+      {
+        "w": "olha",
+        "s": 0.38
+      },
+      {
+        "w": "a",
+        "s": 0.68
+      },
+      {
+        "w": "frase",
+        "s": 1.1
+      },
+      {
+        "w": "na",
+        "s": 1.1
+      },
+      {
+        "w": "tela",
+        "s": 1.52
+      },
+      {
+        "w": "viu",
+        "s": 2.2
+      },
+      {
+        "w": "Palavrinha",
+        "s": 2.92
+      },
+      {
+        "w": "de",
+        "s": 3.16
+      },
+      {
+        "w": "iniciante",
+        "s": 3.4
+      },
+      {
+        "w": "eu",
+        "s": 3.86
+      },
+      {
+        "w": "te",
+        "s": 3.9
+      },
+      {
+        "w": "falei",
+        "s": 4.14
+      },
+      {
+        "w": "Roda",
+        "s": 5.08
+      },
+      {
+        "w": "de",
+        "s": 5.12
+      },
+      {
+        "w": "novo",
+        "s": 5.32
+      },
+      {
+        "w": "lendo",
+        "s": 5.78
+      },
+      {
+        "w": "junto",
+        "s": 5.78
+      },
+      {
+        "w": "Aposto",
+        "s": 6.86
+      },
+      {
+        "w": "que",
+        "s": 6.9
+      },
+      {
+        "w": "agora",
+        "s": 7.06
+      },
+      {
+        "w": "é",
+        "s": 7.22
+      },
+      {
+        "w": "impossível",
+        "s": 7.4
+      },
+      {
+        "w": "não",
+        "s": 8.04
+      },
+      {
+        "w": "entender",
+        "s": 8.66
+      }
+    ]
+  },
+  "m7": {
+    "text": "Sentiu o clique? Mesma cena, mesmo áudio, mesma velocidade. O que mudou em um minuto foi você.",
+    "words": [
+      {
+        "w": "Sentiu",
+        "s": 0
+      },
+      {
+        "w": "o",
+        "s": 0.5
+      },
+      {
+        "w": "clique",
+        "s": 0.88
+      },
+      {
+        "w": "Mesma",
+        "s": 1.48
+      },
+      {
+        "w": "cena",
+        "s": 1.58
+      },
+      {
+        "w": "mesmo",
+        "s": 2.64
+      },
+      {
+        "w": "áudio",
+        "s": 2.72
+      },
+      {
+        "w": "mesma",
+        "s": 3.78
+      },
+      {
+        "w": "velocidade",
+        "s": 3.78
+      },
+      {
+        "w": "O",
+        "s": 4.68
+      },
+      {
+        "w": "que",
+        "s": 4.82
+      },
+      {
+        "w": "mudou",
+        "s": 4.92
+      },
+      {
+        "w": "em",
+        "s": 5.24
+      },
+      {
+        "w": "um",
+        "s": 5.34
+      },
+      {
+        "w": "minuto",
+        "s": 5.62
+      },
+      {
+        "w": "foi",
+        "s": 5.88
+      },
+      {
+        "w": "você",
+        "s": 6.16
+      }
+    ]
+  },
+  "m8": {
+    "text": "Isso tem nome, treino concentrado. Existe um número exato de repetições que faz isso com qualquer frase. E a galera nunca chega lá, porque fica pulando de vídeo em vídeo feito grilo, somando nada.",
+    "words": [
+      {
+        "w": "Isso",
+        "s": 0
+      },
+      {
+        "w": "tem",
+        "s": 0.24
+      },
+      {
+        "w": "nome",
+        "s": 0.44
+      },
+      {
+        "w": "treino",
+        "s": 1.3
+      },
+      {
+        "w": "concentrado",
+        "s": 1.42
+      },
+      {
+        "w": "Existe",
+        "s": 2.76
+      },
+      {
+        "w": "um",
+        "s": 2.76
+      },
+      {
+        "w": "número",
+        "s": 3.08
+      },
+      {
+        "w": "exato",
+        "s": 3.08
+      },
+      {
+        "w": "de",
+        "s": 3.5
+      },
+      {
+        "w": "repetições",
+        "s": 3.68
+      },
+      {
+        "w": "que",
+        "s": 4.08
+      },
+      {
+        "w": "faz",
+        "s": 4.46
+      },
+      {
+        "w": "isso",
+        "s": 4.6
+      },
+      {
+        "w": "com",
+        "s": 4.76
+      },
+      {
+        "w": "qualquer",
+        "s": 4.92
+      },
+      {
+        "w": "frase",
+        "s": 5.28
+      },
+      {
+        "w": "E",
+        "s": 6
+      },
+      {
+        "w": "a",
+        "s": 6.1
+      },
+      {
+        "w": "galera",
+        "s": 6.24
+      },
+      {
+        "w": "nunca",
+        "s": 6.44
+      },
+      {
+        "w": "chega",
+        "s": 6.84
+      },
+      {
+        "w": "lá",
+        "s": 7.1
+      },
+      {
+        "w": "porque",
+        "s": 7.6
+      },
+      {
+        "w": "fica",
+        "s": 7.76
+      },
+      {
+        "w": "pulando",
+        "s": 7.94
+      },
+      {
+        "w": "de",
+        "s": 8.26
+      },
+      {
+        "w": "vídeo",
+        "s": 8.54
+      },
+      {
+        "w": "em",
+        "s": 8.66
+      },
+      {
+        "w": "vídeo",
+        "s": 9
+      },
+      {
+        "w": "feito",
+        "s": 9
+      },
+      {
+        "w": "grilo",
+        "s": 9.24
+      },
+      {
+        "w": "somando",
+        "s": 10
+      },
+      {
+        "w": "nada",
+        "s": 10.2
+      }
+    ]
+  },
+  "m9": {
+    "text": "Agora o famoso shadowing, copiar do nativo o ritmo, entonação e pronúncia. Curso nenhum te deixa fazer isso no primeiro dia. E aqui com a tia, ainda tem um toquezinho a mais, que você já vai descobrir. Olha, eu faço primeiro. There's nothing to tell. It's just some guy I work with. Viu? Sua vez. Manda só a primeira parte. There's nothing to tell. Abre esse microfone e manda ver.",
+    "words": [
+      {
+        "w": "Agora",
+        "s": 0
+      },
+      {
+        "w": "o",
+        "s": 0.24
+      },
+      {
+        "w": "famoso",
+        "s": 0.44
+      },
+      {
+        "w": "shadowing",
+        "s": 0.84
+      },
+      {
+        "w": "copiar",
+        "s": 1.62
+      },
+      {
+        "w": "do",
+        "s": 1.82
+      },
+      {
+        "w": "nativo",
+        "s": 1.92
+      },
+      {
+        "w": "o",
+        "s": 2.22
+      },
+      {
+        "w": "ritmo",
+        "s": 2.56
+      },
+      {
+        "w": "entonação",
+        "s": 3.12
+      },
+      {
+        "w": "e",
+        "s": 3.44
+      },
+      {
+        "w": "pronúncia",
+        "s": 3.8
+      },
+      {
+        "w": "Curso",
+        "s": 4.72
+      },
+      {
+        "w": "nenhum",
+        "s": 4.78
+      },
+      {
+        "w": "te",
+        "s": 5.04
+      },
+      {
+        "w": "deixa",
+        "s": 5.26
+      },
+      {
+        "w": "fazer",
+        "s": 5.28
+      },
+      {
+        "w": "isso",
+        "s": 5.5
+      },
+      {
+        "w": "no",
+        "s": 5.64
+      },
+      {
+        "w": "primeiro",
+        "s": 5.76
+      },
+      {
+        "w": "dia",
+        "s": 6
+      },
+      {
+        "w": "E",
+        "s": 6.48
+      },
+      {
+        "w": "aqui",
+        "s": 6.62
+      },
+      {
+        "w": "com",
+        "s": 6.78
+      },
+      {
+        "w": "a",
+        "s": 6.9
+      },
+      {
+        "w": "tia",
+        "s": 7.14
+      },
+      {
+        "w": "ainda",
+        "s": 7.4
+      },
+      {
+        "w": "tem",
+        "s": 7.62
+      },
+      {
+        "w": "um",
+        "s": 7.8
+      },
+      {
+        "w": "toquezinho",
+        "s": 8.04
+      },
+      {
+        "w": "a",
+        "s": 8.36
+      },
+      {
+        "w": "mais",
+        "s": 8.56
+      },
+      {
+        "w": "que",
+        "s": 8.86
+      },
+      {
+        "w": "você",
+        "s": 9
+      },
+      {
+        "w": "já",
+        "s": 9.2
+      },
+      {
+        "w": "vai",
+        "s": 9.36
+      },
+      {
+        "w": "descobrir",
+        "s": 9.54
+      },
+      {
+        "w": "Olha",
+        "s": 10.26
+      },
+      {
+        "w": "eu",
+        "s": 10.62
+      },
+      {
+        "w": "faço",
+        "s": 10.74
+      },
+      {
+        "w": "primeiro",
+        "s": 10.88
+      },
+      {
+        "w": "There's",
+        "s": 11.58
+      },
+      {
+        "w": "nothing",
+        "s": 11.82
+      },
+      {
+        "w": "to",
+        "s": 12.02
+      },
+      {
+        "w": "tell",
+        "s": 12.28
+      },
+      {
+        "w": "It's",
+        "s": 12.64
+      },
+      {
+        "w": "just",
+        "s": 12.8
+      },
+      {
+        "w": "some",
+        "s": 12.96
+      },
+      {
+        "w": "guy",
+        "s": 13.14
+      },
+      {
+        "w": "I",
+        "s": 13.24
+      },
+      {
+        "w": "work",
+        "s": 13.4
+      },
+      {
+        "w": "with",
+        "s": 13.52
+      },
+      {
+        "w": "Viu",
+        "s": 14.08
+      },
+      {
+        "w": "Sua",
+        "s": 14.52
+      },
+      {
+        "w": "vez",
+        "s": 14.82
+      },
+      {
+        "w": "Manda",
+        "s": 15.24
+      },
+      {
+        "w": "só",
+        "s": 15.3
+      },
+      {
+        "w": "a",
+        "s": 15.58
+      },
+      {
+        "w": "primeira",
+        "s": 15.68
+      },
+      {
+        "w": "parte",
+        "s": 15.82
+      },
+      {
+        "w": "There's",
+        "s": 16.44
+      },
+      {
+        "w": "nothing",
+        "s": 16.68
+      },
+      {
+        "w": "to",
+        "s": 16.88
+      },
+      {
+        "w": "tell",
+        "s": 17.12
+      },
+      {
+        "w": "Abre",
+        "s": 17.88
+      },
+      {
+        "w": "esse",
+        "s": 18.02
+      },
+      {
+        "w": "microfone",
+        "s": 18.28
+      },
+      {
+        "w": "e",
+        "s": 18.7
+      },
+      {
+        "w": "manda",
+        "s": 19.14
+      },
+      {
+        "w": "ver",
+        "s": 19.32
+      }
+    ]
+  },
+  "m_denied": {
+    "text": "Sem microfone? Tá bom! Medroso! Relaxa! Você já saiu aqui com o ouvido melhor do que entrou. O resto, a gente resolve na aula.",
+    "words": [
+      {
+        "w": "Sem",
+        "s": 0
+      },
+      {
+        "w": "microfone",
+        "s": 0.36
+      },
+      {
+        "w": "Tá",
+        "s": 1.24
+      },
+      {
+        "w": "bom",
+        "s": 1.46
+      },
+      {
+        "w": "Medroso",
+        "s": 2.28
+      },
+      {
+        "w": "Relaxa",
+        "s": 3.34
+      },
+      {
+        "w": "Você",
+        "s": 3.96
+      },
+      {
+        "w": "já",
+        "s": 4.08
+      },
+      {
+        "w": "saiu",
+        "s": 4.32
+      },
+      {
+        "w": "aqui",
+        "s": 4.4
+      },
+      {
+        "w": "com",
+        "s": 4.66
+      },
+      {
+        "w": "o",
+        "s": 4.76
+      },
+      {
+        "w": "ouvido",
+        "s": 4.86
+      },
+      {
+        "w": "melhor",
+        "s": 5.04
+      },
+      {
+        "w": "do",
+        "s": 5.42
+      },
+      {
+        "w": "que",
+        "s": 5.58
+      },
+      {
+        "w": "entrou",
+        "s": 5.82
+      },
+      {
+        "w": "O",
+        "s": 6.4
+      },
+      {
+        "w": "resto",
+        "s": 6.74
+      },
+      {
+        "w": "a",
+        "s": 7.08
+      },
+      {
+        "w": "gente",
+        "s": 7.34
+      },
+      {
+        "w": "resolve",
+        "s": 7.34
+      },
+      {
+        "w": "na",
+        "s": 7.56
+      },
+      {
+        "w": "aula",
+        "s": 7.78
+      }
+    ]
+  },
+  "m_ab": {
+    "text": "Uhul! Olha isso! Falando inglês! Mandou ver! E o truquezinho? Eu te gravei! Agora faz o que quase ninguém tem coragem, se ouvir falando inglês. Compara sua versão com a original, pesca a diferença e corrige na hora! É assim que atleta de elite treina!",
+    "words": [
+      {
+        "w": "Uhul",
+        "s": 0
+      },
+      {
+        "w": "Olha",
+        "s": 0.76
+      },
+      {
+        "w": "isso",
+        "s": 0.86
+      },
+      {
+        "w": "Falando",
+        "s": 1.42
+      },
+      {
+        "w": "inglês",
+        "s": 1.6
+      },
+      {
+        "w": "Mandou",
+        "s": 2.14
+      },
+      {
+        "w": "ver",
+        "s": 2.32
+      },
+      {
+        "w": "E",
+        "s": 2.9
+      },
+      {
+        "w": "o",
+        "s": 2.92
+      },
+      {
+        "w": "truquezinho",
+        "s": 3.04
+      },
+      {
+        "w": "Eu",
+        "s": 3.68
+      },
+      {
+        "w": "te",
+        "s": 3.76
+      },
+      {
+        "w": "gravei",
+        "s": 3.94
+      },
+      {
+        "w": "Agora",
+        "s": 4.6
+      },
+      {
+        "w": "faz",
+        "s": 4.78
+      },
+      {
+        "w": "o",
+        "s": 5.02
+      },
+      {
+        "w": "que",
+        "s": 5.12
+      },
+      {
+        "w": "quase",
+        "s": 5.24
+      },
+      {
+        "w": "ninguém",
+        "s": 5.48
+      },
+      {
+        "w": "tem",
+        "s": 5.68
+      },
+      {
+        "w": "coragem",
+        "s": 5.86
+      },
+      {
+        "w": "se",
+        "s": 6.4
+      },
+      {
+        "w": "ouvir",
+        "s": 6.62
+      },
+      {
+        "w": "falando",
+        "s": 6.82
+      },
+      {
+        "w": "inglês",
+        "s": 7.02
+      },
+      {
+        "w": "Compara",
+        "s": 7.94
+      },
+      {
+        "w": "sua",
+        "s": 7.96
+      },
+      {
+        "w": "versão",
+        "s": 8.18
+      },
+      {
+        "w": "com",
+        "s": 8.44
+      },
+      {
+        "w": "a",
+        "s": 8.6
+      },
+      {
+        "w": "original",
+        "s": 8.74
+      },
+      {
+        "w": "pesca",
+        "s": 9.48
+      },
+      {
+        "w": "a",
+        "s": 9.6
+      },
+      {
+        "w": "diferença",
+        "s": 10.08
+      },
+      {
+        "w": "e",
+        "s": 10.08
+      },
+      {
+        "w": "corrige",
+        "s": 10.28
+      },
+      {
+        "w": "na",
+        "s": 10.62
+      },
+      {
+        "w": "hora",
+        "s": 10.84
+      },
+      {
+        "w": "É",
+        "s": 11.26
+      },
+      {
+        "w": "assim",
+        "s": 11.5
+      },
+      {
+        "w": "que",
+        "s": 11.64
+      },
+      {
+        "w": "atleta",
+        "s": 11.76
+      },
+      {
+        "w": "de",
+        "s": 12.02
+      },
+      {
+        "w": "elite",
+        "s": 12.16
+      },
+      {
+        "w": "treina",
+        "s": 12.3
+      }
+    ]
+  },
+  "m_err": {
+    "text": "Ué, não te ouvi, chega mais perto do microfone e manda de novo, sem vergonha, que aqui só tem eu.",
+    "words": [
+      {
+        "w": "Ué",
+        "s": 0
+      },
+      {
+        "w": "não",
+        "s": 0.56
+      },
+      {
+        "w": "te",
+        "s": 0.64
+      },
+      {
+        "w": "ouvi",
+        "s": 0.86
+      },
+      {
+        "w": "chega",
+        "s": 1.6
+      },
+      {
+        "w": "mais",
+        "s": 1.62
+      },
+      {
+        "w": "perto",
+        "s": 1.94
+      },
+      {
+        "w": "do",
+        "s": 1.94
+      },
+      {
+        "w": "microfone",
+        "s": 2.08
+      },
+      {
+        "w": "e",
+        "s": 2.44
+      },
+      {
+        "w": "manda",
+        "s": 2.8
+      },
+      {
+        "w": "de",
+        "s": 2.94
+      },
+      {
+        "w": "novo",
+        "s": 3.04
+      },
+      {
+        "w": "sem",
+        "s": 3.66
+      },
+      {
+        "w": "vergonha",
+        "s": 3.78
+      },
+      {
+        "w": "que",
+        "s": 4.52
+      },
+      {
+        "w": "aqui",
+        "s": 4.6
+      },
+      {
+        "w": "só",
+        "s": 4.78
+      },
+      {
+        "w": "tem",
+        "s": 4.88
+      },
+      {
+        "w": "eu",
+        "s": 5.04
+      }
+    ]
+  },
+  "m10_high": {
+    "text": "Peraí! Primeira tentativa, frase de nativo, e você só dá essa nota? Tá! Agora eu te quero no método completo, porque você vai voar! Sério!",
+    "words": [
+      {
+        "w": "Peraí",
+        "s": 0
+      },
+      {
+        "w": "Primeira",
+        "s": 1.18
+      },
+      {
+        "w": "tentativa",
+        "s": 1.24
+      },
+      {
+        "w": "frase",
+        "s": 2.42
+      },
+      {
+        "w": "de",
+        "s": 2.42
+      },
+      {
+        "w": "nativo",
+        "s": 2.68
+      },
+      {
+        "w": "e",
+        "s": 3.38
+      },
+      {
+        "w": "você",
+        "s": 3.5
+      },
+      {
+        "w": "só",
+        "s": 3.8
+      },
+      {
+        "w": "dá",
+        "s": 4
+      },
+      {
+        "w": "essa",
+        "s": 4.12
+      },
+      {
+        "w": "nota",
+        "s": 4.42
+      },
+      {
+        "w": "Tá",
+        "s": 5.06
+      },
+      {
+        "w": "Agora",
+        "s": 6.22
+      },
+      {
+        "w": "eu",
+        "s": 6.4
+      },
+      {
+        "w": "te",
+        "s": 6.54
+      },
+      {
+        "w": "quero",
+        "s": 6.7
+      },
+      {
+        "w": "no",
+        "s": 6.78
+      },
+      {
+        "w": "método",
+        "s": 7
+      },
+      {
+        "w": "completo",
+        "s": 7.16
+      },
+      {
+        "w": "porque",
+        "s": 8.24
+      },
+      {
+        "w": "você",
+        "s": 8.32
+      },
+      {
+        "w": "vai",
+        "s": 8.58
+      },
+      {
+        "w": "voar",
+        "s": 8.78
+      },
+      {
+        "w": "Sério",
+        "s": 9.92
+      }
+    ]
+  },
+  "m10_mid": {
+    "text": "Olha, para a primeira tentativa, longe de ruim, viu? Seu ouvido destravou em um minuto, a boca só está uns treinos atrás. E é exatamente isso que o treino concentrado resolve.",
+    "words": [
+      {
+        "w": "Olha",
+        "s": 0
+      },
+      {
+        "w": "para",
+        "s": 0.78
+      },
+      {
+        "w": "a",
+        "s": 0.86
+      },
+      {
+        "w": "primeira",
+        "s": 1.16
+      },
+      {
+        "w": "tentativa",
+        "s": 1.16
+      },
+      {
+        "w": "longe",
+        "s": 2.26
+      },
+      {
+        "w": "de",
+        "s": 2.5
+      },
+      {
+        "w": "ruim",
+        "s": 2.78
+      },
+      {
+        "w": "viu",
+        "s": 3.02
+      },
+      {
+        "w": "Seu",
+        "s": 3.66
+      },
+      {
+        "w": "ouvido",
+        "s": 3.78
+      },
+      {
+        "w": "destravou",
+        "s": 3.98
+      },
+      {
+        "w": "em",
+        "s": 4.38
+      },
+      {
+        "w": "um",
+        "s": 4.52
+      },
+      {
+        "w": "minuto",
+        "s": 4.66
+      },
+      {
+        "w": "a",
+        "s": 5.32
+      },
+      {
+        "w": "boca",
+        "s": 5.76
+      },
+      {
+        "w": "só",
+        "s": 5.76
+      },
+      {
+        "w": "está",
+        "s": 5.96
+      },
+      {
+        "w": "uns",
+        "s": 6.06
+      },
+      {
+        "w": "treinos",
+        "s": 6.24
+      },
+      {
+        "w": "atrás",
+        "s": 6.44
+      },
+      {
+        "w": "E",
+        "s": 7.38
+      },
+      {
+        "w": "é",
+        "s": 7.48
+      },
+      {
+        "w": "exatamente",
+        "s": 7.7
+      },
+      {
+        "w": "isso",
+        "s": 8.22
+      },
+      {
+        "w": "que",
+        "s": 8.64
+      },
+      {
+        "w": "o",
+        "s": 8.94
+      },
+      {
+        "w": "treino",
+        "s": 9.26
+      },
+      {
+        "w": "concentrado",
+        "s": 9.26
+      },
+      {
+        "w": "resolve",
+        "s": 9.78
+      }
+    ]
+  },
+  "m10_low": {
+    "text": "Calma, ninguém nasce sabendo, tá? Você entendeu uma frase de nativo em um minuto? Isso já é mais que quase todo mundo. A boca chega lá do mesmo jeito. Repetindo.",
+    "words": [
+      {
+        "w": "Calma",
+        "s": 0
+      },
+      {
+        "w": "ninguém",
+        "s": 0.8
+      },
+      {
+        "w": "nasce",
+        "s": 0.8
+      },
+      {
+        "w": "sabendo",
+        "s": 1.14
+      },
+      {
+        "w": "tá",
+        "s": 1.54
+      },
+      {
+        "w": "Você",
+        "s": 2.18
+      },
+      {
+        "w": "entendeu",
+        "s": 2.44
+      },
+      {
+        "w": "uma",
+        "s": 3.06
+      },
+      {
+        "w": "frase",
+        "s": 3.38
+      },
+      {
+        "w": "de",
+        "s": 3.52
+      },
+      {
+        "w": "nativo",
+        "s": 3.72
+      },
+      {
+        "w": "em",
+        "s": 3.94
+      },
+      {
+        "w": "um",
+        "s": 4.08
+      },
+      {
+        "w": "minuto",
+        "s": 4.26
+      },
+      {
+        "w": "Isso",
+        "s": 5.02
+      },
+      {
+        "w": "já",
+        "s": 5.22
+      },
+      {
+        "w": "é",
+        "s": 5.38
+      },
+      {
+        "w": "mais",
+        "s": 5.6
+      },
+      {
+        "w": "que",
+        "s": 5.82
+      },
+      {
+        "w": "quase",
+        "s": 5.92
+      },
+      {
+        "w": "todo",
+        "s": 6.14
+      },
+      {
+        "w": "mundo",
+        "s": 6.34
+      },
+      {
+        "w": "A",
+        "s": 7.14
+      },
+      {
+        "w": "boca",
+        "s": 7.34
+      },
+      {
+        "w": "chega",
+        "s": 7.56
+      },
+      {
+        "w": "lá",
+        "s": 7.88
+      },
+      {
+        "w": "do",
+        "s": 8.08
+      },
+      {
+        "w": "mesmo",
+        "s": 8.2
+      },
+      {
+        "w": "jeito",
+        "s": 8.46
+      },
+      {
+        "w": "Repetindo",
+        "s": 9.42
+      }
+    ]
+  },
+  "m11": {
+    "text": "Viu? Subiu! Com duas tentativas. Duas! Agora imagina isso no número certo de repetições. Todo santo dia, com o método inteiro. É outro jogo!",
+    "words": [
+      {
+        "w": "Viu",
+        "s": 0
+      },
+      {
+        "w": "Subiu",
+        "s": 0.84
+      },
+      {
+        "w": "Com",
+        "s": 1.5
+      },
+      {
+        "w": "duas",
+        "s": 1.74
+      },
+      {
+        "w": "tentativas",
+        "s": 2.04
+      },
+      {
+        "w": "Duas",
+        "s": 3.26
+      },
+      {
+        "w": "Agora",
+        "s": 3.98
+      },
+      {
+        "w": "imagina",
+        "s": 4.38
+      },
+      {
+        "w": "isso",
+        "s": 4.74
+      },
+      {
+        "w": "no",
+        "s": 5
+      },
+      {
+        "w": "número",
+        "s": 5.16
+      },
+      {
+        "w": "certo",
+        "s": 5.36
+      },
+      {
+        "w": "de",
+        "s": 5.74
+      },
+      {
+        "w": "repetições",
+        "s": 5.96
+      },
+      {
+        "w": "Todo",
+        "s": 6.74
+      },
+      {
+        "w": "santo",
+        "s": 7.06
+      },
+      {
+        "w": "dia",
+        "s": 7.42
+      },
+      {
+        "w": "com",
+        "s": 7.96
+      },
+      {
+        "w": "o",
+        "s": 8.1
+      },
+      {
+        "w": "método",
+        "s": 8.34
+      },
+      {
+        "w": "inteiro",
+        "s": 8.42
+      },
+      {
+        "w": "É",
+        "s": 9.56
+      },
+      {
+        "w": "outro",
+        "s": 9.72
+      },
+      {
+        "w": "jogo",
+        "s": 9.98
+      }
+    ]
+  },
+  "m12": {
+    "text": "Olha isso! Foi uma cena! Uma! Imagina isso em um episódio inteiro, depois outro, e mais outro! É óbvio, né? Você vai ficar fluente, bebê! Quem treina, evolui. Quem caça milagre, se frustra. O Marcos gravou um vídeo mostrando tudo na prática. Se eu fosse você, rolava essa página e assistia agora. Eu não vejo junto porque... eu já sou fluente, né, amore? Papo pra outra hora. Até mais!",
+    "words": [
+      {
+        "w": "Olha",
+        "s": 0
+      },
+      {
+        "w": "isso",
+        "s": 0.26
+      },
+      {
+        "w": "Foi",
+        "s": 0.98
+      },
+      {
+        "w": "uma",
+        "s": 1.04
+      },
+      {
+        "w": "cena",
+        "s": 1.54
+      },
+      {
+        "w": "Uma",
+        "s": 2.42
+      },
+      {
+        "w": "Imagina",
+        "s": 2.94
+      },
+      {
+        "w": "isso",
+        "s": 3.28
+      },
+      {
+        "w": "em",
+        "s": 3.48
+      },
+      {
+        "w": "um",
+        "s": 3.56
+      },
+      {
+        "w": "episódio",
+        "s": 3.84
+      },
+      {
+        "w": "inteiro",
+        "s": 3.84
+      },
+      {
+        "w": "depois",
+        "s": 4.4
+      },
+      {
+        "w": "outro",
+        "s": 4.54
+      },
+      {
+        "w": "e",
+        "s": 4.92
+      },
+      {
+        "w": "mais",
+        "s": 5.08
+      },
+      {
+        "w": "outro",
+        "s": 5.2
+      },
+      {
+        "w": "É",
+        "s": 5.92
+      },
+      {
+        "w": "óbvio",
+        "s": 6.2
+      },
+      {
+        "w": "né",
+        "s": 6.36
+      },
+      {
+        "w": "Você",
+        "s": 6.76
+      },
+      {
+        "w": "vai",
+        "s": 7.04
+      },
+      {
+        "w": "ficar",
+        "s": 7.28
+      },
+      {
+        "w": "fluente",
+        "s": 7.44
+      },
+      {
+        "w": "bebê",
+        "s": 8
+      },
+      {
+        "w": "Quem",
+        "s": 8.68
+      },
+      {
+        "w": "treina",
+        "s": 8.68
+      },
+      {
+        "w": "evolui",
+        "s": 9.18
+      },
+      {
+        "w": "Quem",
+        "s": 9.86
+      },
+      {
+        "w": "caça",
+        "s": 9.92
+      },
+      {
+        "w": "milagre",
+        "s": 10.18
+      },
+      {
+        "w": "se",
+        "s": 10.62
+      },
+      {
+        "w": "frustra",
+        "s": 10.9
+      },
+      {
+        "w": "O",
+        "s": 11.58
+      },
+      {
+        "w": "Marcos",
+        "s": 11.88
+      },
+      {
+        "w": "gravou",
+        "s": 12.06
+      },
+      {
+        "w": "um",
+        "s": 12.3
+      },
+      {
+        "w": "vídeo",
+        "s": 12.64
+      },
+      {
+        "w": "mostrando",
+        "s": 12.64
+      },
+      {
+        "w": "tudo",
+        "s": 12.96
+      },
+      {
+        "w": "na",
+        "s": 13.28
+      },
+      {
+        "w": "prática",
+        "s": 13.44
+      },
+      {
+        "w": "Se",
+        "s": 14.36
+      },
+      {
+        "w": "eu",
+        "s": 14.42
+      },
+      {
+        "w": "fosse",
+        "s": 14.64
+      },
+      {
+        "w": "você",
+        "s": 14.74
+      },
+      {
+        "w": "rolava",
+        "s": 15.42
+      },
+      {
+        "w": "essa",
+        "s": 15.62
+      },
+      {
+        "w": "página",
+        "s": 15.82
+      },
+      {
+        "w": "e",
+        "s": 16.06
+      },
+      {
+        "w": "assistia",
+        "s": 16.2
+      },
+      {
+        "w": "agora",
+        "s": 16.52
+      },
+      {
+        "w": "Eu",
+        "s": 17.28
+      },
+      {
+        "w": "não",
+        "s": 17.42
+      },
+      {
+        "w": "vejo",
+        "s": 17.58
+      },
+      {
+        "w": "junto",
+        "s": 17.7
+      },
+      {
+        "w": "porque",
+        "s": 17.98
+      },
+      {
+        "w": "eu",
+        "s": 18.9
+      },
+      {
+        "w": "já",
+        "s": 19
+      },
+      {
+        "w": "sou",
+        "s": 19.14
+      },
+      {
+        "w": "fluente",
+        "s": 19.26
+      },
+      {
+        "w": "né",
+        "s": 19.62
+      },
+      {
+        "w": "amore",
+        "s": 19.76
+      },
+      {
+        "w": "Papo",
+        "s": 20.52
+      },
+      {
+        "w": "pra",
+        "s": 20.64
+      },
+      {
+        "w": "outra",
+        "s": 20.8
+      },
+      {
+        "w": "hora",
+        "s": 21
+      },
+      {
+        "w": "Até",
+        "s": 21.66
+      },
+      {
+        "w": "mais",
+        "s": 21.78
+      }
+    ]
+  },
+  "m_honest": {
+    "text": "E aí? Entendeu o que ela disse? Seja honesto comigo, ninguém está olhando. Pode confessar aí embaixo.",
+    "words": [
+      {
+        "w": "E",
+        "s": 0
+      },
+      {
+        "w": "aí",
+        "s": 0.16
+      },
+      {
+        "w": "Entendeu",
+        "s": 0.94
+      },
+      {
+        "w": "o",
+        "s": 1.46
+      },
+      {
+        "w": "que",
+        "s": 1.64
+      },
+      {
+        "w": "ela",
+        "s": 1.64
+      },
+      {
+        "w": "disse",
+        "s": 1.98
+      },
+      {
+        "w": "Seja",
+        "s": 2.94
+      },
+      {
+        "w": "honesto",
+        "s": 3.04
+      },
+      {
+        "w": "comigo",
+        "s": 3.32
+      },
+      {
+        "w": "ninguém",
+        "s": 4.28
+      },
+      {
+        "w": "está",
+        "s": 4.32
+      },
+      {
+        "w": "olhando",
+        "s": 4.52
+      },
+      {
+        "w": "Pode",
+        "s": 5.34
+      },
+      {
+        "w": "confessar",
+        "s": 5.38
+      },
+      {
+        "w": "aí",
+        "s": 5.74
+      },
+      {
+        "w": "embaixo",
+        "s": 6.1
+      }
+    ]
+  },
+  "m_ab2": {
+    "text": "E óbvio que eu não te deixo na mão. Toca no botão roxo que eu destrincho seu ritmo, sua entonação e sua pronúncia com tecnologia de ponta. Feedback personalizado da tia. Confere aí.",
+    "words": [
+      {
+        "w": "E",
+        "s": 0
+      },
+      {
+        "w": "óbvio",
+        "s": 0.14
+      },
+      {
+        "w": "que",
+        "s": 0.48
+      },
+      {
+        "w": "eu",
+        "s": 0.6
+      },
+      {
+        "w": "não",
+        "s": 0.68
+      },
+      {
+        "w": "te",
+        "s": 0.7
+      },
+      {
+        "w": "deixo",
+        "s": 0.94
+      },
+      {
+        "w": "na",
+        "s": 0.98
+      },
+      {
+        "w": "mão",
+        "s": 1.14
+      },
+      {
+        "w": "Toca",
+        "s": 1.7
+      },
+      {
+        "w": "no",
+        "s": 1.72
+      },
+      {
+        "w": "botão",
+        "s": 1.84
+      },
+      {
+        "w": "roxo",
+        "s": 2.02
+      },
+      {
+        "w": "que",
+        "s": 2.3
+      },
+      {
+        "w": "eu",
+        "s": 2.44
+      },
+      {
+        "w": "destrincho",
+        "s": 2.66
+      },
+      {
+        "w": "seu",
+        "s": 2.94
+      },
+      {
+        "w": "ritmo",
+        "s": 3.18
+      },
+      {
+        "w": "sua",
+        "s": 3.88
+      },
+      {
+        "w": "entonação",
+        "s": 3.94
+      },
+      {
+        "w": "e",
+        "s": 4.32
+      },
+      {
+        "w": "sua",
+        "s": 4.52
+      },
+      {
+        "w": "pronúncia",
+        "s": 4.74
+      },
+      {
+        "w": "com",
+        "s": 5.1
+      },
+      {
+        "w": "tecnologia",
+        "s": 5.42
+      },
+      {
+        "w": "de",
+        "s": 5.88
+      },
+      {
+        "w": "ponta",
+        "s": 6.14
+      },
+      {
+        "w": "Feedback",
+        "s": 7.06
+      },
+      {
+        "w": "personalizado",
+        "s": 7.52
+      },
+      {
+        "w": "da",
+        "s": 7.98
+      },
+      {
+        "w": "tia",
+        "s": 8.18
+      },
+      {
+        "w": "Confere",
+        "s": 8.84
+      },
+      {
+        "w": "aí",
+        "s": 9.02
+      }
+    ]
+  },
+  "m_pattern": {
+    "text": "Segredinho que passou batido, numa cena só, você já começou a internalizar o padrão real de conversa. There's nothing I work with. Isso pipoca em qualquer papo, o tempo todo. E na correria, a gente repetiu pouco, tá? O certo é repetir até virar automático. Então roda essa cena mil vezes se quiser. Cada play grava mais fundo.",
+    "words": [
+      {
+        "w": "Segredinho",
+        "s": 0
+      },
+      {
+        "w": "que",
+        "s": 0.52
+      },
+      {
+        "w": "passou",
+        "s": 0.7
+      },
+      {
+        "w": "batido",
+        "s": 0.8
+      },
+      {
+        "w": "numa",
+        "s": 1.58
+      },
+      {
+        "w": "cena",
+        "s": 1.64
+      },
+      {
+        "w": "só",
+        "s": 1.86
+      },
+      {
+        "w": "você",
+        "s": 2.4
+      },
+      {
+        "w": "já",
+        "s": 2.5
+      },
+      {
+        "w": "começou",
+        "s": 2.74
+      },
+      {
+        "w": "a",
+        "s": 2.96
+      },
+      {
+        "w": "internalizar",
+        "s": 3.1
+      },
+      {
+        "w": "o",
+        "s": 3.46
+      },
+      {
+        "w": "padrão",
+        "s": 3.58
+      },
+      {
+        "w": "real",
+        "s": 3.7
+      },
+      {
+        "w": "de",
+        "s": 4.06
+      },
+      {
+        "w": "conversa",
+        "s": 4.22
+      },
+      {
+        "w": "There's",
+        "s": 4.94
+      },
+      {
+        "w": "nothing",
+        "s": 5.04
+      },
+      {
+        "w": "I",
+        "s": 5.28
+      },
+      {
+        "w": "work",
+        "s": 5.76
+      },
+      {
+        "w": "with",
+        "s": 5.94
+      },
+      {
+        "w": "Isso",
+        "s": 6.52
+      },
+      {
+        "w": "pipoca",
+        "s": 6.52
+      },
+      {
+        "w": "em",
+        "s": 6.82
+      },
+      {
+        "w": "qualquer",
+        "s": 6.98
+      },
+      {
+        "w": "papo",
+        "s": 7.28
+      },
+      {
+        "w": "o",
+        "s": 7.62
+      },
+      {
+        "w": "tempo",
+        "s": 7.92
+      },
+      {
+        "w": "todo",
+        "s": 7.92
+      },
+      {
+        "w": "E",
+        "s": 8.58
+      },
+      {
+        "w": "na",
+        "s": 8.68
+      },
+      {
+        "w": "correria",
+        "s": 8.82
+      },
+      {
+        "w": "a",
+        "s": 9.32
+      },
+      {
+        "w": "gente",
+        "s": 9.64
+      },
+      {
+        "w": "repetiu",
+        "s": 9.64
+      },
+      {
+        "w": "pouco",
+        "s": 9.9
+      },
+      {
+        "w": "tá",
+        "s": 10.2
+      },
+      {
+        "w": "O",
+        "s": 10.62
+      },
+      {
+        "w": "certo",
+        "s": 10.86
+      },
+      {
+        "w": "é",
+        "s": 10.98
+      },
+      {
+        "w": "repetir",
+        "s": 11.22
+      },
+      {
+        "w": "até",
+        "s": 11.54
+      },
+      {
+        "w": "virar",
+        "s": 11.66
+      },
+      {
+        "w": "automático",
+        "s": 11.92
+      },
+      {
+        "w": "Então",
+        "s": 12.7
+      },
+      {
+        "w": "roda",
+        "s": 12.98
+      },
+      {
+        "w": "essa",
+        "s": 13.08
+      },
+      {
+        "w": "cena",
+        "s": 13.28
+      },
+      {
+        "w": "mil",
+        "s": 13.4
+      },
+      {
+        "w": "vezes",
+        "s": 13.76
+      },
+      {
+        "w": "se",
+        "s": 13.98
+      },
+      {
+        "w": "quiser",
+        "s": 14.16
+      },
+      {
+        "w": "Cada",
+        "s": 14.9
+      },
+      {
+        "w": "play",
+        "s": 14.94
+      },
+      {
+        "w": "grava",
+        "s": 15.24
+      },
+      {
+        "w": "mais",
+        "s": 15.62
+      },
+      {
+        "w": "fundo",
+        "s": 15.96
+      }
+    ]
+  },
+  "m_tip_pron": {
+    "text": "E olha a receita da tia aí embaixo. Teu foco de treino é pronúncia. Viu as palavras marcadas? É exatamente isso que o Shadowing resolve. Repete junto do áudio até o som grudar. Nada de decoreba. É repetição até virar automático.",
+    "words": [
+      {
+        "w": "E",
+        "s": 0
+      },
+      {
+        "w": "olha",
+        "s": 0.16
+      },
+      {
+        "w": "a",
+        "s": 0.34
+      },
+      {
+        "w": "receita",
+        "s": 0.6
+      },
+      {
+        "w": "da",
+        "s": 0.8
+      },
+      {
+        "w": "tia",
+        "s": 1.04
+      },
+      {
+        "w": "aí",
+        "s": 1.18
+      },
+      {
+        "w": "embaixo",
+        "s": 1.42
+      },
+      {
+        "w": "Teu",
+        "s": 2.24
+      },
+      {
+        "w": "foco",
+        "s": 2.32
+      },
+      {
+        "w": "de",
+        "s": 2.5
+      },
+      {
+        "w": "treino",
+        "s": 2.68
+      },
+      {
+        "w": "é",
+        "s": 2.84
+      },
+      {
+        "w": "pronúncia",
+        "s": 3
+      },
+      {
+        "w": "Viu",
+        "s": 4.04
+      },
+      {
+        "w": "as",
+        "s": 4.06
+      },
+      {
+        "w": "palavras",
+        "s": 4.38
+      },
+      {
+        "w": "marcadas",
+        "s": 4.38
+      },
+      {
+        "w": "É",
+        "s": 5.24
+      },
+      {
+        "w": "exatamente",
+        "s": 5.42
+      },
+      {
+        "w": "isso",
+        "s": 5.9
+      },
+      {
+        "w": "que",
+        "s": 6.18
+      },
+      {
+        "w": "o",
+        "s": 6.38
+      },
+      {
+        "w": "Shadowing",
+        "s": 6.38
+      },
+      {
+        "w": "resolve",
+        "s": 6.76
+      },
+      {
+        "w": "Repete",
+        "s": 7.82
+      },
+      {
+        "w": "junto",
+        "s": 7.86
+      },
+      {
+        "w": "do",
+        "s": 8.1
+      },
+      {
+        "w": "áudio",
+        "s": 8.32
+      },
+      {
+        "w": "até",
+        "s": 8.46
+      },
+      {
+        "w": "o",
+        "s": 8.62
+      },
+      {
+        "w": "som",
+        "s": 8.92
+      },
+      {
+        "w": "grudar",
+        "s": 8.92
+      },
+      {
+        "w": "Nada",
+        "s": 9.84
+      },
+      {
+        "w": "de",
+        "s": 9.88
+      },
+      {
+        "w": "decoreba",
+        "s": 10.06
+      },
+      {
+        "w": "É",
+        "s": 10.74
+      },
+      {
+        "w": "repetição",
+        "s": 10.88
+      },
+      {
+        "w": "até",
+        "s": 11.34
+      },
+      {
+        "w": "virar",
+        "s": 11.76
+      },
+      {
+        "w": "automático",
+        "s": 12.06
+      }
+    ]
+  },
+  "m_tip_rhythm": {
+    "text": "E olha a receita da tia aí embaixo. Teu ponto de treino é ritmo. Tá saindo picado, palavra por palavra. Isso é ouvido. Quanto mais você escuta nativo emendando, mais a boca emenda junto. Listening. Resolve, tá?",
+    "words": [
+      {
+        "w": "E",
+        "s": 0
+      },
+      {
+        "w": "olha",
+        "s": 0.16
+      },
+      {
+        "w": "a",
+        "s": 0.34
+      },
+      {
+        "w": "receita",
+        "s": 0.58
+      },
+      {
+        "w": "da",
+        "s": 0.72
+      },
+      {
+        "w": "tia",
+        "s": 0.96
+      },
+      {
+        "w": "aí",
+        "s": 1.08
+      },
+      {
+        "w": "embaixo",
+        "s": 1.3
+      },
+      {
+        "w": "Teu",
+        "s": 2
+      },
+      {
+        "w": "ponto",
+        "s": 2.1
+      },
+      {
+        "w": "de",
+        "s": 2.28
+      },
+      {
+        "w": "treino",
+        "s": 2.62
+      },
+      {
+        "w": "é",
+        "s": 2.62
+      },
+      {
+        "w": "ritmo",
+        "s": 2.9
+      },
+      {
+        "w": "Tá",
+        "s": 3.72
+      },
+      {
+        "w": "saindo",
+        "s": 3.82
+      },
+      {
+        "w": "picado",
+        "s": 4.04
+      },
+      {
+        "w": "palavra",
+        "s": 4.68
+      },
+      {
+        "w": "por",
+        "s": 4.82
+      },
+      {
+        "w": "palavra",
+        "s": 5.06
+      },
+      {
+        "w": "Isso",
+        "s": 5.8
+      },
+      {
+        "w": "é",
+        "s": 5.9
+      },
+      {
+        "w": "ouvido",
+        "s": 6.06
+      },
+      {
+        "w": "Quanto",
+        "s": 6.84
+      },
+      {
+        "w": "mais",
+        "s": 6.84
+      },
+      {
+        "w": "você",
+        "s": 7.14
+      },
+      {
+        "w": "escuta",
+        "s": 7.4
+      },
+      {
+        "w": "nativo",
+        "s": 7.58
+      },
+      {
+        "w": "emendando",
+        "s": 7.96
+      },
+      {
+        "w": "mais",
+        "s": 8.78
+      },
+      {
+        "w": "a",
+        "s": 8.94
+      },
+      {
+        "w": "boca",
+        "s": 9.12
+      },
+      {
+        "w": "emenda",
+        "s": 9.24
+      },
+      {
+        "w": "junto",
+        "s": 9.5
+      },
+      {
+        "w": "Listening",
+        "s": 10.44
+      },
+      {
+        "w": "Resolve",
+        "s": 11.14
+      },
+      {
+        "w": "tá",
+        "s": 11.52
+      }
+    ]
+  },
+  "m_tip_proso": {
+    "text": "E olha a receita da tia aí embaixo. Teu ponto de treino é entonação. Tá saindo lido, não falado. Shadowing de frase inteira resolve. Copia a música da frase, não só as palavras.",
+    "words": [
+      {
+        "w": "E",
+        "s": 0
+      },
+      {
+        "w": "olha",
+        "s": 0.12
+      },
+      {
+        "w": "a",
+        "s": 0.3
+      },
+      {
+        "w": "receita",
+        "s": 0.52
+      },
+      {
+        "w": "da",
+        "s": 0.68
+      },
+      {
+        "w": "tia",
+        "s": 0.9
+      },
+      {
+        "w": "aí",
+        "s": 1.06
+      },
+      {
+        "w": "embaixo",
+        "s": 1.22
+      },
+      {
+        "w": "Teu",
+        "s": 1.86
+      },
+      {
+        "w": "ponto",
+        "s": 1.96
+      },
+      {
+        "w": "de",
+        "s": 2.18
+      },
+      {
+        "w": "treino",
+        "s": 2.38
+      },
+      {
+        "w": "é",
+        "s": 2.56
+      },
+      {
+        "w": "entonação",
+        "s": 2.86
+      },
+      {
+        "w": "Tá",
+        "s": 3.86
+      },
+      {
+        "w": "saindo",
+        "s": 3.92
+      },
+      {
+        "w": "lido",
+        "s": 4.14
+      },
+      {
+        "w": "não",
+        "s": 4.66
+      },
+      {
+        "w": "falado",
+        "s": 4.8
+      },
+      {
+        "w": "Shadowing",
+        "s": 5.6
+      },
+      {
+        "w": "de",
+        "s": 5.78
+      },
+      {
+        "w": "frase",
+        "s": 5.94
+      },
+      {
+        "w": "inteira",
+        "s": 6.22
+      },
+      {
+        "w": "resolve",
+        "s": 6.56
+      },
+      {
+        "w": "Copia",
+        "s": 7.52
+      },
+      {
+        "w": "a",
+        "s": 7.56
+      },
+      {
+        "w": "música",
+        "s": 7.96
+      },
+      {
+        "w": "da",
+        "s": 7.96
+      },
+      {
+        "w": "frase",
+        "s": 8.4
+      },
+      {
+        "w": "não",
+        "s": 8.7
+      },
+      {
+        "w": "só",
+        "s": 8.78
+      },
+      {
+        "w": "as",
+        "s": 8.98
+      },
+      {
+        "w": "palavras",
+        "s": 9.18
+      }
+    ]
+  },
+  "m_back": {
+    "text": "Amore, você já testou. E funcionou, lembra? Ficar repetindo teste não te deixa fluente. O método completo deixa. O vídeo tá ali te esperando. Vai, confia na tia.",
+    "words": [
+      {
+        "w": "Amore",
+        "s": 0
+      },
+      {
+        "w": "você",
+        "s": 0.86
+      },
+      {
+        "w": "já",
+        "s": 1.02
+      },
+      {
+        "w": "testou",
+        "s": 1.28
+      },
+      {
+        "w": "E",
+        "s": 2.1
+      },
+      {
+        "w": "funcionou",
+        "s": 2.24
+      },
+      {
+        "w": "lembra",
+        "s": 3.1
+      },
+      {
+        "w": "Ficar",
+        "s": 3.76
+      },
+      {
+        "w": "repetindo",
+        "s": 4
+      },
+      {
+        "w": "teste",
+        "s": 4.32
+      },
+      {
+        "w": "não",
+        "s": 4.68
+      },
+      {
+        "w": "te",
+        "s": 4.82
+      },
+      {
+        "w": "deixa",
+        "s": 5.14
+      },
+      {
+        "w": "fluente",
+        "s": 5.14
+      },
+      {
+        "w": "O",
+        "s": 5.98
+      },
+      {
+        "w": "método",
+        "s": 6.18
+      },
+      {
+        "w": "completo",
+        "s": 6.32
+      },
+      {
+        "w": "deixa",
+        "s": 6.72
+      },
+      {
+        "w": "O",
+        "s": 7.5
+      },
+      {
+        "w": "vídeo",
+        "s": 7.66
+      },
+      {
+        "w": "tá",
+        "s": 7.82
+      },
+      {
+        "w": "ali",
+        "s": 7.98
+      },
+      {
+        "w": "te",
+        "s": 8.08
+      },
+      {
+        "w": "esperando",
+        "s": 8.26
+      },
+      {
+        "w": "Vai",
+        "s": 9.12
+      },
+      {
+        "w": "confia",
+        "s": 9.7
+      },
+      {
+        "w": "na",
+        "s": 9.82
+      },
+      {
+        "w": "tia",
+        "s": 10.02
+      }
+    ]
+  }
+}

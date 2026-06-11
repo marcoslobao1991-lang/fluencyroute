@@ -49,3 +49,8 @@ scripts/aula-*
 scripts/carousel-*
 scripts/quiz-batch-*
 public/.next/
+
+# backups locais
+*.bak
+*.bak-*
+tsconfig.tsbuildinfo

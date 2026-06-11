@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Português Cantado · Apostila grava em 1, música grava em 4</title>
+<meta name="description" content="Apostila escapa em dias. Refrão fica décadas. Aperta o play — Os 5 Proibidões da Crase em 4 minutos.">
+<meta property="og:title" content="Apostila grava em 1 lugar. Música grava em 4.">
+<meta property="og:description" content="Sente na sua cabeça. Aperta o play.">
+<meta name="theme-color" content="#fafaf7">
+<link rel="preconnect" href="https://petrtewismhpzidcmmwb.supabase.co" crossorigin>
+<link rel="dns-prefetch" href="https://portugues.concursocantado.com.br">
+<link rel="preconnect" href="https://portugues.concursocantado.com.br" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1482531556578727');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1482531556578727&ev=PageView&noscript=1"/></noscript>
+
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#fafaf7; --bg2:#ffffff; --bg3:#f3f1ec;
+    --ink:#1c1b1a; --mute:rgba(28,27,26,.72); --dim:rgba(28,27,26,.52); --faint:rgba(28,27,26,.32);
+    --border:rgba(0,0,0,.10); --border-light:rgba(0,0,0,.05);
+    --p:#7C3AED; --p2:#5B21B6; --p3:#5B21B6; --p-soft:rgba(124,58,237,.08);
+    --g:#047857; --g-soft:rgba(4,120,87,.07);
+    --r:#9F1239; --r-soft:rgba(159,18,57,.06);
+  }
+  html,body{background:var(--bg);color:var(--ink);font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;line-height:1.55;letter-spacing:-0.005em;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer}
+
+  /* Topbar */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(250,250,247,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand-logo{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800}
+  .brand-text{font-weight:800;font-size:14px;line-height:1.2;color:var(--ink)}
+  .brand-text .mute{color:var(--p)}
+  .brand-tag{font-size:10px;color:var(--mute);margin-top:1px;letter-spacing:.5px}
+
+  /* Container */
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px}
+  .wrap-wide{max-width:960px;margin:0 auto;padding:0 20px}
+
+  /* Hero / Chamada */
+  .hero{padding:48px 0 28px;text-align:center}
+  .eyebrow{display:inline-block;font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--p);background:var(--p-soft);border:1px solid rgba(124,58,237,.22);padding:5px 12px;border-radius:2px;margin-bottom:22px}
+  .eyebrow.g{color:var(--g);background:var(--g-soft);border-color:rgba(4,120,87,.22)}
+  .eyebrow.r{color:var(--r);background:var(--r-soft);border-color:rgba(159,18,57,.22)}
+  h1{font-size:38px;font-weight:800;letter-spacing:-0.038em;line-height:1.05;margin-bottom:20px;color:var(--ink)}
+  h1 .accent{color:var(--p);background:linear-gradient(180deg,transparent 62%,rgba(124,58,237,.16) 62%);padding:0 4px}
+  .sub{font-size:17px;color:var(--mute);max-width:560px;margin:0 auto;line-height:1.55}
+  .sub strong{color:var(--ink);font-weight:600}
+
+  /* Section rule */
+  .section-rule{margin:72px 0 32px;display:flex;align-items:center;gap:16px}
+  .section-rule .num{font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-size:14px;font-weight:700;letter-spacing:3px;color:var(--p);padding:4px 12px;border:1px solid rgba(124,58,237,.32);border-radius:2px;background:var(--p-soft)}
+  .section-rule .num.r{color:var(--r);border-color:rgba(159,18,57,.32);background:var(--r-soft)}
+  .section-rule .num.g{color:var(--g);border-color:rgba(4,120,87,.32);background:var(--g-soft)}
+  .section-rule .bar{flex:1;height:1px;background:var(--border)}
+  .section-rule .label{font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-size:12px;font-weight:700;letter-spacing:3px;color:var(--mute);text-transform:uppercase}
+
+  /* H2 das seções */
+  h2{font-size:30px;font-weight:800;letter-spacing:-0.032em;line-height:1.12;margin-bottom:16px;color:var(--ink)}
+  h2 .a-p{color:var(--p)}
+  h2 .a-r{color:var(--r)}
+  h2 .a-g{color:var(--g)}
+  .p-body{font-size:17px;color:var(--mute);line-height:1.72;margin-bottom:22px}
+  .p-body strong{color:var(--ink);font-weight:600}
+
+  /* Quote */
+  .quote{margin:34px 0;padding:28px 32px;border-left:4px solid var(--p);background:var(--p-soft);border-radius:0 8px 8px 0;font-size:20px;font-weight:600;line-height:1.34;color:var(--ink);letter-spacing:-0.022em}
+  .quote.r{border-left-color:var(--r);background:var(--r-soft)}
+  .quote.g{border-left-color:var(--g);background:var(--g-soft)}
+  .quote em{font-style:normal;color:var(--p);font-weight:700}
+  .quote.r em{color:var(--r);font-weight:700}
+  .quote.g em{color:var(--g);font-weight:700}
+
+  /* ───────── Problema — 1 caminho frágil ───────── */
+  .one-path{margin:36px 0;padding:38px 28px;background:var(--bg2);border:1px solid var(--border);border-radius:6px}
+  .one-path .lbl{font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:var(--r);text-transform:uppercase;margin-bottom:28px;text-align:center}
+  .flow{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:28px}
+  .flow-node{display:inline-flex;align-items:center;gap:14px;padding:16px 22px;background:var(--bg3);border:1px solid var(--border-light);border-radius:8px;min-width:260px}
+  .flow-node.r{background:var(--r-soft);border-color:rgba(159,18,57,.20)}
+  .flow-node svg{flex-shrink:0;width:24px;height:24px;color:var(--mute);stroke-width:1.6}
+  .flow-node.r svg{color:var(--r);opacity:.95}
+  .flow-node .nm{font-size:14px;font-weight:700;color:var(--ink);letter-spacing:-0.005em}
+  .flow-node .nm-sub{display:block;font-size:11px;font-weight:500;color:var(--mute);margin-top:3px;letter-spacing:0}
+  .flow-arrow{color:var(--faint);line-height:1}
+  .flow-arrow svg{width:18px;height:18px}
+  .stat-block{text-align:center;padding-top:14px;border-top:1px dashed var(--border);margin-top:8px}
+  .stat-num{font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-size:72px;font-weight:700;letter-spacing:-0.05em;line-height:1;margin:10px 0 2px}
+  .stat-num.r{color:var(--r)}
+  .stat-num.g{color:var(--g)}
+  .stat-num .pct{font-size:0.42em;font-weight:700;margin-left:2px;opacity:.75}
+  .stat-cap{font-size:14px;color:var(--mute);line-height:1.55;max-width:380px;margin:10px auto 0}
+  .stat-cap strong{color:var(--ink);font-weight:700}
+
+  /* ───────── Solução — 4 caminhos ───────── */
+  .four-paths{margin:36px 0;padding:38px 28px;background:var(--bg2);border:1px solid var(--border);border-radius:6px}
+  .four-paths .lbl{font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:var(--g);text-transform:uppercase;margin-bottom:28px;text-align:center}
+  .paths-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px}
+  .path{display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding:20px 18px;background:var(--bg);border:1px solid var(--border-light);border-radius:8px;transition:border-color .2s,background .2s}
+  .path:hover{background:var(--g-soft);border-color:rgba(4,120,87,.30)}
+  .path-icon{width:40px;height:40px;border-radius:9px;background:var(--g-soft);border:1px solid rgba(4,120,87,.22);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .path-icon svg{width:20px;height:20px;color:var(--g);stroke-width:1.8}
+  .path .txt strong{display:block;font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-size:11px;font-weight:700;color:var(--ink);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:6px}
+  .path .txt span{font-size:13px;color:var(--mute);line-height:1.55;display:block}
+  .converge-viz{margin:24px auto;max-width:340px;display:block}
+  .converge-viz svg{width:100%;height:auto;display:block}
+  .final-band{text-align:center;padding:18px 20px;background:var(--g-soft);border:1px solid rgba(4,120,87,.28);border-radius:6px;font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-0.008em}
+  .final-band em{font-style:normal;color:var(--g);font-weight:800}
+
+  /* Demo intro */
+  .demo-intro{text-align:center;margin-bottom:22px}
+
+  /* Player card */
+  .player{max-width:540px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:24px;box-shadow:0 12px 40px rgba(28,27,26,0.06),0 1px 3px rgba(28,27,26,0.04)}
+  .player-head{display:flex;gap:14px;align-items:center;margin-bottom:18px}
+  .player-cover{width:64px;height:64px;min-width:64px;border-radius:12px;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 8px 20px rgba(124,58,237,.30)}
+  .player-meta{flex:1;min-width:0;text-align:left}
+  .player-tag{font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--g);margin-bottom:4px}
+  .player-title{font-size:17px;font-weight:800;letter-spacing:-0.012em;margin-bottom:3px;color:var(--ink)}
+  .player-sub{font-size:12px;color:var(--dim)}
+  .player-controls{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+  .play-btn{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--p2));border:none;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(124,58,237,.40);transition:transform .15s}
+  .play-btn:hover{transform:scale(1.04)}
+  .play-btn svg{margin-left:3px}
+  .play-btn.playing svg{margin-left:0}
+  .seekbar{flex:1;height:36px;display:flex;align-items:center;cursor:pointer;position:relative}
+  .seektrack{position:absolute;left:0;right:0;height:5px;background:rgba(28,27,26,0.08);border-radius:3px}
+  .seekfill{height:100%;width:0%;background:linear-gradient(90deg,var(--p),var(--p2));border-radius:3px;transition:width .12s linear}
+  .seekthumb{position:absolute;width:14px;height:14px;border-radius:50%;background:var(--p);border:2px solid var(--bg2);left:0%;transform:translateX(-50%);box-shadow:0 0 10px rgba(124,58,237,.30);transition:left .12s linear}
+  .timeline{display:flex;justify-content:space-between;font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-size:11px;color:var(--mute);font-variant-numeric:tabular-nums;margin-bottom:10px}
+  .lyric-toggle{width:100%;background:var(--bg);border:1px solid var(--border-light);color:var(--mute);font-size:12px;font-weight:600;padding:10px 14px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .15s}
+  .lyric-toggle:hover{background:var(--bg3);color:var(--ink)}
+  .lyric-toggle svg{transition:transform .2s}
+  .lyric-toggle.open svg{transform:rotate(180deg)}
+  .lyrics{max-height:0;overflow:hidden;transition:max-height .4s ease}
+  .lyrics.open{max-height:1400px}
+  .lyrics-inner{padding:18px 4px 6px;font-size:14px;line-height:1.85;color:var(--ink);text-align:left}
+  .lyrics-inner .section{display:inline-block;font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;color:var(--p);font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;background:var(--p-soft);padding:3px 9px;border-radius:3px;margin:14px 0 6px}
+  .lyrics-inner .section:first-child{margin-top:0}
+  .lyrics-inner .line{padding:1px 0}
+
+  /* Hint pós-play */
+  .demo-hint{margin-top:22px;text-align:center;font-size:14px;color:var(--mute);font-style:italic;line-height:1.55}
+  .demo-hint strong{color:var(--p);font-weight:700;font-style:normal}
+
+  /* CTA Ver mais — closer + botão + setas convergindo */
+  .cta-end{margin:72px 0 24px;text-align:center}
+  .cta-closer{font-size:22px;font-weight:700;letter-spacing:-0.022em;color:var(--ink);margin:0 auto 28px;line-height:1.32;max-width:480px}
+  .cta-closer em{font-style:normal;color:var(--p);font-weight:800}
+  .cta-end-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 30px;background:var(--ink);color:#fafaf7;font-size:14px;font-weight:700;letter-spacing:1.5px;border-radius:4px;transition:transform .18s, gap .25s, box-shadow .25s;text-transform:uppercase;box-shadow:0 6px 20px rgba(28,27,26,.12)}
+  .cta-end-btn:hover{transform:translateY(-1px);gap:14px;box-shadow:0 10px 28px rgba(28,27,26,.20)}
+  .cta-end-btn svg{transition:transform .25s}
+  .cta-end-btn:hover svg{transform:translateX(2px)}
+  .cta-arrows{display:flex;justify-content:center;align-items:flex-end;gap:32px;margin-top:22px}
+  .cta-arrows span{display:inline-block;transform-origin:center}
+  .cta-arrows svg{width:24px;height:24px;color:var(--p);animation:arrowUp 1.6s ease-in-out infinite;display:block}
+  .cta-arrows span:nth-child(1) svg{animation-delay:0s}
+  .cta-arrows span:nth-child(2) svg{animation-delay:0.15s}
+  .cta-arrows span:nth-child(3) svg{animation-delay:0.3s}
+  @keyframes arrowUp{
+    0%,100%{transform:translateY(0);opacity:.45}
+    50%{transform:translateY(-7px);opacity:.95}
+  }
+
+  /* Footer */
+  .footer{padding:48px 20px 56px;text-align:center;font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-size:10px;color:var(--mute);border-top:1px solid var(--border);margin-top:64px;letter-spacing:2px;text-transform:uppercase}
+
+  /* Mobile */
+  @media (max-width:540px){
+    h1{font-size:30px}
+    h2{font-size:24px}
+    .vsl-h{font-size:22px}
+    .paths-grid{grid-template-columns:1fr}
+    .hero{padding:32px 0 20px}
+  }
+
+  @media (min-width:880px){
+    .hero{padding:96px 0 60px}
+    h1{font-size:64px;line-height:1.0;margin-bottom:26px;letter-spacing:-0.038em}
+    .sub{font-size:21px;max-width:640px}
+    .section-rule{margin:120px 0 44px}
+    .section-rule .num{font-size:15px;padding:6px 14px}
+    .section-rule .label{font-size:13px}
+    h2{font-size:44px;line-height:1.08;margin-bottom:22px;letter-spacing:-0.032em}
+    .p-body{font-size:18px;line-height:1.75;margin-bottom:24px}
+    .quote{margin:40px 0;padding:34px 38px;font-size:24px;line-height:1.32;border-left-width:5px}
+    .one-path{padding:56px 48px;margin:56px auto;max-width:760px}
+    .one-path .lbl{font-size:13px;margin-bottom:32px}
+    .flow{gap:14px;margin-bottom:32px}
+    .flow-node{padding:20px 28px;gap:16px;min-width:340px}
+    .flow-node svg{width:28px;height:28px}
+    .flow-node .nm{font-size:16px}
+    .flow-node .nm-sub{font-size:12px;margin-top:3px}
+    .flow-arrow svg{width:22px;height:22px}
+    .stat-num{font-size:104px;margin:14px 0 4px}
+    .stat-cap{font-size:15px;max-width:440px}
+    .four-paths{padding:56px 48px;margin:56px auto;max-width:880px}
+    .four-paths .lbl{font-size:13px;margin-bottom:32px}
+    .paths-grid{grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px}
+    .path{padding:22px 18px;gap:14px;align-items:flex-start;text-align:left}
+    .path-icon{width:42px;height:42px;border-radius:11px}
+    .path-icon svg{width:22px;height:22px}
+    .path .txt strong{font-size:12px;margin-bottom:6px}
+    .path .txt span{font-size:13px}
+    .converge-viz{max-width:420px;margin:24px auto}
+    .final-band{padding:20px;font-size:17px}
+    .demo-intro{margin-bottom:32px}
+    .player{max-width:600px;padding:32px}
+    .player-cover{width:80px;height:80px;font-size:38px}
+    .player-title{font-size:20px}
+    .player-tag{font-size:11px}
+    .player-sub{font-size:13px}
+    .play-btn{width:62px;height:62px}
+    .play-btn svg{width:26px;height:26px}
+    .demo-hint{font-size:15px;margin-top:26px}
+    .cta-end{margin:120px 0 32px}
+    .cta-closer{font-size:28px;margin-bottom:36px;max-width:560px}
+    .cta-end-btn{padding:20px 40px;font-size:15px;letter-spacing:1.8px}
+    .cta-end-btn svg{width:20px;height:20px}
+    .cta-arrows{gap:40px;margin-top:28px}
+    .cta-arrows svg{width:28px;height:28px}
+    .footer{padding:48px 20px 56px;font-size:12px;margin-top:60px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <div class="brand-logo">P</div>
+    <div>
+      <div class="brand-text"><span>português</span><span class="mute">cantado</span></div>
+      <div class="brand-tag">Memorize com música</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- HERO / CHAMADA -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <h1>Apostila grava em 1 lugar. <span class="accent">Música grava em 4.</span></h1>
+  <p class="sub">Por isso <strong>apostila escapa em dias</strong>, mas refrão fica décadas. Aperta o play — em 4 minutos os 5 Proibidões da Crase ocupam os 4 caminhos.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- I — PROBLEMA -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="section-rule">
+  <span class="num r">I</span>
+  <div class="bar"></div>
+  <span class="label">O problema</span>
+</div>
+
+<h2>Você estudou. Sabe a regra. <span class="a-r">Mas na prova errou.</span></h2>
+
+<p class="p-body">Você lê apostila. Faz resumo. Refaz simulado. Vê videoaula. Marca questão pra revisar.</p>
+
+<p class="p-body">Chega na prova. Lê o enunciado. <strong>Sabe que estudou aquilo.</strong> Mas naquele segundo não acessa a regra com clareza. Fica em dúvida. Marca a errada. Sai da sala lembrando.</p>
+
+<blockquote class="quote r">
+  <em>Português não reprova quem não estudou.</em><br>
+  Reprova quem não fixou na memória de longo prazo.
+</blockquote>
+
+<div class="one-path">
+  <div class="lbl">Por que isso acontece</div>
+  <div class="flow">
+    <div class="flow-node">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      <div><span class="nm">Apostila · resumo · leitura</span><span class="nm-sub">Input visual estático</span></div>
+    </div>
+    <div class="flow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+    <div class="flow-node r">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 0-4 4v2a4 4 0 0 0-2 7 4 4 0 0 0 2 7v0a4 4 0 0 0 8 0v0a4 4 0 0 0 2-7 4 4 0 0 0-2-7V6a4 4 0 0 0-4-4z"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/></svg>
+      <div><span class="nm">Atenção consciente</span><span class="nm-sub">1 caminho neural · frágil</span></div>
+    </div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-num r"><span class="counter" data-target="12">0</span><span class="pct">%</span></div>
+    <p class="stat-cap">do conteúdo continua acessível <strong>na hora da prova</strong></p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- II — SOLUÇÃO -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="section-rule">
+  <span class="num g">II</span>
+  <div class="bar"></div>
+  <span class="label">A solução</span>
+</div>
+
+<h2>Música ocupa <span class="a-g">4 caminhos</span> de memorização ao mesmo tempo.</h2>
+
+<p class="p-body">Quando você canta — mesmo de boca fechada, mentalmente — o cérebro ativa <strong>quatro áreas diferentes</strong> registrando a mesma informação:</p>
+
+<div class="four-paths">
+  <div class="lbl">Os 4 caminhos da música</div>
+  <div class="paths-grid">
+    <div class="path">
+      <div class="path-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"/></svg>
+      </div>
+      <div class="txt"><strong>Linguagem</strong><span>A letra. As palavras da regra.</span></div>
+    </div>
+    <div class="path">
+      <div class="path-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="3" y2="12"/><line x1="7" y1="8" x2="7" y2="16"/><line x1="11" y1="4" x2="11" y2="20"/><line x1="15" y1="10" x2="15" y2="14"/><line x1="19" y1="6" x2="19" y2="18"/></svg>
+      </div>
+      <div class="txt"><strong>Ritmo</strong><span>O padrão repetitivo que ancora.</span></div>
+    </div>
+    <div class="path">
+      <div class="path-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="txt"><strong>Melodia</strong><span>A sequência sonora que gruda.</span></div>
+    </div>
+    <div class="path">
+      <div class="path-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <div class="txt"><strong>Emoção</strong><span>O envolvimento que fixa.</span></div>
+    </div>
+  </div>
+  <div class="converge-viz">
+    <svg viewBox="0 0 320 90" fill="none" stroke="#047857" stroke-width="1.8" stroke-linecap="round">
+      <path d="M40 10 L160 70" opacity="0.45"/>
+      <path d="M120 10 L160 70" opacity="0.65"/>
+      <path d="M200 10 L160 70" opacity="0.65"/>
+      <path d="M280 10 L160 70" opacity="0.45"/>
+      <circle cx="40" cy="10" r="4" fill="#047857" stroke="none"/>
+      <circle cx="120" cy="10" r="4" fill="#047857" stroke="none"/>
+      <circle cx="200" cy="10" r="4" fill="#047857" stroke="none"/>
+      <circle cx="280" cy="10" r="4" fill="#047857" stroke="none"/>
+      <circle cx="160" cy="70" r="9" fill="#047857" stroke="none"/>
+      <circle cx="160" cy="70" r="16" fill="none" stroke="#047857" stroke-width="1.2" opacity="0.35"/>
+    </svg>
+  </div>
+  <div class="final-band">A mesma regra salva em <em>4 lugares</em> do cérebro</div>
+  <div class="stat-block" style="border-top:1px dashed rgba(4,120,87,.30);margin-top:20px;padding-top:18px">
+    <div class="stat-num g"><span class="counter" data-target="94">0</span><span class="pct">%</span></div>
+    <p class="stat-cap">de recall em conteúdo que <strong>entrou cantado</strong></p>
+  </div>
+</div>
+
+<blockquote class="quote g">
+  Por isso você esquece um texto em 3 dias,<br>
+  mas <em>lembra uma música por 30 anos.</em>
+</blockquote>
+
+<p class="p-body">Mesma quantidade de texto. Mesma informação. <strong>Só muda o jeito que o cérebro registra.</strong></p>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- III — DEMO -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="section-rule">
+  <span class="num">III</span>
+  <div class="bar"></div>
+  <span class="label">Sente agora</span>
+</div>
+
+<div class="demo-intro">
+  <h2>Os 5 Proibidões da Crase. <span class="a-p">4 minutos.</span></h2>
+  <p class="sub">Aperta o play. Fone no ouvido recomendado. <strong>Na primeira escuta já entra.</strong></p>
+</div>
+
+<section class="player" aria-label="Player Os 5 Proibidões da Crase">
+  <div class="player-head">
+    <div class="player-cover">🎵</div>
+    <div class="player-meta">
+      <div class="player-tag">+1MM plays</div>
+      <div class="player-title">Os 5 Proibidões da Crase</div>
+      <div class="player-sub">Português · Crase · 4min</div>
+    </div>
+  </div>
+
+  <div class="player-controls">
+    <button class="play-btn" id="playBtn" aria-label="Tocar">
+      <svg id="playIcon" width="22" height="22" viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg>
+    </button>
+    <div class="seekbar" id="seekbar">
+      <div class="seektrack"></div>
+      <div class="seekfill" id="seekfill"></div>
+      <div class="seekthumb" id="seekthumb"></div>
+    </div>
+  </div>
+  <div class="timeline">
+    <span id="curTime">0:00</span>
+    <span id="durTime">--:--</span>
+  </div>
+  <button class="lyric-toggle" id="lyricToggle" aria-expanded="false">
+    <span id="lyricLabel">Ver letra</span>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="lyrics" id="lyrics" aria-hidden="true">
+    <div class="lyrics-inner" id="lyricsInner"></div>
+  </div>
+
+  <audio id="audio" preload="metadata" src="https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/maestro/portugues/portugues-geral/musica-portugues-02-v1.mp3"></audio>
+</section>
+
+<p class="demo-hint">Reparou? O macete <strong>MaVeReTI</strong> entrou ouvindo. Sem decoreba. Sem flashcard. <strong>Era música.</strong></p>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- IV — Closer + Ver mais + setas convergindo -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="cta-end">
+  <p class="cta-closer">
+    Música salva mais rápido.<br>
+    <em>E duradouro.</em>
+  </p>
+
+  <a class="cta-end-btn" href="https://portugues.concursocantado.com.br/vsl/" id="ctaVsl" target="_blank" rel="noopener">
+    Ver mais
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </a>
+
+  <div class="cta-arrows" aria-hidden="true">
+    <span style="transform:rotate(-22deg)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>
+    <span style="transform:rotate(22deg)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<div class="footer">
+  Português Cantado · uma criação Concurso Cantado
+</div>
+
+<script>
+(function(){
+  const audio = document.getElementById('audio');
+  const playBtn = document.getElementById('playBtn');
+  const playIcon = document.getElementById('playIcon');
+  const seekbar = document.getElementById('seekbar');
+  const seekfill = document.getElementById('seekfill');
+  const seekthumb = document.getElementById('seekthumb');
+  const curTime = document.getElementById('curTime');
+  const durTime = document.getElementById('durTime');
+  const lyricToggle = document.getElementById('lyricToggle');
+  const lyricLabel = document.getElementById('lyricLabel');
+  const lyrics = document.getElementById('lyrics');
+  const lyricsInner = document.getElementById('lyricsInner');
+  const ctaVsl = document.getElementById('ctaVsl');
+
+  const PLAY_SVG = '<svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg>';
+  const PAUSE_SVG = '<svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor"><rect x="3" y="2" width="4" height="12" rx="1"/><rect x="9" y="2" width="4" height="12" rx="1"/></svg>';
+
+  const fmt = (s) => {
+    if (!isFinite(s) || s < 0) return '0:00';
+    const m = Math.floor(s/60), r = Math.floor(s%60);
+    return m + ':' + (r < 10 ? '0'+r : r);
+  };
+
+  let playFired = false;
+  playBtn.addEventListener('click', () => {
+    if (audio.paused) { audio.play(); } else { audio.pause(); }
+  });
+  audio.addEventListener('play', () => {
+    playBtn.classList.add('playing');
+    playIcon.outerHTML = PAUSE_SVG;
+    if (!playFired) {
+      playFired = true;
+      try { fbq && fbq('trackCustom','BridgePlay',{name:'5-proibidoes-crase'}); } catch(e){}
+      // Abre a letra automaticamente no primeiro play
+      if (!lyrics.classList.contains('open')) {
+        lyrics.classList.add('open');
+        lyricToggle.classList.add('open');
+        lyricToggle.setAttribute('aria-expanded', 'true');
+        lyrics.setAttribute('aria-hidden', 'false');
+        lyricLabel.textContent = 'Esconder letra';
+      }
+    }
+  });
+  audio.addEventListener('pause', () => {
+    playBtn.classList.remove('playing');
+    document.querySelector('#playBtn svg').outerHTML = PLAY_SVG;
+  });
+  audio.addEventListener('loadedmetadata', () => {
+    durTime.textContent = fmt(audio.duration);
+  });
+  audio.addEventListener('timeupdate', () => {
+    if (!audio.duration) return;
+    const pct = (audio.currentTime / audio.duration) * 100;
+    seekfill.style.width = pct + '%';
+    seekthumb.style.left = pct + '%';
+    curTime.textContent = fmt(audio.currentTime);
+  });
+  let seeking = false;
+  const seekFromEvent = (e) => {
+    const rect = seekbar.getBoundingClientRect();
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    const pct = Math.max(0, Math.min(1, x / rect.width));
+    if (audio.duration) audio.currentTime = pct * audio.duration;
+  };
+  seekbar.addEventListener('pointerdown', (e) => { seeking = true; seekFromEvent(e); });
+  window.addEventListener('pointermove', (e) => { if (seeking) seekFromEvent(e); });
+  window.addEventListener('pointerup', () => { seeking = false; });
+
+  // CTA: tracking + repasse de UTMs/fbclid/sck do ad → VSL
+  const UTM_KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','sck','fbclid'];
+  const buildVslUrl = () => {
+    const base = ctaVsl.getAttribute('data-base') || ctaVsl.href.split('?')[0];
+    const inUrl = new URL(window.location.href);
+    const out = new URL(base);
+    UTM_KEYS.forEach(k => {
+      const v = inUrl.searchParams.get(k);
+      if (v) out.searchParams.set(k, v);
+    });
+    if (!out.searchParams.get('utm_content')) out.searchParams.set('utm_content','bridge-v2');
+    return out.toString();
+  };
+  ctaVsl.setAttribute('data-base', ctaVsl.href);
+  ctaVsl.href = buildVslUrl();
+  ctaVsl.addEventListener('click', () => {
+    ctaVsl.href = buildVslUrl(); // atualiza no clique (caso UTMs tenham mudado)
+    try { fbq && fbq('trackCustom','BridgeCTAClick',{dest:'vsl'}); } catch(e){}
+  });
+
+  // Defer prefetch da VSL até depois do LCP (não compete com player no critical path)
+  setTimeout(() => {
+    try {
+      const lnk = document.createElement('link');
+      lnk.rel = 'prefetch';
+      lnk.href = 'https://portugues.concursocantado.com.br/vsl/';
+      lnk.as = 'document';
+      lnk.fetchPriority = 'low';
+      document.head.appendChild(lnk);
+    } catch(e){}
+  }, 1800);
+
+  // Counter anim (0 → data-target) quando o stat entra no viewport
+  const animateCounter = (el) => {
+    const target = parseInt(el.dataset.target, 10);
+    if (!target || el.dataset.done === '1') return;
+    el.dataset.done = '1';
+    const dur = 1200;
+    const start = performance.now();
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / dur);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(eased * target);
+      if (t < 1) requestAnimationFrame(tick);
+      else el.textContent = target;
+    };
+    requestAnimationFrame(tick);
+  };
+  const counters = document.querySelectorAll('.counter');
+  if (counters.length && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          animateCounter(e.target);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    counters.forEach(c => io.observe(c));
+  } else {
+    counters.forEach(animateCounter);
+  }
+
+  // Lyrics
+  const LYRICS = `[Intro – falado]
+Agora que você sabe quando TEM crase, precisa saber quando é PROIBIDO.
+
+A Crase tem 5 inimigos mortais. Cinco seguranças que NUNCA deixam o encontro acontecer.
+
+[Verso 1 — Proibidão 1 e 2]
+Primeiro proibidão: palavra MASCULINA
+A crase é feminina, isso ela domina
+"A prazo" e não "à prazo", pode acreditar
+Masculino e crase? Nunca vão se encontrar
+
+Segundo proibidão: antes de VERBO
+Verbo não tem gênero, não tem acervo
+"Começou a chover" — sem crase, por favor
+Verbo não é feminino, não aceita esse amor
+
+[Refrão]
+Masculino, verbo, repetição
+Tratamento e indefinido — proibidão!
+São os cinco inimigos da crase, da fusão
+Se aparecer na prova, marca SEM — essa é a lição
+
+[Verso 2 — Proibidão 3, 4 e 5]
+Terceiro proibidão: palavras REPETIDAS
+"Cara a cara", "frente a frente", são batidas
+Quando a palavra se repete, a crase some
+
+Quarto: pronome de TRATAMENTO na jogada
+"A Vossa Excelência" — crase? Nada!
+Quinto: artigo INDEFINIDO, presta atenção
+"A uma distância" — sem crase, sem fusão
+
+[Bridge — Macete]
+Macete dos 5 proibidões: MaVeReTI
+MA-sculino VE-rbo RE-petição T-ratamento I-ndefinido
+MaVeReTI — cinco letras, cinco proibidões`;
+
+  const html = LYRICS.split('\n').map(l => {
+    const t = l.trim();
+    if (!t) return '<div style="height:8px"></div>';
+    if (t.startsWith('[')) return '<div class="section">' + t.replace(/[\[\]]/g,'') + '</div>';
+    return '<div class="line">' + t.replace(/</g,'&lt;') + '</div>';
+  }).join('');
+  lyricsInner.innerHTML = html;
+
+  lyricToggle.addEventListener('click', () => {
+    const open = lyrics.classList.toggle('open');
+    lyricToggle.classList.toggle('open', open);
+    lyricToggle.setAttribute('aria-expanded', open);
+    lyrics.setAttribute('aria-hidden', !open);
+    lyricLabel.textContent = open ? 'Esconder letra' : 'Ver letra';
+  });
+})();
+</script>
+</body>
+</html>
