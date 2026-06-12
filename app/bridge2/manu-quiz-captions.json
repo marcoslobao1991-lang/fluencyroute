@@ -1061,5 +1061,265 @@
         "s": 12.46
       }
     ]
+  },
+  "r_goal": {
+    "text": "Boa escolha! Anota esse motivo, viu? É ele que te carrega nos dias de preguiça.",
+    "words": [
+      {
+        "w": "Boa",
+        "s": 0
+      },
+      {
+        "w": "escolha",
+        "s": 0.44
+      },
+      {
+        "w": "Anota",
+        "s": 1.36
+      },
+      {
+        "w": "esse",
+        "s": 1.44
+      },
+      {
+        "w": "motivo",
+        "s": 1.62
+      },
+      {
+        "w": "viu",
+        "s": 2.06
+      },
+      {
+        "w": "É",
+        "s": 2.62
+      },
+      {
+        "w": "ele",
+        "s": 2.74
+      },
+      {
+        "w": "que",
+        "s": 2.92
+      },
+      {
+        "w": "te",
+        "s": 3.04
+      },
+      {
+        "w": "carrega",
+        "s": 3.2
+      },
+      {
+        "w": "nos",
+        "s": 3.46
+      },
+      {
+        "w": "dias",
+        "s": 3.62
+      },
+      {
+        "w": "de",
+        "s": 3.74
+      },
+      {
+        "w": "preguiça",
+        "s": 3.96
+      }
+    ]
+  },
+  "r_pact": {
+    "text": "Fechado! 4 semanas. Eu te levo. Só não some. Combinado?",
+    "words": [
+      {
+        "w": "Fechado",
+        "s": 0
+      },
+      {
+        "w": "4",
+        "s": 1.02
+      },
+      {
+        "w": "semanas",
+        "s": 1.14
+      },
+      {
+        "w": "Eu",
+        "s": 2.2
+      },
+      {
+        "w": "te",
+        "s": 2.26
+      },
+      {
+        "w": "levo",
+        "s": 2.44
+      },
+      {
+        "w": "Só",
+        "s": 3.3
+      },
+      {
+        "w": "não",
+        "s": 3.36
+      },
+      {
+        "w": "some",
+        "s": 3.54
+      },
+      {
+        "w": "Combinado",
+        "s": 4.34
+      }
+    ]
+  },
+  "r_sci": {
+    "text": "E é por isso! Comigo você treina com seus assuntos. Ciência, amor! Agora vem a pergunta que importa!",
+    "words": [
+      {
+        "w": "E",
+        "s": 0
+      },
+      {
+        "w": "é",
+        "s": 0.12
+      },
+      {
+        "w": "por",
+        "s": 0.28
+      },
+      {
+        "w": "isso",
+        "s": 0.52
+      },
+      {
+        "w": "Comigo",
+        "s": 1.14
+      },
+      {
+        "w": "você",
+        "s": 1.24
+      },
+      {
+        "w": "treina",
+        "s": 1.5
+      },
+      {
+        "w": "com",
+        "s": 1.7
+      },
+      {
+        "w": "seus",
+        "s": 1.86
+      },
+      {
+        "w": "assuntos",
+        "s": 2.14
+      },
+      {
+        "w": "Ciência",
+        "s": 3.12
+      },
+      {
+        "w": "amor",
+        "s": 3.56
+      },
+      {
+        "w": "Agora",
+        "s": 4.2
+      },
+      {
+        "w": "vem",
+        "s": 4.58
+      },
+      {
+        "w": "a",
+        "s": 4.82
+      },
+      {
+        "w": "pergunta",
+        "s": 4.98
+      },
+      {
+        "w": "que",
+        "s": 5.14
+      },
+      {
+        "w": "importa",
+        "s": 5.46
+      }
+    ]
+  },
+  "r_block": {
+    "text": "Olha, eu já vi esse filme! E tem final feliz quando o treino certo chega. Última etapa!",
+    "words": [
+      {
+        "w": "Olha",
+        "s": 0
+      },
+      {
+        "w": "eu",
+        "s": 0.7
+      },
+      {
+        "w": "já",
+        "s": 0.88
+      },
+      {
+        "w": "vi",
+        "s": 1.06
+      },
+      {
+        "w": "esse",
+        "s": 1.18
+      },
+      {
+        "w": "filme",
+        "s": 1.4
+      },
+      {
+        "w": "E",
+        "s": 2.06
+      },
+      {
+        "w": "tem",
+        "s": 2.1
+      },
+      {
+        "w": "final",
+        "s": 2.34
+      },
+      {
+        "w": "feliz",
+        "s": 2.6
+      },
+      {
+        "w": "quando",
+        "s": 2.94
+      },
+      {
+        "w": "o",
+        "s": 3.16
+      },
+      {
+        "w": "treino",
+        "s": 3.42
+      },
+      {
+        "w": "certo",
+        "s": 3.42
+      },
+      {
+        "w": "chega",
+        "s": 3.8
+      },
+      {
+        "w": "Última",
+        "s": 4.7
+      },
+      {
+        "w": "etapa",
+        "s": 4.8
+      }
+    ]
   }
 }

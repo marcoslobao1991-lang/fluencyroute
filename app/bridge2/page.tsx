@@ -52,40 +52,48 @@ function buildVslUrl(archetype: string): string {
   return url.pathname + url.search
 }
 
-// ─── PERGUNTAS (autodiagnóstico — cada resposta é uma confissão) ─────
-const Q1 = {
-  title: 'Há quanto tempo você tenta aprender inglês?',
+// ─── PERGUNTAS (molde Poli: DESEJO → interesses → dores → diagnóstico;
+//     cada pergunta tem uma tela que a justifica e conecta a uma feature) ──
+const Q_GOAL = {
+  title: 'Qual é o seu principal objetivo com o inglês?',
   options: [
-    { k: 'novo', label: 'Menos de 1 ano', audio: 'q1_short' as LineId },
-    { k: '1a5', label: 'De 1 a 5 anos', audio: 'q1_long' as LineId },
-    { k: '5mais', label: 'Mais de 5 anos', audio: 'q1_long' as LineId },
-    { k: 'vida', label: 'A vida inteira 🫠', audio: 'q1_long' as LineId },
+    { k: 'viajar', label: '🌎 Viajar e me virar com segurança', audio: 'r_goal' as LineId },
+    { k: 'carreira', label: '💼 Crescer na carreira ou emprego melhor', audio: 'r_goal' as LineId },
+    { k: 'conversar', label: '🗣️ Conversar com confiança no dia a dia', audio: 'r_goal' as LineId },
+    { k: 'consumir', label: '📺 Entender séries, filmes e conteúdos', audio: 'r_goal' as LineId },
   ],
 }
-const Q2 = {
-  title: 'Quando um nativo fala com você, o que acontece?',
+const TOPICS = [
+  '📈 Negócios e dinheiro', '🧠 Psicologia e autoconhecimento', '🌎 Viagens e culturas',
+  '💪 Saúde e bem-estar', '💻 Tecnologia', '⚽ Esportes', '🎵 Música e entretenimento',
+  '👥 Família e educação', '🎮 Games', '🔍 Curiosidades no geral',
+]
+const BLOCKS = {
+  title: 'O que mais te impede de falar inglês hoje?',
+  sub: '(pode marcar mais de uma)',
+  options: [
+    { k: 'travo', label: '😶 Entendo bem, mas travo na hora de falar' },
+    { k: 'vergonha', label: '😰 Vergonha ou medo de errar' },
+    { k: 'traduzir', label: '🤯 Penso em português e me enrolo traduzindo' },
+    { k: 'esqueco', label: '🧠 Já estudei, mas esqueço tudo' },
+    { k: 'praticar', label: '🙅 Nunca tenho com quem praticar' },
+    { k: 'rotina', label: '🕐 Rotina corrida, não mantenho o ritmo' },
+    { k: 'desisto', label: '😔 Já tentei vários métodos e desisti' },
+  ],
+}
+const Q_NATIVE = {
+  title: 'E quando um nativo fala com você, o que acontece?',
   options: [
     { k: 'embolou', label: 'Embola tudo — não pego quase nada', audio: 'q2_embolou' as LineId },
     { k: 'soltas', label: 'Pego palavras soltas e perco o fio', audio: 'q2_soltas' as LineId },
     { k: 'travo', label: 'Entendo… mas TRAVO na hora de responder', audio: 'q2_travo' as LineId },
   ],
 }
-const Q3 = {
-  title: 'Quantas vezes você já começou e desistiu?',
-  options: [
-    { k: 'zero', label: 'Essa é minha primeira tentativa', audio: 'q3' as LineId },
-    { k: '2a3', label: '2 ou 3 vezes', audio: 'q3' as LineId },
-    { k: 'muitas', label: 'Já perdi a conta 😅', audio: 'q3' as LineId },
-  ],
-}
-const Q4 = {
-  title: 'No fundo, o que você acha que te falta?',
-  options: [
-    { k: 'vocab', label: 'Vocabulário', audio: 'q4' as LineId },
-    { k: 'gram', label: 'Gramática', audio: 'q4' as LineId },
-    { k: 'coragem', label: 'Coragem de falar', audio: 'q4' as LineId },
-    { k: 'constancia', label: 'Constância', audio: 'q4' as LineId },
-  ],
+const GOAL_LABEL: Record<string, string> = {
+  viajar: 'viajar com segurança',
+  carreira: 'destravar sua carreira',
+  conversar: 'conversar com confiança',
+  consumir: 'entender tudo sem legenda',
 }
 
 // ─── DIAGNÓSTICO (por Q2) — valida a crença (Q4) SEMPRE a favor ──────
@@ -110,26 +118,25 @@ const ARCHETYPES: Record<string, { name: string; emoji: string; desc: string; au
   },
 }
 
+// crença SEMPRE a favor — escolhida pela 1ª dor marcada
 const BELIEF_LINE: Record<string, string> = {
-  vocab: 'E você marcou que falta vocabulário — faz sentido. Só que a forma mais rápida de ganhar vocabulário que GRUDA é pelo ouvido: palavra ouvida em cena real nunca mais escapa.',
-  gram: 'E você marcou que falta gramática — faz sentido. Só que gramática gruda quando a frase vira SOM familiar: você passa a falar certo sem pensar na regra.',
-  coragem: 'E você marcou que falta coragem — faz sentido. Só que coragem vem sozinha quando você ENTENDE o que ouve: ninguém trava quando o ouvido não embola.',
-  constancia: 'E você marcou que falta constância — faz sentido. Só que constância fica fácil quando o treino tem 3 minutos e é com a SUA série favorita, não com apostila.',
+  travo: 'E você marcou que trava na hora de falar — faz todo sentido: travar não é falta de inglês, é falta de PRÁTICA de resposta. Reflexo só vem conversando.',
+  vergonha: 'E você marcou a vergonha de errar — faz todo sentido. Por isso o seu treino começa num lugar onde NINGUÉM te julga: você erra à vontade até a confiança chegar.',
+  traduzir: 'E você marcou que traduz na cabeça — faz todo sentido: isso some quando a frase vira SOM familiar, e som familiar vem de repetição e prática real.',
+  esqueco: 'E você marcou que esquece o que estuda — faz todo sentido: o que você USA numa conversa, o cérebro guarda. O que só lê, ele descarta.',
+  praticar: 'E você marcou que nunca tem com quem praticar — e é EXATAMENTE essa a raiz de tudo. Resolvendo isso, o resto destrava em cadeia.',
+  rotina: 'E você marcou a rotina corrida — faz todo sentido. Por isso o seu treino cabe em 15 minutos, na fila, no trânsito, na louça.',
+  desisto: 'E você marcou que já desistiu antes — faz todo sentido: desistir de método chato é instinto de sobrevivência, não fraqueza.',
 }
 
-const YEARS_LINE: Record<string, string> = {
-  novo: 'Você chegou cedo — vai pular anos de tentativa errada.',
-  '1a5': 'Anos tentando não é falta de capacidade. É método errado apontado pra pessoa certa.',
-  '5mais': 'Mais de 5 anos tentando não é falta de capacidade. É método errado apontado pra pessoa certa.',
-  vida: 'A vida inteira tentando não é falta de capacidade. É método errado apontado pra pessoa certa.',
-}
-
-type Step = 'q1' | 'q2' | 'mid' | 'q3' | 'q4' | 'calc' | 'gate' | 'result'
-const PROGRESS: Record<Step, number> = { q1: 12, q2: 30, mid: 45, q3: 58, q4: 72, calc: 84, gate: 92, result: 100 }
+type Step = 'intro' | 'social' | 'q_goal' | 'pact' | 'topics' | 'sci' | 'blocks' | 'q_native' | 'calc' | 'gate' | 'result'
+const PROGRESS: Record<Step, number> = { intro: 6, social: 14, q_goal: 26, pact: 38, topics: 50, sci: 60, blocks: 72, q_native: 82, calc: 90, gate: 95, result: 100 }
 
 export default function QuizBridge() {
-  const [step, setStep] = useState<Step>('q1')
+  const [step, setStep] = useState<Step>('intro')
   const [answers, setAnswers] = useState<Record<string, string>>({})
+  const [topics, setTopics] = useState<string[]>([])
+  const [blocks, setBlocks] = useState<string[]>([])
   const [captionId, setCaptionId] = useState<LineId | null>(null)
   const [speaking, setSpeaking] = useState(false)
   const [calcN, setCalcN] = useState(0)
@@ -139,10 +146,10 @@ export default function QuizBridge() {
   const [leadErr, setLeadErr] = useState('')
 
   const audioRef = useRef<HTMLAudioElement | null>(null)
-  const stepRef = useRef<Step>('q1')
+  const stepRef = useRef<Step>('intro')
   stepRef.current = step
 
-  const archetype = ARCHETYPES[answers.q2] || ARCHETYPES.embolou
+  const archetype = ARCHETYPES[answers.q_native] || ARCHETYPES.embolou
 
   useEffect(() => {
     try { trackViewContent('quiz-bridge') } catch {}
@@ -198,6 +205,11 @@ export default function QuizBridge() {
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4) }
   }, [step])
 
+  // updater funcional: dois toques rápidos não podem se sobrescrever
+  const toggleMulti = (set: React.Dispatch<React.SetStateAction<string[]>>, k: string) => {
+    set(prev => (prev.includes(k) ? prev.filter(x => x !== k) : [...prev, k]))
+  }
+
   const submitLead = async (skip = false) => {
     if (skip) {
       try { frTrack('lead_skip') } catch {}
@@ -221,11 +233,12 @@ export default function QuizBridge() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          email: e, phone: p, bucket: answers.q2 || 'unknown', answers, utms,
+          email: e, phone: p, bucket: answers.q_native || 'unknown',
+          answers: { ...answers, topics: topics.join(','), blocks: blocks.join(',') }, utms,
           fbc: fb.fbc, fbp: fb.fbp, ua: navigator.userAgent, eventId: genEventId(),
         }),
       })
-      try { frTrack('lead_submit', answers.q2) } catch {}
+      try { frTrack('lead_submit', answers.q_native) } catch {}
     } catch {
       // lead é importante, mas NUNCA bloqueia o diagnóstico
     }
@@ -234,12 +247,12 @@ export default function QuizBridge() {
   }
 
   const goResult = () => {
-    try { frTrack('result_view', answers.q2 || 'unknown') } catch {}
+    try { frTrack('result_view', answers.q_native || 'unknown') } catch {}
     setStep('result')
     speak(archetype.audio)
   }
 
-  const vslUrl = buildVslUrl(answers.q2 || 'x')
+  const vslUrl = buildVslUrl(answers.q_native || 'x')
 
   // ════════════════════════════════════════════════════════════════
   return (
@@ -275,27 +288,124 @@ export default function QuizBridge() {
           </div>
         </div>
 
-        {/* ─── PERGUNTAS ─────────────────────────────────────────── */}
-        {step === 'q1' && <Question n={1} title={Q1.title} options={Q1.options} onPick={(k, a) => answer('q1', k, a, 'q2')} />}
-        {step === 'q2' && <Question n={2} title={Q2.title} options={Q2.options} onPick={(k, a) => answer('q2', k, a, 'mid')} />}
+        {/* ─── 1. PROMESSA (molde Poli: experiência personalizada) ── */}
+        {step === 'intro' && (
+          <section style={{ animation: 'fadeUp .4s ease', textAlign: 'center', paddingTop: 8 }}>
+            <h1 style={{ fontSize: 'clamp(26px, 6.4vw, 34px)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.15, marginBottom: 10 }}>
+              Descubra o que REALMENTE trava o seu inglês
+            </h1>
+            <p style={{ fontSize: 15.5, color: C.dim, fontWeight: 500, lineHeight: 1.5, maxWidth: 380, margin: '0 auto 20px' }}>
+              A Manu monta uma avaliação personalizada do seu caso — e te diz o treino exato pra destravar. <strong style={{ color: C.ink }}>1 minuto. Ela não perdoa, mas também não erra.</strong>
+            </p>
+            <button onClick={() => { try { frTrack('intro_continue') } catch {}; setStep('social') }} style={btnPrimary}>
+              Começar minha avaliação →
+            </button>
+            <p style={{ fontSize: 12, color: C.dim, marginTop: 12, fontWeight: 500 }}>grátis · 1 minuto · 🔊 com som fica melhor</p>
+          </section>
+        )}
 
-        {/* ─── INTERSTITIAL de prova (padrão Noom) ───────────────── */}
-        {step === 'mid' && (
+        {/* ─── 2. PROVA SOCIAL antes de perguntar ───────────────────── */}
+        {step === 'social' && (
           <section style={{ animation: 'fadeUp .4s ease', textAlign: 'center' }}>
             <div style={{ background: C.violetSoft, border: `1px solid ${C.violet}22`, borderRadius: 18, padding: '28px 22px', marginBottom: 18 }}>
-              <p style={{ fontSize: 52, fontWeight: 900, color: C.violet, letterSpacing: '-0.04em', lineHeight: 1 }}>9 em 10</p>
+              <p style={{ fontSize: 46, fontWeight: 900, color: C.violet, letterSpacing: '-0.04em', lineHeight: 1 }}>Milhares</p>
               <p style={{ fontSize: 15, fontWeight: 600, color: C.ink, lineHeight: 1.5, maxWidth: 360, margin: '12px auto 0' }}>
-                adultos com esse mesmo sintoma têm um único bloqueio em comum — e ele se resolve com <strong style={{ color: C.violet }}>treino de ouvido</strong>, não com mais estudo.
+                de brasileiros já destravaram o inglês com o método da Fluency Route. Agora a Manu — a 1ª IA de conversação em tempo real do Brasil — avalia o seu caso.
               </p>
             </div>
-            <button onClick={() => { try { frTrack('mid_continue') } catch {}; setStep('q3') }} style={btnPrimary}>
+            <button onClick={() => { try { frTrack('social_continue') } catch {}; setStep('q_goal') }} style={btnPrimary}>
               Continuar →
             </button>
           </section>
         )}
 
-        {step === 'q3' && <Question n={3} title={Q3.title} options={Q3.options} onPick={(k, a) => answer('q3', k, a, 'q4')} />}
-        {step === 'q4' && <Question n={4} title={Q4.title} options={Q4.options} onPick={(k, a) => answer('q4', k, a, 'calc')} />}
+        {/* ─── 3. DESEJO primeiro (não a dor) ───────────────────────── */}
+        {step === 'q_goal' && <Question n={1} title={Q_GOAL.title} options={Q_GOAL.options} onPick={(k, a) => answer('q_goal', k, a, 'pact')} />}
+
+        {/* ─── 4. PACTO ("me dá 4 semanas") ─────────────────────────── */}
+        {step === 'pact' && (
+          <section style={{ animation: 'fadeUp .4s ease', textAlign: 'center' }}>
+            <div style={{ background: C.bgSoft, border: `1px solid ${C.border}`, borderRadius: 18, padding: '28px 22px', marginBottom: 18 }}>
+              <p style={{ fontSize: 38, lineHeight: 1, marginBottom: 10 }}>🤝</p>
+              <p style={{ fontSize: 17, fontWeight: 700, color: C.ink, lineHeight: 1.5, maxWidth: 360, margin: '0 auto' }}>
+                Ótima escolha. Me dá <span style={{ color: C.violet }}>4 semanas de treino certo</span> que eu te coloco no caminho de {GOAL_LABEL[answers.q_goal] || 'destravar o inglês'}.
+              </p>
+            </div>
+            <button onClick={() => { try { frTrack('pact_continue') } catch {}; speak('r_pact'); setStep('topics') }} style={btnPrimary}>
+              Combinado 🤝
+            </button>
+          </section>
+        )}
+
+        {/* ─── 5. INTERESSES multi (alimenta a personalização) ─────── */}
+        {step === 'topics' && (
+          <section style={{ animation: 'fadeUp .35s ease' }}>
+            <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 2.5, textTransform: 'uppercase', color: C.dim, marginBottom: 8 }}>Pergunta 2 de 4</p>
+            <h2 style={{ fontSize: 'clamp(21px, 5.2vw, 27px)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.2, marginBottom: 6 }}>
+              Quais assuntos você AMA no dia a dia?
+            </h2>
+            <p style={{ fontSize: 13, color: C.dim, fontWeight: 500, marginBottom: 14 }}>(marca todos — a Manu vai usar isso nas suas conversas)</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+              {TOPICS.map(t => (
+                <button key={t} onClick={() => toggleMulti(setTopics, t)} style={{
+                  ...chipStyle,
+                  background: topics.includes(t) ? C.violetSoft : C.bg,
+                  borderColor: topics.includes(t) ? C.violet : C.border,
+                }}>{t}</button>
+              ))}
+            </div>
+            <button
+              disabled={!topics.length}
+              onClick={() => { try { frTrack('topics_continue', String(topics.length)) } catch {}; setStep('sci') }}
+              style={{ ...btnPrimary, width: '100%', marginTop: 18, opacity: topics.length ? 1 : 0.4 }}>
+              Continuar →
+            </button>
+          </section>
+        )}
+
+        {/* ─── 6. CIÊNCIA conectada à feature (truque Poli) ─────────── */}
+        {step === 'sci' && (
+          <section style={{ animation: 'fadeUp .4s ease', textAlign: 'center' }}>
+            <div style={{ background: C.violetSoft, border: `1px solid ${C.violet}22`, borderRadius: 18, padding: '28px 22px', marginBottom: 18 }}>
+              <p style={{ fontSize: 46, fontWeight: 900, color: C.violet, letterSpacing: '-0.04em', lineHeight: 1 }}>+47%</p>
+              <p style={{ fontSize: 15, fontWeight: 600, color: C.ink, lineHeight: 1.55, maxWidth: 370, margin: '12px auto 0' }}>
+                é o quanto treinar com assuntos que você AMA acelera o aprendizado, segundo pesquisa do <em>English Language Teaching Journal</em>. Por isso a Manu vai puxar conversa sobre {topics.length ? 'os assuntos que você marcou' : 'os SEUS assuntos'} — não sobre apostila. ❤️
+              </p>
+            </div>
+            <button onClick={() => { try { frTrack('sci_continue') } catch {}; speak('r_sci'); setStep('blocks') }} style={btnPrimary}>
+              Continuar →
+            </button>
+          </section>
+        )}
+
+        {/* ─── 7. DORES multi ───────────────────────────────────────── */}
+        {step === 'blocks' && (
+          <section style={{ animation: 'fadeUp .35s ease' }}>
+            <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 2.5, textTransform: 'uppercase', color: C.dim, marginBottom: 8 }}>Pergunta 3 de 4</p>
+            <h2 style={{ fontSize: 'clamp(21px, 5.2vw, 27px)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.2, marginBottom: 6 }}>
+              {BLOCKS.title}
+            </h2>
+            <p style={{ fontSize: 13, color: C.dim, fontWeight: 500, marginBottom: 14 }}>{BLOCKS.sub}</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {BLOCKS.options.map(o => (
+                <button key={o.k} onClick={() => toggleMulti(setBlocks, o.k)} style={{
+                  ...chipStyle, textAlign: 'left' as const, width: '100%',
+                  background: blocks.includes(o.k) ? C.violetSoft : C.bg,
+                  borderColor: blocks.includes(o.k) ? C.violet : C.border,
+                }}>{o.label}</button>
+              ))}
+            </div>
+            <button
+              disabled={!blocks.length}
+              onClick={() => { try { frTrack('blocks_continue', blocks.join('|').slice(0, 60)) } catch {}; speak('r_block'); setStep('q_native') }}
+              style={{ ...btnPrimary, width: '100%', marginTop: 18, opacity: blocks.length ? 1 : 0.4 }}>
+              Continuar →
+            </button>
+          </section>
+        )}
+
+        {/* ─── 8. DIAGNÓSTICO core (define o arquétipo) ─────────────── */}
+        {step === 'q_native' && <Question n={4} title={Q_NATIVE.title} options={Q_NATIVE.options} onPick={(k, a) => answer('q_native', k, a, 'calc')} />}
 
         {/* ─── CALCULANDO (labor illusion) ────────────────────────── */}
         {step === 'calc' && (
@@ -355,13 +465,13 @@ export default function QuizBridge() {
                 {archetype.desc}
               </p>
               <p style={{ fontSize: 14.5, color: C.dim, fontWeight: 500, lineHeight: 1.6, textAlign: 'left', marginTop: 12 }}>
-                {BELIEF_LINE[answers.q4] || BELIEF_LINE.vocab}
+                {BELIEF_LINE[blocks[0]] || BELIEF_LINE.praticar}
               </p>
               <p style={{
                 fontSize: 14, fontWeight: 700, color: C.violet, lineHeight: 1.5, marginTop: 14,
                 background: C.violetSoft, borderRadius: 12, padding: '12px 14px', textAlign: 'left',
               }}>
-                💜 {YEARS_LINE[answers.q1] || YEARS_LINE['1a5']}
+                💜 O treino certo pra {GOAL_LABEL[answers.q_goal] || 'destravar seu inglês'} já existe — e usa {topics.length ? 'os assuntos que você marcou' : 'os seus assuntos favoritos'}. A aula abaixo mostra ele funcionando.
               </p>
             </div>
 
@@ -437,6 +547,12 @@ const btnPrimary: React.CSSProperties = {
   background: `linear-gradient(135deg, ${C.violet}, ${C.violetD})`, color: '#fff',
   fontWeight: 800, fontSize: 16, padding: '17px 28px', borderRadius: 14,
   border: 'none', cursor: 'pointer', boxShadow: '0 14px 38px -10px rgba(124,92,255,.5)', fontFamily: FONT,
+}
+
+const chipStyle: React.CSSProperties = {
+  border: `1.5px solid ${C.border}`, borderRadius: 999, padding: '11px 16px',
+  fontSize: 14.5, fontWeight: 700, color: C.ink, cursor: 'pointer',
+  fontFamily: FONT, transition: 'all .12s ease', background: C.bg,
 }
 
 const inputStyle: React.CSSProperties = {

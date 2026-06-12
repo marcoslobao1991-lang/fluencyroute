@@ -1,4 +1,8 @@
 {
+  "r_goal": { "vibe": "comemora", "text": "Boa escolha! Anota esse motivo, viu? É ele que vai te carregar nos dias de preguiça." },
+  "r_pact": { "vibe": "conspira", "text": "Então fechado: me dá quatro semanas. Eu levo você... você só não some. Combinado?" },
+  "r_sci": { "vibe": "conspira", "text": "E é por isso que comigo você treina com os SEUS assuntos. Ciência, amore. Agora vem a pergunta que importa." },
+  "r_block": { "vibe": "encoraja", "text": "Olha... eu já vi esse filme. E ele tem final feliz quando o treino certo chega. Última etapa!" },
   "q1_short": { "vibe": "comemora", "text": "Menos de um ano? Chegou cedo na aula certa. Vem comigo." },
   "q1_long": { "vibe": "conspira", "text": "Anos nessa luta... e eu já te adianto: a culpa nunca foi sua. Continua." },
   "q2_embolou": { "vibe": "provoca", "text": "Embolou tudo, né? EU SABIA. Guarda essa resposta — ela é a chave." },
