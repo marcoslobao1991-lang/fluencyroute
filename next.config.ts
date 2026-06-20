@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
       { source: '/rota-fluencia/checkout', destination: '/subscribe', permanent: true },
     ]
   },
+  async rewrites() {
+    return [
+      { source: '/manu', destination: '/manu.html' },
+    ]
+  },
 };
 
 export default nextConfig;
