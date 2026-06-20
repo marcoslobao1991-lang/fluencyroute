@@ -761,7 +761,7 @@
   document.querySelectorAll('a[href*="go.fluencyroute.com.br/subscribe"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();location.href=withParams(CHECKOUT);});});
   // (2) PERSONALIZAÇÃO pelo que a Manu mediu
   var desejo=q.get('desejo'),estagio=q.get('estagio'),nivel=q.get('nivel');
-  var DESEJO={viagem:'pra viajar sem travar',trabalho:'pro trabalho',series:'pra ver série sem legenda',morar_fora:'pra morar fora',social:'pra falar com gringo',hobby:'pra você',dia_a_dia:'pro dia a dia'};
+  var DESEJO={viagem:'pra viajar',trabalho:'pro trabalho',series:'pra ver série sem legenda',morar_fora:'pra morar fora',social:'pra falar com gringo',hobby:'pra você',dia_a_dia:'pro dia a dia'};
   var h1=document.querySelector('.hero h1');
   if(h1&&desejo&&DESEJO[desejo]){h1.innerHTML='Fale inglês <span class="it">'+DESEJO[desejo]+'</span> — sem travar.';}
   if(estagio){var EST={'1':'Destravar','2':'Soltar a fala','3':'Polir'};var sub=document.querySelector('#manu-continuidade');if(sub&&EST[estagio]){sub.style.display='block';sub.innerHTML='A Manu já viu teu inglês — você está no <b>Estágio '+estagio+' · '+EST[estagio]+(nivel?' ('+nivel+')':'')+'</b>. Esse vídeo mostra exatamente como destravar a partir daí.';}}
