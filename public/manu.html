@@ -53,6 +53,7 @@
   /* reveal */
   .js .rv{opacity:0;transform:translateY(32px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
   .js .rv.in{opacity:1;transform:none}
+  .esconder{display:none}
 
   /* HERO — compacto, vídeo above-the-fold (sem rolar) */
   .hero{position:relative;min-height:100svh;display:flex;align-items:flex-start;justify-content:center;padding:18px 0 14px;overflow:hidden}
@@ -69,13 +70,13 @@
   .eyebrow .live{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pulse 1.6s infinite}
   @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(14,155,142,.4)}50%{opacity:.5;box-shadow:0 0 0 6px rgba(14,155,142,0)}}
   .hero-copy{display:flex;flex-direction:column;align-items:center;gap:12px;width:100%}
-  h1{font-family:var(--disp);font-weight:500;font-size:clamp(18px,3vw,23px);line-height:1.28;letter-spacing:-.012em;max-width:22ch;margin:0 auto;text-wrap:balance;hyphens:none;color:var(--ink)}
+  h1{font-family:var(--disp);font-weight:500;font-size:clamp(21px,5.4vw,27px);line-height:1.14;letter-spacing:-.02em;max-width:16ch;margin:0 auto 8px;text-wrap:balance;hyphens:none;color:var(--ink)}
   h1 .it{font-weight:500;font-style:italic;color:var(--teal-d);padding-right:.06em}
   .hero-sub{display:none;font-size:17px;color:var(--ink2);max-width:380px;font-weight:450;line-height:1.5}
   .hero-sub b{color:var(--ink);font-weight:600}
 
   /* player vertical premium — altura controlada pra caber na 1ª tela */
-  .player{position:relative;aspect-ratio:9/16;width:min(82vw,340px);height:auto;border-radius:28px;overflow:hidden;cursor:pointer;
+  .player{position:relative;aspect-ratio:9/16;height:min(56svh,470px);width:auto;max-width:88vw;border-radius:28px;overflow:hidden;cursor:pointer;
     background:linear-gradient(165deg,#16221E,#080D0B);
     box-shadow:var(--sh3),0 0 0 1px rgba(11,15,14,.06),inset 0 0 0 1px rgba(255,255,255,.04)}
   .player::after{content:"";position:absolute;inset:0;border-radius:28px;box-shadow:inset 0 2px 30px rgba(255,255,255,.06);pointer-events:none}
@@ -408,14 +409,14 @@
 <!-- HEADER FIXO — marca + CTA persistente (aparece ao rolar) -->
 <nav class="nav" id="nav">
   <a href="#topo" class="brand"><span class="eq"><i></i><i></i><i></i><i></i></span>Fluency Route</a>
-  <button class="nav-cta" onclick="document.getElementById('oferta').scrollIntoView()">Começar →</button>
+  <button class="nav-cta esconder" onclick="document.getElementById('oferta').scrollIntoView()">Começar →</button>
 </nav>
 
 <!-- HERO — vídeo centralizado, tudo na 1ª tela -->
 <header class="hero" id="topo"><div class="mesh"></div><div class="wrap hero-in">
   <div class="hero-copy">
     <div class="brand-mini rv"><span class="eq"><i></i><i></i><i></i><i></i></span>Fluency Route</div>
-    <h1 class="rv" style="transition-delay:.06s">Entende inglês há anos — mas <span class="it">trava</span> na hora de falar.</h1>
+    <h1 class="rv" style="transition-delay:.06s">A <span class="it">1ª IA</span> de conversação em inglês <span class="it">em tempo real</span>.</h1>
     <p class="hero-sub rv" style="transition-delay:.12s">Assista o vídeo e descubra <b>por que você ainda não fala</b> — e como destravar de vez.</p>
     <button class="hero-cta rv" style="transition-delay:.18s" onclick="document.querySelector('.player').scrollIntoView({block:'center'})">
       <span class="pl"><svg width="9" height="11" viewBox="0 0 27 31" fill="#0B0F0E"><path d="M0 2.6C0 1 1.7.1 3 .9l22 13c1.3.8 1.3 2.7 0 3.5l-22 13C1.7 31 0 30 0 28.4V2.6Z"/></svg></span>
@@ -438,7 +439,7 @@
 <!-- TRUST -->
 <div class="trust rv"><div class="wrap in">
   <span class="b">Tecnologia real-time</span>
-  <p>A mesma IA de voz <strong>em tempo real</strong> que empresas americanas já usam pra <strong>atender e vender por telefone</strong> — tão natural que, do outro lado da linha, parece uma pessoa. <strong>Não é chatbot de digitar.</strong> Agora ela conversa com você, em inglês.</p>
+  <p>A mesma IA de voz <strong>em tempo real</strong> que empresas americanas já usam pra <strong>atender e vender por telefone</strong>.</p>
 </div></div>
 
 <!-- PROBLEMA -->
@@ -667,7 +668,7 @@
       <div class="from">De <s>R$ 3.385</s> — no plano anual, <b>12×</b> de</div>
       <div class="price">R$ 49<small>/mês</small></div>
       <div class="perday-hi">= <b>menos de R$ 2 por dia.</b> Você gasta mais que isso num café.</div>
-      <button class="cta" onclick="location.href='https://go.fluencyroute.com.br/subscribe'">Quero destravar minha conversação →</button>
+      <button class="cta esconder" onclick="location.href='https://go.fluencyroute.com.br/subscribe'">Quero destravar minha conversação →</button>
       <p class="guar-note">🔒 7 dias de garantia total · se não for pra você, <b>100% de volta</b></p>
     </div>
   </div>
@@ -699,7 +700,7 @@
 <section class="final"><div class="wrap narrow">
   <div class="kick rv">Sua vez</div>
   <h2 class="rv">Pare de estudar inglês.<br>Comece a <span class="it">falar</span>.</h2>
-  <button class="cta rv" style="transition-delay:.08s" onclick="location.href='https://go.fluencyroute.com.br/subscribe'">Destravar minha conversação →</button>
+  <button class="cta esconder" onclick="location.href='https://go.fluencyroute.com.br/subscribe'">Destravar minha conversação →</button>
 </div></section>
 
 <div class="eqband" id="eqband"></div>
@@ -735,6 +736,14 @@
   const nav=document.getElementById('nav');
   const onScroll=()=>{if(window.scrollY>window.innerHeight*.72)nav.classList.add('show');else nav.classList.remove('show');};
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  // delay VTurb — revela os elementos .esconder X segundos após o player pronto
+  (function(){
+    var p=document.querySelector("vturb-smartplayer");if(!p)return;
+    p.addEventListener("player:ready",function(){
+      try{p.displayHiddenElements(10,[".esconder"],{persist:true});}catch(e){}
+    });
+  })();
 </script>
 </body>
 </html>
