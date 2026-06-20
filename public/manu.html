@@ -76,7 +76,7 @@
   .hero-sub b{color:var(--ink);font-weight:600}
 
   /* player vertical premium — altura controlada pra caber na 1ª tela */
-  .player{position:relative;aspect-ratio:9/16;height:min(56svh,470px);width:auto;max-width:88vw;border-radius:28px;overflow:hidden;cursor:pointer;
+  .player{position:relative;aspect-ratio:9/16;width:min(88vw,360px);height:auto;border-radius:28px;overflow:hidden;cursor:pointer;
     background:linear-gradient(165deg,#16221E,#080D0B);
     box-shadow:var(--sh3),0 0 0 1px rgba(11,15,14,.06),inset 0 0 0 1px rgba(255,255,255,.04)}
   .player::after{content:"";position:absolute;inset:0;border-radius:28px;box-shadow:inset 0 2px 30px rgba(255,255,255,.06);pointer-events:none}
@@ -416,7 +416,7 @@
 <header class="hero" id="topo"><div class="mesh"></div><div class="wrap hero-in">
   <div class="hero-copy">
     <div class="brand-mini rv"><span class="eq"><i></i><i></i><i></i><i></i></span>Fluency Route</div>
-    <h1 class="rv" style="transition-delay:.06s">A <span class="it">1ª IA</span> de conversação em inglês <span class="it">em tempo real</span>.</h1>
+    <h1 class="rv" style="transition-delay:.06s">Fale inglês com a <span class="it">1ª IA</span>.</h1>
     <p class="hero-sub rv" style="transition-delay:.12s">Assista o vídeo e descubra <b>por que você ainda não fala</b> — e como destravar de vez.</p>
     <button class="hero-cta rv" style="transition-delay:.18s" onclick="document.querySelector('.player').scrollIntoView({block:'center'})">
       <span class="pl"><svg width="9" height="11" viewBox="0 0 27 31" fill="#0B0F0E"><path d="M0 2.6C0 1 1.7.1 3 .9l22 13c1.3.8 1.3 2.7 0 3.5l-22 13C1.7 31 0 30 0 28.4V2.6Z"/></svg></span>
@@ -738,12 +738,11 @@
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 
   // delay VTurb — revela os elementos .esconder X segundos após o player pronto
-  (function(){
-    var p=document.querySelector("vturb-smartplayer");if(!p)return;
-    p.addEventListener("player:ready",function(){
-      try{p.displayHiddenElements(10,[".esconder"],{persist:true});}catch(e){}
-    });
-  })();
+  var delaySeconds = 10;
+  var vplayer = document.querySelector("vturb-smartplayer");
+  vplayer.addEventListener("player:ready", function() {
+    vplayer.displayHiddenElements(delaySeconds, [".esconder"], { persist: true });
+  });
 </script>
 </body>
 </html>
