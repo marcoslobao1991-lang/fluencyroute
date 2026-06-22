@@ -670,7 +670,7 @@
       <div class="from">De <s>R$ 3.385</s> — no plano anual, <b>12×</b> de</div>
       <div class="price">R$ 49<small>/mês</small></div>
       <div class="perday-hi">= <b>menos de R$ 2 por dia.</b> Você gasta mais que isso num café.</div>
-      <button class="cta" onclick="location.href='https://go.fluencyroute.com.br/subscribe'">Quero destravar minha conversação →</button>
+      <button class="cta" onclick="location.href='https://pay.kiwify.com.br/jTO3lIy'">Quero destravar minha conversação →</button>
       <p class="guar-note">🔒 7 dias de garantia total · se não for pra você, <b>100% de volta</b></p>
     </div>
   </div>
@@ -702,7 +702,7 @@
 <section class="final"><div class="wrap narrow">
   <div class="kick rv">Sua vez</div>
   <h2 class="rv">Pare de estudar inglês.<br>Comece a <span class="it">falar</span>.</h2>
-  <button class="cta rv" style="transition-delay:.08s" onclick="location.href='https://go.fluencyroute.com.br/subscribe'">Destravar minha conversação →</button>
+  <button class="cta rv" style="transition-delay:.08s" onclick="location.href='https://pay.kiwify.com.br/jTO3lIy'">Destravar minha conversação →</button>
 </div></section>
 
 <div class="eqband" id="eqband"></div>
@@ -753,12 +753,12 @@
 (function(){
   var q = new URLSearchParams(location.search);
   // (1) ATRIBUIÇÃO: reanexa só os params de atribuição/stitch nos CTAs de checkout
-  var CHECKOUT='https://go.fluencyroute.com.br/subscribe';
+  var CHECKOUT='https://pay.kiwify.com.br/jTO3lIy';
   var keep=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid','ttclid','s1','src','sck'];
   function withParams(base){var p=new URLSearchParams();keep.forEach(function(k){if(q.get(k))p.set(k,q.get(k));});var s=p.toString();return s?base+(base.indexOf('?')>-1?'&':'?')+s:base;}
-  document.querySelectorAll('[onclick]').forEach(function(el){var oc=el.getAttribute('onclick')||'';if(oc.indexOf('go.fluencyroute.com.br/subscribe')>-1){el.removeAttribute('onclick');el.addEventListener('click',function(){location.href=withParams(CHECKOUT);});}});
+  document.querySelectorAll('[onclick]').forEach(function(el){var oc=el.getAttribute('onclick')||'';if(oc.indexOf('pay.kiwify.com.br')>-1){el.removeAttribute('onclick');el.addEventListener('click',function(){location.href=withParams(CHECKOUT);});}});
   // também cobre <a href> diretos pro checkout, se houver:
-  document.querySelectorAll('a[href*="go.fluencyroute.com.br/subscribe"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();location.href=withParams(CHECKOUT);});});
+  document.querySelectorAll('a[href*="pay.kiwify.com.br"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();location.href=withParams(CHECKOUT);});});
   // (2) PERSONALIZAÇÃO pelo que a Manu mediu
   var desejo=q.get('desejo'),estagio=q.get('estagio'),nivel=q.get('nivel');
   var DESEJO={viagem:'pra viajar',trabalho:'pro trabalho',series:'pra ver série sem legenda',morar_fora:'pra morar fora',social:'pra falar com gringo',hobby:'pra você',dia_a_dia:'pro dia a dia'};
