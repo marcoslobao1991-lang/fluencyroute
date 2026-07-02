@@ -10,9 +10,16 @@ const nextConfig: NextConfig = {
     ]
   },
   async rewrites() {
-    return [
-      { source: '/manu', destination: '/manu.html' },
-    ]
+    return {
+      // beforeFiles vence a rota app/bridge — serve a versão estática leve (42KB vs 691KB)
+      beforeFiles: [
+        { source: '/bridge', destination: '/bridge.html' },
+      ],
+      afterFiles: [
+        { source: '/manu', destination: '/manu.html' },
+      ],
+      fallback: [],
+    }
   },
 };
 
