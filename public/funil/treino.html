@@ -258,6 +258,31 @@ input[type=range]::-webkit-slider-thumb{appearance:none;width:30px;height:30px;b
 .dg-rx li b{color:var(--ink)}
 .dg-rx .n{flex:none;width:20px;height:20px;border-radius:50%;background:var(--deep);color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;margin-top:1px}
 .dg-base{font-family:var(--mono);font-size:8.5px;letter-spacing:1.2px;color:var(--ink50);border-top:1px dashed var(--hair);margin-top:16px;padding-top:12px;line-height:1.8}
+/* ═══ nota de pronúncia IA ═══ */
+#pronBox{display:none;margin-top:16px}
+.pron-card{background:var(--card);border:1.5px solid rgba(18,181,172,.35);border-radius:20px;padding:18px;box-shadow:var(--sh);animation:pop .45s cubic-bezier(.2,1.4,.4,1)}
+.pron-load{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--ink50);text-align:center;padding:20px;background:var(--card);border:1px dashed var(--hair);border-radius:16px}
+.spin{display:inline-block;width:12px;height:12px;border:2px solid var(--teal);border-top-color:transparent;border-radius:50%;animation:rot 1s linear infinite;vertical-align:-2px;margin-right:7px}
+@keyframes rot{to{transform:rotate(360deg)}}
+.pron-top{display:flex;gap:16px;align-items:center;margin-top:14px}
+.pron-ring{flex:none;width:96px;height:96px;border-radius:50%;background:conic-gradient(var(--deep) calc(var(--p)*1%),rgba(18,181,172,.14) 0);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.pron-ring::before{content:"";position:absolute;inset:9px;background:var(--card);border-radius:50%}
+.pron-ring b{position:relative;font-size:30px;font-weight:900;letter-spacing:-1.5px;line-height:1}
+.pron-ring span{position:relative;font-family:var(--mono);font-size:8.5px;color:var(--ink50)}
+.pron-dims{flex:1;display:flex;flex-direction:column;gap:8px;min-width:0}
+.pd{display:flex;align-items:center;gap:8px}
+.pd span{font-family:var(--mono);font-size:8.5px;letter-spacing:1px;color:var(--ink50);width:88px;flex:none}
+.pd i{flex:1;height:6px;border-radius:99px;background:rgba(21,32,30,.08);overflow:hidden;display:block}
+.pd b{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--teal),var(--deep));transition:width 1.1s cubic-bezier(.2,1,.3,1)}
+.pd em{font-style:normal;font-size:11px;font-weight:900;width:24px;text-align:right}
+.pron-words{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.pw{display:flex;flex-direction:column;align-items:center;gap:2px;border-radius:12px;padding:8px 13px;border:1.5px solid}
+.pw b{font-size:15px;font-weight:900;letter-spacing:-.3px}
+.pw i{font-style:normal;font-family:var(--mono);font-size:9px;font-weight:700}
+.pw.g{border-color:rgba(18,181,172,.5);background:rgba(18,181,172,.08);color:var(--deep)}
+.pw.y{border-color:rgba(138,106,18,.4);background:rgba(255,226,100,.28);color:var(--gold)}
+.pw.r,.pw.o{border-color:rgba(196,87,74,.4);background:rgba(196,87,74,.07);color:var(--coral)}
+.pron-heard{font-family:var(--mono);font-size:9px;letter-spacing:1.2px;color:var(--ink50);margin-top:14px;border-top:1px dashed var(--hair);padding-top:10px;line-height:1.7}
 
 /* boletim do treino */
 .bl-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--hair);font-size:14.5px;color:var(--ink70)}
@@ -418,6 +443,7 @@ footer{border-top:1px solid var(--hair);padding:24px 20px 40px;text-align:center
       <button class="orig" onclick="playOrig()">▶ A MONICA</button>
     </div>
   </div>
+  <div id="pronBox"></div>
   <button class="next" id="shadowNext" onclick="didShadow=true; showSong()">FALEI! PRÓXIMO ▶</button>
   <button class="skip" onclick="showSong()">agora não posso falar — pular</button>
 </section>
@@ -895,32 +921,144 @@ function showScr(id,tag,segN){
 function showRules(){ showScr("scF","AS 3 REGRAS",1); playManu("rules"); saveSt("rules"); }
 function showSong(){ stopRec(); showScr("scM","A MÚSICA 🎵",6); playManu("song"); saveSt("song"); }
 
-/* ═══ shadowing · gravador ═══ */
-let mediaRec=null, chunks=[], myURL=null, recording=false;
+/* ═══ shadowing · gravador WAV + NOTA DE PRONÚNCIA IA ═══
+   Mesma receita de produção do app/bridge (usePronunciation Azure):
+   grava na taxa nativa → reamostra 16k → WAV → Pronunciation Assessment
+   REST com token curto de /api/speech-token (trava de custo por IP). */
+const REF_TEXT="You wanna crash on the couch";
+let recStream=null, recCtx=null, recProc=null, recSamples=[], recRate=48000, recording=false, recTimer=null, myURL=null;
 async function toggleRec(){
   const btn=document.getElementById("recBtn"), hint=document.getElementById("recHint");
-  if(recording){ stopRec(); return; }
+  if(recording){ finishRec(false); return; }
   try{
-    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
-    chunks=[]; mediaRec=new MediaRecorder(stream);
-    mediaRec.ondataavailable=e=>chunks.push(e.data);
-    mediaRec.onstop=()=>{
-      stream.getTracks().forEach(t=>t.stop());
-      if(myURL) URL.revokeObjectURL(myURL);
-      myURL=URL.createObjectURL(new Blob(chunks,{type:mediaRec.mimeType}));
-      document.getElementById("btnMine").disabled=false;
-      hint.textContent="GRAVADO! AGORA COMPARA: SUA VOZ × O ROSS";
-    };
-    mediaRec.start(); recording=true;
-    btn.classList.add("rec"); btn.textContent="■";
-    hint.textContent="GRAVANDO… FALA A FRASE E TOCA PRA PARAR";
-  }catch(e){ hint.textContent="MICROFONE BLOQUEADO — PODE PULAR, SEM CRISE 😉"; }
+    recStream=await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,echoCancellation:true,noiseSuppression:true}});
+  }catch(e){ hint.textContent="MICROFONE BLOQUEADO — PODE PULAR, SEM CRISE 😉"; return; }
+  const Ctx=window.AudioContext||window.webkitAudioContext;
+  recCtx=new Ctx(); recRate=recCtx.sampleRate||48000;
+  if(recCtx.state==="suspended"){ try{await recCtx.resume()}catch(e){} }
+  const src=recCtx.createMediaStreamSource(recStream);
+  recProc=recCtx.createScriptProcessor(4096,1,1); recSamples=[];
+  let silent=0, spoke=0; // auto-stop no silêncio (~1.8s após ~1.3s de fala) — calibração do app
+  recProc.onaudioprocess=e=>{
+    const inp=e.inputBuffer.getChannelData(0);
+    recSamples.push(new Float32Array(inp));
+    let sum=0; for(let i=0;i<inp.length;i++) sum+=inp[i]*inp[i];
+    const rms=Math.sqrt(sum/inp.length);
+    if(rms>0.006){ spoke++; silent=0; }
+    else if(spoke>=5){ silent++; if(silent>=7) finishRec(false); }
+  };
+  src.connect(recProc); recProc.connect(recCtx.destination);
+  recording=true; btn.classList.add("rec"); btn.textContent="■";
+  hint.textContent="GRAVANDO… FALA A FRASE — EU PARO SOZINHA QUANDO VOCÊ TERMINAR";
+  recTimer=setTimeout(()=>{ if(recording) finishRec(false); },12000);
 }
-function stopRec(){
-  if(recording && mediaRec){ mediaRec.stop(); }
-  recording=false;
+function stopRec(){ if(recording) finishRec(true); } // navegação: para sem avaliar
+function finishRec(silentMode){
+  clearTimeout(recTimer); recording=false;
   const btn=document.getElementById("recBtn");
   if(btn){ btn.classList.remove("rec"); btn.textContent="🎤"; }
+  if(recProc){ recProc.disconnect(); recProc=null; }
+  if(recCtx&&recCtx.state!=="closed"){ try{recCtx.close()}catch(e){} recCtx=null; }
+  if(recStream){ recStream.getTracks().forEach(t=>t.stop()); recStream=null; }
+  const total=recSamples.reduce((s,c)=>s+c.length,0);
+  if(total<recRate*0.15){ recSamples=[]; return; } // toque sem fala
+  const merged=new Float32Array(total); let off=0;
+  for(const c of recSamples){ merged.set(c,off); off+=c.length; }
+  recSamples=[];
+  const wav=float32ToWav(resample16k(merged,recRate));
+  if(myURL) URL.revokeObjectURL(myURL);
+  myURL=URL.createObjectURL(wav);
+  document.getElementById("btnMine").disabled=false;
+  if(!silentMode){
+    document.getElementById("recHint").textContent="GRAVADO! COMPARA NO A/B — E OLHA SUA NOTA 👇";
+    didShadow=true;
+    assessPron(wav);
+  }
+}
+function resample16k(input,srcRate){
+  if(!srcRate||srcRate===16000||!input.length) return input;
+  const ratio=srcRate/16000, outLen=Math.max(1,Math.floor(input.length/ratio)), out=new Float32Array(outLen);
+  for(let i=0;i<outLen;i++){ const pos=i*ratio, i0=Math.floor(pos), i1=Math.min(i0+1,input.length-1), f=pos-i0; out[i]=input[i0]*(1-f)+input[i1]*f; }
+  return out;
+}
+function float32ToWav(s){
+  const int16=new Int16Array(s.length);
+  for(let i=0;i<s.length;i++){ const v=Math.max(-1,Math.min(1,s[i])); int16[i]=v<0?v*0x8000:v*0x7fff; }
+  const buf=new ArrayBuffer(44+int16.length*2), v=new DataView(buf);
+  const ws=(o,str)=>{ for(let i=0;i<str.length;i++) v.setUint8(o+i,str.charCodeAt(i)); };
+  ws(0,"RIFF"); v.setUint32(4,36+int16.length*2,true); ws(8,"WAVE"); ws(12,"fmt ");
+  v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,1,true);
+  v.setUint32(24,16000,true); v.setUint32(28,32000,true); v.setUint16(32,2,true); v.setUint16(34,16,true);
+  ws(36,"data"); v.setUint32(40,int16.length*2,true);
+  for(let i=0;i<int16.length;i++) v.setInt16(44+i*2,int16[i],true);
+  return new Blob([buf],{type:"audio/wav"});
+}
+function b64utf8(s){
+  const bytes=new TextEncoder().encode(s); let bin="";
+  for(let i=0;i<bytes.length;i++) bin+=String.fromCharCode(bytes[i]);
+  return btoa(bin);
+}
+async function assessPron(wav){
+  const box=document.getElementById("pronBox");
+  box.style.display="block";
+  box.innerHTML=`<div class="pron-load"><span class="spin"></span>A IA TÁ TE OUVINDO, PALAVRA POR PALAVRA…</div>`;
+  box.scrollIntoView({behavior:"smooth",block:"nearest"});
+  let tok=null;
+  try{
+    const r=await fetch("/api/speech-token"); const d=await r.json();
+    if(r.status===429||d.error==="limit"){ box.innerHTML=`<div class="pron-load">A ANÁLISE POR IA LOTOU POR HOJE 😅 — COMPARA NO A/B DE OUVIDO. DENTRO DA ROTA, ELA É ILIMITADA.</div>`; return; }
+    if(d.error) throw 0;
+    tok=d;
+  }catch(e){ box.innerHTML=`<div class="pron-load">A IA NÃO RESPONDEU AGORA — O A/B DE OUVIDO FUNCIONA IGUAL 😉</div>`; return; }
+  try{
+    const cfg={ReferenceText:REF_TEXT,GradingSystem:"HundredMark",Granularity:"Phoneme",Dimension:"Comprehensive",EnableMiscue:false,EnableProsodyAssessment:true};
+    const res=await fetch(`https://${tok.region}.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1?language=en-US`,{
+      method:"POST",
+      headers:{Authorization:"Bearer "+tok.token,"Content-Type":"audio/wav; codecs=audio/pcm; samplerate=16000","Pronunciation-Assessment":b64utf8(JSON.stringify(cfg)),Accept:"application/json"},
+      body:wav
+    });
+    if(!res.ok) throw 0;
+    const data=await res.json();
+    if(data.RecognitionStatus!=="Success"){ box.innerHTML=`<div class="pron-load">NÃO TE OUVI DIREITO 😅 — TOCA NO 🎤 E FALA A FRASE DE NOVO</div>`; return; }
+    renderPron(box,data); track("shadow_scored");
+  }catch(e){ box.innerHTML=`<div class="pron-load">A IA NÃO RESPONDEU AGORA — O A/B DE OUVIDO FUNCIONA IGUAL 😉</div>`; }
+}
+function renderPron(box,data){
+  const best=(data.NBest&&data.NBest[0])||{}, pa=best.PronunciationAssessment||best||{};
+  const num=k=>{ const v=Number(pa[k]); return isFinite(v)?v:-1; };
+  const acc=num("AccuracyScore"), fluRaw=num("FluencyScore");
+  let pro=num("ProsodyScore"), comp=num("CompletenessScore");
+  const flu=fluRaw>=0?fluRaw:Math.max(0,acc);
+  if(pro<0) pro=flu; if(comp<0) comp=100;
+  /* mesma curva do app (harshScore), expoente 1.35 — gentil pra 1ª vez */
+  const base=Math.max(0,Math.min(100,acc*0.55+flu*0.2+pro*0.15+comp*0.1));
+  const score=acc<0?Math.round(Number(pa.PronScore||0)):Math.round(Math.pow(base/100,1.35)*100);
+  const words=((best.Words)||[]).map(w=>{ const wp=w.PronunciationAssessment||w; return {word:String(w.Word||""),acc:Math.round(Number(wp.AccuracyScore||0)),err:String(wp.ErrorType||"None")}; });
+  const cls=a=>a>=80?"g":a>=60?"y":"r";
+  const msg= score>=80?`“Isso é pronúncia de quem <b>treina</b>, não de quem estuda. Olha o placar palavra por palavra — repara como o bloco que você loopou tá verde.”`
+    : score>=60?`“Muito acima da média pra primeira vez. O que ficou amarelo aí embaixo é <b>exatamente</b> o que o Loop resolve — é falta de repetição, não de capacidade.”`
+    : `“Primeira vez falando dentro de uma cena — essa nota <b>só sobe daqui</b>. Cada palavra do placar fica automática com o treino certo. É pra isso que a Rota existe.”`;
+  const heard=String(data.DisplayText||"").replace(/[<>&]/g,"");
+  box.innerHTML=`
+    <div class="pron-card">
+      <div class="c-k">SUA NOTA DE PRONÚNCIA · IA, PALAVRA POR PALAVRA</div>
+      <div class="pron-top">
+        <div class="pron-ring" style="--p:${score}"><b id="pronN">0</b><span>DE 100</span></div>
+        <div class="pron-dims">
+          <div class="pd"><span>PRECISÃO</span><i><b style="width:0%" data-w="${Math.max(0,Math.round(acc))}"></b></i><em>${Math.max(0,Math.round(acc))}</em></div>
+          <div class="pd"><span>FLUÊNCIA</span><i><b style="width:0%" data-w="${Math.round(flu)}"></b></i><em>${Math.round(flu)}</em></div>
+          <div class="pd"><span>RITMO</span><i><b style="width:0%" data-w="${Math.round(pro)}"></b></i><em>${Math.round(pro)}</em></div>
+          <div class="pd"><span>FRASE INTEIRA</span><i><b style="width:0%" data-w="${Math.round(comp)}"></b></i><em>${Math.round(comp)}</em></div>
+        </div>
+      </div>
+      <div class="pron-words">${words.map(w=>`<span class="pw ${w.err==="Omission"?"o":cls(w.acc)}"><b>${w.word}</b><i>${w.err==="Omission"?"FALTOU":w.acc}</i></span>`).join("")}</div>
+      ${heard?`<div class="pron-heard">A IA OUVIU: “${heard}”</div>`:""}
+      <div class="manu" style="margin-top:14px"><button class="mp" aria-label="Manu"></button><div><div class="who">MANU</div><div class="say">${msg}</div></div></div>
+      <button class="skip" onclick="toggleRec()" style="margin-top:6px">🎤 TENTAR DE NOVO — A NOTA SOBE RÁPIDO</button>
+    </div>`;
+  const el=document.getElementById("pronN"); let v=0; const st=Math.max(1,Math.round(score/40));
+  const t=setInterval(()=>{ v=Math.min(score,v+st); el.textContent=v; if(v>=score) clearInterval(t); },28);
+  requestAnimationFrame(()=>box.querySelectorAll(".pd b").forEach(b=>{ b.style.width=b.dataset.w+"%"; }));
 }
 let myAudio=null, origAudio=null;
 function playMine(){ if(!myURL)return; if(origAudio)origAudio.pause(); if(myAudio)myAudio.pause(); myAudio=new Audio(myURL); myAudio.play(); }
