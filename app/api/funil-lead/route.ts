@@ -77,7 +77,7 @@ export async function POST(req: Request) {
         method: "POST",
         headers: { Authorization: `Bearer ${resendKey}`, "Content-Type": "application/json" },
         body: JSON.stringify({
-          from: "Manu · Fluency Route <manu@fluencyroute.com.br>",
+          from: "Manu · Fluency Route <manu@acesso.fluencyroute.com.br>",
           to: [email],
           subject: "🔓 Seu treino de inglês tá liberado (5 min)",
           html: d0Html(nome),
