@@ -1,0 +1,5 @@
+{
+  "crons": [
+    { "path": "/api/funil-emails", "schedule": "0 12 * * *" }
+  ]
+}
