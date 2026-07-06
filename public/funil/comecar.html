@@ -15,8 +15,8 @@
 <!-- ══ CONFIG — preencher antes de publicar ══ -->
 <script>
 const CONFIG = {
-  WEBHOOK_URL: "https://SEU-N8N.exemplo/webhook/primeira-cena-lead",
-  REDIRECT:    "obrigado.html",
+  WEBHOOK_URL: "/api/funil-lead",
+  REDIRECT:    "/vsl2",
   PIXEL_ID:    "938768337634102"
 };
 </script>
@@ -433,12 +433,15 @@ function closeGate(){ document.getElementById("ovl").classList.remove("on"); }
 document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeGate(); });
 
 /* captura progressiva: email DISPARA no passo 1; WhatsApp é upgrade opcional */
-let leadEmail="";
+let leadEmail="", leadId=(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random().toString(16).slice(2));
+function utmObj(){const p=new URLSearchParams(location.search),o={};["utm_source","utm_medium","utm_campaign","utm_term","utm_content","fbclid"].forEach(k=>{const v=p.get(k);if(v)o[k]=v});return o;}
+function post(payload){ try{ fetch(CONFIG.WEBHOOK_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id:leadId,utm:utmObj(),...payload}),keepalive:true}); }catch(e){} }
 function stepEmail(e){
   e.preventDefault();
   leadEmail=document.getElementById("email").value.trim();
   if(!leadEmail) return false;
-  // wiring: fetch(CONFIG.WEBHOOK_URL,{method:'POST',body:JSON.stringify({email:leadEmail,src:gateSrc})}) + CAPI Lead
+  post({email:leadEmail,src:gateSrc});           // salva + dispara email D0
+  if(window.fbq) fbq("track","Lead");
   document.getElementById("step1").style.display="none";
   document.getElementById("step2").style.display="block";
   setTimeout(()=>document.getElementById("zap").focus(),80);
@@ -447,12 +450,12 @@ function stepEmail(e){
 function stepZap(e){
   e.preventDefault();
   const zap=document.getElementById("zap").value.trim();
-  // wiring: if(zap) fetch(CONFIG.WEBHOOK_URL,{method:'POST',body:JSON.stringify({email:leadEmail,zap,src:gateSrc})})
+  if(zap) post({email:leadEmail,zap,src:gateSrc}); // atualiza lead com whatsapp
   finish();
   return false;
 }
 function finish(){
-  window.location.href = CONFIG.REDIRECT + "?e=" + encodeURIComponent(leadEmail);
+  window.location.href = CONFIG.REDIRECT + "?from=lead&id=" + leadId;
 }
 </script>
 </body>
