@@ -126,6 +126,8 @@ h1{font-weight:900;font-size:clamp(27px,7vw,36px);letter-spacing:-1.2px;line-hei
 .tr .st{width:34px;height:34px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;background:var(--panel);color:var(--ink50)}
 .tr.now .st{background:var(--deep);color:#fff;box-shadow:0 6px 16px -5px rgba(11,110,104,.6)}
 .tr.done .st{background:rgba(18,181,172,.15);color:var(--deep)}
+.homebtn{display:none;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--deep);background:rgba(18,181,172,.08);border:1px solid rgba(18,181,172,.35);border-radius:99px;padding:6px 11px;cursor:pointer;margin:0 10px 0 auto}
+.homebtn.show{display:block}
 .tr .tt{font-weight:900;font-size:14.5px;letter-spacing:-.2px}
 .tr .td{font-family:var(--mono);font-size:8.5px;letter-spacing:1.5px;color:var(--ink50);margin-top:1px}
 .tr.lock{opacity:.55}
@@ -285,7 +287,7 @@ footer{border-top:1px solid var(--hair);padding:24px 20px 40px;text-align:center
 <body>
 
 <div class="top">
-  <div class="top-in"><div class="logo">FLUENCY <b>ROUTE</b></div><div class="top-tag" id="topTag">SEU TREINO</div></div>
+  <div class="top-in"><div class="logo">FLUENCY <b>ROUTE</b></div><button class="homebtn" id="homeBtn" onclick="goHome()">☰ TREINOS</button><div class="top-tag" id="topTag">SEU TREINO</div></div>
   <div class="segs"><div class="seg" id="g0"><i></i></div><div class="seg" id="g1"><i></i></div><div class="seg" id="g2"><i></i></div><div class="seg" id="g3"><i></i></div><div class="seg" id="g4"><i></i></div><div class="seg" id="g5"><i></i></div><div class="seg" id="g6"><i></i></div></div>
 </div>
 
@@ -330,11 +332,12 @@ footer{border-top:1px solid var(--hair);padding:24px 20px 40px;text-align:center
       <div class="tr"><div class="st">09</div><div><div class="tt">Seu Resultado</div><div class="td">ANTES → DEPOIS + DIAGNÓSTICO</div></div></div>
     </div>
   </div>
-  <div class="mod-next">
+  <div class="mod-next" onclick="showM2()" style="cursor:pointer">
     <img src="assets/teaser_t02.jpg" alt="">
-    <div><div class="mk">MÓDULO 02 · 🔒 DESBLOQUEIA AMANHÃ</div><div class="mt">A Paquera do Ross</div><div class="md">chega no seu email quando liberar</div></div>
+    <div><div class="mk">MÓDULO 02 · PRÉVIA LIBERADA ▶</div><div class="mt">A Paquera do Ross</div><div class="md">assiste agora — o treino completo é dentro da Rota</div></div>
   </div>
   <button class="next" onclick="showRules()">COMEÇAR O TREINO 01 ▶</button>
+  <div style="font-family:var(--mono);font-size:9px;letter-spacing:1.5px;color:var(--ink50);text-align:center;margin-top:10px">NAVEGAÇÃO LIVRE — TOCA EM QUALQUER TREINO PRA ABRIR</div>
 </section>
 
 <!-- ═══ F · COMO FUNCIONA (paradigm shift disfarçado) ═══ -->
@@ -557,12 +560,42 @@ footer{border-top:1px solid var(--hair);padding:24px 20px 40px;text-align:center
     <div><div class="who">MANU</div><div class="say" id="manuFinal"></div></div>
   </div>
 
-  <div class="mod-next">
+  <div class="mod-next" onclick="showM2()" style="cursor:pointer">
     <img src="assets/teaser_t02.jpg" alt="">
-    <div><div class="mk">MÓDULO 02 · 🔒 DESBLOQUEIA AMANHÃ</div><div class="mt">A Paquera do Ross</div><div class="md">fica de olho no seu email 😉</div></div>
+    <div><div class="mk">MÓDULO 02 · PRÉVIA LIBERADA ▶</div><div class="mt">A Paquera do Ross</div><div class="md">toca pra assistir agora</div></div>
   </div>
   <a class="final-cta" id="vslLink" href="#VSL_URL_AQUI">QUERO A ROTA COMPLETA AGORA ▶</a>
   <div class="final-sub">ISSO FOI O TREINO 01 · A ROTA É O CAMINHO INTEIRO</div>
+</section>
+
+<!-- ═══ M2 · PRÉVIA DO MÓDULO 02 ═══ -->
+<section class="scr" id="scM2">
+  <div class="kick">MÓDULO 02 · PRÉVIA LIBERADA</div>
+  <h1>A Paquera do Ross.</h1>
+  <p class="sub">A cena que o Módulo 02 destrincha — inteira, sem cortes. Repara numa coisa: <b>seu ouvido já pega mais do que pegava antes do Treino 01.</b></p>
+  <div class="player pt-on" id="plM2">
+    <div class="cover">
+      <video src="assets/modulo2_paquera.mp4" poster="assets/teaser_t02.jpg" playsinline preload="none"></video>
+      <div class="hud"><b>●</b>&nbsp;FRIENDS · S01E01 · 62s</div>
+    </div>
+    <div class="p-body">
+      <div class="p-controls">
+        <button class="bigplay" onclick="simPlay('plM2')" aria-label="tocar"></button>
+        <div class="wavebox"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="lines">
+        <div class="ln"><div class="who">ROSS</div><div class="en">You probably didn't know this, but back in high school I had a major <b>crush on</b> you.</div><div class="pt">Você provavelmente não sabia, mas na escola eu tinha uma queda enorme por você.</div></div>
+        <div class="ln"><div class="who">RACHEL</div><div class="en">I knew.</div><div class="pt">Eu sabia.</div></div>
+        <div class="ln"><div class="who">ROSS</div><div class="en">Do you think it would be okay if I <b>asked you out</b>… sometime… maybe?</div><div class="pt">Você acha que tudo bem se eu te chamasse pra sair… um dia… quem sabe?</div></div>
+        <div class="ln"><div class="who">RACHEL</div><div class="en">Yeah… <b>maybe</b>.</div><div class="pt">É… quem sabe.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="ars-lbl" style="margin-top:16px">OS BLOCOS DE SOM DESSE MÓDULO</div>
+  <div class="arsenal"><span class="ars">crush on</span><span class="ars">ask you out</span><span class="ars">would it be okay if…</span></div>
+  <div class="key"><div class="k">🔑</div><div><div class="eq">assistir ≠ treinar</div><p>Isso foi só a cena. O Módulo 02 completo — os Loops, o shadowing, a música desses blocos — é <b>dentro da Rota</b>. É lá que eles entram no automático.</p></div></div>
+  <a class="final-cta" href="/vsl2?from=m2">QUERO A ROTA COMPLETA ▶</a>
+  <button class="skip" onclick="goHome()">← voltar pros treinos</button>
 </section>
 
 </main>
@@ -654,6 +687,7 @@ function stopAllMedia(){
 }
 function go(n){
   stopAllMedia();
+  document.getElementById("homeBtn").classList.add("show");
   document.querySelectorAll(".scr").forEach(s=>s.classList.remove("on"));
   if(n>=3&&n<=5){renderLoop(n-3);document.getElementById("sc-loop").classList.add("on")}
   else document.getElementById("sc"+n).classList.add("on");
@@ -686,7 +720,36 @@ function go(n){
   }catch(e){}
 })();
 
-/* ═════════ MODO APP — quem concluiu revisita livre (acesso permanente) ═════════ */
+/* ═════════ NAVEGAÇÃO LIVRE — todos os treinos abertos, sempre (pedido Marcos 06/07) ═════════ */
+function goHome(){
+  stopAllMedia(); if(typeof stopRec==="function")stopRec();
+  document.querySelectorAll(".scr").forEach(s=>s.classList.remove("on"));
+  document.getElementById("scH").classList.add("on");
+  document.getElementById("topTag").textContent="SEU TREINO";
+  window.scrollTo({top:0,behavior:"smooth"});
+  paintTrilha();
+}
+function showM2(){ showScr("scM2","MÓDULO 02 · PRÉVIA",1); track("m2_preview"); }
+const JUMPS=[()=>showRules(),()=>go(1),()=>go(3),()=>go(4),()=>go(5),
+  ()=>{showScr('scS','ENTRE NA CENA',6);playManu('shadow')},()=>showSong(),()=>go(6),
+  ()=>{ if(baseline===null){go(1);return;} try{range2.value=(fin??baseline)}catch(e){} showResult(); }];
+function wireHome(){
+  document.querySelectorAll("#scH .tr").forEach((tr,i)=>{ tr.style.cursor="pointer"; if(JUMPS[i]) tr.onclick=JUMPS[i]; });
+}
+const STAGE_DONE={rules:1,absolve:2,loop1_done:3,loop2_done:4,loop3_done:5,shadow:6,song:7,resultado:9};
+function paintTrilha(){
+  let done=0;
+  try{
+    const s=JSON.parse(localStorage.getItem("lm_st")||"{}"); done=STAGE_DONE[s.stage]||0;
+    if(localStorage.getItem("lm_done")==="1") done=9;
+  }catch(e){}
+  document.querySelectorAll("#scH .tr").forEach((tr,i)=>{
+    if(i<done){ tr.classList.add("done"); const st=tr.querySelector(".st"); if(st)st.textContent="✓"; }
+  });
+}
+wireHome();
+
+/* quem já concluiu volta direto na home, estado restaurado */
 (function appMode(){
   try{
     if(localStorage.getItem("lm_done")!=="1") return;
@@ -696,10 +759,8 @@ function go(n){
     document.getElementById("scH").classList.add("on");
     document.getElementById("homeH1").textContent = nome? `${nome}, seu treino tá liberado 🔓` : "Seu treino tá liberado 🔓";
     document.getElementById("topTag").textContent="MODO LIVRE ✓";
-    const jumps=[()=>showRules(),()=>go(1),()=>go(3),()=>go(4),()=>go(5),
-      ()=>{showScr('scS','ENTRE NA CENA',6);playManu('shadow')},()=>showSong(),()=>go(6),
-      ()=>{try{range2.value=fin}catch(e){};showResult()}];
-    document.querySelectorAll("#scH .tr").forEach((tr,i)=>{ tr.style.cursor="pointer"; if(jumps[i]) tr.onclick=jumps[i]; tr.querySelector(".badge")?.remove(); });
+    document.getElementById("homeBtn").classList.add("show");
+    paintTrilha();
     const sb=document.querySelector('#scH .next'); if(sb){ sb.textContent="VER MEU DIAGNÓSTICO ▶"; sb.onclick=()=>{try{range2.value=fin}catch(e){};showResult()}; }
   }catch(e){}
 })();
@@ -715,6 +776,7 @@ function startTraining(){
   // wiring: salvar nome+nível no lead (n8n)
   document.querySelectorAll(".scr").forEach(s=>s.classList.remove("on"));
   document.getElementById("scH").classList.add("on");
+  document.getElementById("homeBtn").classList.add("show");
   seg(1); window.scrollTo({top:0,behavior:"smooth"});
   document.getElementById("topTag").textContent="MÓDULO 01 · O PILOTO";
   if(nome) document.getElementById("homeH1").textContent=`${nome}, seu Módulo 01 tá liberado.`;
@@ -824,6 +886,7 @@ function dominate(i){
 /* ═══ telas nomeadas (regras / shadowing / música) ═══ */
 function showScr(id,tag,segN){
   stopAllMedia();
+  document.getElementById("homeBtn").classList.add("show");
   document.querySelectorAll(".scr").forEach(s=>s.classList.remove("on"));
   document.getElementById(id).classList.add("on");
   seg(segN); window.scrollTo({top:0,behavior:"smooth"});
