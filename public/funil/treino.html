@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Loop de Repetição — Seu Treino · Fluency Route</title>
+<meta name="description" content="Seu primeiro Loop de Repetição — o treino que coloca o inglês no modo automático.">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#FAFAF6">
+<link rel="icon" href="data:,">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFAF6; --ink:#15201E; --ink70:rgba(21,32,30,.72); --ink50:rgba(21,32,30,.5);
+  --teal:#12B5AC; --deep:#0B6E68; --hair:rgba(21,32,30,.14);
+  --panel:#EDF4F2; --panel2:#F4F2EA; --card:#FFFFFF;
+  --coral:#C4574A; --sub:#FFE264; --dark:#0C1514; --gold:#8A6A12;
+  --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  --sh:0 2px 6px rgba(21,32,30,.05),0 20px 46px -20px rgba(21,32,30,.16);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;min-height:100dvh}
+button,input{font:inherit;color:inherit}
+
+/* ═══ chrome do app ═══ */
+.top{position:sticky;top:0;z-index:50;background:rgba(250,250,246,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--hair)}
+.top-in{max-width:500px;margin:0 auto;padding:14px 20px 9px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:900;letter-spacing:3px;font-size:11.5px}
+.logo b{color:var(--teal)}
+.top-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:2px;color:var(--deep)}
+.segs{max-width:500px;margin:0 auto;padding:0 20px 12px;display:flex;gap:5px}
+.seg{flex:1;height:4px;border-radius:99px;background:rgba(21,32,30,.08);overflow:hidden}
+.seg i{display:block;height:100%;width:0%;background:var(--teal);transition:width .5s ease}
+.seg.done i{width:100%}
+
+main{max-width:500px;margin:0 auto;padding:28px 20px 90px}
+.scr{display:none}
+.scr.on{display:block;animation:up .4s cubic-bezier(.22,1,.36,1)}
+@keyframes up{from{transform:translateY(14px)}to{transform:none}}
+
+.kick{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:2.5px;color:var(--deep);margin-bottom:8px}
+h1{font-weight:900;font-size:clamp(27px,7vw,36px);letter-spacing:-1.2px;line-height:1.08}
+.sub{color:var(--ink70);font-size:15.5px;margin-top:10px}
+.sub b{color:var(--ink);font-weight:900}
+
+/* ═══ Manu ═══ */
+.manu{display:flex;gap:12px;margin:20px 0;align-items:flex-start;background:var(--card);border:1px solid var(--hair);border-radius:18px;padding:15px 16px;box-shadow:var(--sh)}
+.manu .mp{width:44px;height:44px;border-radius:50%;flex:none;background:linear-gradient(135deg,#14C2B8,#0B6E68);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px -6px rgba(18,181,172,.55);cursor:pointer;border:none}
+.manu .mp::after{content:"";width:0;height:0;border-left:12px solid #fff;border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:3px}
+.manu .who{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:2px;color:var(--deep)}
+.manu .say{font-size:15px;color:var(--ink70);margin-top:3px}
+.manu .say b{color:var(--ink);font-weight:900}
+
+/* ═══ escolhas (nível) ═══ */
+.name-in{width:100%;margin-top:18px;font-size:16.5px;padding:15px 16px;border:1.5px solid var(--hair);background:#fff;outline:none;border-radius:14px}
+.name-in:focus{border-color:var(--teal)}
+.opts{display:grid;gap:10px;margin-top:14px}
+.opt{display:flex;align-items:center;gap:13px;background:#fff;border:1.5px solid var(--hair);border-radius:16px;padding:16px;cursor:pointer;text-align:left;transition:border-color .15s,transform .1s}
+.opt:active{transform:scale(.985)}
+.opt.sel{border-color:var(--teal);background:rgba(18,181,172,.06)}
+.opt .oi{font-size:20px}
+.opt .ot{font-weight:900;font-size:15.5px;letter-spacing:-.2px}
+.opt .od{font-size:12.5px;color:var(--ink50)}
+
+/* ═══ regras (como funciona) ═══ */
+.rules{display:grid;gap:12px;margin-top:20px}
+.rule-c{background:var(--card);border:1px solid var(--hair);border-radius:18px;padding:18px;box-shadow:var(--sh)}
+.rule-c .rn{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:2.5px;color:var(--deep)}
+.rule-c .rt{font-weight:900;font-size:18px;letter-spacing:-.4px;margin-top:5px}
+.rule-c .rt s{color:var(--ink50)}
+.rule-c .rt b{color:var(--deep)}
+.rule-c p{font-size:14px;color:var(--ink70);margin-top:6px}
+.rule-c p b{color:var(--ink)}
+
+/* ═══ shadowing ═══ */
+.rec-zone{background:var(--card);border:1px solid var(--hair);border-radius:22px;padding:24px 20px;margin:18px 0;text-align:center;box-shadow:var(--sh)}
+.rec-phrase{font-weight:900;font-size:20px;letter-spacing:-.4px}
+.rec-phrase mark{background:rgba(255,226,100,.8);border-radius:4px;padding:0 5px}
+.rec-pt{font-size:13px;color:var(--ink50);margin-top:4px}
+.recbtn{width:84px;height:84px;border-radius:50%;border:none;cursor:pointer;margin:22px auto 8px;display:flex;align-items:center;justify-content:center;font-size:30px;background:linear-gradient(135deg,#E2695A,#C4574A);color:#fff;box-shadow:0 16px 36px -10px rgba(196,87,74,.6);transition:transform .12s}
+.recbtn:active{transform:scale(.93)}
+.recbtn.rec{animation:recpulse 1s ease-in-out infinite;background:linear-gradient(135deg,#C4574A,#A03A2E)}
+@keyframes recpulse{50%{transform:scale(1.07);box-shadow:0 16px 46px -8px rgba(196,87,74,.85)}}
+.rec-hint{font-family:var(--mono);font-size:9.5px;letter-spacing:2px;color:var(--ink50)}
+.ab-row{display:flex;gap:10px;margin-top:18px}
+.ab-row button{flex:1;font-weight:900;font-size:13.5px;padding:14px;border-radius:13px;border:1.5px solid var(--hair);background:#fff;cursor:pointer;transition:all .15s}
+.ab-row .mine{border-color:var(--coral);color:var(--coral)}
+.ab-row .orig{border-color:var(--deep);color:var(--deep)}
+.ab-row button:disabled{opacity:.35}
+
+/* ═══ música ═══ */
+.song{background:linear-gradient(150deg,#0F1D1B,#0C1514);border-radius:22px;padding:24px 20px;margin:18px 0;color:#fff;box-shadow:0 24px 60px -22px rgba(12,21,20,.6)}
+.song .s-k{font-family:var(--mono);font-size:9px;letter-spacing:2.5px;color:rgba(255,255,255,.55)}
+.song .s-t{font-weight:900;font-size:21px;letter-spacing:-.5px;margin-top:4px}
+.song .s-sub{font-size:12.5px;color:rgba(255,255,255,.6)}
+.song .s-play{display:flex;align-items:center;gap:14px;margin-top:18px}
+.song .sp{width:56px;height:56px;border-radius:50%;flex:none;border:none;cursor:pointer;background:var(--teal);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px -8px rgba(18,181,172,.7)}
+.song .sp::after{content:"";width:0;height:0;border-left:17px solid #04211d;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:4px}
+.song .swave{flex:1;display:flex;gap:3px;align-items:center;height:34px}
+.song .swave i{flex:1;border-radius:2px;background:rgba(18,181,172,.4);height:25%}
+.song .swave i:nth-child(2n){height:60%}.song .swave i:nth-child(3n){height:38%}.song .swave i:nth-child(5n){height:85%}
+.song.playing .swave i{animation:eq .6s ease-in-out infinite alternate}
+.song .lyr{margin-top:18px;border-top:1px solid rgba(255,255,255,.12);padding-top:16px;display:grid;gap:8px;max-height:260px;overflow-y:auto}
+.song .lyr .lrow{font-family:var(--mono);font-size:13px;color:rgba(255,255,255,.75);line-height:1.5}
+.song .lyr .lk{font-size:8.5px;letter-spacing:2.5px;color:rgba(255,255,255,.4);margin-top:6px}
+.song .lyr i{font-style:italic;color:rgba(255,255,255,.5)}
+.song .lyr b{color:var(--sub);background:rgba(255,226,100,.15);border-radius:4px;padding:0 5px}
+.song .lyr .pt{display:none;font-family:var(--sans);font-size:12px;color:rgba(255,255,255,.45);font-style:italic;margin-top:2px}
+.song.pt-on .lyr .pt{display:block}
+.song-toggle{display:inline-flex;gap:6px;margin-top:14px}
+.song-toggle button{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:1px;padding:7px 13px;border-radius:99px;border:1px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.6);cursor:pointer}
+.song-toggle button.on{border-color:var(--teal);color:var(--teal);background:rgba(18,181,172,.12)}
+
+/* ═══ home do produto · trilha ═══ */
+.module{background:var(--card);border:1px solid var(--hair);border-radius:22px;overflow:hidden;box-shadow:var(--sh);margin-top:18px}
+.mod-cover{position:relative;aspect-ratio:16/6.5;overflow:hidden;background:#101414}
+.mod-cover img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.mod-cover::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 20%,rgba(10,14,14,.82))}
+.mod-cover .mc{position:absolute;left:16px;bottom:12px;z-index:2}
+.mod-cover .mk{font-family:var(--mono);font-size:8.5px;letter-spacing:2px;color:rgba(255,255,255,.7)}
+.mod-cover .mt{color:#fff;font-weight:900;font-size:19px;letter-spacing:-.4px}
+.trilha{padding:8px 0}
+.tr{display:flex;align-items:center;gap:13px;padding:13px 18px;border-bottom:1px solid var(--hair)}
+.tr:last-child{border-bottom:none}
+.tr .st{width:34px;height:34px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;background:var(--panel);color:var(--ink50)}
+.tr.now .st{background:var(--deep);color:#fff;box-shadow:0 6px 16px -5px rgba(11,110,104,.6)}
+.tr.done .st{background:rgba(18,181,172,.15);color:var(--deep)}
+.tr .tt{font-weight:900;font-size:14.5px;letter-spacing:-.2px}
+.tr .td{font-family:var(--mono);font-size:8.5px;letter-spacing:1.5px;color:var(--ink50);margin-top:1px}
+.tr.lock{opacity:.55}
+.tr .badge{margin-left:auto;font-family:var(--mono);font-size:8px;letter-spacing:1px;color:var(--deep);border:1px solid var(--teal);border-radius:99px;padding:4px 9px;white-space:nowrap}
+/* módulo trancado (amanhã) */
+.mod-next{display:flex;gap:13px;align-items:center;background:var(--panel2);border:1.5px dashed rgba(21,32,30,.25);border-radius:18px;padding:14px 16px;margin-top:14px}
+.mod-next img{width:74px;height:48px;object-fit:cover;border-radius:10px;filter:grayscale(.4) brightness(.85)}
+.mod-next .mk{font-family:var(--mono);font-size:8px;letter-spacing:1.5px;color:var(--ink50)}
+.mod-next .mt{font-weight:900;font-size:14.5px;letter-spacing:-.2px}
+.mod-next .md{font-size:12px;color:var(--ink50)}
+
+/* ═══ player · Loop ═══ */
+.player{background:var(--card);border:1px solid var(--hair);border-radius:22px;overflow:hidden;box-shadow:var(--sh);margin:18px 0}
+.loop-id{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 0}
+.loop-id .l{display:flex;align-items:center;gap:10px}
+.loop-id .ic{width:30px;height:30px;flex:none;border-radius:9px;background:var(--deep);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900}
+.loop-id .ic span{display:inline-block;animation:spin 3.2s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.loop-id .ic span{animation:none}}
+.loop-id .t1{font-weight:900;font-size:14.5px;letter-spacing:-.2px;line-height:1.1}
+.loop-id .t2{font-family:var(--mono);font-size:7.5px;letter-spacing:1.5px;color:var(--ink50);margin-top:2px}
+.loopchip{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:1px;color:var(--deep);border:1.5px solid var(--teal);border-radius:99px;padding:6px 11px;white-space:nowrap}
+.track{padding:12px 18px 0}
+.track .rail{position:relative;height:6px;background:rgba(21,32,30,.09);border-radius:99px}
+.track .ab{position:absolute;left:26%;width:34%;top:0;bottom:0;background:rgba(18,181,172,.35);border-radius:99px}
+.track .ab::before,.track .ab::after{content:"";position:absolute;top:-4px;width:3px;height:14px;background:var(--deep);border-radius:2px}
+.track .ab::before{left:0}.track .ab::after{right:0}
+.track .head{position:absolute;top:-3.5px;left:26%;width:13px;height:13px;border-radius:50%;background:var(--deep);border:3px solid #fff;box-shadow:0 2px 6px rgba(21,32,30,.35);animation:sweep 2.4s linear infinite}
+@keyframes sweep{from{left:26%}to{left:57%}}
+@media (prefers-reduced-motion:reduce){.track .head{animation:none}}
+.track .lbl{display:flex;justify-content:space-between;font-family:var(--mono);font-size:8px;letter-spacing:1px;color:var(--ink50);margin-top:7px}
+.track .lbl b{color:var(--deep)}
+.cover{position:relative;margin:14px 18px 0;border-radius:14px;overflow:hidden;aspect-ratio:16/9;background:#101414}
+.cover video{width:100%;height:100%;object-fit:cover}
+.cover.blurred video{filter:blur(8px) brightness(.85)}
+.cover::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(10,14,14,.7))}
+.cover .hud{position:absolute;top:9px;left:11px;z-index:2;font-family:var(--mono);font-size:8px;letter-spacing:1.5px;color:rgba(255,255,255,.8)}
+.cover .hud b{color:#FF6B5B}
+.cover .legenda{position:absolute;left:0;right:0;bottom:9px;z-index:2;text-align:center;padding:0 10px}
+.cover .legenda span{display:inline-block;background:rgba(0,0,0,.75);color:var(--sub);font-weight:700;font-size:11.5px;padding:5px 9px;border-radius:4px}
+.cover .legenda span.off{color:rgba(255,255,255,.45);font-style:italic}
+.p-body{padding:16px 18px 18px}
+.p-controls{display:flex;align-items:center;gap:13px}
+.bigplay{width:58px;height:58px;border-radius:50%;flex:none;background:linear-gradient(135deg,#14C2B8,#0B6E68);display:flex;align-items:center;justify-content:center;box-shadow:0 14px 30px -9px rgba(18,181,172,.6);transition:transform .12s;border:none;cursor:pointer}
+.bigplay:active{transform:scale(.92)}
+.bigplay::after{content:"";width:0;height:0;border-left:18px solid #fff;border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:4px}
+.wavebox{flex:1;display:flex;gap:3px;align-items:center;height:36px}
+.wavebox i{flex:1;border-radius:2px;background:rgba(18,181,172,.35);height:22%}
+.wavebox i:nth-child(2n){height:55%}.wavebox i:nth-child(3n){height:35%}.wavebox i:nth-child(5n){height:82%}.wavebox i:nth-child(7n){height:25%}
+.player.playing .wavebox i{animation:eq .7s ease-in-out infinite alternate}
+.player.playing .wavebox i:nth-child(2n){animation-delay:.12s}.player.playing .wavebox i:nth-child(3n){animation-delay:.2s}
+@keyframes eq{from{transform:scaleY(.5)}to{transform:scaleY(1.25)}}
+.lines{margin-top:15px;display:grid;gap:8px;transition:filter .3s}
+.lines.hid{filter:blur(7px);pointer-events:none;user-select:none}
+.ln{background:var(--panel);border-radius:13px;padding:11px 14px}
+.ln .who{font-family:var(--mono);font-size:8px;font-weight:700;letter-spacing:2px;color:var(--ink50)}
+.ln .en{font-weight:700;font-size:15.5px;margin-top:2px}
+.ln .en mark{background:rgba(255,226,100,.8);border-radius:4px;padding:0 5px;font-weight:900}
+.ln .pt{font-size:13px;color:var(--ink50);margin-top:2px;display:none}
+.player.pt-on .ln .pt{display:block}
+.p-tools{display:flex;gap:8px;margin-top:13px}
+.tool{flex:1;font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:1px;padding:12px;border-radius:12px;border:1.5px solid var(--hair);background:#fff;color:var(--ink70);transition:all .15s;cursor:pointer}
+.tool.on{border-color:var(--teal);color:var(--deep);background:rgba(18,181,172,.07)}
+
+/* chave da cena */
+.key{margin:16px 0;background:#FFFBEB;border:1.5px solid #F0DFA8;border-radius:16px;padding:14px 16px;display:flex;gap:12px;align-items:center}
+.key .k{font-size:19px}
+.key .eq{font-weight:900;font-size:16px}
+.key .eq b{color:var(--gold);background:rgba(255,226,100,.6);border-radius:5px;padding:0 6px}
+.key p{font-size:12.5px;color:var(--ink50);margin-top:1px}
+
+/* ═══ arsenal ═══ */
+.arsenal{display:flex;gap:8px;margin:16px 0 4px;justify-content:center}
+.ars{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.5px;padding:8px 14px;border-radius:99px;border:1.5px dashed var(--hair);color:var(--ink50);background:#fff;transition:all .3s}
+.ars.got{border-style:solid;border-color:var(--teal);color:var(--deep);background:rgba(18,181,172,.08);animation:pop .4s cubic-bezier(.2,1.6,.4,1)}
+@keyframes pop{from{transform:scale(.7)}to{transform:none}}
+.ars-lbl{font-family:var(--mono);font-size:8.5px;letter-spacing:2px;color:var(--ink50);text-align:center;margin-bottom:8px}
+
+/* ═══ medidor ═══ */
+.gauge{background:var(--card);border:1px solid var(--hair);border-radius:22px;padding:26px 22px;margin:18px 0;text-align:center;box-shadow:var(--sh)}
+.gauge .q{font-weight:900;font-size:17.5px;letter-spacing:-.3px}
+.gauge output{display:block;font-size:64px;font-weight:900;letter-spacing:-3px;color:var(--deep);line-height:1.05;margin-top:10px}
+.gauge .u{font-family:var(--mono);font-size:9px;letter-spacing:2.5px;color:var(--ink50);margin-bottom:20px}
+input[type=range]{width:100%;appearance:none;height:8px;border-radius:99px;background:linear-gradient(90deg,#EFC7C0,#BFE9E6);outline:none}
+input[type=range]::-webkit-slider-thumb{appearance:none;width:30px;height:30px;border-radius:50%;background:var(--deep);border:4px solid #fff;box-shadow:0 5px 15px rgba(21,32,30,.3);cursor:grab}
+.rl{display:flex;justify-content:space-between;font-family:var(--mono);font-size:8.5px;letter-spacing:1.5px;color:var(--ink50);margin-top:9px}
+
+/* botões */
+.next{display:block;width:100%;background:var(--deep);color:#fff;font-weight:900;font-size:16px;padding:18px;border-radius:15px;margin-top:10px;letter-spacing:-.2px;border:none;cursor:pointer;transition:background .15s,transform .1s;text-align:center;text-decoration:none}
+.next:hover{background:var(--teal)}
+.next:active{transform:scale(.985)}
+.next:disabled{opacity:.35;cursor:default}
+.skip{display:block;width:100%;margin-top:12px;background:none;border:none;font-family:var(--mono);font-size:10.5px;letter-spacing:1.5px;color:var(--ink50);text-decoration:underline;cursor:pointer;text-align:center}
+
+/* ═══ resultado ═══ */
+.res-kick{font-family:var(--mono);font-size:10.5px;letter-spacing:3px;color:var(--deep);text-align:center;font-weight:700}
+.delta{display:flex;align-items:center;justify-content:center;gap:22px;margin:24px 0 4px;text-align:center}
+.delta .n{font-size:clamp(50px,14vw,68px);font-weight:900;letter-spacing:-4px;line-height:1}
+.delta .b{color:var(--coral)}
+.delta .a{color:var(--deep)}
+.delta .l{font-family:var(--mono);font-size:8.5px;letter-spacing:2.5px;color:var(--ink50);margin-top:8px}
+.delta .ar{font-size:28px;color:var(--ink50)}
+.gain{text-align:center;font-weight:900;font-size:18.5px;letter-spacing:-.4px;margin-top:8px}
+.gain b{color:var(--deep)}
+.gain-sub{font-family:var(--mono);text-align:center;font-size:9.5px;letter-spacing:2px;color:var(--ink50);margin-top:6px}
+
+.card{background:var(--card);border:1px solid var(--hair);border-radius:20px;padding:20px;margin:20px 0;box-shadow:var(--sh)}
+.card .c-k{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:2.5px;color:var(--ink50)}
+.card h3{font-size:21px;font-weight:900;letter-spacing:-.5px;margin-top:6px}
+.card h3.gold{color:var(--gold)}
+.card p{font-size:14.5px;color:var(--ink70);margin-top:6px}
+.card p b{color:var(--ink)}
+/* ═══ laudo do diagnóstico ═══ */
+.card.diag{border:1.5px solid rgba(18,181,172,.35);padding:0;overflow:hidden}
+.dg-head{background:linear-gradient(135deg,rgba(18,181,172,.08),rgba(11,110,104,.04));padding:16px 20px 14px;border-bottom:1px solid var(--hair);display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.dg-badge{flex:none;font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:1.5px;color:#fff;background:var(--deep);border-radius:99px;padding:6px 11px;margin-top:2px;white-space:nowrap}
+.dg-body{padding:16px 20px 18px}
+.dg-spec{margin:4px 0 18px}
+.dg-bar{position:relative;height:10px;border-radius:99px;background:linear-gradient(90deg,#E8B4AC 0%,#F2DE9C 50%,#9CD9D4 100%);border:1px solid var(--hair)}
+.dg-pin{position:absolute;top:-7px;width:24px;height:24px;border-radius:50%;background:#fff;border:3px solid var(--deep);box-shadow:0 4px 12px rgba(11,110,104,.35);transform:translateX(-50%);transition:left 1s cubic-bezier(.2,1,.3,1)}
+.dg-zones{display:flex;justify-content:space-between;margin-top:8px}
+.dg-zones span{font-family:var(--mono);font-size:8px;letter-spacing:1px;color:var(--ink50);flex:1;text-align:center}
+.dg-zones span:first-child{text-align:left}.dg-zones span:last-child{text-align:right}
+.dg-zones span.on{color:var(--deep);font-weight:700}
+.dg-k{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:2.5px;color:var(--ink50);margin:16px 0 8px}
+.dg-rx{list-style:none;display:flex;flex-direction:column;gap:8px}
+.dg-rx li{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink70);background:rgba(18,181,172,.05);border:1px solid rgba(18,181,172,.18);border-radius:12px;padding:10px 13px}
+.dg-rx li b{color:var(--ink)}
+.dg-rx .n{flex:none;width:20px;height:20px;border-radius:50%;background:var(--deep);color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.dg-base{font-family:var(--mono);font-size:8.5px;letter-spacing:1.2px;color:var(--ink50);border-top:1px dashed var(--hair);margin-top:16px;padding-top:12px;line-height:1.8}
+
+/* boletim do treino */
+.bl-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--hair);font-size:14.5px;color:var(--ink70)}
+.bl-row b{color:var(--ink);font-weight:900}
+.bl-row b.up{color:var(--deep)}
+.bl-k{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:2px;color:var(--ink50);margin:16px 0 8px}
+.bl-pill{display:flex;align-items:center;gap:8px;font-size:13.5px;padding:9px 12px;border-radius:11px;margin-bottom:6px}
+.bl-pill.on{background:rgba(18,181,172,.08);border:1px solid rgba(18,181,172,.3);color:var(--deep);font-weight:700}
+.bl-pill.off{background:var(--panel2);border:1px dashed rgba(21,32,30,.22);color:var(--ink50)}
+
+/* projeção */
+.proj{background:var(--panel);border:1px solid rgba(18,181,172,.3);border-radius:20px;padding:20px;margin:20px 0}
+.proj .c-k{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:2.5px;color:var(--deep)}
+.proj .row{display:flex;align-items:baseline;gap:12px;margin-top:12px}
+.proj .big{font-size:30px;font-weight:900;letter-spacing:-1.5px;color:var(--deep);min-width:86px;text-align:right}
+.proj .tx{font-size:13.5px;color:var(--ink70);line-height:1.4}
+.proj .tx b{color:var(--ink)}
+.proj .hr{height:1px;background:rgba(18,181,172,.25);margin:6px 0 0}
+
+.final-cta{display:block;text-align:center;background:var(--deep);color:#fff;font-weight:900;font-size:17px;padding:20px;border-radius:15px;text-decoration:none;margin-top:22px;transition:background .15s}
+.final-cta:hover{background:var(--teal)}
+.final-sub{font-family:var(--mono);text-align:center;font-size:9.5px;letter-spacing:2px;color:var(--ink50);margin-top:12px}
+
+footer{border-top:1px solid var(--hair);padding:24px 20px 40px;text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--ink50)}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="top-in"><div class="logo">FLUENCY <b>ROUTE</b></div><div class="top-tag" id="topTag">SEU TREINO</div></div>
+  <div class="segs"><div class="seg" id="g0"><i></i></div><div class="seg" id="g1"><i></i></div><div class="seg" id="g2"><i></i></div><div class="seg" id="g3"><i></i></div><div class="seg" id="g4"><i></i></div><div class="seg" id="g5"><i></i></div><div class="seg" id="g6"><i></i></div></div>
+</div>
+
+<main>
+
+<!-- ═══ 0 · BOAS-VINDAS + NÍVEL ═══ -->
+<section class="scr on" id="sc0">
+  <div class="kick">SEU PRIMEIRO LOOP DE REPETIÇÃO</div>
+  <h1>Bem-vindo ao treino que coloca seu inglês no automático.</h1>
+  <div class="manu">
+    <button class="mp" data-tts="intro" aria-label="ouvir a Manu"></button>
+    <div><div class="who">MANU · SUA PROFESSORA</div>
+    <div class="say">“Oi! Eu sou a Manu. Antes de começar, me diz rapidinho onde você tá — <b>pra eu regular o treino pra você</b>, não pra te julgar. Aqui ninguém reprova.”</div></div>
+  </div>
+  <input class="name-in" id="nome" placeholder="Seu primeiro nome (opcional)" autocomplete="given-name">
+  <div class="opts">
+    <button class="opt" data-lv="zero"><span class="oi">🌱</span><span><span class="ot">Básico travado</span><br><span class="od">sei umas palavras, mas nativo falando é ruído</span></span></button>
+    <button class="opt" data-lv="travado"><span class="oi">🧱</span><span><span class="ot">Entendo, mas travo</span><br><span class="od">leio bem, mas escutar/falar é outra história</span></span></button>
+    <button class="opt" data-lv="solto"><span class="oi">🚀</span><span><span class="ot">Me viro</span><br><span class="od">converso, mas série sem legenda ainda me pega</span></span></button>
+  </div>
+  <button class="next" id="startBtn" disabled onclick="startTraining()">COMEÇAR MEU TREINO ▶</button>
+</section>
+
+<!-- ═══ H · HOME DO PRODUTO ═══ -->
+<section class="scr" id="scH">
+  <div class="kick">SEU PLANO DE TREINO</div>
+  <h1 id="homeH1">Módulo 01 tá liberado.</h1>
+  <div class="module">
+    <div class="mod-cover">
+      <img src="assets/poster.jpg" alt="">
+      <div class="mc"><div class="mk">MÓDULO 01 · FRIENDS S01E01</div><div class="mt">O Piloto</div></div>
+    </div>
+    <div class="trilha">
+      <div class="tr now"><div class="st">▶</div><div><div class="tt">Como funciona</div><div class="td">30 SEG · AS 3 REGRAS DO TREINO</div></div><div class="badge">AGORA</div></div>
+      <div class="tr"><div class="st">02</div><div><div class="tt">Medição de ouvido</div><div class="td">SEU PONTO DE PARTIDA</div></div></div>
+      <div class="tr"><div class="st">03</div><div><div class="tt">Loop · O convite</div><div class="td">BLOCO: WANNA</div></div></div>
+      <div class="tr"><div class="st">04</div><div><div class="tt">Loop · A resposta</div><div class="td">BLOCO: GOTTA</div></div></div>
+      <div class="tr"><div class="st">05</div><div><div class="tt">Loop · A despedida</div><div class="td">BLOCO: GONNA</div></div></div>
+      <div class="tr"><div class="st">06</div><div><div class="tt">Entre na cena</div><div class="td">SUA VOZ NA FALA DA MONICA 🎤</div></div></div>
+      <div class="tr"><div class="st">07</div><div><div class="tt">A Música</div><div class="td">OS 3 BLOCOS, CANTADOS 🎵</div></div></div>
+      <div class="tr"><div class="st">08</div><div><div class="tt">A Prova</div><div class="td">O MESMO INGLÊS, SEM LEGENDA</div></div></div>
+      <div class="tr"><div class="st">09</div><div><div class="tt">Seu Resultado</div><div class="td">ANTES → DEPOIS + DIAGNÓSTICO</div></div></div>
+    </div>
+  </div>
+  <div class="mod-next">
+    <img src="assets/teaser_t02.jpg" alt="">
+    <div><div class="mk">MÓDULO 02 · 🔒 DESBLOQUEIA AMANHÃ</div><div class="mt">A Paquera do Ross</div><div class="md">chega no seu email quando liberar</div></div>
+  </div>
+  <button class="next" onclick="showRules()">COMEÇAR O TREINO 01 ▶</button>
+</section>
+
+<!-- ═══ F · COMO FUNCIONA (paradigm shift disfarçado) ═══ -->
+<section class="scr" id="scF">
+  <div class="kick">ANTES DE COMEÇAR · 30 SEGUNDOS</div>
+  <h1>As 3 regras do treino.</h1>
+  <div class="manu">
+    <button class="mp" data-tts="rules" aria-label="ouvir a Manu"></button>
+    <div><div class="who">MANU · COMO FUNCIONA</div>
+    <div class="say">“Aperta o play que <b>eu leio as 3 regras com você</b> — é aqui que a maioria descobre por que nunca funcionou antes.”</div></div>
+  </div>
+  <div class="rules">
+    <div class="rule-c"><div class="rn">REGRA 1</div><div class="rt">Você não vai <s>estudar</s>. Vai <b>treinar</b>.</div><p>Estudar é regra, lista, tradução — inglês pelos olhos. Treinar é o ouvido reconhecendo som real até virar reflexo. <b>Idioma é habilidade, não matéria.</b></p></div>
+    <div class="rule-c"><div class="rn">REGRA 2</div><div class="rt">Repetir o mesmo trecho <b>é o método</b>, não preguiça.</div><p>Seu cérebro não aprende com variedade — aprende com repetição. Cada volta do Loop cola um bloco de som. <b>1 minuto masterizado vale mais que 1 hora de aula rasa.</b></p></div>
+    <div class="rule-c"><div class="rn">REGRA 3</div><div class="rt">Se não entender de primeira: <b>perfeito.</b></div><p>É EXATAMENTE assim que deve ser. O “não entendi” do começo é a medida do quanto seu ouvido vai destravar hoje. <b>Aqui ninguém reprova — se mede.</b></p></div>
+  </div>
+  <button class="next" onclick="go(1)">ENTENDI AS REGRAS · BORA ▶</button>
+</section>
+
+<!-- ═══ 1 · BASELINE ═══ -->
+<section class="scr" id="sc1">
+  <div class="kick">PASSO 1 · O PONTO DE PARTIDA</div>
+  <h1 id="h1base">Primeiro: ouve o inglês cru.</h1>
+  <p class="sub">Sem legenda, sem pausa — na velocidade real. Só presta atenção em <b>quanto você pega</b>.</p>
+  <div class="player" id="pl1">
+    <div class="cover blurred" style="margin-top:16px">
+      <video src="assets/cena_completa.mp4" poster="assets/poster.jpg" playsinline preload="auto"></video>
+      <div class="hud"><b>●</b>&nbsp;FRIENDS · S01E01 · 10s</div>
+      <div class="legenda"><span class="off">[ sem legenda ]</span></div>
+    </div>
+    <div class="p-body">
+      <div class="p-controls">
+        <button class="bigplay" onclick="simPlay('pl1')" aria-label="tocar"></button>
+        <div class="wavebox"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:1.5px;color:var(--ink50);text-align:center;margin-top:12px">1 PLAY SÓ — AQUI NÃO VALE REPETIR</div>
+    </div>
+  </div>
+  <div class="gauge">
+    <div class="q">Sinceramente: quanto você entendeu?</div>
+    <output id="out1">40%</output><div class="u">DO QUE FOI DITO</div>
+    <input type="range" id="range1" min="0" max="100" step="5" value="40">
+    <div class="rl"><span>NADA</span><span>TUDO</span></div>
+  </div>
+  <button class="next" onclick="lockBaseline()">ESSA É MINHA RESPOSTA →</button>
+</section>
+
+<!-- ═══ 2 · ABSOLVIÇÃO ═══ -->
+<section class="scr" id="sc2">
+  <div class="kick">A PRIMEIRA VERDADE</div>
+  <h1 id="absH">É exatamente aí que todo mundo começa.</h1>
+  <div class="manu">
+    <button class="mp" data-tts="absolve" aria-label="ouvir a Manu"></button>
+    <div><div class="who">MANU</div><div class="say" id="absMsg"></div></div>
+  </div>
+  <button class="next" onclick="go(3)">ENTÃO ME PROVA →</button>
+</section>
+
+<!-- ═══ 3-5 · OS 3 LOOPS (JS) ═══ -->
+<section class="scr" id="sc-loop"></section>
+
+<!-- ═══ S · ENTRE NA CENA (shadowing) ═══ -->
+<section class="scr" id="scS">
+  <div class="kick">ENTRE NA CENA · SUA VOZ 🎤</div>
+  <h1>Agora VOCÊ entra na cena.</h1>
+  <div class="manu">
+    <button class="mp" data-tts="shadow" aria-label="ouvir a Manu"></button>
+    <div><div class="who">MANU</div>
+    <div class="say">“Fala uma vez comigo. <b>Ninguém tá ouvindo — nem eu.</b> Você grava, você escuta, você compara com a Monica. Você é o juiz.”</div></div>
+  </div>
+  <div class="rec-zone">
+    <div class="rec-phrase">You <mark>wanna</mark> crash on the couch?</div>
+    <div class="rec-pt">— a fala da Monica, com o bloco que você dominou</div>
+    <button class="recbtn" id="recBtn" onclick="toggleRec()">🎤</button>
+    <div class="rec-hint" id="recHint">TOCA PRA GRAVAR · TOCA DE NOVO PRA PARAR</div>
+    <div class="ab-row">
+      <button class="mine" id="btnMine" disabled onclick="playMine()">▶ MINHA VOZ</button>
+      <button class="orig" onclick="playOrig()">▶ A MONICA</button>
+    </div>
+  </div>
+  <button class="next" id="shadowNext" onclick="didShadow=true; showSong()">FALEI! PRÓXIMO ▶</button>
+  <button class="skip" onclick="showSong()">agora não posso falar — pular</button>
+</section>
+
+<!-- ═══ M · A MÚSICA ═══ -->
+<section class="scr" id="scM">
+  <div class="kick">A PARTE QUE NENHUM CURSO TEM 🎵</div>
+  <h1>Seus 3 blocos… numa música.</h1>
+  <div class="manu">
+    <button class="mp" data-tts="song" aria-label="ouvir a Manu"></button>
+    <div><div class="who">MANU</div>
+    <div class="say">“Aperta o play e deixa tocar. <b>Se grudar na cabeça, é porque tá funcionando</b> — repetição por prazer é treino que não pesa.”</div></div>
+  </div>
+  <div class="song" id="songBox">
+    <div class="s-k">FAIXA OFICIAL DO MÉTODO</div>
+    <div class="s-t">How English Really Sounds</div>
+    <div class="s-sub">os blocos de som do inglês real — cantados</div>
+    <div class="s-play">
+      <button class="sp" onclick="playSong()" aria-label="tocar música"></button>
+      <div class="swave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+    <div class="song-toggle">
+      <button id="sgEN" class="on" onclick="songLang('en')">EN</button>
+      <button id="sgPT" onclick="songLang('pt')">EN + PT</button>
+    </div>
+    <div class="lyr">
+      <div class="lk">INTRO</div>
+      <div class="lrow">In class they teach you <i>going to, want to, have got to</i>. But in real life you hear <b>gonna</b>, <b>wanna</b>, and <b>gotta</b>. These are the sounds of REAL spoken English.<span class="pt">Na escola te ensinam “going to, want to, have got to”. Mas na vida real você ouve gonna, wanna, gotta — os sons do inglês REAL falado.</span></div>
+      <div class="lk">VERSE 1</div>
+      <div class="lrow">I'm <b>gonna</b> go — I'm <b>gonna</b> stay — I'm <b>gonna</b> try a different way<span class="pt">Eu vou ir — eu vou ficar — eu vou tentar de um jeito diferente</span></div>
+      <div class="lrow">I'm <b>gonna</b> call you — <b>gonna</b> be late — <b>gonna</b> figure out my fate<span class="pt">Eu vou te ligar — vou me atrasar — vou descobrir meu destino</span></div>
+      <div class="lrow">She's <b>gonna</b> love it — he's <b>gonna</b> cry — we're <b>gonna</b> make it — <b>gonna</b> fly<span class="pt">Ela vai amar — ele vai chorar — nós vamos conseguir — vamos voar</span></div>
+      <div class="lrow">They're <b>gonna</b> come — <b>gonna</b> bring food — <b>gonna</b> put me in a better mood<span class="pt">Eles vão vir — vão trazer comida — vão me deixar de bom humor</span></div>
+      <div class="lk">CHORUS</div>
+      <div class="lrow"><b>Gonna</b> — <b>wanna</b> — <b>gotta</b> — that's how we really talk<span class="pt">Gonna, wanna, gotta — é assim que a gente fala de verdade</span></div>
+      <div class="lrow"><b>Gonna</b> go — <b>wanna</b> stay — <b>gotta</b> walk the walk<span class="pt">Vou ir — quero ficar — tenho que fazer acontecer</span></div>
+      <div class="lrow">I'm <b>gonna</b> try — I <b>wanna</b> know — I <b>gotta</b> leave right now<span class="pt">Eu vou tentar — eu quero saber — eu tenho que ir agora</span></div>
+      <div class="lrow"><b>Gonna wanna gotta</b> — let me show you how<span class="pt">Gonna wanna gotta — deixa eu te mostrar como</span></div>
+    </div>
+    <audio id="songAudio" src="https://petrtewismhpzidcmmwb.supabase.co/storage/v1/object/public/media/musicas/fase1/23A.mp3" preload="none"></audio>
+  </div>
+  <button class="next" onclick="go(6)">IR PRA PROVA FINAL ▶</button>
+</section>
+
+<!-- ═══ 6 · PROVA ═══ -->
+<section class="scr" id="sc6">
+  <div class="kick">A PROVA FINAL</div>
+  <h1>O mesmo inglês.<br>Sem rede.</h1>
+  <p class="sub">Inteiro, sem pausa, sem legenda. Presta atenção no que o seu ouvido faz <b>agora</b>.</p>
+  <div class="ars-lbl" style="margin-top:18px">SEU ARSENAL DE HOJE</div>
+  <div class="arsenal"><span class="ars got">wanna ✓</span><span class="ars got">gotta ✓</span><span class="ars got">gonna ✓</span></div>
+  <div class="player" id="pl6">
+    <div class="cover blurred" style="margin-top:16px">
+      <video src="assets/cena_completa.mp4" poster="assets/poster.jpg" playsinline preload="auto"></video>
+      <div class="hud"><b>●</b>&nbsp;O REPLAY · 10s</div>
+      <div class="legenda"><span class="off">[ sem legenda — por escolha SUA ]</span></div>
+    </div>
+    <div class="p-body">
+      <div class="p-controls">
+        <button class="bigplay" onclick="simPlay('pl6')" aria-label="tocar"></button>
+        <div class="wavebox"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+    </div>
+  </div>
+  <div class="gauge">
+    <div class="q">E agora — quanto você entendeu?</div>
+    <output id="out2">40%</output><div class="u">DO QUE FOI DITO</div>
+    <input type="range" id="range2" min="0" max="100" step="5" value="40">
+    <div class="rl"><span>NADA</span><span>TUDO</span></div>
+  </div>
+  <button class="next" onclick="showResult()">REVELAR MEU RESULTADO →</button>
+</section>
+
+<!-- ═══ 7 · RESULTADO ═══ -->
+<section class="scr" id="sc7">
+  <div class="res-kick" id="resKick">SEU OUVIDO · HOJE</div>
+  <div class="delta">
+    <div><div class="n b" id="dB">0%</div><div class="l">ANTES</div></div>
+    <div class="ar">→</div>
+    <div><div class="n a" id="dA">0%</div><div class="l">DEPOIS</div></div>
+  </div>
+  <div class="gain" id="gainLine"></div>
+  <div class="gain-sub">SEM DECORAR · SEM ESTUDAR · SÓ O LOOP</div>
+
+  <div class="card">
+    <div class="c-k">SEU ARSENAL DE HOJE — 3 BLOCOS DE SOM</div>
+    <div class="arsenal" style="justify-content:flex-start;margin:12px 0 4px">
+      <span class="ars got">wanna ✓</span><span class="ars got">gotta ✓</span><span class="ars got">gonna ✓</span>
+    </div>
+    <p>Esses três blocos aparecem em <b>praticamente toda conversa</b> em inglês. Você não decorou eles — <b>seu ouvido aprendeu a reconhecer</b>. É diferente. E é permanente.</p>
+  </div>
+
+  <div class="proj">
+    <div class="c-k">A MATEMÁTICA DO SEU OUVIDO</div>
+    <div class="row"><div class="big">3</div><div class="tx">blocos de som dominados <b>em 5 minutos</b> — hoje, do zero</div></div>
+    <div class="hr"></div>
+    <div class="row"><div class="big">~500</div><div class="tx">blocos formam <b>+80% de tudo</b> que se fala numa série americana <i>(contamos, palavra por palavra, em 703 episódios)</i></div></div>
+    <div class="hr"></div>
+    <div class="row"><div class="big" id="projDias">30 dias</div><div class="tx">é o ritmo do método completo pra colocar <b>o essencial no automático</b> — treinando menos tempo por dia do que você gasta escolhendo o que assistir</div></div>
+  </div>
+
+  <div class="card">
+    <div class="c-k">SEU BOLETIM DO TREINO 01</div>
+    <div class="bl-row"><span>Seu nível</span><b id="blNivel">—</b></div>
+    <div class="bl-row"><span>Compreensão do ouvido</span><b class="up" id="blComp">—</b></div>
+    <div class="bl-row"><span>Blocos de som dominados</span><b class="up">3 / 3 ✓</b></div>
+    <div class="bl-row"><span>Fala treinada (shadowing)</span><b id="blShadow">—</b></div>
+    <div class="bl-k">✅ O QUE VOCÊ DESBLOQUEOU HOJE</div>
+    <div class="bl-pill on">👂 Ouvido — Loop de Repetição</div>
+    <div class="bl-pill on">🎤 Fala — Shadowing com feedback</div>
+    <div class="bl-pill on">🎵 Memória — o bloco cantado</div>
+    <div class="bl-k">🔒 O QUE AINDA TÁ TRANCADO PRA VOCÊ</div>
+    <div class="bl-pill off">🔒 Conversa ao vivo com a Manu, por voz</div>
+    <div class="bl-pill off">🔒 Plano de 30 dias — o essencial no automático</div>
+    <div class="bl-pill off">🔒 Séries inteiras, sem legenda nenhuma</div>
+  </div>
+
+  <div class="card diag">
+    <div class="dg-head">
+      <div>
+        <div class="c-k">DIAGNÓSTICO DO OUVIDO · TREINO 01</div>
+        <h3 class="gold" id="dgName" style="margin-top:6px">—</h3>
+      </div>
+      <div class="dg-badge" id="dgBadge">PERFIL —</div>
+    </div>
+    <div class="dg-body">
+      <div class="dg-spec">
+        <div class="dg-bar"><div class="dg-pin" id="dgPin" style="left:8%"></div></div>
+        <div class="dg-zones"><span id="dgZ1">MODO LEITURA</span><span id="dgZ2">TRADUTOR</span><span id="dgZ3">REFINO</span></div>
+      </div>
+      <p id="dgText">—</p>
+      <div class="dg-k">O QUE DESTRAVA PRIMEIRO NO SEU CASO</div>
+      <ul class="dg-rx" id="dgRx"></ul>
+      <div class="dg-base">BASEADO EM: MEDIÇÃO ANTES/DEPOIS · 3 LOOPS DE REPETIÇÃO · SHADOWING · PROVA SEM LEGENDA</div>
+    </div>
+  </div>
+
+  <div class="manu">
+    <button class="mp" data-tts="final" aria-label="ouvir a Manu"></button>
+    <div><div class="who">MANU</div><div class="say" id="manuFinal"></div></div>
+  </div>
+
+  <div class="mod-next">
+    <img src="assets/teaser_t02.jpg" alt="">
+    <div><div class="mk">MÓDULO 02 · 🔒 DESBLOQUEIA AMANHÃ</div><div class="mt">A Paquera do Ross</div><div class="md">fica de olho no seu email 😉</div></div>
+  </div>
+  <a class="final-cta" id="vslLink" href="#VSL_URL_AQUI">QUERO A ROTA COMPLETA AGORA ▶</a>
+  <div class="final-sub">ISSO FOI O TREINO 01 · A ROTA É O CAMINHO INTEIRO</div>
+</section>
+
+</main>
+<footer>FLUENCY ROUTE © 2026 · LOOP DE REPETIÇÃO — TREINO GRATUITO</footer>
+
+<script>
+/* ═════════ ASSETS — wiring ═════════
+   TODO: trocar hero_loop.mp4 pelos cortes A-B reais de cada bloco (ffmpeg no cena10_full.mp4,
+   timestamps a marcar) + cena completa COM SOM no baseline/prova + TTS Manu (voz do app). */
+const SCENE_FULL="assets/cena_completa.mp4"; // diálogo inteiro, com áudio (cortado por Whisper word-level)
+const BLOCKS=[
+  { title:"O convite", chip:"wanna", src:"assets/bloco1.mp4", dur:"0:05",
+    lines:[{who:"MONICA",en:"Well, that's it.",pt:"Bom, é isso."},
+           {who:"MONICA",en:"You <mark>want to</mark> crash on the couch?",pt:"Você quer dormir no sofá?"}],
+    key:{eq:"want to → <b>wanna</b>", note:"As palavras colam. Você conhece as duas — nunca ouviu o bloco."},
+    manu:null },
+  { title:"A resposta", chip:"gotta", src:"assets/bloco2.mp4", dur:"0:03",
+    lines:[{who:"RACHEL",en:"No. No, I <mark>got to</mark> go home sometime.",pt:"Não. Não, uma hora eu tenho que ir pra casa."}],
+    key:{eq:"got to → <b>gotta</b>", note:"O T some, vira um bloco só. A escola nunca te contou que isso existe."},
+    manu:"“Sentiu? <b>Nativo fala em blocos de som.</b> A escola te deu as palavras soltas — ninguém te deu os blocos. Não era você. Era o treino errado.”" },
+  { title:"A despedida", chip:"gonna", src:"assets/bloco3.mp4", dur:"0:03",
+    lines:[{who:"MONICA",en:"You <mark>going to</mark> be okay?",pt:"Você vai ficar bem?"},
+           {who:"RACHEL",en:"Yeah.",pt:"Vou."}],
+    key:{eq:"going to → <b>gonna</b>", note:"O bloco mais falado do inglês — e o menos ensinado na escola."},
+    manu:"“Último bloco. Repara: <b>1 minuto, repetido até masterizar.</b> Dose pequena, profundidade máxima. É por isso que funciona.”" }
+];
+/* voz REAL da Manu — OpenAI tts-1 "nova" (mesma do app), gerada 05/07 */
+const MANU_AUDIO={intro:"assets/manu/intro.mp3",rules:"assets/manu/rules.mp3",
+  absolve_zero:"assets/manu/absolve_zero.mp3",absolve_travado:"assets/manu/absolve_travado.mp3",absolve_solto:"assets/manu/absolve_solto.mp3",
+  shift2:"assets/manu/shift2.mp3",shift3:"assets/manu/shift3.mp3",shadow:"assets/manu/shadow.mp3",song:"assets/manu/song.mp3",
+  final_t1:"assets/manu/final_t1.mp3",final_t2:"assets/manu/final_t2.mp3",final_t3:"assets/manu/final_t3.mp3"};
+let manuA=null;
+function playManu(key){
+  const src=MANU_AUDIO[key]; if(!src) return;
+  if(manuA) manuA.pause();
+  document.querySelectorAll("video").forEach(v=>v.pause());
+  manuA=new Audio(src); manuA.play().catch(()=>{}); // se autoplay bloquear, o botão da Manu resolve
+}
+/* CONFIG de wiring */
+const LM_CONFIG={ TRACK_URL:"/api/funil-lead", VSL_URL:"/vsl2" };
+function track(ev,extra){
+  const p=JSON.stringify({ev,nome,nivel,baseline,fin,...extra,t:Date.now()});
+  if(LM_CONFIG.TRACK_URL){ try{navigator.sendBeacon(LM_CONFIG.TRACK_URL,p)}catch(e){} }
+}
+/* persistência — retomar de onde parou */
+function saveSt(stage){ try{localStorage.setItem("lm_st",JSON.stringify({stage,nome,nivel,baseline,fin,didShadow}))}catch(e){} track(stage); }
+
+const ABSOLVE={
+  zero:  `“Perfeito. E olha só o que ninguém nunca te disse: isso <b>não é falta de inglês</b>. O canal do seu ouvido simplesmente nunca foi ligado — você só conheceu inglês pelos olhos. E canal desligado <b>liga rápido</b>, do jeito certo. Deixa eu te provar.”`,
+  travado:`“Perfeito. E presta atenção: <b>você conhece quase todas essas palavras — escritas.</b> O que você nunca treinou foi reconhecer elas faladas, coladas, do jeito que nativo fala. Não é falta de estudo. É falta de TREINO. Deixa eu te provar a diferença.”`,
+  solto: `“Olha só — teu ouvido já pega bastante. Então vamos direto ao que te separa do 100%: <b>os blocos de som</b> que ninguém te mostrou. No teu nível, isso destrava rápido. Bora.”`
+};
+const DIAG_RX={
+  t1:["<b>Ligar o canal do som</b> — Loops diários de 5 min (o primeiro você já fez hoje)",
+      "<b>Blocos de alta frequência primeiro</b> — wanna/gotta/gonna foi só a porta de entrada",
+      "<b>Zero gramática nova por 30 dias</b> — seu gargalo é ouvido, não regra"],
+  t2:["<b>Automatizar</b> — repetir cada bloco até o significado vir SEM passar pelo português",
+      "<b>Shadowing diário</b> — falar cola o som mais fundo do que só ouvir",
+      "<b>Velocidade nativa crua</b> — cena sem pausa, o ouvido acompanha ou se adapta"],
+  t3:["<b>Refino de arsenal</b> — os ~497 blocos que ainda faltam no seu automático",
+      "<b>Sem legenda como padrão</b> — legenda vira conferência, não muleta",
+      "<b>Conversa ao vivo</b> — converter ouvido forte em fala solta"]};
+const DIAG_POS={t1:"14%",t2:"50%",t3:"86%"};
+const DIAG={
+  t1:{name:"Ouvido em Modo Leitura",
+      diag:"Você aprendeu inglês pelos olhos — o canal do ouvido nunca foi ligado. Por isso fala nativa vira ruído. E você acabou de sentir a notícia boa: ele liga rápido, com o treino certo.",
+      manu:(n)=>`“${n}viu o que aconteceu no replay? Isso com o canal do ouvido <b>desligado a vida inteira</b>. E foi UM loop. A Rota completa é isso todo dia — com plano, progressão e comigo do teu lado. Assiste o vídeo aí embaixo. <b>Te espero lá dentro.”</b>`},
+  t2:{name:"Ouvido Tradutor",
+      diag:"Você entende traduzindo por dentro — e tradução não acompanha nativo. Seu próximo nível não é mais conhecimento: é AUTOMATIZAÇÃO. O som virando significado direto, sem passar pelo português.",
+      manu:(n)=>`“${n}o que você viveu agora foi o som virando significado <b>direto</b>, sem tradução no meio. UM loop fez isso. A Rota completa é essa virada, bloco por bloco, até a série inteira. Assiste o vídeo aí embaixo. <b>Te espero lá dentro.”</b>`},
+  t3:{name:"Ouvido Forte — falta o refino",
+      diag:"Seu ouvido é bom. O que te derruba são os blocos que a escola nunca mostrou — wanna, gotta, gonna e os outros ~497. Teu caso é refino. E refino é a parte rápida.",
+      manu:(n)=>`“${n}teu caso é refino — e refino é <b>rápido</b>. Você dominou 3 blocos em 5 minutos; imagina o arsenal completo. A Rota é exatamente esse caminho. Assiste o vídeo aí embaixo. <b>Te espero lá.”</b>`}
+};
+
+/* ═════════ estado ═════════ */
+let nome="", nivel="", baseline=null, fin=null, blk=0, loops=[0,0,0], didShadow=false;
+const NSCR=8; // 0..7
+function seg(i){for(let k=0;k<7;k++)document.getElementById("g"+k).classList.toggle("done",k<i)}
+/* para TODA mídia ao trocar de tela (bug: música/vídeo continuavam tocando) */
+function stopAllMedia(){
+  const s=document.getElementById("songAudio"); if(s)s.pause();
+  const sb=document.getElementById("songBox"); if(sb)sb.classList.remove("playing");
+  document.querySelectorAll("video").forEach(v=>{try{v.pause()}catch(e){}});
+  document.querySelectorAll(".player").forEach(p=>p.classList.remove("playing"));
+  if(typeof manuA!=="undefined"&&manuA)manuA.pause();
+  if(typeof myAudio!=="undefined"&&myAudio)myAudio.pause();
+  if(typeof origAudio!=="undefined"&&origAudio)origAudio.pause();
+}
+function go(n){
+  stopAllMedia();
+  document.querySelectorAll(".scr").forEach(s=>s.classList.remove("on"));
+  if(n>=3&&n<=5){renderLoop(n-3);document.getElementById("sc-loop").classList.add("on")}
+  else document.getElementById("sc"+n).classList.add("on");
+  seg(n);window.scrollTo({top:0,behavior:"smooth"});
+  const tags=["SEU TREINO","PASSO 1 · MEDIR","A VERDADE","LOOP 1/3","LOOP 2/3","LOOP 3/3","A PROVA","RESULTADO"];
+  document.getElementById("topTag").textContent=tags[n];
+}
+
+/* ═════════ retomada — continuar de onde parou ═════════ */
+(function(){
+  try{
+    const s=JSON.parse(localStorage.getItem("lm_st")||"null");
+    if(!s||!s.stage||s.stage==="resultado") return;
+    const bar=document.createElement("div");
+    bar.style.cssText="max-width:500px;margin:0 auto;padding:12px 20px;background:#EDF4F2;border-bottom:1px solid rgba(18,181,172,.3);display:flex;justify-content:space-between;align-items:center;gap:10px";
+    bar.innerHTML=`<span style="font-size:13.5px;font-weight:700">${s.nome?s.nome+", seu":"Seu"} treino ficou te esperando 👋</span>
+      <button id="resumeBtn" style="background:#0B6E68;color:#fff;font-weight:900;font-size:12px;border:none;border-radius:99px;padding:9px 16px;cursor:pointer">CONTINUAR →</button>`;
+    document.querySelector(".top").appendChild(bar);
+    document.getElementById("resumeBtn").onclick=()=>{
+      nome=s.nome||"";nivel=s.nivel||"travado";baseline=s.baseline;
+      bar.remove();
+      const st=s.stage;
+      if(st==="rules") showRules();
+      else if(st==="absolve"||st==="loop1_done") go(3+(st==="loop1_done"?1:0));
+      else if(st==="loop2_done") go(5);
+      else if(st==="loop3_done"||st==="shadow"){ showScr("scS","ENTRE NA CENA",6); playManu("shadow"); }
+      else if(st==="song") showSong();
+      else go(1);
+    };
+  }catch(e){}
+})();
+
+/* ═════════ MODO APP — quem concluiu revisita livre (acesso permanente) ═════════ */
+(function appMode(){
+  try{
+    if(localStorage.getItem("lm_done")!=="1") return;
+    const s=JSON.parse(localStorage.getItem("lm_st")||"{}");
+    nome=s.nome||""; nivel=s.nivel||"travado"; baseline=(s.baseline??20); fin=(s.fin??baseline); didShadow=!!s.didShadow;
+    document.querySelectorAll(".scr").forEach(x=>x.classList.remove("on"));
+    document.getElementById("scH").classList.add("on");
+    document.getElementById("homeH1").textContent = nome? `${nome}, seu treino tá liberado 🔓` : "Seu treino tá liberado 🔓";
+    document.getElementById("topTag").textContent="MODO LIVRE ✓";
+    const jumps=[()=>showRules(),()=>go(1),()=>go(3),()=>go(4),()=>go(5),
+      ()=>{showScr('scS','ENTRE NA CENA',6);playManu('shadow')},()=>showSong(),()=>go(6),
+      ()=>{try{range2.value=fin}catch(e){};showResult()}];
+    document.querySelectorAll("#scH .tr").forEach((tr,i)=>{ tr.style.cursor="pointer"; if(jumps[i]) tr.onclick=jumps[i]; tr.querySelector(".badge")?.remove(); });
+    const sb=document.querySelector('#scH .next'); if(sb){ sb.textContent="VER MEU DIAGNÓSTICO ▶"; sb.onclick=()=>{try{range2.value=fin}catch(e){};showResult()}; }
+  }catch(e){}
+})();
+
+/* ═════════ tela 0 ═════════ */
+document.querySelectorAll(".opt").forEach(o=>o.addEventListener("click",()=>{
+  document.querySelectorAll(".opt").forEach(x=>x.classList.remove("sel"));
+  o.classList.add("sel"); nivel=o.dataset.lv;
+  document.getElementById("startBtn").disabled=false;
+}));
+function startTraining(){
+  nome=document.getElementById("nome").value.trim();
+  // wiring: salvar nome+nível no lead (n8n)
+  document.querySelectorAll(".scr").forEach(s=>s.classList.remove("on"));
+  document.getElementById("scH").classList.add("on");
+  seg(1); window.scrollTo({top:0,behavior:"smooth"});
+  document.getElementById("topTag").textContent="MÓDULO 01 · O PILOTO";
+  if(nome) document.getElementById("homeH1").textContent=`${nome}, seu Módulo 01 tá liberado.`;
+  if(nome) document.getElementById("h1base").textContent=`${nome}, primeiro: ouve o inglês cru.`;
+  saveSt("home");
+}
+
+/* ═════════ áudio REAL — cena cortada por Whisper word-level ═════════ */
+function simPlay(id){
+  const p=document.getElementById(id); if(!p)return;
+  const v=p.querySelector("video"); if(!v)return;
+  document.querySelectorAll("video").forEach(x=>{ if(x!==v){x.pause();} });
+  v.muted=false; v.currentTime=0;
+  p.classList.add("playing");
+  v.onended=()=>p.classList.remove("playing");
+  v.play().catch(()=>{});
+}
+document.addEventListener("click",e=>{
+  const t=e.target.closest("[data-tts]");
+  if(t){ let k=t.dataset.tts;
+    if(k==="absolve") k="absolve_"+(nivel||"travado");
+    if(k==="final")   k="final_"+tier();
+    playManu(k); }
+});
+
+/* ═════════ medidores ═════════ */
+range1.addEventListener("input",e=>out1.textContent=e.target.value+"%");
+range2.addEventListener("input",e=>out2.textContent=e.target.value+"%");
+function lockBaseline(){
+  baseline=+range1.value;
+  const low=baseline<=50;
+  document.getElementById("absH").textContent = nome
+    ? (low?`${nome}, é exatamente aí que todo mundo começa.`:`${nome} — ouvido bom. Vamos subir o sarrafo.`)
+    : (low?"É exatamente aí que todo mundo começa.":"Ouvido bom. Vamos subir o sarrafo.");
+  document.getElementById("absMsg").innerHTML=ABSOLVE[nivel]||ABSOLVE.travado;
+  go(2);
+  playManu("absolve_"+(nivel||"travado"));
+  saveSt("absolve");
+}
+
+/* ═════════ loops ═════════ */
+function renderLoop(i){
+  blk=i;const b=BLOCKS[i];
+  const arsenal=BLOCKS.map((x,k)=>`<span class="ars ${k<i?"got":""}" id="ars${k}">${x.chip}${k<i?" ✓":""}</span>`).join("");
+  const manu=b.manu?`<div class="manu"><button class="mp" aria-label="Manu"></button><div><div class="who">MANU</div><div class="say">${b.manu}</div></div></div>`:"";
+  document.getElementById("sc-loop").innerHTML=`
+    <div class="kick">LOOP ${i+1} DE 3 · ${b.title.toUpperCase()}</div>
+    <div class="ars-lbl" style="margin-top:10px">SEU ARSENAL</div>
+    <div class="arsenal">${arsenal}</div>
+    ${manu}
+    <div class="player ${nivel==="zero"?"pt-on":"pt-off"}" id="plB">
+      <div class="loop-id">
+        <div class="l"><div class="ic"><span>↻</span></div>
+        <div><div class="t1">Loop de Repetição</div><div class="t2">MESMO TRECHO · ATÉ O AUTOMÁTICO</div></div></div>
+        <div class="loopchip" id="loopChip">↻ ×${loops[i]}</div>
+      </div>
+      <div class="track">
+        <div class="rail"><div class="ab"></div><div class="head"></div></div>
+        <div class="lbl"><span>0:00</span><b>A ══ TRECHO EM LOOP ══ B</b><span>${b.dur}</span></div>
+      </div>
+      <div class="cover">
+        <video src="${b.src}" poster="assets/poster.jpg" playsinline preload="auto" loop></video>
+        <div class="hud"><b>●</b>&nbsp;FRIENDS · S01E01 · ${b.dur}</div>
+        <div class="legenda"><span id="legTag">legenda ligada — lê junto</span></div>
+      </div>
+      <div class="p-body">
+        <div class="p-controls">
+          <button class="bigplay" onclick="playLoop()" aria-label="tocar"></button>
+          <div class="wavebox"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+        <div class="lines" id="lines">${b.lines.map(l=>`<div class="ln"><div class="who">${l.who}</div><div class="en">${l.en}</div><div class="pt">${l.pt}</div></div>`).join("")}</div>
+        <div class="p-tools">
+          <button class="tool ${nivel==="zero"?"on":""}" onclick="tgPT(this)">PT</button>
+          <button class="tool on" id="tLeg" onclick="tgLeg(this)">LEGENDA ON</button>
+        </div>
+      </div>
+    </div>
+    <div class="key"><div class="k">🔑</div><div><div class="eq">${b.key.eq}</div><p>${b.key.note}</p></div></div>
+    <button class="next" id="domBtn" onclick="dominate(${i})">DOMINEI ESSE BLOCO ✓</button>
+    <div style="font-family:var(--mono);font-size:9px;letter-spacing:1.5px;color:var(--ink50);text-align:center;margin-top:10px">O OUVIDO COSTUMA COLAR ENTRE A 3ª E A 5ª VOLTA · DEPOIS DESLIGA A LEGENDA E CONFERE</div>`;
+}
+function playLoop(){
+  const p=document.getElementById("plB"), v=p.querySelector("video");
+  loops[blk]++;
+  const c=document.getElementById("loopChip"); if(c)c.textContent="↻ ×"+loops[blk];
+  document.querySelectorAll("video").forEach(x=>{ if(x!==v){x.pause();} });
+  v.muted=false; v.currentTime=0; p.classList.add("playing");
+  /* loop REAL: o clipe É o trecho A-B — cada volta conta no chip */
+  let last=0;
+  v.ontimeupdate=()=>{ if(v.currentTime<last-0.3){ loops[blk]++; if(c)c.textContent="↻ ×"+loops[blk]; } last=v.currentTime; };
+  v.play().catch(()=>{});
+}
+function tgPT(b){b.classList.toggle("on");document.getElementById("plB").classList.toggle("pt-on")}
+function tgLeg(b){
+  const box=document.getElementById("lines"),on=b.classList.toggle("on");
+  box.classList.toggle("hid",!on);
+  b.textContent=on?"LEGENDA ON":"LEGENDA OFF";
+  document.getElementById("legTag").textContent=on?"legenda ligada — lê junto":"legenda desligada — só ouvido";
+}
+function dominate(i){
+  const a=document.getElementById("ars"+i);
+  if(a){a.classList.add("got");a.textContent=BLOCKS[i].chip+" ✓"}
+  saveSt("loop"+(i+1)+"_done");
+  setTimeout(()=>{ if(i<2){ go(i+4); playManu(i===0?"shift2":"shift3"); } else { showScr("scS","ENTRE NA CENA",6); playManu("shadow"); saveSt("shadow"); } },450);
+}
+
+/* ═══ telas nomeadas (regras / shadowing / música) ═══ */
+function showScr(id,tag,segN){
+  stopAllMedia();
+  document.querySelectorAll(".scr").forEach(s=>s.classList.remove("on"));
+  document.getElementById(id).classList.add("on");
+  seg(segN); window.scrollTo({top:0,behavior:"smooth"});
+  document.getElementById("topTag").textContent=tag;
+}
+function showRules(){ showScr("scF","AS 3 REGRAS",1); playManu("rules"); saveSt("rules"); }
+function showSong(){ stopRec(); showScr("scM","A MÚSICA 🎵",6); playManu("song"); saveSt("song"); }
+
+/* ═══ shadowing · gravador ═══ */
+let mediaRec=null, chunks=[], myURL=null, recording=false;
+async function toggleRec(){
+  const btn=document.getElementById("recBtn"), hint=document.getElementById("recHint");
+  if(recording){ stopRec(); return; }
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    chunks=[]; mediaRec=new MediaRecorder(stream);
+    mediaRec.ondataavailable=e=>chunks.push(e.data);
+    mediaRec.onstop=()=>{
+      stream.getTracks().forEach(t=>t.stop());
+      if(myURL) URL.revokeObjectURL(myURL);
+      myURL=URL.createObjectURL(new Blob(chunks,{type:mediaRec.mimeType}));
+      document.getElementById("btnMine").disabled=false;
+      hint.textContent="GRAVADO! AGORA COMPARA: SUA VOZ × O ROSS";
+    };
+    mediaRec.start(); recording=true;
+    btn.classList.add("rec"); btn.textContent="■";
+    hint.textContent="GRAVANDO… FALA A FRASE E TOCA PRA PARAR";
+  }catch(e){ hint.textContent="MICROFONE BLOQUEADO — PODE PULAR, SEM CRISE 😉"; }
+}
+function stopRec(){
+  if(recording && mediaRec){ mediaRec.stop(); }
+  recording=false;
+  const btn=document.getElementById("recBtn");
+  if(btn){ btn.classList.remove("rec"); btn.textContent="🎤"; }
+}
+let myAudio=null, origAudio=null;
+function playMine(){ if(!myURL)return; if(origAudio)origAudio.pause(); if(myAudio)myAudio.pause(); myAudio=new Audio(myURL); myAudio.play(); }
+function playOrig(){ if(myAudio)myAudio.pause(); if(origAudio)origAudio.pause(); origAudio=new Audio("assets/bloco1.mp4"); origAudio.play(); }
+
+/* ═══ música ═══ */
+function playSong(){
+  const box=document.getElementById("songBox"), a=document.getElementById("songAudio");
+  document.querySelectorAll("video").forEach(x=>x.pause());
+  if(typeof manuA!=="undefined"&&manuA)manuA.pause();
+  if(typeof myAudio!=="undefined"&&myAudio)myAudio.pause();
+  if(typeof origAudio!=="undefined"&&origAudio)origAudio.pause();
+  if(a.paused){ a.play(); box.classList.add("playing"); } else { a.pause(); box.classList.remove("playing"); }
+  a.onended=()=>box.classList.remove("playing");
+}
+function songLang(l){
+  const box=document.getElementById("songBox");
+  box.classList.toggle("pt-on", l==="pt");
+  document.getElementById("sgEN").classList.toggle("on", l==="en");
+  document.getElementById("sgPT").classList.toggle("on", l==="pt");
+}
+
+/* ═════════ resultado ═════════ */
+function tier(){return baseline<=30?"t1":baseline<=60?"t2":"t3"}
+function cnt(el,to){let v=0;const s=Math.max(1,Math.round(to/38));const t=setInterval(()=>{v=Math.min(to,v+s);el.textContent=v+"%";if(v>=to)clearInterval(t)},26)}
+function showResult(){
+  fin=+range2.value; go(7);
+  document.getElementById("resKick").textContent = nome? `${nome.toUpperCase()} · SEU OUVIDO HOJE` : "SEU OUVIDO · HOJE";
+  cnt(document.getElementById("dB"),baseline);
+  setTimeout(()=>cnt(document.getElementById("dA"),fin),420);
+  const g=fin-baseline;
+  document.getElementById("gainLine").innerHTML = g>0
+    ? `<b>+${g} pontos</b> em 5 minutos. Imagina 30 dias.`
+    : `Medido com honestidade — e isso já te coloca na frente.`;
+  const t=tier(), d=DIAG[t];
+  document.getElementById("dgName").textContent=d.name;
+  document.getElementById("dgText").textContent=d.diag;
+  document.getElementById("dgBadge").textContent="PERFIL "+t.slice(1)+" DE 3";
+  document.getElementById("dgRx").innerHTML=DIAG_RX[t].map((r,i)=>`<li><span class="n">${i+1}</span><span>${r}</span></li>`).join("");
+  ["dgZ1","dgZ2","dgZ3"].forEach((z,i)=>document.getElementById(z).classList.toggle("on","t"+(i+1)===t));
+  setTimeout(()=>{document.getElementById("dgPin").style.left=DIAG_POS[t]},600);
+  document.getElementById("manuFinal").innerHTML=d.manu(nome?nome+", ":"");
+  // boletim
+  const nomeNivel={zero:"Básico travado 🌱",travado:"Entendo, mas travo 🧱",solto:"Me viro 🚀"};
+  document.getElementById("blNivel").textContent=nomeNivel[nivel]||"—";
+  document.getElementById("blComp").textContent=baseline+"% → "+fin+"%"+(g>0?"  (+"+g+")":"");
+  document.getElementById("blShadow").innerHTML=didShadow?'<b class="up">Feito ✓</b>':'Pulou';
+  playManu("final_"+tier());
+  localStorage.setItem("lm_done","1"); // libera modo app (revisita livre)
+  saveSt("resultado");
+  /* handoff personalizado pra página da VSL */
+  document.getElementById("vslLink").href =
+    LM_CONFIG.VSL_URL+"?from=treino&d="+tier()+"&n="+encodeURIComponent(nome||"")+"&delta="+(fin-baseline)+"&nv="+nivel;
+}
+</script>
+</body>
+</html>
