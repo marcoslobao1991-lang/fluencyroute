@@ -207,7 +207,10 @@ const FAQ = [
   },
 ]
 
-export default function RotaFluenciaPage({ alwaysOpen = false }: { alwaysOpen?: boolean }) {
+export default function RotaFluenciaPage({ alwaysOpen = false, vsl2 = false }: { alwaysOpen?: boolean; vsl2?: boolean }) {
+  // ── modo VSL2 (pós-captura do lead magnet): headline + R$49 + checkout próprio ──
+  const PR = vsl2 ? 'R$49' : 'R$29'
+  const CO = vsl2 ? 'https://pay.kiwify.com.br/jTO3lIy' : 'https://pay.kiwify.com.br/DlmRal3'
   const [sticky, setSticky] = useState(false)
   const [revealed, setRevealed] = useState(false)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
@@ -326,6 +329,21 @@ export default function RotaFluenciaPage({ alwaysOpen = false }: { alwaysOpen?: 
 
       {/* ═══ HERO — VIDEO ═══ */}
       <section style={{ maxWidth: 600, margin: '0 auto', padding: '40px 20px 0' }}>
+        {vsl2 && (
+          <div style={{ maxWidth: 460, margin: '0 auto 22px', textAlign: 'center' }}>
+            <p style={{
+              display: 'inline-block', fontSize: 11, letterSpacing: 2.5, textTransform: 'uppercase',
+              fontWeight: 800, color: C.teal, background: `${C.teal}14`,
+              border: `1px solid ${C.teal}44`, borderRadius: 999, padding: '7px 15px',
+            }}>🔓 Seu treino já tá a caminho do seu e-mail</p>
+            <h1 style={{ fontSize: 'clamp(23px, 6vw, 30px)', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-0.03em', marginTop: 14 }}>
+              Enquanto ele chega <span style={{ color: C.t4, fontWeight: 400 }}>(leva uns 5 minutinhos)</span>, assiste isso:
+            </h1>
+            <p style={{ fontSize: 15, color: C.t2, marginTop: 10, lineHeight: 1.6 }}>
+              É a explicação de <strong style={{ color: C.white }}>por que seu ouvido trava</strong> — e a rota completa que destrava ele de vez.
+            </p>
+          </div>
+        )}
         <Fade delay={0.15}>
           <div id="ifr_67d1c8ba61d59aeb47caf87d_wrapper" style={{ maxWidth: 400, margin: '0 auto', borderRadius: 12, overflow: 'hidden', border: `1px solid ${C.border}` }}>
             <div style={{ position: 'relative', paddingTop: '177.78%', background: C.bg2 }} id="ifr_67d1c8ba61d59aeb47caf87d_aspect">
@@ -364,9 +382,9 @@ export default function RotaFluenciaPage({ alwaysOpen = false }: { alwaysOpen?: 
             <p style={{ fontSize: 12, color: C.teal, marginBottom: 24 }}>
               *Últimas vagas com desconto especial
             </p>
-            <PriceBlock />
+            <PriceBlock price={PR} />
             <div style={{ marginTop: 24 }}>
-              <Btn text="QUERO FAZER PARTE" utms={utms} />
+              <Btn text="QUERO FAZER PARTE" utms={utms} checkout={CO} />
             </div>
           </div>
         </Fade>
@@ -430,7 +448,7 @@ export default function RotaFluenciaPage({ alwaysOpen = false }: { alwaysOpen?: 
               </p>
             </div>
             <div style={{ marginTop: 24, textAlign: 'center' }}>
-              <Btn text="COMEÇAR AGORA" utms={utms} />
+              <Btn text="COMEÇAR AGORA" utms={utms} checkout={CO} />
             </div>
           </Glass>
         </Fade>
@@ -477,9 +495,9 @@ export default function RotaFluenciaPage({ alwaysOpen = false }: { alwaysOpen?: 
       <S narrow>
         <Fade>
           <div style={{ textAlign: 'center' }}>
-            <PriceBlock />
+            <PriceBlock price={PR} />
             <div style={{ marginTop: 24 }}>
-              <Btn text="QUERO FAZER PARTE" utms={utms} />
+              <Btn text="QUERO FAZER PARTE" utms={utms} checkout={CO} />
             </div>
           </div>
         </Fade>
@@ -594,7 +612,7 @@ export default function RotaFluenciaPage({ alwaysOpen = false }: { alwaysOpen?: 
 
           <Fade delay={0.2}>
             <div style={{ textAlign: 'center', marginTop: 28 }}>
-              <Btn text="COMEÇAR AGORA" utms={utms} />
+              <Btn text="COMEÇAR AGORA" utms={utms} checkout={CO} />
             </div>
           </Fade>
         </S>
@@ -637,7 +655,7 @@ export default function RotaFluenciaPage({ alwaysOpen = false }: { alwaysOpen?: 
                 <p>&#10003; Feedback Personalizado (R$997) — <span style={{ color: C.teal, fontWeight: 700 }}>GRÁTIS</span></p>
                 <p>&#10003; Suporte Individual por WhatsApp (R$797) — <span style={{ color: C.teal, fontWeight: 700 }}>GRÁTIS</span></p>
                 <p style={{ marginTop: 12, color: C.t1, fontWeight: 700 }}>Total: Mais de R$5.000</p>
-                <p style={{ fontSize: 16, fontWeight: 800, color: C.teal, marginTop: 4 }}>Hoje por apenas R$29/mês</p>
+                <p style={{ fontSize: 16, fontWeight: 800, color: C.teal, marginTop: 4 }}>Hoje por apenas {PR}/mês</p>
               </div>
             </Glass>
           </div>
@@ -673,7 +691,7 @@ export default function RotaFluenciaPage({ alwaysOpen = false }: { alwaysOpen?: 
               </p>
             </div>
             <div style={{ marginTop: 24, textAlign: 'center' }}>
-              <Btn text="GARANTIR MINHA VAGA" utms={utms} />
+              <Btn text="GARANTIR MINHA VAGA" utms={utms} checkout={CO} />
             </div>
           </Glass>
         </Fade>
@@ -736,9 +754,9 @@ export default function RotaFluenciaPage({ alwaysOpen = false }: { alwaysOpen?: 
             <h2 style={{ fontSize: 'clamp(20px, 5vw, 28px)', fontWeight: 800, color: C.t1, letterSpacing: '-0.03em', marginBottom: 20 }}>
               Comece sua jornada rumo à <span style={{ color: C.teal }}>fluência essencial</span> hoje
             </h2>
-            <PriceBlock />
+            <PriceBlock price={PR} />
             <div style={{ marginTop: 24 }}>
-              <Btn text="QUERO FAZER PARTE" utms={utms} />
+              <Btn text="QUERO FAZER PARTE" utms={utms} checkout={CO} />
             </div>
           </div>
         </Fade>
@@ -757,7 +775,7 @@ export default function RotaFluenciaPage({ alwaysOpen = false }: { alwaysOpen?: 
 
       {/* ═══ STICKY CTA ═══ */}
       <div className={`esconder sticky-cta ${sticky ? 'show' : ''}`}>
-        <Btn compact text="COMEÇAR POR R$29/MÊS" utms={utms} />
+        <Btn compact text={`COMEÇAR POR ${PR}/MÊS`} utms={utms} checkout={CO} />
       </div>
     </div>
   )
@@ -821,12 +839,12 @@ function saveCheckoutSession(sessionId: string) {
 // The Kiwify webhook needs sck (not fbclid — Kiwify drops fbclid) to look
 // up the stitch row, so we MUST persist a fresh stitch row at click time
 // with the sck that Vturb just wrote into the href.
-function Btn({ text = 'QUERO FAZER PARTE', compact, utms = {} }: { text?: string; compact?: boolean; utms?: Record<string, string> }) {
+function Btn({ text = 'QUERO FAZER PARTE', compact, utms = {}, checkout = 'https://pay.kiwify.com.br/DlmRal3' }: { text?: string; compact?: boolean; utms?: Record<string, string>; checkout?: string }) {
   const [sid, setSid] = useState('')
   const anchorRef = useRef<HTMLAnchorElement>(null)
   useEffect(() => { setSid(getOrCreateSessionId()) }, [])
   const checkoutUrl = buildCheckoutUrl(
-    'https://pay.kiwify.com.br/DlmRal3',
+    checkout,
     sid ? { ...utms, s1: sid } : utms
   )
   // Last-moment stitch upsert: on mousedown (fires BEFORE click), read the
@@ -892,7 +910,7 @@ function Btn({ text = 'QUERO FAZER PARTE', compact, utms = {} }: { text?: string
 // ═══════════════════════════════════════════════════════════════
 // PRICE BLOCK
 // ═══════════════════════════════════════════════════════════════
-function PriceBlock() {
+function PriceBlock({ price = 'R$29' }: { price?: string }) {
   return (
     <div style={{ textAlign: 'center' }}>
       <span style={{
@@ -913,7 +931,7 @@ function PriceBlock() {
         background: C.gradText, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
         lineHeight: 1.1, marginTop: 4,
       }}>
-        R$29<span style={{ fontSize: '0.45em', fontWeight: 700 }}>/mês</span>
+        {price}<span style={{ fontSize: '0.45em', fontWeight: 700 }}>/mês</span>
       </p>
       <p style={{ fontSize: 13, color: C.t3, marginTop: 4 }}>12x no cartão</p>
     </div>
