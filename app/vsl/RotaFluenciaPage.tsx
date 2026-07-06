@@ -336,11 +336,8 @@ export default function RotaFluenciaPage({ alwaysOpen = false, vsl2 = false }: {
               fontWeight: 700, color: C.teal, background: `${C.teal}12`,
               border: `1px solid ${C.teal}33`, borderRadius: 999, padding: '6px 13px',
             }}>🔓 Treino enviado · chega no seu e-mail em ~5 min</p>
-            <h1 style={{ fontSize: 'clamp(23px, 6vw, 30px)', fontWeight: 800, lineHeight: 1.22, letterSpacing: '-0.03em', marginTop: 14, color: C.t1 }}>
-              Enquanto ele chega: por que seu ouvido trava no inglês falado — <span style={{ color: C.teal }}>e a rota exata pra destravar.</span>
-            </h1>
-            <p style={{ fontSize: 13.5, marginTop: 10, color: C.t2 }}>
-              Assiste agora. O treino sozinho destrava o ouvido — <b style={{ color: C.t1, fontWeight: 700 }}>com a rota do vídeo, ele não volta a travar.</b>
+            <p style={{ fontSize: 15, fontWeight: 700, letterSpacing: '-0.01em', marginTop: 9, color: C.t1 }}>
+              Enquanto ele chega, assiste na prática <span style={{ color: C.teal }}>👇</span>
             </p>
           </div>
         )}
