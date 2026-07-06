@@ -7,7 +7,7 @@
 <meta name="description" content="O Loop de Repetição que coloca o inglês no modo automático. Treino gratuito da Fluency Route.">
 <meta property="og:title" content="Isso é sem graça, mas me deixou fluente em inglês.">
 <meta property="og:description" content="O Loop de Repetição que coloca o inglês no modo automático. Treino gratuito — 5 minutos.">
-<meta property="og:image" content="assets/poster.jpg">
+<meta property="og:image" content="/funil/assets/poster.jpg">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:,">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
@@ -15,8 +15,8 @@
 <!-- ══ CONFIG — preencher antes de publicar ══ -->
 <script>
 const CONFIG = {
-  WEBHOOK_URL: "/api/funil-lead",
-  REDIRECT:    "/treino",
+  WEBHOOK_URL: "https://SEU-N8N.exemplo/webhook/primeira-cena-lead",
+  REDIRECT:    "obrigado.html",
   PIXEL_ID:    "938768337634102"
 };
 </script>
@@ -248,7 +248,7 @@ h1{font-size:clamp(31px,7.8vw,40px);font-weight:900;letter-spacing:-1.4px;line-h
         <div><div class="t1">Loop de Repetição</div><div class="t2">MESMO TRECHO · ATÉ O AUTOMÁTICO</div></div>
       </div>
       <div class="ph-cover">
-        <video src="assets/hero_loop.mp4" poster="assets/poster.jpg" autoplay muted loop playsinline preload="auto"></video>
+        <video src="/funil/assets/hero_loop.mp4" poster="/funil/assets/poster.jpg" autoplay muted loop playsinline preload="auto"></video>
         <div class="ph-hud"><b>●</b>&nbsp;FRIENDS · CENA REAL</div>
         <div class="ph-leg"><span id="phLeg">legenda ligada — lê junto</span></div>
       </div>
@@ -433,15 +433,12 @@ function closeGate(){ document.getElementById("ovl").classList.remove("on"); }
 document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeGate(); });
 
 /* captura progressiva: email DISPARA no passo 1; WhatsApp é upgrade opcional */
-let leadEmail="", leadId=(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random().toString(16).slice(2));
-function utmObj(){const p=new URLSearchParams(location.search),o={};["utm_source","utm_medium","utm_campaign","utm_term","utm_content","fbclid"].forEach(k=>{const v=p.get(k);if(v)o[k]=v});return o;}
-function post(payload){ try{ fetch(CONFIG.WEBHOOK_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id:leadId,utm:utmObj(),...payload}),keepalive:true}); }catch(e){} }
+let leadEmail="";
 function stepEmail(e){
   e.preventDefault();
   leadEmail=document.getElementById("email").value.trim();
   if(!leadEmail) return false;
-  post({email:leadEmail,src:gateSrc});           // salva + dispara email D0
-  if(window.fbq) fbq("track","Lead");
+  // wiring: fetch(CONFIG.WEBHOOK_URL,{method:'POST',body:JSON.stringify({email:leadEmail,src:gateSrc})}) + CAPI Lead
   document.getElementById("step1").style.display="none";
   document.getElementById("step2").style.display="block";
   setTimeout(()=>document.getElementById("zap").focus(),80);
@@ -450,12 +447,12 @@ function stepEmail(e){
 function stepZap(e){
   e.preventDefault();
   const zap=document.getElementById("zap").value.trim();
-  if(zap) post({email:leadEmail,zap,src:gateSrc}); // atualiza lead com whatsapp
+  // wiring: if(zap) fetch(CONFIG.WEBHOOK_URL,{method:'POST',body:JSON.stringify({email:leadEmail,zap,src:gateSrc})})
   finish();
   return false;
 }
 function finish(){
-  window.location.href = CONFIG.REDIRECT + "?e=" + encodeURIComponent(leadEmail) + "&id=" + leadId;
+  window.location.href = CONFIG.REDIRECT + "?e=" + encodeURIComponent(leadEmail);
 }
 </script>
 </body>

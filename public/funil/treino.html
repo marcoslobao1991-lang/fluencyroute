@@ -342,7 +342,7 @@ footer{border-top:1px solid var(--hair);padding:24px 20px 40px;text-align:center
   <h1 id="homeH1">Módulo 01 tá liberado.</h1>
   <div class="module">
     <div class="mod-cover">
-      <img src="assets/poster.jpg" alt="">
+      <img src="/funil/assets/poster.jpg" alt="">
       <div class="mc"><div class="mk">MÓDULO 01 · FRIENDS S01E01</div><div class="mt">O Piloto</div></div>
     </div>
     <div class="trilha">
@@ -358,7 +358,7 @@ footer{border-top:1px solid var(--hair);padding:24px 20px 40px;text-align:center
     </div>
   </div>
   <div class="mod-next" onclick="showM2()" style="cursor:pointer">
-    <img src="assets/teaser_t02.jpg" alt="">
+    <img src="/funil/assets/teaser_t02.jpg" alt="">
     <div><div class="mk">MÓDULO 02 · PRÉVIA LIBERADA ▶</div><div class="mt">A Paquera do Ross</div><div class="md">assiste agora — o treino completo é dentro da Rota</div></div>
   </div>
   <button class="next" onclick="showRules()">COMEÇAR O TREINO 01 ▶</button>
@@ -389,7 +389,7 @@ footer{border-top:1px solid var(--hair);padding:24px 20px 40px;text-align:center
   <p class="sub">Sem legenda, sem pausa — na velocidade real. Só presta atenção em <b>quanto você pega</b>.</p>
   <div class="player" id="pl1">
     <div class="cover blurred" style="margin-top:16px">
-      <video src="assets/cena_completa.mp4" poster="assets/poster.jpg" playsinline preload="auto"></video>
+      <video src="/funil/assets/cena_completa.mp4" poster="/funil/assets/poster.jpg" playsinline preload="auto"></video>
       <div class="hud"><b>●</b>&nbsp;FRIENDS · S01E01 · 10s</div>
       <div class="legenda"><span class="off">[ sem legenda ]</span></div>
     </div>
@@ -497,7 +497,7 @@ footer{border-top:1px solid var(--hair);padding:24px 20px 40px;text-align:center
   <div class="arsenal"><span class="ars got">wanna ✓</span><span class="ars got">gotta ✓</span><span class="ars got">gonna ✓</span></div>
   <div class="player" id="pl6">
     <div class="cover blurred" style="margin-top:16px">
-      <video src="assets/cena_completa.mp4" poster="assets/poster.jpg" playsinline preload="auto"></video>
+      <video src="/funil/assets/cena_completa.mp4" poster="/funil/assets/poster.jpg" playsinline preload="auto"></video>
       <div class="hud"><b>●</b>&nbsp;O REPLAY · 10s</div>
       <div class="legenda"><span class="off">[ sem legenda — por escolha SUA ]</span></div>
     </div>
@@ -587,7 +587,7 @@ footer{border-top:1px solid var(--hair);padding:24px 20px 40px;text-align:center
   </div>
 
   <div class="mod-next" onclick="showM2()" style="cursor:pointer">
-    <img src="assets/teaser_t02.jpg" alt="">
+    <img src="/funil/assets/teaser_t02.jpg" alt="">
     <div><div class="mk">MÓDULO 02 · PRÉVIA LIBERADA ▶</div><div class="mt">A Paquera do Ross</div><div class="md">toca pra assistir agora</div></div>
   </div>
   <a class="final-cta" id="vslLink" href="#VSL_URL_AQUI">QUERO A ROTA COMPLETA AGORA ▶</a>
@@ -601,7 +601,7 @@ footer{border-top:1px solid var(--hair);padding:24px 20px 40px;text-align:center
   <p class="sub">A cena que o Módulo 02 destrincha — inteira, sem cortes. Repara numa coisa: <b>seu ouvido já pega mais do que pegava antes do Treino 01.</b></p>
   <div class="player pt-on" id="plM2">
     <div class="cover">
-      <video src="assets/modulo2_paquera.mp4" poster="assets/teaser_t02.jpg" playsinline preload="none"></video>
+      <video src="/funil/assets/modulo2_paquera.mp4" poster="/funil/assets/teaser_t02.jpg" playsinline preload="none"></video>
       <div class="hud"><b>●</b>&nbsp;FRIENDS · S01E01 · 62s</div>
     </div>
     <div class="p-body">
@@ -631,28 +631,28 @@ footer{border-top:1px solid var(--hair);padding:24px 20px 40px;text-align:center
 /* ═════════ ASSETS — wiring ═════════
    TODO: trocar hero_loop.mp4 pelos cortes A-B reais de cada bloco (ffmpeg no cena10_full.mp4,
    timestamps a marcar) + cena completa COM SOM no baseline/prova + TTS Manu (voz do app). */
-const SCENE_FULL="assets/cena_completa.mp4"; // diálogo inteiro, com áudio (cortado por Whisper word-level)
+const SCENE_FULL="/funil/assets/cena_completa.mp4"; // diálogo inteiro, com áudio (cortado por Whisper word-level)
 const BLOCKS=[
-  { title:"O convite", chip:"wanna", src:"assets/bloco1.mp4", dur:"0:05",
+  { title:"O convite", chip:"wanna", src:"/funil/assets/bloco1.mp4", dur:"0:05",
     lines:[{who:"MONICA",en:"Well, that's it.",pt:"Bom, é isso."},
            {who:"MONICA",en:"You <mark>want to</mark> crash on the couch?",pt:"Você quer dormir no sofá?"}],
     key:{eq:"want to → <b>wanna</b>", note:"As palavras colam. Você conhece as duas — nunca ouviu o bloco."},
     manu:null },
-  { title:"A resposta", chip:"gotta", src:"assets/bloco2.mp4", dur:"0:03",
+  { title:"A resposta", chip:"gotta", src:"/funil/assets/bloco2.mp4", dur:"0:03",
     lines:[{who:"RACHEL",en:"No. No, I <mark>got to</mark> go home sometime.",pt:"Não. Não, uma hora eu tenho que ir pra casa."}],
     key:{eq:"got to → <b>gotta</b>", note:"O T some, vira um bloco só. A escola nunca te contou que isso existe."},
     manu:"“Sentiu? <b>Nativo fala em blocos de som.</b> A escola te deu as palavras soltas — ninguém te deu os blocos. Não era você. Era o treino errado.”" },
-  { title:"A despedida", chip:"gonna", src:"assets/bloco3.mp4", dur:"0:03",
+  { title:"A despedida", chip:"gonna", src:"/funil/assets/bloco3.mp4", dur:"0:03",
     lines:[{who:"MONICA",en:"You <mark>going to</mark> be okay?",pt:"Você vai ficar bem?"},
            {who:"RACHEL",en:"Yeah.",pt:"Vou."}],
     key:{eq:"going to → <b>gonna</b>", note:"O bloco mais falado do inglês — e o menos ensinado na escola."},
     manu:"“Último bloco. Repara: <b>1 minuto, repetido até masterizar.</b> Dose pequena, profundidade máxima. É por isso que funciona.”" }
 ];
 /* voz REAL da Manu — OpenAI tts-1 "nova" (mesma do app), gerada 05/07 */
-const MANU_AUDIO={intro:"assets/manu/intro.mp3",rules:"assets/manu/rules.mp3",
-  absolve_zero:"assets/manu/absolve_zero.mp3",absolve_travado:"assets/manu/absolve_travado.mp3",absolve_solto:"assets/manu/absolve_solto.mp3",
-  shift2:"assets/manu/shift2.mp3",shift3:"assets/manu/shift3.mp3",shadow:"assets/manu/shadow.mp3",song:"assets/manu/song.mp3",
-  final_t1:"assets/manu/final_t1.mp3",final_t2:"assets/manu/final_t2.mp3",final_t3:"assets/manu/final_t3.mp3"};
+const MANU_AUDIO={intro:"/funil/assets/manu/intro.mp3",rules:"/funil/assets/manu/rules.mp3",
+  absolve_zero:"/funil/assets/manu/absolve_zero.mp3",absolve_travado:"/funil/assets/manu/absolve_travado.mp3",absolve_solto:"/funil/assets/manu/absolve_solto.mp3",
+  shift2:"/funil/assets/manu/shift2.mp3",shift3:"/funil/assets/manu/shift3.mp3",shadow:"/funil/assets/manu/shadow.mp3",song:"/funil/assets/manu/song.mp3",
+  final_t1:"/funil/assets/manu/final_t1.mp3",final_t2:"/funil/assets/manu/final_t2.mp3",final_t3:"/funil/assets/manu/final_t3.mp3"};
 let manuA=null;
 function playManu(key){
   const src=MANU_AUDIO[key]; if(!src) return;
@@ -864,7 +864,7 @@ function renderLoop(i){
         <div class="lbl"><span>0:00</span><b>A ══ TRECHO EM LOOP ══ B</b><span>${b.dur}</span></div>
       </div>
       <div class="cover">
-        <video src="${b.src}" poster="assets/poster.jpg" playsinline preload="auto" loop></video>
+        <video src="${b.src}" poster="/funil/assets/poster.jpg" playsinline preload="auto" loop></video>
         <div class="hud"><b>●</b>&nbsp;FRIENDS · S01E01 · ${b.dur}</div>
         <div class="legenda"><span id="legTag">legenda ligada — lê junto</span></div>
       </div>
@@ -1062,7 +1062,7 @@ function renderPron(box,data){
 }
 let myAudio=null, origAudio=null;
 function playMine(){ if(!myURL)return; if(origAudio)origAudio.pause(); if(myAudio)myAudio.pause(); myAudio=new Audio(myURL); myAudio.play(); }
-function playOrig(){ if(myAudio)myAudio.pause(); if(origAudio)origAudio.pause(); origAudio=new Audio("assets/bloco1.mp4"); origAudio.play(); }
+function playOrig(){ if(myAudio)myAudio.pause(); if(origAudio)origAudio.pause(); origAudio=new Audio("/funil/assets/bloco1.mp4"); origAudio.play(); }
 
 /* ═══ música ═══ */
 function playSong(){
