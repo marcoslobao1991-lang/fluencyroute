@@ -330,18 +330,15 @@ export default function RotaFluenciaPage({ alwaysOpen = false, vsl2 = false }: {
       {/* ═══ HERO — VIDEO ═══ */}
       <section style={{ maxWidth: 600, margin: '0 auto', padding: '40px 20px 0' }}>
         {vsl2 && (
-          <div style={{ maxWidth: 460, margin: '0 auto 22px', textAlign: 'center' }}>
+          <div style={{ maxWidth: 380, margin: '0 auto 16px', textAlign: 'center' }}>
             <p style={{
-              display: 'inline-block', fontSize: 11, letterSpacing: 2.5, textTransform: 'uppercase',
-              fontWeight: 800, color: C.teal, background: `${C.teal}14`,
-              border: `1px solid ${C.teal}44`, borderRadius: 999, padding: '7px 15px',
-            }}>🔓 Seu treino já tá a caminho do seu e-mail</p>
-            <h1 style={{ fontSize: 'clamp(23px, 6vw, 30px)', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-0.03em', marginTop: 14 }}>
-              Enquanto ele chega <span style={{ color: C.t4, fontWeight: 400 }}>(leva uns 5 minutinhos)</span>, assiste isso:
+              display: 'inline-block', fontSize: 10, letterSpacing: 2, textTransform: 'uppercase',
+              fontWeight: 700, color: C.teal, background: `${C.teal}12`,
+              border: `1px solid ${C.teal}33`, borderRadius: 999, padding: '6px 13px',
+            }}>🔓 Treino a caminho do seu e-mail</p>
+            <h1 style={{ fontSize: 'clamp(18px, 4.6vw, 22px)', fontWeight: 700, lineHeight: 1.3, letterSpacing: '-0.02em', marginTop: 12, color: C.t1 }}>
+              Enquanto ele chega, assiste esse vídeo <span style={{ color: C.teal }}>👇</span>
             </h1>
-            <p style={{ fontSize: 15, color: C.t2, marginTop: 10, lineHeight: 1.6 }}>
-              É a explicação de <strong style={{ color: C.white }}>por que seu ouvido trava</strong> — e a rota completa que destrava ele de vez.
-            </p>
           </div>
         )}
         <Fade delay={0.15}>

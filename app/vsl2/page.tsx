@@ -10,5 +10,6 @@ import RotaFluenciaPage from '../vsl/RotaFluenciaPage'
 // Tudo via prop vsl2 — a /vsl e /aberta continuam idênticas.
 // ═══════════════════════════════════════════════════════════════
 export default function Vsl2Page() {
-  return <RotaFluenciaPage vsl2 alwaysOpen />
+  // sem alwaysOpen: a /vsl2 usa o MESMO delay de reveal da /vsl (oferta escondida até o timer)
+  return <RotaFluenciaPage vsl2 />
 }
