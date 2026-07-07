@@ -19,8 +19,7 @@ const CONFIG = {
   REDIRECT:    "/vsl2",
   PIXEL_ID:    "938768337634102"
 };
-const FR_SUPA_URL = "https://petrtewismhpzidcmmwb.supabase.co/rest/v1/funnel_events";
-const FR_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJIUzI1NiIsInJlZiI6InBldHJ0ZXdpc21ocHppZGNtbXdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4MDg3NDYsImV4cCI6MjA4OTM4NDc0Nn0.CTGC11dPKawf3tFWrEu9jXgxn2oPmPMXQS9bFcN4o10";
+const FR_EVENT_URL = "/api/funnel-event";
 </script>
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -447,7 +446,7 @@ function frSid(){
 function frTrack(event,detail,extra){
   try{
     const q=new URLSearchParams(location.search), row={funnel:"leadmagnet",page:"bridge",variant:"A",event,detail:detail||null,session_id:frSid(),path:(location.pathname+location.search).slice(0,500),referrer:document.referrer||null,user_agent:(navigator.userAgent||"").slice(0,500),utm_source:q.get("utm_source"),utm_medium:q.get("utm_medium"),utm_campaign:q.get("utm_campaign"),utm_content:q.get("utm_content"),utm_term:q.get("utm_term"),fbclid:q.get("fbclid"),...(extra||{})};
-    fetch(FR_SUPA_URL,{method:"POST",keepalive:true,headers:{apikey:FR_ANON,Authorization:"Bearer "+FR_ANON,"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify(row)}).catch(()=>{});
+    fetch(FR_EVENT_URL,{method:"POST",keepalive:true,headers:{"Content-Type":"application/json"},body:JSON.stringify(row)}).catch(()=>{});
   }catch(e){}
 }
 function pixel(ev,data,user){

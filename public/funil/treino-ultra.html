@@ -783,10 +783,9 @@ function playManu(key){
 /* CONFIG de wiring */
 const LM_CONFIG={ TRACK_URL:"/api/funil-lead", VSL_URL:"/vsl2" };
 const LEAD_CTX=(()=>{const p=new URLSearchParams(location.search);return {id:p.get("id")||"",email:p.get("e")||""};})();
-const FR_SUPA_URL="https://petrtewismhpzidcmmwb.supabase.co/rest/v1/funnel_events";
-const FR_ANON="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJIUzI1NiIsInJlZiI6InBldHJ0ZXdpc21ocHppZGNtbXdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4MDg3NDYsImV4cCI6MjA4OTM4NDc0Nn0.CTGC11dPKawf3tFWrEu9jXgxn2oPmPMXQS9bFcN4o10";
+const FR_EVENT_URL="/api/funnel-event";
 function frSid(){try{let s=localStorage.getItem("fr_lm_sid");if(!s){s=LEAD_CTX.id||(crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2));localStorage.setItem("fr_lm_sid",s)}return s}catch(e){return LEAD_CTX.id||""}}
-function frTrack(event,detail,extra){try{const q=new URLSearchParams(location.search),row={funnel:"leadmagnet",page:"treino",variant:"A",event,detail:detail||null,session_id:frSid(),path:(location.pathname+location.search).slice(0,500),referrer:document.referrer||null,user_agent:(navigator.userAgent||"").slice(0,500),utm_source:q.get("utm_source"),utm_medium:q.get("utm_medium"),utm_campaign:q.get("utm_campaign"),utm_content:q.get("utm_content"),utm_term:q.get("utm_term"),fbclid:q.get("fbclid"),lead_id:LEAD_CTX.id,...(extra||{})};fetch(FR_SUPA_URL,{method:"POST",keepalive:true,headers:{apikey:FR_ANON,Authorization:"Bearer "+FR_ANON,"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify(row)}).catch(()=>{})}catch(e){}}
+function frTrack(event,detail,extra){try{const q=new URLSearchParams(location.search),row={funnel:"leadmagnet",page:"treino",variant:"A",event,detail:detail||null,session_id:frSid(),path:(location.pathname+location.search).slice(0,500),referrer:document.referrer||null,user_agent:(navigator.userAgent||"").slice(0,500),utm_source:q.get("utm_source"),utm_medium:q.get("utm_medium"),utm_campaign:q.get("utm_campaign"),utm_content:q.get("utm_content"),utm_term:q.get("utm_term"),fbclid:q.get("fbclid"),...(extra||{})};fetch(FR_EVENT_URL,{method:"POST",keepalive:true,headers:{"Content-Type":"application/json"},body:JSON.stringify(row)}).catch(()=>{})}catch(e){}}
 function eventId(){return Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,10)}
 function fbCookies(){
   const out={}; try{document.cookie.split("; ").forEach(c=>{const p=c.split("=");if(p[0]==="_fbc")out.fbc=p[1];if(p[0]==="_fbp")out.fbp=p[1];});

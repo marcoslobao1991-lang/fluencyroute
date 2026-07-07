@@ -144,10 +144,11 @@ export default async function LeadMetrics({ searchParams }: { searchParams: Prom
   const treinoEvents = leadEvents.filter(r => r.page === 'treino')
   const leadSessions = new Set(bridgeEvents.filter(r => r.event === 'lead').map(sid))
 
-  const captureViews = uniq(bridgeEvents, 'pageview')
+  const trackedCaptureViews = uniq(bridgeEvents, 'pageview')
   const gateOpens = uniq(bridgeEvents, 'gate_open')
   const leadEventCount = uniq(bridgeEvents, 'lead')
   const savedLeads = visibleLeads.length
+  const captureViews = Math.max(trackedCaptureViews, gateOpens, savedLeads)
   const vslRedirects = uniq(bridgeEvents, 'vsl_redirect')
   const vslFromLead = new Set(vslEvents.filter(r => r.event === 'pageview' && (r.path || '').includes('from=lead')).map(sid)).size
   const checkoutFromLead = new Set(vslEvents.filter(r => r.event === 'checkout_click' && (r.path || '').includes('from=lead')).map(sid)).size
@@ -208,7 +209,7 @@ export default async function LeadMetrics({ searchParams }: { searchParams: Prom
           </div>
 
           <p style={{ fontSize: 13, color: dim, fontWeight: 700, marginBottom: 18 }}>
-            {[7, 14, 30].map(d => <a key={d} href={`?k=${KEY_PARAM}&view=leads&days=${d}${showAll ? '&all=1' : ''}`} style={{ color: teal, marginRight: 8 }}>{d}d</a>)}
+            {[1, 7, 14, 30].map(d => <a key={d} href={`?k=${KEY_PARAM}&view=leads&days=${d}${showAll ? '&all=1' : ''}`} style={{ color: teal, marginRight: 8 }}>{d}d</a>)}
             <a href={`?k=${KEY_PARAM}&view=leads&days=${days}${showAll ? '' : '&all=1'}`} style={{ color: teal }}>{showAll ? 'ver so campanha' : 'ver tudo'}</a>
           </p>
 
@@ -255,7 +256,7 @@ export default async function LeadMetrics({ searchParams }: { searchParams: Prom
         <p style={{ fontSize: 13, color: dim, fontWeight: 700, marginBottom: 22 }}>
           ultimos {days} dias · sessoes unicas · {leadEvents.length} eventos internos · {leads.length} leads salvos ·{' '}
           <strong style={{ color: showAll ? red : teal }}>{showAll ? 'tudo, inclui testes' : 'so campanha'}</strong> ·{' '}
-          {[7, 14, 30].map(d => <a key={d} href={`?k=${KEY_PARAM}&days=${d}${showAll ? '&all=1' : ''}`} style={{ color: teal, marginRight: 8 }}>{d}d</a>)}
+          {[1, 7, 14, 30].map(d => <a key={d} href={`?k=${KEY_PARAM}&days=${d}${showAll ? '&all=1' : ''}`} style={{ color: teal, marginRight: 8 }}>{d}d</a>)}
           <a href={`?k=${KEY_PARAM}&days=${days}${showAll ? '' : '&all=1'}`} style={{ color: teal }}>{showAll ? 'ver so campanha' : 'ver tudo'}</a>
           {' '}Â· <a href={`?k=${KEY_PARAM}&view=leads&days=${days}${showAll ? '&all=1' : ''}`} style={{ color: teal, fontWeight: 900 }}>ver emails capturados</a>
         </p>
