@@ -113,7 +113,7 @@ export default async function BridgeMetrics({ searchParams }: { searchParams: Pr
         <p style={{ fontSize: 13, color: dim, fontWeight: 600, marginBottom: 24 }}>
           últimos {days} dias · sessões únicas · {rows.length} eventos ·{' '}
           <strong style={{ color: showAll ? '#f04438' : '#16b364' }}>{showAll ? 'TUDO (inclui testes internos)' : 'só tráfego de campanha'}</strong> ·{' '}
-          {[7, 14, 30].map(d => (
+          {[1, 7, 14, 30].map(d => (
             <a key={d} href={`?k=${KEY_PARAM}&days=${d}${showAll ? '&all=1' : ''}`} style={{ color: violet, marginRight: 8 }}>{d}d</a>
           ))}
           <a href={`?k=${KEY_PARAM}&days=${days}${showAll ? '' : '&all=1'}`} style={{ color: violet }}>{showAll ? 'ver só campanha' : 'ver tudo'}</a>
