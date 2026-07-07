@@ -19,6 +19,8 @@ const CONFIG = {
   REDIRECT:    "/vsl2",
   PIXEL_ID:    "938768337634102"
 };
+const FR_SUPA_URL = "https://petrtewismhpzidcmmwb.supabase.co/rest/v1/funnel_events";
+const FR_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJIUzI1NiIsInJlZiI6InBldHJ0ZXdpc21ocHppZGNtbXdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4MDg3NDYsImV4cCI6MjA4OTM4NDc0Nn0.CTGC11dPKawf3tFWrEu9jXgxn2oPmPMXQS9bFcN4o10";
 </script>
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -427,6 +429,15 @@ function fbCookies(){
   const fbclid=new URLSearchParams(location.search).get("fbclid"); if(fbclid&&!out.fbc)out.fbc="fb.1."+Date.now()+"."+fbclid;}catch(e){}
   return out;
 }
+function frSid(){
+  try{let s=localStorage.getItem("fr_lm_sid"); if(!s){s=(crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2)); localStorage.setItem("fr_lm_sid",s)} return s}catch(e){return leadId}
+}
+function frTrack(event,detail,extra){
+  try{
+    const q=new URLSearchParams(location.search), row={funnel:"leadmagnet",page:"bridge",variant:"A",event,detail:detail||null,session_id:frSid(),path:(location.pathname+location.search).slice(0,500),referrer:document.referrer||null,user_agent:(navigator.userAgent||"").slice(0,500),utm_source:q.get("utm_source"),utm_medium:q.get("utm_medium"),utm_campaign:q.get("utm_campaign"),utm_content:q.get("utm_content"),utm_term:q.get("utm_term"),fbclid:q.get("fbclid"),...(extra||{})};
+    fetch(FR_SUPA_URL,{method:"POST",keepalive:true,headers:{apikey:FR_ANON,Authorization:"Bearer "+FR_ANON,"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify(row)}).catch(()=>{});
+  }catch(e){}
+}
 function pixel(ev,data,user){
   const eid=eventId(), params={content_name:"Loop de Repeticao - Captura",content_category:"lead_magnet",...data};
   try{ if(user&&user.email&&window.fbq) fbq("init",CONFIG.PIXEL_ID,{em:user.email.toLowerCase().trim(),external_id:leadId});
@@ -435,10 +446,12 @@ function pixel(ev,data,user){
 }
 pixel("PageView",{page:"lead"});
 pixel("ViewContent",{page:"lead"});
+frTrack("pageview");
 function openGate(src){ gateSrc=src;
   document.getElementById("step1").style.display="block";
   document.getElementById("ovl").classList.add("on");
   setTimeout(()=>document.getElementById("email").focus(),80);
+  frTrack("gate_open",src);
   pixel("GateOpen",{src}); }
 function closeGate(){ document.getElementById("ovl").classList.remove("on"); }
 document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeGate(); });
@@ -452,11 +465,13 @@ function stepEmail(e){
   leadEmail=document.getElementById("email").value.trim();
   if(!leadEmail) return false;
   post({email:leadEmail,src:gateSrc});           // salva + dispara email D0
+  frTrack("lead",gateSrc,{lead_id:leadId});
   pixel("Lead",{src:gateSrc}, {email:leadEmail});
   finish();
   return false;
 }
 function finish(){
+  frTrack("vsl_redirect",gateSrc,{lead_id:leadId});
   pixel("LeadMagnetOptinComplete",{src:gateSrc},{email:leadEmail});
   const qs=new URLSearchParams({from:"lead",id:leadId});
   if(leadEmail) qs.set("e",leadEmail);

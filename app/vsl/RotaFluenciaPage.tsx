@@ -887,6 +887,7 @@ function Btn({ text = 'QUERO FAZER PARTE', compact, utms = {}, checkout = 'https
   const handleClick = () => {
     const effectiveSid = sid || getOrCreateSessionId()
     saveCheckoutSession(effectiveSid)
+    try { frTrack('checkout_click') } catch {}
     trackDual('InitiateCheckout')
   }
   return (
