@@ -394,17 +394,6 @@ h1{font-size:clamp(31px,7.8vw,40px);font-weight:900;letter-spacing:-1.4px;line-h
       </form>
       <div class="m-m">GRÁTIS · SEM SPAM · SÓ O TREINO</div>
     </div>
-    <!-- passo 2 · whatsapp (opcional, NUNCA bloqueia) -->
-    <div id="step2" style="display:none">
-      <div class="m-k">ÚLTIMO PASSO · OPCIONAL</div>
-      <div class="m-t">Quer o link no WhatsApp também?</div>
-      <div class="m-s">Chega na hora, sem cair no spam do email.</div>
-      <form onsubmit="return stepZap(event)">
-        <input type="tel" id="zap" placeholder="(DDD) 9 9999-9999" inputmode="tel" autocomplete="tel">
-        <button class="cta" type="submit">RECEBER NO WHATSAPP TAMBÉM&nbsp;→</button>
-      </form>
-      <button class="m-skip" onclick="finish()">pular e ir pro treino&nbsp;→</button>
-    </div>
   </div>
 </div>
 
@@ -448,14 +437,13 @@ pixel("PageView",{page:"lead"});
 pixel("ViewContent",{page:"lead"});
 function openGate(src){ gateSrc=src;
   document.getElementById("step1").style.display="block";
-  document.getElementById("step2").style.display="none";
   document.getElementById("ovl").classList.add("on");
   setTimeout(()=>document.getElementById("email").focus(),80);
   pixel("GateOpen",{src}); }
 function closeGate(){ document.getElementById("ovl").classList.remove("on"); }
 document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeGate(); });
 
-/* captura progressiva: email DISPARA no passo 1; WhatsApp é upgrade opcional */
+/* captura: email dispara o D0 e segue direto para a VSL */
 let leadEmail="", leadId=(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random().toString(16).slice(2));
 function utmObj(){const p=new URLSearchParams(location.search),o={};["utm_source","utm_medium","utm_campaign","utm_term","utm_content","fbclid"].forEach(k=>{const v=p.get(k);if(v)o[k]=v});return o;}
 function post(payload){ try{ fetch(CONFIG.WEBHOOK_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id:leadId,utm:utmObj(),...payload}),keepalive:true}); }catch(e){} }
@@ -465,20 +453,11 @@ function stepEmail(e){
   if(!leadEmail) return false;
   post({email:leadEmail,src:gateSrc});           // salva + dispara email D0
   pixel("Lead",{src:gateSrc}, {email:leadEmail});
-  document.getElementById("step1").style.display="none";
-  document.getElementById("step2").style.display="block";
-  setTimeout(()=>document.getElementById("zap").focus(),80);
-  return false;
-}
-function stepZap(e){
-  e.preventDefault();
-  const zap=document.getElementById("zap").value.trim();
-  if(zap) post({email:leadEmail,zap,src:gateSrc}); // atualiza lead com whatsapp
   finish();
   return false;
 }
 function finish(){
-  pixel("LeadMagnetOptinComplete",{src:gateSrc,whatsapp:!!document.getElementById("zap").value.trim()},{email:leadEmail});
+  pixel("LeadMagnetOptinComplete",{src:gateSrc},{email:leadEmail});
   const qs=new URLSearchParams({from:"lead",id:leadId});
   if(leadEmail) qs.set("e",leadEmail);
   window.location.href = CONFIG.REDIRECT + "?" + qs.toString();

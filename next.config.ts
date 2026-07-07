@@ -13,7 +13,8 @@ const nextConfig: NextConfig = {
     return {
       // beforeFiles vence a rota app/bridge — serve a versão estática leve (42KB vs 691KB)
       beforeFiles: [
-        { source: '/bridge', destination: '/bridge.html' },
+        { source: '/bridge', destination: '/funil/comecar.html' },
+        { source: '/bridge2', destination: '/bridge.html' },
       ],
       afterFiles: [
         { source: '/manu', destination: '/manu.html' },
