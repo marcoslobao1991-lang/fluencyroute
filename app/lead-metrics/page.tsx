@@ -151,6 +151,7 @@ export default async function LeadMetrics({ searchParams }: { searchParams: Prom
   const captureViews = Math.max(trackedCaptureViews, gateOpens, savedLeads)
   const vslRedirects = uniq(bridgeEvents, 'vsl_redirect')
   const vslFromLead = new Set(vslEvents.filter(r => r.event === 'pageview' && (r.path || '').includes('from=lead')).map(sid)).size
+  const effectiveVslRedirects = Math.max(vslRedirects, vslFromLead)
   const checkoutFromLead = new Set(vslEvents.filter(r => r.event === 'checkout_click' && (r.path || '').includes('from=lead')).map(sid)).size
   const treinoViews = uniq(treinoEvents, 'pageview')
   const treinoResults = uniq(treinoEvents, 'resultado')
@@ -161,7 +162,7 @@ export default async function LeadMetrics({ searchParams }: { searchParams: Prom
     ['Modal aberto', gateOpens, captureViews],
     ['Email capturado', Math.max(leadEventCount, savedLeads), gateOpens],
     ['Redirect para VSL', vslRedirects, Math.max(leadEventCount, savedLeads)],
-    ['VSL aberta com from=lead', vslFromLead, vslRedirects],
+    ['VSL aberta com from=lead', vslFromLead, effectiveVslRedirects],
     ['Clique checkout na VSL', checkoutFromLead, vslFromLead],
   ] as const
 
@@ -182,7 +183,7 @@ export default async function LeadMetrics({ searchParams }: { searchParams: Prom
   }
   const ads = Object.entries(byAd).map(([ad, v]) => ({
     ad,
-    views: v.views.size,
+    views: Math.max(v.views.size, v.gates.size, v.leads.size, v.saved, v.vsl.size),
     gates: v.gates.size,
     leads: Math.max(v.leads.size, v.saved),
     vsl: v.vsl.size,
@@ -289,8 +290,8 @@ export default async function LeadMetrics({ searchParams }: { searchParams: Prom
           </div>
           <div style={card}>
             <p style={{ fontSize: 12, fontWeight: 900, color: dim, textTransform: 'uppercase', letterSpacing: 1.5 }}>VSL show-up</p>
-            <p style={{ fontSize: 38, fontWeight: 900, color: teal, letterSpacing: '-0.05em' }}>{pct(vslFromLead, vslRedirects)}%</p>
-            <p style={{ fontSize: 12, color: dim, fontWeight: 700 }}>{vslFromLead} / {vslRedirects} · {checkoutFromLead} checkout</p>
+            <p style={{ fontSize: 38, fontWeight: 900, color: teal, letterSpacing: '-0.05em' }}>{pct(vslFromLead, effectiveVslRedirects)}%</p>
+            <p style={{ fontSize: 12, color: dim, fontWeight: 700 }}>{vslFromLead} / {effectiveVslRedirects} · {checkoutFromLead} checkout</p>
           </div>
           <div style={card}>
             <p style={{ fontSize: 12, fontWeight: 900, color: dim, textTransform: 'uppercase', letterSpacing: 1.5 }}>Treino aberto</p>
