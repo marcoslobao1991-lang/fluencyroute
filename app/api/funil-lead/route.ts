@@ -26,14 +26,17 @@ interface Body {
 
 const APP_URL = "https://fluencyroute.com.br";
 
-function d0Html(nome: string) {
+function d0Html(nome: string, id: string, email: string) {
   const oi = nome ? `Oi, ${nome}!` : "Oi!";
+  const qs = new URLSearchParams({ utm_source: "email", utm_medium: "d0" });
+  if (id) qs.set("id", id);
+  if (email) qs.set("e", email);
   return `<!doctype html><html><body style="margin:0;background:#FAFAF6;font-family:-apple-system,'Segoe UI',sans-serif;color:#15201E">
   <div style="max-width:480px;margin:0 auto;padding:32px 24px">
     <p style="font-weight:900;letter-spacing:3px;font-size:12px">FLUENCY <span style="color:#12B5AC">ROUTE</span></p>
     <h1 style="font-size:26px;font-weight:900;letter-spacing:-1px;line-height:1.2;margin:20px 0 8px">🔓 ${oi} Seu treino tá liberado.</h1>
     <p style="font-size:16px;color:#3D4A49;line-height:1.6">O <b>Loop de Repetição</b> — o treino de 5 minutos que coloca seu inglês no automático — tá pronto pra você. É só apertar o play:</p>
-    <a href="${APP_URL}/funil/treino.html?utm_source=email&utm_medium=d0" style="display:inline-block;margin:22px 0;background:#0B6E68;color:#fff;font-weight:900;font-size:16px;padding:16px 28px;border-radius:12px;text-decoration:none">COMEÇAR MEU TREINO ▶</a>
+    <a href="${APP_URL}/treino-ultra?${qs.toString()}" style="display:inline-block;margin:22px 0;background:#0B6E68;color:#fff;font-weight:900;font-size:16px;padding:16px 28px;border-radius:12px;text-decoration:none">COMEÇAR MEU TREINO ▶</a>
     <p style="font-size:14px;color:#5C6E6C;line-height:1.6">Faz agora, com fone, num lugar tranquilo. São 5 minutinhos e teu ouvido não volta a ser o mesmo. — Manu 👋</p>
     <p style="font-size:11px;color:#9aa;margin-top:32px">Fluency Route · você recebeu porque pediu o treino gratuito.</p>
   </div></body></html>`;
@@ -80,7 +83,7 @@ export async function POST(req: Request) {
           from: "Manu · Fluency Route <manu@acesso.fluencyroute.com.br>",
           to: [email],
           subject: "🔓 Seu treino de inglês tá liberado (5 min)",
-          html: d0Html(nome),
+          html: d0Html(nome, id, email),
         }),
       });
       if (!r.ok) console.error("[FUNIL-LEAD] resend:", r.status, await r.text());

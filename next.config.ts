@@ -19,6 +19,7 @@ const nextConfig: NextConfig = {
         { source: '/manu', destination: '/manu.html' },
         { source: '/lead', destination: '/funil/comecar.html' },
         { source: '/treino', destination: '/funil/treino.html' },
+        { source: '/treino-ultra', destination: '/funil/treino-ultra.html' },
       ],
       fallback: [],
     }

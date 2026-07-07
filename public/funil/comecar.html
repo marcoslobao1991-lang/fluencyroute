@@ -16,9 +16,17 @@
 <script>
 const CONFIG = {
   WEBHOOK_URL: "/api/funil-lead",
-  REDIRECT:    "/vsl2",
+  REDIRECT:    "/treino-ultra",
   PIXEL_ID:    "938768337634102"
 };
+</script>
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','938768337634102');
 </script>
 
 <style>
@@ -220,6 +228,7 @@ h1{font-size:clamp(31px,7.8vw,40px);font-weight:900;letter-spacing:-1.4px;line-h
 </style>
 </head>
 <body>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=938768337634102&ev=PageView&noscript=1"></noscript>
 
 <div class="topbar">
   <div class="tb-l">FLUENCY ROUTE</div>
@@ -423,12 +432,26 @@ h1{font-size:clamp(31px,7.8vw,40px);font-weight:900;letter-spacing:-1.4px;line-h
 
 /* two-step opt-in */
 let gateSrc="";
+function eventId(){return Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,10)}
+function fbCookies(){
+  const out={}; try{document.cookie.split("; ").forEach(c=>{const p=c.split("=");if(p[0]==="_fbc")out.fbc=p[1];if(p[0]==="_fbp")out.fbp=p[1];});
+  const fbclid=new URLSearchParams(location.search).get("fbclid"); if(fbclid&&!out.fbc)out.fbc="fb.1."+Date.now()+"."+fbclid;}catch(e){}
+  return out;
+}
+function pixel(ev,data,user){
+  const eid=eventId(), params={content_name:"Loop de Repeticao - Captura",content_category:"lead_magnet",...data};
+  try{ if(user&&user.email&&window.fbq) fbq("init",CONFIG.PIXEL_ID,{em:user.email.toLowerCase().trim(),external_id:leadId});
+    if(window.fbq) fbq(ev.indexOf("LeadMagnet")===0||ev==="GateOpen"?"trackCustom":"track",ev,params,{eventID:eid}); }catch(e){}
+  try{ fetch("/api/track",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({event:ev,eventId:eid,email:user&&user.email,external_id:leadId,...fbCookies(),...params}),keepalive:true}); }catch(e){}
+}
+pixel("PageView",{page:"lead"});
+pixel("ViewContent",{page:"lead"});
 function openGate(src){ gateSrc=src;
   document.getElementById("step1").style.display="block";
   document.getElementById("step2").style.display="none";
   document.getElementById("ovl").classList.add("on");
   setTimeout(()=>document.getElementById("email").focus(),80);
-  /* wiring: fbq('trackCustom','GateOpen',{src}) */ }
+  pixel("GateOpen",{src}); }
 function closeGate(){ document.getElementById("ovl").classList.remove("on"); }
 document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeGate(); });
 
@@ -441,7 +464,7 @@ function stepEmail(e){
   leadEmail=document.getElementById("email").value.trim();
   if(!leadEmail) return false;
   post({email:leadEmail,src:gateSrc});           // salva + dispara email D0
-  if(window.fbq) fbq("track","Lead");
+  pixel("Lead",{src:gateSrc}, {email:leadEmail});
   document.getElementById("step1").style.display="none";
   document.getElementById("step2").style.display="block";
   setTimeout(()=>document.getElementById("zap").focus(),80);
@@ -455,7 +478,10 @@ function stepZap(e){
   return false;
 }
 function finish(){
-  window.location.href = CONFIG.REDIRECT + "?from=lead&id=" + leadId;
+  pixel("LeadMagnetOptinComplete",{src:gateSrc,whatsapp:!!document.getElementById("zap").value.trim()},{email:leadEmail});
+  const qs=new URLSearchParams({from:"lead",id:leadId});
+  if(leadEmail) qs.set("e",leadEmail);
+  window.location.href = CONFIG.REDIRECT + "?" + qs.toString();
 }
 </script>
 </body>
