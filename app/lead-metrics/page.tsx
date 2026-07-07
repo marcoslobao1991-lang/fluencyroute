@@ -23,6 +23,7 @@ interface EventRow {
 
 interface LeadRow {
   id: string
+  name: string | null
   email: string | null
   created_at: string
   answers: Record<string, unknown> | null
@@ -67,7 +68,7 @@ async function fetchLeads(days: number): Promise<LeadRow[]> {
   const key = process.env.SUPABASE_SERVICE_KEY
   if (!key) return []
   const since = new Date(Date.now() - days * 86400000).toISOString()
-  const url = `${SUPA_URL}/rest/v1/quiz_leads?source=eq.leadmagnet_497&created_at=gte.${since}&select=id,email,created_at,answers,utms&order=created_at.desc`
+  const url = `${SUPA_URL}/rest/v1/quiz_leads?source=eq.leadmagnet_497&created_at=gte.${since}&select=id,name,email,created_at,answers,utms&order=created_at.desc`
   return fetchPaged<LeadRow>(url, key)
 }
 
@@ -106,6 +107,17 @@ function adLabel(r: EventRow | LeadRow) {
   return r.utm_content || r.utm_campaign || '(sem utm)'
 }
 
+function fmtDate(iso: string) {
+  return new Intl.DateTimeFormat('pt-BR', {
+    timeZone: 'America/Sao_Paulo',
+    day: '2-digit',
+    month: '2-digit',
+    year: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(new Date(iso))
+}
+
 export default async function LeadMetrics({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const sp = await searchParams
   if (sp.k !== KEY_PARAM) {
@@ -118,11 +130,13 @@ export default async function LeadMetrics({ searchParams }: { searchParams: Prom
 
   const days = Math.max(1, Math.min(90, parseInt(String(sp.days || '7'), 10) || 7))
   const showAll = sp.all === '1'
+  const view = String(sp.view || 'metrics')
   const [rawLeadEvents, rawVslEvents, leads] = await Promise.all([
     fetchLeadEvents(days),
     fetchVslEvents(days),
     fetchLeads(days),
   ])
+  const visibleLeads = showAll ? leads : leads.filter(l => l.utms?.utm_source || l.utms?.fbclid)
 
   const leadEvents = filterCampaign(rawLeadEvents, !showAll)
   const vslEvents = filterCampaign(rawVslEvents, !showAll)
@@ -133,7 +147,7 @@ export default async function LeadMetrics({ searchParams }: { searchParams: Prom
   const captureViews = uniq(bridgeEvents, 'pageview')
   const gateOpens = uniq(bridgeEvents, 'gate_open')
   const leadEventCount = uniq(bridgeEvents, 'lead')
-  const savedLeads = showAll ? leads.length : leads.filter(l => l.utms?.utm_source || l.utms?.fbclid).length
+  const savedLeads = visibleLeads.length
   const vslRedirects = uniq(bridgeEvents, 'vsl_redirect')
   const vslFromLead = new Set(vslEvents.filter(r => r.event === 'pageview' && (r.path || '').includes('from=lead')).map(sid)).size
   const checkoutFromLead = new Set(vslEvents.filter(r => r.event === 'checkout_click' && (r.path || '').includes('from=lead')).map(sid)).size
@@ -176,6 +190,63 @@ export default async function LeadMetrics({ searchParams }: { searchParams: Prom
   const ink = '#15201E', dim = 'rgba(21,32,30,.58)', teal = '#0B6E68', bg = '#FAFAF6', cardBg = '#fff', red = '#C4574A', amber = '#8A6A12'
   const card: React.CSSProperties = { background: cardBg, border: '1px solid rgba(21,32,30,.12)', borderRadius: 16, padding: '22px 24px', marginBottom: 16, boxShadow: '0 18px 46px -28px rgba(21,32,30,.22)' }
   const cell: React.CSSProperties = { padding: '8px 9px', fontSize: 13, fontWeight: 700, textAlign: 'right', whiteSpace: 'nowrap' }
+  const topLink: React.CSSProperties = { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', border: `1px solid ${teal}`, borderRadius: 999, padding: '9px 13px', color: teal, textDecoration: 'none', fontSize: 13, fontWeight: 900 }
+
+  if (view === 'leads') {
+    return (
+      <div style={{ background: bg, minHeight: '100vh', color: ink, fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", padding: '32px 16px' }}>
+        <main style={{ maxWidth: 1040, margin: '0 auto' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap', marginBottom: 18 }}>
+            <div>
+              <h1 style={{ fontSize: 28, fontWeight: 900, letterSpacing: '-0.04em', marginBottom: 4 }}>Emails capturados</h1>
+              <p style={{ fontSize: 13, color: dim, fontWeight: 700 }}>
+                ultimos {days} dias - {visibleLeads.length} leads -{' '}
+                <strong style={{ color: showAll ? red : teal }}>{showAll ? 'tudo, inclui testes' : 'so campanha'}</strong>
+              </p>
+            </div>
+            <a href={`?k=${KEY_PARAM}&days=${days}${showAll ? '&all=1' : ''}`} style={topLink}>voltar para metricas</a>
+          </div>
+
+          <p style={{ fontSize: 13, color: dim, fontWeight: 700, marginBottom: 18 }}>
+            {[7, 14, 30].map(d => <a key={d} href={`?k=${KEY_PARAM}&view=leads&days=${d}${showAll ? '&all=1' : ''}`} style={{ color: teal, marginRight: 8 }}>{d}d</a>)}
+            <a href={`?k=${KEY_PARAM}&view=leads&days=${days}${showAll ? '' : '&all=1'}`} style={{ color: teal }}>{showAll ? 'ver so campanha' : 'ver tudo'}</a>
+          </p>
+
+          <div style={{ ...card, overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+              <thead>
+                <tr style={{ color: dim, fontSize: 11, textTransform: 'uppercase', letterSpacing: 1 }}>
+                  <th style={{ ...cell, textAlign: 'left' }}>data</th>
+                  <th style={{ ...cell, textAlign: 'left' }}>email</th>
+                  <th style={{ ...cell, textAlign: 'left' }}>nome</th>
+                  <th style={{ ...cell, textAlign: 'left' }}>origem</th>
+                  <th style={{ ...cell, textAlign: 'left' }}>campanha</th>
+                  <th style={{ ...cell, textAlign: 'left' }}>anuncio</th>
+                </tr>
+              </thead>
+              <tbody>
+                {visibleLeads.map(l => (
+                  <tr key={l.id} style={{ borderTop: '1px solid rgba(21,32,30,.08)' }}>
+                    <td style={{ ...cell, textAlign: 'left' }}>{fmtDate(l.created_at)}</td>
+                    <td style={{ ...cell, textAlign: 'left', color: teal }}>{l.email || '-'}</td>
+                    <td style={{ ...cell, textAlign: 'left' }}>{l.name || '-'}</td>
+                    <td style={{ ...cell, textAlign: 'left' }}>{l.utms?.utm_source || (l.utms?.fbclid ? 'facebook' : '-')}</td>
+                    <td style={{ ...cell, textAlign: 'left', maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis' }}>{l.utms?.utm_campaign || '-'}</td>
+                    <td style={{ ...cell, textAlign: 'left', maxWidth: 260, overflow: 'hidden', textOverflow: 'ellipsis' }}>{l.utms?.utm_content || '-'}</td>
+                  </tr>
+                ))}
+                {!visibleLeads.length && (
+                  <tr>
+                    <td colSpan={6} style={{ ...cell, textAlign: 'left', color: dim, padding: '22px 9px' }}>Nenhum lead nesse filtro.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </div>
+    )
+  }
 
   return (
     <div style={{ background: bg, minHeight: '100vh', color: ink, fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif", padding: '32px 16px' }}>
@@ -186,6 +257,7 @@ export default async function LeadMetrics({ searchParams }: { searchParams: Prom
           <strong style={{ color: showAll ? red : teal }}>{showAll ? 'tudo, inclui testes' : 'so campanha'}</strong> ·{' '}
           {[7, 14, 30].map(d => <a key={d} href={`?k=${KEY_PARAM}&days=${d}${showAll ? '&all=1' : ''}`} style={{ color: teal, marginRight: 8 }}>{d}d</a>)}
           <a href={`?k=${KEY_PARAM}&days=${days}${showAll ? '' : '&all=1'}`} style={{ color: teal }}>{showAll ? 'ver so campanha' : 'ver tudo'}</a>
+          {' '}Â· <a href={`?k=${KEY_PARAM}&view=leads&days=${days}${showAll ? '&all=1' : ''}`} style={{ color: teal, fontWeight: 900 }}>ver emails capturados</a>
         </p>
 
         <div style={card}>
