@@ -53,6 +53,10 @@ async function main() {
   // 8. limpa artefatos da URL de captura
   h = h.replace(/\?reveal=1&(amp;)?fr_no_track=1/g, '')
 
+  // 8b. sticky CTA REMOVIDO por decisão do Marcos (09/07) — no React ele já
+  // não aparecia (esconder fixo no className); aqui sai do DOM de vez
+  h = h.replace(/<div class="esconder sticky-cta "[\s\S]*?<\/a><\/div>/, '')
+
   // 9. runtime vanilla — porta fiel de RotaFluenciaPage.tsx + PageViewTracker.tsx
   const runtime = `
 <script>
@@ -124,9 +128,6 @@ function doReveal(){show();try{localStorage.setItem(key,'1')}catch(e){}}
 var preview=qp().get('reveal')==='1';var already=false;try{already=localStorage.getItem(key)==='1'}catch(e){}
 // preview (?reveal=1) abre sem persistir — igual ao React
 if(preview)show();else if(already)doReveal();else setTimeout(doReveal,delaySeconds*1000)})();
-
-// ── sticky CTA no scroll ──
-(function(){var el=document.querySelector('.sticky-cta');if(!el)return;window.addEventListener('scroll',function(){if(window.scrollY>600)el.classList.add('show');else el.classList.remove('show')},{passive:true})})();
 
 // ── FAQ accordion ──
 (function(){var answers=Array.prototype.filter.call(document.querySelectorAll('div'),function(d){return d.style.maxHeight==='0px'&&d.style.overflow==='hidden'});
