@@ -3,453 +3,644 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0B0D12">
-<title>Fluency Route — O treino que destrava o inglês</title>
-<meta name="description" content="Treine seu ouvido e sua fala com cenas reais de séries, nota de pronúncia palavra por palavra e a Manu, sua professora de conversação por voz.">
+<meta name="theme-color" content="#FAFBFA">
+<title>Fluency Route — O app que treina seu inglês até a fluência</title>
+<meta name="description" content="Treine ouvido, fala e conversação com cenas reais de séries, nota de pronúncia palavra por palavra e a Manu — sua professora de conversação por voz.">
 <meta name="robots" content="noindex, follow">
-<meta property="og:title" content="Fluency Route — O treino que destrava o inglês">
-<meta property="og:description" content="Cenas reais de séries, nota de pronúncia palavra por palavra e conversação por voz com a Manu.">
+<meta property="og:title" content="Fluency Route — O app que treina seu inglês até a fluência">
+<meta property="og:description" content="Cenas reais de séries, nota de pronúncia e conversação por voz com a Manu.">
 <meta property="og:site_name" content="Fluency Route">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:image" content="https://fluencyroute.com.br/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500;9..40,700;9..40,800;9..40,900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0B0D12; --panel:#12151E; --panel2:#161A26;
-  --ink:#F3EFE4; --dim:rgba(243,239,228,.58); --faint:rgba(243,239,228,.36);
-  --hair:rgba(243,239,228,.09); --hair2:rgba(243,239,228,.16);
-  --sub:#FFD84D; --sub-ink:#171204;
-  --ok:#3DDC84; --warn:#F5B93F; --manu:#B29AF8;
-  --disp:'Bricolage Grotesque',system-ui,sans-serif;
-  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
-  --body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --bg:#FAFBFA; --card:#FFFFFF; --ink:#0C1A18; --mut:#5B6B68; --soft:#8A9996;
+  --line:#E7ECEA; --line2:#D8E0DE;
+  --teal:#0DB5A6; --teal-d:#0B7E74; --teal-deep:#085E57; --teal-tint:#E9F7F5;
+  --manu:#7C5CFC; --manu-tint:#F1EDFF; --manu-deep:#5A3EE0;
+  --ok:#16A34A; --warn:#F59E0B; --coral:#FF5C39;
+  --grad:linear-gradient(135deg,#0DB5A6 0%,#0B7E74 100%);
+  --sh-sm:0 1px 2px rgba(12,26,24,.05),0 4px 12px rgba(12,26,24,.05);
+  --sh-md:0 2px 4px rgba(12,26,24,.05),0 12px 32px rgba(12,26,24,.09);
+  --sh-lg:0 4px 8px rgba(12,26,24,.05),0 24px 64px rgba(12,26,24,.13);
+  --disp:'DM Sans',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{background:var(--bg);color:var(--ink);font-family:var(--disp);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{max-width:100%;display:block}
 a{color:inherit}
-::selection{background:var(--sub);color:var(--sub-ink)}
-:focus-visible{outline:2px solid var(--sub);outline-offset:3px;border-radius:4px}
+svg{display:block;flex-shrink:0}
+::selection{background:var(--teal);color:#fff}
+:focus-visible{outline:2.5px solid var(--teal);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.narrow{max-width:760px;margin:0 auto;padding:0 20px}
 
-.wrap{max-width:720px;margin:0 auto;padding:0 20px}
-.wrap-lg{max-width:1020px;margin:0 auto;padding:0 20px}
+/* ═══ topo ═══ */
+.top{display:flex;justify-content:space-between;align-items:center;max-width:1080px;margin:0 auto;padding:16px 20px}
+.logo{font-weight:900;font-size:19px;letter-spacing:-.03em}
+.logo i{font-style:normal;color:var(--teal)}
+.top-badge{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:var(--teal-d);background:var(--teal-tint);border-radius:99px;padding:7px 14px}
 
-/* ── topo ── */
-.top{display:flex;justify-content:center;align-items:center;gap:12px;padding:18px 20px 0}
-.wordmark{font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:.14em;color:var(--dim)}
-.wordmark b{color:var(--ink)}
+/* ═══ hero ═══ */
+.hero{text-align:center;padding:36px 0 0}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal-d);background:var(--teal-tint);border-radius:99px;padding:8px 16px;margin-bottom:20px}
+.kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(.55)}}
+h1{font-weight:900;font-size:clamp(32px,7.4vw,58px);line-height:1.04;letter-spacing:-.038em;max-width:17ch;margin:0 auto 16px}
+h1 .hl{color:var(--teal-d);position:relative;white-space:nowrap}
+h1 .hl svg{position:absolute;left:0;right:0;bottom:-6px;width:100%;height:10px}
+.lead{color:var(--mut);font-size:clamp(16px,3.8vw,19px);max-width:46ch;margin:0 auto;font-weight:500}
 
-/* ── hero ── */
-.hero{padding:34px 0 10px;text-align:center}
-.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--sub);border:1px solid rgba(255,216,77,.28);border-radius:99px;padding:7px 14px;margin-bottom:22px}
-.kicker .dot{width:6px;height:6px;border-radius:50%;background:var(--sub);animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-h1{font-family:var(--disp);font-weight:800;font-size:clamp(30px,7.2vw,52px);line-height:1.08;letter-spacing:-.025em;margin:0 auto 14px;max-width:15ch}
-.blur-w{filter:blur(3px);opacity:.75;font-weight:700}
-.sharp-w{color:var(--sub)}
-.hero p.lead{color:var(--dim);font-size:clamp(15px,3.6vw,18px);max-width:44ch;margin:0 auto}
-
-/* ── player ── */
-.player-shell{margin:26px auto 0;max-width:820px;padding:0 14px}
-.player{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden;border:1px solid var(--hair2);box-shadow:0 30px 80px -20px rgba(0,0,0,.8),0 0 0 6px rgba(243,239,228,.03)}
+/* player */
+.player-zone{position:relative;max-width:860px;margin:30px auto 0;padding:0 16px}
+.player-glow{position:absolute;inset:8% 4% -6%;background:radial-gradient(60% 70% at 50% 60%,rgba(13,181,166,.22),transparent 70%);filter:blur(30px);pointer-events:none}
+.player{position:relative;aspect-ratio:16/9;background:#0C1A18;border-radius:20px;overflow:hidden;box-shadow:var(--sh-lg);border:1px solid var(--line2)}
 .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.sound{display:flex;justify-content:center;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;color:var(--faint);padding:12px 0 0;letter-spacing:.06em}
-.trustrow{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 22px;font-family:var(--mono);font-size:11.5px;color:var(--faint);padding:18px 16px 0;letter-spacing:.04em}
-.trustrow span::before{content:'✓ ';color:var(--ok)}
+.sound{display:flex;justify-content:center;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:var(--mut);padding:14px 0 0}
+.trust{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:14px 26px;padding:22px 16px 0}
+.avatars{display:flex;align-items:center}
+.avatars b{width:34px;height:34px;border-radius:50%;border:2.5px solid var(--bg);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;margin-left:-9px}
+.avatars b:first-child{margin-left:0}
+.trust .t-txt{font-size:13.5px;color:var(--mut);font-weight:600}
+.trust .t-txt b{color:var(--ink)}
+.t-chip{display:flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;color:var(--mut)}
+.t-chip svg{color:var(--teal)}
 
-/* ── seções ── */
-section{padding:64px 0}
-.eyebrow{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--sub);margin-bottom:12px}
-h2{font-family:var(--disp);font-weight:800;font-size:clamp(25px,5.6vw,38px);line-height:1.12;letter-spacing:-.02em;margin-bottom:12px}
-.sect-sub{color:var(--dim);max-width:52ch}
+/* ═══ seções ═══ */
+section{padding:76px 0}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--teal-d);margin-bottom:14px}
+h2{font-weight:900;font-size:clamp(27px,5.8vw,42px);line-height:1.08;letter-spacing:-.032em;margin-bottom:14px}
+.sub{color:var(--mut);font-size:clamp(15.5px,3.6vw,18px);max-width:54ch;font-weight:500}
 .center{text-align:center}
-.center .sect-sub{margin:0 auto}
+.center .sub{margin:0 auto}
 
-/* ── oferta ── */
-.offer{background:linear-gradient(180deg,rgba(255,216,77,.045),transparent 70%);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
-.offer-card{background:var(--panel);border:1px solid var(--hair2);border-radius:20px;padding:34px 26px;text-align:center;max-width:480px;margin:0 auto;position:relative}
-.offer-chip{position:absolute;top:-13px;left:50%;transform:translateX(-50%);white-space:nowrap;background:var(--sub);color:var(--sub-ink);font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.14em;padding:6px 14px;border-radius:99px}
-.offer-name{font-family:var(--disp);font-weight:700;font-size:19px;margin:10px 0 2px}
-.offer-desc{color:var(--dim);font-size:14px;margin-bottom:20px}
-.price{font-family:var(--disp);font-weight:800;font-size:clamp(52px,13vw,72px);line-height:1;letter-spacing:-.03em;color:var(--sub)}
-.price small{font-size:.34em;font-weight:700;color:var(--ink);letter-spacing:0}
-.price-note{font-family:var(--mono);font-size:13px;color:var(--dim);margin:8px 0 2px}
-.price-day{font-size:13.5px;color:var(--faint);margin-bottom:22px}
-.cta-btn{display:block;background:var(--sub);color:var(--sub-ink);text-decoration:none;font-family:var(--disp);font-weight:800;font-size:17.5px;letter-spacing:.01em;padding:19px 20px;border-radius:12px;transition:transform .12s ease,box-shadow .12s ease;box-shadow:0 14px 40px -10px rgba(255,216,77,.45)}
-.cta-btn:hover{transform:translateY(-2px);box-shadow:0 20px 50px -10px rgba(255,216,77,.55)}
-.cta-btn:active{transform:translateY(0)}
-.offer-foot{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 18px;font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:16px;letter-spacing:.03em}
-.founder-note{font-size:13px;color:var(--dim);max-width:40ch;margin:18px auto 0}
-.founder-note b{color:var(--ink)}
+/* ═══ phones ═══ */
+.phones{display:grid;gap:52px;margin-top:56px}
+@media(min-width:960px){.phones{grid-template-columns:repeat(3,1fr);gap:28px;align-items:start}}
+.ph-col{text-align:center}
+.phone{width:min(300px,88vw);margin:0 auto;aspect-ratio:9/18.6;background:#0C1A18;border-radius:46px;padding:9px;box-shadow:var(--sh-lg);position:relative}
+.screen{position:relative;width:100%;height:100%;border-radius:38px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+.notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:88px;height:24px;background:#0C1A18;border-radius:99px;z-index:5}
+.ph-head{padding:44px 16px 10px;display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
+.ph-head .st{color:var(--teal-d)}
+.ph-label{margin-top:22px}
+.ph-label .n{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--teal-d);display:block;margin-bottom:8px}
+.ph-label h3{font-weight:800;font-size:20px;letter-spacing:-.02em;margin-bottom:8px}
+.ph-label p{color:var(--mut);font-size:14.5px;max-width:34ch;margin:0 auto;font-weight:500}
 
-/* ── demos (assinatura) ── */
-.demo-row{display:grid;gap:26px;align-items:center;margin-top:46px}
-@media(min-width:880px){.demo-row{grid-template-columns:1fr 1.1fr;gap:56px}.demo-row.flip .demo-txt{order:2}}
-.demo-txt .n{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--sub);letter-spacing:.2em;margin-bottom:10px;display:block}
-.demo-txt h3{font-family:var(--disp);font-weight:700;font-size:clamp(21px,4.6vw,27px);letter-spacing:-.015em;margin-bottom:10px}
-.demo-txt p{color:var(--dim);font-size:15.5px;max-width:46ch}
-.device{background:var(--panel);border:1px solid var(--hair2);border-radius:22px;padding:20px;box-shadow:0 24px 70px -24px rgba(0,0,0,.75)}
-.device-bar{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.08em;margin-bottom:16px;text-transform:uppercase}
-.device-bar .live{color:var(--ok)}
-.scene{background:#0A0C11;border:1px solid var(--hair);border-radius:12px;padding:18px 16px}
-.scene-meta{display:flex;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-bottom:14px}
-.scene-meta .tag{border:1px solid var(--hair2);border-radius:6px;padding:3px 8px}
-.scene-meta .tag.on{border-color:rgba(255,216,77,.4);color:var(--sub)}
-.line-en{font-family:var(--mono);font-size:clamp(15px,3.8vw,18px);font-weight:600;color:var(--ink);margin-bottom:8px;animation:deblur 6s ease-in-out infinite}
-@keyframes deblur{0%,18%{filter:blur(4.5px);opacity:.65}38%,80%{filter:blur(0);opacity:1}100%{filter:blur(4.5px);opacity:.65}}
-.line-pt{font-size:14px;color:var(--dim);font-style:italic}
-.scene-controls{display:flex;align-items:center;gap:14px;margin-top:18px;padding-top:14px;border-top:1px solid var(--hair)}
-.play-dot{width:38px;height:38px;border-radius:50%;background:var(--sub);display:flex;align-items:center;justify-content:center;color:var(--sub-ink);font-size:14px;flex-shrink:0}
-.loopbar{flex:1;height:6px;border-radius:99px;background:rgba(243,239,228,.12);position:relative;overflow:hidden}
-.loopbar i{position:absolute;left:18%;right:34%;top:0;bottom:0;background:var(--sub);border-radius:99px;animation:loopfill 3s linear infinite;transform-origin:left}
-@keyframes loopfill{0%{transform:scaleX(0)}70%{transform:scaleX(1)}100%{transform:scaleX(1)}}
-.repeat-n{font-family:var(--mono);font-size:11px;color:var(--sub);white-space:nowrap}
-/* shadowing */
-.shadow-phrase{font-family:var(--mono);font-size:clamp(16px,4vw,19px);font-weight:600;line-height:1.9}
-.w-ok{color:var(--ok);border-bottom:2px solid rgba(61,220,132,.5)}
-.w-warn{color:var(--warn);border-bottom:2px dashed rgba(245,185,63,.6)}
-.score-row{display:flex;align-items:center;gap:16px;margin-top:18px;padding-top:16px;border-top:1px solid var(--hair)}
-.score-big{font-family:var(--disp);font-weight:800;font-size:44px;color:var(--ok);line-height:1}
-.score-big small{font-size:15px;color:var(--dim);font-weight:600}
-.score-note{font-size:13px;color:var(--dim)}
-.score-note b{color:var(--warn)}
-/* manu */
-.chat{display:flex;flex-direction:column;gap:12px}
-.bub{max-width:85%;border-radius:14px;padding:12px 14px;font-size:14.5px;line-height:1.5}
-.bub.user{align-self:flex-end;background:rgba(243,239,228,.09);border:1px solid var(--hair2);border-bottom-right-radius:4px}
-.bub.manu{align-self:flex-start;background:rgba(178,154,248,.1);border:1px solid rgba(178,154,248,.3);border-bottom-left-radius:4px}
-.bub .who{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:5px}
-.bub.manu .who{color:var(--manu)}
-.wave{display:inline-flex;align-items:flex-end;gap:2.5px;height:16px;vertical-align:middle;margin-right:8px}
-.wave i{width:3px;background:var(--ink);border-radius:2px;animation:wv 1s ease-in-out infinite}
-.wave i:nth-child(1){height:6px}.wave i:nth-child(2){height:14px;animation-delay:.15s}.wave i:nth-child(3){height:9px;animation-delay:.3s}.wave i:nth-child(4){height:15px;animation-delay:.45s}.wave i:nth-child(5){height:7px;animation-delay:.6s}
-@keyframes wv{0%,100%{transform:scaleY(.5)}50%{transform:scaleY(1)}}
-.fix-chip{display:inline-block;font-family:var(--mono);font-size:10.5px;color:var(--manu);border:1px solid rgba(178,154,248,.35);border-radius:6px;padding:2px 8px;margin-top:8px;letter-spacing:.05em}
+/* fone 1 — player */
+.sc-scene{position:relative;margin:6px 12px;border-radius:18px;overflow:hidden;aspect-ratio:16/10;background:#111}
+.sc-scene img{width:100%;height:100%;object-fit:cover;opacity:.85}
+.sc-scene .ep{position:absolute;top:8px;left:8px;font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.08em;color:#fff;background:rgba(0,0,0,.55);padding:4px 8px;border-radius:6px}
+.sc-scene .playbtn{position:absolute;inset:0;margin:auto;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.94);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.karaoke{padding:14px 16px 4px;text-align:left}
+.karaoke .en{font-weight:800;font-size:15.5px;line-height:1.5;letter-spacing:-.01em}
+.karaoke .en span{color:#B7C4C1;animation:kfill 4.5s steps(1) infinite}
+.karaoke .en span:nth-child(2){animation-delay:.5s}.karaoke .en span:nth-child(3){animation-delay:1s}.karaoke .en span:nth-child(4){animation-delay:1.4s}.karaoke .en span:nth-child(5){animation-delay:1.9s}.karaoke .en span:nth-child(6){animation-delay:2.4s}
+@keyframes kfill{0%{color:#B7C4C1}12%,88%{color:#0C1A18}100%{color:#B7C4C1}}
+.karaoke .pt{font-size:12.5px;color:var(--soft);margin-top:6px;font-weight:500}
+.sc-ctrl{display:flex;gap:8px;padding:12px 16px;margin-top:auto}
+.pill{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.06em;border-radius:99px;padding:6px 11px;background:#F1F5F4;color:var(--mut)}
+.pill.on{background:var(--teal-tint);color:var(--teal-d)}
+.sc-loop{margin:0 16px 18px;height:7px;border-radius:99px;background:#EDF2F0;position:relative;overflow:hidden}
+.sc-loop i{position:absolute;top:0;bottom:0;left:0;width:62%;border-radius:99px;background:var(--grad);animation:lp 3s linear infinite;transform-origin:left}
+@keyframes lp{0%{transform:scaleX(.1)}85%,100%{transform:scaleX(1)}}
 
-/* ── stack ── */
-.stack-grid{display:grid;gap:14px;margin-top:36px}
-@media(min-width:680px){.stack-grid{grid-template-columns:1fr 1fr}}
-.stack-item{background:var(--panel);border:1px solid var(--hair);border-radius:14px;padding:22px}
-.stack-item .ic{font-size:22px;margin-bottom:10px;display:block}
-.stack-item h4{font-family:var(--disp);font-weight:700;font-size:17px;margin-bottom:6px;letter-spacing:-.01em}
-.stack-item p{font-size:14px;color:var(--dim)}
-.bonus-h{display:flex;align-items:center;gap:14px;margin:44px 0 22px;font-family:var(--mono);font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--sub)}
-.bonus-h::before,.bonus-h::after{content:'';height:1px;flex:1;background:var(--hair2)}
-.stack-item.bonus{border-color:rgba(255,216,77,.22);background:linear-gradient(180deg,rgba(255,216,77,.05),transparent 60%),var(--panel)}
-.stack-item.bonus .tagb{font-family:var(--mono);font-size:10px;color:var(--sub);letter-spacing:.16em;display:block;margin-bottom:8px}
+/* fone 2 — shadowing */
+.sh-body{padding:10px 16px;text-align:left;display:flex;flex-direction:column;height:100%}
+.sh-phrase{font-weight:800;font-size:16.5px;line-height:1.75;letter-spacing:-.01em;margin-top:4px}
+.sh-phrase .g{color:var(--ok);border-bottom:2.5px solid rgba(22,163,74,.35)}
+.sh-phrase .y{color:var(--warn);border-bottom:2.5px dashed rgba(245,158,11,.55)}
+.ring-zone{display:flex;align-items:center;gap:16px;margin:18px 0 6px}
+.ring{position:relative;width:92px;height:92px;flex-shrink:0}
+.ring svg{transform:rotate(-90deg)}
+.ring .track{stroke:#EDF2F0}
+.ring .val{stroke:url(#gradRing);stroke-linecap:round;stroke-dasharray:239.4;stroke-dashoffset:239.4;animation:ringfill 2.2s cubic-bezier(.2,.7,.2,1) forwards .4s}
+@keyframes ringfill{to{stroke-dashoffset:31.2}}
+.ring .num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:900;font-size:24px;letter-spacing:-.03em}
+.ring .num small{font-family:var(--mono);font-size:8px;font-weight:700;letter-spacing:.14em;color:var(--soft);text-transform:uppercase}
+.sh-note{font-size:12.5px;color:var(--mut);font-weight:600;line-height:1.5}
+.sh-note b{color:var(--warn)}
+.sh-waves{margin-top:auto;padding:12px 0 16px}
+.sh-waves .row{display:flex;align-items:center;gap:10px;margin-top:10px}
+.sh-waves .who{font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);width:46px;text-align:right}
+.wv{display:flex;align-items:center;gap:2.5px;height:22px;flex:1}
+.wv i{flex:1;border-radius:99px;background:var(--teal);opacity:.9}
+.wv.you i{background:var(--warn)}
 
-/* ── números ── */
-.numbers{border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);background:var(--panel)}
-.num-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px 16px;margin-top:36px;text-align:center}
-@media(min-width:680px){.num-grid{grid-template-columns:repeat(4,1fr)}}
-.num b{font-family:var(--disp);font-weight:800;font-size:clamp(26px,6vw,36px);letter-spacing:-.02em;display:block;color:var(--ink)}
-.num span{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.06em;text-transform:uppercase;display:block;margin-top:6px;line-height:1.5}
+/* fone 3 — manu */
+.manu-screen{background:linear-gradient(175deg,#17102E 0%,#241847 60%,#2E1D5C 100%);color:#fff}
+.manu-screen .ph-head{color:rgba(255,255,255,.5)}
+.manu-screen .ph-head .st{color:#C9B8FF}
+.orb-zone{display:flex;flex-direction:column;align-items:center;padding:16px 0 0}
+.orb{position:relative;width:120px;height:120px}
+.orb .halo{position:absolute;inset:-22px;border-radius:50%;background:radial-gradient(circle,rgba(146,108,255,.4),transparent 65%);animation:breathe 3s ease-in-out infinite}
+.orb .core{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,#8F6BFF,#C9B8FF,#6E48F0,#B18CFF,#8F6BFF);animation:spin 7s linear infinite;filter:blur(1px)}
+.orb .glass{position:absolute;inset:7px;border-radius:50%;background:radial-gradient(circle at 34% 30%,rgba(255,255,255,.85),rgba(255,255,255,.06) 42%),radial-gradient(circle at 66% 74%,rgba(110,72,240,.85),rgba(50,28,120,.95))}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes breathe{50%{transform:scale(1.14)}}
+.manu-status{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#C9B8FF;margin-top:16px;display:flex;align-items:center;gap:8px}
+.eq{display:inline-flex;align-items:flex-end;gap:2px;height:12px}
+.eq i{width:2.5px;border-radius:2px;background:#C9B8FF;animation:eq 1s ease-in-out infinite}
+.eq i:nth-child(1){height:5px}.eq i:nth-child(2){height:12px;animation-delay:.12s}.eq i:nth-child(3){height:8px;animation-delay:.24s}.eq i:nth-child(4){height:11px;animation-delay:.36s}
+@keyframes eq{50%{transform:scaleY(.4)}}
+.manu-chat{padding:18px 14px 18px;display:flex;flex-direction:column;gap:9px;margin-top:auto;text-align:left}
+.mbub{border-radius:15px;padding:10px 13px;font-size:12.8px;line-height:1.5;font-weight:500}
+.mbub.you{align-self:flex-end;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.14);max-width:88%}
+.mbub.manu{align-self:flex-start;background:rgba(255,255,255,.95);color:var(--ink);max-width:92%;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.mbub .tag{display:block;font-family:var(--mono);font-size:7.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px;color:rgba(255,255,255,.45)}
+.mbub.manu .tag{color:var(--manu-deep)}
+.mbub.manu u{text-decoration-color:var(--manu);text-decoration-thickness:2px;text-underline-offset:2px;font-weight:800}
+.fixchip{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.08em;color:var(--manu-deep);background:var(--manu-tint);border-radius:6px;padding:3px 8px;margin-top:7px;text-transform:uppercase}
 
-/* ── séries ── */
-.series-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:36px}
-@media(min-width:680px){.series-grid{grid-template-columns:repeat(4,1fr)}}
-.serie{position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--hair2);aspect-ratio:2/2.6;background:var(--panel2)}
-.serie img{width:100%;height:100%;object-fit:cover;opacity:.92}
-.serie .cap{position:absolute;left:0;right:0;bottom:0;padding:26px 12px 10px;background:linear-gradient(transparent,rgba(5,6,10,.92));font-size:13px;font-weight:600}
-.serie .cap small{display:block;font-family:var(--mono);font-size:10px;color:var(--faint);font-weight:400;letter-spacing:.06em;margin-top:2px}
-.serie.ted{display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,#1c0f0f,#2b1212)}
-.serie.ted .tedmark{font-family:var(--disp);font-weight:800;font-size:34px;color:#EB0028;letter-spacing:-.02em}
+/* ═══ mecanismo ═══ */
+.mech{background:linear-gradient(180deg,#FFFFFF 0%,#F4F9F8 100%);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.mech-grid{display:grid;gap:18px;margin-top:52px}
+@media(min-width:880px){.mech-grid{grid-template-columns:1.25fr 1fr;grid-template-rows:auto auto}}
+.mcard{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:var(--sh-sm)}
+.mcard .mk{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal-d);margin-bottom:8px}
+.mcard h3{font-weight:800;font-size:20px;letter-spacing:-.02em;margin-bottom:6px}
+.mcard .mp{font-size:14.5px;color:var(--mut);font-weight:500;max-width:52ch}
+@media(min-width:880px){.mcard.tall{grid-row:span 2}}
+/* penhasco */
+.cliff{display:flex;align-items:flex-end;gap:8%;height:230px;margin-top:30px;padding:0 6px;border-bottom:2.5px solid var(--ink)}
+.bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}
+.bar .count{font-weight:900;font-size:clamp(14px,2.4vw,19px);letter-spacing:-.02em;margin-bottom:8px}
+.bar i{width:100%;border-radius:10px 10px 0 0;background:var(--grad);transform-origin:bottom;animation:grow 1.4s cubic-bezier(.2,.7,.2,1) forwards;transform:scaleY(0)}
+.bar:nth-child(2) i{background:linear-gradient(180deg,#7BC9C0,#5FB3AA);animation-delay:.2s}
+.bar:nth-child(3) i{background:#C9D8D5;animation-delay:.4s}
+@keyframes grow{to{transform:scaleY(1)}}
+.bar .lbl{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--mut);margin-top:10px;text-align:center;line-height:1.5}
+.cliff-cap{font-size:13px;color:var(--soft);font-weight:600;margin-top:14px}
+/* donut */
+.donut-zone{display:flex;align-items:center;gap:22px;margin-top:22px}
+.donut{position:relative;width:128px;height:128px;flex-shrink:0}
+.donut svg{transform:rotate(-90deg)}
+.donut .track{stroke:#EDF2F0}
+.donut .val{stroke:url(#gradRing2);stroke-linecap:round;stroke-dasharray:339.3;stroke-dashoffset:339.3;animation:donutfill 2s cubic-bezier(.2,.7,.2,1) forwards .3s}
+@keyframes donutfill{to{stroke-dashoffset:33.9}}
+.donut .num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:30px;letter-spacing:-.04em}
+.donut-txt{font-size:14.5px;color:var(--mut);font-weight:500}
+.donut-txt b{color:var(--ink)}
+/* 30x */
+.reps{display:flex;align-items:flex-end;gap:18px;margin-top:26px}
+.rep{flex:1;text-align:center}
+.rep .stackv{display:flex;flex-direction:column-reverse;gap:3px;align-items:stretch;min-height:120px;justify-content:flex-start}
+.rep .stackv i{height:8px;border-radius:3px;background:#E3EAE8}
+.rep.hot .stackv i{background:var(--teal);opacity:.92}
+.rep .rn{font-weight:900;font-size:22px;margin-top:10px;letter-spacing:-.02em}
+.rep .rl{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-top:2px}
+.rep .res{font-size:12px;font-weight:700;margin-top:6px;color:var(--soft)}
+.rep.hot .res{color:var(--teal-d)}
 
-/* ── comparação ── */
-.cmp{display:grid;gap:12px;margin-top:36px}
-@media(min-width:680px){.cmp{grid-template-columns:repeat(3,1fr)}}
-.cmp-card{background:var(--panel);border:1px solid var(--hair);border-radius:14px;padding:22px;text-align:center}
-.cmp-card .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
-.cmp-card .val{font-family:var(--disp);font-weight:800;font-size:26px;letter-spacing:-.02em;color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(243,239,228,.35);text-decoration-thickness:2px}
-.cmp-card .per{font-size:12.5px;color:var(--faint);margin-top:4px}
-.cmp-vs{text-align:center;margin:26px 0 6px;font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.14em}
-.cmp-you{background:linear-gradient(180deg,rgba(255,216,77,.07),transparent),var(--panel);border:1px solid rgba(255,216,77,.35);border-radius:16px;padding:26px;text-align:center;max-width:460px;margin:0 auto}
-.cmp-you .val{font-family:var(--disp);font-weight:800;font-size:38px;color:var(--sub);letter-spacing:-.02em}
-.cmp-you .val small{font-size:16px;color:var(--ink)}
-.cmp-you p{font-size:13.5px;color:var(--dim);margin-top:8px}
+/* ═══ séries marquee ═══ */
+.series-sec{padding:64px 0;overflow:hidden}
+.marquee{display:flex;gap:16px;width:max-content;animation:mq 36s linear infinite;margin-top:44px;padding:6px 0}
+.marquee:hover{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-50%)}}
+.mq-card{position:relative;width:200px;aspect-ratio:2/2.7;border-radius:18px;overflow:hidden;box-shadow:var(--sh-md);flex-shrink:0}
+.mq-card img{width:100%;height:100%;object-fit:cover}
+.mq-card .cap{position:absolute;left:0;right:0;bottom:0;padding:34px 14px 12px;background:linear-gradient(transparent,rgba(5,10,9,.94));color:#fff;font-weight:800;font-size:15px;letter-spacing:-.01em}
+.mq-card .cap small{display:block;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.62);margin-top:3px}
+.mq-card.ted{background:linear-gradient(150deg,#1a0b0b,#3d1111);display:flex;align-items:center;justify-content:center}
+.mq-card.ted b{font-size:44px;font-weight:900;color:#EB0028;letter-spacing:-.03em}
 
-/* ── garantia ── */
-.guarantee{background:var(--panel);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
-.g-grid{display:grid;gap:14px;margin-top:36px}
-@media(min-width:680px){.g-grid{grid-template-columns:1fr 1fr}}
-.g-card{background:var(--bg);border:1px solid var(--hair2);border-radius:16px;padding:28px}
-.g-card .g-n{font-family:var(--mono);font-size:11px;color:var(--ok);letter-spacing:.18em;text-transform:uppercase;display:block;margin-bottom:12px}
-.g-card h4{font-family:var(--disp);font-weight:700;font-size:20px;margin-bottom:10px;letter-spacing:-.015em}
-.g-card p{font-size:14.5px;color:var(--dim)}
+/* ═══ oferta ═══ */
+.offer-sec{background:radial-gradient(90% 70% at 50% 0%,#0F2E2A 0%,#0C1A18 70%);color:#fff;padding:88px 0}
+.offer-sec .eyebrow{color:#57D9CC}
+.offer-sec .sub{color:rgba(255,255,255,.66)}
+.paywall{max-width:560px;margin:48px auto 0;background:#fff;color:var(--ink);border-radius:28px;box-shadow:0 40px 100px -20px rgba(0,0,0,.6);overflow:hidden;position:relative}
+.pw-ribbon{background:var(--grad);color:#fff;text-align:center;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:11px 16px}
+.pw-body{padding:30px 26px 28px}
+@media(min-width:640px){.pw-body{padding:38px 40px 36px}}
+.pw-title{font-weight:900;font-size:23px;letter-spacing:-.025em;text-align:center}
+.pw-sub{text-align:center;color:var(--mut);font-size:14px;font-weight:500;margin-top:4px}
+.pw-items{margin:26px 0 8px;border-top:1px solid var(--line)}
+.pw-item{display:flex;align-items:center;gap:13px;padding:13px 0;border-bottom:1px solid var(--line)}
+.pw-item .ic{width:38px;height:38px;border-radius:11px;background:var(--teal-tint);color:var(--teal-d);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pw-item.bn .ic{background:var(--manu-tint);color:var(--manu-deep)}
+.pw-item .tx{flex:1;min-width:0}
+.pw-item .tx b{display:block;font-size:14.5px;font-weight:800;letter-spacing:-.01em}
+.pw-item .tx span{font-size:12.5px;color:var(--mut);font-weight:500}
+.pw-item .pv{font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--soft);white-space:nowrap}
+.pw-item.bn .pv{color:var(--manu-deep)}
+.pw-total{display:flex;justify-content:space-between;align-items:center;padding:16px 0 6px;font-weight:800;font-size:14px}
+.pw-total .tv{font-family:var(--mono);color:var(--soft);text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:var(--coral)}
+.pw-price{text-align:center;margin:18px 0 6px}
+.pw-price .p{font-weight:900;font-size:64px;letter-spacing:-.045em;line-height:1;color:var(--teal-deep)}
+.pw-price .p small{font-size:22px;letter-spacing:-.02em}
+.pw-price .per{font-size:14px;color:var(--mut);font-weight:600;margin-top:6px}
+.pw-price .day{font-size:13px;color:var(--soft);font-weight:500;margin-top:2px}
+.cta-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:var(--grad);color:#fff;text-decoration:none;font-weight:900;font-size:17.5px;letter-spacing:-.01em;padding:19px 22px;border-radius:15px;margin-top:18px;box-shadow:0 14px 34px -8px rgba(13,132,122,.5);transition:transform .12s ease,box-shadow .12s ease;position:relative;overflow:hidden}
+.cta-btn::after{content:'';position:absolute;top:0;bottom:0;left:-70%;width:36%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.34),transparent);transform:skewX(-18deg);animation:shine 3.4s ease-in-out infinite}
+@keyframes shine{0%,55%{left:-70%}90%,100%{left:140%}}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 20px 44px -8px rgba(13,132,122,.62)}
+.pw-secure{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 20px;margin-top:16px}
+.pw-secure span{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--mut)}
+.pw-secure svg{color:var(--teal-d)}
+.founder{max-width:560px;margin:22px auto 0;text-align:center;font-size:13.5px;color:rgba(255,255,255,.6);font-weight:500;line-height:1.7}
+.founder b{color:#fff}
 
-/* ── faq ── */
-.faq{max-width:720px;margin:36px auto 0}
-details{border-bottom:1px solid var(--hair)}
-summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 4px;font-family:var(--disp);font-weight:600;font-size:16.5px;letter-spacing:-.01em}
+/* ═══ comparação ═══ */
+.tbl-wrap{overflow-x:auto;margin-top:48px;-webkit-overflow-scrolling:touch;padding-bottom:6px}
+table{border-collapse:separate;border-spacing:0;width:100%;min-width:640px;background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--sh-sm)}
+th,td{padding:15px 16px;text-align:center;font-size:14px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);background:#F6FAF9}
+td:first-child,th:first-child{text-align:left;font-weight:700;font-size:14.5px}
+td.fr{background:var(--teal-tint)}
+th.fr{background:var(--teal);color:#fff}
+.chk{color:var(--ok)}.x{color:#D2DCDA}
+td .money{font-family:var(--mono);font-weight:700;font-size:12.5px;color:var(--mut)}
+td.fr .money{color:var(--teal-deep)}
+
+/* ═══ garantia ═══ */
+.g-sec{background:#F4F9F8;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.g-grid{display:grid;gap:18px;margin-top:48px;max-width:880px;margin-left:auto;margin-right:auto}
+@media(min-width:720px){.g-grid{grid-template-columns:1fr 1fr}}
+.g-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:32px;box-shadow:var(--sh-sm)}
+.g-card .gi{width:52px;height:52px;border-radius:16px;background:var(--teal-tint);color:var(--teal-d);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.g-card .gd{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal-d);margin-bottom:8px}
+.g-card h3{font-weight:800;font-size:21px;letter-spacing:-.02em;margin-bottom:8px}
+.g-card p{font-size:14.5px;color:var(--mut);font-weight:500}
+
+/* ═══ faq ═══ */
+.faq{max-width:760px;margin:44px auto 0}
+details{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:10px;box-shadow:var(--sh-sm);overflow:hidden}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:19px 22px;font-weight:800;font-size:16px;letter-spacing:-.015em}
 summary::-webkit-details-marker{display:none}
-summary .pl{font-family:var(--mono);color:var(--sub);font-size:18px;transition:transform .2s ease;flex-shrink:0}
+summary .pl{width:26px;height:26px;border-radius:8px;background:var(--teal-tint);color:var(--teal-d);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;transition:transform .2s ease;flex-shrink:0}
 details[open] summary .pl{transform:rotate(45deg)}
-details .ans{padding:0 4px 22px;color:var(--dim);font-size:15px;max-width:60ch}
+details .ans{padding:0 22px 20px;color:var(--mut);font-size:15px;font-weight:500;max-width:62ch}
 
-/* ── cta final ── */
-.final{padding:80px 0 90px;text-align:center;background:radial-gradient(ellipse 70% 60% at 50% 100%,rgba(255,216,77,.08),transparent)}
+/* ═══ cta final ═══ */
+.final{text-align:center;padding:84px 0 96px}
 
-/* ── sticky mobile cta ── */
-.sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(11,13,18,.92);backdrop-filter:blur(10px);border-top:1px solid var(--hair2);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:none;align-items:center;gap:12px;transform:translateY(110%);transition:transform .3s ease}
+footer{border-top:1px solid var(--line);padding:34px 20px 48px;text-align:center;font-size:12.5px;color:var(--soft);line-height:2;font-weight:500}
+
+/* sticky mobile */
+.sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-top:1px solid var(--line2);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:none;align-items:center;gap:12px;transform:translateY(110%);transition:transform .3s ease;box-shadow:0 -8px 30px rgba(12,26,24,.08)}
 .sticky-cta.on{transform:none}
-.sticky-cta .p{font-family:var(--disp);font-weight:800;font-size:18px;color:var(--sub);white-space:nowrap}
-.sticky-cta .p small{display:block;font-family:var(--mono);font-size:9.5px;color:var(--faint);font-weight:400;letter-spacing:.05em}
-.sticky-cta .cta-btn{flex:1;padding:13px 10px;font-size:14.5px;box-shadow:none}
+.sticky-cta .p{font-weight:900;font-size:19px;color:var(--teal-deep);white-space:nowrap;line-height:1.1}
+.sticky-cta .p small{display:block;font-family:var(--mono);font-size:8.5px;color:var(--soft);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.sticky-cta .cta-btn{margin-top:0;padding:14px 12px;font-size:14.5px;flex:1;box-shadow:none}
+.sticky-cta .cta-btn::after{display:none}
 @media(max-width:820px){.sticky-cta{display:flex}}
-
-footer{border-top:1px solid var(--hair);padding:34px 20px 46px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.08em;line-height:2}
 
 .esconder{display:none!important}
 @media (prefers-reduced-motion: reduce){
-  .line-en,.loopbar i,.wave i,.kicker .dot{animation:none!important}
-  .line-en{filter:none;opacity:1}
+  *{animation:none!important;transition:none!important}
+  .bar i{transform:none}
+  .ring .val{stroke-dashoffset:31.2}
+  .donut .val{stroke-dashoffset:33.9}
   html{scroll-behavior:auto}
 }
 </style>
 </head>
 <body>
 
-<div class="top"><span class="wordmark">fluency<b>route</b></span></div>
+<svg width="0" height="0" aria-hidden="true"><defs>
+<linearGradient id="gradRing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0DB5A6"/><stop offset="1" stop-color="#0B7E74"/></linearGradient>
+<linearGradient id="gradRing2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0DB5A6"/><stop offset="1" stop-color="#085E57"/></linearGradient>
+</defs></svg>
 
-<!-- ═══ HERO + PLAYER ═══ -->
+<div class="top">
+  <span class="logo">fluency<i>route</i></span>
+  <span class="top-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>garantia de 7 dias</span>
+</div>
+
+<!-- ═══ HERO ═══ -->
 <header class="hero">
   <div class="wrap">
     <span class="kicker"><span class="dot"></span>aula gratuita · assista até o final</span>
-    <h1>O treino que faz o inglês <span class="blur-w">embolado</span> virar <span class="sharp-w">nítido</span>.</h1>
-    <p class="lead">Nessa aula eu te mostro o método completo — e no final, o que existe pra treinar com ele todos os dias.</p>
+    <h1>Inglês fluente se <span class="hl">treina<svg viewBox="0 0 120 10" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8 Q 30 2 60 5 T 118 4" fill="none" stroke="#0DB5A6" stroke-width="3.5" stroke-linecap="round"/></svg></span>. E o seu treino está pronto.</h1>
+    <p class="lead">Assista a aula e conheça o app que treina seu ouvido, sua fala e sua conversação — todos os dias, no seu celular.</p>
   </div>
-  <div class="player-shell">
+  <div class="player-zone">
+    <div class="player-glow"></div>
     <div class="player">
       <iframe frameborder="0" allowfullscreen id="ifr_67d1c8ba61d59aeb47caf87d" src="about:blank" referrerpolicy="origin" title="Aula Fluency Route"></iframe>
     </div>
-    <p class="sound">🔊 assista com o som ativado</p>
-    <div class="trustrow">
-      <span>mais de 4.000 alunos</span>
-      <span>garantia de 7 dias</span>
-      <span>acesso imediato</span>
+    <p class="sound"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4.7 6.6 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h3.6L11 19.3a1 1 0 0 0 1.63-.78V5.48A1 1 0 0 0 11 4.7z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.4 5.6a9 9 0 0 1 0 12.8"/></svg> assista com o som ativado</p>
+    <div class="trust">
+      <span class="avatars">
+        <b style="background:#0DB5A6">M</b><b style="background:#0B7E74">A</b><b style="background:#7C5CFC">J</b><b style="background:#F59E0B">C</b><b style="background:#0C1A18">R</b>
+        <span class="t-txt" style="margin-left:10px"><b>4.000+ alunos</b> destravando o inglês</span>
+      </span>
+      <span class="t-chip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>acesso imediato</span>
+      <span class="t-chip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>7 dias de garantia</span>
     </div>
   </div>
 </header>
 
-<!-- ═══ OFERTA ═══ -->
-<section class="offer" id="oferta">
-  <div class="wrap">
-    <div class="offer-card">
-      <span class="offer-chip">TURMA DE FUNDAÇÃO</span>
-      <p class="offer-name">Fluency Route — acesso anual completo</p>
-      <p class="offer-desc">Treinos concentrados + aplicativo + Manu + todos os bônus</p>
-      <div class="price"><small>R$</small>99<small>/mês</small></div>
-      <p class="price-note">no plano anual · 12x de R$99 no cartão</p>
-      <p class="price-day">menos de R$3,30 por dia</p>
-      <a class="cta-btn" href="https://pay.kiwify.com.br/6Fftr2I">QUERO DESTRAVAR MEU INGLÊS →</a>
-      <div class="offer-foot">
-        <span>✓ acesso em 5 minutos</span><span>✓ garantia dupla</span><span>✓ pagamento seguro</span>
-      </div>
-    </div>
-    <p class="founder-note center"><b>Preço de fundação:</b> a Manu conversa por voz e tem custo real por aluno — cada turma é dimensionada. Na próxima turma, o valor sobe. Quem entra agora trava esse preço enquanto a assinatura estiver ativa.</p>
-  </div>
-</section>
-
-<!-- ═══ DEMOS ═══ -->
+<!-- ═══ APP / 3 FONES ═══ -->
 <section>
-  <div class="wrap-lg">
+  <div class="wrap">
     <div class="center">
-      <p class="eyebrow">o produto, ligado</p>
-      <h2>Você viu na aula.<br>Agora olha de perto.</h2>
-      <p class="sect-sub">Nada aqui é promessa: são as três coisas que você vai fazer no aplicativo, todos os dias.</p>
+      <p class="eyebrow">dentro do app</p>
+      <h2>Os 3 treinos que levam<br>até a fluência</h2>
+      <p class="sub">Não é curso pra assistir. É treino pra fazer — e cada um deles está pronto no seu celular.</p>
     </div>
+    <div class="phones">
 
-    <!-- D1 · player -->
-    <div class="demo-row">
-      <div class="demo-txt">
-        <span class="n">TREINO 01 · OUVIDO</span>
-        <h3>Cenas reais de série, no repeat até virar nítido</h3>
-        <p>Você marca 1 minuto de uma cena, o app repete com o script na tela… e depois tira o script. O embolado vira palavra — o mesmo efeito da aula, episódio inteiro atrás de episódio.</p>
-      </div>
-      <div class="device" aria-label="Demonstração do player de treino">
-        <div class="device-bar"><span>friends · s01e01</span><span class="live">treino ativo</span></div>
-        <div class="scene">
-          <div class="scene-meta">
-            <span class="tag on">loop A–B</span><span class="tag">0.8x</span><span class="tag">trecho 0:42–0:54</span>
+      <!-- fone 1: ouvido -->
+      <div class="ph-col">
+        <div class="phone"><div class="screen">
+          <span class="notch"></span>
+          <div class="ph-head"><span>friends · s01e01</span><span class="st">treino de ouvido</span></div>
+          <div class="sc-scene">
+            <img src="/thumb-friends.jpg" alt="Cena de Friends" loading="lazy">
+            <span class="ep">TRECHO 0:42–0:54</span>
+            <span class="playbtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0C1A18"><path d="M8 5v14l11-7z"/></svg></span>
           </div>
-          <p class="line-en">There's nothing to tell! He's just some guy I work with.</p>
-          <p class="line-pt">Não tem nada pra contar! É só um cara com quem eu trabalho.</p>
-          <div class="scene-controls">
-            <span class="play-dot">▶</span>
-            <span class="loopbar"><i></i></span>
-            <span class="repeat-n">repetição 12/30</span>
+          <div class="karaoke">
+            <p class="en"><span>There's</span> <span>nothing</span> <span>to</span> <span>tell!</span> <span>He's</span> <span>just…</span></p>
+            <p class="pt">Não tem nada pra contar! Ele é só…</p>
           </div>
+          <div class="sc-ctrl"><span class="pill on">LOOP A–B</span><span class="pill">0.8x</span><span class="pill">REPETIÇÃO 12/30</span></div>
+          <div class="sc-loop"><i></i></div>
+        </div></div>
+        <div class="ph-label">
+          <span class="n">TREINO 01</span>
+          <h3>Ouvido</h3>
+          <p>Um minuto de cena no repeat, com script na tela — até o embolado virar palavra.</p>
         </div>
       </div>
-    </div>
 
-    <!-- D2 · shadowing -->
-    <div class="demo-row flip">
-      <div class="demo-txt">
-        <span class="n">TREINO 02 · FALA</span>
-        <h3>Sua voz, avaliada palavra por palavra</h3>
-        <p>Você grava por cima do nativo e o app devolve a nota: verde acertou, âmbar escapou do som. Não é professor bonzinho te elogiando — é medição, treino após treino.</p>
-      </div>
-      <div class="device" aria-label="Demonstração da nota de shadowing">
-        <div class="device-bar"><span>shadowing · sua gravação</span><span class="live">analisado</span></div>
-        <div class="scene">
-          <p class="shadow-phrase"><span class="w-ok">There's</span> <span class="w-ok">nothing</span> <span class="w-warn">to</span> <span class="w-ok">tell!</span></p>
-          <div class="score-row">
-            <div class="score-big">87<small>/100</small></div>
-            <p class="score-note">quase lá — o <b>“to”</b> escapou do som real. Ouve o nativo e grava de novo.</p>
+      <!-- fone 2: fala -->
+      <div class="ph-col">
+        <div class="phone"><div class="screen">
+          <span class="notch"></span>
+          <div class="ph-head"><span>shadowing</span><span class="st">sua gravação</span></div>
+          <div class="sh-body">
+            <p class="sh-phrase"><span class="g">There's</span> <span class="g">nothing</span> <span class="y">to</span> <span class="g">tell!</span></p>
+            <div class="ring-zone">
+              <div class="ring">
+                <svg width="92" height="92" viewBox="0 0 92 92"><circle class="track" cx="46" cy="46" r="38.1" fill="none" stroke-width="9"/><circle class="val" cx="46" cy="46" r="38.1" fill="none" stroke-width="9"/></svg>
+                <span class="num">87<small>nota</small></span>
+              </div>
+              <p class="sh-note">Quase lá — o <b>“to”</b> escapou do som real. Ouve o nativo e grava de novo.</p>
+            </div>
+            <div class="sh-waves">
+              <div class="row"><span class="who">nativo</span><span class="wv"><i style="height:30%"></i><i style="height:75%"></i><i style="height:55%"></i><i style="height:95%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:35%"></i><i style="height:65%"></i><i style="height:90%"></i><i style="height:40%"></i><i style="height:70%"></i><i style="height:30%"></i></span></div>
+              <div class="row"><span class="who">você</span><span class="wv you"><i style="height:28%"></i><i style="height:70%"></i><i style="height:50%"></i><i style="height:88%"></i><i style="height:38%"></i><i style="height:85%"></i><i style="height:60%"></i><i style="height:58%"></i><i style="height:84%"></i><i style="height:36%"></i><i style="height:66%"></i><i style="height:28%"></i></span></div>
+            </div>
           </div>
+        </div></div>
+        <div class="ph-label">
+          <span class="n">TREINO 02</span>
+          <h3>Fala</h3>
+          <p>Você grava por cima do nativo e recebe nota palavra por palavra. Medição, não achismo.</p>
         </div>
       </div>
-    </div>
 
-    <!-- D3 · manu -->
-    <div class="demo-row">
-      <div class="demo-txt">
-        <span class="n">TREINO 03 · CONVERSA</span>
-        <h3>A Manu: conversação por voz, sem plateia</h3>
-        <p>Quando o ouvido abre e a fala solta, você precisa de alguém pra conversar. A Manu entende, responde e corrige em tempo real — às 6 da manhã ou meia-noite, no seu nível, sobre qualquer assunto.</p>
-      </div>
-      <div class="device" aria-label="Demonstração da conversa com a Manu">
-        <div class="device-bar"><span>manu · conversação</span><span class="live" style="color:var(--manu)">ao vivo · por voz</span></div>
-        <div class="chat">
-          <div class="bub user"><span class="who">você · áudio</span><span class="wave"><i></i><i></i><i></i><i></i><i></i></span>“I go to the beach yesterday…”</div>
-          <div class="bub manu"><span class="who">manu</span>Adorei! Só um ajuste: ontem já passou — <b>“I <u>went</u> to the beach yesterday”</b>. Fala comigo de novo? 💜<span class="fix-chip">correção em tempo real</span></div>
-          <div class="bub user"><span class="who">você · áudio</span><span class="wave"><i></i><i></i><i></i><i></i><i></i></span>“I went to the beach yesterday!”</div>
+      <!-- fone 3: manu -->
+      <div class="ph-col">
+        <div class="phone"><div class="screen manu-screen">
+          <span class="notch"></span>
+          <div class="ph-head"><span>manu</span><span class="st">conversação por voz</span></div>
+          <div class="orb-zone">
+            <div class="orb"><span class="halo"></span><span class="core"></span><span class="glass"></span></div>
+            <span class="manu-status"><span class="eq"><i></i><i></i><i></i><i></i></span>manu está te ouvindo</span>
+          </div>
+          <div class="manu-chat">
+            <div class="mbub you"><span class="tag">você · voz</span>“I go to the beach yesterday…”</div>
+            <div class="mbub manu"><span class="tag">manu</span>Adorei! Só um ajuste: ontem já passou — <u>I went</u> to the beach. Fala comigo de novo?<span class="fixchip"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>correção em tempo real</span></div>
+          </div>
+        </div></div>
+        <div class="ph-label">
+          <span class="n">TREINO 03</span>
+          <h3>Conversação</h3>
+          <p>A Manu conversa com você por voz, no seu nível, e corrige na hora. Sem plateia, sem hora marcada.</p>
         </div>
       </div>
+
     </div>
   </div>
 </section>
 
-<!-- ═══ STACK ═══ -->
-<section style="padding-top:0">
-  <div class="wrap-lg">
+<!-- ═══ MECANISMO ═══ -->
+<section class="mech">
+  <div class="wrap">
     <div class="center">
-      <p class="eyebrow">o que chega no seu acesso</p>
-      <h2>Tudo isso, hoje, dentro do app</h2>
+      <p class="eyebrow">por que funciona</p>
+      <h2>A gente mediu o inglês de verdade</h2>
+      <p class="sub">Passamos <b>703 episódios</b> — 1,88 milhão de palavras de diálogo real — por um computador. O resultado mudou o jeito de treinar.</p>
     </div>
-    <div class="stack-grid">
-      <div class="stack-item"><span class="ic">🎧</span><h4>Treinos concentrados de ouvido</h4><p>Cenas de Friends, Two and a Half Men, How I Met Your Mother e discursos completos — cada uma preparada com script EN/PT, repetição guiada e controle de velocidade.</p></div>
-      <div class="stack-item"><span class="ic">🎤</span><h4>Treinos de fala com nota</h4><p>Os blocos essenciais da conversa real, com shadowing e avaliação palavra por palavra. Sua evolução medida, não achada.</p></div>
-      <div class="stack-item"><span class="ic">💬</span><h4>Manu — professora de conversação</h4><p>Por voz, todos os dias, no seu bolso. Ela puxa o assunto, adapta ao seu nível e corrige na hora — sem plateia e sem hora marcada.</p></div>
-      <div class="stack-item"><span class="ic">🗺️</span><h4>Rota guiada + repetição espaçada</h4><p>Você não decide nada: o app diz o que treinar hoje e traz cada treino de volta na hora exata em que o cérebro ia esquecer.</p></div>
-    </div>
-    <div class="bonus-h">bônus de fundação</div>
-    <div class="stack-grid">
-      <div class="stack-item bonus"><span class="tagb">BÔNUS 01</span><h4>🎵 Inglês Cantado — 134 músicas</h4><p>As frases essenciais dos treinos viraram música original. A repetição acontecendo sozinha no carro, no banho, na academia.</p></div>
-      <div class="stack-item bonus"><span class="tagb">BÔNUS 02</span><h4>🌎 Manu em mais 6 idiomas</h4><p>Espanhol, francês, italiano, alemão e mais — a mesma professora, de brinde. Não existe em nenhum concorrente, por nenhum preço.</p></div>
-      <div class="stack-item bonus"><span class="tagb">BÔNUS 03</span><h4>⚡ Shadowing avançado</h4><p>Frases complexas e ritmo acelerado, pra quando a sua fala pedir o modo turbo.</p></div>
-      <div class="stack-item bonus"><span class="tagb">BÔNUS 04</span><h4>🎓 Masterclass Fluência na Vida Real</h4><p>Como treinar enquanto trabalha, dirige, cozinha — imersão contínua sem hora extra no seu dia.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ NÚMEROS ═══ -->
-<section class="numbers">
-  <div class="wrap-lg">
-    <div class="center">
-      <p class="eyebrow">método medido, não achado</p>
-      <h2>A gente analisou o inglês de verdade</h2>
-      <p class="sect-sub" style="margin:0 auto">Passamos 703 episódios de séries por um computador pra descobrir exatamente o que treinar — e em que ordem.</p>
-    </div>
-    <div class="num-grid">
-      <div class="num"><b>1,88M</b><span>palavras de diálogo real analisadas</span></div>
-      <div class="num"><b>703</b><span>episódios preparados pro treino</span></div>
-      <div class="num"><b>500</b><span>palavras cobrem 90% das conversas</span></div>
-      <div class="num"><b>4.000+</b><span>alunos destravando o inglês</span></div>
+    <div class="mech-grid">
+      <div class="mcard tall">
+        <p class="mk">descoberta 01 · o penhasco</p>
+        <h3>Pouquíssimas palavras carregam o idioma inteiro</h3>
+        <p class="mp">Quantas vezes cada palavra aparece em 703 episódios:</p>
+        <div class="cliff">
+          <div class="bar"><span class="count">71.849x</span><i style="height:78%"></i><span class="lbl">palavra #1</span></div>
+          <div class="bar"><span class="count">410x</span><i style="height:14%"></i><span class="lbl">palavra #501</span></div>
+          <div class="bar"><span class="count">55x</span><i style="height:5%"></i><span class="lbl">palavra #2001</span></div>
+        </div>
+        <p class="cliff-cap">Isso não é uma escadinha — é um penhasco. Por isso o treino inteiro foca onde o idioma realmente acontece.</p>
+      </div>
+      <div class="mcard">
+        <p class="mk">descoberta 02 · fluência essencial</p>
+        <h3>500 palavras = 90% das conversas</h3>
+        <div class="donut-zone">
+          <div class="donut">
+            <svg width="128" height="128" viewBox="0 0 128 128"><circle class="track" cx="64" cy="64" r="54" fill="none" stroke-width="13"/><circle class="val" cx="64" cy="64" r="54" fill="none" stroke-width="13"/></svg>
+            <span class="num">90%</span>
+          </div>
+          <p class="donut-txt">Domine as <b>500 palavras essenciais</b> e você entende <b>9 em cada 10 frases</b> de qualquer conversa real.</p>
+        </div>
+      </div>
+      <div class="mcard">
+        <p class="mk">descoberta 03 · repetição</p>
+        <h3>Aula informa. Treino grava.</h3>
+        <div class="reps">
+          <div class="rep">
+            <div class="stackv"><i></i></div>
+            <p class="rn">1x</p><p class="rl">aula tradicional</p><p class="res">você esquece</p>
+          </div>
+          <div class="rep hot">
+            <div class="stackv"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <p class="rn">30–40x</p><p class="rl">treino concentrado</p><p class="res">vira automático</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ═══ SÉRIES ═══ -->
-<section>
-  <div class="wrap-lg">
-    <div class="center">
-      <p class="eyebrow">conteúdo real</p>
-      <h2>As séries que você ama,<br>preparadas pro treino</h2>
+<section class="series-sec">
+  <div class="wrap center">
+    <p class="eyebrow">material de treino</p>
+    <h2>As séries que você ama,<br>preparadas cena a cena</h2>
+  </div>
+  <div class="marquee" aria-label="Séries disponíveis">
+    <div class="mq-card"><img src="/thumb-friends.jpg" alt="Friends" loading="lazy"><span class="cap">Friends<small>todas as temporadas</small></span></div>
+    <div class="mq-card"><img src="/thumb-himym.jpg" alt="How I Met Your Mother" loading="lazy"><span class="cap">How I Met Your Mother<small>todas as temporadas</small></span></div>
+    <div class="mq-card"><img src="/thumb-tahm.jpg" alt="Two and a Half Men" loading="lazy"><span class="cap">Two and a Half Men<small>todas as temporadas</small></span></div>
+    <div class="mq-card ted"><b>TED</b><span class="cap">TED Talks<small>discursos selecionados</small></span></div>
+    <div class="mq-card"><img src="/thumb-friends.jpg" alt="" aria-hidden="true" loading="lazy"><span class="cap">Friends<small>todas as temporadas</small></span></div>
+    <div class="mq-card"><img src="/thumb-himym.jpg" alt="" aria-hidden="true" loading="lazy"><span class="cap">How I Met Your Mother<small>todas as temporadas</small></span></div>
+    <div class="mq-card"><img src="/thumb-tahm.jpg" alt="" aria-hidden="true" loading="lazy"><span class="cap">Two and a Half Men<small>todas as temporadas</small></span></div>
+    <div class="mq-card ted" aria-hidden="true"><b>TED</b><span class="cap">TED Talks<small>discursos selecionados</small></span></div>
+  </div>
+</section>
+
+<!-- ═══ OFERTA ═══ -->
+<section class="offer-sec" id="oferta">
+  <div class="wrap center">
+    <p class="eyebrow">sua inscrição</p>
+    <h2 style="color:#fff">Tudo que chega no seu acesso</h2>
+    <p class="sub">Um ano de treino completo — pelo preço de duas aulas particulares.</p>
+
+    <div class="paywall">
+      <div class="pw-ribbon">turma de fundação · vagas limitadas</div>
+      <div class="pw-body">
+        <p class="pw-title">Fluency Route — Acesso Anual</p>
+        <p class="pw-sub">app completo + Manu + todos os bônus</p>
+
+        <div class="pw-items">
+          <div class="pw-item">
+            <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></span>
+            <span class="tx"><b>Treinos concentrados de ouvido</b><span>703 episódios preparados com script EN/PT e repetição guiada</span></span>
+            <span class="pv">R$1.497</span>
+          </div>
+          <div class="pw-item">
+            <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></span>
+            <span class="tx"><b>Treinos de fala com nota</b><span>shadowing avaliado palavra por palavra, treino após treino</span></span>
+            <span class="pv">R$997</span>
+          </div>
+          <div class="pw-item">
+            <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg></span>
+            <span class="tx"><b>Manu — 12 meses de conversação</b><span>por voz, no seu nível, todos os dias, sem hora marcada</span></span>
+            <span class="pv">R$1.997</span>
+          </div>
+          <div class="pw-item">
+            <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></span>
+            <span class="tx"><b>Rota guiada + repetição espaçada</b><span>o app diz o que treinar hoje — você só executa</span></span>
+            <span class="pv">R$497</span>
+          </div>
+          <div class="pw-item bn">
+            <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
+            <span class="tx"><b>Bônus · Inglês Cantado</b><span>134 músicas originais com as frases essenciais dos treinos</span></span>
+            <span class="pv">R$497</span>
+          </div>
+          <div class="pw-item bn">
+            <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg></span>
+            <span class="tx"><b>Bônus · Manu em +6 idiomas</b><span>espanhol, francês, italiano, alemão e mais — de brinde</span></span>
+            <span class="pv">R$697</span>
+          </div>
+          <div class="pw-item bn">
+            <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></span>
+            <span class="tx"><b>Bônus · Shadowing avançado + Masterclass</b><span>modo turbo da fala + imersão contínua na sua rotina</span></span>
+            <span class="pv">R$494</span>
+          </div>
+        </div>
+
+        <div class="pw-total"><span>Valor de tudo isso</span><span class="tv">R$6.676</span></div>
+
+        <div class="pw-price">
+          <p class="p"><small>R$</small>99<small>/mês</small></p>
+          <p class="per">no plano anual · 12x de R$99 no cartão</p>
+          <p class="day">menos de R$3,30 por dia</p>
+        </div>
+
+        <a class="cta-btn" href="https://pay.kiwify.com.br/6Fftr2I">QUERO DESTRAVAR MEU INGLÊS<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+
+        <div class="pw-secure">
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>compra segura</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>pix ou 12x no cartão</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>acesso em 5 min</span>
+        </div>
+      </div>
     </div>
-    <div class="series-grid">
-      <div class="serie"><img src="/thumb-friends.jpg" alt="Friends" loading="lazy"><div class="cap">Friends<small>todas as temporadas</small></div></div>
-      <div class="serie"><img src="/thumb-himym.jpg" alt="How I Met Your Mother" loading="lazy"><div class="cap">How I Met Your Mother<small>todas as temporadas</small></div></div>
-      <div class="serie"><img src="/thumb-tahm.jpg" alt="Two and a Half Men" loading="lazy"><div class="cap">Two and a Half Men<small>todas as temporadas</small></div></div>
-      <div class="serie ted"><span class="tedmark">TED</span><div class="cap">TED Talks<small>discursos selecionados</small></div></div>
-    </div>
+
+    <p class="founder"><b>Por que "turma de fundação"?</b> A Manu conversa por voz e tem custo real por aluno — cada turma é dimensionada. Na próxima, o preço sobe. Quem entra agora trava o valor enquanto a assinatura estiver ativa.</p>
   </div>
 </section>
 
 <!-- ═══ COMPARAÇÃO ═══ -->
-<section style="padding-top:0">
-  <div class="wrap-lg">
+<section>
+  <div class="wrap">
     <div class="center">
-      <p class="eyebrow">faz a conta</p>
-      <h2>Quanto custa ficar fluente por aí</h2>
+      <p class="eyebrow">compare</p>
+      <h2>O caminho até a fluência,<br>lado a lado</h2>
     </div>
-    <div class="cmp">
-      <div class="cmp-card"><p class="lbl">escola tradicional</p><p class="val">R$7.000</p><p class="per">por ano · e te segura por anos</p></div>
-      <div class="cmp-card"><p class="lbl">professor particular</p><p class="val">R$14.400</p><p class="per">por ano · 2h por semana</p></div>
-      <div class="cmp-card"><p class="lbl">intercâmbio</p><p class="val">R$50.000</p><p class="per">6 meses · largando tudo</p></div>
-    </div>
-    <p class="cmp-vs">— na Fluency Route —</p>
-    <div class="cmp-you">
-      <p class="val">R$99<small>/mês</small></p>
-      <p>no plano anual. <b>Um mês</b> de escola tradicional paga quase o seu <b>ano inteiro</b> aqui dentro — com a Manu, o app e os treinos que nenhuma delas tem.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr>
+          <th></th><th>escola<br>tradicional</th><th>professor<br>particular</th><th>apps<br>grátis</th><th class="fr">fluency<br>route</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>Treino com cenas reais de série</td><td><svg class="x" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" style="margin:0 auto"><path d="M18 6 6 18M6 6l12 12"/></svg></td><td><svg class="x" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" style="margin:0 auto"><path d="M18 6 6 18M6 6l12 12"/></svg></td><td><svg class="x" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" style="margin:0 auto"><path d="M18 6 6 18M6 6l12 12"/></svg></td><td class="fr"><svg class="chk" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
+          <tr><td>Nota de pronúncia palavra por palavra</td><td><svg class="x" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" style="margin:0 auto"><path d="M18 6 6 18M6 6l12 12"/></svg></td><td><svg class="x" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" style="margin:0 auto"><path d="M18 6 6 18M6 6l12 12"/></svg></td><td><svg class="x" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" style="margin:0 auto"><path d="M18 6 6 18M6 6l12 12"/></svg></td><td class="fr"><svg class="chk" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
+          <tr><td>Conversação por voz todos os dias</td><td><svg class="x" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" style="margin:0 auto"><path d="M18 6 6 18M6 6l12 12"/></svg></td><td><span class="money">2h/semana</span></td><td><svg class="x" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" style="margin:0 auto"><path d="M18 6 6 18M6 6l12 12"/></svg></td><td class="fr"><svg class="chk" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
+          <tr><td>Foco nas 500 palavras essenciais</td><td><svg class="x" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" style="margin:0 auto"><path d="M18 6 6 18M6 6l12 12"/></svg></td><td><span class="money">depende</span></td><td><svg class="x" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" style="margin:0 auto"><path d="M18 6 6 18M6 6l12 12"/></svg></td><td class="fr"><svg class="chk" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
+          <tr><td><b>Custo por ano</b></td><td><span class="money">R$7.000+</span></td><td><span class="money">R$14.400</span></td><td><span class="money">R$0 · sem método</span></td><td class="fr"><span class="money">12x de R$99</span></td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
 
 <!-- ═══ GARANTIA ═══ -->
-<section class="guarantee">
-  <div class="wrap-lg">
+<section class="g-sec">
+  <div class="wrap">
     <div class="center">
       <p class="eyebrow">o risco é nosso</p>
       <h2>Garantia dupla, sem letra miúda</h2>
     </div>
     <div class="g-grid">
-      <div class="g-card"><span class="g-n">garantia 01 · 7 dias</span><h4>Incondicional</h4><p>Entra, conhece os treinos, conversa com a Manu, mexe em tudo. Se em 7 dias sentir que não é pra você — por qualquer motivo — um e-mail devolve 100% do seu dinheiro. Sem perguntas.</p></div>
-      <div class="g-card"><span class="g-n">garantia 02 · 90 dias</span><h4>Aplicação real</h4><p>Pra quem entra pra jogar: siga os treinos concentrados por 90 dias e, se a sua percepção de ouvido não mudar de patamar — se você não estiver entendendo seus primeiros episódios — devolvemos todo o investimento.</p></div>
+      <div class="g-card">
+        <span class="gi"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <p class="gd">garantia 01 · 7 dias</p>
+        <h3>Incondicional</h3>
+        <p>Entra, treina, conversa com a Manu, mexe em tudo. Se não for pra você — por qualquer motivo — um e-mail devolve 100% do valor. Sem perguntas.</p>
+      </div>
+      <div class="g-card">
+        <span class="gi"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+        <p class="gd">garantia 02 · 90 dias</p>
+        <h3>Aplicação real</h3>
+        <p>Siga os treinos por 90 dias e, se o seu ouvido não mudar de patamar — se você não estiver entendendo seus primeiros episódios — devolvemos todo o investimento.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ═══ FAQ ═══ -->
 <section>
-  <div class="wrap">
+  <div class="narrow">
     <div class="center">
       <p class="eyebrow">perguntas frequentes</p>
       <h2>O que todo mundo pergunta</h2>
     </div>
     <div class="faq">
-      <details><summary>Como recebo o acesso?<span class="pl">+</span></summary><div class="ans">Assim que o pagamento confirma, seu login chega por e-mail em até 5 minutos. Você já entra no aplicativo e começa o primeiro treino hoje.</div></details>
-      <details><summary>Funciona pra quem tá começando do zero?<span class="pl">+</span></summary><div class="ans">Sim — a rota guiada começa exatamente do seu ponto. Iniciantes começam pelos treinos de ouvido com cenas simples; quem já tem base entra direto nos blocos de conversa e no shadowing. A Manu adapta o nível dela ao seu, sempre.</div></details>
-      <details><summary>Como funcionam os treinos no aplicativo?<span class="pl">+</span></summary><div class="ans">Você abre o app e ele te diz o treino do dia: um trecho de cena pra lapidar o ouvido (repetição guiada com script EN/PT), uma frase pra gravar no shadowing (com nota palavra por palavra) ou uma conversa com a Manu. O protocolo de repetição espaçada traz cada treino de volta na hora certa — você não precisa montar nada.</div></details>
-      <details><summary>Quem é a Manu?<span class="pl">+</span></summary><div class="ans">A professora de conversação por voz da Fluency Route. Você fala, ela entende, responde e corrige em tempo real — todos os dias, no seu nível, sobre os assuntos que você gosta. E de bônus, ela fala mais 6 idiomas além do inglês.</div></details>
-      <details><summary>Quanto tempo por dia eu preciso?<span class="pl">+</span></summary><div class="ans">30 minutos de treino concentrado por dia é o suficiente — e a masterclass bônus te mostra como somar imersão no meio da rotina (no carro, na academia, cozinhando) sem hora extra.</div></details>
-      <details><summary>Por que não usar um app gratuito ou o ChatGPT?<span class="pl">+</span></summary><div class="ans">Porque ferramenta solta não é treino. Aqui as cenas já estão preparadas na ordem certa, a sua pronúncia recebe nota de verdade, a repetição espaçada é automática e a Manu conduz a conversa no seu nível. É a diferença entre ter uma academia montada com personal — e ter um monte de halteres espalhados pela casa.</div></details>
-      <details><summary>Como funciona a assinatura?<span class="pl">+</span></summary><div class="ans">O plano é anual: 12x de R$99 no cartão, com acesso completo a tudo durante o ano. Antes de qualquer renovação você é avisado por e-mail — sem surpresa na fatura.</div></details>
-      <details><summary>Funciona no celular?<span class="pl">+</span></summary><div class="ans">Sim — celular, tablet e computador. Os treinos foram desenhados pra caber no dia a dia: dá pra treinar o ouvido no fone, no busão.</div></details>
-      <details><summary>E se eu não gostar?<span class="pl">+</span></summary><div class="ans">Você tem 7 dias incondicionais pra testar tudo e pedir reembolso total por e-mail. E se aplicar os treinos por 90 dias sem sentir a evolução no ouvido, devolvemos o investimento do mesmo jeito. O risco fica todo do nosso lado.</div></details>
+      <details><summary>Como recebo o acesso?<span class="pl">+</span></summary><div class="ans">O login chega por e-mail em até 5 minutos após a confirmação. Você entra no app e faz o primeiro treino hoje.</div></details>
+      <details><summary>Funciona pra quem tá começando do zero?<span class="pl">+</span></summary><div class="ans">Sim. A rota guiada começa do seu ponto: iniciantes entram pelos treinos de ouvido com cenas simples; quem já tem base vai direto pro shadowing e pra Manu — que adapta o nível dela ao seu, sempre.</div></details>
+      <details><summary>Quem é a Manu?<span class="pl">+</span></summary><div class="ans">Sua professora de conversação por voz. Você fala, ela entende, responde e corrige na hora — todos os dias, sobre os assuntos que você gosta. E de bônus, ela fala mais 6 idiomas.</div></details>
+      <details><summary>Quanto tempo por dia eu preciso?<span class="pl">+</span></summary><div class="ans">30 minutos de treino concentrado. A masterclass bônus ainda te mostra como somar imersão na rotina — carro, academia, cozinha — sem hora extra.</div></details>
+      <details><summary>Por que não usar um app grátis ou o ChatGPT?<span class="pl">+</span></summary><div class="ans">Ferramenta solta não é treino. Aqui as cenas já vêm preparadas na ordem certa, sua pronúncia recebe nota de verdade, a repetição espaçada é automática e a Manu conduz a conversa no seu nível. É academia montada com personal — não halteres espalhados pela casa.</div></details>
+      <details><summary>Como funciona a assinatura?<span class="pl">+</span></summary><div class="ans">Plano anual: 12x de R$99 no cartão, acesso completo o ano inteiro. Antes de qualquer renovação você é avisado por e-mail — sem surpresa na fatura.</div></details>
+      <details><summary>Funciona no celular?<span class="pl">+</span></summary><div class="ans">Sim — celular, tablet e computador. Os treinos cabem no dia a dia: dá pra treinar o ouvido de fone, no busão.</div></details>
+      <details><summary>E se eu não gostar?<span class="pl">+</span></summary><div class="ans">7 dias incondicionais pra testar tudo e pedir reembolso por e-mail. E se aplicar os treinos por 90 dias sem sentir a evolução, devolvemos do mesmo jeito. O risco fica todo do nosso lado.</div></details>
     </div>
   </div>
 </section>
 
 <!-- ═══ CTA FINAL ═══ -->
 <section class="final">
-  <div class="wrap">
+  <div class="narrow">
     <p class="eyebrow">sua vez</p>
-    <h2>Daqui a 90 dias, seu primeiro<br>episódio sem legenda.</h2>
-    <p class="sect-sub" style="margin:14px auto 30px">Ou você sai desse vídeo e segue como está — mais um ano rodando em círculo. Ou entra hoje e começa o primeiro treino ainda essa noite.</p>
-    <div class="offer-card">
-      <span class="offer-chip">TURMA DE FUNDAÇÃO</span>
-      <p class="offer-name">Fluency Route — acesso anual completo</p>
-      <p class="offer-desc">Treinos + app + Manu + 4 bônus + garantia dupla</p>
-      <div class="price"><small>R$</small>99<small>/mês</small></div>
-      <p class="price-note">no plano anual · 12x de R$99 no cartão</p>
-      <p class="price-day">menos de R$3,30 por dia</p>
-      <a class="cta-btn" href="https://pay.kiwify.com.br/6Fftr2I">COMEÇAR MEU PRIMEIRO TREINO →</a>
-      <div class="offer-foot"><span>✓ acesso em 5 minutos</span><span>✓ garantia dupla</span><span>✓ pagamento seguro</span></div>
+    <h2>Daqui a 90 dias: seu primeiro<br>episódio sem legenda.</h2>
+    <p class="sub" style="margin:0 auto 30px">Ou mais um ano rodando em círculo. O primeiro treino pode ser hoje.</p>
+    <div style="max-width:430px;margin:0 auto">
+      <a class="cta-btn" href="https://pay.kiwify.com.br/6Fftr2I">COMEÇAR MEU PRIMEIRO TREINO<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <p style="font-size:13px;color:var(--soft);font-weight:600;margin-top:14px">R$99/mês no plano anual · garantia dupla · acesso em 5 minutos</p>
     </div>
   </div>
 </section>
