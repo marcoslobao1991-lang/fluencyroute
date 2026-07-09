@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0B0D12">
+<title>Fluency Route — O treino que destrava o inglês</title>
+<meta name="description" content="Treine seu ouvido e sua fala com cenas reais de séries, nota de pronúncia palavra por palavra e a Manu, sua professora de conversação por voz.">
+<meta name="robots" content="noindex, follow">
+<meta property="og:title" content="Fluency Route — O treino que destrava o inglês">
+<meta property="og:description" content="Cenas reais de séries, nota de pronúncia palavra por palavra e conversação por voz com a Manu.">
+<meta property="og:site_name" content="Fluency Route">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:image" content="https://fluencyroute.com.br/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0D12; --panel:#12151E; --panel2:#161A26;
+  --ink:#F3EFE4; --dim:rgba(243,239,228,.58); --faint:rgba(243,239,228,.36);
+  --hair:rgba(243,239,228,.09); --hair2:rgba(243,239,228,.16);
+  --sub:#FFD84D; --sub-ink:#171204;
+  --ok:#3DDC84; --warn:#F5B93F; --manu:#B29AF8;
+  --disp:'Bricolage Grotesque',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+::selection{background:var(--sub);color:var(--sub-ink)}
+:focus-visible{outline:2px solid var(--sub);outline-offset:3px;border-radius:4px}
+
+.wrap{max-width:720px;margin:0 auto;padding:0 20px}
+.wrap-lg{max-width:1020px;margin:0 auto;padding:0 20px}
+
+/* ── topo ── */
+.top{display:flex;justify-content:center;align-items:center;gap:12px;padding:18px 20px 0}
+.wordmark{font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:.14em;color:var(--dim)}
+.wordmark b{color:var(--ink)}
+
+/* ── hero ── */
+.hero{padding:34px 0 10px;text-align:center}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--sub);border:1px solid rgba(255,216,77,.28);border-radius:99px;padding:7px 14px;margin-bottom:22px}
+.kicker .dot{width:6px;height:6px;border-radius:50%;background:var(--sub);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(30px,7.2vw,52px);line-height:1.08;letter-spacing:-.025em;margin:0 auto 14px;max-width:15ch}
+.blur-w{filter:blur(3px);opacity:.75;font-weight:700}
+.sharp-w{color:var(--sub)}
+.hero p.lead{color:var(--dim);font-size:clamp(15px,3.6vw,18px);max-width:44ch;margin:0 auto}
+
+/* ── player ── */
+.player-shell{margin:26px auto 0;max-width:820px;padding:0 14px}
+.player{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden;border:1px solid var(--hair2);box-shadow:0 30px 80px -20px rgba(0,0,0,.8),0 0 0 6px rgba(243,239,228,.03)}
+.player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.sound{display:flex;justify-content:center;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;color:var(--faint);padding:12px 0 0;letter-spacing:.06em}
+.trustrow{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 22px;font-family:var(--mono);font-size:11.5px;color:var(--faint);padding:18px 16px 0;letter-spacing:.04em}
+.trustrow span::before{content:'✓ ';color:var(--ok)}
+
+/* ── seções ── */
+section{padding:64px 0}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--sub);margin-bottom:12px}
+h2{font-family:var(--disp);font-weight:800;font-size:clamp(25px,5.6vw,38px);line-height:1.12;letter-spacing:-.02em;margin-bottom:12px}
+.sect-sub{color:var(--dim);max-width:52ch}
+.center{text-align:center}
+.center .sect-sub{margin:0 auto}
+
+/* ── oferta ── */
+.offer{background:linear-gradient(180deg,rgba(255,216,77,.045),transparent 70%);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.offer-card{background:var(--panel);border:1px solid var(--hair2);border-radius:20px;padding:34px 26px;text-align:center;max-width:480px;margin:0 auto;position:relative}
+.offer-chip{position:absolute;top:-13px;left:50%;transform:translateX(-50%);white-space:nowrap;background:var(--sub);color:var(--sub-ink);font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.14em;padding:6px 14px;border-radius:99px}
+.offer-name{font-family:var(--disp);font-weight:700;font-size:19px;margin:10px 0 2px}
+.offer-desc{color:var(--dim);font-size:14px;margin-bottom:20px}
+.price{font-family:var(--disp);font-weight:800;font-size:clamp(52px,13vw,72px);line-height:1;letter-spacing:-.03em;color:var(--sub)}
+.price small{font-size:.34em;font-weight:700;color:var(--ink);letter-spacing:0}
+.price-note{font-family:var(--mono);font-size:13px;color:var(--dim);margin:8px 0 2px}
+.price-day{font-size:13.5px;color:var(--faint);margin-bottom:22px}
+.cta-btn{display:block;background:var(--sub);color:var(--sub-ink);text-decoration:none;font-family:var(--disp);font-weight:800;font-size:17.5px;letter-spacing:.01em;padding:19px 20px;border-radius:12px;transition:transform .12s ease,box-shadow .12s ease;box-shadow:0 14px 40px -10px rgba(255,216,77,.45)}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 20px 50px -10px rgba(255,216,77,.55)}
+.cta-btn:active{transform:translateY(0)}
+.offer-foot{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 18px;font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:16px;letter-spacing:.03em}
+.founder-note{font-size:13px;color:var(--dim);max-width:40ch;margin:18px auto 0}
+.founder-note b{color:var(--ink)}
+
+/* ── demos (assinatura) ── */
+.demo-row{display:grid;gap:26px;align-items:center;margin-top:46px}
+@media(min-width:880px){.demo-row{grid-template-columns:1fr 1.1fr;gap:56px}.demo-row.flip .demo-txt{order:2}}
+.demo-txt .n{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--sub);letter-spacing:.2em;margin-bottom:10px;display:block}
+.demo-txt h3{font-family:var(--disp);font-weight:700;font-size:clamp(21px,4.6vw,27px);letter-spacing:-.015em;margin-bottom:10px}
+.demo-txt p{color:var(--dim);font-size:15.5px;max-width:46ch}
+.device{background:var(--panel);border:1px solid var(--hair2);border-radius:22px;padding:20px;box-shadow:0 24px 70px -24px rgba(0,0,0,.75)}
+.device-bar{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.08em;margin-bottom:16px;text-transform:uppercase}
+.device-bar .live{color:var(--ok)}
+.scene{background:#0A0C11;border:1px solid var(--hair);border-radius:12px;padding:18px 16px}
+.scene-meta{display:flex;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-bottom:14px}
+.scene-meta .tag{border:1px solid var(--hair2);border-radius:6px;padding:3px 8px}
+.scene-meta .tag.on{border-color:rgba(255,216,77,.4);color:var(--sub)}
+.line-en{font-family:var(--mono);font-size:clamp(15px,3.8vw,18px);font-weight:600;color:var(--ink);margin-bottom:8px;animation:deblur 6s ease-in-out infinite}
+@keyframes deblur{0%,18%{filter:blur(4.5px);opacity:.65}38%,80%{filter:blur(0);opacity:1}100%{filter:blur(4.5px);opacity:.65}}
+.line-pt{font-size:14px;color:var(--dim);font-style:italic}
+.scene-controls{display:flex;align-items:center;gap:14px;margin-top:18px;padding-top:14px;border-top:1px solid var(--hair)}
+.play-dot{width:38px;height:38px;border-radius:50%;background:var(--sub);display:flex;align-items:center;justify-content:center;color:var(--sub-ink);font-size:14px;flex-shrink:0}
+.loopbar{flex:1;height:6px;border-radius:99px;background:rgba(243,239,228,.12);position:relative;overflow:hidden}
+.loopbar i{position:absolute;left:18%;right:34%;top:0;bottom:0;background:var(--sub);border-radius:99px;animation:loopfill 3s linear infinite;transform-origin:left}
+@keyframes loopfill{0%{transform:scaleX(0)}70%{transform:scaleX(1)}100%{transform:scaleX(1)}}
+.repeat-n{font-family:var(--mono);font-size:11px;color:var(--sub);white-space:nowrap}
+/* shadowing */
+.shadow-phrase{font-family:var(--mono);font-size:clamp(16px,4vw,19px);font-weight:600;line-height:1.9}
+.w-ok{color:var(--ok);border-bottom:2px solid rgba(61,220,132,.5)}
+.w-warn{color:var(--warn);border-bottom:2px dashed rgba(245,185,63,.6)}
+.score-row{display:flex;align-items:center;gap:16px;margin-top:18px;padding-top:16px;border-top:1px solid var(--hair)}
+.score-big{font-family:var(--disp);font-weight:800;font-size:44px;color:var(--ok);line-height:1}
+.score-big small{font-size:15px;color:var(--dim);font-weight:600}
+.score-note{font-size:13px;color:var(--dim)}
+.score-note b{color:var(--warn)}
+/* manu */
+.chat{display:flex;flex-direction:column;gap:12px}
+.bub{max-width:85%;border-radius:14px;padding:12px 14px;font-size:14.5px;line-height:1.5}
+.bub.user{align-self:flex-end;background:rgba(243,239,228,.09);border:1px solid var(--hair2);border-bottom-right-radius:4px}
+.bub.manu{align-self:flex-start;background:rgba(178,154,248,.1);border:1px solid rgba(178,154,248,.3);border-bottom-left-radius:4px}
+.bub .who{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:5px}
+.bub.manu .who{color:var(--manu)}
+.wave{display:inline-flex;align-items:flex-end;gap:2.5px;height:16px;vertical-align:middle;margin-right:8px}
+.wave i{width:3px;background:var(--ink);border-radius:2px;animation:wv 1s ease-in-out infinite}
+.wave i:nth-child(1){height:6px}.wave i:nth-child(2){height:14px;animation-delay:.15s}.wave i:nth-child(3){height:9px;animation-delay:.3s}.wave i:nth-child(4){height:15px;animation-delay:.45s}.wave i:nth-child(5){height:7px;animation-delay:.6s}
+@keyframes wv{0%,100%{transform:scaleY(.5)}50%{transform:scaleY(1)}}
+.fix-chip{display:inline-block;font-family:var(--mono);font-size:10.5px;color:var(--manu);border:1px solid rgba(178,154,248,.35);border-radius:6px;padding:2px 8px;margin-top:8px;letter-spacing:.05em}
+
+/* ── stack ── */
+.stack-grid{display:grid;gap:14px;margin-top:36px}
+@media(min-width:680px){.stack-grid{grid-template-columns:1fr 1fr}}
+.stack-item{background:var(--panel);border:1px solid var(--hair);border-radius:14px;padding:22px}
+.stack-item .ic{font-size:22px;margin-bottom:10px;display:block}
+.stack-item h4{font-family:var(--disp);font-weight:700;font-size:17px;margin-bottom:6px;letter-spacing:-.01em}
+.stack-item p{font-size:14px;color:var(--dim)}
+.bonus-h{display:flex;align-items:center;gap:14px;margin:44px 0 22px;font-family:var(--mono);font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--sub)}
+.bonus-h::before,.bonus-h::after{content:'';height:1px;flex:1;background:var(--hair2)}
+.stack-item.bonus{border-color:rgba(255,216,77,.22);background:linear-gradient(180deg,rgba(255,216,77,.05),transparent 60%),var(--panel)}
+.stack-item.bonus .tagb{font-family:var(--mono);font-size:10px;color:var(--sub);letter-spacing:.16em;display:block;margin-bottom:8px}
+
+/* ── números ── */
+.numbers{border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);background:var(--panel)}
+.num-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px 16px;margin-top:36px;text-align:center}
+@media(min-width:680px){.num-grid{grid-template-columns:repeat(4,1fr)}}
+.num b{font-family:var(--disp);font-weight:800;font-size:clamp(26px,6vw,36px);letter-spacing:-.02em;display:block;color:var(--ink)}
+.num span{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.06em;text-transform:uppercase;display:block;margin-top:6px;line-height:1.5}
+
+/* ── séries ── */
+.series-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:36px}
+@media(min-width:680px){.series-grid{grid-template-columns:repeat(4,1fr)}}
+.serie{position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--hair2);aspect-ratio:2/2.6;background:var(--panel2)}
+.serie img{width:100%;height:100%;object-fit:cover;opacity:.92}
+.serie .cap{position:absolute;left:0;right:0;bottom:0;padding:26px 12px 10px;background:linear-gradient(transparent,rgba(5,6,10,.92));font-size:13px;font-weight:600}
+.serie .cap small{display:block;font-family:var(--mono);font-size:10px;color:var(--faint);font-weight:400;letter-spacing:.06em;margin-top:2px}
+.serie.ted{display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,#1c0f0f,#2b1212)}
+.serie.ted .tedmark{font-family:var(--disp);font-weight:800;font-size:34px;color:#EB0028;letter-spacing:-.02em}
+
+/* ── comparação ── */
+.cmp{display:grid;gap:12px;margin-top:36px}
+@media(min-width:680px){.cmp{grid-template-columns:repeat(3,1fr)}}
+.cmp-card{background:var(--panel);border:1px solid var(--hair);border-radius:14px;padding:22px;text-align:center}
+.cmp-card .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
+.cmp-card .val{font-family:var(--disp);font-weight:800;font-size:26px;letter-spacing:-.02em;color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(243,239,228,.35);text-decoration-thickness:2px}
+.cmp-card .per{font-size:12.5px;color:var(--faint);margin-top:4px}
+.cmp-vs{text-align:center;margin:26px 0 6px;font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.14em}
+.cmp-you{background:linear-gradient(180deg,rgba(255,216,77,.07),transparent),var(--panel);border:1px solid rgba(255,216,77,.35);border-radius:16px;padding:26px;text-align:center;max-width:460px;margin:0 auto}
+.cmp-you .val{font-family:var(--disp);font-weight:800;font-size:38px;color:var(--sub);letter-spacing:-.02em}
+.cmp-you .val small{font-size:16px;color:var(--ink)}
+.cmp-you p{font-size:13.5px;color:var(--dim);margin-top:8px}
+
+/* ── garantia ── */
+.guarantee{background:var(--panel);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.g-grid{display:grid;gap:14px;margin-top:36px}
+@media(min-width:680px){.g-grid{grid-template-columns:1fr 1fr}}
+.g-card{background:var(--bg);border:1px solid var(--hair2);border-radius:16px;padding:28px}
+.g-card .g-n{font-family:var(--mono);font-size:11px;color:var(--ok);letter-spacing:.18em;text-transform:uppercase;display:block;margin-bottom:12px}
+.g-card h4{font-family:var(--disp);font-weight:700;font-size:20px;margin-bottom:10px;letter-spacing:-.015em}
+.g-card p{font-size:14.5px;color:var(--dim)}
+
+/* ── faq ── */
+.faq{max-width:720px;margin:36px auto 0}
+details{border-bottom:1px solid var(--hair)}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 4px;font-family:var(--disp);font-weight:600;font-size:16.5px;letter-spacing:-.01em}
+summary::-webkit-details-marker{display:none}
+summary .pl{font-family:var(--mono);color:var(--sub);font-size:18px;transition:transform .2s ease;flex-shrink:0}
+details[open] summary .pl{transform:rotate(45deg)}
+details .ans{padding:0 4px 22px;color:var(--dim);font-size:15px;max-width:60ch}
+
+/* ── cta final ── */
+.final{padding:80px 0 90px;text-align:center;background:radial-gradient(ellipse 70% 60% at 50% 100%,rgba(255,216,77,.08),transparent)}
+
+/* ── sticky mobile cta ── */
+.sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(11,13,18,.92);backdrop-filter:blur(10px);border-top:1px solid var(--hair2);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:none;align-items:center;gap:12px;transform:translateY(110%);transition:transform .3s ease}
+.sticky-cta.on{transform:none}
+.sticky-cta .p{font-family:var(--disp);font-weight:800;font-size:18px;color:var(--sub);white-space:nowrap}
+.sticky-cta .p small{display:block;font-family:var(--mono);font-size:9.5px;color:var(--faint);font-weight:400;letter-spacing:.05em}
+.sticky-cta .cta-btn{flex:1;padding:13px 10px;font-size:14.5px;box-shadow:none}
+@media(max-width:820px){.sticky-cta{display:flex}}
+
+footer{border-top:1px solid var(--hair);padding:34px 20px 46px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.08em;line-height:2}
+
+.esconder{display:none!important}
+@media (prefers-reduced-motion: reduce){
+  .line-en,.loopbar i,.wave i,.kicker .dot{animation:none!important}
+  .line-en{filter:none;opacity:1}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="top"><span class="wordmark">fluency<b>route</b></span></div>
+
+<!-- ═══ HERO + PLAYER ═══ -->
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker"><span class="dot"></span>aula gratuita · assista até o final</span>
+    <h1>O treino que faz o inglês <span class="blur-w">embolado</span> virar <span class="sharp-w">nítido</span>.</h1>
+    <p class="lead">Nessa aula eu te mostro o método completo — e no final, o que existe pra treinar com ele todos os dias.</p>
+  </div>
+  <div class="player-shell">
+    <div class="player">
+      <iframe frameborder="0" allowfullscreen id="ifr_67d1c8ba61d59aeb47caf87d" src="about:blank" referrerpolicy="origin" title="Aula Fluency Route"></iframe>
+    </div>
+    <p class="sound">🔊 assista com o som ativado</p>
+    <div class="trustrow">
+      <span>mais de 4.000 alunos</span>
+      <span>garantia de 7 dias</span>
+      <span>acesso imediato</span>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ OFERTA ═══ -->
+<section class="offer" id="oferta">
+  <div class="wrap">
+    <div class="offer-card">
+      <span class="offer-chip">TURMA DE FUNDAÇÃO</span>
+      <p class="offer-name">Fluency Route — acesso anual completo</p>
+      <p class="offer-desc">Treinos concentrados + aplicativo + Manu + todos os bônus</p>
+      <div class="price"><small>R$</small>99<small>/mês</small></div>
+      <p class="price-note">no plano anual · 12x de R$99 no cartão</p>
+      <p class="price-day">menos de R$3,30 por dia</p>
+      <a class="cta-btn" href="https://pay.kiwify.com.br/6Fftr2I">QUERO DESTRAVAR MEU INGLÊS →</a>
+      <div class="offer-foot">
+        <span>✓ acesso em 5 minutos</span><span>✓ garantia dupla</span><span>✓ pagamento seguro</span>
+      </div>
+    </div>
+    <p class="founder-note center"><b>Preço de fundação:</b> a Manu conversa por voz e tem custo real por aluno — cada turma é dimensionada. Na próxima turma, o valor sobe. Quem entra agora trava esse preço enquanto a assinatura estiver ativa.</p>
+  </div>
+</section>
+
+<!-- ═══ DEMOS ═══ -->
+<section>
+  <div class="wrap-lg">
+    <div class="center">
+      <p class="eyebrow">o produto, ligado</p>
+      <h2>Você viu na aula.<br>Agora olha de perto.</h2>
+      <p class="sect-sub">Nada aqui é promessa: são as três coisas que você vai fazer no aplicativo, todos os dias.</p>
+    </div>
+
+    <!-- D1 · player -->
+    <div class="demo-row">
+      <div class="demo-txt">
+        <span class="n">TREINO 01 · OUVIDO</span>
+        <h3>Cenas reais de série, no repeat até virar nítido</h3>
+        <p>Você marca 1 minuto de uma cena, o app repete com o script na tela… e depois tira o script. O embolado vira palavra — o mesmo efeito da aula, episódio inteiro atrás de episódio.</p>
+      </div>
+      <div class="device" aria-label="Demonstração do player de treino">
+        <div class="device-bar"><span>friends · s01e01</span><span class="live">treino ativo</span></div>
+        <div class="scene">
+          <div class="scene-meta">
+            <span class="tag on">loop A–B</span><span class="tag">0.8x</span><span class="tag">trecho 0:42–0:54</span>
+          </div>
+          <p class="line-en">There's nothing to tell! He's just some guy I work with.</p>
+          <p class="line-pt">Não tem nada pra contar! É só um cara com quem eu trabalho.</p>
+          <div class="scene-controls">
+            <span class="play-dot">▶</span>
+            <span class="loopbar"><i></i></span>
+            <span class="repeat-n">repetição 12/30</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- D2 · shadowing -->
+    <div class="demo-row flip">
+      <div class="demo-txt">
+        <span class="n">TREINO 02 · FALA</span>
+        <h3>Sua voz, avaliada palavra por palavra</h3>
+        <p>Você grava por cima do nativo e o app devolve a nota: verde acertou, âmbar escapou do som. Não é professor bonzinho te elogiando — é medição, treino após treino.</p>
+      </div>
+      <div class="device" aria-label="Demonstração da nota de shadowing">
+        <div class="device-bar"><span>shadowing · sua gravação</span><span class="live">analisado</span></div>
+        <div class="scene">
+          <p class="shadow-phrase"><span class="w-ok">There's</span> <span class="w-ok">nothing</span> <span class="w-warn">to</span> <span class="w-ok">tell!</span></p>
+          <div class="score-row">
+            <div class="score-big">87<small>/100</small></div>
+            <p class="score-note">quase lá — o <b>“to”</b> escapou do som real. Ouve o nativo e grava de novo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- D3 · manu -->
+    <div class="demo-row">
+      <div class="demo-txt">
+        <span class="n">TREINO 03 · CONVERSA</span>
+        <h3>A Manu: conversação por voz, sem plateia</h3>
+        <p>Quando o ouvido abre e a fala solta, você precisa de alguém pra conversar. A Manu entende, responde e corrige em tempo real — às 6 da manhã ou meia-noite, no seu nível, sobre qualquer assunto.</p>
+      </div>
+      <div class="device" aria-label="Demonstração da conversa com a Manu">
+        <div class="device-bar"><span>manu · conversação</span><span class="live" style="color:var(--manu)">ao vivo · por voz</span></div>
+        <div class="chat">
+          <div class="bub user"><span class="who">você · áudio</span><span class="wave"><i></i><i></i><i></i><i></i><i></i></span>“I go to the beach yesterday…”</div>
+          <div class="bub manu"><span class="who">manu</span>Adorei! Só um ajuste: ontem já passou — <b>“I <u>went</u> to the beach yesterday”</b>. Fala comigo de novo? 💜<span class="fix-chip">correção em tempo real</span></div>
+          <div class="bub user"><span class="who">você · áudio</span><span class="wave"><i></i><i></i><i></i><i></i><i></i></span>“I went to the beach yesterday!”</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STACK ═══ -->
+<section style="padding-top:0">
+  <div class="wrap-lg">
+    <div class="center">
+      <p class="eyebrow">o que chega no seu acesso</p>
+      <h2>Tudo isso, hoje, dentro do app</h2>
+    </div>
+    <div class="stack-grid">
+      <div class="stack-item"><span class="ic">🎧</span><h4>Treinos concentrados de ouvido</h4><p>Cenas de Friends, Two and a Half Men, How I Met Your Mother e discursos completos — cada uma preparada com script EN/PT, repetição guiada e controle de velocidade.</p></div>
+      <div class="stack-item"><span class="ic">🎤</span><h4>Treinos de fala com nota</h4><p>Os blocos essenciais da conversa real, com shadowing e avaliação palavra por palavra. Sua evolução medida, não achada.</p></div>
+      <div class="stack-item"><span class="ic">💬</span><h4>Manu — professora de conversação</h4><p>Por voz, todos os dias, no seu bolso. Ela puxa o assunto, adapta ao seu nível e corrige na hora — sem plateia e sem hora marcada.</p></div>
+      <div class="stack-item"><span class="ic">🗺️</span><h4>Rota guiada + repetição espaçada</h4><p>Você não decide nada: o app diz o que treinar hoje e traz cada treino de volta na hora exata em que o cérebro ia esquecer.</p></div>
+    </div>
+    <div class="bonus-h">bônus de fundação</div>
+    <div class="stack-grid">
+      <div class="stack-item bonus"><span class="tagb">BÔNUS 01</span><h4>🎵 Inglês Cantado — 134 músicas</h4><p>As frases essenciais dos treinos viraram música original. A repetição acontecendo sozinha no carro, no banho, na academia.</p></div>
+      <div class="stack-item bonus"><span class="tagb">BÔNUS 02</span><h4>🌎 Manu em mais 6 idiomas</h4><p>Espanhol, francês, italiano, alemão e mais — a mesma professora, de brinde. Não existe em nenhum concorrente, por nenhum preço.</p></div>
+      <div class="stack-item bonus"><span class="tagb">BÔNUS 03</span><h4>⚡ Shadowing avançado</h4><p>Frases complexas e ritmo acelerado, pra quando a sua fala pedir o modo turbo.</p></div>
+      <div class="stack-item bonus"><span class="tagb">BÔNUS 04</span><h4>🎓 Masterclass Fluência na Vida Real</h4><p>Como treinar enquanto trabalha, dirige, cozinha — imersão contínua sem hora extra no seu dia.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NÚMEROS ═══ -->
+<section class="numbers">
+  <div class="wrap-lg">
+    <div class="center">
+      <p class="eyebrow">método medido, não achado</p>
+      <h2>A gente analisou o inglês de verdade</h2>
+      <p class="sect-sub" style="margin:0 auto">Passamos 703 episódios de séries por um computador pra descobrir exatamente o que treinar — e em que ordem.</p>
+    </div>
+    <div class="num-grid">
+      <div class="num"><b>1,88M</b><span>palavras de diálogo real analisadas</span></div>
+      <div class="num"><b>703</b><span>episódios preparados pro treino</span></div>
+      <div class="num"><b>500</b><span>palavras cobrem 90% das conversas</span></div>
+      <div class="num"><b>4.000+</b><span>alunos destravando o inglês</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SÉRIES ═══ -->
+<section>
+  <div class="wrap-lg">
+    <div class="center">
+      <p class="eyebrow">conteúdo real</p>
+      <h2>As séries que você ama,<br>preparadas pro treino</h2>
+    </div>
+    <div class="series-grid">
+      <div class="serie"><img src="/thumb-friends.jpg" alt="Friends" loading="lazy"><div class="cap">Friends<small>todas as temporadas</small></div></div>
+      <div class="serie"><img src="/thumb-himym.jpg" alt="How I Met Your Mother" loading="lazy"><div class="cap">How I Met Your Mother<small>todas as temporadas</small></div></div>
+      <div class="serie"><img src="/thumb-tahm.jpg" alt="Two and a Half Men" loading="lazy"><div class="cap">Two and a Half Men<small>todas as temporadas</small></div></div>
+      <div class="serie ted"><span class="tedmark">TED</span><div class="cap">TED Talks<small>discursos selecionados</small></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMPARAÇÃO ═══ -->
+<section style="padding-top:0">
+  <div class="wrap-lg">
+    <div class="center">
+      <p class="eyebrow">faz a conta</p>
+      <h2>Quanto custa ficar fluente por aí</h2>
+    </div>
+    <div class="cmp">
+      <div class="cmp-card"><p class="lbl">escola tradicional</p><p class="val">R$7.000</p><p class="per">por ano · e te segura por anos</p></div>
+      <div class="cmp-card"><p class="lbl">professor particular</p><p class="val">R$14.400</p><p class="per">por ano · 2h por semana</p></div>
+      <div class="cmp-card"><p class="lbl">intercâmbio</p><p class="val">R$50.000</p><p class="per">6 meses · largando tudo</p></div>
+    </div>
+    <p class="cmp-vs">— na Fluency Route —</p>
+    <div class="cmp-you">
+      <p class="val">R$99<small>/mês</small></p>
+      <p>no plano anual. <b>Um mês</b> de escola tradicional paga quase o seu <b>ano inteiro</b> aqui dentro — com a Manu, o app e os treinos que nenhuma delas tem.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GARANTIA ═══ -->
+<section class="guarantee">
+  <div class="wrap-lg">
+    <div class="center">
+      <p class="eyebrow">o risco é nosso</p>
+      <h2>Garantia dupla, sem letra miúda</h2>
+    </div>
+    <div class="g-grid">
+      <div class="g-card"><span class="g-n">garantia 01 · 7 dias</span><h4>Incondicional</h4><p>Entra, conhece os treinos, conversa com a Manu, mexe em tudo. Se em 7 dias sentir que não é pra você — por qualquer motivo — um e-mail devolve 100% do seu dinheiro. Sem perguntas.</p></div>
+      <div class="g-card"><span class="g-n">garantia 02 · 90 dias</span><h4>Aplicação real</h4><p>Pra quem entra pra jogar: siga os treinos concentrados por 90 dias e, se a sua percepção de ouvido não mudar de patamar — se você não estiver entendendo seus primeiros episódios — devolvemos todo o investimento.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section>
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow">perguntas frequentes</p>
+      <h2>O que todo mundo pergunta</h2>
+    </div>
+    <div class="faq">
+      <details><summary>Como recebo o acesso?<span class="pl">+</span></summary><div class="ans">Assim que o pagamento confirma, seu login chega por e-mail em até 5 minutos. Você já entra no aplicativo e começa o primeiro treino hoje.</div></details>
+      <details><summary>Funciona pra quem tá começando do zero?<span class="pl">+</span></summary><div class="ans">Sim — a rota guiada começa exatamente do seu ponto. Iniciantes começam pelos treinos de ouvido com cenas simples; quem já tem base entra direto nos blocos de conversa e no shadowing. A Manu adapta o nível dela ao seu, sempre.</div></details>
+      <details><summary>Como funcionam os treinos no aplicativo?<span class="pl">+</span></summary><div class="ans">Você abre o app e ele te diz o treino do dia: um trecho de cena pra lapidar o ouvido (repetição guiada com script EN/PT), uma frase pra gravar no shadowing (com nota palavra por palavra) ou uma conversa com a Manu. O protocolo de repetição espaçada traz cada treino de volta na hora certa — você não precisa montar nada.</div></details>
+      <details><summary>Quem é a Manu?<span class="pl">+</span></summary><div class="ans">A professora de conversação por voz da Fluency Route. Você fala, ela entende, responde e corrige em tempo real — todos os dias, no seu nível, sobre os assuntos que você gosta. E de bônus, ela fala mais 6 idiomas além do inglês.</div></details>
+      <details><summary>Quanto tempo por dia eu preciso?<span class="pl">+</span></summary><div class="ans">30 minutos de treino concentrado por dia é o suficiente — e a masterclass bônus te mostra como somar imersão no meio da rotina (no carro, na academia, cozinhando) sem hora extra.</div></details>
+      <details><summary>Por que não usar um app gratuito ou o ChatGPT?<span class="pl">+</span></summary><div class="ans">Porque ferramenta solta não é treino. Aqui as cenas já estão preparadas na ordem certa, a sua pronúncia recebe nota de verdade, a repetição espaçada é automática e a Manu conduz a conversa no seu nível. É a diferença entre ter uma academia montada com personal — e ter um monte de halteres espalhados pela casa.</div></details>
+      <details><summary>Como funciona a assinatura?<span class="pl">+</span></summary><div class="ans">O plano é anual: 12x de R$99 no cartão, com acesso completo a tudo durante o ano. Antes de qualquer renovação você é avisado por e-mail — sem surpresa na fatura.</div></details>
+      <details><summary>Funciona no celular?<span class="pl">+</span></summary><div class="ans">Sim — celular, tablet e computador. Os treinos foram desenhados pra caber no dia a dia: dá pra treinar o ouvido no fone, no busão.</div></details>
+      <details><summary>E se eu não gostar?<span class="pl">+</span></summary><div class="ans">Você tem 7 dias incondicionais pra testar tudo e pedir reembolso total por e-mail. E se aplicar os treinos por 90 dias sem sentir a evolução no ouvido, devolvemos o investimento do mesmo jeito. O risco fica todo do nosso lado.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA FINAL ═══ -->
+<section class="final">
+  <div class="wrap">
+    <p class="eyebrow">sua vez</p>
+    <h2>Daqui a 90 dias, seu primeiro<br>episódio sem legenda.</h2>
+    <p class="sect-sub" style="margin:14px auto 30px">Ou você sai desse vídeo e segue como está — mais um ano rodando em círculo. Ou entra hoje e começa o primeiro treino ainda essa noite.</p>
+    <div class="offer-card">
+      <span class="offer-chip">TURMA DE FUNDAÇÃO</span>
+      <p class="offer-name">Fluency Route — acesso anual completo</p>
+      <p class="offer-desc">Treinos + app + Manu + 4 bônus + garantia dupla</p>
+      <div class="price"><small>R$</small>99<small>/mês</small></div>
+      <p class="price-note">no plano anual · 12x de R$99 no cartão</p>
+      <p class="price-day">menos de R$3,30 por dia</p>
+      <a class="cta-btn" href="https://pay.kiwify.com.br/6Fftr2I">COMEÇAR MEU PRIMEIRO TREINO →</a>
+      <div class="offer-foot"><span>✓ acesso em 5 minutos</span><span>✓ garantia dupla</span><span>✓ pagamento seguro</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  fluencyroute · todos os direitos reservados<br>
+  este site não é afiliado ao Facebook ou a qualquer entidade do Facebook
+</footer>
+
+<!-- sticky CTA mobile -->
+<div class="sticky-cta" id="stickyCta" aria-hidden="true">
+  <div class="p">R$99/mês<small>plano anual · 12x</small></div>
+  <a class="cta-btn" href="https://pay.kiwify.com.br/6Fftr2I">DESTRAVAR AGORA</a>
+</div>
+
+<script>
+(function(){
+'use strict';
+var PIXEL='938768337634102';
+var CHECKOUT='https://pay.kiwify.com.br/6Fftr2I';
+var VALUE=1188.00;
+var CONTENT={content_name:'Fluency Route — Plano Anual',currency:'BRL',value:VALUE,content_ids:['fluency-annual-99'],content_type:'product'};
+var SUPA_URL='https://petrtewismhpzidcmmwb.supabase.co/rest/v1/funnel_events';
+var ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBldHJ0ZXdpc21ocHppZGNtbXdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4MDg3NDYsImV4cCI6MjA4OTM4NDc0Nn0.CTGC11dPKawf3tFWrEu9jXgxn2oPmPMXQS9bFcN4o10';
+
+function qp(){try{return new URLSearchParams(location.search)}catch(e){return new URLSearchParams()}}
+function uuid(){try{if(crypto.randomUUID)return crypto.randomUUID()}catch(e){}return 'x'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10)}
+function genEventId(){return Date.now()+'-'+Math.random().toString(36).slice(2,10)}
+function getCookie(n){var m=document.cookie.match(new RegExp('(?:^|;\\s*)'+n+'=([^;]+)'));return m?decodeURIComponent(m[1]):''}
+function getFb(){var fbc=getCookie('_fbc'),fbp=getCookie('_fbp');if(!fbc){var id=qp().get('fbclid');if(id)fbc='fb.1.'+Date.now()+'.'+id}return{fbc:fbc||undefined,fbp:fbp||undefined}}
+var cachedIp=null;
+function getIp(cb){if(cachedIp)return cb(cachedIp);fetch('https://api.ipify.org?format=json').then(function(r){return r.json()}).then(function(d){cachedIp=d.ip;cb(cachedIp)}).catch(function(){cb(null)})}
+function beacon(url,payload){var body=JSON.stringify(payload);try{var b=new Blob([body],{type:'application/json'});if(navigator.sendBeacon&&navigator.sendBeacon(url,b))return}catch(e){}fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:body,keepalive:true}).catch(function(){})}
+function getExtId(){var v=getCookie('_fluency_uid');if(!v){v=uuid();document.cookie='_fluency_uid='+encodeURIComponent(v)+'; path=/; domain=.fluencyroute.com.br; max-age='+(60*60*24*365*2)+'; SameSite=Lax'}return v}
+function funnelSid(){try{var k='fr_sid',u=qp().get('fr_sid');if(u){localStorage.setItem(k,u);return u}var v=localStorage.getItem(k);if(!v){v=uuid();localStorage.setItem(k,v)}return v}catch(e){return uuid()}}
+function noTrack(){try{var f=qp().get('fr_no_track');if(f==='1')localStorage.setItem('fr_no_track','1');else if(f==='0')localStorage.removeItem('fr_no_track');return localStorage.getItem('fr_no_track')==='1'}catch(e){return false}}
+function frTrack(event,detail){if(noTrack())return;var p=qp();var row={funnel:'ingles',page:'vsl3',event:event,variant:(function(){try{var v=p.get('fr_v')||localStorage.getItem('fr_v');return(v&&!/^v3_[a-f0-9-]{20,}/i.test(v))?v:null}catch(e){return null}})(),detail:detail==null?null:String(detail).slice(0,200),session_id:funnelSid(),utm_source:p.get('utm_source'),utm_medium:p.get('utm_medium'),utm_campaign:p.get('utm_campaign'),utm_content:p.get('utm_content'),utm_term:p.get('utm_term'),fbclid:p.get('fbclid'),referrer:document.referrer||null,path:(location.pathname+location.search).slice(0,500),user_agent:(navigator.userAgent||'').slice(0,500)};fetch(SUPA_URL,{method:'POST',keepalive:true,headers:{'apikey':ANON,'Authorization':'Bearer '+ANON,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(row)}).catch(function(){})}
+function trackDual(event){var eid=genEventId();var fb=getFb();if(window.fbq)fbq('track',event,CONTENT,{eventID:eid});getIp(function(ip){beacon('/api/track',{event:event,eventId:eid,fbc:fb.fbc,fbp:fb.fbp,external_id:getExtId(),client_ip_address:ip||undefined,client_user_agent:navigator.userAgent,value:VALUE,currency:'BRL',content_name:CONTENT.content_name,content_ids:CONTENT.content_ids,content_type:'product'})})}
+
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init',PIXEL);
+(function(){var eid=genEventId();var ext=getExtId();fbq('track','PageView',{},{eventID:eid});var fb=getFb();beacon('/api/track',{event:'PageView',eventId:eid,fbc:fb.fbc,fbp:fb.fbp,external_id:ext})})();
+
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
+setTimeout(function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Z35QLQE3PQ';document.head.appendChild(s);gtag('js',new Date());gtag('config','G-Z35QLQE3PQ');gtag('config','AW-16694165189')},3000);
+
+trackDual('ViewContent');
+try{frTrack('pageview')}catch(e){}
+
+// Vturb — mesmo vídeo da /vsl atual (trocar o id quando a VSL nova estiver gravada)
+(function(){if(!document.querySelector('script[src*="smartplayer-wc"]')){var s=document.createElement('script');s.type='text/javascript';s.src='https://scripts.converteai.net/lib/js/smartplayer-wc/v4/sdk.js';s.async=true;document.head.appendChild(s)}
+var ifr=document.getElementById('ifr_67d1c8ba61d59aeb47caf87d');
+if(ifr)ifr.src='https://scripts.converteai.net/a2b1bd19-973f-4fda-ada9-47d42bffa2ad/players/67d1c8ba61d59aeb47caf87d/v4/embed.html'+(location.search||'?')+'&vl='+encodeURIComponent(location.href)})();
+
+window.addEventListener('message',function(event){try{if(!event.data||event.data.mime!=='smartplayer/message-text-v4')return;if(event.data.type!=='UpdateUrlParams')return;var sck=event.data.sck||(event.data.data&&event.data.data.sck);if(!sck)return;var fb=getFb();var p=qp();beacon('/api/checkout-session',{session_id:stitchSid()+'-sck-'+Date.now().toString(36),fbc:fb.fbc,fbp:fb.fbp,fbclid:p.get('fbclid')||undefined,client_ip_address:cachedIp||undefined,client_user_agent:navigator.userAgent,sck:sck,utm_source:p.get('utm_source')||undefined,utm_medium:p.get('utm_medium')||undefined,utm_campaign:p.get('utm_campaign')||undefined,utm_content:p.get('utm_content')||undefined,utm_term:p.get('utm_term')||undefined})}catch(e){}});
+
+function stitchSid(){try{var e=sessionStorage.getItem('fr_sid');if(e)return e;var n=Date.now().toString(36)+Math.random().toString(36).slice(2,12);sessionStorage.setItem('fr_sid',n);return n}catch(e){return Date.now().toString(36)+Math.random().toString(36).slice(2,12)}}
+function saveCheckoutSession(sid){if(!sid)return;var fb=getFb();var p=qp();beacon('/api/checkout-session',{session_id:sid,fbc:fb.fbc,fbp:fb.fbp,fbclid:p.get('fbclid')||undefined,client_ip_address:cachedIp||undefined,client_user_agent:navigator.userAgent,utm_source:p.get('utm_source')||undefined,utm_medium:p.get('utm_medium')||undefined,utm_campaign:p.get('utm_campaign')||undefined,utm_content:p.get('utm_content')||undefined,utm_term:p.get('utm_term')||undefined,sck:p.get('sck')||undefined})}
+
+var UTM_KEYS=['utm_source','utm_medium','utm_campaign','utm_term','utm_content','sck'];
+(function(){var p=qp();var sid=stitchSid();document.querySelectorAll('a.cta-btn').forEach(function(a){try{var u=new URL(CHECKOUT);UTM_KEYS.forEach(function(k){var v=p.get(k);if(v)u.searchParams.set(k,v)});u.searchParams.set('s1',sid);a.href=u.toString()}catch(e){}
+a.addEventListener('click',function(){try{var cur=new URL(a.href);var sck=cur.searchParams.get('sck');if(sck){var fb=getFb();var pp=qp();beacon('/api/checkout-session',{session_id:stitchSid()+'-click-'+Date.now().toString(36),fbc:fb.fbc,fbp:fb.fbp,fbclid:pp.get('fbclid')||undefined,client_ip_address:cachedIp||undefined,client_user_agent:navigator.userAgent,sck:sck,utm_source:pp.get('utm_source')||undefined,utm_medium:pp.get('utm_medium')||undefined,utm_campaign:pp.get('utm_campaign')||undefined,utm_content:pp.get('utm_content')||undefined,utm_term:pp.get('utm_term')||undefined})}}catch(e){}
+saveCheckoutSession(stitchSid());try{frTrack('checkout_click')}catch(e){}trackDual('InitiateCheckout')})})})();
+
+// reveal da oferta — DORMENTE: pra ativar o delay de 21min, adicione class="esconder"
+// nas seções de preço (#oferta e .final) e o código abaixo revela no tempo certo (?reveal=1 pré-visualiza)
+(function(){var delaySeconds=1260;var key='fluency_vsl3_revealed';
+function show(){document.querySelectorAll('.esconder').forEach(function(el){el.classList.remove('esconder')})}
+function doReveal(){show();try{localStorage.setItem(key,'1')}catch(e){}}
+var preview=qp().get('reveal')==='1';var already=false;try{already=localStorage.getItem(key)==='1'}catch(e){}
+if(preview)show();else if(already)doReveal();else setTimeout(doReveal,delaySeconds*1000)})();
+
+// sticky CTA mobile — aparece depois da seção da oferta
+(function(){var bar=document.getElementById('stickyCta');var ofertaEl=document.getElementById('oferta');if(!bar||!ofertaEl)return;
+window.addEventListener('scroll',function(){var passed=window.scrollY>(ofertaEl.offsetTop+ofertaEl.offsetHeight-200);bar.classList.toggle('on',passed);bar.setAttribute('aria-hidden',passed?'false':'true')},{passive:true})})();
+
+// scroll depth + time on page
+(function(){var fired={};window.addEventListener('scroll',function(){var pct=Math.round(window.scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100);[25,50,75,100].forEach(function(t){if(pct>=t&&!fired[t]){fired[t]=1;trackDual('ScrollDepth_'+t)}})},{passive:true});
+var fired2={},start=Date.now();setInterval(function(){var el=Math.floor((Date.now()-start)/1000);[30,60,120,300,600].forEach(function(m){if(el>=m&&!fired2[m]){fired2[m]=1;trackDual('TimeOnPage_'+m+'s')}})},5000)})();
+})();
+</script>
+</body>
+</html>

@@ -18,6 +18,8 @@ const nextConfig: NextConfig = {
         // mesma cirurgia da bridge: vence a rota app/vsl — estática self-contained
         // (103KB total vs 15KB HTML + 673KB de chunks React). /vsl2 segue React.
         { source: '/vsl', destination: '/vsl.html' },
+        // oferta R$99/mês anual (checkout 6Fftr2I) — página nova, não toca a /vsl
+        { source: '/vsl3', destination: '/vsl3.html' },
       ],
       afterFiles: [
         { source: '/manu', destination: '/manu.html' },
