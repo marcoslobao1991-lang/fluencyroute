@@ -15,6 +15,9 @@ const nextConfig: NextConfig = {
       beforeFiles: [
         { source: '/bridge', destination: '/bridge.html' },
         { source: '/bridge2', destination: '/bridge.html' },
+        // mesma cirurgia da bridge: vence a rota app/vsl — estática self-contained
+        // (103KB total vs 15KB HTML + 673KB de chunks React). /vsl2 segue React.
+        { source: '/vsl', destination: '/vsl.html' },
       ],
       afterFiles: [
         { source: '/manu', destination: '/manu.html' },
