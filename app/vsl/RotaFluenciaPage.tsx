@@ -209,8 +209,8 @@ const FAQ = [
 
 export default function RotaFluenciaPage({ alwaysOpen = false, vsl2 = false }: { alwaysOpen?: boolean; vsl2?: boolean }) {
   // ── modo VSL2 (pós-captura do lead magnet): headline + R$49 + checkout próprio ──
-  const PR = vsl2 ? 'R$49' : 'R$29'
-  const CO = vsl2 ? 'https://pay.kiwify.com.br/jTO3lIy' : 'https://pay.kiwify.com.br/DlmRal3'
+  const PR = 'R$49'
+  const CO = 'https://pay.kiwify.com.br/jTO3lIy'
   const [sticky, setSticky] = useState(false)
   const [revealed, setRevealed] = useState(false)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
@@ -836,7 +836,7 @@ function saveCheckoutSession(sessionId: string) {
 // The Kiwify webhook needs sck (not fbclid — Kiwify drops fbclid) to look
 // up the stitch row, so we MUST persist a fresh stitch row at click time
 // with the sck that Vturb just wrote into the href.
-function Btn({ text = 'QUERO FAZER PARTE', compact, utms = {}, checkout = 'https://pay.kiwify.com.br/DlmRal3' }: { text?: string; compact?: boolean; utms?: Record<string, string>; checkout?: string }) {
+function Btn({ text = 'QUERO FAZER PARTE', compact, utms = {}, checkout = 'https://pay.kiwify.com.br/jTO3lIy' }: { text?: string; compact?: boolean; utms?: Record<string, string>; checkout?: string }) {
   const [sid, setSid] = useState('')
   const anchorRef = useRef<HTMLAnchorElement>(null)
   useEffect(() => { setSid(getOrCreateSessionId()) }, [])
@@ -908,7 +908,7 @@ function Btn({ text = 'QUERO FAZER PARTE', compact, utms = {}, checkout = 'https
 // ═══════════════════════════════════════════════════════════════
 // PRICE BLOCK
 // ═══════════════════════════════════════════════════════════════
-function PriceBlock({ price = 'R$29' }: { price?: string }) {
+function PriceBlock({ price = 'R$49' }: { price?: string }) {
   return (
     <div style={{ textAlign: 'center' }}>
       <span style={{
@@ -920,7 +920,7 @@ function PriceBlock({ price = 'R$29' }: { price?: string }) {
         marginBottom: 10,
       }}>🔥 Últimas vagas com desconto</span>
       <p style={{ fontSize: 16, color: C.t2 }}>
-        De <span style={{ textDecoration: 'line-through', color: C.red }}>R$497</span>
+        De <span style={{ textDecoration: 'line-through', color: C.red }}>R$997</span>
       </p>
       <p style={{ fontSize: 14, color: C.t2, marginTop: 6 }}>Hoje por apenas:</p>
       <p style={{
