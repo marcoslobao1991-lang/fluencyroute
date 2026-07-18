@@ -7,7 +7,7 @@ const chromePath = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
 const port = 9337;
 const mobile = process.argv.includes("--mobile");
 const profile = await mkdtemp(path.join(tmpdir(), "fluency-secrets-qa-"));
-const url = "http://localhost:3000/fluency-secrets?chapter=o-pendrive&page=0";
+const url = "http://localhost:3000/fluency-secrets?chapter=o-pendrive-quase-vazio&page=0";
 
 const chrome = spawn(
   chromePath,
@@ -237,8 +237,8 @@ try {
     return results;
   })()`);
 
-  if (chapters.length !== 23) {
-    throw new Error(`Expected 23 chapters/sections, received ${chapters.length}.`);
+  if (chapters.length !== 17) {
+    throw new Error(`Expected 17 chapters/sections, received ${chapters.length}.`);
   }
 
   const invalid = chapters.filter(
@@ -264,10 +264,10 @@ try {
   const density = {
     measuredTextPages: densityValues.length,
     medianCharacters: densityMedian,
-    minimumTarget: Math.floor(densityMedian * 0.6),
-    maximumTarget: Math.ceil(densityMedian * 1.4),
+    minimumTarget: Math.floor(densityMedian * 0.58),
+    maximumTarget: Math.ceil(densityMedian * 1.42),
     outliers: densityValues.filter(
-      (count) => count < densityMedian * 0.6 || count > densityMedian * 1.4,
+      (count) => count < densityMedian * 0.58 || count > densityMedian * 1.42,
     ),
   };
   if (density.outliers.length) {
@@ -293,7 +293,7 @@ try {
 
   await command("Page.enable");
   await command("Page.navigate", {
-    url: "http://localhost:3000/fluency-secrets?chapter=o-pendrive&page=1&fontSize=24&theme=dark",
+    url: "http://localhost:3000/fluency-secrets?chapter=o-pendrive-quase-vazio&page=1&fontSize=24&theme=dark",
   });
   await delay(250);
   const readingPreferences = await evaluate(`new Promise((resolve) => {

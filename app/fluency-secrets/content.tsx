@@ -29,112 +29,74 @@ function Note({ title, children }: { title: string; children: ReactNode }) {
   );
 }
 
-function TranslationLoop() {
+function TranslationTax() {
   return (
-    <figure className={styles.diagram} aria-labelledby="translation-loop-title">
-      <figcaption>
-        <span>DIAGRAMA 01</span>
-        <strong id="translation-loop-title">O Imposto da Segunda Conversa</strong>
-      </figcaption>
+    <figure className={styles.diagram} aria-labelledby="translation-tax-title">
+      <figcaption><span>MECANISMO 01</span><strong id="translation-tax-title">O Imposto da Segunda Conversa</strong></figcaption>
       <div className={styles.loopGrid}>
-        <div className={styles.loopNode}><small>01</small>Você escuta em inglês</div>
-        <span className={styles.arrow}>→</span>
-        <div className={styles.loopNode}><small>02</small>Traduz para português</div>
-        <span className={styles.arrow}>→</span>
-        <div className={styles.loopNode}><small>03</small>Procura uma resposta</div>
-        <span className={styles.arrow}>→</span>
-        <div className={styles.loopNode}><small>04</small>Traduz de volta</div>
-        <span className={styles.arrow}>→</span>
-        <div className={`${styles.loopNode} ${styles.loopNodeAccent}`}><small>05</small>Tenta falar</div>
+        <div className={styles.loopNode}><small>01</small>O som chega</div><span className={styles.arrow}>→</span>
+        <div className={styles.loopNode}><small>02</small>Você procura palavras</div><span className={styles.arrow}>→</span>
+        <div className={styles.loopNode}><small>03</small>Monta o português</div><span className={styles.arrow}>→</span>
+        <div className={styles.loopNode}><small>04</small>Cria a resposta</div><span className={styles.arrow}>→</span>
+        <div className={`${styles.loopNode} ${styles.loopNodeAccent}`}><small>05</small>Reconstrói em inglês</div>
       </div>
-      <p className={styles.diagramCaption}>Cada passagem obrigatória pelo português cobra tempo e atenção. A conversa real continua avançando enquanto a tradução processa a frase anterior.</p>
+      <p className={styles.diagramCaption}>A conversa externa avança enquanto a conversa interna ainda está processando a frase anterior.</p>
     </figure>
   );
 }
 
-function TwoPaths() {
+function LearnVsTrain() {
   return (
-    <figure className={styles.diagram} aria-labelledby="two-paths-title">
-      <figcaption>
-        <span>DIAGRAMA 02</span>
-        <strong id="two-paths-title">Da ponte obrigatória ao significado direto</strong>
-      </figcaption>
-      <div className={styles.paths}>
-        <div className={styles.pathRow}>
-          <span className={styles.pathLabel}>Dependência da tradução</span>
-          <div>Som</div><i>→</i><div>Português</div><i>→</i><div>Significado</div>
-        </div>
-        <div className={`${styles.pathRow} ${styles.pathRowDirect}`}>
-          <span className={styles.pathLabel}>Processamento direto</span>
-          <div>Som</div><i>→</i><div>Significado</div>
-        </div>
+    <figure className={styles.diagram} aria-labelledby="learn-train-title">
+      <figcaption><span>PARADIGM SHIFT</span><strong id="learn-train-title">Aprender orienta. Treinar disponibiliza.</strong></figcaption>
+      <div className={styles.comparison}>
+        <div><span>APRENDER</span><strong>“Eu entendi”</strong><p>Explicação, regra, tradução, exemplo visível e tempo para pensar.</p></div>
+        <div><span>TREINAR</span><strong>“Eu consigo”</strong><p>Percepção, recuperação, repetição, variação e resposta em tempo real.</p></div>
       </div>
-      <p className={styles.diagramCaption}>O objetivo não é banir o português. É deixar de precisar dele como ponte para compreender cada frase.</p>
+      <p className={styles.diagramCaption}>A explicação pode encurtar o caminho. Só não pode caminhar no seu lugar.</p>
     </figure>
   );
 }
 
-function ContentTreadmill() {
+function AvailabilityGap() {
   return (
-    <figure className={styles.diagram} aria-labelledby="treadmill-title">
-      <figcaption>
-        <span>DIAGRAMA 03</span>
-        <strong id="treadmill-title">A esteira do conteúdo</strong>
-      </figcaption>
+    <figure className={styles.diagram} aria-labelledby="availability-title">
+      <figcaption><span>MECANISMO 02</span><strong id="availability-title">A Lacuna de Disponibilidade</strong></figcaption>
+      <div className={styles.availabilityMeter}>
+        <div><span>1</span><p><b>Já vi</b> Parece familiar.</p></div>
+        <div><span>2</span><p><b>Reconheço</b> Entendo com apoio.</p></div>
+        <div><span>3</span><p><b>Recupero</b> Encontro sem consultar.</p></div>
+        <div><span>4</span><p><b>Percebo</b> Ouço na fala real.</p></div>
+        <div><span>5</span><p><b>Uso</b> Surge antes que o momento passe.</p></div>
+      </div>
+      <p className={styles.diagramCaption}>Seu inglês funcional não é tudo que você reconheceria numa prova. É a parte que permanece acessível sob velocidade.</p>
+    </figure>
+  );
+}
+
+function NoveltyTreadmill() {
+  return (
+    <figure className={styles.diagram} aria-labelledby="novelty-title">
+      <figcaption><span>MECANISMO 03</span><strong id="novelty-title">A Esteira da Novidade</strong></figcaption>
       <div className={styles.treadmill}>
-        <div><b>1</b>Conteúdo novo</div>
-        <span>→</span>
-        <div><b>2</b>Entendimento superficial</div>
-        <span>→</span>
-        <div><b>3</b>Sensação de progresso</div>
-        <span>→</span>
-        <div><b>4</b>Pouca automatização</div>
-        <span>↺</span>
+        <div><b>1</b>Conteúdo novo</div><span>→</span>
+        <div><b>2</b>Entendimento fácil</div><span>→</span>
+        <div><b>3</b>Sensação de avanço</div><span>→</span>
+        <div><b>4</b>Pouca recuperação</div><span>↺</span>
       </div>
-      <p className={styles.diagramCaption}>Movimento não é necessariamente deslocamento. Você pode consumir inglês todos os dias e continuar no mesmo lugar.</p>
-    </figure>
-  );
-}
-
-function SkillConversion() {
-  return (
-    <figure className={styles.diagram} aria-labelledby="skill-conversion-title">
-      <figcaption><span>DIAGRAMA 04</span><strong id="skill-conversion-title">O Loop de Automatização</strong></figcaption>
-      <div className={styles.skillFlow}>
-        <div><small>EXPOSIÇÃO</small><b>Eu encontro</b><p>O som e o significado aparecem juntos.</p></div>
-        <span>→</span>
-        <div><small>REPETIÇÃO</small><b>Eu reconheço</b><p>O padrão deixa de parecer completamente novo.</p></div>
-        <span>→</span>
-        <div><small>RECUPERAÇÃO</small><b>Eu antecipo</b><p>O cérebro prevê o bloco antes de analisar cada palavra.</p></div>
-        <span>→</span>
-        <div className={styles.skillFinish}><small>AUTOMATIZAÇÃO</small><b>Eu uso</b><p>O significado e a resposta ficam disponíveis.</p></div>
-      </div>
+      <p className={styles.diagramCaption}>Você termina cansado de se mover e descobre que quase nada ficou disponível.</p>
     </figure>
   );
 }
 
 function PerceptionLayers() {
   return (
-    <figure className={styles.diagram} aria-labelledby="perception-title">
-      <figcaption><span>DIAGRAMA 05</span><strong id="perception-title">O som não muda. Sua percepção muda.</strong></figcaption>
+    <figure className={styles.diagram} aria-labelledby="perception-v2-title">
+      <figcaption><span>MECANISMO 04</span><strong id="perception-v2-title">O áudio não desacelera. A percepção se reorganiza.</strong></figcaption>
       <div className={styles.perception}>
-        <div><span>1ª ESCUTA</span><p className={styles.soundMess}>whaddayawannado</p><small>Uma massa de som</small></div>
-        <div><span>APÓS CONTEXTO</span><p>what do you want to do?</p><small>Palavras separadas</small></div>
-        <div><span>APÓS TREINO</span><p><b>what do you wanna do?</b></p><small>Um bloco reconhecível</small></div>
-      </div>
-    </figure>
-  );
-}
-
-function EssentialPyramid() {
-  return (
-    <figure className={styles.diagram} aria-labelledby="essential-title">
-      <figcaption><span>DIAGRAMA 06</span><strong id="essential-title">A pirâmide da Fluência Essencial</strong></figcaption>
-      <div className={styles.pyramid}>
-        <div><b>EXPANSÃO</b><small>Temas, sotaques e contextos específicos</small></div>
-        <div><b>DISCURSOS E CONVERSAS</b><small>Ideias completas em velocidade real</small></div>
-        <div><b>BLOCOS RECORRENTES</b><small>Combinações que voltam o tempo inteiro</small></div>
-        <div><b>PALAVRAS E SONS ESSENCIAIS</b><small>A base de alta frequência profundamente disponível</small></div>
+        <div><span>ANTES</span><p className={styles.soundMess}>whaddayawannado</p><small>Uma massa sonora</small></div>
+        <div><span>COM O MAPA</span><p>what do you want to do?</p><small>O texto revela as peças</small></div>
+        <div><span>DEPOIS DO TREINO</span><p><b>what do you wanna do?</b></p><small>Um bloco percebido diretamente</small></div>
       </div>
     </figure>
   );
@@ -142,71 +104,52 @@ function EssentialPyramid() {
 
 function EssentialFilter() {
   return (
-    <figure className={styles.diagram} aria-labelledby="essential-filter-title">
-      <figcaption><span>DIAGRAMA 07</span><strong id="essential-filter-title">O filtro do que merece profundidade</strong></figcaption>
+    <figure className={styles.diagram} aria-labelledby="essential-v2-title">
+      <figcaption><span>MECANISMO 05</span><strong id="essential-v2-title">O Filtro da Fluência Essencial</strong></figcaption>
       <div className={styles.essentialFilter}>
         <div><span>01</span><b>Recorrência</b><p>Volta em muitas vozes e situações.</p></div>
-        <div><span>02</span><b>Combinação</b><p>Forma blocos úteis com muitas outras peças.</p></div>
+        <div><span>02</span><b>Combinação</b><p>Forma muitos blocos e funções.</p></div>
         <div><span>03</span><b>Relevância</b><p>Aparece no inglês que você quer viver.</p></div>
       </div>
-      <p className={styles.diagramCaption}>O essencial fica na interseção: frequente o bastante para transferir e relevante o bastante para merecer prática agora.</p>
+      <p className={styles.diagramCaption}>Essencial não é uma lista mágica. É a interseção entre alta utilidade e destino pessoal.</p>
     </figure>
   );
 }
 
-function RepetitionSystem() {
+function MasteryContrast() {
   return (
-    <figure className={styles.diagram} aria-labelledby="repetition-title">
-      <figcaption><span>DIAGRAMA 08</span><strong id="repetition-title">As duas direções da repetição</strong></figcaption>
-      <div className={styles.repeatGrid}>
-        <div>
-          <span className={styles.repeatIcon}>↻</span>
-          <small>REPETIÇÃO CONTINUADA</small>
-          <b>Profundidade agora</b>
-          <p>O mesmo trecho retorna várias vezes na sessão até sons e blocos ganharem nitidez.</p>
-        </div>
-        <div>
-          <span className={styles.repeatIcon}>◷</span>
-          <small>REPETIÇÃO ESPAÇADA</small>
-          <b>Disponibilidade depois</b>
-          <p>O trecho retorna em dias diferentes para que o reconhecimento sobreviva ao tempo.</p>
-        </div>
-      </div>
-    </figure>
-  );
-}
-
-function ConcentratedVsRandom() {
-  return (
-    <figure className={styles.diagram} aria-labelledby="concentrated-title">
-      <figcaption><span>DIAGRAMA 09</span><strong id="concentrated-title">Amplitude ou profundidade?</strong></figcaption>
+    <figure className={styles.diagram} aria-labelledby="mastery-title">
+      <figcaption><span>PARADIGM SHIFT</span><strong id="mastery-title">Atravessar conteúdo ou conquistar capacidade?</strong></figcaption>
       <div className={styles.depthCompare}>
-        <div>
-          <small>CONSUMO ALEATÓRIO</small>
-          <span className={styles.shallow}>━━━━━━━━━━━━━━━━━━━━</span>
-          <b>20 minutos diferentes</b>
-          <p>Muito território visitado. Pouco material dominado.</p>
-        </div>
-        <div>
-          <small>TREINO CONCENTRADO</small>
-          <span className={styles.deep}>┃<br/>┃<br/>┃<br/>┃</span>
-          <b>1 minuto aprofundado</b>
-          <p>Pouco território. Percepção, antecipação e reprodução.</p>
-        </div>
+        <div><small>UMA TEMPORADA ATRAVESSADA</small><span className={styles.shallow}>━━━━━━━━━━━━━━━━━━━━</span><b>Muito território</b><p>Centenas de minutos. Poucos pontos de comparação. Progresso difícil de localizar.</p></div>
+        <div><small>UM TRECHO DOMINADO</small><span className={styles.deep}>┃<br/>┃<br/>┃<br/>┃</span><b>Profundidade mensurável</b><p>Som, significado, antecipação, reprodução e recuperação.</p></div>
       </div>
     </figure>
   );
 }
 
-function RouteMap() {
+function RepetitionDirections() {
   return (
-    <figure className={styles.diagram} aria-labelledby="route-title">
-      <figcaption><span>DIAGRAMA 10</span><strong id="route-title">A Escada de Transferência</strong></figcaption>
-      <div className={styles.routeMap}>
-        <div><span>01</span><b>Trecho</b><small>30–60 segundos</small></div><i>→</i>
-        <div><span>02</span><b>Episódio</b><small>conversa completa</small></div><i>→</i>
-        <div><span>03</span><b>Discurso</b><small>ideias sustentadas</small></div><i>→</i>
-        <div><span>04</span><b>Imersão</b><small>novos contextos</small></div>
+    <figure className={styles.diagram} aria-labelledby="repetition-v2-title">
+      <figcaption><span>MECANISMO 06</span><strong id="repetition-v2-title">As duas direções da repetição</strong></figcaption>
+      <div className={styles.repeatGrid}>
+        <div><span className={styles.repeatIcon}>↻</span><small>CONTINUADA</small><b>Profundidade agora</b><p>O trecho volta na mesma sessão; a tarefa muda a cada volta.</p></div>
+        <div><span className={styles.repeatIcon}>▷</span><small>ESPAÇADA</small><b>Disponibilidade depois</b><p>O intervalo esfria a familiaridade e obriga o cérebro a recuperar.</p></div>
+      </div>
+    </figure>
+  );
+}
+
+function MasteryThreshold() {
+  return (
+    <figure className={styles.diagram} aria-labelledby="threshold-title">
+      <figcaption><span>CRITÉRIO DE SAÍDA</span><strong id="threshold-title">O Ponto de Domínio</strong></figcaption>
+      <div className={styles.scorecard}>
+        <div><span>01</span><b>Percebo</b><p>Os blocos principais aparecem sem legenda.</p></div>
+        <div><span>02</span><b>Entendo</b><p>O sentido chega sem reconstrução constante.</p></div>
+        <div><span>03</span><b>Antecipio</b><p>Algumas sequências ficam previsíveis.</p></div>
+        <div><span>04</span><b>Acompanho</b><p>Consigo reproduzir ritmo sem abandonar a escuta.</p></div>
+        <div><span>05</span><b>Recupero</b><p>O reconhecimento sobrevive ao intervalo.</p></div>
       </div>
     </figure>
   );
@@ -214,622 +157,445 @@ function RouteMap() {
 
 function ExperimentCard() {
   const days = [
-    ["DIA 1", "Medir", "Escute sem texto e anote o que realmente percebe."],
-    ["DIA 2", "Mapear", "Compare áudio, transcrição e significado."],
-    ["DIA 3", "Separar", "Marque blocos e emendas de som."],
-    ["DIA 4", "Concentrar", "Repita em ciclos curtos, sem avançar."],
-    ["DIA 5", "Reproduzir", "Faça shadowing em velocidade confortável."],
-    ["DIA 6", "Retirar apoios", "Volte ao áudio sem texto ou tradução."],
-    ["DIA 7", "Provar", "Faça o teste final e compare com o Dia 1."],
+    ["DIA 1", "Medir", "Escute sem apoio e registre o que realmente chegou."],
+    ["DIA 2", "Mapear", "Compare som, transcrição e significado."],
+    ["DIA 3", "Separar", "Localize blocos, reduções e emendas."],
+    ["DIA 4", "Antecipar", "Repita até prever partes da sequência."],
+    ["DIA 5", "Acompanhar", "Faça shadowing sem transformar em corrida."],
+    ["DIA 6", "Recuperar", "Volte depois do intervalo, primeiro sem apoio."],
+    ["DIA 7", "Comparar", "Repita a medição inicial e procure deslocamento."],
   ];
   return (
-    <figure className={`${styles.diagram} ${styles.experiment}`} aria-labelledby="experiment-title">
-      <figcaption><span>PROTOCOLO PRÁTICO</span><strong id="experiment-title">O Experimento Fluency Secrets</strong></figcaption>
+    <figure className={`${styles.diagram} ${styles.experiment}`} aria-labelledby="experiment-v2-title">
+      <figcaption><span>PROTOCOLO DE PROVA</span><strong id="experiment-v2-title">Sete dias, um trecho, duas gravações</strong></figcaption>
       <div className={styles.experimentDays}>
-        {days.map(([day, verb, description]) => (
-          <div key={day}><span>{day}</span><b>{verb}</b><p>{description}</p></div>
-        ))}
+        {days.map(([day, verb, description]) => <div key={day}><span>{day}</span><b>{verb}</b><p>{description}</p></div>)}
       </div>
+    </figure>
+  );
+}
+
+function TransferLadder() {
+  return (
+    <figure className={styles.diagram} aria-labelledby="transfer-v2-title">
+      <figcaption><span>MECANISMO 07</span><strong id="transfer-v2-title">A Escada de Transferência</strong></figcaption>
+      <div className={styles.routeMap}>
+        <div><span>01</span><b>Trecho</b><small>nitidez</small></div><i>→</i>
+        <div><span>02</span><b>Episódio</b><small>recorrência</small></div><i>→</i>
+        <div><span>03</span><b>Discurso</b><small>continuidade</small></div><i>→</i>
+        <div><span>04</span><b>Imersão</b><small>expansão</small></div>
+      </div>
+      <p className={styles.diagramCaption}>A escala aumenta; os padrões automatizados viajam com você.</p>
     </figure>
   );
 }
 
 export const chapters: Chapter[] = [
   {
-    id: "o-pendrive",
+    id: "o-pendrive-quase-vazio",
     part: "Prólogo",
-    title: "O pendrive",
-    eyebrow: "Onde tudo começou",
-    readingTime: 5,
+    title: "O pendrive quase vazio",
+    eyebrow: "A limitação que acabou virando método",
+    readingTime: 6,
     content: (
       <>
         <p className={styles.lead}>Durante um período da minha vida, meu escritório tinha quatro rodas.</p>
-
-        <p>Eu trabalhava como vendedor e passava boa parte dos meus dias dirigindo de uma cidade para outra. Eram horas de estrada, visitas, metas e a sensação constante de que eu precisava chegar a algum lugar — mesmo quando ainda não sabia exatamente qual seria o caminho.</p>
-
-        <p>Naquela época, o som do carro não tinha uma biblioteca infinita à disposição. Nada de abrir um aplicativo e escolher entre milhões de episódios, músicas ou aulas. O que eu tinha era um pendrive.</p>
-
-        <p>E aquele pendrive não tinha muita coisa.</p>
-
-        <p>Entre os poucos arquivos, havia conteúdos de vendas em inglês. Alguns eram de Jordan Belfort. Outros, de Grant Cardone. Eu tinha colocado aqueles áudios ali porque carregava uma vontade que ainda parecia maior do que a minha realidade: um dia, eu queria trabalhar vendendo em dólar.</p>
-
-        <p>Eu sabia que, para isso, não bastaria pedir um café ou perguntar onde ficava o aeroporto. Eu precisaria sustentar uma ideia, contornar objeções, perceber mudanças de tom e convencer alguém que não tinha obrigação nenhuma de continuar na ligação.</p>
-
-        <p>O inglês precisaria funcionar na mesma velocidade da conversa.</p>
-
-        <p>Como havia pouca coisa no pendrive, eu escutava os mesmos áudios. Quando um terminava, começava de novo. Depois mais uma vez. Em alguns dias, os mesmos discursos me acompanhavam durante horas de estrada.</p>
-
-        <p>Não existia plano. Eu não havia montado um método e nem sabia que estava treinando alguma coisa. Era apenas o conteúdo que eu tinha disponível.</p>
-
-        <p>Até que comecei a perceber algo estranho.</p>
-
-        <p>Os áudios não pareciam mais tão rápidos.</p>
-
-        <p>Trechos que antes soavam como uma massa de sons começaram a se separar. Primeiro aparecia uma palavra. Depois uma expressão inteira. Em seguida, eu já sabia o que viria antes de a pessoa terminar de falar.</p>
-
-        <p>O arquivo continuava exatamente igual. A velocidade não havia mudado. Jordan Belfort não tinha decidido falar mais devagar só porque eu estava dirigindo.</p>
-
-        <p>Alguma coisa havia mudado em mim.</p>
-
-        <p>Foi quando me ocorreu uma pergunta: se repetir aqueles áudios estava mudando a forma como eu escutava, o que aconteceria se eu usasse a mesma repetição para mudar a forma como eu falava?</p>
-
-        <p>Comecei a acompanhar os discursos em voz alta. Ouvia uma frase e tentava reproduzir não apenas as palavras, mas o ritmo, as pausas, as emendas e a intenção. Depois repetia junto com a pessoa. De novo. E de novo.</p>
-
-        <p>Sem saber, eu estava fazendo o que hoje muita gente chama de <em>shadowing</em>. Só que, para mim, não era o nome de uma técnica. Era a tentativa prática de fazer minha boca acompanhar algo que meu ouvido começava a reconhecer.</p>
-
-        <p>Alguns trechos se repetiram tantas vezes que eu os decorei por completo. E então aconteceu o que eu não esperava: minha melhora não ficou presa àqueles discursos.</p>
-
-        <p>As palavras, os sons e os blocos que apareciam ali também estavam em outras conversas. Quanto mais automáticos eles se tornavam, mais eu os reconhecia fora dos áudios do pendrive. Minha pronúncia começou a mudar. Minha percepção começou a mudar. O inglês, aos poucos, deixou de ser uma sequência que eu precisava desmontar para se tornar algo que eu conseguia acompanhar.</p>
-
-        <Secret number="#01">Eu não melhorei porque estava aprendendo coisas novas. Melhorei porque parei de abandonar as mesmas coisas antes que elas se tornassem automáticas.</Secret>
-
-        <p>Na época, eu queria ter mais arquivos naquele pendrive. Não sabia que ter poucos seria justamente o que me ensinaria uma das coisas mais importantes sobre fluência.</p>
-
-        <p>A internet nos dá acesso a uma quantidade de conteúdo que eu não conseguiria imaginar naquelas estradas. Mas acesso não é domínio. Variedade não é automatização. E reconhecer uma explicação não significa conseguir usar uma habilidade.</p>
-
-        <p>O que aconteceu dentro daquele carro foi um acidente. O restante deste livro é a tentativa de mostrar por que aquele acidente funcionou — e o que ele revela sobre a razão pela qual tantas pessoas estudam inglês durante anos, mas ainda precisam pensar duas vezes antes de responder.</p>
-
-        <p>Literalmente duas vezes.</p>
+        <p>Eu trabalhava como vendedor e passava horas dirigindo de uma cidade para outra. Naquela época, o som do carro não oferecia uma biblioteca infinita. O que eu tinha era um pendrive — e aquele pendrive tinha pouca coisa.</p>
+        <p>Entre os poucos arquivos havia áudios de vendas em inglês, alguns de Jordan Belfort, outros de Grant Cardone. Eu os tinha baixado por uma razão que, naquele momento, parecia maior do que a minha realidade: queria trabalhar vendendo em dólar.</p>
+        <p>Para isso, um inglês “comunicável” não bastaria. Eu precisaria perceber hesitação na voz de alguém, responder objeções, sustentar uma ideia e convencer um americano que não tinha obrigação nenhuma de continuar na ligação. Meu inglês precisaria funcionar na velocidade da conversa.</p>
+        <p>Como não havia muito para escolher, os mesmos áudios começavam de novo. E de novo. Em algumas viagens, as mesmas falas me acompanhavam por horas.</p>
+        <p>Não existia método. Não havia caderno. Eu não sabia que estava treinando alguma coisa. Era simplesmente o material disponível.</p>
+        <p>Até que os áudios começaram a ficar mais lentos.</p>
+        <p>Não um pouco. Trechos que antes chegavam como uma massa de som começaram a se abrir. Primeiro aparecia uma palavra. Depois uma expressão. Em seguida, eu sabia o que viria antes de a frase terminar.</p>
+        <p>Naturalmente, Jordan Belfort não tinha decidido falar mais devagar porque eu estava na estrada. O arquivo era idêntico. A velocidade era idêntica.</p>
+        <p>Alguma coisa havia mudado em quem escutava.</p>
+        <p>Foi então que tentei levar o mesmo princípio para a fala. Passei a acompanhar discursos curtos em voz alta, repetindo ritmo, pausas, emendas e intenção. Alguns trechos se repetiram tanto que ficaram decorados.</p>
+        <p>E aconteceu a parte mais importante: a melhora não ficou presa aos áudios. Palavras e blocos daqueles discursos reapareciam em outros lugares. Eu os reconhecia mais rápido. Minha boca os encontrava com menos esforço. O material era pequeno, mas parte da capacidade viajava.</p>
+        <Secret number="#01">Eu não melhorei porque encontrei mais conteúdo. Melhorei porque parei de abandonar o mesmo conteúdo antes que ele pudesse mudar a minha percepção.</Secret>
+        <p>Na época, eu queria um pendrive maior. Hoje sei que a escassez me protegeu de um erro que a internet transformou em hábito: confundir acesso infinito com progresso.</p>
+        <p>Este livro começa com uma pergunta simples. Se o áudio não ficou mais lento, o que exatamente ficou mais rápido dentro de mim?</p>
       </>
     ),
   },
   {
-    id: "a-conversa-que-acontece-duas-vezes",
-    part: "Parte I — A trava invisível",
+    id: "a-conversa-que-chega-atrasada",
+    part: "Parte I — O diagnóstico que muda tudo",
     number: 1,
-    eyebrow: "O atraso que ninguém vê",
-    title: "A conversa que acontece duas vezes",
-    readingTime: 4,
-    content: (
-      <>
-        <p className={styles.lead}>Quando alguém fala com você em inglês, talvez uma segunda conversa comece dentro da sua cabeça.</p>
-
-        <p>A pessoa diz alguma coisa. Você segura os sons por alguns instantes, procura palavras conhecidas e tenta montar uma versão em português. Quando finalmente entende, pensa no que gostaria de responder. Só então começa o caminho de volta: procura palavras em inglês, reorganiza a frase e tenta pronunciá-la.</p>
-
-        <p>Enquanto tudo isso acontece, a conversa real continua.</p>
-
-        <TranslationLoop />
-
-        <p>Chame esse atraso de <strong>Imposto da Segunda Conversa</strong>. Ele não aparece em uma prova escrita, porque no papel você pode parar, voltar e reconstruir. Na fala, é cobrado a cada frase: quanto mais etapas internas, menos atenção sobra para intenção, humor e resposta.</p>
-
-        <p>É por isso que você pode conhecer todas as palavras de uma frase e, ainda assim, não conseguir acompanhá-la no momento em que ela é dita. O problema não está necessariamente no vocabulário. Está no caminho que a informação precisa percorrer.</p>
-
-        <p>Imagine um intérprete trabalhando entre duas pessoas. Antes de uma resposta chegar ao outro lado, a mensagem precisa passar por uma ponte. Quando essa ponte é necessária para cada frase, existe um atraso inevitável.</p>
-
-        <p>A tradução mental funciona de forma parecida. Ela pode ser útil durante o aprendizado. O problema começa quando continua sendo a única ponte disponível.</p>
-
-        <TwoPaths />
-
-        <p>Fluentes também traduzem. Um tradutor profissional pode fazer isso com uma precisão que a maioria das pessoas nunca alcançará. A diferença é que ele não precisa traduzir cada frase para compreender o idioma. A tradução é uma escolha consciente, não uma condição para o significado aparecer.</p>
-
-        <p>Por isso, o objetivo deste livro não é convencer você a expulsar o português da cabeça. Além de impossível, isso seria desnecessário. O objetivo é mostrar como o inglês pode deixar de depender do português para funcionar.</p>
-
-        <Secret number="#02">Você não precisa traduzir mais rápido. Precisa treinar o inglês até não depender da tradução.</Secret>
-
-        <Note title="Observe hoje">
-          <p>Na próxima vez que escutar uma frase em inglês, não avalie apenas se entendeu. Observe o caminho: o significado apareceu diretamente ou você precisou produzir uma legenda interna em português?</p>
-        </Note>
-
-        <p>Essa diferença parece pequena, mas separa dois tipos de conhecimento. Um deles permite acertar uma questão. O outro permite participar de uma conversa.</p>
-      </>
-    ),
-  },
-  {
-    id: "por-que-voce-entende-depois",
-    part: "Parte I — A trava invisível",
-    number: 2,
-    eyebrow: "Reconhecer não é acompanhar",
-    title: "Por que você entende depois, mas não durante",
-    readingTime: 3,
-    content: (
-      <>
-        <p className={styles.lead}>Existe uma experiência frustrante que quase todo estudante de inglês conhece: a frase termina, alguém explica o que foi dito e você pensa “mas eu sabia todas essas palavras”.</p>
-
-        <p>Você sabia. O problema é que saber uma coisa e conseguir acessá-la em tempo real são habilidades diferentes.</p>
-
-        <p>Se eu entregar a você um manual detalhado sobre como pousar um avião, talvez seja possível compreender cada etapa. Você pode memorizar a ordem dos procedimentos e responder corretamente a uma prova. Mas ninguém confundiria esse conhecimento com a capacidade de pousar um avião em uma tempestade.</p>
-
-        <p>A diferença não é falta de inteligência. É falta de automatização sob as condições reais em que a habilidade precisa ser usada.</p>
-
-        <p>O mesmo acontece ao dirigir. No início, cada ação ocupa espaço mental: embreagem, marcha, espelho, seta, distância. Depois de prática suficiente, várias dessas decisões deixam de exigir uma narração interna. Você não repete para si mesmo cada instrução antes de executá-la.</p>
-
-        <p>No inglês, muita gente permanece no equivalente linguístico das primeiras aulas de direção. Conhece as instruções, mas ainda precisa conduzir cada palavra conscientemente.</p>
-
-        <div className={styles.comparison}>
-          <div>
-            <span>CONHECIMENTO DECLARADO</span>
-            <strong>“Eu sei explicar”</strong>
-            <p>Reconhecer regras, lembrar traduções, responder exercícios e compreender depois de analisar.</p>
-          </div>
-          <div>
-            <span>HABILIDADE DISPONÍVEL</span>
-            <strong>“Eu consigo fazer”</strong>
-            <p>Perceber sons, recuperar blocos e responder dentro da velocidade natural da situação.</p>
-          </div>
-        </div>
-
-        <p>Isso explica por que estudar mais uma regra nem sempre melhora uma conversa. A nova informação pode aumentar o que você consegue explicar sem aumentar aquilo que consegue executar.</p>
-
-        <p>Também explica por que algumas pessoas conseguem preencher exercícios avançados, mas travam diante de uma pergunta simples. No papel, há tempo para analisar. Na conversa, o relógio começa a correr no primeiro som.</p>
-
-        <Secret number="#03">A fluência não é medida apenas pelo que você sabe. Ela aparece naquilo que consegue acessar antes que o momento passe.</Secret>
-
-        <p>Quando você entende isso, a pergunta muda. Em vez de “que conteúdo ainda está faltando?”, começamos a perguntar: “o que eu já conheço, mas ainda não treinei até ficar disponível?”</p>
-      </>
-    ),
-  },
-  {
-    id: "o-ingles-que-voce-sabe",
-    part: "Parte I — A trava invisível",
-    number: 3,
-    eyebrow: "A distância entre conhecer e usar",
-    title: "O inglês que você sabe e o inglês que consegue usar",
-    readingTime: 3,
-    content: (
-      <>
-        <p className={styles.lead}>Dentro de você, podem existir dois vocabulários muito diferentes.</p>
-
-        <p>O primeiro é formado pelas palavras que você reconhece quando encontra tempo para olhar, reler ou pensar. O segundo contém aquilo que seu cérebro consegue recuperar rápido o suficiente para compreender e responder.</p>
-
-        <p>O primeiro costuma ser maior. O segundo é o que determina sua experiência real com o idioma.</p>
-
-        <p>É possível conhecer uma palavra por anos e ainda precisar traduzi-la sempre que ela aparece. Também é possível dominar profundamente uma palavra simples a ponto de reconhecer suas variações, reduções, emendas e usos sem qualquer esforço perceptível.</p>
-
-        <p>Esses dois conhecimentos ocupam lugares diferentes na prática. Uma palavra que você “já viu” não é necessariamente uma palavra disponível.</p>
-
-        <div className={styles.availabilityMeter} aria-label="Escala de disponibilidade de uma palavra">
-          <div><span>1</span><p><b>Já vi</b> Parece familiar.</p></div>
-          <div><span>2</span><p><b>Reconheço</b> Entendo com contexto.</p></div>
-          <div><span>3</span><p><b>Recupero</b> Lembro sem consultar.</p></div>
-          <div><span>4</span><p><b>Percebo</b> Reconheço na fala real.</p></div>
-          <div><span>5</span><p><b>Uso</b> Surge no momento certo.</p></div>
-        </div>
-
-        <p>O ensino tradicional frequentemente comemora a passagem do primeiro para o segundo estágio. Uma lista foi apresentada, uma tradução foi compreendida e o conteúdo da semana foi “dado”. Mas a conversa exige os estágios quatro e cinco.</p>
-
-        <p>A distância entre esses estágios é a <strong>Lacuna de Disponibilidade</strong>. Ela explica por que o seu inglês pode parecer grande diante de uma apostila e pequeno diante de uma pessoa: o conhecimento existe, mas não chega antes que o momento passe.</p>
-
-        <p>É aqui que nasce uma conclusão desconfortável: talvez você não precise aumentar imediatamente o número de palavras que conhece. Talvez precise diminuir a distância entre as palavras que reconhece e as palavras que consegue usar.</p>
-
-        <Secret number="#04">Seu inglês funcional não é o tamanho do seu vocabulário reconhecido. É a parte dele que permanece disponível em velocidade real.</Secret>
-
-        <Note title="Uma pergunta melhor">
-          <p>Em vez de perguntar “quantas palavras eu conheço?”, pergunte: “quantas delas eu reconheceria na boca de um americano e conseguiria usar sem montar a frase em português?”</p>
-        </Note>
-
-        <p>Essa mudança parece reduzir o seu inglês. Na prática, ela finalmente revela onde o progresso precisa acontecer.</p>
-      </>
-    ),
-  },
-  {
-    id: "a-esteira-do-conteudo",
-    part: "Parte I — A trava invisível",
-    number: 4,
-    eyebrow: "Quando variedade parece evolução",
-    title: "A esteira infinita do conteúdo",
-    readingTime: 3,
-    content: (
-      <>
-        <p className={styles.lead}>Nunca tivemos acesso a tanto inglês. E nunca foi tão fácil abandonar uma coisa antes de dominá-la.</p>
-
-        <p>Você começa um vídeo, entende a explicação e sente que aprendeu. No dia seguinte, encontra outra expressão, outra aula, outro professor e outra técnica. Cada contato produz uma pequena sensação de avanço.</p>
-
-        <p>Mas existe uma diferença entre avançar e apenas mudar de assunto.</p>
-
-        <ContentTreadmill />
-
-        <p>Essa é a <strong>Esteira da Novidade</strong>: você se movimenta o tempo inteiro, mas cada assunto é abandonado antes de reduzir a Lacuna de Disponibilidade. O cérebro recebe muitos primeiros contatos e poucas oportunidades de tornar um padrão previsível.</p>
-
-        <p>Foi exatamente o contrário que aconteceu no meu carro. Eu não tinha um algoritmo oferecendo o próximo conteúdo. Não havia variedade suficiente para escapar da repetição. Por isso, os mesmos sons permaneceram tempo bastante para mudar a minha percepção.</p>
-
-        <p>Na época, enxerguei o pendrive pequeno como uma limitação. Hoje, percebo que ele criou uma condição rara: profundidade involuntária.</p>
-
-        <p>Isso não significa que você deva escutar um único áudio pelo resto da vida. Significa que a variedade precisa chegar depois de algum domínio, não no lugar dele.</p>
-
-        <p>Um músico não melhora um solo tocando os primeiros segundos de cem músicas diferentes. Um atleta não automatiza um movimento trocando de exercício toda vez que começa a sentir dificuldade. Habilidades exigem permanência.</p>
-
-        <Secret number="#05">Conteúdo novo produz novidade. Repetição bem dirigida produz disponibilidade.</Secret>
-
-        <p>A pergunta decisiva não é quanto inglês passou pelos seus olhos e ouvidos. É quanto desse inglês permaneceu tempo suficiente para mudar aquilo que você consegue perceber e fazer.</p>
-
-        <p>Nos próximos capítulos, vamos abandonar a lógica da matéria acumulada e observar o inglês pelo que ele realmente precisa se tornar: uma habilidade.</p>
-      </>
-    ),
-  },
-  {
-    id: "ingles-nao-e-materia",
-    part: "Parte II — O segredo da fluência automática",
-    number: 5,
-    eyebrow: "O diagnóstico estava errado",
-    title: "Inglês não é matéria",
-    readingTime: 3,
-    content: (
-      <>
-        <p className={styles.lead}>Durante anos, ensinaram inglês no mesmo formato usado para ensinar história, geografia ou uma fórmula de matemática.</p>
-        <p>Um assunto é apresentado. O aluno entende a explicação. Depois faz exercícios para provar que se lembra dela. Na semana seguinte, a turma avança para outro assunto.</p>
-        <p>Esse modelo funciona quando o objetivo principal é declarar conhecimento. Mas uma conversa não pede que você explique a regra. Ela exige que você perceba e aja enquanto o tempo continua correndo.</p>
-        <p>É por isso que inglês se parece menos com uma matéria e mais com dirigir, tocar um instrumento ou jogar um esporte. Existe conhecimento envolvido, mas a execução depende de padrões que foram praticados até ficarem disponíveis sob pressão.</p>
-        <p>Você pode ler dez livros sobre equilíbrio e ainda cair na primeira tentativa de andar de bicicleta. Depois de aprender, porém, não precisa recitar as leis da física antes de cada curva. O corpo executa aquilo que a prática organizou.</p>
-        <SkillConversion />
-        <p>O diagrama mostra o <strong>Loop de Automatização</strong>. A exposição apresenta o padrão; a repetição o torna reconhecível; a recuperação obriga o cérebro a encontrá-lo sem todas as pistas; a automatização devolve velocidade. Se o ciclo para na exposição, cresce a familiaridade — não necessariamente a habilidade.</p>
-        <p>Quando tratamos inglês apenas como matéria, o sucesso passa a ser medido pelo conteúdo percorrido. Quando tratamos como habilidade, o critério muda: o que ficou mais rápido, mais nítido e mais disponível?</p>
-        <Secret number="#06">Conteúdo pode ser explicado em uma aula. Habilidade precisa ser construída em uma sequência de experiências.</Secret>
-        <Note title="Troque a unidade de progresso"><p>Não meça sua evolução apenas por aulas assistidas ou capítulos concluídos. Meça o que hoje você entende e reproduz sem precisar desmontar.</p></Note>
-        <p>Essa troca de categoria é o começo da rota. A partir dela, repetição deixa de parecer atraso e passa a ser parte do trabalho.</p>
-      </>
-    ),
-  },
-  {
-    id: "conhecimento-nao-e-habilidade",
-    part: "Parte II — O segredo da fluência automática",
-    number: 6,
-    eyebrow: "Entender a explicação não basta",
-    title: "Conhecimento não é habilidade",
-    readingTime: 2,
-    content: (
-      <>
-        <p className={styles.lead}>A sensação de entender uma aula é sedutora porque se parece muito com a sensação de aprender.</p>
-        <p>Você ouve uma explicação, reconhece a lógica e pensa: “agora eu sei”. Naquele momento, provavelmente sabe mesmo. Mas o cérebro ainda não demonstrou que consegue recuperar aquilo em outra voz, em outra velocidade e no meio de uma conversa.</p>
-        <p>É como observar alguém tocar um acorde. Quando a posição dos dedos é mostrada, tudo parece óbvio. Só ao pegar o instrumento você descobre a distância entre compreender o movimento e conseguir executá-lo.</p>
-        <p>No idioma, essa distância fica escondida porque o exercício costuma manter todas as pistas à vista. A lista de palavras está na mesma página. A regra acabou de ser apresentada. O contexto foi preparado para a resposta.</p>
-        <p>A vida real remove essas pistas. O som chega uma vez, misturado a sotaque, redução, intenção e ruído. A resposta precisa nascer sem uma lista de opções.</p>
-        <Secret number="#07">A prova de uma habilidade não é reconhecer a resposta quando ela aparece. É conseguir produzi-la quando as pistas desaparecem.</Secret>
-        <p>Isso não torna teoria inútil. Uma boa explicação economiza tentativa e erro. Mas ela é mapa, não viagem. O erro começa quando colecionamos mapas e chamamos isso de movimento.</p>
-        <p>O próximo passo é observar onde a habilidade começa: não na boca, mas na forma como o ouvido organiza o que recebe.</p>
-      </>
-    ),
-  },
-  {
-    id: "o-ouvido-destreinado",
-    part: "Parte II — O segredo da fluência automática",
-    number: 7,
-    eyebrow: "O inglês não está rápido demais",
-    title: "Seu ouvido não está ruim",
-    readingTime: 3,
-    content: (
-      <>
-        <p className={styles.lead}>Quando o inglês parece embolado, é natural concluir que o falante está pronunciando mal ou rápido demais.</p>
-        <p>Mas pessoas fluentes escutam a mesma gravação e percebem palavras, intenções e até pequenas mudanças de humor. O som que chegou aos ouvidos foi idêntico. A diferença estava no repertório de padrões usado para interpretá-lo.</p>
-        <p>Um músico experiente percebe quando uma nota está ligeiramente fora do lugar. Para alguém sem treino, a mesma diferença pode ser invisível. Não porque um ouvido nasceu superior, mas porque aprendeu o que observar.</p>
-        <p>No inglês falado, palavras se conectam, sons desaparecem e formas inteiras são reduzidas. Você talvez tenha estudado <em>what do you want to do?</em>, mas encontre algo parecido com <em>whaddaya wanna do?</em>. Se o ouvido espera a versão escrita pronunciada palavra por palavra, o bloco real parece outro idioma.</p>
-        <PerceptionLayers />
-        <p>Treinar o ouvido não significa apenas aumentar o volume de exposição. Significa dar ao cérebro oportunidades repetidas de comparar o que imaginava ouvir com o que realmente foi dito.</p>
-        <Secret number="#08">O falante não precisa ficar mais lento. Seu ouvido precisa ficar mais preciso.</Secret>
-        <Note title="Teste de realidade"><p>Escolha uma frase que parece rápida, leia a transcrição e escute novamente. Quando ela “aparecer”, lembre-se: o áudio não mudou entre uma tentativa e outra.</p></Note>
-        <p>A percepção abre a porta. Mas, para conversar, precisamos entender também a unidade real em que o idioma costuma viajar.</p>
-      </>
-    ),
-  },
-  {
-    id: "voce-nao-fala-usando-palavras",
-    part: "Parte II — O segredo da fluência automática",
-    number: 8,
-    eyebrow: "A unidade escondida da conversa",
-    title: "Você não fala usando palavras",
-    readingTime: 2,
-    content: (
-      <>
-        <p className={styles.lead}>Tecnicamente, uma frase contém palavras. Mentalmente, uma conversa raramente é construída uma palavra por vez.</p>
-        <p>Quando você diz “deixa eu ver”, “eu acho que” ou “o problema é que”, não procura cada elemento isolado. Esses grupos já estão disponíveis como unidades. Eles carregam ritmo, intenção e uma função inteira.</p>
-        <p>Em inglês acontece o mesmo: <em>I mean</em>, <em>you know</em>, <em>the thing is</em>, <em>what I’m trying to say is</em>. São blocos que voltam em situações diferentes e economizam processamento.</p>
-        <p>Quem tenta conversar escolhendo palavra por palavra precisa tomar dezenas de microdecisões. Quem reconhece e recupera blocos começa a pensar em ideias maiores.</p>
-        <div className={styles.blockDemo}>
-          <span>PALAVRA POR PALAVRA</span>
-          <p><i>I</i><i>don’t</i><i>know</i><i>if</i><i>that</i><i>makes</i><i>sense</i></p>
-          <span>BLOCOS DISPONÍVEIS</span>
-          <p><b>I don’t know if</b><b>that makes sense</b></p>
-        </div>
-        <p>Foi isso que aconteceu com os discursos do pendrive. Eu achava que estava decorando falas específicas. Ao repeti-las, estava tornando disponíveis combinações que depois reapareciam em outros lugares.</p>
-        <Secret number="#09">Palavras dão precisão ao vocabulário. Blocos dão velocidade à conversa.</Secret>
-        <p>Essa é uma das razões pelas quais dominar profundamente material pequeno pode se transferir para situações maiores: o idioma reutiliza suas peças mais importantes.</p>
-      </>
-    ),
-  },
-  {
-    id: "quando-o-portugues-sai-do-caminho",
-    part: "Parte II — O segredo da fluência automática",
-    number: 9,
-    eyebrow: "O que realmente significa pensar em inglês",
-    title: "Quando o português sai do caminho",
-    readingTime: 2,
-    content: (
-      <>
-        <p className={styles.lead}>Pensar em inglês não significa acordar um dia com outra voz narrando sua vida.</p>
-        <p>Significa que certos sons e blocos passam a ativar significado sem exigir uma versão intermediária em português. Você não traduz <em>thank you</em> cada vez que escuta. O bloco já chega com função, emoção e contexto.</p>
-        <p>O mesmo pode acontecer com estruturas maiores. Depois de exposição útil e recuperação suficiente, elas deixam de ser códigos que precisam ser decifrados.</p>
-        <p>O português não desaparece. Ele simplesmente deixa de trabalhar como funcionário obrigatório em toda interação. Você continua capaz de comparar, explicar e traduzir quando quiser — mas já não precisa fazer isso para acompanhar.</p>
-        <p>Essa mudança não acontece de uma vez no idioma inteiro. Ela se expande por ilhas. Primeiro uma expressão. Depois um trecho. Em seguida, uma conversa familiar. A fluência cresce quando essas ilhas começam a se conectar.</p>
-        <Secret number="#10">Pensar em inglês não é impedir pensamentos em português. É construir caminhos em que o significado não precisa passar por ele.</Secret>
-        <p>Agora surge uma pergunta prática: se não podemos automatizar o idioma inteiro de uma vez, onde concentrar energia primeiro?</p>
-      </>
-    ),
-  },
-  {
-    id: "a-fluencia-essencial",
-    part: "Parte III — A mudança de rota",
-    number: 10,
-    eyebrow: "Dominar o que mais retorna",
-    title: "A Fluência Essencial",
-    readingTime: 3,
-    content: (
-      <>
-        <p className={styles.lead}>O inglês é grande demais para ser dominado como uma lista. Felizmente, ele não é usado de maneira uniforme.</p>
-        <p>Algumas palavras, estruturas e blocos aparecem repetidamente em conversas, entrevistas, séries e discursos. Outros pertencem a situações raras ou áreas específicas. Tratar todos como igualmente urgentes é desperdiçar energia.</p>
-        <p>A Fluência Essencial começa pelo centro de gravidade do idioma: aquilo que volta tanto que melhorar sua percepção e disponibilidade produz efeito em muitos contextos ao mesmo tempo.</p>
-        <EssentialPyramid />
-        <p>Frequência sozinha, porém, não decide tudo. Uma palavra comum pode ter pouco valor para a situação que você precisa enfrentar; uma expressão menos frequente pode ser decisiva em uma entrevista, reunião ou negociação. O essencial nasce da combinação de três critérios.</p>
-        <EssentialFilter />
-        <p>Isso não significa limitar seu inglês para sempre. Significa construir uma base capaz de sustentar expansão. Um vocabulário enorme e pouco disponível pode impressionar em uma lista; um repertório essencial profundamente automatizado sustenta conversas reais.</p>
-        <p>Nos discursos de vendas, eu encontrava palavras comuns ligadas a blocos de argumentação: apresentar uma ideia, criar contraste, responder objeções, pedir atenção. Ao dominá-las ali, comecei a encontrá-las em todo lugar.</p>
-        <Secret number="#11">Você não precisa começar pelo idioma inteiro. Precisa começar pela parte que continuará aparecendo enquanto você expande.</Secret>
-        <Note title="Essencial não significa básico"><p>Uma palavra pode ser simples e ainda exigir treino profundo para ser percebida em diferentes vozes, conectada a outros sons e recuperada no momento certo.</p></Note>
-      </>
-    ),
-  },
-  {
-    id: "profundidade-antes-de-variedade",
-    part: "Parte III — A mudança de rota",
-    number: 11,
-    eyebrow: "A lição escondida no pendrive",
-    title: "Profundidade antes de variedade",
-    readingTime: 2,
-    content: (
-      <>
-        <p className={styles.lead}>Variedade é importante para a fluência. A ordem em que ela chega é que muda tudo.</p>
-        <p>Se você encontra cem variações antes de reconhecer o padrão central, cada uma parece um problema novo. Quando domina o padrão, as variações passam a ser comparações.</p>
-        <p>É como conhecer uma cidade. Percorrer superficialmente cem ruas não produz a mesma orientação que dominar primeiro um bairro e usá-lo como referência. Profundidade cria pontos de apoio.</p>
-        <p>O pequeno repertório do pendrive me obrigou a permanecer. A repetição revelou detalhes que a primeira escuta não tinha condições de mostrar: reduções, ritmos, antecipações e blocos inteiros.</p>
-        <p>Depois, quando encontrei novas vozes, não comecei do zero. Eu já carregava peças estáveis para comparar.</p>
-        <p>Existe também um ponto de saída. Profundidade não significa permanecer até a perfeição. Você avança quando consegue reconhecer o trecho sem texto, antecipar seus blocos principais e reproduzir o ritmo sem usar toda a atenção consciente. O novo material, então, não substitui o anterior; testa se aquilo que ficou disponível consegue viajar.</p>
-        <Secret number="#12">Variedade expande uma habilidade. Profundidade é o que permite que essa habilidade exista.</Secret>
-        <p>A rota, portanto, não é escolher entre repetir ou explorar. É repetir até criar disponibilidade e então explorar para tornar essa disponibilidade flexível.</p>
-      </>
-    ),
-  },
-  {
-    id: "duas-repeticoes",
-    part: "Parte III — A mudança de rota",
-    number: 12,
-    eyebrow: "Repetir não é apertar play sem pensar",
-    title: "As duas repetições",
-    readingTime: 3,
-    content: (
-      <>
-        <p className={styles.lead}>A palavra repetição pode sugerir monotonia. Em uma habilidade, ela descreve duas operações diferentes.</p>
-        <RepetitionSystem />
-        <p>Na repetição continuada, você permanece com o trecho durante a sessão. Cada volta tem uma função: primeiro perceber, depois conferir, separar blocos, antecipar e reproduzir.</p>
-        <p>Na repetição espaçada, você permite que o tempo teste o que permaneceu. Voltar depois de um intervalo obriga o cérebro a recuperar, em vez de apenas manter a informação aquecida.</p>
-        <p>Uma sem a outra deixa uma lacuna. Repetir apenas na mesma hora pode produzir familiaridade temporária. Revisitar sem aprofundar pode transformar cada retorno em uma nova primeira escuta.</p>
-        <p>Há um detalhe decisivo: repetição sem tentativa de percepção vira som ambiente. Cada volta precisa responder a uma pergunta — “o que foi dito?”, “onde os sons se uniram?”, “consigo prever o próximo bloco?”, “consigo recuperar amanhã?”. O arquivo é o mesmo; a tarefa mental muda.</p>
-        <Secret number="#13">A repetição continuada cria nitidez. A repetição espaçada transforma essa nitidez em disponibilidade.</Secret>
-        <p>O pendrive produziu as duas por acidente: os discursos se repetiam durante a viagem e voltavam nos dias seguintes. Um método consciente transforma esse acidente em desenho.</p>
-      </>
-    ),
-  },
-  {
-    id: "treinos-concentrados",
-    part: "Parte III — A mudança de rota",
-    number: 13,
-    eyebrow: "Menos material, mais transformação",
-    title: "Treinos concentrados",
-    readingTime: 3,
-    content: (
-      <>
-        <p className={styles.lead}>Um episódio inteiro pode ser pequeno para o entretenimento e grande demais para um primeiro treino.</p>
-        <p>Em vinte minutos, centenas de decisões sonoras passam diante do ouvido. Se você entende pouco, termina sem saber exatamente o que mudou. Por isso, a unidade inicial precisa caber na atenção.</p>
-        <ConcentratedVsRandom />
-        <p>Um trecho de trinta a sessenta segundos é grande o suficiente para conter fala real e pequeno o suficiente para ser revisitado com intenção. Você consegue medir o que percebe, conferir a transcrição, localizar emendas, testar novamente e reproduzir.</p>
-        <p>Concentrar não significa tornar o inglês artificial. O material continua real. O que muda é a quantidade sobre a qual você exige domínio naquele momento.</p>
-        <p>Depois que o trecho fica disponível, você avança. Vários minutos começam a formar uma cena; várias cenas formam um episódio. A expansão acontece sobre território conquistado, não sobre uma pilha de primeiras tentativas.</p>
-        <Secret number="#14">Treino concentrado é reduzir o campo até que a mudança deixe de ser invisível.</Secret>
-        <Note title="A unidade mínima útil"><p>Escolha um trecho que contenha uma ideia completa, fala nítida e vocabulário majoritariamente acessível. Difícil o bastante para revelar algo; curto o bastante para repetir.</p></Note>
-      </>
-    ),
-  },
-  {
-    id: "conversas-e-discursos",
-    part: "Parte III — A mudança de rota",
-    number: 14,
-    eyebrow: "Duas forças do inglês real",
-    title: "Conversas e discursos",
-    readingTime: 3,
-    content: (
-      <>
-        <p className={styles.lead}>Conversar e sustentar uma ideia usam o mesmo idioma, mas exigem ritmos diferentes.</p>
-        <p>Conversas treinam troca rápida: perguntas, reações, interrupções, humor, reduções e blocos curtos. Discursos treinam continuidade: conectar argumentos, explicar uma causa, defender uma posição e conduzir alguém de um ponto a outro.</p>
-        <p>Foi por isso que os áudios de vendas tiveram tanto impacto no meu objetivo. Eu não queria apenas sobreviver a interações previsíveis. Precisava ouvir objeções e responder com clareza; precisava sustentar raciocínio sob pressão.</p>
-        <div className={styles.comparison}>
-          <div><span>CONVERSA</span><strong>Trocar</strong><p>Velocidade, reação, redução, perguntas e blocos sociais.</p></div>
-          <div><span>DISCURSO</span><strong>Sustentar</strong><p>Sequência, argumento, transições, ênfase e intenção.</p></div>
-        </div>
-        <p>Uma rota completa treina os dois. Episódios conversacionais aproximam o ouvido do ritmo cotidiano. Discursos dão à fala estrutura para ir além de respostas curtas.</p>
-        <Secret number="#15">A fluência não é apenas responder rápido. É conseguir permanecer em inglês enquanto uma ideia inteira toma forma.</Secret>
-        <RouteMap />
-        <p>Essa progressão é a <strong>Escada de Transferência</strong>. Cada degrau aumenta o território sem abandonar os padrões conquistados no anterior. O trecho cria nitidez; o episódio prova recorrência; o discurso sustenta pensamento; a imersão testa flexibilidade.</p>
-      </>
-    ),
-  },
-  {
-    id: "o-experimento",
-    part: "Parte IV — A prova",
-    number: 15,
-    eyebrow: "Sete dias para testar a tese",
-    title: "O Experimento Fluency Secrets",
+    title: "A conversa que chega atrasada",
+    eyebrow: "O custo invisível de traduzir cada frase",
     readingTime: 5,
     content: (
       <>
-        <p className={styles.lead}>Até aqui, você recebeu uma explicação. Agora ela precisa correr o risco de ser testada.</p>
-        <p>O experimento não promete fluência em sete dias. Ele procura algo mais específico e honesto: verificar se um trecho que hoje exige tradução pode se tornar mais nítido, previsível e direto depois de treino concentrado.</p>
+        <p className={styles.lead}>Talvez você não tenha uma conversa em inglês. Talvez tenha duas.</p>
+        <p>Na primeira, a pessoa fala com você. Na segunda, dentro da sua cabeça, os sons são retidos, comparados com palavras conhecidas e remontados em português. Quando o significado finalmente aparece, começa o caminho de volta: formular a resposta, procurar equivalentes em inglês e tentar pronunciá-los.</p>
+        <p>Enquanto isso, a primeira conversa continua.</p>
+        <TranslationTax />
+        <p>Esse atraso é o <strong>Imposto da Segunda Conversa</strong>. Ele não aparece num exercício escrito, porque o papel espera. Uma pessoa não. A cada passagem obrigatória pelo português, parte da atenção que poderia perceber humor, intenção e reação fica ocupada reconstruindo o que já passou.</p>
+        <p>Traduzir não é um defeito moral nem algo que pessoas proficientes jamais façam. Tradutores profissionais fazem isso com enorme habilidade. A diferença é dependência: traduzir porque você escolheu versus traduzir porque o significado não chega por outro caminho.</p>
+        <p>Pense numa entrevista. A pessoa pergunta algo simples, mas inesperado. Você reconhece quase todas as palavras. Mesmo assim, precisa segurá-las enquanto procura a ordem correta em português. Quando termina de entender, sua atenção já deveria estar formulando uma resposta. O silêncio que parece “nervosismo” muitas vezes é apenas processamento acumulado.</p>
+        <p>Isso explica por que a mesma pessoa pode responder bem por mensagem e travar numa chamada. No texto, o Imposto da Segunda Conversa é parcelado: você relê, apaga, consulta e reconstrói. Na fala, ele vence à vista.</p>
+        <p>Você já possui caminhos diretos. Provavelmente não traduz <em>thank you</em>, <em>hello</em> ou <em>I love you</em> toda vez. O som já carrega função, contexto e sensação. O ponto decisivo é perceber que isso não é privilégio de três expressões simples. Caminhos diretos podem ser construídos para blocos maiores.</p>
+        <Note title="Faça o diagnóstico, não o julgamento"><p>Na próxima frase em inglês, observe o trajeto. O significado apareceu junto do som ou somente depois de uma legenda interna? A resposta revela o caminho atual; não determina o caminho futuro.</p></Note>
+        <Secret number="#02">Você não precisa aprender a traduzir na velocidade da conversa. Precisa construir inglês que não dependa da tradução para ser compreendido.</Secret>
+        <p>Essa mudança parece ser sobre vocabulário. Não é. Ela começa numa distinção que quase sempre passa despercebida: reconhecer uma resposta não é conseguir executá-la.</p>
+      </>
+    ),
+  },
+  {
+    id: "entender-nao-e-conseguir",
+    part: "Parte I — O diagnóstico que muda tudo",
+    number: 2,
+    title: "Entender não é conseguir",
+    eyebrow: "A diferença entre reconhecer e executar",
+    readingTime: 4,
+    content: (
+      <>
+        <p className={styles.lead}>Imagine assistir a um tutorial impecável sobre como pousar um avião.</p>
+        <p>O piloto explica instrumentos, aproximação, velocidade e sequência. Você acompanha cada etapa. Talvez consiga até responder uma prova sobre o procedimento.</p>
+        <p>Agora as luzes da cabine acendem e alguém diz: “Sua vez”.</p>
+        <p>Ninguém confundiria ter entendido o tutorial com ser capaz de pousar o avião. Mas fazemos exatamente essa confusão no inglês o tempo inteiro.</p>
+        <p>Uma regra é explicada. A tradução faz sentido. O exercício mantém todas as pistas na tela. Você acerta e recebe a sensação legítima de compreensão. O problema é dar a essa sensação o nome de habilidade.</p>
+        <p>A vida real remove as pistas. O som chega uma vez, misturado a redução, sotaque, emoção e ruído. A resposta precisa aparecer sem lista de alternativas. É aí que o conhecimento revela se está apenas reconhecível ou realmente disponível.</p>
+        <AvailabilityGap />
+        <p>A distância entre “já vi” e “consigo usar antes que o momento passe” é a <strong>Lacuna de Disponibilidade</strong>. Ela explica uma experiência humilhante para muita gente: diante de uma apostila, o inglês parece grande; diante de uma pessoa, parece desaparecer.</p>
+        <p>Ele não desapareceu. Está chegando tarde.</p>
+        <p>É comum dar outro nome a esse atraso. “Deu branco.” “Fiquei nervoso.” “Na hora eu esqueço tudo.” Ansiedade pode piorar a situação, claro. Mas ela não explica por que a palavra reaparece segundos depois que a conversa termina. Muitas vezes, o conhecimento estava presente; o caminho de acesso ainda era lento e instável demais para aquela janela.</p>
+        <p>Essa interpretação muda a identidade do problema. “Eu sou ruim com idiomas” não oferece ação. “Meu acesso ainda não acompanha a situação” oferece um alvo de treino.</p>
+        <p>Pesquisas sobre automaticidade em reconhecimento de palavras numa segunda língua observaram que a prática pode tornar respostas não apenas mais rápidas, mas também mais estáveis. Essa estabilidade importa porque fluência não é produzir um acerto ocasional. É conseguir acesso com regularidade quando a situação exige.</p>
+        <Note title="O número que substitui os 30.000×"><p>Não existe base sólida para dizer que o “subconsciente é 30.000 vezes mais rápido”. O dado honesto é mais útil: prática pode reduzir o tempo e a variação do acesso lexical — exatamente o tipo de mudança que uma conversa exige.</p></Note>
+        <Secret number="#03">Seu inglês funcional não é tudo que você sabe. É a parte do que você sabe que chega a tempo.</Secret>
+        <p>A pergunta, portanto, deixa de ser “quanto inglês ainda falta?” e passa a ser outra: “quanto do inglês que já encontrei recebeu treino suficiente para ficar disponível?”.</p>
+      </>
+    ),
+  },
+  {
+    id: "aprender-nao-e-treinar",
+    part: "Parte I — O diagnóstico que muda tudo",
+    number: 3,
+    title: "Aprender inglês não é treinar inglês",
+    eyebrow: "A pedrada que reorganiza todo o resto",
+    readingTime: 5,
+    content: (
+      <>
+        <p className={styles.lead}>Você pode estudar inglês durante anos sem passar tempo suficiente treinando inglês.</p>
+        <p>Essa frase parece uma provocação até você separar os verbos.</p>
+        <p><strong>Aprender</strong>, no sentido comum de uma aula, é compreender algo que antes não compreendia. <strong>Treinar</strong> é exigir que essa compreensão sobreviva sem todas as pistas, em outras vozes, depois de um intervalo e dentro do tempo real da habilidade.</p>
+        <LearnVsTrain />
+        <p>Um músico precisa saber qual acorde tocar. Mas saber o acorde não move seus dedos no ritmo. Um motorista precisa conhecer embreagem e marcha. Mas conhecer as peças não impede o carro de morrer no primeiro cruzamento. Informação orienta a prática; não substitui a prática.</p>
+        <p>O tênis de mesa torna a diferença ainda mais brutal. Você pode assistir em câmera lenta à posição correta da raquete e explicar o ângulo do golpe. Quando a bola chega, não existe tempo para narrar a instrução. A percepção precisa reconhecer a trajetória e o movimento precisa começar antes de a explicação consciente terminar.</p>
+        <p>Uma conversa é menos veloz que uma bolinha profissional, mas compartilha a mesma exigência: conhecimento que só funciona depois de análise não está preparado para performance.</p>
+        <p>No inglês, a confusão é particularmente sedutora porque compreender uma explicação produz recompensa imediata. Você vê uma frase, entende a tradução e pensa: “aprendi”. E aprendeu alguma coisa. Só ainda não demonstrou que consegue percebê-la na boca de outra pessoa, recuperá-la sem consultar ou usá-la sob pressão.</p>
+        <p>Isso não transforma gramática, professor ou teoria em inimigos. Uma boa explicação economiza tentativa e erro. O erro está em medir uma habilidade pela quantidade de explicações percorridas.</p>
+        <p>Se o objetivo é uma prova, reconhecimento pode bastar. Se o objetivo é conversar, trabalhar, assistir e pensar em inglês, o critério precisa mudar. Em vez de “qual assunto terminei?”, pergunte “o que ficou mais nítido, rápido e estável?”.</p>
+        <Secret number="#04">A aula mostra o movimento. O treino faz o movimento existir quando você precisa dele.</Secret>
+        <p>Essa distinção também expõe por que tanta atividade parece produtiva sem alterar a conversa. O mercado não precisa enganar você para isso acontecer. Basta oferecer novidade no lugar exato em que o cérebro precisava de permanência.</p>
+      </>
+    ),
+  },
+  {
+    id: "a-esteira-da-novidade",
+    part: "Parte I — O diagnóstico que muda tudo",
+    number: 4,
+    title: "A esteira da novidade",
+    eyebrow: "Quando movimento se fantasia de progresso",
+    readingTime: 4,
+    content: (
+      <>
+        <p className={styles.lead}>Nunca foi tão fácil ter contato diário com inglês. Nunca foi tão fácil abandonar uma coisa antes que ela se torne sua.</p>
+        <p>Você assiste a uma dica, salva uma expressão, começa uma aula, muda de professor, baixa um aplicativo e encontra outra técnica. Cada encontro oferece uma pequena recompensa: por alguns minutos, algo que era desconhecido fica claro.</p>
+        <p>Clareza é boa. Mas ela pode esconder uma pergunta incômoda: amanhã, sem a tela e sem o professor, o que ainda estará disponível?</p>
+        <NoveltyTreadmill />
+        <p>A <strong>Esteira da Novidade</strong> não é falta de esforço. Muitas vezes é esforço demais distribuído em primeiros contatos. Você se movimenta, se cansa e acumula a sensação de ter estudado — mas quase nunca permanece no desconforto específico em que reconhecimento vira recuperação.</p>
+        <p>Ela também cria uma injustiça silenciosa. Como cada conteúdo parece fácil no momento da explicação e difícil na hora de usar, você conclui que o problema é memória, disciplina ou talento. Então procura um professor “mais didático”, uma técnica “mais simples” ou uma promessa “mais rápida”. A próxima novidade reinicia a sensação de competência — e o ciclo se protege.</p>
+        <p>O mercado não precisa mentir para manter essa esteira. Basta medir entrega em aulas, módulos, palavras e assuntos, enquanto você mede sua frustração em segundos de silêncio.</p>
+        <p>Foi o oposto do que aconteceu no meu carro. O pendrive pequeno retirou a saída de emergência. Quando um trecho deixava de ser interessante, eu não tinha um algoritmo oferecendo o próximo. Os mesmos sons permaneceram até revelarem detalhes que uma primeira escuta não tinha condição de mostrar.</p>
+        <p>A lição não é ouvir um único arquivo para sempre. É inverter a ordem: profundidade cria capacidade; variedade testa se essa capacidade transfere.</p>
+        <p>Um músico não desenvolve um solo tocando os primeiros cinco segundos de cem músicas. Um atleta não automatiza um movimento trocando de exercício sempre que a dificuldade começa. A região em que o treino parece menos divertida costuma ser a região em que o corpo finalmente precisa se adaptar.</p>
+        <Secret number="#05">Conteúdo novo aumenta o que passou por você. Treino profundo aumenta o que permanece em você.</Secret>
+        <p>Agora podemos voltar ao fenômeno da estrada. Por que o mesmo áudio, na mesma velocidade, começou a soar diferente?</p>
+      </>
+    ),
+  },
+  {
+    id: "o-audio-nao-ficou-mais-lento",
+    part: "Parte II — Como o inglês entra no automático",
+    number: 5,
+    title: "O áudio não ficou mais lento",
+    eyebrow: "Seu ouvido não recebe palavras prontas",
+    readingTime: 5,
+    content: (
+      <>
+        <p className={styles.lead}>Quando a fala parece embolada, costumamos culpar a velocidade.</p>
+        <p>Mas o ouvido não recebe espaços entre palavras. Recebe um fluxo contínuo de som. É o cérebro que precisa decidir onde um bloco termina, qual redução está acontecendo e que padrão conhecido combina com aquilo que chegou.</p>
+        <p>Por isso você pode ler uma frase simples e não reconhecê-la quando alguém fala. A versão escrita que você esperava ouvir palavra por palavra nunca existiu daquele jeito na boca do falante.</p>
+        <p>Você estudou <em>what do you want to do?</em>, mas encontra algo parecido com <em>whaddaya wanna do?</em>. Se o ouvido espera cinco peças perfeitamente separadas, o bloco real parece conter palavras desconhecidas. Depois que você vê a transcrição e volta ao mesmo áudio, a frase “aparece”. Essa pequena experiência prova que conhecer o vocabulário e perceber o sinal sonoro são problemas diferentes.</p>
+        <PerceptionLayers />
+        <p>Um músico experiente percebe uma pequena desafinação que passa despercebida para outras pessoas. Não porque a onda sonora chega diferente ao ouvido dele, mas porque anos de comparação construíram categorias mais precisas.</p>
+        <p>No inglês, a lapidação é semelhante: você compara o som imaginado com o som real, encontra a transcrição, volta ao áudio e começa a prever o que antes parecia ruído.</p>
+        <p>Ouvir mais ajuda quando o material já é compreensível o suficiente para produzir comparações. Quando quase tudo é ruído, apenas aumentar horas pode multiplicar contato sem revelar o erro de percepção. É por isso que um trecho curto, uma transcrição correta e escutas com tarefas diferentes podem valer mais que uma tarde inteira de áudio usado como papel de parede.</p>
+        <p>Isso não é argumento contra exposição extensa. É argumento sobre sequência. Primeiro, concentração ensina o que observar. Depois, variedade apresenta novas vozes, velocidades e contextos para que a percepção se torne flexível.</p>
+        <Note title="O que a pesquisa sustenta"><p>Estudos de escuta em L2 encontraram ganhos com prática apoiada e com o uso estratégico de transcrições. A transcrição não é uma muleta eterna: é um mapa temporário para ensinar o ouvido a encontrar no som o que os olhos já reconhecem.</p></Note>
+        <Secret number="#06">O problema não é apenas o que você não sabe. É o que você sabe por escrito, mas seu ouvido ainda não aprendeu a encontrar.</Secret>
+        <p>Quando o ouvido começa a separar o fluxo, surge outra descoberta: as unidades que ele encontra raramente são palavras isoladas.</p>
+      </>
+    ),
+  },
+  {
+    id: "voce-nao-conversa-com-palavras",
+    part: "Parte II — Como o inglês entra no automático",
+    number: 6,
+    title: "Você não conversa com palavras",
+    eyebrow: "A unidade escondida da fluidez",
+    readingTime: 4,
+    content: (
+      <>
+        <p className={styles.lead}>Tecnicamente, frases contêm palavras. Mentalmente, uma conversa não pode depender de montar cada uma delas do zero.</p>
+        <p>Quando você diz “deixa eu ver”, “eu acho que”, “o problema é que” ou “não sei se faz sentido”, não seleciona cada peça isoladamente. O grupo inteiro já possui ritmo, função e intenção.</p>
+        <p>Em inglês acontece o mesmo: <em>I mean</em>, <em>you know</em>, <em>the thing is</em>, <em>I don’t know if</em>, <em>what I’m trying to say is</em>. São blocos que reaparecem com pequenas variações e comprimem dezenas de microdecisões.</p>
+        <div className={styles.blockDemo}>
+          <span>PALAVRA POR PALAVRA — 7 DECISÕES</span>
+          <p><i>I</i><i>don’t</i><i>know</i><i>if</i><i>that</i><i>makes</i><i>sense</i></p>
+          <span>BLOCOS DISPONÍVEIS — 2 UNIDADES</span>
+          <p><b>I don’t know if</b><b>that makes sense</b></p>
+        </div>
+        <p>Essa não é apenas uma metáfora conveniente. Estudos de processamento encontraram vantagem de velocidade para sequências formulaicas em comparação com frases não formulaicas equivalentes, inclusive entre falantes não nativos.</p>
+        <p>O benefício é fácil de sentir em português. Você não calcula “por + outro + lado” sempre que precisa criar contraste. O bloco inteiro abre uma função mental; depois você decide o conteúdo que virá. Quanto mais dessas molduras estão disponíveis em inglês, mais atenção sobra para a ideia.</p>
+        <p>Isso não significa decorar listas de expressões descontextualizadas. Um bloco ganha força quando você o encontra dentro de intenção real, percebe suas variações e precisa recuperá-lo. Fora de contexto, ele corre o risco de virar apenas uma palavra comprida.</p>
+        <p>Foi isso que os discursos do pendrive me deram sem que eu soubesse. Eu achava que estava decorando falas específicas. Na prática, estava tornando disponíveis peças que voltavam em outros argumentos, outras entrevistas e outras conversas.</p>
+        <p>Decorar um discurso inteiro não transforma ninguém em fluente. Mas dominar blocos recorrentes contidos nele reduz o número de decisões conscientes necessárias para sustentar uma ideia nova.</p>
+        <Secret number="#07">Palavras aumentam o que você pode dizer. Blocos aumentam a velocidade com que uma ideia consegue nascer.</Secret>
+        <p>Isso nos leva a uma pergunta libertadora e perigosa: se algumas peças voltam muito mais do que outras, por que tentar dar a todas a mesma prioridade?</p>
+      </>
+    ),
+  },
+  {
+    id: "fluencia-essencial",
+    part: "Parte II — Como o inglês entra no automático",
+    number: 7,
+    title: "Fluência Essencial",
+    eyebrow: "Menor que o idioma, muito maior que o básico",
+    readingTime: 6,
+    content: (
+      <>
+        <p className={styles.lead}>Fluência não pode significar conhecer todas as palavras. Nenhum falante conhece.</p>
+        <p>Também não pode significar apenas “se virar”. Existe um território entre sobreviver com frases prontas e dominar um idioma inteiro: ter uma base de alta utilidade disponível o bastante para compreender, responder e sustentar relações reais.</p>
+        <p>Esse território é a <strong>Fluência Essencial</strong>.</p>
+        <p>Durante muito tempo, eu mesmo repeti uma versão sedutora dessa ideia: “500 palavras cobrem 90% do inglês”. Ela apontava para uma verdade — a distribuição das palavras é profundamente desigual —, mas o número simplificava demais.</p>
+        <p>Era um número sedutor porque fazia o idioma parecer minúsculo. O problema é que sedução e precisão não são a mesma coisa. “Palavra” pode significar forma, lema ou família; “90%” muda conforme o corpus; reconhecer itens frequentes não entrega automaticamente compreensão nem capacidade de uso.</p>
+        <p>Pesquisas de cobertura lexical trabalham com <em>famílias de palavras</em>, não palavras soltas. Sínteses sobre fala coloquial indicam que cerca de 2.000 famílias podem ultrapassar 95% de cobertura em certos corpora. Estudos com programas de televisão mostram que, para coberturas altas e compreensão confortável, a necessidade pode chegar a vários milhares.</p>
+        <EssentialFilter />
+        <p>E cobertura não é fluência. Reconhecer 95% dos itens não garante entender reduções, ironia, referências ou conseguir responder. O número correto não cria uma lista mágica; ele corrige a escala do problema.</p>
+        <p>A conclusão forte não é “bastam 500 palavras”. É esta: uma parcela relativamente pequena e muito recorrente do idioma merece profundidade desproporcional, porque reaparece enquanto o vocabulário específico muda ao redor dela.</p>
+        <p>A Fluência Essencial combina três filtros. <strong>Recorrência:</strong> a peça volta o suficiente para transferir. <strong>Combinação:</strong> ela participa de muitos blocos. <strong>Relevância:</strong> aparece na vida que você quer construir.</p>
+        <p>Foi por isso que conteúdos de vendas funcionaram para mim. Eles continham inglês comum — contraste, causa, pergunta, dúvida, concordância — dentro de uma situação que eu desejava viver. Eu não estava decorando um dicionário. Estava aprofundando o centro do idioma dentro do meu destino.</p>
+        <Note title="Essencial não significa fácil"><p>Uma palavra simples pode ser difícil de perceber em diferentes vozes e combinações. O essencial reduz a largura inicial do território; não elimina a profundidade exigida para dominá-lo.</p></Note>
+        <Secret number="#08">Você não precisa começar pelo idioma inteiro. Precisa começar pela parte que continuará reaparecendo enquanto o seu mundo em inglês aumenta.</Secret>
+        <p>Escolher melhor o território é metade da mudança. A outra metade é permanecer nele tempo suficiente para produzir domínio.</p>
+      </>
+    ),
+  },
+  {
+    id: "um-minuto-dominado",
+    part: "Parte III — A vantagem sem graça",
+    number: 8,
+    title: "Um minuto dominado",
+    eyebrow: "A diferença entre atravessar e conquistar",
+    readingTime: 5,
+    content: (
+      <>
+        <p className={styles.lead}>Assistir vinte minutos é fácil. Treinar um minuto pode ser difícil.</p>
+        <p>É justamente por isso que as duas atividades não produzem a mesma coisa.</p>
+        <p>Em um episódio inteiro, centenas de decisões sonoras passam antes que você consiga localizar onde a compreensão falhou. Um trecho de trinta a sessenta segundos cabe na atenção. Você pode medir a primeira escuta, conferir o texto, voltar ao ponto exato, retirar o apoio e descobrir se algo realmente mudou.</p>
+        <MasteryContrast />
+        <p>A temporada atravessada oferece contexto, prazer e exposição. Tudo isso tem valor. O problema aparece quando ela é usada para provar uma capacidade que você ainda não consegue observar.</p>
+        <p>Imagine dois estudantes. O primeiro assistiu a uma temporada inteira e consegue resumir a história porque leu legendas. O segundo trabalhou uma única cena e consegue ouvi-la sem apoio, explicar onde os sons se conectam e acompanhar partes da fala. Quem “viu mais inglês”? O primeiro. Quem produziu a evidência mais clara de uma nova capacidade? O segundo.</p>
+        <p>A resposta não transforma um deles em vencedor. Mostra que consumo e treino têm objetivos diferentes. O erro é esperar do consumo a adaptação que só foi exigida no treino.</p>
+        <p>O trecho dominado oferece uma prova menor e mais dura. Você sabe quais sons não apareciam. Sabe onde precisava traduzir. Sabe se agora antecipa. Pode voltar à mesma gravação e verificar.</p>
+        <p>Profundidade não é memorizar por vaidade. É permanecer até que o material produza uma mudança transportável: perceber uma redução em outra voz, recuperar um bloco numa conversa ou acompanhar um ritmo parecido em conteúdo novo.</p>
+        <p>Isso também explica por que “enjoei” não é um critério de saída. O cérebro pode ficar entediado muito antes de ficar capaz. Novidade alimenta atenção; domínio exige que a atenção encontre uma tarefa nova dentro do mesmo material.</p>
+        <Secret number="#09">Uma temporada pode provar que você passou vinte minutos diante do inglês. Um minuto dominado pode provar que o inglês mudou dentro de você.</Secret>
+        <p>Mas simplesmente apertar play muitas vezes ainda não basta. A repetição que cria capacidade tem direção.</p>
+      </>
+    ),
+  },
+  {
+    id: "as-duas-repeticoes",
+    part: "Parte III — A vantagem sem graça",
+    number: 9,
+    title: "As duas repetições",
+    eyebrow: "Nitidez agora, disponibilidade depois",
+    readingTime: 5,
+    content: (
+      <>
+        <p className={styles.lead}>Repetição não é ouvir a mesma coisa com a mente no mesmo lugar.</p>
+        <p>Se cada volta exige exatamente a mesma operação, o som pode virar papel de parede. O arquivo precisa permanecer; a tarefa precisa evoluir.</p>
+        <RepetitionDirections />
+        <p>Na <strong>repetição continuada</strong>, as voltas acontecem dentro da mesma sessão. Primeiro você mede. Depois usa a transcrição para mapear. Retorna sem texto para separar. Tenta antecipar. Só então acompanha em voz alta.</p>
+        <p>As primeiras voltas retiram incerteza. As seguintes retiram demora. Essa diferença é importante. Entender depois de pausar não é o mesmo que reconhecer enquanto o som acontece; reconhecer enquanto acontece ainda não é o mesmo que antecipar; antecipar ainda não é recuperar numa conversa diferente.</p>
+        <p>Cada escuta responde a uma pergunta diferente. “O que chegou?” vira “onde os sons se uniram?”, que vira “consigo prever?”, que vira “consigo acompanhar sem parar de ouvir?”.</p>
+        <p>Na <strong>repetição espaçada</strong>, o intervalo remove a familiaridade quente da sessão. Quando o trecho retorna no dia seguinte, você descobre o que ficou disponível e o que dependia de ter acabado de olhar.</p>
+        <p>É por isso que uma sessão pode terminar com a sensação de “agora ficou fácil” e o dia seguinte parecer uma pequena regressão. Não é fracasso. É a medição ficando mais honesta. O intervalo revela a diferença entre manter algo ativo e conseguir buscá-lo novamente.</p>
+        <p>Uma resolve profundidade; a outra testa permanência. Repetir vinte vezes agora pode criar enorme familiaridade e pouca retenção. Rever amanhã sem ter aprofundado hoje pode transformar cada encontro numa nova primeira escuta.</p>
+        <p>A literatura sobre prática distribuída mostra de forma robusta que separar encontros no tempo favorece retenção em comparação com concentrá-los todos de uma vez. Isso não entrega um intervalo universal perfeito. Entrega um princípio: recuperar depois que parte da facilidade desapareceu fortalece uma memória diferente daquela produzida pela repetição imediata.</p>
+        <Secret number="#10">A repetição continuada faz o padrão aparecer. A repetição espaçada descobre se ele continua aparecendo quando você já não está aquecido.</Secret>
+        <p>Então surge a dúvida prática: quando aprofundar deixa de ser treino e vira apenas permanência confortável?</p>
+      </>
+    ),
+  },
+  {
+    id: "o-ponto-de-dominio",
+    part: "Parte III — A vantagem sem graça",
+    number: 10,
+    title: "O ponto de domínio",
+    eyebrow: "Quando avançar — e por que 2× não é a meta",
+    readingTime: 5,
+    content: (
+      <>
+        <p className={styles.lead}>Você não deve avançar porque ficou entediado. Também não deve permanecer até uma perfeição imaginária.</p>
+        <p>O critério precisa ser observável.</p>
+        <MasteryThreshold />
+        <p>O <strong>Ponto de Domínio</strong> chega quando os blocos principais aparecem sem legenda, o significado depende menos da reconstrução, parte da sequência fica previsível, a boca consegue acompanhar sem roubar toda a atenção do ouvido e o reconhecimento sobrevive a um intervalo.</p>
+        <p>Nenhum desses itens exige pronúncia perfeita ou memória fotográfica. Eles exigem deslocamento em relação à primeira escuta.</p>
+        <p>Aumentar a velocidade pode ser usado como sobrecarga opcional em material já compreendido — assim como um músico pode ensaiar acima do andamento para criar folga. Mas compreender a 2× não define fluência, e acelerar áudio incompreensível apenas acelera o ruído.</p>
+        <p>É tentador transformar 2× num símbolo universal de domínio. O símbolo é útil; a regra, não. Fala natural já varia muito. Comédia rápida, entrevista técnica e discurso preparado não impõem a mesma carga. O objetivo é criar margem em relação ao material e à situação que importam, não perseguir um número no botão do player.</p>
+        <p>A velocidade certa é aquela que torna o desafio produtivo: difícil o bastante para expor uma fragilidade, compreensível o bastante para você localizar o que precisa mudar.</p>
+        <p>Depois do Ponto de Domínio, variedade deixa de ser fuga e vira teste. Uma nova voz mostra se você aprendeu o arquivo ou o padrão. Um novo contexto mostra se o bloco possui flexibilidade. Um novo assunto revela o que a base essencial consegue sustentar.</p>
+        <Secret number="#11">Não aumente a dificuldade para provar coragem. Aumente quando a nova dificuldade conseguir revelar a próxima adaptação.</Secret>
+        <p>Até aqui falamos de entender e reproduzir trechos. Mas a vida exige duas formas de permanência em inglês: trocar rapidamente e sustentar uma ideia.</p>
+      </>
+    ),
+  },
+  {
+    id: "conversar-e-sustentar",
+    part: "Parte III — A vantagem sem graça",
+    number: 11,
+    title: "Conversar e sustentar uma ideia",
+    eyebrow: "Por que episódios e discursos treinam forças diferentes",
+    readingTime: 4,
+    content: (
+      <>
+        <p className={styles.lead}>Responder “yes” rapidamente não é a mesma coisa que explicar por que alguém deveria contratar você.</p>
+        <p>Conversas e discursos usam o mesmo idioma, mas distribuem a pressão de maneiras diferentes.</p>
+        <div className={styles.comparison}>
+          <div><span>CONVERSAÇÃO</span><strong>Trocar</strong><p>Perguntas, reações, interrupções, humor, reduções e blocos sociais.</p></div>
+          <div><span>DISCURSO</span><strong>Sustentar</strong><p>Sequência, argumento, causa, contraste, transições, ênfase e intenção.</p></div>
+        </div>
+        <p>Episódios conversacionais ensinam o ouvido a lidar com turnos curtos, vozes diferentes e fala cotidiana. Discursos mostram como uma ideia permanece de pé durante minutos.</p>
+        <p>Na entrevista que eu imaginava fazer em inglês, as duas forças apareceriam na mesma sala. Eu precisaria entender a pergunta reduzida e espontânea; depois precisaria explicar experiência, criar contraste, contar uma história e defender valor. Treinar apenas respostas curtas me deixaria rápido e raso. Treinar apenas discursos poderia me deixar estruturado e incapaz de reagir.</p>
+        <p>Os áudios de vendas importaram para mim porque meu destino exigia as duas capacidades. Eu precisava reagir a objeções sem congelar e, ao mesmo tempo, construir um raciocínio que mantivesse alguém na ligação.</p>
+        <p>É por isso que o material “mais divertido” ou “mais fácil” nem sempre é o mais valioso. O melhor material é aquele que contém o tipo de performance que a sua vida exigirá.</p>
+        <Note title="A pergunta de destino"><p>Se o seu inglês estivesse disponível amanhã, onde ele seria testado primeiro: numa conversa social, numa entrevista, numa reunião, numa viagem, numa apresentação ou numa negociação?</p></Note>
+        <Secret number="#12">Fluência não é apenas responder sem pausa. É conseguir permanecer em inglês enquanto uma ideia inteira toma forma.</Secret>
+        <p>Chegou o momento de retirar a teoria da zona confortável. Um mecanismo que não pode ser testado é apenas uma história bem contada.</p>
+      </>
+    ),
+  },
+  {
+    id: "o-experimento-fluency-secrets",
+    part: "Parte IV — A prova",
+    number: 12,
+    title: "O Experimento Fluency Secrets",
+    eyebrow: "Sete dias para colocar a tese em risco",
+    readingTime: 8,
+    content: (
+      <>
+        <p className={styles.lead}>Não quero que você acredite neste livro.</p>
+        <p>Quero que escolha uma gravação e dê ao argumento a chance de falhar diante de você.</p>
+        <p>O experimento não promete fluência em sete dias. Ele testa uma afirmação mais específica: um trecho que hoje exige esforço, apoio e tradução pode se tornar mais nítido, previsível e direto depois de treino concentrado e recuperação espaçada?</p>
+        <p>Essa promessa menor é mais valiosa do que “fluência rápida” porque pode ser falsificada. No final, você terá o mesmo áudio, dois registros escritos e duas gravações da sua voz. Não precisa confiar na memória de como se sentia.</p>
         <ExperimentCard />
-        <p>Escolha um trecho de trinta a sessenta segundos. Pode ser parte de uma entrevista, discurso, podcast ou cena conversacional. Dê preferência a um material relevante para o inglês que você deseja viver.</p>
-        <p>Você precisará do áudio, da transcrição correta e de uma explicação do significado. Durante sete dias, não troque de trecho. A permanência faz parte do teste.</p>
-        <Note title="Antes de começar"><p>Registre honestamente quantas palavras ou blocos você percebe sem apoio. Não estime o quanto “acha que entendeu”. Escreva o que de fato chegou ao ouvido.</p></Note>
-        <Secret number="#16">Uma ideia se torna sua quando produz uma diferença que você consegue observar.</Secret>
-        <p>Nos próximos capítulos, cada etapa do experimento será detalhada. Seu trabalho não é acreditar em mim. É comparar a sua primeira escuta com a última.</p>
+        <p>Escolha de trinta a sessenta segundos de uma entrevista, cena, podcast ou discurso relevante. Você precisará do áudio, de uma transcrição correta e de uma explicação confiável do significado.</p>
+        <p>No Dia 1, escute sem apoio e registre apenas o que realmente percebeu. Não escreva o que “acha que deve estar ali”. Grave também uma tentativa de acompanhar ou repetir. Essa imperfeição é o seu ponto de comparação.</p>
+        <p>Nos dias seguintes, use o texto como mapa e retire-o como teste. Trabalhe em frases curtas. Primeiro reconheça; depois acompanhe. Shadowing feito cedo demais vira uma corrida de boca em que o ouvido deixa de observar.</p>
+        <p>No Dia 7, volte ao áudio antes de olhar qualquer coisa. Registre novamente o que percebe e faça uma segunda gravação. Compare cinco dimensões: nitidez, cobertura, direção do significado, antecipação e reprodução.</p>
+        <p>Você não precisa obter nota máxima. Precisa encontrar deslocamento. Um som que apareceu, um bloco que chega sem português, uma sequência antecipada ou uma frase reproduzida com menos esforço já mostra que aquilo que parecia fixo pode ser treinado.</p>
+        <p>Se a mudança acontecer apenas naquele arquivo, o experimento já demonstrou adaptação específica. O próximo capítulo faz uma exigência maior: descobrir o que consegue sair do arquivo e viajar para outro lugar.</p>
+        <Secret number="#13">Uma crença deixa de ser motivação quando produz uma diferença que você consegue ouvir.</Secret>
+        <p>Se nada mudar, não proteja a teoria. Pergunte se o trecho era compreensível, se o significado estava claro, se as escutas tinham tarefas e se houve recuperação depois do intervalo. Um bom mecanismo também precisa dizer onde pode falhar.</p>
       </>
     ),
   },
   {
-    id: "primeiro-trecho-sem-traducao",
+    id: "o-proximo-nao-comeca-do-zero",
     part: "Parte IV — A prova",
-    number: 16,
-    eyebrow: "Da legenda interna ao significado",
-    title: "Seu primeiro trecho sem tradução",
-    readingTime: 4,
+    number: 13,
+    title: "O próximo trecho não começa do zero",
+    eyebrow: "A diferença entre decorar e transferir",
+    readingTime: 5,
     content: (
       <>
-        <p className={styles.lead}>No primeiro dia, escute o trecho sem texto e sem legenda. Essa gravação é a sua linha de base.</p>
-        <p>Anote palavras percebidas, pontos embolados e o significado que conseguiu construir. Depois, abra a transcrição. Compare cada bloco com o som e marque onde a versão falada se afasta da pronúncia que você imaginava.</p>
-        <p>Nos dias seguintes, trabalhe em ciclos. Escute uma frase curta. Confira. Escute novamente olhando o texto. Retire o texto. Quando o som estiver claro, acompanhe em voz baixa. Só depois tente reproduzir junto.</p>
-        <p>Não transforme shadowing em corrida. Se sua atenção está totalmente ocupada tentando mover a boca, o ouvido deixa de observar. Primeiro reconheça. Depois acompanhe.</p>
-        <p>Em algum momento, o trecho pode começar a chegar como uma ideia conhecida. Você deixa de montar uma legenda interna e passa a antecipar o bloco. Esse é o primeiro trecho sem dependência da tradução.</p>
-        <Secret number="#17">A automatização não começa no idioma inteiro. Começa quando um pequeno pedaço deixa de precisar ser reconstruído.</Secret>
-        <p>Não despreze essa escala. O primeiro minuto é uma prova de mecanismo. Ele mostra que aquilo que parecia uma característica fixa do seu inglês pode ser modificado.</p>
+        <p className={styles.lead}>Dominar um trecho não prova que você domina todos os outros.</p>
+        <p>Prova algo mais importante: seu sistema perceptivo e motor consegue mudar quando recebe comparação, repetição e recuperação suficientes.</p>
+        <p>Ao trocar de material, parte do desafio volta. A voz muda. O assunto muda. Novas reduções aparecem. Mas algumas palavras, blocos, ritmos e funções reaparecem. Além disso, você já sabe como localizar o problema.</p>
+        <p>O segundo trecho não precisa parecer fácil para provar transferência. Basta que certas partes deixem de ser completamente novas. Talvez você reconheça uma redução mais cedo, saiba usar a transcrição sem se perder ou tolere melhor a sensação inicial de ruído. A transferência costuma aparecer em pedaços antes de aparecer como uma grande sensação de “agora entendo tudo”.</p>
+        <p>O primeiro trecho ensina duas coisas: o inglês que contém e a maneira de transformar ruído em padrão. O segundo encontra um ouvido com pontos de referência e uma pessoa que já não interpreta dificuldade como incapacidade.</p>
+        <p>É aqui que distinguimos <strong>memorização</strong> de <strong>transferência</strong>. Se você apenas reproduz o arquivo antigo, houve aprendizagem específica. Quando reconhece o mesmo bloco em nova voz, recupera uma estrutura em nova ideia ou percebe uma redução parecida em outra cena, a capacidade viajou.</p>
+        <TransferLadder />
+        <p>A Escada de Transferência não manda saltar do minuto para a imersão. Ela aumenta a escala sem destruir a profundidade: trechos formam cenas, cenas constroem um episódio, episódios ampliam recorrência, discursos adicionam continuidade e novos contextos testam flexibilidade.</p>
+        <Secret number="#14">Cada trecho dominado entrega duas coisas: o inglês que estava nele e um cérebro um pouco melhor em encontrar inglês no próximo.</Secret>
+        <p>Agora podemos corrigir a última promessa sedutora: “basta mergulhar”. Mergulhar ajuda muito — depois que você consegue nadar.</p>
       </>
     ),
   },
   {
-    id: "medir-a-mudanca",
-    part: "Parte IV — A prova",
-    number: 17,
-    eyebrow: "Progresso que deixa rastros",
-    title: "Como medir a mudança no ouvido",
-    readingTime: 3,
+    id: "do-primeiro-episodio-a-imersao",
+    part: "Parte V — A expansão",
+    number: 14,
+    title: "Do primeiro episódio à imersão",
+    eyebrow: "A recompensa que não funciona como ponto de partida",
+    readingTime: 6,
     content: (
       <>
-        <p className={styles.lead}>“Acho que estou melhorando” é uma sensação útil, mas frágil. O experimento precisa de marcas mais concretas.</p>
-        <p>No sétimo dia, escute o trecho antes de olhar qualquer apoio. Compare com o registro inicial em cinco dimensões.</p>
-        <div className={styles.scorecard}>
-          <div><span>01</span><b>Nitidez</b><p>Quantos sons antes unidos agora se separam?</p></div>
-          <div><span>02</span><b>Cobertura</b><p>Quanto do trecho você realmente reconhece?</p></div>
-          <div><span>03</span><b>Direção</b><p>O significado chega direto ou via português?</p></div>
-          <div><span>04</span><b>Antecipação</b><p>Você prevê blocos antes de terminarem?</p></div>
-          <div><span>05</span><b>Reprodução</b><p>Consegue acompanhar ritmo e emendas?</p></div>
-        </div>
-        <p>Você não precisa obter nota máxima. O resultado decisivo é perceber deslocamento em relação ao Dia 1. Um som que apareceu, um bloco reconhecido diretamente ou uma frase acompanhada já revela adaptação.</p>
-        <Secret number="#18">A evolução fica motivadora quando deixa de ser uma esperança distante e passa a produzir evidências pequenas e repetíveis.</Secret>
+        <p className={styles.lead}>Imersão é vendida como causa da fluência. Muitas vezes ela é também consequência.</p>
+        <p>Quando quase tudo num conteúdo é ruído, passar mais horas diante dele exige esforço e oferece poucas comparações precisas. Quando uma base essencial está disponível, o mesmo conteúdo começa a alimentar a própria expansão.</p>
+        <p>É como entrar no oceano. Água ao redor não ensina automaticamente alguém que ainda não consegue boiar; pode apenas produzir pânico e exaustão. Depois que certas coordenações existem, cada nova distância percorrida aprimora uma capacidade que já consegue participar da experiência.</p>
+        <p>Você entende o bastante para continuar. O contexto ensina palavras novas. Blocos conhecidos revelam a função dos desconhecidos. A curiosidade substitui parte da disciplina porque o conteúdo finalmente consegue competir com o cansaço.</p>
+        <p>Esse é o território em que “aprender inglês consumindo o que você gosta” deixa de ser promessa vazia. Não porque o cérebro aprenda dormindo, mas porque trabalho anterior tornou a experiência compreensível.</p>
+        <p>O primeiro episódio entendido sem depender constantemente da legenda é uma meta poderosa por isso. Não é certificado de fluência. É uma fronteira: do outro lado, existe um volume crescente de inglês que você consegue usar para aprender mais inglês.</p>
+        <p>Essa fronteira também muda a motivação. Antes dela, estudar compete com entretenimento. Depois dela, entretenimento, trabalho e curiosidade podem carregar parte do treino. O idioma deixa de ser sempre o assunto e começa a ser o meio pelo qual você chega ao assunto.</p>
+        <p>Depois, a rota se torna pessoal. Quem quer viajar adiciona situações de viagem. Quem quer trabalhar numa multinacional treina reuniões e entrevistas. Quem quer vender em dólar precisa escutar objeções, sustentar argumentos e reagir a pessoas reais.</p>
+        <p>A Fluência Essencial é comum na base e individual no destino. Todos se beneficiam de sons mais nítidos, blocos disponíveis e recuperação rápida. A vida de cada pessoa decide quais territórios merecem profundidade em seguida.</p>
+        <Note title="O teste de qualquer método"><p>Ele aumenta apenas o conteúdo apresentado ou reduz a sua Lacuna de Disponibilidade? Há profundidade, recuperação, variação e transferência? Você consegue apontar algo que agora percebe ou faz e antes não conseguia?</p></Note>
+        <Secret number="#15">Imersão não é ficar cercado de inglês. É chegar ao ponto em que o inglês ao redor consegue continuar ensinando você.</Secret>
+        <p>Essa é a verdadeira promessa da expansão: não terminar o idioma, mas construir uma capacidade que deixa de depender de alguém escolher cada próximo passo por você.</p>
       </>
     ),
   },
   {
-    id: "o-proximo-fica-mais-facil",
-    part: "Parte IV — A prova",
-    number: 18,
-    eyebrow: "Por que você não recomeça do zero",
-    title: "O próximo trecho fica mais fácil",
-    readingTime: 2,
-    content: (
-      <>
-        <p className={styles.lead}>Ao trocar de trecho, você encontra sons novos. Mas não volta ao mesmo ponto de partida.</p>
-        <p>Parte das palavras, reduções e blocos reaparece. O ouvido já aprendeu que a fala real não respeita os espaços perfeitos da escrita. A própria forma de treinar deixou de ser desconhecida.</p>
-        <p>Isso cria um efeito composto. O primeiro trecho ensina conteúdo e também ensina seu cérebro a aprender aquele tipo de conteúdo. O seguinte encontra uma estrutura um pouco mais preparada.</p>
-        <p>Nem todo material será mais fácil que o anterior. Sotaques, velocidade e tema mudam a dificuldade. Mas o repertório automatizado não desaparece; ele viaja com você.</p>
-        <Secret number="#19">Cada trecho dominado entrega duas coisas: o inglês que continha e uma percepção melhor para encontrar inglês no próximo.</Secret>
-        <p>É assim que o experimento deixa de ser um truque isolado e se transforma em rota. A pergunta agora é como aumentar a escala sem perder a profundidade.</p>
-      </>
-    ),
-  },
-  {
-    id: "do-trecho-ao-episodio",
-    part: "Parte V — Depois da epifania",
-    number: 19,
-    eyebrow: "Expandir sem voltar ao consumo aleatório",
-    title: "Do primeiro trecho ao primeiro episódio",
-    readingTime: 3,
-    content: (
-      <>
-        <p className={styles.lead}>Um episódio entendido não é conquistado em uma única batalha de vinte minutos.</p>
-        <p>Ele pode ser dividido em cenas; cenas, em minutos; minutos, em blocos treináveis. O objetivo não é memorizar cada fala para sempre, mas usar concentração suficiente para que os padrões recorrentes comecem a permanecer.</p>
-        <RouteMap />
-        <p>Quando um bloco já dominado aparece em outra cena, não exige o mesmo esforço. Aos poucos, a proporção de material completamente novo diminui. O episódio deixa de parecer uma parede e passa a ser uma sequência de territórios reconhecíveis.</p>
-        <p>Entender o primeiro episódio inteiro é uma meta poderosa porque combina transformação e prova. Você não precisa acreditar que “está quase fluente”. Consegue voltar ao material e observar o que antes não percebia.</p>
-        <Secret number="#20">Uma grande meta se torna treinável quando é dividida sem perder a conexão com o mundo real.</Secret>
-      </>
-    ),
-  },
-  {
-    id: "do-episodio-a-fluencia",
-    part: "Parte V — Depois da epifania",
-    number: 20,
-    eyebrow: "A expansão que não para no entretenimento",
-    title: "Do episódio à Fluência Essencial",
-    readingTime: 3,
-    content: (
-      <>
-        <p className={styles.lead}>Séries são úteis porque comprimem conversas, relações e emoções em material que pode ser revisitado. Mas fluência não termina na tela.</p>
-        <p>Depois de construir percepção em conversas, você amplia para entrevistas, reuniões, apresentações e discursos relacionados à vida que deseja viver. O essencial se repete; o vocabulário específico cresce ao redor dele.</p>
-        <p>Quem quer viajar adiciona situações de viagem. Quem quer trabalhar em uma multinacional treina reuniões, entrevistas e explicações profissionais. Quem quer vender em dólar precisa ouvir objeções, sustentar argumentos e reagir a pessoas reais.</p>
-        <p>A rota se torna pessoal na expansão, não no princípio. Todos precisam de percepção, blocos e disponibilidade. O destino define quais contextos receberão prioridade.</p>
-        <Secret number="#21">Fluência funcional é o encontro entre uma base essencial automática e os contextos que importam para a sua vida.</Secret>
-        <Note title="A pergunta de destino"><p>Se seu inglês funcionasse na velocidade que você precisa, em qual situação ele mudaria sua vida primeiro?</p></Note>
-      </>
-    ),
-  },
-  {
-    id: "conhecer-o-caminho",
-    part: "Parte V — Depois da epifania",
-    number: 21,
-    eyebrow: "Como não cair na próxima promessa",
-    title: "O teste de qualquer método",
-    readingTime: 4,
-    content: (
-      <>
-        <p className={styles.lead}>Depois de enxergar a diferença entre consumir inglês e automatizá-lo, você não precisa mais avaliar um método pela quantidade de conteúdo que ele promete.</p>
-        <p>Uma promessa pode parecer impressionante e ainda medir a coisa errada. “Mil palavras”, “todos os tempos verbais” e “centenas de aulas” descrevem o tamanho de uma biblioteca. Não demonstram o que ficará disponível quando alguém falar com você.</p>
-        <p>O teste mais honesto é observar o tipo de mudança que o treino exige do cérebro. Ele cria encontros suficientes com os mesmos padrões? Remove apoios aos poucos? Faz você recuperar o que ouviu? Volta ao material depois que a familiaridade esfriou? Expande sem abandonar o que ainda não se tornou automático?</p>
-        <p>Essas perguntas funcionam para uma aula, um aplicativo, um professor ou uma rotina criada por você. Elas deslocam sua atenção da embalagem para o mecanismo.</p>
-        <div className={styles.routeQuestions}>
-          <p>Estou treinando uma habilidade ou apenas entendendo uma explicação?</p>
-          <p>O material permanece até produzir percepção, antecipação e recuperação?</p>
-          <p>Há repetição continuada para aprofundar e espaçada para consolidar?</p>
-          <p>Consigo comparar meu desempenho antes e depois sem depender de sensação?</p>
-          <p>A dificuldade cresce sobre uma base dominada ou muda de assunto cedo demais?</p>
-        </div>
-        <p>Observe também o que acontece quando você erra. Um treino construído para performance não trata o erro como veredito; usa o erro para localizar o ponto exato que ainda depende de esforço consciente. O trecho embolado, a pausa longa e a palavra que só aparece em português deixam de ser frustrações vagas. Tornam-se coordenadas.</p>
-        <Secret number="#22">Depois que você reconhece o mecanismo, para de comprar quantidade como se fosse transformação.</Secret>
-        <p>Esse talvez seja o ganho mais duradouro deste livro. Mesmo quando encontrar uma promessa sedutora, você saberá procurar a evidência certa: não quanto conteúdo será entregue, mas que parte do inglês deixará de precisar ser reconstruída.</p>
-      </>
-    ),
-  },
-  {
-    id: "a-estrada-continua",
+    id: "o-ingles-que-fica",
     part: "Epílogo",
-    eyebrow: "Quando o português deixa de ser a ponte",
-    title: "A estrada continua",
+    title: "O inglês que fica",
+    eyebrow: "A estrada continua",
+    readingTime: 4,
+    content: (
+      <>
+        <p className={styles.lead}>Naquelas viagens, eu achava que o pendrive quase vazio era um problema.</p>
+        <p>Hoje sei que ele retirou de mim a possibilidade de abandonar o treino no momento exato em que a novidade terminava e a adaptação começava.</p>
+        <p>Os arquivos não desaceleraram. Meu ouvido aprendeu a segmentá-los. Os discursos não continham o idioma inteiro. Continham sons, palavras e blocos essenciais que voltaram em outros lugares. Eu não descobri um talento escondido. Troquei, por acidente, variedade por profundidade.</p>
+        <p>Talvez você tenha começado este livro acreditando que ainda faltava muito inglês. A pergunta mais precisa agora é: quanto do inglês que você já encontrou teve oportunidade de ficar disponível?</p>
+        <p>Talvez também tenha acreditado que traduzir mentalmente era uma característica pessoal, como se algumas pessoas nascessem com uma cabeça em inglês e outras não. Agora existe outro diagnóstico: caminhos diretos podem começar pequenos, ser observados e ganhar território.</p>
+        <p>Essa pergunta muda a forma de escolher uma aula, medir uma semana e interpretar uma trava. Ela impede que quantidade se apresente como transformação. E devolve algo que anos de frustração costumam retirar: um problema treinável.</p>
+        <Secret number="#16">Fluência começa quando o inglês deixa de ser apenas algo que você conhece e passa a ser algo que acontece a tempo.</Secret>
+        <p>Quando o inglês parecer rápido demais, não conclua imediatamente que falta capacidade. Procure o trecho que ainda chega como massa. Dê significado a ele. Separe. Antecipe. Recupere depois do intervalo. Teste em outro lugar.</p>
+        <p>Depois avance — não porque terminou o inglês, mas porque uma parte dele finalmente ficou.</p>
+      </>
+    ),
+  },
+  {
+    id: "notas-e-fontes",
+    part: "Notas",
+    title: "Notas e fontes",
+    eyebrow: "A evidência por trás dos principais mecanismos",
     readingTime: 3,
     content: (
       <>
-        <p className={styles.lead}>Naquelas viagens, eu achava que estava apenas usando o tempo no carro para me aproximar do sonho de vender em dólar.</p>
-        <p>Eu não sabia que o pendrive quase vazio estava criando uma experiência que mudaria a forma como eu enxergava o inglês.</p>
-        <p>Os mesmos áudios, repetidos por falta de opção, mostraram que o inglês podia ficar mais lento sem que a gravação diminuísse a velocidade. Depois, os discursos repetidos junto com aquelas vozes mostraram que a boca também podia aprender ritmo, emenda e antecipação.</p>
-        <p>O que parecia uma limitação revelou um princípio: antes de correr atrás de mais conteúdo, permaneça tempo suficiente para que alguma coisa se torne sua.</p>
-        <p>Talvez você tenha chegado a este livro acreditando que ainda faltava inglês. Espero que saia com uma pergunta mais precisa: quanto do inglês que já encontrou teve oportunidade de entrar no automático?</p>
-        <p>Se você realizou o experimento, já não precisa tratar essa pergunta apenas como teoria. Existe um trecho que hoje chega de maneira diferente. Ele é pequeno, mas aponta para uma possibilidade grande.</p>
-        <Secret number="#23">A fluência começa quando o inglês deixa de ser algo que você conhece e passa a ser algo que acontece em você.</Secret>
-        <p>A estrada entre um trecho e a fluência é maior do que sete dias. Mas agora você sabe em qual direção ela segue.</p>
-        <p>Na próxima vez que o inglês parecer rápido demais, não conclua imediatamente que falta capacidade, vocabulário ou algum talento especial. Talvez você esteja apenas diante de sons que ainda não tiveram repetição suficiente para virar padrões.</p>
-        <p>Escolha um trecho. Permaneça. Escute até separar. Separe até antecipar. Antecipe até conseguir acompanhar. Depois leve essa percepção para um território um pouco maior.</p>
-        <p>Foi assim que um pendrive quase vazio deixou de ser uma limitação. E é assim que o inglês deixa de ser uma coisa que passa por você para se tornar uma coisa que fica.</p>
+        <p className={styles.lead}>Este livro separa experiência pessoal, modelo editorial e evidência científica.</p>
+        <p><strong>Automaticidade.</strong> Segalowitz e Segalowitz (1993) analisaram velocidade e estabilidade no reconhecimento de palavras em L2, distinguindo simples aceleração de uma mudança qualitativa em direção à automatização. DOI: 10.1017/S0142716400010845.</p>
+        <p><strong>Sequências formulaicas.</strong> Conklin e Schmitt (2008) encontraram processamento mais rápido para sequências formulaicas do que para sequências não formulaicas comparáveis em falantes nativos e não nativos. DOI: 10.1093/applin/amm022.</p>
+        <p><strong>Cobertura lexical.</strong> Nation sintetiza pesquisas segundo as quais cerca de 2.000 famílias de palavras podem fornecer mais de 95% de cobertura em fala coloquial. Webb e Rodgers (2009) mostram que programas de televisão exigem milhares de famílias para coberturas altas. Cobertura lexical não equivale a compreensão total nem produção fluente. DOI: 10.1111/j.1467-9922.2009.00509.x.</p>
+        <p><strong>Prática distribuída.</strong> Cepeda e colegas (2006) realizaram uma síntese quantitativa ampla do efeito de espaçamento em tarefas de recordação verbal. DOI: 10.1037/0033-2909.132.3.354.</p>
+        <p><strong>Escuta apoiada.</strong> Chang, Millett e Renandya (2019) compararam modalidades de prática de escuta ao longo de três períodos de treze semanas. Hartshorn e Stephens (2023) estudaram uso de transcrição em exercícios repetidos de escuta com alunos avançados de ESL. DOI: 10.1177/0033688217751468; 10.58304/ijts.20230404.</p>
+        <Note title="Limites importantes"><p>Esses estudos sustentam componentes do modelo; não provam que exista uma única rota universal para toda pessoa, material ou objetivo. O Experimento Fluency Secrets foi desenhado justamente para transformar uma afirmação geral em observação pessoal verificável.</p></Note>
       </>
     ),
   },

@@ -112,49 +112,46 @@ O texto precisa soar como um bom livro de negócios/comportamento, não como uma
 
 ## 9. Estrutura do manuscrito
 
-### Prólogo — O pendrive
+### Prólogo — O pendrive quase vazio
 
-A estrada, os áudios de vendas, a repetição involuntária e o momento em que os áudios deixam de parecer rápidos.
+A estrada, a ambição de vender em dólar, a repetição involuntária e o momento em que os áudios parecem desacelerar sem que o arquivo mude.
 
-### Parte I — A trava invisível
+### Parte I — O diagnóstico que muda tudo
 
-1. A conversa que acontece duas vezes
-2. Por que você entende depois, mas não durante
-3. O inglês que você sabe e o inglês que consegue usar
-4. A esteira infinita do conteúdo
+1. A conversa que chega atrasada
+2. Entender não é conseguir
+3. Aprender inglês não é treinar inglês
+4. A esteira da novidade
 
-### Parte II — O segredo da fluência automática
+### Parte II — Como o inglês entra no automático
 
-5. Inglês não é matéria
-6. Conhecimento não é habilidade
-7. O ouvido não está ruim; está destreinado
-8. Você não fala usando palavras
-9. Quando o português sai do caminho
+5. O áudio não ficou mais lento
+6. Você não conversa com palavras
+7. Fluência Essencial
 
-### Parte III — A mudança de rota
+### Parte III — A vantagem sem graça
 
-10. A Fluência Essencial
-11. Profundidade antes de variedade
-12. Repetição continuada e repetição espaçada
-13. Treinos concentrados
-14. Conversas, discursos e inglês real
+8. Um minuto dominado
+9. As duas repetições
+10. O ponto de domínio
+11. Conversar e sustentar uma ideia
 
 ### Parte IV — A prova
 
-15. O Experimento Fluency Secrets
-16. Seu primeiro trecho sem tradução
-17. Como medir a mudança no ouvido
-18. Por que o próximo trecho fica mais fácil
+12. O Experimento Fluency Secrets
+13. O próximo trecho não começa do zero
 
-### Parte V — Depois da epifania
+### Parte V — A expansão
 
-19. Do primeiro trecho ao primeiro episódio
-20. Do primeiro episódio à fluência essencial
-21. O teste de qualquer método
+14. Do primeiro episódio à imersão
 
-### Epílogo — A estrada continua
+### Epílogo — O inglês que fica
 
 Fechamento da história, síntese do novo diagnóstico e instrução final autossuficiente.
+
+### Notas e fontes
+
+Separação clara entre experiência pessoal, modelo editorial e evidência científica.
 
 ## 10. Frame de capítulo
 

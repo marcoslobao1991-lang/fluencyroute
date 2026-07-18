@@ -12,6 +12,26 @@ function requireCondition(condition, message) {
 const chapterCount = (source.match(/\n\s+id: "/g) ?? []).length;
 const secretCount = (source.match(/<Secret number=/g) ?? []).length;
 const diagramCount = (source.match(/<figure /g) ?? []).length;
+const chapterIds = [...source.matchAll(/\n\s+id: "([^"]+)"/g)].map((match) => match[1]);
+const expectedChapterIds = [
+  "o-pendrive-quase-vazio",
+  "a-conversa-que-chega-atrasada",
+  "entender-nao-e-conseguir",
+  "aprender-nao-e-treinar",
+  "a-esteira-da-novidade",
+  "o-audio-nao-ficou-mais-lento",
+  "voce-nao-conversa-com-palavras",
+  "fluencia-essencial",
+  "um-minuto-dominado",
+  "as-duas-repeticoes",
+  "o-ponto-de-dominio",
+  "conversar-e-sustentar",
+  "o-experimento-fluency-secrets",
+  "o-proximo-nao-comeca-do-zero",
+  "do-primeiro-episodio-a-imersao",
+  "o-ingles-que-fica",
+  "notas-e-fontes",
+];
 const readingMinutes = [...source.matchAll(/readingTime: (\d+)/g)]
   .slice(1)
   .reduce((sum, match) => sum + Number(match[1]), 0);
@@ -54,22 +74,40 @@ const requiredMechanisms = [
   "Imposto da Segunda Conversa",
   "Lacuna de Disponibilidade",
   "Esteira da Novidade",
-  "Loop de Automatização",
+  "Ponto de Domínio",
   "Fluência Essencial",
   "Escada de Transferência",
 ];
 const missingMechanisms = requiredMechanisms.filter(
   (mechanism) => !source.includes(mechanism),
 );
+const requiredContrasts = [
+  ["aprender", "treinar"],
+  ["reconhecer", "executar"],
+  ["palavras", "blocos"],
+  ["continuada", "espaçada"],
+  ["temporada", "trecho"],
+  ["imersão", "consequência"],
+];
+const missingContrasts = requiredContrasts.filter(
+  ([left, right]) => !lowerSource.includes(left) || !lowerSource.includes(right),
+);
+const leadCount = (source.match(/className=\{styles\.lead\}/g) ?? []).length;
 
-requireCondition(chapterCount === 23, `Expected 23 reading sections, found ${chapterCount}.`);
-requireCondition(secretCount === 23, `Expected 23 memorable Fluency Secrets, found ${secretCount}.`);
+requireCondition(chapterCount === 17, `Expected 17 reading sections, found ${chapterCount}.`);
+requireCondition(secretCount === 16, `Expected 16 memorable Fluency Secrets, found ${secretCount}.`);
 requireCondition(diagramCount >= 11, `Expected at least 11 conceptual diagrams, found ${diagramCount}.`);
+requireCondition(
+  JSON.stringify(chapterIds) === JSON.stringify(expectedChapterIds),
+  `Belief-ladder chapter order changed: ${JSON.stringify(chapterIds)}.`,
+);
+requireCondition(leadCount === chapterCount, `Expected a cold open in every section, found ${leadCount}.`);
 requireCondition(wordCount >= 6000, `Editorial copy is too thin: ${wordCount} words.`);
 requireCondition(readingMinutes >= 55 && readingMinutes <= 90, `Reading-time promise is implausible: ${readingMinutes} minutes.`);
 requireCondition(longestParagraph <= 120, `Paragraph rhythm failed: ${longestParagraph} words in one paragraph.`);
 requireCondition(foundPitchSignals.length === 0, `Pitch signals found: ${foundPitchSignals.join(", ")}.`);
 requireCondition(missingMechanisms.length === 0, `Missing mechanisms: ${missingMechanisms.join(", ")}.`);
+requireCondition(missingContrasts.length === 0, `Missing paradigm contrasts: ${JSON.stringify(missingContrasts)}.`);
 
 console.log(JSON.stringify({
   status: "PASS",
@@ -81,5 +119,6 @@ console.log(JSON.stringify({
   paragraphCount: paragraphs.length,
   longestParagraph,
   requiredMechanisms,
+  requiredContrasts,
   pitchSignals: foundPitchSignals,
 }, null, 2));
