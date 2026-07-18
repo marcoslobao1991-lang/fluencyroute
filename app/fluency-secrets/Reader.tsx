@@ -1,8 +1,6 @@
 "use client";
 
 import {
-  Children,
-  isValidElement,
   useEffect,
   useMemo,
   useRef,
@@ -29,43 +27,6 @@ const initialState: ReaderState = {
   fontSize: 18,
   theme: "paper",
 };
-
-function nodeWeight(node: ReactNode, compact: boolean) {
-  if (!isValidElement(node)) return 0.5;
-  const type = typeof node.type === "string" ? node.type : "";
-  const props = node.props as { className?: string };
-  if (type === "figure" || type === "aside" || type === "section") return compact ? 2.8 : 3.5;
-  if (type === "div") return compact ? 2.6 : 3.2;
-  if (props.className?.includes("lead")) return compact ? 1.7 : 1.5;
-  return compact ? 1.15 : 1;
-}
-
-function paginate(content: ReactNode, compact: boolean) {
-  const nodes = Children.toArray(content);
-  const limit = compact ? 2.5 : 4.25;
-  const pages: ReactNode[][] = [];
-  let current: ReactNode[] = [];
-  let weight = 0;
-
-  for (const node of nodes) {
-    const nextWeight = nodeWeight(node, compact);
-    if (current.length && weight + nextWeight > limit) {
-      pages.push(current);
-      current = [];
-      weight = 0;
-    }
-    current.push(node);
-    weight += nextWeight;
-    if (nextWeight >= limit) {
-      pages.push(current);
-      current = [];
-      weight = 0;
-    }
-  }
-
-  if (current.length) pages.push(current);
-  return pages;
-}
 
 function Icon({
   children,
@@ -97,13 +58,30 @@ export default function Reader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [compact, setCompact] = useState(false);
+  const [contentPageCount, setContentPageCount] = useState(1);
+  const [columnStride, setColumnStride] = useState(1);
+  const [layoutVersion, setLayoutVersion] = useState(0);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
   const wheelLocked = useRef(false);
+  const columnViewportRef = useRef<HTMLDivElement | null>(null);
+  const columnContentRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     try {
       const saved = window.localStorage.getItem(STORAGE_KEY);
-      if (saved) setState({ ...initialState, ...JSON.parse(saved) });
+      const restored = saved ? { ...initialState, ...JSON.parse(saved) } : initialState;
+      const params = new URLSearchParams(window.location.search);
+      const requestedChapter = params.get("chapter");
+      const requestedPage = Number.parseInt(params.get("page") ?? "", 10);
+      setState({
+        ...restored,
+        chapter: chapters.some((item) => item.id === requestedChapter)
+          ? requestedChapter!
+          : restored.chapter,
+        page: Number.isFinite(requestedPage) && requestedPage >= 0
+          ? requestedPage
+          : restored.page,
+      });
     } catch {
       // Reader remains usable when localStorage is unavailable.
     }
@@ -116,7 +94,10 @@ export default function Reader() {
   }, [state, hydrated]);
 
   useEffect(() => {
-    const update = () => setCompact(window.innerWidth < 760 || window.innerHeight < 700);
+    const update = () => {
+      setCompact(window.innerWidth < 760 || window.innerHeight < 700);
+      setLayoutVersion((version) => version + 1);
+    };
     update();
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
@@ -124,20 +105,11 @@ export default function Reader() {
 
   const chapterIndex = Math.max(0, chapters.findIndex((item) => item.id === state.chapter));
   const chapter = chapters[chapterIndex];
-  const contentPages = useMemo(() => paginate(chapter.content, compact), [chapter.content, compact]);
-  const totalPages = contentPages.length + 1;
+  const totalPages = contentPageCount + 1;
   const safePage = Math.min(state.page, totalPages - 1);
 
-  const absolutePagesBefore = useMemo(
-    () => chapters.slice(0, chapterIndex).reduce((sum, item) => sum + paginate(item.content, compact).length + 1, 0),
-    [chapterIndex, compact],
-  );
-  const totalBookPages = useMemo(
-    () => chapters.reduce((sum, item) => sum + paginate(item.content, compact).length + 1, 0),
-    [compact],
-  );
-  const absolutePage = absolutePagesBefore + safePage + 1;
-  const progress = Math.round((absolutePage / totalBookPages) * 100);
+  const chapterFraction = totalPages > 1 ? safePage / (totalPages - 1) : 0;
+  const progress = Math.round(((chapterIndex + chapterFraction) / chapters.length) * 100);
 
   const partGroups = useMemo(
     () =>
@@ -147,6 +119,30 @@ export default function Reader() {
       }, {}),
     [],
   );
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      const viewport = columnViewportRef.current;
+      const content = columnContentRef.current;
+      if (!viewport || !content) return;
+      const width = Math.max(1, Math.floor(viewport.clientWidth));
+      content.style.setProperty("--column-width", `${width}px`);
+      window.requestAnimationFrame(() => {
+        const pages = Math.max(1, Math.round(content.scrollWidth / width));
+        const stride = content.scrollWidth / pages;
+        setContentPageCount(pages);
+        setColumnStride(stride);
+        setState((current) => ({ ...current, page: Math.min(current.page, pages) }));
+      });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [chapter.id, compact, layoutVersion, state.fontSize, state.page, state.theme]);
+
+  useEffect(() => {
+    const viewport = columnViewportRef.current;
+    if (!viewport || safePage === 0) return;
+    viewport.scrollLeft = (safePage - 1) * columnStride;
+  }, [columnStride, safePage]);
 
   function goToChapter(id: string) {
     setState((current) => ({ ...current, chapter: id, page: 0 }));
@@ -178,11 +174,10 @@ export default function Reader() {
     }
     const previous = chapters[chapterIndex - 1];
     if (!previous) return;
-    const previousPages = paginate(previous.content, compact).length + 1;
     setState((current) => ({
       ...current,
       chapter: previous.id,
-      page: previousPages - 1,
+      page: 0,
     }));
   }
 
@@ -320,7 +315,7 @@ export default function Reader() {
           <span>‹</span>
         </button>
 
-        <article className={`${styles.paperPage} ${safePage === 0 ? styles.titlePage : ""}`} key={`${chapter.id}-${safePage}`}>
+        <article className={`${styles.paperPage} ${safePage === 0 ? styles.titlePage : ""}`} key={chapter.id}>
           {safePage === 0 ? (
             <div className={styles.pageTitle}>
               <span>{chapter.part}</span>
@@ -336,7 +331,14 @@ export default function Reader() {
                 <span>FLUENCY SECRETS</span>
                 <span>{chapter.title}</span>
               </div>
-              <div className={styles.prosePage}>{contentPages[safePage - 1]}</div>
+              <div ref={columnViewportRef} className={styles.columnViewport}>
+                <div
+                  ref={columnContentRef}
+                  className={`${styles.prosePage} ${styles.columnContent}`}
+                >
+                  {chapter.content}
+                </div>
+              </div>
             </>
           )}
         </article>
@@ -349,7 +351,7 @@ export default function Reader() {
       <footer className={styles.kindleFooter}>
         <span>{progress}%</span>
         <button type="button" onClick={() => setMenuOpen(true)}>
-          PÁGINA {absolutePage} DE {totalBookPages}
+          PÁGINA {safePage + 1} DE {totalPages}
         </button>
         <span>{chapter.readingTime} MIN</span>
         <div className={styles.footerProgress}><i style={{ width: `${progress}%` }} /></div>

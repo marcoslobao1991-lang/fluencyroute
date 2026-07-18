@@ -687,7 +687,12 @@
   .pyramid div:nth-child(2) { width: 74%; }
   .pyramid div:nth-child(3) { width: 87%; }
   .experimentDays { grid-template-columns: 1fr; }
-  .experimentDays div { min-height: auto; grid-template-columns: 55px 80px 1fr; align-items: center; }
+  .experimentDays div {
+    min-height: auto;
+    grid-template-columns: 46px 118px minmax(0, 1fr);
+    align-items: center;
+    column-gap: 7px;
+  }
   .experimentDays b, .experimentDays p { margin: 0; }
   .scorecard { grid-template-columns: 1fr; }
   .scorecard div { display: grid; grid-template-columns: 30px 90px 1fr; align-items: center; border-right: 0; border-bottom: 1px solid var(--line); }
@@ -793,6 +798,7 @@
 }
 
 .bookIdentity {
+  min-width: 0;
   display: flex;
   align-items: center;
   gap: 11px;
@@ -804,11 +810,11 @@
   cursor: pointer;
 }
 
-.bookIdentity div { display: grid; gap: 1px; }
+.bookIdentity div { min-width: 0; display: grid; gap: 1px; }
 .bookIdentity strong { font-family: Arial, sans-serif; font-size: 14px; font-weight: 500; }
 .bookIdentity small { color: #bfc5c9; font-size: 10px; }
 .amazonArrow { color: var(--amazon-orange); font-size: 24px; transform: rotate(90deg); }
-.kindleTools { display: flex; align-items: center; gap: 6px; }
+.kindleTools { flex: 0 0 auto; display: flex; align-items: center; gap: 6px; }
 .kindleTools .iconButton { color: #fff; }
 .kindleTools .iconButton:hover,
 .kindleTools .iconButtonActive { color: #fff; background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.18); }
@@ -975,6 +981,85 @@
 .prosePage .diagram { padding: clamp(18px, 3vh, 30px); }
 .prosePage .diagramCaption { color: var(--page-muted); }
 
+.columnViewport {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  scroll-behavior: auto;
+}
+
+.columnContent {
+  display: block;
+  width: var(--column-width, 100%);
+  height: 100%;
+  overflow: visible;
+  column-width: var(--column-width, 100%);
+  column-gap: 0;
+  column-fill: auto;
+  align-content: initial;
+}
+
+.columnContent > p {
+  width: auto !important;
+  max-width: 100% !important;
+  overflow-wrap: break-word;
+  break-inside: auto;
+  orphans: 3;
+  widows: 3;
+}
+
+.columnContent > figure,
+.columnContent > aside,
+.columnContent > section,
+.columnContent > div {
+  break-inside: avoid;
+}
+
+.measurementLayer {
+  position: fixed !important;
+  top: 0 !important;
+  left: -20000px !important;
+  z-index: -1 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  box-shadow: none !important;
+}
+
+.measurementLayer .prosePage {
+  height: auto !important;
+  display: block !important;
+  overflow: visible !important;
+}
+
+.measureBlock {
+  display: flow-root;
+  width: 100%;
+}
+
+.measureBlock > p {
+  width: min(100%, 680px);
+  margin: 0 auto 1.25em;
+}
+
+.measureBlock > .lead {
+  font-size: 1.38em;
+  line-height: 1.4;
+  letter-spacing: -.018em;
+}
+
+.measuring {
+  display: block;
+  color: var(--page-muted);
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
 .pageZone {
   position: relative;
   z-index: 5;
@@ -1068,11 +1153,13 @@
 .reader .backdrop { inset: 58px 0 36px; z-index: 50; }
 
 @media (max-width: 760px) {
-  .kindleBar { height: 52px; padding: 0 12px; }
-  .bookIdentity strong { max-width: 170px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .kindleBar { height: 52px; gap: 4px; padding: 0 8px; }
+  .bookIdentity { max-width: 190px; padding-right: 104px; }
+  .bookIdentity strong { max-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bookIdentity div { max-width: 110px; }
   .bookIdentity small { display: none; }
-  .kindleTools { gap: 0; }
-  .kindleTools .iconButton { display: grid !important; width: 34px; height: 34px; }
+  .kindleTools { position: absolute; right: 7px; gap: 0; }
+  .kindleTools .iconButton { display: grid !important; width: 32px; height: 32px; }
   .pageStage { inset: 52px 0 31px; grid-template-columns: 0 minmax(0, 1fr) 0; }
   .paperPage { padding: 40px 25px 26px; box-shadow: none; }
   .pageZone { width: 0; overflow: hidden; }
@@ -1081,6 +1168,7 @@
   .runningHeader { justify-content: flex-end; }
   .prosePage { line-height: 1.58; }
   .prosePage > p { margin-bottom: .9em; }
+  .columnContent > p { width: auto !important; max-width: 100% !important; padding-right: 1px; }
   .prosePage .lead { font-size: 1.22em; }
   .pageTitle h1 { font-size: clamp(39px, 13vw, 58px); }
   .pageTitle > span { margin-bottom: 24px; }
@@ -1100,6 +1188,37 @@
   .prosePage .scorecard,
   .prosePage .routeQuestions,
   .prosePage .finalInvitation { margin: 0; }
-  .prosePage .diagram { overflow: hidden; }
+  .prosePage .diagram {
+    overflow: hidden;
+    padding: 12px;
+  }
+  .prosePage .diagram figcaption {
+    gap: 2px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+  }
+  .prosePage .diagram figcaption strong { font-size: 16px; }
+  .prosePage .diagramCaption {
+    margin-top: 8px !important;
+    font-size: 9px;
+    line-height: 1.35;
+  }
+  .prosePage .loopGrid { gap: 2px; }
+  .prosePage .loopNode {
+    min-height: 46px;
+    padding: 5px;
+    font-size: 10px;
+  }
+  .prosePage .arrow {
+    font-size: 10px;
+    line-height: 10px;
+  }
+  .prosePage .paths { gap: 7px; }
+  .prosePage .pathRow > div { padding: 7px; }
+  .prosePage .experimentDays { gap: 3px; }
+  .prosePage .experimentDays div { padding: 7px; }
+  .prosePage .skillFlow > div,
+  .prosePage .repeatGrid > div,
+  .prosePage .depthCompare > div { padding: 12px; }
   .mobileContents { display: none; }
 }
