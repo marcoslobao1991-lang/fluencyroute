@@ -15,20 +15,19 @@ const diagramCount = (source.match(/<figure /g) ?? []).length;
 const chapterIds = [...source.matchAll(/\n\s+id: "([^"]+)"/g)].map((match) => match[1]);
 const expectedChapterIds = [
   "o-pendrive-quase-vazio",
-  "a-conversa-que-chega-atrasada",
-  "entender-nao-e-conseguir",
+  "o-que-fluencia-exige",
   "aprender-nao-e-treinar",
-  "a-esteira-da-novidade",
-  "o-audio-nao-ficou-mais-lento",
-  "voce-nao-conversa-com-palavras",
+  "tudo-volta-a-repeticao",
   "fluencia-essencial",
-  "um-minuto-dominado",
-  "as-duas-repeticoes",
-  "o-ponto-de-dominio",
-  "conversar-e-sustentar",
-  "o-experimento-fluency-secrets",
-  "o-proximo-nao-comeca-do-zero",
-  "do-primeiro-episodio-a-imersao",
+  "lapidar-o-ouvido",
+  "expressoes",
+  "do-consciente-ao-automatico",
+  "repeticao-continuada",
+  "por-que-discursos",
+  "um-minuto-de-cada-vez",
+  "um-episodio-dominado",
+  "repeticao-espacada",
+  "imersao-simulada",
   "o-ingles-que-fica",
   "notas-e-fontes",
 ];
@@ -71,38 +70,37 @@ const foundPitchSignals = forbiddenPitchSignals.filter((signal) =>
 );
 
 const requiredMechanisms = [
-  "Imposto da Segunda Conversa",
-  "Inglês que Some na Hora H",
-  "Vício de Sempre Recomeçar",
-  "Linha do Automático",
+  "Aprender inglês não é treinar inglês",
   "Fluência Essencial",
-  "Inglês Puxa Mais Inglês",
+  "O ouvido precisa ser lapidado",
+  "Repetição continuada",
+  "Repetição espaçada",
+  "Imersão simulada",
 ];
 const missingMechanisms = requiredMechanisms.filter(
   (mechanism) => !source.includes(mechanism),
 );
 const requiredContrasts = [
   ["aprender", "treinar"],
-  ["reconhecer", "executar"],
   ["palavras", "blocos"],
   ["continuada", "espaçada"],
-  ["temporada", "trecho"],
-  ["imersão", "consequência"],
+  ["temporada", "episódio"],
+  ["consciente", "automático"],
 ];
 const missingContrasts = requiredContrasts.filter(
   ([left, right]) => !lowerSource.includes(left) || !lowerSource.includes(right),
 );
 const leadCount = (source.match(/className=\{styles\.lead\}/g) ?? []).length;
 
-requireCondition(chapterCount === 17, `Expected 17 reading sections, found ${chapterCount}.`);
-requireCondition(secretCount === 16, `Expected 16 memorable Fluency Secrets, found ${secretCount}.`);
-requireCondition(diagramCount >= 11, `Expected at least 11 conceptual diagrams, found ${diagramCount}.`);
+requireCondition(chapterCount === 16, `Expected 16 reading sections, found ${chapterCount}.`);
+requireCondition(secretCount === 15, `Expected 15 memorable Fluency Secrets, found ${secretCount}.`);
+requireCondition(diagramCount >= 8, `Expected at least 8 conceptual diagrams, found ${diagramCount}.`);
 requireCondition(
   JSON.stringify(chapterIds) === JSON.stringify(expectedChapterIds),
   `Belief-ladder chapter order changed: ${JSON.stringify(chapterIds)}.`,
 );
 requireCondition(leadCount === chapterCount, `Expected a cold open in every section, found ${leadCount}.`);
-requireCondition(wordCount >= 6000, `Editorial copy is too thin: ${wordCount} words.`);
+requireCondition(wordCount >= 5000, `Editorial copy is too thin: ${wordCount} words.`);
 requireCondition(readingMinutes >= 55 && readingMinutes <= 90, `Reading-time promise is implausible: ${readingMinutes} minutes.`);
 requireCondition(longestParagraph <= 120, `Paragraph rhythm failed: ${longestParagraph} words in one paragraph.`);
 requireCondition(foundPitchSignals.length === 0, `Pitch signals found: ${foundPitchSignals.join(", ")}.`);

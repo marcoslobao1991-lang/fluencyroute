@@ -237,8 +237,8 @@ try {
     return results;
   })()`);
 
-  if (chapters.length !== 17) {
-    throw new Error(`Expected 17 chapters/sections, received ${chapters.length}.`);
+  if (chapters.length !== 16) {
+    throw new Error(`Expected 16 chapters/sections, received ${chapters.length}.`);
   }
 
   const invalid = chapters.filter(
@@ -251,14 +251,17 @@ try {
     throw new Error(`Chapter integrity failed: ${JSON.stringify(invalid, null, 2)}`);
   }
 
-  const densityValues = chapters.flatMap((chapter) =>
-    chapter.pageCharacterCounts.filter(
-      (count, page) =>
-        page > 0 &&
-        page < chapter.pageCharacterCounts.length - 1 &&
-        !chapter.visualPages.includes(page),
-    ),
+  const densitySamples = chapters.flatMap((chapter) =>
+    chapter.pageCharacterCounts
+      .map((count, page) => ({ title: chapter.title, page: page + 1, count }))
+      .filter(
+        ({ page }) =>
+          page > 1 &&
+          page < chapter.pageCharacterCounts.length &&
+          !chapter.visualPages.includes(page - 1),
+      ),
   );
+  const densityValues = densitySamples.map(({ count }) => count);
   const sortedDensity = [...densityValues].sort((a, b) => a - b);
   const densityMedian = sortedDensity[Math.floor(sortedDensity.length / 2)] ?? 0;
   const density = {
@@ -266,8 +269,8 @@ try {
     medianCharacters: densityMedian,
     minimumTarget: Math.floor(densityMedian * 0.58),
     maximumTarget: Math.ceil(densityMedian * 1.42),
-    outliers: densityValues.filter(
-      (count) => count < densityMedian * 0.58 || count > densityMedian * 1.42,
+    outliers: densitySamples.filter(
+      ({ count }) => count < densityMedian * 0.58 || count > densityMedian * 1.42,
     ),
   };
   if (density.outliers.length) {
