@@ -63,6 +63,8 @@ export default function Reader() {
   const [layoutVersion, setLayoutVersion] = useState(0);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
   const wheelLocked = useRef(false);
+  const previousZoneRef = useRef<HTMLButtonElement | null>(null);
+  const nextZoneRef = useRef<HTMLButtonElement | null>(null);
   const columnViewportRef = useRef<HTMLDivElement | null>(null);
   const columnContentRef = useRef<HTMLDivElement | null>(null);
 
@@ -73,6 +75,8 @@ export default function Reader() {
       const params = new URLSearchParams(window.location.search);
       const requestedChapter = params.get("chapter");
       const requestedPage = Number.parseInt(params.get("page") ?? "", 10);
+      const requestedFontSize = Number.parseInt(params.get("fontSize") ?? "", 10);
+      const requestedTheme = params.get("theme");
       setState({
         ...restored,
         chapter: chapters.some((item) => item.id === requestedChapter)
@@ -81,6 +85,12 @@ export default function Reader() {
         page: Number.isFinite(requestedPage) && requestedPage >= 0
           ? requestedPage
           : restored.page,
+        fontSize: Number.isFinite(requestedFontSize)
+          ? Math.min(24, Math.max(15, requestedFontSize))
+          : restored.fontSize,
+        theme: requestedTheme === "white" || requestedTheme === "paper" || requestedTheme === "dark"
+          ? requestedTheme
+          : restored.theme,
       });
     } catch {
       // Reader remains usable when localStorage is unavailable.
@@ -107,6 +117,8 @@ export default function Reader() {
   const chapter = chapters[chapterIndex];
   const totalPages = contentPageCount + 1;
   const safePage = Math.min(state.page, totalPages - 1);
+  const navigationRef = useRef({ safePage, totalPages, chapterIndex, chapter });
+  navigationRef.current = { safePage, totalPages, chapterIndex, chapter };
 
   const chapterFraction = totalPages > 1 ? safePage / (totalPages - 1) : 0;
   const progress = Math.round(((chapterIndex + chapterFraction) / chapters.length) * 100);
@@ -121,22 +133,45 @@ export default function Reader() {
   );
 
   useEffect(() => {
+    let cancelled = false;
     const frame = window.requestAnimationFrame(() => {
+      if (cancelled) return;
       const viewport = columnViewportRef.current;
       const content = columnContentRef.current;
       if (!viewport || !content) return;
       const width = Math.max(1, Math.floor(viewport.clientWidth));
       content.style.setProperty("--column-width", `${width}px`);
       window.requestAnimationFrame(() => {
-        const pages = Math.max(1, Math.round(content.scrollWidth / width));
-        const stride = content.scrollWidth / pages;
-        setContentPageCount(pages);
-        setColumnStride(stride);
-        setState((current) => ({ ...current, page: Math.min(current.page, pages) }));
+        if (cancelled) return;
+        const pageBoundaries = Array.from(
+          content.querySelectorAll<HTMLElement>(":scope > figure, :scope > aside, :scope > section, :scope > div"),
+        );
+        pageBoundaries.forEach((element) => element.style.removeProperty("zoom"));
+        pageBoundaries.forEach((element) => {
+          if (element.offsetHeight > viewport.clientHeight) {
+            const scale = (viewport.clientHeight * 0.97) / element.offsetHeight;
+            element.style.setProperty("zoom", scale.toFixed(4));
+          }
+        });
+
+        window.requestAnimationFrame(() => {
+          if (cancelled) return;
+          const pages = Math.max(1, Math.round(content.scrollWidth / width));
+          const stride = content.scrollWidth / pages;
+          setContentPageCount(pages);
+          setColumnStride(stride);
+          setState((current) => ({
+            ...current,
+            page: Math.min(current.page, pages),
+          }));
+        });
       });
     });
-    return () => window.cancelAnimationFrame(frame);
-  }, [chapter.id, compact, layoutVersion, state.fontSize, state.page, state.theme]);
+    return () => {
+      cancelled = true;
+      window.cancelAnimationFrame(frame);
+    };
+  }, [chapter.id, compact, layoutVersion, state.fontSize, state.theme]);
 
   useEffect(() => {
     const viewport = columnViewportRef.current;
@@ -151,35 +186,47 @@ export default function Reader() {
   }
 
   function nextPage() {
-    if (safePage < totalPages - 1) {
-      setState((current) => ({ ...current, page: safePage + 1 }));
+    const currentNavigation = navigationRef.current;
+    if (currentNavigation.safePage < currentNavigation.totalPages - 1) {
+      setState((current) => ({ ...current, page: currentNavigation.safePage + 1 }));
       return;
     }
-    const completed = state.completed.includes(chapter.id)
-      ? state.completed
-      : [...state.completed, chapter.id];
-    const next = chapters[chapterIndex + 1];
     setState((current) => ({
       ...current,
-      completed,
-      chapter: next?.id ?? current.chapter,
-      page: next ? 0 : safePage,
+      completed: current.completed.includes(currentNavigation.chapter.id)
+        ? current.completed
+        : [...current.completed, currentNavigation.chapter.id],
+      chapter: chapters[currentNavigation.chapterIndex + 1]?.id ?? current.chapter,
+      page: chapters[currentNavigation.chapterIndex + 1] ? 0 : currentNavigation.safePage,
     }));
   }
 
   function previousPage() {
-    if (safePage > 0) {
-      setState((current) => ({ ...current, page: safePage - 1 }));
+    const currentNavigation = navigationRef.current;
+    if (currentNavigation.safePage > 0) {
+      setState((current) => ({ ...current, page: currentNavigation.safePage - 1 }));
       return;
     }
-    const previous = chapters[chapterIndex - 1];
+    const previous = chapters[currentNavigation.chapterIndex - 1];
     if (!previous) return;
     setState((current) => ({
       ...current,
       chapter: previous.id,
-      page: 0,
+      page: Number.MAX_SAFE_INTEGER,
     }));
   }
+
+  useEffect(() => {
+    const previousZone = previousZoneRef.current;
+    const nextZone = nextZoneRef.current;
+    if (!previousZone || !nextZone) return;
+    previousZone.addEventListener("click", previousPage);
+    nextZone.addEventListener("click", nextPage);
+    return () => {
+      previousZone.removeEventListener("click", previousPage);
+      nextZone.removeEventListener("click", nextPage);
+    };
+  });
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -229,6 +276,7 @@ export default function Reader() {
 
   return (
     <main
+      data-reader
       className={`${styles.reader} ${styles[`theme_${state.theme}`]}`}
       style={{ "--reader-font-size": `${state.fontSize}px` } as React.CSSProperties}
       onWheel={handleWheel}
@@ -290,7 +338,7 @@ export default function Reader() {
                 const active = item.id === chapter.id;
                 const done = state.completed.includes(item.id);
                 return (
-                  <button type="button" key={item.id} onClick={() => goToChapter(item.id)} className={active ? styles.chapterActive : ""}>
+                  <button data-chapter-link type="button" key={item.id} onClick={() => goToChapter(item.id)} className={active ? styles.chapterActive : ""}>
                     <span className={done ? styles.done : ""}>{done ? "✓" : item.number ?? "•"}</span>
                     <div><strong>{item.title}</strong><small>{item.readingTime} min</small></div>
                   </button>
@@ -311,12 +359,12 @@ export default function Reader() {
       )}
 
       <section className={styles.pageStage}>
-        <button type="button" className={`${styles.pageZone} ${styles.pageZoneLeft}`} onClick={previousPage} aria-label="Página anterior">
+        <button ref={previousZoneRef} data-page-previous type="button" className={`${styles.pageZone} ${styles.pageZoneLeft}`} aria-label="Página anterior">
           <span>‹</span>
         </button>
 
         <article className={`${styles.paperPage} ${safePage === 0 ? styles.titlePage : ""}`} key={chapter.id}>
-          {safePage === 0 ? (
+          {safePage === 0 && (
             <div className={styles.pageTitle}>
               <span>{chapter.part}</span>
               {chapter.number && <small>CAPÍTULO {String(chapter.number).padStart(2, "0")}</small>}
@@ -325,32 +373,30 @@ export default function Reader() {
               <i />
               <em>Deslize para continuar</em>
             </div>
-          ) : (
-            <>
-              <div className={styles.runningHeader}>
-                <span>FLUENCY SECRETS</span>
-                <span>{chapter.title}</span>
-              </div>
-              <div ref={columnViewportRef} className={styles.columnViewport}>
-                <div
-                  ref={columnContentRef}
-                  className={`${styles.prosePage} ${styles.columnContent}`}
-                >
-                  {chapter.content}
-                </div>
-              </div>
-            </>
           )}
+          <div className={styles.runningHeader}>
+            <span>FLUENCY SECRETS</span>
+            <span>{chapter.title}</span>
+          </div>
+          <div data-column-viewport ref={columnViewportRef} className={styles.columnViewport}>
+            <div
+              data-column-content
+              ref={columnContentRef}
+              className={`${styles.prosePage} ${styles.columnContent}`}
+            >
+              {chapter.content}
+            </div>
+          </div>
         </article>
 
-        <button type="button" className={`${styles.pageZone} ${styles.pageZoneRight}`} onClick={nextPage} aria-label="Próxima página">
+        <button ref={nextZoneRef} data-page-next type="button" className={`${styles.pageZone} ${styles.pageZoneRight}`} aria-label="Próxima página">
           <span>›</span>
         </button>
       </section>
 
       <footer className={styles.kindleFooter}>
         <span>{progress}%</span>
-        <button type="button" onClick={() => setMenuOpen(true)}>
+        <button data-page-indicator type="button" onClick={() => setMenuOpen(true)}>
           PÁGINA {safePage + 1} DE {totalPages}
         </button>
         <span>{chapter.readingTime} MIN</span>

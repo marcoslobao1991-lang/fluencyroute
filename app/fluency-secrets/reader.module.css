@@ -846,18 +846,27 @@
 }
 
 .titlePage {
-  display: grid;
-  place-items: center;
+  display: block;
   background:
     linear-gradient(110deg, transparent 48%, color-mix(in srgb, var(--page-ink) 3%, transparent) 49%, transparent 50%),
     var(--page);
 }
 
 .pageTitle {
-  width: min(100%, 680px);
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
   display: grid;
+  align-content: center;
   justify-items: center;
+  padding: clamp(34px, 5vh, 62px) clamp(34px, 7vw, 90px);
   text-align: center;
+}
+
+.titlePage .runningHeader,
+.titlePage .columnViewport {
+  visibility: hidden;
 }
 
 .pageTitle > span {
