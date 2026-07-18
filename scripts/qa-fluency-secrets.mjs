@@ -5,6 +5,7 @@ import path from "node:path";
 
 const chromePath = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
 const port = 9337;
+const mobile = process.argv.includes("--mobile");
 const profile = await mkdtemp(path.join(tmpdir(), "fluency-secrets-qa-"));
 const url = "http://localhost:3000/fluency-secrets?chapter=o-pendrive&page=0";
 
@@ -77,6 +78,14 @@ async function evaluate(expression) {
 
 try {
   await command("Runtime.enable");
+  if (mobile) {
+    await command("Emulation.setDeviceMetricsOverride", {
+      width: 390,
+      height: 844,
+      deviceScaleFactor: 1,
+      mobile: true,
+    });
+  }
   await evaluate(`new Promise((resolve) => {
     const ready = () => {
       const indicator = document.querySelector("[data-page-indicator]");
@@ -86,7 +95,7 @@ try {
     };
     ready();
   })`);
-  await delay(200);
+  await delay(600);
 
   const readPage = () =>
     evaluate(`(() => {
@@ -119,7 +128,7 @@ try {
 
   await command("Input.dispatchMouseEvent", {
     type: "mouseWheel",
-    x: 640,
+    x: mobile ? 195 : 640,
     y: 400,
     deltaX: 0,
     deltaY: 140,
@@ -129,11 +138,11 @@ try {
 
   await command("Input.dispatchTouchEvent", {
     type: "touchStart",
-    touchPoints: [{ x: 850, y: 380, radiusX: 2, radiusY: 2, force: 1, id: 1 }],
+    touchPoints: [{ x: mobile ? 340 : 850, y: 380, radiusX: 2, radiusY: 2, force: 1, id: 1 }],
   });
   await command("Input.dispatchTouchEvent", {
     type: "touchMove",
-    touchPoints: [{ x: 520, y: 380, radiusX: 2, radiusY: 2, force: 1, id: 1 }],
+    touchPoints: [{ x: mobile ? 60 : 520, y: 380, radiusX: 2, radiusY: 2, force: 1, id: 1 }],
   });
   await command("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
   await delay(350);
@@ -163,7 +172,31 @@ try {
       await wait(180);
       const viewport = document.querySelector("[data-column-viewport]");
       const content = document.querySelector("[data-column-content]");
-      const blocks = Array.from(content.querySelectorAll(":scope > figure, :scope > aside, :scope > section, :scope > div"));
+      const blocks = Array.from(content.querySelectorAll(":scope > figure, :scope > aside, :scope > section, :scope > div, :scope > header"));
+      const indicatorNumbers = document.querySelector("[data-page-indicator]").textContent.match(/[0-9]+/g).map(Number);
+      const pageCount = indicatorNumbers[1];
+      const stride = content.scrollWidth / pageCount;
+      const viewportLeft = viewport.getBoundingClientRect().left;
+      const pageCharacterCounts = Array(pageCount).fill(0);
+      const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT);
+      const range = document.createRange();
+      let textNode = walker.nextNode();
+      while (textNode) {
+        for (let offset = 0; offset < textNode.data.length; offset += 1) {
+          if (/\\s/.test(textNode.data[offset])) continue;
+          range.setStart(textNode, offset);
+          range.setEnd(textNode, offset + 1);
+          const rect = range.getBoundingClientRect();
+          if (!rect.width && !rect.height) continue;
+          const page = Math.max(0, Math.min(pageCount - 1, Math.round((rect.left - viewportLeft) / stride)));
+          pageCharacterCounts[page] += 1;
+        }
+        textNode = walker.nextNode();
+      }
+      const visualPages = [...new Set(blocks.map((element) => {
+        const rect = element.getBoundingClientRect();
+        return Math.max(0, Math.min(pageCount - 1, Math.round((rect.left - viewportLeft) / stride)));
+      }))];
       const oversized = blocks
         .map((element) => Math.ceil(element.getBoundingClientRect().height))
         .filter((height) => height > viewport.clientHeight + 1);
@@ -175,6 +208,8 @@ try {
         scrollWidth: content.scrollWidth,
         blocks: blocks.length,
         oversized,
+        pageCharacterCounts,
+        visualPages,
       });
     }
     return results;
@@ -192,6 +227,29 @@ try {
   );
   if (invalid.length) {
     throw new Error(`Chapter integrity failed: ${JSON.stringify(invalid, null, 2)}`);
+  }
+
+  const densityValues = chapters.flatMap((chapter) =>
+    chapter.pageCharacterCounts.filter(
+      (count, page) =>
+        page > 0 &&
+        page < chapter.pageCharacterCounts.length - 1 &&
+        !chapter.visualPages.includes(page),
+    ),
+  );
+  const sortedDensity = [...densityValues].sort((a, b) => a - b);
+  const densityMedian = sortedDensity[Math.floor(sortedDensity.length / 2)] ?? 0;
+  const density = {
+    measuredTextPages: densityValues.length,
+    medianCharacters: densityMedian,
+    minimumTarget: Math.floor(densityMedian * 0.6),
+    maximumTarget: Math.ceil(densityMedian * 1.4),
+    outliers: densityValues.filter(
+      (count) => count < densityMedian * 0.6 || count > densityMedian * 1.4,
+    ),
+  };
+  if (density.outliers.length) {
+    throw new Error(`Text page density failed: ${JSON.stringify(density)}`);
   }
 
   const reverseNavigation = await evaluate(`(async () => {
@@ -232,7 +290,7 @@ try {
         total: numbers[1],
         fontSize: getComputedStyle(reader).getPropertyValue("--reader-font-size").trim(),
         dark: reader.className.includes("theme_dark"),
-        oversized: Array.from(content.querySelectorAll(":scope > figure, :scope > aside, :scope > section, :scope > div"))
+        oversized: Array.from(content.querySelectorAll(":scope > figure, :scope > aside, :scope > section, :scope > div, :scope > header"))
           .some((element) => element.getBoundingClientRect().height > viewport.clientHeight + 1),
       });
     };
@@ -248,9 +306,11 @@ try {
   }
 
   console.log(JSON.stringify({
+    viewport: mobile ? "mobile-390x844" : "desktop-1280x800",
     navigation,
     reverseNavigation,
     readingPreferences,
+    density,
     chapters,
     status: "PASS",
   }, null, 2));

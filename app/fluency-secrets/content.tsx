@@ -34,7 +34,7 @@ function TranslationLoop() {
     <figure className={styles.diagram} aria-labelledby="translation-loop-title">
       <figcaption>
         <span>DIAGRAMA 01</span>
-        <strong id="translation-loop-title">A conversa que acontece duas vezes</strong>
+        <strong id="translation-loop-title">O Imposto da Segunda Conversa</strong>
       </figcaption>
       <div className={styles.loopGrid}>
         <div className={styles.loopNode}><small>01</small>Você escuta em inglês</div>
@@ -47,7 +47,7 @@ function TranslationLoop() {
         <span className={styles.arrow}>→</span>
         <div className={`${styles.loopNode} ${styles.loopNodeAccent}`}><small>05</small>Tenta falar</div>
       </div>
-      <p className={styles.diagramCaption}>A conversa real continua avançando enquanto a tradução ainda está processando a frase anterior.</p>
+      <p className={styles.diagramCaption}>Cada passagem obrigatória pelo português cobra tempo e atenção. A conversa real continua avançando enquanto a tradução processa a frase anterior.</p>
     </figure>
   );
 }
@@ -57,7 +57,7 @@ function TwoPaths() {
     <figure className={styles.diagram} aria-labelledby="two-paths-title">
       <figcaption>
         <span>DIAGRAMA 02</span>
-        <strong id="two-paths-title">Dois caminhos para o significado</strong>
+        <strong id="two-paths-title">Da ponte obrigatória ao significado direto</strong>
       </figcaption>
       <div className={styles.paths}>
         <div className={styles.pathRow}>
@@ -99,7 +99,7 @@ function ContentTreadmill() {
 function SkillConversion() {
   return (
     <figure className={styles.diagram} aria-labelledby="skill-conversion-title">
-      <figcaption><span>DIAGRAMA 04</span><strong id="skill-conversion-title">Como conhecimento vira habilidade</strong></figcaption>
+      <figcaption><span>DIAGRAMA 04</span><strong id="skill-conversion-title">O Loop de Automatização</strong></figcaption>
       <div className={styles.skillFlow}>
         <div><small>EXPOSIÇÃO</small><b>Eu encontro</b><p>O som e o significado aparecem juntos.</p></div>
         <span>→</span>
@@ -140,10 +140,24 @@ function EssentialPyramid() {
   );
 }
 
+function EssentialFilter() {
+  return (
+    <figure className={styles.diagram} aria-labelledby="essential-filter-title">
+      <figcaption><span>DIAGRAMA 07</span><strong id="essential-filter-title">O filtro do que merece profundidade</strong></figcaption>
+      <div className={styles.essentialFilter}>
+        <div><span>01</span><b>Recorrência</b><p>Volta em muitas vozes e situações.</p></div>
+        <div><span>02</span><b>Combinação</b><p>Forma blocos úteis com muitas outras peças.</p></div>
+        <div><span>03</span><b>Relevância</b><p>Aparece no inglês que você quer viver.</p></div>
+      </div>
+      <p className={styles.diagramCaption}>O essencial fica na interseção: frequente o bastante para transferir e relevante o bastante para merecer prática agora.</p>
+    </figure>
+  );
+}
+
 function RepetitionSystem() {
   return (
     <figure className={styles.diagram} aria-labelledby="repetition-title">
-      <figcaption><span>DIAGRAMA 07</span><strong id="repetition-title">As duas direções da repetição</strong></figcaption>
+      <figcaption><span>DIAGRAMA 08</span><strong id="repetition-title">As duas direções da repetição</strong></figcaption>
       <div className={styles.repeatGrid}>
         <div>
           <span className={styles.repeatIcon}>↻</span>
@@ -165,7 +179,7 @@ function RepetitionSystem() {
 function ConcentratedVsRandom() {
   return (
     <figure className={styles.diagram} aria-labelledby="concentrated-title">
-      <figcaption><span>DIAGRAMA 08</span><strong id="concentrated-title">Amplitude ou profundidade?</strong></figcaption>
+      <figcaption><span>DIAGRAMA 09</span><strong id="concentrated-title">Amplitude ou profundidade?</strong></figcaption>
       <div className={styles.depthCompare}>
         <div>
           <small>CONSUMO ALEATÓRIO</small>
@@ -187,7 +201,7 @@ function ConcentratedVsRandom() {
 function RouteMap() {
   return (
     <figure className={styles.diagram} aria-labelledby="route-title">
-      <figcaption><span>DIAGRAMA 09</span><strong id="route-title">A rota de expansão</strong></figcaption>
+      <figcaption><span>DIAGRAMA 10</span><strong id="route-title">A Escada de Transferência</strong></figcaption>
       <div className={styles.routeMap}>
         <div><span>01</span><b>Trecho</b><small>30–60 segundos</small></div><i>→</i>
         <div><span>02</span><b>Episódio</b><small>conversa completa</small></div><i>→</i>
@@ -226,7 +240,7 @@ export const chapters: Chapter[] = [
     part: "Prólogo",
     title: "O pendrive",
     eyebrow: "Onde tudo começou",
-    readingTime: 8,
+    readingTime: 5,
     content: (
       <>
         <p className={styles.lead}>Durante um período da minha vida, meu escritório tinha quatro rodas.</p>
@@ -285,7 +299,7 @@ export const chapters: Chapter[] = [
     number: 1,
     eyebrow: "O atraso que ninguém vê",
     title: "A conversa que acontece duas vezes",
-    readingTime: 10,
+    readingTime: 4,
     content: (
       <>
         <p className={styles.lead}>Quando alguém fala com você em inglês, talvez uma segunda conversa comece dentro da sua cabeça.</p>
@@ -295,6 +309,8 @@ export const chapters: Chapter[] = [
         <p>Enquanto tudo isso acontece, a conversa real continua.</p>
 
         <TranslationLoop />
+
+        <p>Chame esse atraso de <strong>Imposto da Segunda Conversa</strong>. Ele não aparece em uma prova escrita, porque no papel você pode parar, voltar e reconstruir. Na fala, é cobrado a cada frase: quanto mais etapas internas, menos atenção sobra para intenção, humor e resposta.</p>
 
         <p>É por isso que você pode conhecer todas as palavras de uma frase e, ainda assim, não conseguir acompanhá-la no momento em que ela é dita. O problema não está necessariamente no vocabulário. Está no caminho que a informação precisa percorrer.</p>
 
@@ -324,7 +340,7 @@ export const chapters: Chapter[] = [
     number: 2,
     eyebrow: "Reconhecer não é acompanhar",
     title: "Por que você entende depois, mas não durante",
-    readingTime: 9,
+    readingTime: 3,
     content: (
       <>
         <p className={styles.lead}>Existe uma experiência frustrante que quase todo estudante de inglês conhece: a frase termina, alguém explica o que foi dito e você pensa “mas eu sabia todas essas palavras”.</p>
@@ -368,7 +384,7 @@ export const chapters: Chapter[] = [
     number: 3,
     eyebrow: "A distância entre conhecer e usar",
     title: "O inglês que você sabe e o inglês que consegue usar",
-    readingTime: 8,
+    readingTime: 3,
     content: (
       <>
         <p className={styles.lead}>Dentro de você, podem existir dois vocabulários muito diferentes.</p>
@@ -391,6 +407,8 @@ export const chapters: Chapter[] = [
 
         <p>O ensino tradicional frequentemente comemora a passagem do primeiro para o segundo estágio. Uma lista foi apresentada, uma tradução foi compreendida e o conteúdo da semana foi “dado”. Mas a conversa exige os estágios quatro e cinco.</p>
 
+        <p>A distância entre esses estágios é a <strong>Lacuna de Disponibilidade</strong>. Ela explica por que o seu inglês pode parecer grande diante de uma apostila e pequeno diante de uma pessoa: o conhecimento existe, mas não chega antes que o momento passe.</p>
+
         <p>É aqui que nasce uma conclusão desconfortável: talvez você não precise aumentar imediatamente o número de palavras que conhece. Talvez precise diminuir a distância entre as palavras que reconhece e as palavras que consegue usar.</p>
 
         <Secret number="#04">Seu inglês funcional não é o tamanho do seu vocabulário reconhecido. É a parte dele que permanece disponível em velocidade real.</Secret>
@@ -409,7 +427,7 @@ export const chapters: Chapter[] = [
     number: 4,
     eyebrow: "Quando variedade parece evolução",
     title: "A esteira infinita do conteúdo",
-    readingTime: 9,
+    readingTime: 3,
     content: (
       <>
         <p className={styles.lead}>Nunca tivemos acesso a tanto inglês. E nunca foi tão fácil abandonar uma coisa antes de dominá-la.</p>
@@ -419,6 +437,8 @@ export const chapters: Chapter[] = [
         <p>Mas existe uma diferença entre avançar e apenas mudar de assunto.</p>
 
         <ContentTreadmill />
+
+        <p>Essa é a <strong>Esteira da Novidade</strong>: você se movimenta o tempo inteiro, mas cada assunto é abandonado antes de reduzir a Lacuna de Disponibilidade. O cérebro recebe muitos primeiros contatos e poucas oportunidades de tornar um padrão previsível.</p>
 
         <p>Foi exatamente o contrário que aconteceu no meu carro. Eu não tinha um algoritmo oferecendo o próximo conteúdo. Não havia variedade suficiente para escapar da repetição. Por isso, os mesmos sons permaneceram tempo bastante para mudar a minha percepção.</p>
 
@@ -442,7 +462,7 @@ export const chapters: Chapter[] = [
     number: 5,
     eyebrow: "O diagnóstico estava errado",
     title: "Inglês não é matéria",
-    readingTime: 9,
+    readingTime: 3,
     content: (
       <>
         <p className={styles.lead}>Durante anos, ensinaram inglês no mesmo formato usado para ensinar história, geografia ou uma fórmula de matemática.</p>
@@ -451,6 +471,7 @@ export const chapters: Chapter[] = [
         <p>É por isso que inglês se parece menos com uma matéria e mais com dirigir, tocar um instrumento ou jogar um esporte. Existe conhecimento envolvido, mas a execução depende de padrões que foram praticados até ficarem disponíveis sob pressão.</p>
         <p>Você pode ler dez livros sobre equilíbrio e ainda cair na primeira tentativa de andar de bicicleta. Depois de aprender, porém, não precisa recitar as leis da física antes de cada curva. O corpo executa aquilo que a prática organizou.</p>
         <SkillConversion />
+        <p>O diagrama mostra o <strong>Loop de Automatização</strong>. A exposição apresenta o padrão; a repetição o torna reconhecível; a recuperação obriga o cérebro a encontrá-lo sem todas as pistas; a automatização devolve velocidade. Se o ciclo para na exposição, cresce a familiaridade — não necessariamente a habilidade.</p>
         <p>Quando tratamos inglês apenas como matéria, o sucesso passa a ser medido pelo conteúdo percorrido. Quando tratamos como habilidade, o critério muda: o que ficou mais rápido, mais nítido e mais disponível?</p>
         <Secret number="#06">Conteúdo pode ser explicado em uma aula. Habilidade precisa ser construída em uma sequência de experiências.</Secret>
         <Note title="Troque a unidade de progresso"><p>Não meça sua evolução apenas por aulas assistidas ou capítulos concluídos. Meça o que hoje você entende e reproduz sem precisar desmontar.</p></Note>
@@ -464,7 +485,7 @@ export const chapters: Chapter[] = [
     number: 6,
     eyebrow: "Entender a explicação não basta",
     title: "Conhecimento não é habilidade",
-    readingTime: 8,
+    readingTime: 2,
     content: (
       <>
         <p className={styles.lead}>A sensação de entender uma aula é sedutora porque se parece muito com a sensação de aprender.</p>
@@ -484,7 +505,7 @@ export const chapters: Chapter[] = [
     number: 7,
     eyebrow: "O inglês não está rápido demais",
     title: "Seu ouvido não está ruim",
-    readingTime: 10,
+    readingTime: 3,
     content: (
       <>
         <p className={styles.lead}>Quando o inglês parece embolado, é natural concluir que o falante está pronunciando mal ou rápido demais.</p>
@@ -505,7 +526,7 @@ export const chapters: Chapter[] = [
     number: 8,
     eyebrow: "A unidade escondida da conversa",
     title: "Você não fala usando palavras",
-    readingTime: 9,
+    readingTime: 2,
     content: (
       <>
         <p className={styles.lead}>Tecnicamente, uma frase contém palavras. Mentalmente, uma conversa raramente é construída uma palavra por vez.</p>
@@ -530,7 +551,7 @@ export const chapters: Chapter[] = [
     number: 9,
     eyebrow: "O que realmente significa pensar em inglês",
     title: "Quando o português sai do caminho",
-    readingTime: 8,
+    readingTime: 2,
     content: (
       <>
         <p className={styles.lead}>Pensar em inglês não significa acordar um dia com outra voz narrando sua vida.</p>
@@ -549,13 +570,15 @@ export const chapters: Chapter[] = [
     number: 10,
     eyebrow: "Dominar o que mais retorna",
     title: "A Fluência Essencial",
-    readingTime: 10,
+    readingTime: 3,
     content: (
       <>
         <p className={styles.lead}>O inglês é grande demais para ser dominado como uma lista. Felizmente, ele não é usado de maneira uniforme.</p>
         <p>Algumas palavras, estruturas e blocos aparecem repetidamente em conversas, entrevistas, séries e discursos. Outros pertencem a situações raras ou áreas específicas. Tratar todos como igualmente urgentes é desperdiçar energia.</p>
         <p>A Fluência Essencial começa pelo centro de gravidade do idioma: aquilo que volta tanto que melhorar sua percepção e disponibilidade produz efeito em muitos contextos ao mesmo tempo.</p>
         <EssentialPyramid />
+        <p>Frequência sozinha, porém, não decide tudo. Uma palavra comum pode ter pouco valor para a situação que você precisa enfrentar; uma expressão menos frequente pode ser decisiva em uma entrevista, reunião ou negociação. O essencial nasce da combinação de três critérios.</p>
+        <EssentialFilter />
         <p>Isso não significa limitar seu inglês para sempre. Significa construir uma base capaz de sustentar expansão. Um vocabulário enorme e pouco disponível pode impressionar em uma lista; um repertório essencial profundamente automatizado sustenta conversas reais.</p>
         <p>Nos discursos de vendas, eu encontrava palavras comuns ligadas a blocos de argumentação: apresentar uma ideia, criar contraste, responder objeções, pedir atenção. Ao dominá-las ali, comecei a encontrá-las em todo lugar.</p>
         <Secret number="#11">Você não precisa começar pelo idioma inteiro. Precisa começar pela parte que continuará aparecendo enquanto você expande.</Secret>
@@ -569,7 +592,7 @@ export const chapters: Chapter[] = [
     number: 11,
     eyebrow: "A lição escondida no pendrive",
     title: "Profundidade antes de variedade",
-    readingTime: 8,
+    readingTime: 2,
     content: (
       <>
         <p className={styles.lead}>Variedade é importante para a fluência. A ordem em que ela chega é que muda tudo.</p>
@@ -577,6 +600,7 @@ export const chapters: Chapter[] = [
         <p>É como conhecer uma cidade. Percorrer superficialmente cem ruas não produz a mesma orientação que dominar primeiro um bairro e usá-lo como referência. Profundidade cria pontos de apoio.</p>
         <p>O pequeno repertório do pendrive me obrigou a permanecer. A repetição revelou detalhes que a primeira escuta não tinha condições de mostrar: reduções, ritmos, antecipações e blocos inteiros.</p>
         <p>Depois, quando encontrei novas vozes, não comecei do zero. Eu já carregava peças estáveis para comparar.</p>
+        <p>Existe também um ponto de saída. Profundidade não significa permanecer até a perfeição. Você avança quando consegue reconhecer o trecho sem texto, antecipar seus blocos principais e reproduzir o ritmo sem usar toda a atenção consciente. O novo material, então, não substitui o anterior; testa se aquilo que ficou disponível consegue viajar.</p>
         <Secret number="#12">Variedade expande uma habilidade. Profundidade é o que permite que essa habilidade exista.</Secret>
         <p>A rota, portanto, não é escolher entre repetir ou explorar. É repetir até criar disponibilidade e então explorar para tornar essa disponibilidade flexível.</p>
       </>
@@ -588,7 +612,7 @@ export const chapters: Chapter[] = [
     number: 12,
     eyebrow: "Repetir não é apertar play sem pensar",
     title: "As duas repetições",
-    readingTime: 9,
+    readingTime: 3,
     content: (
       <>
         <p className={styles.lead}>A palavra repetição pode sugerir monotonia. Em uma habilidade, ela descreve duas operações diferentes.</p>
@@ -596,6 +620,7 @@ export const chapters: Chapter[] = [
         <p>Na repetição continuada, você permanece com o trecho durante a sessão. Cada volta tem uma função: primeiro perceber, depois conferir, separar blocos, antecipar e reproduzir.</p>
         <p>Na repetição espaçada, você permite que o tempo teste o que permaneceu. Voltar depois de um intervalo obriga o cérebro a recuperar, em vez de apenas manter a informação aquecida.</p>
         <p>Uma sem a outra deixa uma lacuna. Repetir apenas na mesma hora pode produzir familiaridade temporária. Revisitar sem aprofundar pode transformar cada retorno em uma nova primeira escuta.</p>
+        <p>Há um detalhe decisivo: repetição sem tentativa de percepção vira som ambiente. Cada volta precisa responder a uma pergunta — “o que foi dito?”, “onde os sons se uniram?”, “consigo prever o próximo bloco?”, “consigo recuperar amanhã?”. O arquivo é o mesmo; a tarefa mental muda.</p>
         <Secret number="#13">A repetição continuada cria nitidez. A repetição espaçada transforma essa nitidez em disponibilidade.</Secret>
         <p>O pendrive produziu as duas por acidente: os discursos se repetiam durante a viagem e voltavam nos dias seguintes. Um método consciente transforma esse acidente em desenho.</p>
       </>
@@ -607,7 +632,7 @@ export const chapters: Chapter[] = [
     number: 13,
     eyebrow: "Menos material, mais transformação",
     title: "Treinos concentrados",
-    readingTime: 10,
+    readingTime: 3,
     content: (
       <>
         <p className={styles.lead}>Um episódio inteiro pode ser pequeno para o entretenimento e grande demais para um primeiro treino.</p>
@@ -627,7 +652,7 @@ export const chapters: Chapter[] = [
     number: 14,
     eyebrow: "Duas forças do inglês real",
     title: "Conversas e discursos",
-    readingTime: 9,
+    readingTime: 3,
     content: (
       <>
         <p className={styles.lead}>Conversar e sustentar uma ideia usam o mesmo idioma, mas exigem ritmos diferentes.</p>
@@ -640,6 +665,7 @@ export const chapters: Chapter[] = [
         <p>Uma rota completa treina os dois. Episódios conversacionais aproximam o ouvido do ritmo cotidiano. Discursos dão à fala estrutura para ir além de respostas curtas.</p>
         <Secret number="#15">A fluência não é apenas responder rápido. É conseguir permanecer em inglês enquanto uma ideia inteira toma forma.</Secret>
         <RouteMap />
+        <p>Essa progressão é a <strong>Escada de Transferência</strong>. Cada degrau aumenta o território sem abandonar os padrões conquistados no anterior. O trecho cria nitidez; o episódio prova recorrência; o discurso sustenta pensamento; a imersão testa flexibilidade.</p>
       </>
     ),
   },
@@ -649,7 +675,7 @@ export const chapters: Chapter[] = [
     number: 15,
     eyebrow: "Sete dias para testar a tese",
     title: "O Experimento Fluency Secrets",
-    readingTime: 12,
+    readingTime: 5,
     content: (
       <>
         <p className={styles.lead}>Até aqui, você recebeu uma explicação. Agora ela precisa correr o risco de ser testada.</p>
@@ -669,7 +695,7 @@ export const chapters: Chapter[] = [
     number: 16,
     eyebrow: "Da legenda interna ao significado",
     title: "Seu primeiro trecho sem tradução",
-    readingTime: 10,
+    readingTime: 4,
     content: (
       <>
         <p className={styles.lead}>No primeiro dia, escute o trecho sem texto e sem legenda. Essa gravação é a sua linha de base.</p>
@@ -688,7 +714,7 @@ export const chapters: Chapter[] = [
     number: 17,
     eyebrow: "Progresso que deixa rastros",
     title: "Como medir a mudança no ouvido",
-    readingTime: 8,
+    readingTime: 3,
     content: (
       <>
         <p className={styles.lead}>“Acho que estou melhorando” é uma sensação útil, mas frágil. O experimento precisa de marcas mais concretas.</p>
@@ -711,7 +737,7 @@ export const chapters: Chapter[] = [
     number: 18,
     eyebrow: "Por que você não recomeça do zero",
     title: "O próximo trecho fica mais fácil",
-    readingTime: 8,
+    readingTime: 2,
     content: (
       <>
         <p className={styles.lead}>Ao trocar de trecho, você encontra sons novos. Mas não volta ao mesmo ponto de partida.</p>
@@ -729,13 +755,13 @@ export const chapters: Chapter[] = [
     number: 19,
     eyebrow: "Expandir sem voltar ao consumo aleatório",
     title: "Do primeiro trecho ao primeiro episódio",
-    readingTime: 9,
+    readingTime: 3,
     content: (
       <>
         <p className={styles.lead}>Um episódio entendido não é conquistado em uma única batalha de vinte minutos.</p>
         <p>Ele pode ser dividido em cenas; cenas, em minutos; minutos, em blocos treináveis. O objetivo não é memorizar cada fala para sempre, mas usar concentração suficiente para que os padrões recorrentes comecem a permanecer.</p>
-        <p>Quando um bloco já dominado aparece em outra cena, não exige o mesmo esforço. Aos poucos, a proporção de material completamente novo diminui. O episódio deixa de parecer uma parede e passa a ser uma sequência de territórios reconhecíveis.</p>
         <RouteMap />
+        <p>Quando um bloco já dominado aparece em outra cena, não exige o mesmo esforço. Aos poucos, a proporção de material completamente novo diminui. O episódio deixa de parecer uma parede e passa a ser uma sequência de territórios reconhecíveis.</p>
         <p>Entender o primeiro episódio inteiro é uma meta poderosa porque combina transformação e prova. Você não precisa acreditar que “está quase fluente”. Consegue voltar ao material e observar o que antes não percebia.</p>
         <Secret number="#20">Uma grande meta se torna treinável quando é dividida sem perder a conexão com o mundo real.</Secret>
       </>
@@ -747,7 +773,7 @@ export const chapters: Chapter[] = [
     number: 20,
     eyebrow: "A expansão que não para no entretenimento",
     title: "Do episódio à Fluência Essencial",
-    readingTime: 9,
+    readingTime: 3,
     content: (
       <>
         <p className={styles.lead}>Séries são úteis porque comprimem conversas, relações e emoções em material que pode ser revisitado. Mas fluência não termina na tela.</p>
@@ -763,24 +789,25 @@ export const chapters: Chapter[] = [
     id: "conhecer-o-caminho",
     part: "Parte V — Depois da epifania",
     number: 21,
-    eyebrow: "O que este livro pode e não pode fazer",
-    title: "Conhecer o caminho e ter a rota",
-    readingTime: 9,
+    eyebrow: "Como não cair na próxima promessa",
+    title: "O teste de qualquer método",
+    readingTime: 4,
     content: (
       <>
-        <p className={styles.lead}>Agora você conhece o princípio: automatizar o essencial por meio de treino concentrado, repetição e expansão progressiva.</p>
-        <p>Conhecer o caminho evita anos andando na direção errada. Mas conhecimento, como vimos desde o início, não executa uma habilidade sozinho.</p>
-        <p>Para transformar o princípio em rotina, alguém precisa escolher materiais, graduar dificuldade, preparar transcrições, organizar revisões, equilibrar ouvido e fala e decidir quando avançar. É possível montar tudo sozinho. Também é possível seguir uma rota preparada.</p>
-        <p>Essa diferença não diminui o que você aprendeu. Pelo contrário: agora você consegue avaliar qualquer método com perguntas melhores.</p>
+        <p className={styles.lead}>Depois de enxergar a diferença entre consumir inglês e automatizá-lo, você não precisa mais avaliar um método pela quantidade de conteúdo que ele promete.</p>
+        <p>Uma promessa pode parecer impressionante e ainda medir a coisa errada. “Mil palavras”, “todos os tempos verbais” e “centenas de aulas” descrevem o tamanho de uma biblioteca. Não demonstram o que ficará disponível quando alguém falar com você.</p>
+        <p>O teste mais honesto é observar o tipo de mudança que o treino exige do cérebro. Ele cria encontros suficientes com os mesmos padrões? Remove apoios aos poucos? Faz você recuperar o que ouviu? Volta ao material depois que a familiaridade esfriou? Expande sem abandonar o que ainda não se tornou automático?</p>
+        <p>Essas perguntas funcionam para uma aula, um aplicativo, um professor ou uma rotina criada por você. Elas deslocam sua atenção da embalagem para o mecanismo.</p>
         <div className={styles.routeQuestions}>
-          <p>Este material treina ou apenas explica?</p>
-          <p>Ele aprofunda o essencial ou acumula assuntos?</p>
-          <p>Existe repetição continuada e espaçada?</p>
-          <p>Eu consigo medir mudança no ouvido e na fala?</p>
-          <p>A progressão me leva aos contextos que desejo viver?</p>
+          <p>Estou treinando uma habilidade ou apenas entendendo uma explicação?</p>
+          <p>O material permanece até produzir percepção, antecipação e recuperação?</p>
+          <p>Há repetição continuada para aprofundar e espaçada para consolidar?</p>
+          <p>Consigo comparar meu desempenho antes e depois sem depender de sensação?</p>
+          <p>A dificuldade cresce sobre uma base dominada ou muda de assunto cedo demais?</p>
         </div>
-        <Secret number="#22">Um bom sistema não substitui seu treino. Ele remove o trabalho de inventar o treino enquanto você tenta evoluir.</Secret>
-        <p>O livro não termina apresentando módulos, bônus ou uma oferta escondida. Ele termina devolvendo a decisão a você — agora com um diagnóstico diferente e uma experiência que pode ser repetida.</p>
+        <p>Observe também o que acontece quando você erra. Um treino construído para performance não trata o erro como veredito; usa o erro para localizar o ponto exato que ainda depende de esforço consciente. O trecho embolado, a pausa longa e a palavra que só aparece em português deixam de ser frustrações vagas. Tornam-se coordenadas.</p>
+        <Secret number="#22">Depois que você reconhece o mecanismo, para de comprar quantidade como se fosse transformação.</Secret>
+        <p>Esse talvez seja o ganho mais duradouro deste livro. Mesmo quando encontrar uma promessa sedutora, você saberá procurar a evidência certa: não quanto conteúdo será entregue, mas que parte do inglês deixará de precisar ser reconstruída.</p>
       </>
     ),
   },
@@ -789,7 +816,7 @@ export const chapters: Chapter[] = [
     part: "Epílogo",
     eyebrow: "Quando o português deixa de ser a ponte",
     title: "A estrada continua",
-    readingTime: 6,
+    readingTime: 3,
     content: (
       <>
         <p className={styles.lead}>Naquelas viagens, eu achava que estava apenas usando o tempo no carro para me aproximar do sonho de vender em dólar.</p>
@@ -800,12 +827,9 @@ export const chapters: Chapter[] = [
         <p>Se você realizou o experimento, já não precisa tratar essa pergunta apenas como teoria. Existe um trecho que hoje chega de maneira diferente. Ele é pequeno, mas aponta para uma possibilidade grande.</p>
         <Secret number="#23">A fluência começa quando o inglês deixa de ser algo que você conhece e passa a ser algo que acontece em você.</Secret>
         <p>A estrada entre um trecho e a fluência é maior do que sete dias. Mas agora você sabe em qual direção ela segue.</p>
-        <section className={styles.finalInvitation}>
-          <span>APRESENTAÇÃO COMPLEMENTAR</span>
-          <h2>Veja como transformar um trecho em uma rota completa.</h2>
-          <p>Preparei uma aula visual para conectar os princípios deste livro a uma progressão prática de ouvido, fala, episódios e discursos.</p>
-          <button type="button" disabled>Disponível em breve</button>
-        </section>
+        <p>Na próxima vez que o inglês parecer rápido demais, não conclua imediatamente que falta capacidade, vocabulário ou algum talento especial. Talvez você esteja apenas diante de sons que ainda não tiveram repetição suficiente para virar padrões.</p>
+        <p>Escolha um trecho. Permaneça. Escute até separar. Separe até antecipar. Antecipe até conseguir acompanhar. Depois leve essa percepção para um território um pouco maior.</p>
+        <p>Foi assim que um pendrive quase vazio deixou de ser uma limitação. E é assim que o inglês deixa de ser uma coisa que passa por você para se tornar uma coisa que fica.</p>
       </>
     ),
   },

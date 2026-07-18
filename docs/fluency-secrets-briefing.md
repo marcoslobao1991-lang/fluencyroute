@@ -3,7 +3,7 @@
 ## 1. Produto
 
 **Título de trabalho:** Fluency Secrets  
-**Subtítulo editorial:** Como colocar o inglês no automático do seu cérebro e parar de depender da tradução mental  
+**Subtítulo editorial:** Como colocar o inglês no automático do seu cérebro e nunca mais traduzir mentalmente
 **Formato:** livro digital pago, experiência web premium e aulas gravadas por capítulo  
 **Rota isolada:** `app.fluencyroute.com.br/fluency-secrets`
 
@@ -16,11 +16,11 @@ O ebook ensina **o que está acontecendo** e **por que o leitor continua travado
 Fluxo desejado:
 
 1. Compra do livro.
-2. Leitura e consumo das aulas complementares.
+2. Leitura e aplicação do experimento.
 3. Mudança de diagnóstico sobre a própria trava.
 4. Experimento prático e primeira evidência de automatização.
-5. Webinar complementar.
-6. Oferta do sistema pronto.
+5. Encerramento editorial completo, sem ponte comercial.
+6. Qualquer webinar ou oferta acontece fora do livro, em outro momento e por outro contexto.
 
 O livro precisa ser valioso mesmo que o leitor nunca compre a oferta seguinte.
 
@@ -30,7 +30,7 @@ O livro precisa ser valioso mesmo que o leitor nunca compre a oferta seguinte.
 
 Consequência lógica:
 
-> Eu não preciso de mais conteúdo aleatório. Preciso de um sistema que transforme o inglês essencial em habilidade automática.
+> Eu não preciso medir progresso pela quantidade de conteúdo. Preciso transformar inglês essencial em habilidade disponível.
 
 ## 4. Inimigo e novo diagnóstico
 
@@ -51,7 +51,7 @@ Estrutura híbrida:
 - Escada de crenças.
 - Prova pessoal.
 - Nova identidade.
-- Necessidade natural de uma rota pronta.
+- Autonomia para avaliar qualquer treino pelo mecanismo, não pela quantidade prometida.
 
 Escada de crenças:
 
@@ -64,7 +64,7 @@ Escada de crenças:
 7. Meu ouvido e minha fala podem ser treinados.
 8. Trechos concentrados aceleram a automatização.
 9. Consigo perceber essa mudança em mim.
-10. Para continuar, preciso de uma rota organizada.
+10. Agora consigo distinguir conteúdo entregue de habilidade construída.
 
 ## 6. História de origem
 
@@ -94,7 +94,7 @@ O corpo do livro não apresentará:
 
 A autoridade virá da experiência real, da clareza do raciocínio, das referências corretas e da capacidade de o leitor testar o mecanismo.
 
-A Fluency Route aparece somente como identidade discreta da publicação e da plataforma. O webinar é apresentado como continuação editorial clara, sem esconder sua natureza.
+A Fluency Route aparece somente como identidade discreta da publicação e da plataforma. O livro não anuncia webinar, call, curso ou próxima etapa.
 
 ## 8. Voz
 
@@ -150,11 +150,11 @@ A estrada, os áudios de vendas, a repetição involuntária e o momento em que 
 
 19. Do primeiro trecho ao primeiro episódio
 20. Do primeiro episódio à fluência essencial
-21. Conhecer o caminho e ter a rota
+21. O teste de qualquer método
 
 ### Epílogo — A estrada continua
 
-Fechamento da história e convite transparente para a apresentação complementar.
+Fechamento da história, síntese do novo diagnóstico e instrução final autossuficiente.
 
 ## 10. Frame de capítulo
 
@@ -172,18 +172,20 @@ Fechamento da história e convite transparente para a apresentação complementa
 
 Direção: livro premium de negócios e comportamento. Fundo marfim, tinta quase preta, teal da marca como cor funcional e amarelo queimado para destaques editoriais. Tipografia de leitura serifada; interface em sans-serif.
 
-Diagramas previstos:
+Mecanismos e diagramas editoriais:
 
-- O Ciclo da Tradução Mental.
-- O Caminho Direto.
+- O Imposto da Segunda Conversa.
+- A Lacuna de Disponibilidade.
+- A Esteira da Novidade.
+- O Loop de Automatização.
+- O Caminho Direto para o significado.
 - As duas versões de uma conversa.
 - Conhecimento consciente versus execução automática.
-- A Esteira Infinita dos Cursos.
 - Consumo Aleatório versus Treino Concentrado.
 - Repetição Continuada versus Espaçada.
 - A Pirâmide da Fluência Essencial.
-- A Curva do Primeiro Episódio.
-- Mapa: trecho → episódio → discurso → imersão.
+- O Filtro do Essencial: recorrência, combinação e relevância.
+- A Escada de Transferência: trecho → episódio → discurso → imersão.
 
 ## 12. Experiência do leitor
 
@@ -193,16 +195,14 @@ Diagramas previstos:
 - Retomada do último capítulo.
 - Ajuste de fonte.
 - Modo claro/escuro.
-- Alternância entre leitura e aula.
 - Marcação de capítulo concluído.
 - Diagramas responsivos e acessíveis.
 - Navegação anterior/próximo.
-- Aulas preparadas por capítulo, sem inventar URLs antes da gravação.
-- CTA para o webinar apenas depois da transformação editorial.
+- Aulas por capítulo podem existir na área de membros, mas não interrompem nem comercializam dentro da leitura.
+- Nenhum CTA comercial dentro do ebook.
 
 ## 13. Critério de sucesso
 
 Ao terminar, o leitor deve conseguir dizer:
 
 > Eu achava que precisava aprender mais inglês. Agora entendo que preciso automatizar o inglês essencial que já encontrei — e consigo perceber o início dessa mudança no meu próprio ouvido.
-

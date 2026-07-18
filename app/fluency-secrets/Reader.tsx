@@ -65,6 +65,8 @@ export default function Reader() {
   const wheelLocked = useRef(false);
   const previousZoneRef = useRef<HTMLButtonElement | null>(null);
   const nextZoneRef = useRef<HTMLButtonElement | null>(null);
+  const previousActionRef = useRef<() => void>(() => {});
+  const nextActionRef = useRef<() => void>(() => {});
   const columnViewportRef = useRef<HTMLDivElement | null>(null);
   const columnContentRef = useRef<HTMLDivElement | null>(null);
 
@@ -115,7 +117,7 @@ export default function Reader() {
 
   const chapterIndex = Math.max(0, chapters.findIndex((item) => item.id === state.chapter));
   const chapter = chapters[chapterIndex];
-  const totalPages = contentPageCount + 1;
+  const totalPages = contentPageCount;
   const safePage = Math.min(state.page, totalPages - 1);
   const navigationRef = useRef({ safePage, totalPages, chapterIndex, chapter });
   navigationRef.current = { safePage, totalPages, chapterIndex, chapter };
@@ -144,7 +146,7 @@ export default function Reader() {
       window.requestAnimationFrame(() => {
         if (cancelled) return;
         const pageBoundaries = Array.from(
-          content.querySelectorAll<HTMLElement>(":scope > figure, :scope > aside, :scope > section, :scope > div"),
+          content.querySelectorAll<HTMLElement>(":scope > figure, :scope > aside, :scope > section, :scope > div, :scope > header"),
         );
         pageBoundaries.forEach((element) => element.style.removeProperty("zoom"));
         pageBoundaries.forEach((element) => {
@@ -162,7 +164,7 @@ export default function Reader() {
           setColumnStride(stride);
           setState((current) => ({
             ...current,
-            page: Math.min(current.page, pages),
+            page: Math.min(current.page, pages - 1),
           }));
         });
       });
@@ -175,8 +177,8 @@ export default function Reader() {
 
   useEffect(() => {
     const viewport = columnViewportRef.current;
-    if (!viewport || safePage === 0) return;
-    viewport.scrollLeft = (safePage - 1) * columnStride;
+    if (!viewport) return;
+    viewport.scrollLeft = safePage * columnStride;
   }, [columnStride, safePage]);
 
   function goToChapter(id: string) {
@@ -216,17 +218,22 @@ export default function Reader() {
     }));
   }
 
+  previousActionRef.current = previousPage;
+  nextActionRef.current = nextPage;
+
   useEffect(() => {
     const previousZone = previousZoneRef.current;
     const nextZone = nextZoneRef.current;
     if (!previousZone || !nextZone) return;
-    previousZone.addEventListener("click", previousPage);
-    nextZone.addEventListener("click", nextPage);
+    const goBack = () => previousActionRef.current();
+    const goForward = () => nextActionRef.current();
+    previousZone.addEventListener("click", goBack);
+    nextZone.addEventListener("click", goForward);
     return () => {
-      previousZone.removeEventListener("click", previousPage);
-      nextZone.removeEventListener("click", nextPage);
+      previousZone.removeEventListener("click", goBack);
+      nextZone.removeEventListener("click", goForward);
     };
-  });
+  }, []);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -363,17 +370,10 @@ export default function Reader() {
           <span>‹</span>
         </button>
 
-        <article className={`${styles.paperPage} ${safePage === 0 ? styles.titlePage : ""}`} key={chapter.id}>
-          {safePage === 0 && (
-            <div className={styles.pageTitle}>
-              <span>{chapter.part}</span>
-              {chapter.number && <small>CAPÍTULO {String(chapter.number).padStart(2, "0")}</small>}
-              <h1>{chapter.title}</h1>
-              <p>{chapter.eyebrow}</p>
-              <i />
-              <em>Deslize para continuar</em>
-            </div>
-          )}
+        <article
+          className={`${styles.paperPage} ${chapterIndex === 0 && safePage === 0 ? styles.bookCoverVisible : ""}`}
+          key={chapter.id}
+        >
           <div className={styles.runningHeader}>
             <span>FLUENCY SECRETS</span>
             <span>{chapter.title}</span>
@@ -384,6 +384,22 @@ export default function Reader() {
               ref={columnContentRef}
               className={`${styles.prosePage} ${styles.columnContent}`}
             >
+              {chapterIndex === 0 && (
+                <section className={styles.bookFrontMatter} aria-label="Capa do livro">
+                  <span>FLUENCY SECRETS</span>
+                  <h1>Como colocar o inglês no automático do seu cérebro</h1>
+                  <p>e nunca mais traduzir mentalmente</p>
+                  <i />
+                  <small>MARCOS LOBÃO</small>
+                </section>
+              )}
+              <header className={styles.chapterOpening}>
+                <span>{chapter.part}</span>
+                {chapter.number && <small>CAPÍTULO {String(chapter.number).padStart(2, "0")}</small>}
+                <h1>{chapter.title}</h1>
+                <p>{chapter.eyebrow}</p>
+                <i />
+              </header>
               {chapter.content}
             </div>
           </div>

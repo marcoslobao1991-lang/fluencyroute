@@ -527,6 +527,31 @@
 .pyramid b { font-size: 9px; letter-spacing: .1em; }
 .pyramid small { font-size: 9px; opacity: .82; }
 
+.essentialFilter {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.essentialFilter > div {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--gold);
+  border-radius: 3px;
+  background: var(--cream);
+}
+.essentialFilter span,
+.essentialFilter b { display: block; }
+.essentialFilter span {
+  margin-bottom: 15px;
+  color: var(--gold-deep);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .14em;
+}
+.essentialFilter b { font-family: var(--serif); font-size: 20px; }
+.essentialFilter p { margin: 8px 0 0; font-size: 12px; line-height: 1.5; }
+
 .repeatGrid, .depthCompare { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .repeatGrid > div, .depthCompare > div { position: relative; padding: 26px; border: 1px solid var(--line); background: var(--paper); border-radius: 14px; }
 .repeatIcon { display: grid; width: 45px; height: 45px; margin-bottom: 18px; place-items: center; color: #fff; background: var(--teal); border-radius: 50%; font-size: 22px; }
@@ -650,6 +675,11 @@
 .mobileContents { display: none; }
 
 @media (max-width: 760px) {
+  .essentialFilter { grid-template-columns: 1fr; gap: 6px; }
+  .essentialFilter > div { padding: 11px 14px; }
+  .essentialFilter span { float: left; margin: 4px 12px 0 0; }
+  .essentialFilter b { font-size: 17px; }
+  .essentialFilter p { margin-top: 4px; }
   .topbar {
     height: 64px;
     grid-template-columns: 1fr auto;
@@ -936,6 +966,130 @@
   text-transform: uppercase;
 }
 
+.bookCoverVisible .runningHeader { visibility: hidden; }
+
+.chapterOpening {
+  width: min(100%, 680px);
+  margin: 0 auto 2.1em;
+  padding: .25em 0 1.35em;
+  border-bottom: 1px solid var(--page-line);
+  break-inside: avoid;
+}
+
+.bookFrontMatter {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  padding: clamp(28px, 5vh, 56px);
+  overflow: hidden;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 42%, color-mix(in srgb, var(--amazon-orange) 10%, transparent), transparent 35%),
+    var(--page);
+  break-after: column;
+}
+
+.bookFrontMatter::before,
+.bookFrontMatter::after {
+  content: "";
+  position: absolute;
+  width: 52%;
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--amazon-orange) 35%, transparent);
+  border-radius: 50%;
+}
+
+.bookFrontMatter::before { transform: translate(-42%, -48%); }
+.bookFrontMatter::after { transform: translate(42%, 48%); }
+
+.bookFrontMatter > span,
+.bookFrontMatter > small {
+  position: relative;
+  z-index: 1;
+  color: var(--amazon-orange);
+  font-family: Arial, sans-serif;
+  font-size: .58em;
+  font-weight: 800;
+  letter-spacing: .26em;
+}
+
+.bookFrontMatter h1 {
+  position: relative;
+  z-index: 1;
+  max-width: 13ch;
+  margin: .55em 0 .25em;
+  font-size: clamp(2.5em, 7vh, 4.4em);
+  font-weight: 400;
+  line-height: .98;
+  letter-spacing: -.045em;
+}
+
+.bookFrontMatter p {
+  position: relative;
+  z-index: 1;
+  max-width: 28ch;
+  margin: 0;
+  color: var(--page-muted);
+  font-size: 1em;
+  font-style: italic;
+}
+
+.bookFrontMatter i {
+  position: relative;
+  z-index: 1;
+  width: 44px;
+  height: 2px;
+  margin: 2em 0 1.25em;
+  background: var(--amazon-orange);
+}
+
+.bookFrontMatter > small { color: var(--page-muted); font-size: .48em; }
+
+.chapterOpening > span,
+.chapterOpening > small {
+  display: block;
+  margin-bottom: 1em;
+  color: var(--page-muted);
+  font-family: Arial, sans-serif;
+  font-size: .52em;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.chapterOpening > small {
+  margin-top: -.35em;
+  color: var(--amazon-orange);
+}
+
+.chapterOpening h1 {
+  max-width: 16ch;
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2em, 5.2vh, 3.25em);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -.035em;
+}
+
+.chapterOpening p {
+  margin: .65em 0 0;
+  color: var(--page-muted);
+  font-size: .9em;
+  font-style: italic;
+}
+
+.chapterOpening i {
+  display: block;
+  width: 2.1em;
+  height: 2px;
+  margin-top: 1.15em;
+  background: var(--amazon-orange);
+}
+
 .prosePage {
   height: 100%;
   display: grid;
@@ -1020,7 +1174,8 @@
 .columnContent > figure,
 .columnContent > aside,
 .columnContent > section,
-.columnContent > div {
+.columnContent > div,
+.columnContent > header {
   break-inside: avoid;
 }
 
