@@ -732,3 +732,374 @@
     transition: none !important;
   }
 }
+
+/* Paged e-reader experience */
+.reader {
+  position: fixed;
+  inset: 0;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: pan-y;
+  --chrome: #131921;
+  --chrome-ink: #ffffff;
+  --amazon-orange: #ff9900;
+  --page: #f4ecd8;
+  --page-ink: #2b2926;
+  --page-muted: #716d65;
+  --page-line: rgba(43, 41, 38, .16);
+  background: #d8d5ce;
+  color: var(--page-ink);
+}
+
+.theme_white {
+  --page: #ffffff;
+  --page-ink: #242424;
+  --page-muted: #6b6b6b;
+  --page-line: rgba(36, 36, 36, .14);
+  background: #e8e8e8;
+}
+
+.theme_paper {
+  --page: #f4ecd8;
+  --page-ink: #2b2926;
+  --page-muted: #716d65;
+  --page-line: rgba(43, 41, 38, .16);
+  background: #d8d2c3;
+}
+
+.theme_dark {
+  --page: #202020;
+  --page-ink: #e8e6e1;
+  --page-muted: #aaa69f;
+  --page-line: rgba(232, 230, 225, .15);
+  background: #111;
+}
+
+.kindleBar {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 40;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  color: var(--chrome-ink);
+  background: var(--chrome);
+  border-bottom: 2px solid var(--amazon-orange);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .24);
+}
+
+.bookIdentity {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.bookIdentity div { display: grid; gap: 1px; }
+.bookIdentity strong { font-family: Arial, sans-serif; font-size: 14px; font-weight: 500; }
+.bookIdentity small { color: #bfc5c9; font-size: 10px; }
+.amazonArrow { color: var(--amazon-orange); font-size: 24px; transform: rotate(90deg); }
+.kindleTools { display: flex; align-items: center; gap: 6px; }
+.kindleTools .iconButton { color: #fff; }
+.kindleTools .iconButton:hover,
+.kindleTools .iconButtonActive { color: #fff; background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.18); }
+.aa { font-family: Georgia, serif; font-size: 15px; }
+
+.pageStage {
+  position: absolute;
+  inset: 58px 0 36px;
+  display: grid;
+  grid-template-columns: minmax(42px, 1fr) minmax(0, 920px) minmax(42px, 1fr);
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.paperPage {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  padding: clamp(34px, 5vh, 62px) clamp(34px, 7vw, 90px);
+  color: var(--page-ink);
+  background: var(--page);
+  box-shadow: 0 0 24px rgba(0,0,0,.13);
+  animation: kindlePageIn 180ms ease-out;
+}
+
+@keyframes kindlePageIn {
+  from { opacity: .45; transform: translateX(8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.titlePage {
+  display: grid;
+  place-items: center;
+  background:
+    linear-gradient(110deg, transparent 48%, color-mix(in srgb, var(--page-ink) 3%, transparent) 49%, transparent 50%),
+    var(--page);
+}
+
+.pageTitle {
+  width: min(100%, 680px);
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.pageTitle > span {
+  margin-bottom: 36px;
+  color: var(--page-muted);
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.pageTitle > small {
+  margin-bottom: 14px;
+  color: var(--amazon-orange);
+  font-family: Arial, sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .2em;
+}
+
+.pageTitle h1 {
+  max-width: 720px;
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(44px, 7vw, 78px);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -.035em;
+}
+
+.pageTitle p {
+  margin: 20px 0 0;
+  color: var(--page-muted);
+  font-family: Georgia, serif;
+  font-size: 17px;
+  font-style: italic;
+}
+
+.pageTitle i {
+  width: 38px;
+  height: 2px;
+  margin: 34px 0 20px;
+  background: var(--amazon-orange);
+}
+
+.pageTitle em {
+  color: var(--page-muted);
+  font-family: Arial, sans-serif;
+  font-size: 9px;
+  font-style: normal;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.runningHeader {
+  position: absolute;
+  inset: 16px 30px auto;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  color: var(--page-muted);
+  border-bottom: 1px solid var(--page-line);
+  font-family: Arial, sans-serif;
+  font-size: 8px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.prosePage {
+  height: 100%;
+  display: grid;
+  align-content: center;
+  overflow: hidden;
+  color: var(--page-ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: var(--reader-font-size);
+  line-height: 1.72;
+}
+
+.prosePage > p {
+  width: min(100%, 680px);
+  margin: 0 auto 1.25em;
+}
+
+.prosePage .lead {
+  font-size: 1.38em;
+  line-height: 1.4;
+  letter-spacing: -.018em;
+}
+
+.prosePage .lead::first-letter {
+  float: left;
+  margin: .07em .08em 0 0;
+  color: var(--amazon-orange);
+  font-size: 3.1em;
+  line-height: .72;
+}
+
+.prosePage .secret,
+.prosePage .note,
+.prosePage .diagram,
+.prosePage .comparison,
+.prosePage .availabilityMeter,
+.prosePage .blockDemo,
+.prosePage .scorecard,
+.prosePage .routeQuestions,
+.prosePage .finalInvitation {
+  width: min(100%, 760px);
+  max-height: 100%;
+  margin: 0 auto;
+  color: var(--page-ink);
+  border-color: var(--page-line);
+  background: color-mix(in srgb, var(--page) 86%, var(--page-ink));
+}
+
+.prosePage .secret { border-left: 4px solid var(--amazon-orange); border-radius: 2px; }
+.prosePage .secret span,
+.prosePage .diagram figcaption span,
+.prosePage .note strong { color: var(--amazon-orange); }
+.prosePage .diagram { padding: clamp(18px, 3vh, 30px); }
+.prosePage .diagramCaption { color: var(--page-muted); }
+
+.pageZone {
+  position: relative;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  border: 0;
+  color: rgba(19,25,33,.35);
+  background: transparent;
+  cursor: pointer;
+}
+
+.theme_dark .pageZone { color: rgba(255,255,255,.35); }
+.pageZone:hover { background: rgba(0,0,0,.035); color: var(--amazon-orange); }
+.pageZone span { font-family: Arial, sans-serif; font-size: 52px; font-weight: 200; }
+
+.kindleFooter {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 35;
+  height: 36px;
+  display: grid;
+  grid-template-columns: 70px 1fr 70px;
+  align-items: center;
+  padding: 0 18px;
+  color: #c8cdd0;
+  background: var(--chrome);
+  font-family: Arial, sans-serif;
+  font-size: 9px;
+}
+
+.kindleFooter > span:last-of-type { text-align: right; }
+.kindleFooter button { border: 0; color: inherit; background: transparent; font-size: 9px; letter-spacing: .07em; cursor: pointer; }
+.footerProgress { position: absolute; inset: auto 0 0; height: 2px; background: rgba(255,255,255,.1); }
+.footerProgress i { display: block; height: 100%; background: var(--amazon-orange); transition: width 180ms ease; }
+
+.settingsPanel {
+  position: fixed;
+  z-index: 60;
+  top: 66px;
+  right: 18px;
+  width: 300px;
+  padding: 22px;
+  color: #222;
+  background: #fff;
+  border: 1px solid #c9c9c9;
+  border-radius: 3px;
+  box-shadow: 0 5px 22px rgba(0,0,0,.25);
+}
+
+.settingsPanel::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  right: 55px;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-left: 1px solid #c9c9c9;
+  border-top: 1px solid #c9c9c9;
+  transform: rotate(45deg);
+}
+
+.settingsPanel > strong { display: block; padding-bottom: 15px; border-bottom: 1px solid #ddd; font-size: 15px; }
+.settingsPanel > span { display: block; margin: 18px 0 10px; color: #666; font-size: 11px; }
+.fontControl { display: grid; grid-template-columns: 34px 1fr 34px; align-items: center; gap: 10px; }
+.fontControl button { border: 0; background: transparent; font-family: Georgia, serif; cursor: pointer; }
+.fontControl button:last-child { font-size: 21px; }
+.fontControl div { height: 3px; background: #ddd; }
+.fontControl i { display: block; height: 100%; background: var(--amazon-orange); }
+.themeChoices { display: flex; gap: 12px; }
+.themeChoices button { width: 52px; height: 44px; border: 1px solid #aaa; border-radius: 3px; font-family: Georgia, serif; cursor: pointer; }
+.choice_white { color: #222; background: #fff; }
+.choice_paper { color: #2b2926; background: #f4ecd8; }
+.choice_dark { color: #eee; background: #202020; }
+.themeChoices .themeSelected { outline: 3px solid var(--amazon-orange); outline-offset: 1px; }
+
+.reader .sidebar {
+  inset: 58px auto 36px 0;
+  background: #fff;
+  color: #222;
+  border-right: 1px solid #aaa;
+  box-shadow: 8px 0 28px rgba(0,0,0,.25);
+}
+
+.reader .sidebarHeader strong,
+.reader .partGroup button { color: #222; }
+.reader .partGroup button:hover,
+.reader .partGroup .chapterActive { background: #f0f2f2; }
+.reader .partGroup .chapterActive { border-left: 3px solid var(--amazon-orange); border-radius: 0; }
+.reader .done { background: var(--amazon-orange) !important; border-color: var(--amazon-orange) !important; }
+.reader .backdrop { inset: 58px 0 36px; z-index: 50; }
+
+@media (max-width: 760px) {
+  .kindleBar { height: 52px; padding: 0 12px; }
+  .bookIdentity strong { max-width: 170px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bookIdentity small { display: none; }
+  .kindleTools { gap: 0; }
+  .kindleTools .iconButton { display: grid !important; width: 34px; height: 34px; }
+  .pageStage { inset: 52px 0 31px; grid-template-columns: 0 minmax(0, 1fr) 0; }
+  .paperPage { padding: 40px 25px 26px; box-shadow: none; }
+  .pageZone { width: 0; overflow: hidden; }
+  .runningHeader { inset: 11px 18px auto; }
+  .runningHeader span:first-child { display: none; }
+  .runningHeader { justify-content: flex-end; }
+  .prosePage { line-height: 1.58; }
+  .prosePage > p { margin-bottom: .9em; }
+  .prosePage .lead { font-size: 1.22em; }
+  .pageTitle h1 { font-size: clamp(39px, 13vw, 58px); }
+  .pageTitle > span { margin-bottom: 24px; }
+  .pageTitle i { margin: 25px 0 16px; }
+  .kindleFooter { height: 31px; grid-template-columns: 45px 1fr 45px; padding: 0 9px; }
+  .kindleFooter > span:last-of-type { font-size: 0; }
+  .kindleFooter > span:last-of-type::after { content: "SWIPE"; font-size: 8px; }
+  .settingsPanel { top: 59px; right: 8px; width: calc(100vw - 16px); }
+  .reader .sidebar { inset: 52px auto 31px 0; }
+  .reader .backdrop { inset: 52px 0 31px; }
+  .prosePage .diagram,
+  .prosePage .secret,
+  .prosePage .note,
+  .prosePage .comparison,
+  .prosePage .availabilityMeter,
+  .prosePage .blockDemo,
+  .prosePage .scorecard,
+  .prosePage .routeQuestions,
+  .prosePage .finalInvitation { margin: 0; }
+  .prosePage .diagram { overflow: hidden; }
+  .mobileContents { display: none; }
+}
