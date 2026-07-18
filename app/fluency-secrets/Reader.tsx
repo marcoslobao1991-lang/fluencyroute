@@ -332,7 +332,7 @@ export default function Reader() {
         </aside>
       )}
 
-      <aside className={`${styles.sidebar} ${menuOpen ? styles.sidebarOpen : ""}`}>
+      <aside data-chapter-sidebar className={`${styles.sidebar} ${menuOpen ? styles.sidebarOpen : ""}`}>
         <div className={styles.sidebarHeader}>
           <div><small>CONTEÚDO</small><strong>Fluency Secrets</strong></div>
           <button type="button" onClick={() => setMenuOpen(false)} aria-label="Fechar índice">×</button>

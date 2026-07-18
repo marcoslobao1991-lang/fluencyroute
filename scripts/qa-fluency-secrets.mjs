@@ -163,6 +163,28 @@ try {
     }
   }
 
+  const sidebarInteraction = await evaluate(`(async () => {
+    const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    document.querySelector('button[aria-label="Índice"]').click();
+    await wait(250);
+    const sidebar = document.querySelector("[data-chapter-sidebar]");
+    const target = sidebar.querySelectorAll("[data-chapter-link]")[1];
+    const rect = target.getBoundingClientRect();
+    const topElement = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    const clickable = topElement?.closest("[data-chapter-link]");
+    clickable?.click();
+    await wait(250);
+    return {
+      topLayerIsChapter: clickable === target,
+      sidebarClosed: getComputedStyle(sidebar).transform !== "none",
+      activeTitle: sidebar.querySelector("[data-chapter-link].${"chapterActive"} strong")?.textContent,
+      currentHeader: document.querySelector(".${"runningHeader"} span:last-child")?.textContent,
+    };
+  })()`);
+  if (!sidebarInteraction.topLayerIsChapter) {
+    throw new Error(`Sidebar is blocked by another layer: ${JSON.stringify(sidebarInteraction)}`);
+  }
+
   const chapters = await evaluate(`(async () => {
     const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
     const links = Array.from(document.querySelectorAll("[data-chapter-link]"));

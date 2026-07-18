@@ -1301,6 +1301,7 @@
 .themeChoices .themeSelected { outline: 3px solid var(--amazon-orange); outline-offset: 1px; }
 
 .reader .sidebar {
+  z-index: 60;
   inset: 58px auto 36px 0;
   background: #fff;
   color: #222;
