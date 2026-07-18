@@ -147,17 +147,16 @@ export const chapters: Chapter[] = [
     readingTime: 6,
     content: (
       <>
-        <p className={styles.lead}>Durante um período da minha vida, meu escritório tinha quatro rodas.</p>
-        <p>Eu trabalhava como vendedor e rodava muito de carro. Naquela época, a gente usava pendrive no som. O meu tinha pouca coisa baixada. Entre os poucos arquivos, havia conteúdos de vendas em inglês, principalmente áudios de Jordan Belfort e Grant Cardone.</p>
-        <p>Eu já tinha vontade de trabalhar vendendo em dólar. Por isso, escutava aquele material mesmo sem entender tudo. E, como não havia quase nada além daquilo no pendrive, os mesmos áudios tocavam em loop durante horas de estrada.</p>
-        <p>Não havia plano. Eu não tinha criado um método. Não separava vocabulário, não preenchia exercícios e nem imaginava que aquela repetição poderia se tornar a parte mais importante da minha história com o inglês.</p>
-        <p>Depois de algum tempo, comecei a perceber uma mudança estranha. Os mesmos trechos, antes rápidos e embolados, começaram a ficar claros. Eu reconhecia uma palavra aqui, uma expressão ali e, em certos momentos, sabia o que a pessoa diria antes de a frase terminar.</p>
-        <p>O áudio não tinha ficado mais lento. Eu é que já não o escutava da mesma maneira.</p>
-        <p>Foi então que pensei: se a repetição estava mudando meu ouvido, talvez pudesse fazer o mesmo com a minha fala. Passei a repetir discursos curtos junto com a pessoa. Fazia shadowing, imitava o ritmo e voltava aos mesmos trechos tantas vezes que acabei decorando alguns deles.</p>
-        <p>O resultado mais importante apareceu fora daqueles discursos. As palavras e expressões usadas ali faziam parte do inglês essencial. Eram as mesmas estruturas que voltavam em entrevistas, vídeos e conversas. Quando fiquei bom naquelas peças, minha pronúncia e minha compreensão melhoraram de forma muito mais ampla.</p>
-        <p>Na época, eu apenas sentia a mudança. Mais tarde, ao ensinar outras pessoas e observar o que realmente produzia fluidez, consegui entender o princípio por trás dela.</p>
-        <Secret number="#01">O inglês começou a ficar automático quando deixei de apenas encontrar conteúdo e comecei, mesmo sem querer, a permanecer tempo suficiente no mesmo conteúdo.</Secret>
-        <p>Este livro organiza essa descoberta. Não como uma promessa de fluência instantânea, mas como uma explicação direta sobre o que precisa acontecer para você parar de depender da tradução mental e começar a responder em inglês com mais naturalidade.</p>
+        <p className={styles.lead}>Quando comecei a levar o inglês a sério, eu trabalhava como vendedor e passava boa parte do dia na estrada.</p>
+        <p>Na época, a gente ouvia música no carro usando pendrive. O meu tinha pouca coisa, e entre os arquivos estavam alguns conteúdos de vendas em inglês, principalmente áudios do Jordan Belfort e do Grant Cardone. Eu já pensava em trabalhar vendendo em dólar, então escutava aquilo mesmo sem entender tudo.</p>
+        <p>Como não havia muito para escolher, os mesmos áudios tocavam de novo e de novo. Às vezes eu passava horas ouvindo as mesmas falas. Não era uma estratégia. Eu não anotava palavras, não seguia um cronograma e nem fazia ideia de que aquela repetição acabaria mudando meu inglês.</p>
+        <p>A mudança apareceu aos poucos. Um trecho que antes parecia rápido demais começava a se abrir. Primeiro eu reconhecia uma palavra, depois uma expressão inteira. Em algumas partes, chegava a saber o que seria dito antes de a frase terminar.</p>
+        <p>Claro que o áudio continuava na mesma velocidade. O que estava mudando era a forma como eu o escutava.</p>
+        <p>Quando percebi isso, resolvi experimentar a mesma coisa com a pronúncia. Comecei a falar junto com os discursos, imitando o ritmo, as pausas e a maneira como as palavras se ligavam. Repeti alguns trechos tantas vezes que terminei decorando falas inteiras.</p>
+        <p>O mais interessante veio depois. A melhora não ficou presa àqueles arquivos. Muitas palavras e expressões dos discursos faziam parte do inglês comum e voltavam em entrevistas, vídeos e conversas. Conforme elas se tornavam familiares, eu também entendia melhor outros conteúdos e falava com menos esforço.</p>
+        <p>Naquele momento, eu só percebia que estava funcionando. Foi mais tarde, ensinando e acompanhando outras pessoas, que consegui entender por que funcionava.</p>
+        <Secret number="#01">Meu inglês começou a mudar quando parei de abandonar um conteúdo logo depois de entendê-lo e permaneci nele tempo suficiente para conseguir acompanhá-lo.</Secret>
+        <p>É essa passagem — de entender uma frase para conseguir ouvi-la e usá-la com naturalidade — que vamos acompanhar ao longo deste livro.</p>
       </>
     ),
   },
@@ -170,15 +169,13 @@ export const chapters: Chapter[] = [
     readingTime: 5,
     content: (
       <>
-        <p className={styles.lead}>Uma pessoa que precisa traduzir cada frase pode conhecer muito inglês. O que ela ainda não tem é fluidez.</p>
-        <p>Fluência vem de fluir. A palavra aponta para movimento, continuidade e espontaneidade. Numa conversa, você não recebe uma frase, pausa o mundo, monta o significado em português e depois pede que a outra pessoa espere enquanto constrói a resposta em inglês.</p>
-        <p>A conversa continua enquanto tudo isso acontece.</p>
-        <p>É por isso que traduzir mentalmente produz uma sensação tão conhecida. Você entende, mas entende atrasado. Sabe o que gostaria de responder, mas a frase não chega inteira. Quando finalmente encontra as palavras, o momento já passou ou a conversa tomou outra direção.</p>
-        <p>Isso não significa que traduzir seja errado. A tradução é uma habilidade útil. O problema aparece quando ela é o único caminho entre o som e o sentido. Para falar com fluidez, uma parte crescente do inglês precisa ser compreendida diretamente.</p>
-        <p>Você já vive essa experiência com algumas expressões. Quando alguém diz <em>thank you</em>, é provável que você não repita “obrigado” dentro da cabeça antes de entender. O som e a intenção chegam juntos. O mesmo acontece com <em>hello</em>, <em>good morning</em> ou <em>I love you</em>.</p>
-        <p>A questão central é que esse caminho direto não precisa ficar limitado a meia dúzia de frases. Ele pode se expandir para perguntas, respostas e estruturas inteiras. Mas isso não acontece apenas porque você recebeu uma explicação.</p>
-        <Secret number="#02">Parar de traduzir não significa traduzir cada vez mais rápido. Significa treinar o inglês até que o sentido comece a chegar sem precisar passar pelo português.</Secret>
-        <p>Para entender como esse caminho é construído, precisamos separar duas atividades que costumam receber o mesmo nome: aprender inglês e treinar inglês.</p>
+        <p className={styles.lead}>Quem traduz tudo mentalmente costuma viver a mesma situação: entende a pergunta, mas demora alguns segundos para chegar ao sentido.</p>
+        <p>Enquanto organiza em português o que acabou de ouvir, a outra pessoa continua falando. E, quando finalmente entende, ainda precisa pensar na resposta e encontrar uma forma de dizê-la em inglês. Muitas vezes as palavras aparecem, só que tarde demais para a conversa fluir com naturalidade.</p>
+        <p>Isso não quer dizer que traduzir seja errado. A tradução é uma habilidade útil e até quem fala muito bem recorre a ela em alguns momentos. A dificuldade está em depender do português para entender qualquer coisa.</p>
+        <p>Provavelmente isso já não acontece com expressões como <em>thank you</em>, <em>good morning</em> ou <em>I love you</em>. Você não precisa ouvir, procurar a tradução e só então compreender. O som já traz o sentido.</p>
+        <p>Com o treino, esse entendimento direto deixa de ficar restrito a meia dúzia de expressões e começa a alcançar perguntas, respostas e estruturas maiores. É assim que a tradução mental perde espaço: não porque você se obriga a evitá-la, mas porque passa a precisar menos dela.</p>
+        <Secret number="#02">Parar de traduzir mentalmente não é aprender a fazer a tradução mais depressa. É criar uma ligação mais direta entre o inglês e o sentido.</Secret>
+        <p>Para construir essa ligação, porém, não basta compreender explicações. É preciso separar duas coisas que costumamos chamar pelo mesmo nome: aprender inglês e treinar inglês.</p>
       </>
     ),
   },
@@ -191,18 +188,16 @@ export const chapters: Chapter[] = [
     readingTime: 6,
     content: (
       <>
-        <p className={styles.lead}>Você pode aprender uma regra hoje, acertar uma prova amanhã e continuar sem conseguir usar aquilo numa conversa.</p>
-        <p>Isso não é contradição. É a diferença entre conhecer uma informação e executar uma habilidade.</p>
+        <p className={styles.lead}>É perfeitamente possível entender uma regra hoje, acertar todos os exercícios amanhã e continuar sem conseguir usá-la numa conversa.</p>
+        <p>Não há contradição nisso. Entender uma informação e executar uma habilidade são etapas diferentes.</p>
         <LearnTrainDiagram />
-        <p>Quando você aprende, alguma coisa que antes parecia confusa passa a fazer sentido. O professor explica, você vê exemplos, anota uma regra e entende o significado. Esse primeiro contato é importante. Ele mostra o que fazer.</p>
-        <p>Treinar começa depois. No treino, você precisa reconhecer a frase quando outra pessoa fala, lembrar sem consultar o caderno e responder dentro do tempo da conversa. A informação deixa de estar apenas diante dos seus olhos e passa a ser exigida do seu ouvido e da sua fala.</p>
-        <p>Pense em dirigir. Alguém pode explicar a função da embreagem e mostrar exatamente quando trocar de marcha. Ainda assim, no primeiro dia ao volante, você precisa olhar para tudo, pensar em cada movimento e provavelmente deixa o carro morrer. Depois de repetir, troca de marcha enquanto conversa.</p>
-        <p>O conhecimento não desapareceu. Ele foi treinado até deixar de ocupar toda a atenção.</p>
-        <p>O mesmo acontece com um instrumento. Quem está começando no violão pensa no dedo, na corda e no movimento da mão. Quem treinou consegue tocar enquanto canta. Não ficou mais inteligente durante a música. Apenas levou movimentos repetidos para um nível em que já não precisa comandar cada detalhe.</p>
-        <p>Falar inglês exige essa mesma passagem. Se você apenas entende a explicação, o conteúdo ainda depende de pensamento lento. Quando treina, começa a reconhecer e produzir sem reconstruir tudo desde o início.</p>
-        <p>Isso explica frases como “eu até entendo, mas não consigo falar”, “na hora me dá branco” ou “eu sei a palavra, mas ela não vem”. Muitas vezes, a pessoa aprendeu. O que faltou foi exigir daquela informação a velocidade de uma habilidade.</p>
-        <Secret number="#03">Aprender coloca a informação na sua frente. Treinar faz essa informação aparecer quando a situação pede.</Secret>
-        <p>E se conversar é uma habilidade, o treino precisa ter uma característica que muita gente tenta evitar: repetição.</p>
+        <p>Ao aprender, você entra em contato com algo novo e passa a compreendê-lo. Uma explicação bem feita economiza tempo, organiza o assunto e evita confusão. Só que, ao terminar a aula, aquela informação ainda pode depender do exemplo na tela, da tradução ao lado e de alguns segundos para pensar.</p>
+        <p>O treino começa quando esses apoios são retirados. Você escuta a frase na voz de outra pessoa, tenta recuperá-la sem consultar o caderno e precisa responder no ritmo normal de uma conversa. Nesse momento, o inglês deixa de ser apenas um assunto que você entendeu e passa a ser uma habilidade que precisa executar.</p>
+        <p>Aprender a dirigir funciona de maneira parecida. Você pode entender para que servem a embreagem e a marcha antes de entrar no carro, mas isso não impede o motor de morrer nas primeiras tentativas. Depois de algum tempo, troca de marcha sem interromper a conversa com quem está no banco ao lado.</p>
+        <p>Com um instrumento acontece o mesmo. No início, cada dedo pede atenção. Mais tarde, o músico toca enquanto canta porque repetiu os movimentos até não precisar comandar conscientemente cada detalhe.</p>
+        <p>Quando alguém diz “eu entendo, mas não consigo falar” ou “eu sei a palavra, mas na hora ela não vem”, muitas vezes o problema está justamente aí. A pessoa aprendeu o conteúdo, mas ainda não o treinou nas condições em que pretende usá-lo.</p>
+        <Secret number="#03">Aprender ajuda você a entender o que fazer. Treinar faz com que consiga fazer quando precisa.</Secret>
+        <p>Se conversar é uma habilidade, esse treino inevitavelmente envolve repetição. Não há como ganhar velocidade executando cada coisa uma única vez.</p>
       </>
     ),
   },
@@ -215,17 +210,13 @@ export const chapters: Chapter[] = [
     readingTime: 5,
     content: (
       <>
-        <p className={styles.lead}>Não existe treino sem repetição.</p>
-        <p>Podemos trocar o nome, deixar a experiência mais bonita ou usar uma tecnologia nova. Mas, sempre que uma habilidade começa a ficar rápida, existe alguma forma de repetição por trás.</p>
-        <p>Uma criança escuta as mesmas palavras inúmeras vezes antes de usá-las. Um músico repete o mesmo trecho até que os dedos encontrem o caminho. Um atleta volta ao mesmo movimento até conseguir executá-lo sob pressão.</p>
-        <p>O inglês não recebe uma exceção só porque gostaríamos de aprender de um jeito mais divertido.</p>
-        <p>Isso não significa repetir sem atenção. Ouvir um áudio cinquenta vezes enquanto a mente está em outro lugar pode apenas transformar aquele som em ruído familiar. A repetição que treina tem um alvo: entender melhor, separar os sons, antecipar uma expressão, acompanhar a fala ou recuperar depois de um intervalo.</p>
-        <p>A cada volta, algo precisa ficar um pouco menos difícil.</p>
-        <p>O desconforto aparece porque nosso cérebro gosta da sensação de novidade. Uma aula nova produz a impressão imediata de avanço. Voltar à mesma frase depois que já entendemos o significado parece menos produtivo. Só que é justamente nessa volta que a compreensão começa a ganhar velocidade.</p>
-        <p>Na primeira vez, você descobre. Nas seguintes, começa a conseguir.</p>
-        <p>Isso também muda a pergunta “como ficar fluente sem repetir várias vezes?”. Se a fluência depende de respostas cada vez mais automáticas, retirar a repetição significa retirar o próprio treino.</p>
-        <Secret number="#04">Aquilo que hoje exige esforço consciente só começa a fluir depois de ser encontrado, entendido e executado muitas vezes.</Secret>
-        <p>Mas surge um problema: o idioma é enorme. Se é preciso repetir, o que merece ser repetido primeiro?</p>
+        <p className={styles.lead}>Toda habilidade que precisa funcionar com rapidez é construída por repetição.</p>
+        <p>Uma criança ouve as mesmas palavras muitas vezes antes de começar a usá-las. Um músico volta ao mesmo trecho até os dedos encontrarem o movimento. Um atleta repete um fundamento para conseguir executá-lo quando está cansado ou sob pressão. Com o inglês não seria diferente.</p>
+        <p>O problema é que repetição ganhou uma fama ruim. Ela costuma ser associada a decorar listas ou ouvir a mesma gravação sem prestar atenção. Esse tipo de repetição realmente pode render pouco. Se a mente está em outro lugar, o áudio apenas se torna um ruído conhecido.</p>
+        <p>No treino, cada volta tem uma função. Você repete para entender um trecho que escapou, perceber onde os sons se juntaram, antecipar uma expressão ou acompanhar a pronúncia. O material continua o mesmo, mas a maneira de ouvi-lo vai mudando.</p>
+        <p>A vontade de avançar aparece cedo porque o conteúdo novo dá uma sensação imediata de progresso. Assim que entendemos uma explicação, parece natural procurar a próxima. Só que entender é justamente o ponto a partir do qual o treino pode começar. As repetições seguintes dão velocidade ao que acabou de fazer sentido.</p>
+        <Secret number="#04">A primeira vez mostra o que uma frase significa. As repetições seguintes fazem com que você consiga reconhecê-la e usá-la sem começar do zero.</Secret>
+        <p>Se repetir é indispensável, não faz sentido distribuir o mesmo esforço pelo idioma inteiro. Antes de decidir como treinar, precisamos escolher o que merece ser treinado primeiro.</p>
       </>
     ),
   },
@@ -238,17 +229,15 @@ export const chapters: Chapter[] = [
     readingTime: 6,
     content: (
       <>
-        <p className={styles.lead}>Você não precisa dominar o idioma inteiro para começar a funcionar em inglês.</p>
-        <p>Existe uma primeira meta mais clara: tornar-se fluente no essencial. Isso significa reconhecer e usar com naturalidade a parte do inglês que sustenta as conversas mais comuns.</p>
+        <p className={styles.lead}>Tentar aprender o idioma inteiro antes de conversar é uma meta tão grande que não ajuda a decidir o que fazer hoje.</p>
+        <p>Uma primeira meta mais útil é desenvolver fluência no essencial: reconhecer e usar com naturalidade a parte do inglês que sustenta a maior parte das conversas comuns.</p>
         <EssentialDiagram />
-        <p>O idioma possui milhares de palavras, mas elas não aparecem com a mesma frequência. Um grupo muito menor retorna o tempo todo. São pronomes, verbos comuns, perguntas, conectores e estruturas que organizam quase qualquer assunto.</p>
-        <p>Isso não autoriza a promessa de que “500 palavras resolvem 90% do inglês”. A forma de contar palavras varia, e cobertura não é o mesmo que compreensão. Pesquisas sobre fala cotidiana trabalham com milhares de famílias de palavras para níveis altos de cobertura.</p>
-        <p>Mas a conclusão prática continua forte: uma parte relativamente pequena do idioma aparece muito mais do que o restante. Essa parte merece ser treinada com muito mais profundidade.</p>
-        <p>Pense numa conversa. As pessoas cumprimentam, perguntam, concordam, discordam, explicam causa, criam contraste e pedem esclarecimento. O tema muda, mas essas funções continuam. Você pode falar sobre trabalho, viagem ou família usando muitas das mesmas estruturas.</p>
-        <p>A Fluência Essencial não é inglês infantil. Também não é decorar frases de sobrevivência. É ter uma base conversacional rápida o bastante para que você consiga compreender, responder e continuar.</p>
-        <p>Depois, o vocabulário cresce de acordo com a sua vida. Quem trabalha com tecnologia aprende termos de tecnologia. Quem deseja vender em dólar aprofunda o inglês de vendas, negociação e negócios. A base é comum; o destino dá a direção.</p>
-        <Secret number="#05">Sua primeira meta não é saber todo o inglês. É fazer o inglês mais recorrente deixar de desaparecer na hora em que você precisa dele.</Secret>
-        <p>Para essa base ficar disponível, duas capacidades precisam ser treinadas desde o começo: ouvir e falar. E o ouvido merece atenção especial, porque ele não nasce pronto para separar os sons de outro idioma.</p>
+        <p>O inglês tem milhares de palavras, mas algumas aparecem muito mais do que outras. Pronomes, verbos comuns, perguntas, conectores e estruturas de conversa voltam independentemente do assunto. O tema pode mudar de trabalho para viagem ou família; grande parte da linguagem usada para perguntar, explicar, concordar e discordar continua ali.</p>
+        <p>Às vezes essa ideia é resumida na promessa de que “500 palavras resolvem 90% do inglês”. O número é atraente, mas simplifica demais. Há diferentes formas de contar uma palavra, e reconhecer boa parte do vocabulário de um conteúdo não significa compreender tudo nem conseguir falar. Estudos sobre a língua falada trabalham com milhares de famílias de palavras para chegar a níveis altos de cobertura.</p>
+        <p>Ainda assim, o princípio que importa permanece válido: o inglês mais recorrente merece uma quantidade desproporcional de treino. Quanto melhor você conhece essa base, mais fácil fica lidar com as palavras específicas de cada assunto.</p>
+        <p>Fluência Essencial, portanto, não é inglês infantil nem um punhado de frases para sobreviver numa viagem. É uma base conversacional rápida o bastante para você entender, responder e manter a interação. A partir dela, o vocabulário cresce na direção da sua vida: tecnologia para quem trabalha com tecnologia, reuniões para quem atua em empresas internacionais, vendas e negociação para quem deseja vender em dólar.</p>
+        <Secret number="#05">Antes de ampliar o idioma em todas as direções, vale tornar realmente disponível a parte que continuará aparecendo em quase todas elas.</Secret>
+        <p>Essa base depende de duas capacidades: ouvir e falar. E o ouvido merece atenção especial porque, no início, ele ainda não sabe separar com precisão os sons de outro idioma.</p>
       </>
     ),
   },
@@ -261,17 +250,15 @@ export const chapters: Chapter[] = [
     readingTime: 6,
     content: (
       <>
-        <p className={styles.lead}>O ouvido de quem aprende inglês passa por um processo parecido com o ouvido de um músico.</p>
+        <p className={styles.lead}>Aprender a ouvir inglês se parece, em vários aspectos, com desenvolver o ouvido para música.</p>
         <EarDiagram />
-        <p>Um músico experiente percebe quando uma nota está levemente errada. O som não chega de outra forma para ele. A diferença é que seu ouvido comparou aquele padrão tantas vezes que aprendeu a notar detalhes.</p>
-        <p>Na fala acontece algo semelhante. No começo, uma frase pode parecer um único som comprido. Depois de escutar o mesmo trecho, conferir o texto e voltar ao áudio, o ouvido começa a localizar palavras, reduções e emendas.</p>
-        <p>É por isso que uma frase pode ser fácil no papel e impossível no vídeo. Você conhece as palavras escritas, mas ainda não reconhece a forma que elas assumem quando um falante as conecta em velocidade normal.</p>
-        <p>Escutar ajuda. Mas apenas deixar o inglês tocando não garante que o ouvido descubra o que está perdendo. Uma pessoa pode ouvir música durante a vida inteira sem se tornar musicista. A exposição oferece matéria-prima; o treino chama atenção para o detalhe.</p>
-        <p>Um trecho curto permite esse trabalho. Você escuta sem texto, descobre onde se perdeu, confere a frase e retorna ao mesmo ponto. O som que parecia uma massa começa a ganhar divisões.</p>
-        <p>Depois que você entende, ainda pode repetir até reconhecer sem legenda. Esse é o momento em que o texto deixa de ser resposta e passa a ter cumprido sua função de mapa.</p>
-        <p>Quanto mais palavras e expressões essenciais o ouvido aprende a encontrar, menos energia você gasta tentando adivinhar onde cada palavra começa. A compreensão fica mais rápida porque o som deixa de ser inteiramente novo.</p>
-        <Secret number="#06">Escutar inglês não é apenas receber som. É ensinar o ouvido a encontrar, dentro do som, padrões que antes passavam despercebidos.</Secret>
-        <p>E, quando esses padrões começam a aparecer, você percebe que uma conversa não é construída palavra por palavra. Ela acontece em blocos.</p>
+        <p>Um músico experiente percebe uma nota levemente errada que passaria despercebida para a maioria das pessoas. Não é porque o som chega diferente aos ouvidos dele, mas porque anos de comparação o ensinaram a notar detalhes.</p>
+        <p>Com a fala acontece algo parecido. No começo, uma frase inteira pode soar como um bloco comprido e confuso. Quando você escuta o trecho, confere a transcrição e volta ao áudio, começa a identificar palavras, reduções e sons que estavam emendados.</p>
+        <p>Por isso uma frase simples no papel pode desaparecer quando é dita por um nativo. Você conhece todas as palavras, mas esperava ouvi-las separadas e com a pronúncia do dicionário. Na fala normal, elas se encurtam, se ligam e mudam de forma.</p>
+        <p>Ter bastante contato com o idioma ajuda, mas nem todo contato produz esse nível de atenção. Assim como alguém pode ouvir música a vida inteira sem aprender a identificar uma nota, também pode passar horas com áudio em inglês sem descobrir exatamente o que o ouvido está perdendo.</p>
+        <p>Um trecho curto torna essa comparação possível. Você escuta sem texto, localiza o ponto em que se perdeu, confere a frase e volta ao mesmo lugar. Depois de algumas repetições, o que parecia uma massa começa a se dividir. Quando reconhece sem legenda, a transcrição já cumpriu sua função.</p>
+        <Secret number="#06">Treinar o ouvido é voltar ao mesmo som com informação suficiente para perceber, na escuta seguinte, algo que antes não aparecia.</Secret>
+        <p>Conforme a fala fica mais nítida, outra coisa chama atenção: as unidades que reconhecemos não são apenas palavras isoladas. Boa parte da conversa chega em grupos de palavras que já ouvimos juntas.</p>
       </>
     ),
   },
@@ -284,17 +271,15 @@ export const chapters: Chapter[] = [
     readingTime: 5,
     content: (
       <>
-        <p className={styles.lead}>Expressões são a base de uma conversa.</p>
-        <p>Quando alguém chega e diz <em>How are you?</em>, não está inventando uma pergunta palavra por palavra. O bloco inteiro já existe. O mesmo vale para <em>What do you think about it?</em>, <em>I don&apos;t know if</em> ou <em>The thing is</em>.</p>
+        <p className={styles.lead}>Numa conversa real, ninguém monta todas as frases escolhendo uma palavra de cada vez.</p>
+        <p>Ao dizer <em>How are you?</em>, a pessoa não inventa a pergunta naquele momento. O grupo inteiro já existe e sai como uma unidade. O mesmo acontece com <em>What do you think about it?</em>, <em>I don&apos;t know if</em> ou <em>The thing is</em>.</p>
         <BlocksDiagram />
-        <p>Em português, fazemos isso o tempo todo. “Deixa eu ver”, “por outro lado”, “o problema é que” e “não sei se faz sentido” saem como unidades. Você não escolhe cada palavra. O bloco já carrega uma função.</p>
-        <p>É isso que dá velocidade. Quanto mais decisões precisam ser tomadas no meio da frase, maior a chance de travar. Quando uma expressão inteira está disponível, sua atenção pode se concentrar na ideia que deseja colocar dentro dela.</p>
-        <p>As palavras mais comuns também reaparecem dentro dessas estruturas. Você começa a notar que não está aprendendo apenas uma frase. Está treinando peças que voltam em perguntas, respostas e argumentos diferentes.</p>
-        <p>Foi o que aconteceu com os discursos que eu repetia. O assunto era vendas, mas grande parte da linguagem era formada por estruturas comuns: fazer uma pergunta, apresentar uma razão, criar contraste, explicar um problema e conduzir uma conclusão.</p>
-        <p>Ao decorar alguns trechos, eu não estava aprendendo somente aquele discurso. Estava dando velocidade a blocos que apareceriam em muitos outros lugares.</p>
-        <p>Isso não significa colecionar listas de expressões fora de contexto. O bloco fica mais forte quando você o escuta dentro de uma intenção, entende o papel que cumpre e o repete como parte de uma fala real.</p>
-        <Secret number="#07">Palavras ampliam o que você conhece. Expressões reduzem o número de decisões necessárias para transformar uma ideia em fala.</Secret>
-        <p>Agora podemos entender o que significa levar o inglês do conhecimento consciente para a execução automática.</p>
+        <p>Em português fazemos o mesmo com “deixa eu ver”, “por outro lado”, “o problema é que” e “não sei se faz sentido”. Essas expressões já carregam uma função. Quando precisamos criar contraste, por exemplo, “por outro lado” aparece sem que seja necessário escolher as três palavras separadamente.</p>
+        <p>Essa disponibilidade economiza atenção. Se cada parte da frase precisa ser decidida no momento, a fala se torna lenta e frágil. Quando a estrutura já está familiar, você pode se concentrar na ideia que deseja comunicar.</p>
+        <p>Foi isso que aconteceu com os discursos que eu repetia. Embora o assunto fosse vendas, boa parte da linguagem era comum a muitos contextos: fazer uma pergunta, apresentar uma razão, criar contraste, explicar um problema e chegar a uma conclusão. Ao decorar alguns trechos, eu também estava ganhando velocidade em estruturas que voltariam em outros lugares.</p>
+        <p>Não se trata de colecionar listas de expressões fora de contexto. Um bloco se torna útil quando você o escuta dentro de uma intenção, entende para que serve e o repete como parte de uma fala real.</p>
+        <Secret number="#07">Quanto mais estruturas familiares você tem à disposição, menos precisa interromper uma ideia para montar a frase palavra por palavra.</Secret>
+        <p>É essa redução do esforço consciente que começa a dar ao inglês a sensação de automático.</p>
       </>
     ),
   },
@@ -307,18 +292,15 @@ export const chapters: Chapter[] = [
     readingTime: 5,
     content: (
       <>
-        <p className={styles.lead}>No começo, você precisa pensar. Depois do treino, precisa pensar cada vez menos nos movimentos básicos.</p>
+        <p className={styles.lead}>No início de qualquer habilidade, os movimentos básicos ocupam quase toda a atenção.</p>
         <p>Essa passagem costuma ser explicada com números sobre a diferença entre o que chega ao sistema nervoso e o que cabe na atenção consciente. Uma estimativa muito citada compara cerca de 11 milhões de bits por segundo de processamento sensorial não consciente com aproximadamente 50 bits por segundo de processamento consciente.</p>
-        <p>A diferença é de cerca de <strong>220 mil vezes</strong>.</p>
-        <p>O número é poderoso, mas precisa ser entendido corretamente. Ele não diz que o “subconsciente aprende inglês 220 mil vezes mais rápido”. Compara o enorme volume de informação tratado fora da consciência com o canal estreito daquilo em que conseguimos prestar atenção deliberadamente.</p>
-        <p>O fenômeno pode ser observado de forma simples. No início, você aprende uma frase e precisa lembrar a regra, procurar a palavra e conferir a ordem. Depois de muitos encontros, reconhece a mesma estrutura mais rápido. Com treino de fala, consegue recuperá-la com menos esforço.</p>
-        <p>Dirigir oferece uma imagem clara. Nas primeiras aulas, espelho, seta, embreagem e marcha competem pela atenção. Mais tarde, você realiza essas ações enquanto acompanha o trânsito e mantém uma conversa. As ações não foram entregues a uma parte mágica do cérebro. Elas foram praticadas até exigir menos controle consciente.</p>
-        <p>No inglês, o objetivo é criar essa folga. Você não quer gastar toda a atenção procurando uma expressão básica. Quer que ela esteja disponível para que possa observar a pessoa, organizar o raciocínio e decidir o que realmente deseja dizer.</p>
-        <p>A tradução mental diminui como consequência. Não porque você se proíbe de traduzir, mas porque o som, o sentido e a resposta passam a se encontrar por caminhos mais curtos.</p>
-        <p>Esse limite ajuda a entender por que o treino é tão importante. Se cada som, palavra e regra precisar disputar espaço dentro da atenção consciente, a conversa fica congestionada. Quando padrões básicos são automatizados, a atenção fica livre para compreender a intenção, organizar a resposta e decidir o que dizer.</p>
-        <p>Pesquisas sobre automaticidade em um segundo idioma também mostram que a prática pode tornar o reconhecimento mais rápido e estável. O número explica o tamanho do gargalo. O treino mostra como deixar de colocar cada operação básica dentro dele.</p>
-        <Secret number="#08">O automático não é ausência de consciência. É o resultado de ter treinado as partes básicas até que elas deixem de consumir toda a consciência.</Secret>
-        <p>Para construir isso, você precisa de dois tipos de repetição. O primeiro acontece quando permanece no mesmo material.</p>
+        <p>Isso representa uma diferença de cerca de <strong>220 mil vezes</strong>, mas é importante não dar ao dado um significado que ele não tem. A comparação não afirma que o subconsciente aprende inglês 220 mil vezes mais rápido. Ela mostra o contraste entre o volume de informação tratado fora da consciência e a pequena quantidade em que conseguimos prestar atenção de propósito.</p>
+        <p>Na prática, esse limite é fácil de observar. Ao aprender uma frase, você talvez precise lembrar a regra, procurar a palavra e conferir a ordem. Depois de muitos encontros, reconhece a mesma estrutura mais depressa e consegue recuperá-la com menos esforço.</p>
+        <p>Nas primeiras aulas de direção, espelho, seta, embreagem e marcha disputam espaço na cabeça. Algum tempo depois, fazemos tudo isso enquanto acompanhamos o trânsito e conversamos. Os movimentos não foram entregues a uma parte misteriosa do cérebro; apenas foram praticados até exigir menos controle consciente.</p>
+        <p>É essa folga que procuramos no inglês. Se toda palavra e toda regra precisarem passar pelo centro da atenção, sobra pouco espaço para compreender a intenção da outra pessoa e organizar uma resposta. Conforme os padrões básicos se tornam automáticos, a tradução mental diminui porque som e sentido começam a se encontrar por um caminho mais curto.</p>
+        <p>Pesquisas sobre automaticidade em um segundo idioma também observam que a prática pode tornar o reconhecimento mais rápido e estável. O dado sobre processamento ajuda a visualizar o gargalo; o treino é o que permite deixar de empurrar cada operação básica por ele.</p>
+        <Secret number="#08">Automatizar não é falar sem consciência. É deixar de gastar toda a consciência nas peças básicas e poder usá-la na conversa.</Secret>
+        <p>Esse processo combina dois tipos de repetição. O primeiro acontece enquanto você permanece no mesmo material.</p>
       </>
     ),
   },
@@ -331,16 +313,15 @@ export const chapters: Chapter[] = [
     readingTime: 5,
     content: (
       <>
-        <p className={styles.lead}>Repetição continuada é repetir o mesmo material várias vezes dentro do mesmo período de treino.</p>
-        <p>Não se trata de apertar play distraidamente. Você volta com tarefas diferentes. Primeiro tenta entender. Depois confere o texto. Em seguida escuta sem apoio. Quando o trecho fica claro, acompanha a pessoa em voz alta.</p>
+        <p className={styles.lead}>Na repetição continuada, você trabalha o mesmo trecho várias vezes durante uma sessão.</p>
+        <p>Não é apenas deixar o áudio voltar ao começo. Em cada escuta, você procura alguma coisa: tenta entender sem apoio, confere a transcrição, volta sem o texto e, quando a frase está clara, começa a acompanhá-la em voz alta.</p>
         <RepetitionDiagram />
-        <p>Esse tipo de repetição faz o ouvido parar de tratar cada escuta como um encontro novo. A surpresa diminui. Os sons se separam. As expressões ficam previsíveis e a fala começa a caber na sua boca.</p>
-        <p>A primeira escuta mostra o ponto de partida. As seguintes permitem trabalhar exatamente onde você falhou. Isso seria impossível num fluxo infinito de conteúdo novo, porque o problema desapareceria junto com o trecho.</p>
-        <p>A repetição continuada também revela uma diferença importante entre entender e dominar. Você pode entender assim que lê a transcrição. Ainda assim, talvez não reconheça sem texto ou não consiga acompanhar em voz alta. Cada volta retira uma camada de dificuldade.</p>
-        <p>É parecido com aprender um solo. Descobrir quais notas estão sendo tocadas não encerra o treino. É justamente depois de descobrir que o músico começa a repetir até tocar no ritmo.</p>
-        <p>No inglês, muita gente para no equivalente a descobrir as notas. Entende a frase e já passa para a próxima. A compreensão chegou, mas não teve tempo de ganhar velocidade.</p>
-        <Secret number="#09">A primeira vez pode ensinar o que a frase significa. As repetições seguintes ensinam o ouvido e a boca a lidar com ela na velocidade em que existe.</Secret>
-        <p>O formato mais fácil para começar esse processo costuma ser um discurso curto.</p>
+        <p>Como o material permanece, o ouvido deixa de enfrentar uma surpresa nova a cada instante. Os sons se separam, algumas expressões se tornam previsíveis e a boca começa a encontrar o ritmo.</p>
+        <p>A primeira escuta serve como ponto de partida. Nas seguintes, você consegue voltar exatamente ao lugar em que falhou. Num fluxo de conteúdo novo isso é mais difícil, porque o problema desaparece junto com a cena.</p>
+        <p>Também fica mais fácil perceber a distância entre entender e dominar. Ler a transcrição pode resolver o significado em poucos segundos, mas ainda não garante que você reconheça a frase sem texto ou consiga repeti-la no ritmo do áudio.</p>
+        <p>Um músico vive algo parecido ao tirar um solo. Descobrir as notas é apenas o começo; o treino de verdade vem quando ele repete até tocar no tempo certo. No inglês, costumamos descobrir o significado da frase e parar justamente antes dessa etapa.</p>
+        <Secret number="#09">A repetição continuada começa depois que a frase foi entendida e termina quando ouvido e fala conseguem acompanhá-la com muito menos esforço.</Secret>
+        <p>Para começar, discursos curtos costumam funcionar bem porque oferecem fala real com uma estrutura mais fácil de acompanhar.</p>
       </>
     ),
   },
@@ -353,15 +334,14 @@ export const chapters: Chapter[] = [
     readingTime: 5,
     content: (
       <>
-        <p className={styles.lead}>Discursos oferecem uma boa ponte entre o inglês estudado e o inglês falado.</p>
-        <p>Em geral, a pessoa articula melhor, organiza o raciocínio e mantém o mesmo assunto por mais tempo. Isso torna o áudio mais acessível que uma conversa cheia de interrupções, sem transformar o material numa aula criada para alunos.</p>
-        <p>Um discurso também treina algo que respostas curtas não treinam: continuidade. Você acompanha como uma ideia começa, ganha razões, apresenta contraste e chega a uma conclusão.</p>
-        <p>Foi por isso que os áudios de vendas tiveram tanto valor para mim. Além de estarem ligados ao futuro que eu desejava, eles me colocavam diante de argumentos completos. Eu não repetia apenas frases de cumprimento. Repetia maneiras de sustentar uma ideia.</p>
-        <p>Isso não significa que discursos sejam suficientes. Conversas exigem reação, troca de voz, humor e respostas inesperadas. Mas, no início, um discurso permite reduzir parte dessa confusão e concentrar o treino no som, nos blocos e no ritmo.</p>
-        <p>Depois, o mesmo princípio pode ser aplicado a entrevistas, podcasts, filmes e séries. O material muda. A lógica permanece: escolher algo compreensível, dividir em partes pequenas e repetir com atenção.</p>
+        <p className={styles.lead}>Um bom discurso fica no meio do caminho entre o inglês didático das aulas e a confusão natural de uma conversa espontânea.</p>
+        <p>Normalmente a pessoa articula melhor, organiza o raciocínio e permanece no mesmo assunto por alguns minutos. O áudio continua sendo feito para falantes do idioma, mas há menos interrupções e mudanças inesperadas do que numa conversa.</p>
+        <p>Além de facilitar a escuta, o discurso treina continuidade. Você acompanha uma ideia desde o início, observa como ela recebe razões e contrastes e percebe de que maneira o falante chega à conclusão.</p>
+        <p>Os áudios de vendas foram valiosos para mim por esse motivo. Eles estavam ligados ao futuro que eu desejava e continham argumentos completos. Eu não repetia apenas frases de cumprimento; aprendia a permanecer em inglês enquanto uma ideia era desenvolvida.</p>
+        <p>Mais tarde, o mesmo tipo de treino pode ser levado para entrevistas, podcasts, filmes e séries. O material muda, mas a lógica continua: escolher algo que você consiga compreender com apoio, dividir em partes pequenas e repetir com atenção.</p>
         <Note title="Escolha um discurso útil"><p>Prefira alguém que fale com clareza, sobre um assunto que você realmente queira compreender. Interesse não substitui repetição, mas ajuda você a permanecer nela.</p></Note>
-        <Secret number="#10">Discursos treinam o inglês de sustentar uma ideia. Conversas treinam o inglês de reagir a outra pessoa. Você precisa dos dois, mas não precisa começar pelos dois ao mesmo tempo.</Secret>
-        <p>Escolhido o material, a unidade de treino precisa ser pequena o bastante para que você consiga observar a própria melhora.</p>
+        <Secret number="#10">O discurso ajuda a sustentar uma ideia; a conversa ensina a reagir a outra pessoa. As duas capacidades importam, mas podem ser treinadas em momentos diferentes.</Secret>
+        <p>Depois de escolher o material, ainda é preciso reduzi-lo a uma unidade que permita observar a própria melhora. Um minuto costuma ser um bom tamanho.</p>
       </>
     ),
   },
@@ -374,17 +354,16 @@ export const chapters: Chapter[] = [
     readingTime: 7,
     content: (
       <>
-        <p className={styles.lead}>Pegue o discurso e divida em trechos de aproximadamente um minuto.</p>
-        <p>O minuto não precisa terminar exatamente no segundo sessenta. Pode acompanhar o fim de uma frase ou de uma ideia. O importante é que seja curto o bastante para você voltar ao ponto exato sem se perder.</p>
+        <p className={styles.lead}>Em vez de tentar dominar o discurso inteiro de uma vez, divida-o em trechos de aproximadamente um minuto.</p>
+        <p>Não é necessário cortar exatamente no segundo sessenta. Vale acompanhar o fim de uma frase ou de uma ideia. O trecho só precisa ser curto o bastante para que você consiga voltar ao ponto exato sem se perder.</p>
         <MinuteDiagram />
-        <p>Na primeira escuta, tente entender sem legenda. Depois leia a transcrição e confirme o significado. Volte ao áudio até conseguir acompanhar sem depender do texto.</p>
-        <p>É aqui que muita gente passaria para o segundo minuto. O treino faz o contrário: permanece no primeiro. Você pode repetir durante vinte minutos ou mais, desde que continue prestando atenção ao som e à tarefa.</p>
-        <p>Quando o trecho estiver claro, comece a acompanhar em voz alta. Não tente falar mais alto que o áudio. Escute enquanto repete. O objetivo do shadowing não é vencer uma corrida, mas aproximar seu ritmo, suas pausas e suas ligações do modelo.</p>
-        <p>A velocidade pode ser aumentada como desafio depois que o material já está compreendido. Ouvir a 1,25× ou 1,5× pode criar uma margem extra para que a velocidade normal pareça confortável.</p>
-        <p>Mas 2× não é uma definição de fluência. Alguns áudios já são rápidos em velocidade normal. Outros são lentos. Aumentar um material que você ainda não entende apenas torna o ruído mais veloz. A regra útil é aumentar somente quando a nova velocidade ajuda a revelar uma fragilidade que você consegue trabalhar.</p>
-        <p>Depois de dominar o primeiro minuto, avance para o segundo. Ao final, escute o discurso inteiro. Você não estará ouvindo apenas um arquivo conhecido. Estará juntando partes que foram treinadas com profundidade.</p>
-        <Secret number="#11">Dividir o material não diminui o desafio. Torna o desafio pequeno o bastante para ser repetido, observado e vencido.</Secret>
-        <p>O mesmo princípio ganha ainda mais força quando chega às séries: em vez de atravessar uma temporada sem entender, você pode dominar um episódio.</p>
+        <p>Comece ouvindo sem legenda para descobrir o que já entende. Em seguida, leia a transcrição, confirme o significado e volte ao áudio. Quando conseguir reconhecer a fala sem depender do texto, passe a acompanhá-la em voz alta.</p>
+        <p>É justamente nesse ponto que muita gente avançaria para o minuto seguinte. Aqui, você permanece. Pode trabalhar o mesmo trecho por vinte minutos ou mais, desde que continue atento e mude a tarefa conforme progride.</p>
+        <p>No shadowing, tente escutar enquanto fala. Não se trata de correr atrás do áudio, mas de aproximar o ritmo, as pausas e as ligações do modelo sem abandonar a compreensão.</p>
+        <p>Quando o trecho já estiver claro, aumentar para 1,25× ou 1,5× pode oferecer um desafio extra e tornar a velocidade normal mais confortável. Isso não transforma 2× numa definição de fluência. Alguns falantes já são rápidos em velocidade normal, e acelerar um áudio incompreensível só acelera o ruído. A velocidade maior só é útil quando revela uma dificuldade que você consegue localizar e trabalhar.</p>
+        <p>Depois de dominar o primeiro minuto, siga para o segundo. Ao final, ouvir o discurso inteiro será uma experiência diferente: em vez de tentar sobreviver a um fluxo longo, você estará reunindo partes que conhece com profundidade.</p>
+        <Secret number="#11">Dividir o material não torna o treino menor. Torna a melhora visível.</Secret>
+        <p>Nas séries, essa mesma ideia leva a uma escolha importante: atravessar muitos episódios ou permanecer em um até realmente compreendê-lo.</p>
       </>
     ),
   },
@@ -397,16 +376,15 @@ export const chapters: Chapter[] = [
     readingTime: 6,
     content: (
       <>
-        <p className={styles.lead}>Treinar um episódio até entendê-lo pode produzir mais mudança que assistir a uma temporada inteira entendendo quase nada.</p>
-        <p>A temporada oferece história, diversão e contato com o idioma. Isso tem valor. O problema é confundir tempo de tela com capacidade construída.</p>
+        <p className={styles.lead}>Há uma diferença grande entre assistir a uma temporada e trabalhar um episódio até conseguir entendê-lo.</p>
+        <p>Ver a temporada oferece história, diversão e contato com o idioma, e nada disso precisa ser tratado como perda de tempo. A confusão começa quando usamos o número de horas assistidas como prova de que o ouvido melhorou.</p>
         <EpisodeDiagram />
-        <p>Num episódio, as palavras e expressões essenciais se repetem. O tema muda algumas peças, mas perguntas, respostas, pronomes, verbos comuns e estruturas de conversa continuam voltando.</p>
-        <p>Ao trabalhar o mesmo episódio várias vezes, você não memoriza apenas a história. Ensina o ouvido a lidar com aquelas vozes, com o ritmo da conversa e com blocos que também aparecerão em outros capítulos.</p>
-        <p>É como um músico que aprende uma música com cuidado. Ao começar a próxima, não volta ao ponto zero. A postura, o ritmo e muitos movimentos permanecem. No inglês, o segundo episódio traz novidades, mas encontra um ouvido que já aprendeu a procurar padrões.</p>
-        <p>O objetivo não é ficar preso ao mesmo episódio para sempre. É avançar depois de ter criado alguma coisa que possa avançar com você.</p>
-        <p>Você pode usar a velocidade como teste, mas não como troféu. Em séries com fala rápida, entender bem em velocidade normal já é um resultado forte. O sinal mais importante é perceber que, ao entrar no próximo episódio, parte do idioma já não parece completamente nova.</p>
-        <Secret number="#12">Volume mostra quanto conteúdo passou diante de você. Domínio mostra quanto daquele conteúdo mudou a forma como você ouve o próximo.</Secret>
-        <p>Até aqui, falamos de permanecer no material durante o treino. Falta o segundo tipo de repetição: voltar depois que o tempo levou embora a facilidade do momento.</p>
+        <p>Dentro de um episódio, as palavras e expressões essenciais voltam muitas vezes. O assunto muda algumas peças, mas perguntas, respostas, pronomes, verbos comuns e estruturas de conversa continuam reaparecendo.</p>
+        <p>Ao retornar ao mesmo episódio, você se acostuma com as vozes, com o ritmo e com blocos que também estarão nos capítulos seguintes. Não é apenas a história que se torna conhecida; o ouvido aprende o que procurar.</p>
+        <p>Um músico que aprendeu uma música com cuidado não volta ao ponto zero ao começar outra. Parte da postura, do ritmo e dos movimentos continua com ele. Da mesma maneira, o episódio seguinte traz novidades, mas encontra um ouvinte mais preparado.</p>
+        <p>O objetivo não é assistir ao mesmo episódio para sempre. É avançar depois de construir alguma coisa que possa seguir adiante com você. Em séries de fala rápida, entender bem na velocidade normal já é um resultado forte. Mais importante que perseguir 2× é notar que o próximo episódio já não parece inteiramente novo.</p>
+        <Secret number="#12">O valor de dominar um episódio aparece quando parte do que você treinou ajuda a compreender o episódio seguinte.</Secret>
+        <p>Esse domínio ainda precisa sobreviver ao tempo. Para descobrir o que realmente ficou, entramos no segundo tipo de repetição.</p>
       </>
     ),
   },
@@ -419,16 +397,14 @@ export const chapters: Chapter[] = [
     readingTime: 6,
     content: (
       <>
-        <p className={styles.lead}>A repetição continuada aprofunda. A repetição espaçada verifica se aquilo ficou.</p>
-        <p>Depois de repetir uma frase muitas vezes, tudo parece fácil. O som está fresco, o texto acabou de ser visto e a boca já sabe o movimento. Essa facilidade é útil, mas ainda não prova que a expressão estará disponível amanhã.</p>
-        <p>O intervalo cria um teste mais honesto.</p>
-        <p>Quando a frase retorna depois de algumas horas ou dias, você tenta entendê-la e repeti-la antes de consultar. Se foi fácil, ela pode demorar mais para voltar. Se foi difícil, retorna mais cedo. Esse é o princípio de sistemas de repetição espaçada, como o Anki.</p>
-        <p>Dentro de filmes e séries, o trabalho pode ser feito frase por frase. Você escuta, tenta compreender, confere a resposta e informa o nível de dificuldade. O sistema organiza as próximas revisões.</p>
-        <p>O valor não está no aplicativo em si. Está em não depender apenas da vontade de revisar. O intervalo separa aquilo que você realmente recupera daquilo que parecia dominado porque ainda estava na memória imediata.</p>
-        <p>As duas repetições cumprem papéis diferentes. Se você apenas repete na mesma hora, pode criar familiaridade sem permanência. Se apenas revisa frases que nunca aprofundou, cada encontro continua difícil demais. Primeiro você torna o padrão claro; depois precisa reencontrá-lo.</p>
-        <p>Ao fazer isso com frases de conteúdos conversacionais, as mesmas estruturas reaparecem em contextos diferentes. A revisão deixa de ser uma lista de vocabulário e passa a ser treino de ouvido, pronúncia e resposta.</p>
-        <Secret number="#13">Repetição continuada transforma ruído em padrão. Repetição espaçada transforma um padrão fácil agora em algo que você consegue recuperar depois.</Secret>
-        <p>Com o essencial mais claro, os blocos mais disponíveis e o ouvido treinado, acontece a mudança que torna todo o esforço inicial mais leve: você começa a aprender inglês enquanto usa o inglês.</p>
+        <p className={styles.lead}>No fim de uma sessão intensa, uma frase pode parecer tão fácil que temos a impressão de nunca mais esquecê-la.</p>
+        <p>Naquele momento, o som está fresco, a transcrição acabou de ser vista e a boca já conhece o movimento. Essa familiaridade ajuda, mas não garante que a expressão estará disponível no dia seguinte.</p>
+        <p>É o intervalo que torna o teste mais honesto. Quando a frase volta depois de algumas horas ou dias, você tenta compreendê-la e repeti-la antes de consultar qualquer apoio. Se foi fácil, pode esperar mais para revê-la; se foi difícil, precisa retornar mais cedo. Sistemas como o Anki organizam as revisões a partir desse princípio.</p>
+        <p>Com filmes e séries, o processo pode ser feito frase por frase. Você escuta, tenta compreender, confere a resposta e informa o grau de dificuldade. A utilidade do aplicativo não está em possuir uma tecnologia mágica, mas em evitar que a revisão dependa apenas da memória e da vontade.</p>
+        <p>Agora fica clara a função de cada repetição. A continuada permite aprofundar o material enquanto você está trabalhando nele. A espaçada mostra se esse aprendizado continua acessível depois que a facilidade do momento passou. Sem a primeira, cada revisão pode continuar difícil demais; sem a segunda, familiaridade pode ser confundida com permanência.</p>
+        <p>Quando as revisões usam frases de conteúdos reais, as mesmas estruturas aparecem em novas situações. Aos poucos, revisar deixa de ser apenas memorizar vocabulário e passa a treinar ouvido, pronúncia e resposta.</p>
+        <Secret number="#13">Primeiro você permanece até a frase ficar clara. Depois deixa passar um tempo e descobre se ainda consegue encontrá-la.</Secret>
+        <p>Com uma base cada vez mais disponível, consumir conteúdo em inglês também muda. Em vez de apenas suportar o idioma, você começa a usá-lo para chegar aos assuntos que lhe interessam.</p>
       </>
     ),
   },
@@ -441,17 +417,17 @@ export const chapters: Chapter[] = [
     readingTime: 6,
     content: (
       <>
-        <p className={styles.lead}>O inglês rápido e leve existe. Ele começa quando você entende o bastante para entrar em imersão.</p>
-        <p>Imersão simulada significa organizar o seu dia para que boa parte do conteúdo que consome esteja em inglês, mesmo sem morar fora. Vídeos, livros, podcasts, aulas e entretenimento passam a fazer parte do ambiente.</p>
+        <p className={styles.lead}>Chega um momento em que assistir, ler e ouvir em inglês deixa de parecer apenas estudo.</p>
+        <p>Você pode criar esse ambiente mesmo sem morar fora. Vídeos, livros, podcasts, aulas e entretenimento entram na rotina em inglês. É o que chamo de imersão simulada.</p>
         <ImmersionDiagram />
-        <p>Mas existe uma ordem. Se quase tudo ainda parece ruído, cercar-se de inglês pode apenas cercar você de frustração. Você ouve, não entende e precisa fazer força para permanecer.</p>
-        <p>Depois que a base essencial está mais automática, o cenário muda. Você entende a linha principal, reconhece blocos e usa o contexto para descobrir palavras novas. O assunto passa a ser mais importante que o idioma.</p>
-        <p>Foi assim que conteúdos de vendas e desenvolvimento pessoal ajudaram meu inglês. Eu queria aprender o que aquelas pessoas ensinavam. O idioma era o meio. Ao buscar um assunto que me interessava, continuava encontrando inglês sem precisar transformar cada minuto numa aula.</p>
-        <p>Esse é o ponto em que a curiosidade começa a dividir o trabalho com a disciplina. Você assiste porque quer saber o que acontece, lê porque deseja a ideia e escuta porque o conteúdo tem valor.</p>
-        <p>A imersão não encerra o treino concentrado. Quando surge uma dificuldade específica, você ainda pode voltar a um trecho, conferir o texto e repetir. A diferença é que agora existe um ambiente inteiro oferecendo novos exemplos para aquilo que já foi treinado.</p>
-        <p>A rota também se torna pessoal. Quem quer viajar consome situações de viagem. Quem quer trabalhar em inglês busca reuniões, entrevistas e conteúdos da própria área. Quem quer vender em dólar escuta vendedores, negociações e apresentações.</p>
-        <Secret number="#14">Imersão não é o lugar onde você joga um inglês que ainda não funciona. É o lugar onde um inglês já treinado começa a crescer por meio da própria vida.</Secret>
-        <p>É assim que repetição e expansão deixam de ser opostas. Você aprofunda para ganhar capacidade. Depois usa essa capacidade para entrar em mais conteúdo, onde encontra os próximos padrões que merecem profundidade.</p>
+        <p>A ordem faz diferença. Quando quase tudo ainda soa como ruído, cercar-se de inglês costuma produzir mais cansaço que aprendizado. Você não entende o suficiente para seguir o assunto e precisa fazer força o tempo todo.</p>
+        <p>Com uma base essencial mais automática, a experiência é outra. Você acompanha a linha principal, reconhece blocos conhecidos e usa o contexto para descobrir palavras novas. O assunto volta a ocupar o centro da atenção.</p>
+        <p>Foi assim que conteúdos de vendas e desenvolvimento pessoal passaram a acelerar meu inglês. Eu queria aprender o que aquelas pessoas estavam ensinando; o idioma era o meio para chegar lá. Como o tema me interessava, continuava ouvindo sem precisar tratar cada minuto como uma aula.</p>
+        <p>Nesse estágio, a curiosidade começa a dividir o trabalho com a disciplina. Você assiste porque quer saber o que acontece, lê porque deseja compreender uma ideia e escuta porque o conteúdo tem valor.</p>
+        <p>A imersão não elimina o treino concentrado. Quando surge uma dificuldade específica, ainda faz sentido isolar um trecho, conferir o texto e repetir. A diferença é que agora há um ambiente inteiro oferecendo novos exemplos do que você já treinou.</p>
+        <p>A partir daí, cada pessoa segue uma direção. Quem quer viajar busca situações de viagem. Quem trabalha em inglês acompanha reuniões, entrevistas e conteúdos da própria área. Quem pretende vender em dólar se aproxima de vendedores, negociações e apresentações.</p>
+        <Secret number="#14">A imersão funciona melhor quando você já entende o suficiente para que o próprio conteúdo continue ensinando.</Secret>
+        <p>Repetição e expansão, portanto, não competem. Você aprofunda para ganhar capacidade e usa essa capacidade para entrar em conteúdos maiores, onde encontrará os próximos pontos que merecem atenção.</p>
       </>
     ),
   },
@@ -463,16 +439,15 @@ export const chapters: Chapter[] = [
     readingTime: 4,
     content: (
       <>
-        <p className={styles.lead}>O pendrive quase vazio me obrigou a fazer algo que uma biblioteca infinita torna difícil: permanecer.</p>
-        <p>Eu não sabia que estava praticando repetição continuada. Não conhecia a expressão Fluência Essencial. Apenas escutava os mesmos discursos, percebia cada vez mais detalhes e tentava acompanhar a fala.</p>
-        <p>O que parecia uma limitação acabou revelando uma forma diferente de enxergar a fluência.</p>
-        <p>Você não para de traduzir porque aprendeu mais uma regra. Para de depender da tradução quando sons, sentidos e expressões começam a se encontrar sem a ponte constante do português.</p>
-        <p>Esse caminho passa por treino. Primeiro, você reduz o território ao inglês que mais volta. Depois, lapida o ouvido, repete blocos, acompanha falas e retorna ao material depois de um intervalo.</p>
-        <p>Um minuto fica claro. Um discurso começa a fluir. Um episódio deixa de parecer uma massa de som. Então o próximo conteúdo encontra você um pouco mais preparado.</p>
-        <p>Não há necessidade de transformar isso numa promessa mágica. A mudança é mais concreta: aquilo que antes exigia pausa começa a acontecer enquanto o inglês ainda está sendo falado.</p>
-        <Secret number="#15">Fluência não nasce do volume de inglês que você já encontrou. Nasce da parte desse inglês que foi treinada até conseguir chegar a tempo.</Secret>
-        <p>Quando sentir que precisa de mais conteúdo, faça antes uma pergunta: eu realmente esgotei o que este trecho ainda pode ensinar ao meu ouvido e à minha fala?</p>
-        <p>Talvez o próximo salto não esteja no próximo vídeo. Talvez esteja na próxima repetição.</p>
+        <p className={styles.lead}>Hoje eu vejo aquele pendrive quase vazio de uma forma bem diferente.</p>
+        <p>Na época, ele parecia uma limitação. Agora sei que a falta de opções me fez permanecer nos mesmos áudios durante muito mais tempo do que eu provavelmente permaneceria se tivesse uma biblioteca infinita à disposição.</p>
+        <p>Eu não conhecia os nomes repetição continuada ou Fluência Essencial. Apenas ouvia os discursos, entendia um pouco mais a cada volta e tentava acompanhar a fala. Sem perceber, estava treinando justamente as partes do inglês que depois apareceriam em outros lugares.</p>
+        <p>Foi assim que a tradução mental começou a diminuir. Não aconteceu porque aprendi uma regra capaz de desligar o português, mas porque sons, sentidos e expressões foram se tornando familiares o bastante para se encontrar diretamente.</p>
+        <p>O processo descrito neste livro segue a mesma lógica. Você começa pelo inglês que mais volta, aprende a escutá-lo na fala real, repete blocos, acompanha trechos e retorna a eles depois de algum tempo. Um minuto fica claro, depois um discurso, depois um episódio. Cada conteúdo novo encontra um ouvido um pouco mais preparado.</p>
+        <p>Não é necessário transformar isso numa promessa mágica. O resultado que importa é bastante concreto: algo que antes exigia pausa passa a ser compreendido enquanto o inglês ainda está sendo falado.</p>
+        <Secret number="#15">A fluência cresce na parte do inglês que você treinou até conseguir reconhecer e usar a tempo de continuar a conversa.</Secret>
+        <p>Por isso, quando sentir que precisa imediatamente de mais conteúdo, vale fazer uma última pergunta: este trecho realmente já entregou tudo o que poderia ensinar ao meu ouvido e à minha fala?</p>
+        <p>Muitas vezes, o próximo avanço ainda está ali.</p>
       </>
     ),
   },
