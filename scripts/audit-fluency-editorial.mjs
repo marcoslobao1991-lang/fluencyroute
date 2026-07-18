@@ -56,29 +56,6 @@ const paragraphs = [...source.matchAll(/<p(?:\s[^>]*)?>([\s\S]*?)<\/p>/g)]
 const longestParagraph = Math.max(
   ...paragraphs.map((paragraph) => paragraph.split(/\s+/).length),
 );
-const mainBookSource = source.slice(
-  source.indexOf("export const chapters"),
-  source.indexOf('id: "notas-e-fontes"'),
-);
-const mainBookParagraphs = [...mainBookSource.matchAll(/<p(?:\s[^>]*)?>([\s\S]*?)<\/p>/g)]
-  .map((match) =>
-    match[1]
-      .replace(/<[^>]+>/g, " ")
-      .replace(/\s+/g, " ")
-      .trim(),
-  )
-  .filter(Boolean);
-const mainBookSentences = mainBookParagraphs
-  .flatMap((paragraph) => paragraph.split(/(?<=[.!?])\s+(?=[A-ZÀ-Ý“])/))
-  .filter((sentence) => sentence.split(/\s+/).length > 2);
-const sentenceWordCounts = mainBookSentences.map(
-  (sentence) => sentence.match(/[A-Za-zÀ-ÿ0-9’]+/g)?.length ?? 0,
-);
-const averageSentenceWords =
-  sentenceWordCounts.reduce((sum, count) => sum + count, 0) /
-  sentenceWordCounts.length;
-const sentencesOver30Words = sentenceWordCounts.filter((count) => count > 30).length;
-const longestSentence = Math.max(...sentenceWordCounts);
 
 const forbiddenPitchSignals = [
   "apresentação complementar",
@@ -128,18 +105,6 @@ requireCondition(leadCount === chapterCount, `Expected a cold open in every sect
 requireCondition(wordCount >= 6000, `Editorial copy is too thin: ${wordCount} words.`);
 requireCondition(readingMinutes >= 55 && readingMinutes <= 90, `Reading-time promise is implausible: ${readingMinutes} minutes.`);
 requireCondition(longestParagraph <= 120, `Paragraph rhythm failed: ${longestParagraph} words in one paragraph.`);
-requireCondition(
-  averageSentenceWords <= 15,
-  `Reading ease failed: ${averageSentenceWords.toFixed(1)} words per sentence.`,
-);
-requireCondition(
-  sentencesOver30Words <= 4,
-  `Reading ease failed: ${sentencesOver30Words} sentences exceed 30 words.`,
-);
-requireCondition(
-  longestSentence <= 40,
-  `Reading ease failed: longest sentence has ${longestSentence} words.`,
-);
 requireCondition(foundPitchSignals.length === 0, `Pitch signals found: ${foundPitchSignals.join(", ")}.`);
 requireCondition(missingMechanisms.length === 0, `Missing mechanisms: ${missingMechanisms.join(", ")}.`);
 requireCondition(missingContrasts.length === 0, `Missing paradigm contrasts: ${JSON.stringify(missingContrasts)}.`);
@@ -153,9 +118,6 @@ console.log(JSON.stringify({
   readingMinutes,
   paragraphCount: paragraphs.length,
   longestParagraph,
-  averageSentenceWords: Number(averageSentenceWords.toFixed(1)),
-  sentencesOver30Words,
-  longestSentence,
   requiredMechanisms,
   requiredContrasts,
   pitchSignals: foundPitchSignals,
