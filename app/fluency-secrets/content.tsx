@@ -61,7 +61,7 @@ function LearnVsTrain() {
 function AvailabilityGap() {
   return (
     <figure className={styles.diagram} aria-labelledby="availability-title">
-      <figcaption><span>MECANISMO 02</span><strong id="availability-title">A Lacuna de Disponibilidade</strong></figcaption>
+      <figcaption><span>MECANISMO 02</span><strong id="availability-title">O Inglês que Some na Hora H</strong></figcaption>
       <div className={styles.availabilityMeter}>
         <div><span>1</span><p><b>Já vi</b> Parece familiar.</p></div>
         <div><span>2</span><p><b>Reconheço</b> Entendo com apoio.</p></div>
@@ -77,7 +77,7 @@ function AvailabilityGap() {
 function NoveltyTreadmill() {
   return (
     <figure className={styles.diagram} aria-labelledby="novelty-title">
-      <figcaption><span>MECANISMO 03</span><strong id="novelty-title">A Esteira da Novidade</strong></figcaption>
+      <figcaption><span>MECANISMO 03</span><strong id="novelty-title">O Vício de Sempre Recomeçar</strong></figcaption>
       <div className={styles.treadmill}>
         <div><b>1</b>Conteúdo novo</div><span>→</span>
         <div><b>2</b>Entendimento fácil</div><span>→</span>
@@ -105,7 +105,7 @@ function PerceptionLayers() {
 function EssentialFilter() {
   return (
     <figure className={styles.diagram} aria-labelledby="essential-v2-title">
-      <figcaption><span>MECANISMO 05</span><strong id="essential-v2-title">O Filtro da Fluência Essencial</strong></figcaption>
+      <figcaption><span>MECANISMO 05</span><strong id="essential-v2-title">O Núcleo que Destrava o Resto</strong></figcaption>
       <div className={styles.essentialFilter}>
         <div><span>01</span><b>Recorrência</b><p>Volta em muitas vozes e situações.</p></div>
         <div><span>02</span><b>Combinação</b><p>Forma muitos blocos e funções.</p></div>
@@ -143,7 +143,7 @@ function RepetitionDirections() {
 function MasteryThreshold() {
   return (
     <figure className={styles.diagram} aria-labelledby="threshold-title">
-      <figcaption><span>CRITÉRIO DE SAÍDA</span><strong id="threshold-title">O Ponto de Domínio</strong></figcaption>
+      <figcaption><span>CRITÉRIO DE SAÍDA</span><strong id="threshold-title">A Linha do Automático</strong></figcaption>
       <div className={styles.scorecard}>
         <div><span>01</span><b>Percebo</b><p>Os blocos principais aparecem sem legenda.</p></div>
         <div><span>02</span><b>Entendo</b><p>O sentido chega sem reconstrução constante.</p></div>
@@ -178,7 +178,7 @@ function ExperimentCard() {
 function TransferLadder() {
   return (
     <figure className={styles.diagram} aria-labelledby="transfer-v2-title">
-      <figcaption><span>MECANISMO 07</span><strong id="transfer-v2-title">A Escada de Transferência</strong></figcaption>
+      <figcaption><span>MECANISMO 07</span><strong id="transfer-v2-title">O Inglês Puxa Mais Inglês</strong></figcaption>
       <div className={styles.routeMap}>
         <div><span>01</span><b>Trecho</b><small>nitidez</small></div><i>→</i>
         <div><span>02</span><b>Episódio</b><small>recorrência</small></div><i>→</i>
@@ -257,7 +257,7 @@ export const chapters: Chapter[] = [
         <p>Uma regra é explicada. A tradução faz sentido. O exercício mantém todas as pistas na tela. Você acerta e recebe a sensação legítima de compreensão. O problema é dar a essa sensação o nome de habilidade.</p>
         <p>A vida real remove as pistas. O som chega uma vez, misturado a redução, sotaque, emoção e ruído. A resposta precisa aparecer sem lista de alternativas. É aí que o conhecimento revela se está apenas reconhecível ou realmente disponível.</p>
         <AvailabilityGap />
-        <p>A distância entre “já vi” e “consigo usar antes que o momento passe” é a <strong>Lacuna de Disponibilidade</strong>. Ela explica uma experiência humilhante para muita gente: diante de uma apostila, o inglês parece grande; diante de uma pessoa, parece desaparecer.</p>
+        <p>A distância entre “já vi” e “consigo usar antes que o momento passe” produz o <strong>Inglês que Some na Hora H</strong>. Ela explica uma experiência humilhante para muita gente: diante de uma apostila, o inglês parece grande; diante de uma pessoa, parece desaparecer.</p>
         <p>Ele não desapareceu. Está chegando tarde.</p>
         <p>É comum dar outro nome a esse atraso. “Deu branco.” “Fiquei nervoso.” “Na hora eu esqueço tudo.” Ansiedade pode piorar a situação, claro. Mas ela não explica por que a palavra reaparece segundos depois que a conversa termina. Muitas vezes, o conhecimento estava presente; o caminho de acesso ainda era lento e instável demais para aquela janela.</p>
         <p>Essa interpretação muda a identidade do problema. “Eu sou ruim com idiomas” não oferece ação. “Meu acesso ainda não acompanha a situação” oferece um alvo de treino.</p>
@@ -296,7 +296,7 @@ export const chapters: Chapter[] = [
     id: "a-esteira-da-novidade",
     part: "Parte I — O diagnóstico que muda tudo",
     number: 4,
-    title: "A esteira da novidade",
+    title: "O vício de sempre recomeçar",
     eyebrow: "Quando movimento se fantasia de progresso",
     readingTime: 4,
     content: (
@@ -305,7 +305,7 @@ export const chapters: Chapter[] = [
         <p>Você assiste a uma dica, salva uma expressão, começa uma aula, muda de professor, baixa um aplicativo e encontra outra técnica. Cada encontro oferece uma pequena recompensa: por alguns minutos, algo que era desconhecido fica claro.</p>
         <p>Clareza é boa. Mas ela pode esconder uma pergunta incômoda: amanhã, sem a tela e sem o professor, o que ainda estará disponível?</p>
         <NoveltyTreadmill />
-        <p>A <strong>Esteira da Novidade</strong> não é falta de esforço. Muitas vezes é esforço demais distribuído em primeiros contatos. Você se movimenta, se cansa e acumula a sensação de ter estudado — mas quase nunca permanece no desconforto específico em que reconhecimento vira recuperação.</p>
+        <p>O <strong>Vício de Sempre Recomeçar</strong> não é falta de esforço. Muitas vezes é esforço demais distribuído em primeiros contatos. Você se movimenta, se cansa e acumula a sensação de ter estudado — mas quase nunca permanece no desconforto específico em que reconhecimento vira recuperação.</p>
         <p>Ela também cria uma injustiça silenciosa. Como cada conteúdo parece fácil no momento da explicação e difícil na hora de usar, você conclui que o problema é memória, disciplina ou talento. Então procura um professor “mais didático”, uma técnica “mais simples” ou uma promessa “mais rápida”. A próxima novidade reinicia a sensação de competência — e o ciclo se protege.</p>
         <p>O mercado não precisa mentir para manter essa esteira. Basta medir entrega em aulas, módulos, palavras e assuntos, enquanto você mede sua frustração em segundos de silêncio.</p>
         <p>Foi o oposto do que aconteceu no meu carro. O pendrive pequeno retirou a saída de emergência. Quando um trecho deixava de ser interessante, eu não tinha um algoritmo oferecendo o próximo. Os mesmos sons permaneceram até revelarem detalhes que uma primeira escuta não tinha condição de mostrar.</p>
@@ -454,12 +454,12 @@ export const chapters: Chapter[] = [
         <p className={styles.lead}>Você não deve avançar porque ficou entediado. Também não deve permanecer até uma perfeição imaginária.</p>
         <p>O critério precisa ser observável.</p>
         <MasteryThreshold />
-        <p>O <strong>Ponto de Domínio</strong> chega quando os blocos principais aparecem sem legenda, o significado depende menos da reconstrução, parte da sequência fica previsível, a boca consegue acompanhar sem roubar toda a atenção do ouvido e o reconhecimento sobrevive a um intervalo.</p>
+        <p>Você cruza a <strong>Linha do Automático</strong> quando os blocos principais aparecem sem legenda, o significado depende menos da reconstrução, parte da sequência fica previsível, a boca consegue acompanhar sem roubar toda a atenção do ouvido e o reconhecimento sobrevive a um intervalo.</p>
         <p>Nenhum desses itens exige pronúncia perfeita ou memória fotográfica. Eles exigem deslocamento em relação à primeira escuta.</p>
         <p>Aumentar a velocidade pode ser usado como sobrecarga opcional em material já compreendido — assim como um músico pode ensaiar acima do andamento para criar folga. Mas compreender a 2× não define fluência, e acelerar áudio incompreensível apenas acelera o ruído.</p>
         <p>É tentador transformar 2× num símbolo universal de domínio. O símbolo é útil; a regra, não. Fala natural já varia muito. Comédia rápida, entrevista técnica e discurso preparado não impõem a mesma carga. O objetivo é criar margem em relação ao material e à situação que importam, não perseguir um número no botão do player.</p>
         <p>A velocidade certa é aquela que torna o desafio produtivo: difícil o bastante para expor uma fragilidade, compreensível o bastante para você localizar o que precisa mudar.</p>
-        <p>Depois do Ponto de Domínio, variedade deixa de ser fuga e vira teste. Uma nova voz mostra se você aprendeu o arquivo ou o padrão. Um novo contexto mostra se o bloco possui flexibilidade. Um novo assunto revela o que a base essencial consegue sustentar.</p>
+        <p>Depois da Linha do Automático, variedade deixa de ser fuga e vira teste. Uma nova voz mostra se você aprendeu o arquivo ou o padrão. Um novo contexto mostra se o bloco possui flexibilidade. Um novo assunto revela o que a base essencial consegue sustentar.</p>
         <Secret number="#11">Não aumente a dificuldade para provar coragem. Aumente quando a nova dificuldade conseguir revelar a próxima adaptação.</Secret>
         <p>Até aqui falamos de entender e reproduzir trechos. Mas a vida exige duas formas de permanência em inglês: trocar rapidamente e sustentar uma ideia.</p>
       </>
@@ -531,7 +531,7 @@ export const chapters: Chapter[] = [
         <p>O primeiro trecho ensina duas coisas: o inglês que contém e a maneira de transformar ruído em padrão. O segundo encontra um ouvido com pontos de referência e uma pessoa que já não interpreta dificuldade como incapacidade.</p>
         <p>É aqui que distinguimos <strong>memorização</strong> de <strong>transferência</strong>. Se você apenas reproduz o arquivo antigo, houve aprendizagem específica. Quando reconhece o mesmo bloco em nova voz, recupera uma estrutura em nova ideia ou percebe uma redução parecida em outra cena, a capacidade viajou.</p>
         <TransferLadder />
-        <p>A Escada de Transferência não manda saltar do minuto para a imersão. Ela aumenta a escala sem destruir a profundidade: trechos formam cenas, cenas constroem um episódio, episódios ampliam recorrência, discursos adicionam continuidade e novos contextos testam flexibilidade.</p>
+        <p>É assim que <strong>o Inglês Puxa Mais Inglês</strong>. Você não salta do minuto para a imersão; aumenta a escala sem destruir a profundidade: trechos formam cenas, cenas constroem um episódio, episódios ampliam recorrência, discursos adicionam continuidade e novos contextos testam flexibilidade.</p>
         <Secret number="#14">Cada trecho dominado entrega duas coisas: o inglês que estava nele e um cérebro um pouco melhor em encontrar inglês no próximo.</Secret>
         <p>Agora podemos corrigir a última promessa sedutora: “basta mergulhar”. Mergulhar ajuda muito — depois que você consegue nadar.</p>
       </>
@@ -555,7 +555,7 @@ export const chapters: Chapter[] = [
         <p>Essa fronteira também muda a motivação. Antes dela, estudar compete com entretenimento. Depois dela, entretenimento, trabalho e curiosidade podem carregar parte do treino. O idioma deixa de ser sempre o assunto e começa a ser o meio pelo qual você chega ao assunto.</p>
         <p>Depois, a rota se torna pessoal. Quem quer viajar adiciona situações de viagem. Quem quer trabalhar numa multinacional treina reuniões e entrevistas. Quem quer vender em dólar precisa escutar objeções, sustentar argumentos e reagir a pessoas reais.</p>
         <p>A Fluência Essencial é comum na base e individual no destino. Todos se beneficiam de sons mais nítidos, blocos disponíveis e recuperação rápida. A vida de cada pessoa decide quais territórios merecem profundidade em seguida.</p>
-        <Note title="O teste de qualquer método"><p>Ele aumenta apenas o conteúdo apresentado ou reduz a sua Lacuna de Disponibilidade? Há profundidade, recuperação, variação e transferência? Você consegue apontar algo que agora percebe ou faz e antes não conseguia?</p></Note>
+        <Note title="O teste de qualquer método"><p>Ele apenas apresenta mais conteúdo ou impede o seu inglês de sumir na hora H? Há profundidade, recuperação, variação e transferência? Você consegue apontar algo que agora percebe ou faz e antes não conseguia?</p></Note>
         <Secret number="#15">Imersão não é ficar cercado de inglês. É chegar ao ponto em que o inglês ao redor consegue continuar ensinando você.</Secret>
         <p>Essa é a verdadeira promessa da expansão: não terminar o idioma, mas construir uma capacidade que deixa de depender de alguém escolher cada próximo passo por você.</p>
       </>

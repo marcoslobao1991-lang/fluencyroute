@@ -72,11 +72,11 @@ const foundPitchSignals = forbiddenPitchSignals.filter((signal) =>
 
 const requiredMechanisms = [
   "Imposto da Segunda Conversa",
-  "Lacuna de Disponibilidade",
-  "Esteira da Novidade",
-  "Ponto de Domínio",
+  "Inglês que Some na Hora H",
+  "Vício de Sempre Recomeçar",
+  "Linha do Automático",
   "Fluência Essencial",
-  "Escada de Transferência",
+  "Inglês Puxa Mais Inglês",
 ];
 const missingMechanisms = requiredMechanisms.filter(
   (mechanism) => !source.includes(mechanism),

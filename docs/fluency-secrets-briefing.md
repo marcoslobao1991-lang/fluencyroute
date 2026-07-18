@@ -121,7 +121,7 @@ A estrada, a ambição de vender em dólar, a repetição involuntária e o mome
 1. A conversa que chega atrasada
 2. Entender não é conseguir
 3. Aprender inglês não é treinar inglês
-4. A esteira da novidade
+4. O vício de sempre recomeçar
 
 ### Parte II — Como o inglês entra no automático
 
@@ -133,7 +133,7 @@ A estrada, a ambição de vender em dólar, a repetição involuntária e o mome
 
 8. Um minuto dominado
 9. As duas repetições
-10. O ponto de domínio
+10. A linha do automático
 11. Conversar e sustentar uma ideia
 
 ### Parte IV — A prova
@@ -172,17 +172,17 @@ Direção: livro premium de negócios e comportamento. Fundo marfim, tinta quase
 Mecanismos e diagramas editoriais:
 
 - O Imposto da Segunda Conversa.
-- A Lacuna de Disponibilidade.
-- A Esteira da Novidade.
+- O Inglês que Some na Hora H.
+- O Vício de Sempre Recomeçar.
 - O Loop de Automatização.
 - O Caminho Direto para o significado.
 - As duas versões de uma conversa.
 - Conhecimento consciente versus execução automática.
 - Consumo Aleatório versus Treino Concentrado.
 - Repetição Continuada versus Espaçada.
-- A Pirâmide da Fluência Essencial.
+- O Núcleo que Destrava o Resto.
 - O Filtro do Essencial: recorrência, combinação e relevância.
-- A Escada de Transferência: trecho → episódio → discurso → imersão.
+- O Inglês Puxa Mais Inglês: trecho → episódio → discurso → imersão.
 
 ## 12. Experiência do leitor
 
