@@ -158,6 +158,20 @@
   .verdict .heard b { color: var(--text); }
   .scorebar { height: 6px; border-radius: 3px; background: color-mix(in srgb, currentColor 18%, transparent); margin-top: 9px; overflow: hidden; }
   .scorebar i { display: block; height: 100%; width: 0; background: currentColor; border-radius: 3px; transition: width .6s ease; }
+  .report { margin-top: 14px; border-radius: var(--r-sm); padding: 14px 15px; background: var(--surface-2); border: 1px solid var(--line); display: none; }
+  .report.show { display: block; animation: fade .25s ease; }
+  .rep-head { display: flex; align-items: baseline; gap: 9px; margin-bottom: 11px; }
+  .rep-score { font-size: 27px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1; }
+  .rep-score.g-ok { color: var(--signal); } .rep-score.g-mid { color: var(--accent); } .rep-score.g-low { color: var(--coral); }
+  .rep-label { font-size: var(--t-xs); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+  .rep-target { font-size: var(--t-md); line-height: 1.85; }
+  .rep-target .w { padding: 1px 3px; border-radius: 4px; }
+  .rep-target .w-ok { color: var(--signal); }
+  .rep-target .w-miss { color: var(--coral); text-decoration: underline wavy; text-underline-offset: 3px; }
+  .rep-tip { margin-top: 11px; font-size: var(--t-sm); color: var(--text-soft); }
+  .rep-tip b { color: var(--coral); }
+  .rep-heard { margin-top: 9px; font-size: var(--t-xs); color: var(--muted); }
+  .rep-heard b { color: var(--text); } .rep-heard em { color: var(--accent); font-style: normal; font-weight: 600; }
 
   .trigger { background: var(--surface-2); border-left: 3px solid var(--accent); border-radius: 0 var(--r-sm) var(--r-sm) 0; padding: 12px 14px; margin-bottom: 14px; }
   .trigger .q { font-size: 16px; font-weight: 600; }
@@ -186,6 +200,7 @@
   .nav .master.ready { animation: ready 1.5s ease-in-out 3; }
   @keyframes ready { 0%,100%{box-shadow:0 0 0 0 rgba(244,183,64,.5)} 50%{box-shadow:0 0 0 7px rgba(244,183,64,0)} }
   .ghost { background: transparent; } .ghost:disabled { opacity: .3; cursor: default; }
+  .btn.master:disabled { opacity: .5; cursor: default; }
 
   /* index drawer */
   #scrim { position: fixed; inset: 0; background: rgba(5,10,18,.5); opacity: 0; pointer-events: none; transition: .3s; z-index: 40; }
@@ -468,6 +483,30 @@ function listen(target, onResult){ if(!micOK){ onResult(null); return; }
   try{ r.start(); }catch(e){ onResult({error:"start"}); } }
 function similarity(a,b){ const A=a.split(" ").filter(Boolean), Bw=b.split(" ").filter(Boolean); if(!Bw.length)return 0;
   let hit=0; const used=[]; Bw.forEach(w=>{ const i=A.findIndex((x,k)=>x===w&&!used.includes(k)); if(i>=0){hit++;used.push(i);} }); return hit/Bw.length; }
+// word-level alignment (LCS) para diagnostico palavra a palavra
+function diagnose(target, said){
+  const rawT=target.replace(/\s+/g," ").trim().split(" ");
+  const T=rawT.map(norm), S=norm(said).split(" ").filter(Boolean);
+  const n=T.length, m=S.length, dp=Array.from({length:n+1},()=>new Array(m+1).fill(0));
+  for(let i=1;i<=n;i++)for(let j=1;j<=m;j++) dp[i][j]=T[i-1]===S[j-1]?dp[i-1][j-1]+1:Math.max(dp[i-1][j],dp[i][j-1]);
+  const ok=new Array(n).fill(false); let i=n,j=m;
+  while(i>0&&j>0){ if(T[i-1]===S[j-1]){ok[i-1]=true;i--;j--;} else if(dp[i-1][j]>=dp[i][j-1])i--; else j--; }
+  const hits=ok.filter(Boolean).length;
+  return {rawT, ok, hits, total:n, pct:n?Math.round(hits/n*100):0};
+}
+function grade(pct){ return pct>=85?["g-ok","cristalina"]:pct>=60?["g-mid","boa, quase lá"]:["g-low","precisa treinar"]; }
+function speechReport(el, target, said){
+  const d=diagnose(target,said), g=grade(d.pct);
+  const words=d.rawT.map((w,k)=>`<span class="w ${d.ok[k]?'w-ok':'w-miss'}">${w}</span>`).join(" ");
+  const miss=d.rawT.filter((w,k)=>!d.ok[k]);
+  const tip = miss.length
+    ? `<div class="rep-tip">Sons a lapidar: <b>${miss.join(", ")}</b>. Ouça a frase focando neles e grave de novo.</div>`
+    : `<div class="rep-tip">Todas as palavras saíram claras — é o ritmo entrando no automático.</div>`;
+  el.className="report show";
+  el.innerHTML=`<div class="rep-head"><span class="rep-score ${g[0]}">${d.pct}%</span><span class="rep-label">Clareza · ${g[1]}</span></div>`+
+    `<div class="rep-target mono">${words}</div>${tip}`+
+    `<div class="rep-heard">Ouvi você dizer: <b>${said||"—"}</b></div>`;
+}
 function stopActive(){ try{ if(activeRec) activeRec.abort(); }catch(e){} activeRec=null; if(activeTimer){ clearInterval(activeTimer); activeTimer=null; } if("speechSynthesis" in window) speechSynthesis.cancel(); }
 
 const ICON = {
@@ -486,10 +525,10 @@ function renderRoute(){
 }
 function updateMasterState(){
   const done6=STEPS.every((_,i)=>stepDone[idx+"-"+i]); const m=$("master");
-  m.classList.remove("primary","ready");
+  m.classList.remove("primary","ready"); m.disabled=false;
   if(mastered.has(idx)){ m.textContent="✓ Dominado"; m.classList.add("primary"); }
   else if(done6){ m.textContent="✓ Dominar bloco"; m.classList.add("primary","ready"); }
-  else { m.textContent="Marcar como dominado"; }
+  else { m.textContent="Complete os 6 passos"; m.disabled=true; }
 }
 function render(){
   stopActive();
@@ -552,15 +591,12 @@ function renderPanel(b){
     const row=document.createElement("div"); row.className="row";
     const play=document.createElement("button"); play.className="btn"; play.innerHTML=ICON.play+" Ouvir a frase"; play.onclick=()=>speak(sample,play);
     const mic=document.createElement("button"); mic.className="btn mic primary"; mic.innerHTML=ICON.mic+" Gravar minha voz";
-    const v=document.createElement("div"); v.className="verdict";
-    mic.onclick=()=>{ if(!micOK){ v.className="verdict show no"; v.textContent="Seu navegador não captura voz aqui — fale junto com o modelo. No app final, o checker de pronúncia dá a nota."; markStep(); return; }
+    const v=document.createElement("div"); v.className="report";
+    mic.onclick=()=>{ if(!micOK){ v.className="report show"; v.innerHTML='<div class="rep-tip">Seu navegador não captura voz aqui — fale junto com o modelo em voz alta. Pra gravar e ver o diagnóstico, abra no Chrome.</div>'; markStep(); return; }
       mic.classList.add("rec"); mic.innerHTML=ICON.mic+" Ouvindo…";
       listen(sample,res=>{ mic.classList.remove("rec"); mic.innerHTML=ICON.mic+" Gravar de novo";
-        if(!res||res.error){ v.className="verdict show no"; v.textContent="Não consegui ouvir. Tenta de novo num lugar mais silencioso."; return; }
-        markStep(); const pct=Math.round(res.score*100);
-        if(res.score>=0.7){ buzz(30); v.className="verdict show ok"; v.innerHTML=`Saiu limpo — ${pct}%. O bloco tá entrando no automático.<div class="scorebar"><i></i></div><span class="heard">Você falou: <b>${res.heard}</b></span>`; }
-        else{ v.className="verdict show no"; v.innerHTML=`Quase — ${pct}%. Ouça o modelo e capriche nas emendas.<div class="scorebar"><i></i></div><span class="heard">Você falou: <b>${res.heard||"—"}</b> · alvo: ${sample}</span>`; }
-        requestAnimationFrame(()=>{ const bar=v.querySelector(".scorebar i"); if(bar) bar.style.width=pct+"%"; }); }); };
+        if(!res||res.error){ v.className="report show"; v.innerHTML='<div class="rep-tip">Não consegui ouvir. Tenta de novo num lugar mais silencioso.</div>'; return; }
+        markStep(); buzz(20); speechReport(v, sample, res.heard); }); };
     row.append(play,mic); p.append(lead,model,row,v);
   }
   else if(step===2){
@@ -590,17 +626,19 @@ function renderPanel(b){
     trig.innerHTML=`<div class="tag">Pergunta · responda em <span class="timer" id="tm">6</span>s</div><div class="q">${b.q}</div>`;
     const lead=document.createElement("p"); lead.className="lead"; lead.textContent="Sem pensar palavra por palavra. Use o bloco e responda rápido.";
     const mic=document.createElement("button"); mic.className="btn mic primary big"; mic.innerHTML=ICON.mic+" Responder falando";
-    const v=document.createElement("div"); v.className="verdict";
-    mic.onclick=()=>{ if(!micOK){ v.className="verdict show no"; v.textContent="Seu navegador não captura voz aqui — responda em voz alta mesmo assim. O checker entra no app final."; markStep(); return; }
+    const v=document.createElement("div"); v.className="report";
+    mic.onclick=()=>{ if(!micOK){ v.className="report show"; v.innerHTML='<div class="rep-tip">Seu navegador não captura voz aqui — responda em voz alta mesmo assim. Pra o diagnóstico, abra no Chrome.</div>'; markStep(); return; }
       let left=6; if($("tm"))$("tm").textContent=left; mic.classList.add("rec"); mic.innerHTML=ICON.mic+" Ouvindo…";
       if(activeTimer)clearInterval(activeTimer);
       activeTimer=setInterval(()=>{ left--; if($("tm"))$("tm").textContent=Math.max(left,0);
         if(left<=0){ clearInterval(activeTimer); activeTimer=null; try{ if(activeRec)activeRec.stop(); }catch(e){} } },1000);
       listen(stem,res=>{ if(activeTimer){clearInterval(activeTimer);activeTimer=null;} mic.classList.remove("rec"); mic.innerHTML=ICON.mic+" Responder de novo";
-        if(!res||res.error){ v.className="verdict show no"; v.textContent="Tempo ou sem áudio — responda de novo, rápido."; return; }
-        markStep(); const used=similarity(norm(res.heard),norm(stem))>=0.5;
-        if(used){ buzz(30); v.className="verdict show ok"; v.innerHTML=`Você usou o bloco na resposta. É assim que ele gruda.<span class="heard">Você disse: <b>${res.heard}</b></span>`; }
-        else{ v.className="verdict show no"; v.innerHTML=`Boa — force o bloco na resposta pra virar automático.<span class="heard">Você disse: <b>${res.heard}</b></span>`; } }); };
+        if(!res||res.error){ v.className="report show"; v.innerHTML='<div class="rep-tip">Tempo ou sem áudio — responda de novo, rápido.</div>'; return; }
+        const d=diagnose(stem,res.heard); const used=d.hits>=Math.ceil(d.total*0.6);
+        const saidHi=(res.heard||"—").replace(new RegExp("("+esc(stem)+")","i"),"<em>$1</em>");
+        v.className="report show";
+        if(used){ buzz(30); markStep(); v.innerHTML=`<div class="rep-head"><span class="rep-score g-ok">✓</span><span class="rep-label">Bloco usado na resposta</span></div><div class="rep-heard">Você respondeu: <b>${saidHi}</b></div><div class="rep-tip">É assim que o bloco vira automático — puxado na hora, sem traduzir.</div>`; }
+        else{ v.innerHTML=`<div class="rep-head"><span class="rep-score g-low">–</span><span class="rep-label">O bloco não apareceu</span></div><div class="rep-heard">Você respondeu: <b>${res.heard||"—"}</b></div><div class="rep-tip">Force o bloco <b>${stem}</b> no começo e responda de novo.</div>`; } }); };
     p.append(trig,lead,mic,v);
   }
   else if(step===5){
@@ -674,8 +712,8 @@ $("theme").onclick=()=>{ const cur=document.documentElement.getAttribute("data-t
   try{ localStorage.setItem("fr_theme",next); }catch(e){} };
 
 $("micHint").innerHTML = micOK
-  ? ICON.mic+" Voz e pronúncia rodam pelo navegador. No app final, o <b>checker Azure</b> dá a nota fonética por som."
-  : "Áudio e treino funcionam normal aqui. A voz precisa de Chrome — o checker de pronúncia entra no app final.";
+  ? ICON.mic+" Grave sua voz e receba o diagnóstico palavra a palavra."
+  : ICON.mic+" Pra gravar e ver o diagnóstico, abra no Chrome. O áudio e o treino funcionam aqui.";
 
 $("prev").onclick=()=>{ if(idx>0){ idx--; step=0; save(); render(); } };
 $("next").onclick=()=>{ if(idx<49){ idx++; step=0; save(); render(); } };
