@@ -118,6 +118,8 @@
   .example { margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--line); }
   .ex-label { font-size: var(--t-xs); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; }
   .ex-line { font-size: var(--t-md); margin: 0; } .ex-line em { color: var(--accent); font-style: normal; font-weight: 600; }
+  .model-line { font-size: var(--t-lg); font-weight: 500; margin: 0 0 14px; line-height: 1.28; text-wrap: balance; }
+  .model-line em { color: var(--accent); font-style: normal; font-weight: 700; }
 
   .btn { appearance: none; font-family: inherit; cursor: pointer; border-radius: var(--r-sm); border: 1px solid var(--line);
     background: var(--surface-2); color: var(--text); padding: 12px 16px; font-size: var(--t-md); font-weight: 600;
@@ -543,10 +545,12 @@ function renderPanel(b){
     }
   }
   else if(step===1){
-    const lead=document.createElement("p"); lead.className="lead"; lead.textContent="Fale junto com o áudio. Depois grave e veja se saiu limpo.";
     const sample=b.m==="pronto"?b.en:fullSentence(b,b.v[0]);
+    const lead=document.createElement("p"); lead.className="lead"; lead.textContent="Ouça a frase inteira e repita junto, imitando o ritmo. Depois grave e veja se saiu limpo.";
+    const model=document.createElement("div"); model.className="model-line mono";
+    model.innerHTML = b.m==="pronto" ? sample : `<em>${stem}</em> ${b.v[0]}`;
     const row=document.createElement("div"); row.className="row";
-    const play=document.createElement("button"); play.className="btn"; play.innerHTML=ICON.play+" Modelo"; play.onclick=()=>speak(sample,play);
+    const play=document.createElement("button"); play.className="btn"; play.innerHTML=ICON.play+" Ouvir a frase"; play.onclick=()=>speak(sample,play);
     const mic=document.createElement("button"); mic.className="btn mic primary"; mic.innerHTML=ICON.mic+" Gravar minha voz";
     const v=document.createElement("div"); v.className="verdict";
     mic.onclick=()=>{ if(!micOK){ v.className="verdict show no"; v.textContent="Seu navegador não captura voz aqui — fale junto com o modelo. No app final, o checker de pronúncia dá a nota."; markStep(); return; }
@@ -557,7 +561,7 @@ function renderPanel(b){
         if(res.score>=0.7){ buzz(30); v.className="verdict show ok"; v.innerHTML=`Saiu limpo — ${pct}%. O bloco tá entrando no automático.<div class="scorebar"><i></i></div><span class="heard">Você falou: <b>${res.heard}</b></span>`; }
         else{ v.className="verdict show no"; v.innerHTML=`Quase — ${pct}%. Ouça o modelo e capriche nas emendas.<div class="scorebar"><i></i></div><span class="heard">Você falou: <b>${res.heard||"—"}</b> · alvo: ${sample}</span>`; }
         requestAnimationFrame(()=>{ const bar=v.querySelector(".scorebar i"); if(bar) bar.style.width=pct+"%"; }); }); };
-    row.append(play,mic); p.append(lead,row,v);
+    row.append(play,mic); p.append(lead,model,row,v);
   }
   else if(step===2){
     const need=Math.min(3,b.v.length); let played=0;
