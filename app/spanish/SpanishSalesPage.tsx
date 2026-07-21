@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, Suspense } from 'react'
+import { useEffect, useState, Suspense, memo } from 'react'
 import '../vsl2/vsl.css'
 import { C, FONT } from '../vsl2/design'
 import { Fade, Glass, Label, S, Grad, useInView } from '../vsl2/primitives'
@@ -150,10 +150,31 @@ const FAQ = [
   },
 ]
 
+// Player Vturb ISOLADO e memoizado: monta o web component uma vez e carrega o
+// script; não re-renderiza no scroll/sticky → o vídeo não some.
+const VTURB_SRC = 'https://scripts.converteai.net/a2b1bd19-973f-4fda-ada9-47d42bffa2ad/players/68b88e3c382f8b589794deea/v4/player.js'
+const VturbPlayer = memo(function VturbPlayer() {
+  useEffect(() => {
+    if (!document.querySelector(`script[src="${VTURB_SRC}"]`)) {
+      const s = document.createElement('script')
+      s.src = VTURB_SRC
+      s.async = true
+      document.head.appendChild(s)
+    }
+  }, [])
+  return (
+    <div
+      style={{ maxWidth: 400, margin: '0 auto', borderRadius: 12, overflow: 'hidden', border: `1px solid ${C.border}`, background: C.bg2 }}
+      dangerouslySetInnerHTML={{ __html: '<vturb-smartplayer id="vid-68b88e3c382f8b589794deea" style="display:block;margin:0 auto;width:100%;max-width:400px;"><div class="vturb-player-placeholder" style="position:relative;width:100%;padding:177.78% 0 0;z-index:0;background-color:black;"></div></vturb-smartplayer>' }}
+    />
+  )
+})
+
 export default function SpanishSalesPage() {
   const [sticky, setSticky] = useState(false)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [seriesPaused, setSeriesPaused] = useState(false)
+  const [showRest, setShowRest] = useState(false)
 
   useEffect(() => {
     // Sticky CTA
@@ -176,16 +197,18 @@ export default function SpanishSalesPage() {
       iv = setInterval(() => { if (initPixel() || ++tries > 40) { if (iv) clearInterval(iv) } }, 250)
     }
 
-    // Vturb player (Spanish VSL)
-    if (!document.querySelector('script[src*="68b88e3c382f8b589794deea"]')) {
-      const s = document.createElement('script')
-      s.src = 'https://scripts.converteai.net/a2b1bd19-973f-4fda-ada9-47d42bffa2ad/players/68b88e3c382f8b589794deea/v4/player.js'
-      s.async = true
-      document.head.appendChild(s)
-    }
+    // Ultraleve: o conteúdo abaixo do vídeo só monta após o 1º scroll ou ~1.4s.
+    // Critical path = só o player. O player é isolado/memoizado (sem Fade/transform)
+    // pra não sumir no scroll.
+    const revealRest = () => setShowRest(true)
+    if (new URLSearchParams(location.search).get('reveal') === '1') revealRest()
+    const restTimer = setTimeout(revealRest, 1400)
+    window.addEventListener('scroll', revealRest, { once: true, passive: true })
 
     return () => {
       window.removeEventListener('scroll', fn)
+      window.removeEventListener('scroll', revealRest)
+      clearTimeout(restTimer)
       if (iv) clearInterval(iv)
     }
   }, [])
@@ -202,19 +225,16 @@ export default function SpanishSalesPage() {
 
       {/* ═══ HERO — VIDEO (placeholder) ═══ */}
       <section style={{ maxWidth: 600, margin: '0 auto', padding: '40px 20px 0' }}>
-        <Fade delay={0.15}>
-          <div
-            style={{ maxWidth: 400, margin: '0 auto', borderRadius: 12, overflow: 'hidden', border: `1px solid ${C.border}`, background: C.bg2 }}
-            dangerouslySetInnerHTML={{ __html: '<vturb-smartplayer id="vid-68b88e3c382f8b589794deea" style="display:block;margin:0 auto;width:100%;max-width:400px;"><div class="vturb-player-placeholder" style="position:relative;width:100%;padding:177.78% 0 0;z-index:0;background-color:black;"></div></vturb-smartplayer>' }}
-          />
-          <p style={{
-            textAlign: 'center', marginTop: 16, fontSize: 11,
-            letterSpacing: 3, textTransform: 'uppercase', fontWeight: 600, color: C.t4,
-          }}>
-            Watch with sound on
-          </p>
-        </Fade>
+        <VturbPlayer />
+        <p style={{
+          textAlign: 'center', marginTop: 16, fontSize: 11,
+          letterSpacing: 3, textTransform: 'uppercase', fontWeight: 600, color: C.t4,
+        }}>
+          Watch with sound on
+        </p>
       </section>
+
+      {showRest && (<>
 
       {/* ═══ CTA 1 — PRICING ═══ */}
       <S narrow>
@@ -606,6 +626,8 @@ export default function SpanishSalesPage() {
         </p>
         <p style={{ fontSize: 10, color: C.t4, marginTop: 8 }}>{BRAND} · All rights reserved</p>
       </footer>
+
+      </>)}
 
       {/* ═══ STICKY CTA ═══ */}
       <div className={`sticky-cta ${sticky ? 'show' : ''}`}>
