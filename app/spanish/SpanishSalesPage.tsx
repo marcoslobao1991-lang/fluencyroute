@@ -14,17 +14,17 @@ import { genEventId, getFbCookies, getClientIp, getUserAgent } from '../lib/pixe
 // repetition / series immersion), copy fully in English, series swapped to
 // Spanish-language shows.
 //
-// ⚠️ PLACEHOLDERS a trocar antes de rodar tráfego de verdade:
-//   • CHECKOUT — link de checkout do produto espanhol (hoje '#')
-//   • PRICE / FROM — preço em USD (hoje espelha o número da VSL de inglês)
-//   • O bloco de vídeo (VSL) — hoje é um placeholder; gravar/subir a VSL em espanhol
-// Sem tracking de pixel/checkout aqui de propósito (não contaminar o inglês).
+// Preço: 6 parcelas de $57 (total $342), âncora $497. Vídeo Vturb e CAPI ligados.
+// ⚠️ ÚNICO placeholder: CHECKOUT — link de checkout do produto espanhol (hoje '#').
+//   Ao plugar o checkout real, ligar os botões e o Purchase server-to-server (webhook).
 // ═══════════════════════════════════════════════════════════════
 
 const BRAND = 'FLUENCY ROUTE'
 const COURSE = 'Essential Spanish Fluency'
-const PRICE = '$29'          // TODO: definir preço real em USD
-const FROM = '$497'          // TODO: âncora de preço
+const PAY = '$57'            // valor da parcela
+const INSTALLMENTS = 6       // até 6x
+const FROM = '$497'          // âncora (preço cheio, riscado)
+const PURCHASE_VALUE = 342   // 6 × 57 — valor total (tracking)
 const CHECKOUT = '#'         // TODO: link de checkout do produto espanhol
 
 // Pixel PRÓPRIO do Spanish — isolado do pixel de inglês (938…) que o layout
@@ -46,7 +46,7 @@ function getExternalId(): string {
 async function trackEs(event: string, extra?: Record<string, unknown>) {
   if (typeof window === 'undefined') return
   const eid = genEventId()
-  const custom = { content_name: COURSE, content_type: 'product', currency: 'USD', ...(extra || {}) }
+  const custom = { content_name: COURSE, content_type: 'product', currency: 'USD', value: PURCHASE_VALUE, ...(extra || {}) }
   // Browser pixel (isolado no 690 via trackSingle)
   const fbq = (window as any).fbq
   if (typeof fbq === 'function') fbq('trackSingle', PIXEL_ID, event, custom, { eventID: eid })
@@ -493,7 +493,7 @@ export default function SpanishSalesPage() {
                 <p>&#10003; Personalized Feedback ($497) — <span style={{ color: C.teal, fontWeight: 700 }}>FREE</span></p>
                 <p>&#10003; One-on-one WhatsApp Support ($397) — <span style={{ color: C.teal, fontWeight: 700 }}>FREE</span></p>
                 <p style={{ marginTop: 12, color: C.t1, fontWeight: 700 }}>Total: Over $2,000</p>
-                <p style={{ fontSize: 16, fontWeight: 800, color: C.teal, marginTop: 4 }}>Today for just {PRICE}/mo</p>
+                <p style={{ fontSize: 16, fontWeight: 800, color: C.teal, marginTop: 4 }}>Today: {INSTALLMENTS} monthly payments of {PAY}</p>
               </div>
             </Glass>
           </div>
@@ -609,7 +609,7 @@ export default function SpanishSalesPage() {
 
       {/* ═══ STICKY CTA ═══ */}
       <div className={`sticky-cta ${sticky ? 'show' : ''}`}>
-        <Btn compact text={`START FOR ${PRICE}/MO`} />
+        <Btn compact text={`GET STARTED · ${INSTALLMENTS}× ${PAY}`} />
       </div>
     </div>
   )
@@ -650,18 +650,21 @@ function PriceBlock() {
         marginBottom: 10,
       }}>🔥 Last spots at a discount</span>
       <p style={{ fontSize: 16, color: C.t2 }}>
-        From <span style={{ textDecoration: 'line-through', color: C.red }}>{FROM}</span>
+        Normally <span style={{ textDecoration: 'line-through', color: C.red }}>{FROM}</span>
       </p>
-      <p style={{ fontSize: 14, color: C.t2, marginTop: 6 }}>Today for just:</p>
+      <p style={{ fontSize: 14, color: C.t2, marginTop: 6 }}>Today, just:</p>
       <p style={{
         fontSize: 'clamp(40px, 10vw, 56px)', fontWeight: 900,
         fontFamily: FONT.mono, letterSpacing: '-0.04em',
         background: C.gradText, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
         lineHeight: 1.1, marginTop: 4,
       }}>
-        {PRICE}<span style={{ fontSize: '0.45em', fontWeight: 700 }}>/mo</span>
+        {PAY}
       </p>
-      <p style={{ fontSize: 13, color: C.t3, marginTop: 4 }}>or pay over time</p>
+      <p style={{ fontSize: 14, color: C.t1, marginTop: 2, fontWeight: 600 }}>
+        {INSTALLMENTS} easy monthly payments of {PAY}
+      </p>
+      <p style={{ fontSize: 12, color: C.t3, marginTop: 6 }}>Interest-free · secure checkout</p>
     </div>
   )
 }

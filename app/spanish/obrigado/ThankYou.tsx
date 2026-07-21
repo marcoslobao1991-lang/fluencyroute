@@ -25,7 +25,7 @@ export default function ThankYou() {
     const orderId = p.get('order_id') || p.get('transaction_id') || p.get('id') || ''
     const email = (p.get('email') || p.get('customer_email') || '').trim().toLowerCase() || undefined
     const valueParam = parseFloat(p.get('value') || '')
-    const value = Number.isFinite(valueParam) && valueParam > 0 ? valueParam : 29
+    const value = Number.isFinite(valueParam) && valueParam > 0 ? valueParam : 342 // 6 × $57
 
     // eventID determinístico por order_id (dedup em refresh); sem order_id → aleatório
     const eid = orderId ? `es-purchase-${orderId}` : genEventId()
