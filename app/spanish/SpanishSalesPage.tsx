@@ -1,9 +1,10 @@
 'use client'
 
-import { useEffect, useState, useRef, Suspense } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import '../vsl2/vsl.css'
 import { C, FONT } from '../vsl2/design'
 import { Fade, Glass, Label, S, Grad, useInView } from '../vsl2/primitives'
+import { genEventId, getFbCookies, getClientIp, getUserAgent } from '../lib/pixel'
 
 // ═══════════════════════════════════════════════════════════════
 // ESSENTIAL SPANISH FLUENCY — SALES PAGE (clone of RotaFluenciaPage, EN copy)
@@ -27,15 +28,44 @@ const FROM = '$497'          // TODO: âncora de preço
 const CHECKOUT = '#'         // TODO: link de checkout do produto espanhol
 
 // Pixel PRÓPRIO do Spanish — isolado do pixel de inglês (938…) que o layout
-// global carrega. Disparamos SEMPRE via trackSingle nesse ID, então os
-// eventos NÃO vão pro pixel de inglês (não contamina atribuição).
+// global carrega. No browser usamos trackSingle nesse ID (não vaza pro inglês);
+// no servidor o CAPI usa o pixel/token próprios (/api/track-es). Mesmo eventID
+// nos dois → Meta deduz (não conta dobrado). Espelha o sistema do inglês.
 const PIXEL_ID = '690970750622464'
 
-/** Dispara evento só no pixel do Spanish (browser). */
-function trackEs(event: string, params?: Record<string, unknown>) {
+/** external_id anônimo (cookie _fluency_uid, setado pelo PageViewTracker) */
+function getExternalId(): string {
+  try {
+    if (typeof document === 'undefined') return ''
+    const m = document.cookie.match(/(?:^|;\s*)_fluency_uid=([^;]+)/)
+    return m ? decodeURIComponent(m[1]) : ''
+  } catch { return '' }
+}
+
+/** Dispara evento no pixel do Spanish: browser (trackSingle) + CAPI (mesmo eventID). */
+async function trackEs(event: string, extra?: Record<string, unknown>) {
   if (typeof window === 'undefined') return
+  const eid = genEventId()
+  const custom = { content_name: COURSE, content_type: 'product', currency: 'USD', ...(extra || {}) }
+  // Browser pixel (isolado no 690 via trackSingle)
   const fbq = (window as any).fbq
-  if (typeof fbq === 'function') fbq('trackSingle', PIXEL_ID, event, params || {})
+  if (typeof fbq === 'function') fbq('trackSingle', PIXEL_ID, event, custom, { eventID: eid })
+  // Server CAPI (mesmo eventID pra dedup)
+  try {
+    const { fbc, fbp } = getFbCookies()
+    const ip = await getClientIp()
+    fetch('/api/track-es', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        event, eventId: eid, fbc, fbp,
+        external_id: getExternalId(),
+        client_ip_address: ip,
+        client_user_agent: getUserAgent(),
+        ...custom,
+      }),
+    }).catch(() => {})
+  } catch {}
 }
 
 const PHASES = [
@@ -138,14 +168,20 @@ export default function SpanishSalesPage() {
       const fbq = (window as any).fbq
       if (typeof fbq !== 'function') return false
       fbq('init', PIXEL_ID)
-      fbq('trackSingle', PIXEL_ID, 'PageView')
-      fbq('trackSingle', PIXEL_ID, 'ViewContent', {
-        content_name: COURSE, content_type: 'product',
-      })
+      trackEs('PageView')      // dual: browser + CAPI
+      trackEs('ViewContent')   // dual: browser + CAPI
       return true
     }
     if (!initPixel()) {
       iv = setInterval(() => { if (initPixel() || ++tries > 40) { if (iv) clearInterval(iv) } }, 250)
+    }
+
+    // Vturb player (Spanish VSL)
+    if (!document.querySelector('script[src*="68b88e3c382f8b589794deea"]')) {
+      const s = document.createElement('script')
+      s.src = 'https://scripts.converteai.net/a2b1bd19-973f-4fda-ada9-47d42bffa2ad/players/68b88e3c382f8b589794deea/v4/player.js'
+      s.async = true
+      document.head.appendChild(s)
     }
 
     return () => {
@@ -167,28 +203,10 @@ export default function SpanishSalesPage() {
       {/* ═══ HERO — VIDEO (placeholder) ═══ */}
       <section style={{ maxWidth: 600, margin: '0 auto', padding: '40px 20px 0' }}>
         <Fade delay={0.15}>
-          <div style={{ maxWidth: 400, margin: '0 auto', borderRadius: 12, overflow: 'hidden', border: `1px solid ${C.border}` }}>
-            <div style={{
-              position: 'relative', paddingTop: '177.78%', background: C.bg2,
-            }}>
-              <div style={{
-                position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column',
-                alignItems: 'center', justifyContent: 'center', gap: 14, textAlign: 'center', padding: 24,
-              }}>
-                <div style={{
-                  width: 64, height: 64, borderRadius: '50%',
-                  background: `linear-gradient(135deg, ${C.teal}, ${C.purple})`,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  boxShadow: `0 8px 30px ${C.teal}44`,
-                }}>
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="#030305"><path d="M8 5v14l11-7z" /></svg>
-                </div>
-                <p style={{ fontFamily: FONT.mono, fontSize: 12, letterSpacing: 2, textTransform: 'uppercase', color: C.t3 }}>
-                  Your Spanish VSL goes here
-                </p>
-              </div>
-            </div>
-          </div>
+          <div
+            style={{ maxWidth: 400, margin: '0 auto', borderRadius: 12, overflow: 'hidden', border: `1px solid ${C.border}`, background: C.bg2 }}
+            dangerouslySetInnerHTML={{ __html: '<vturb-smartplayer id="vid-68b88e3c382f8b589794deea" style="display:block;margin:0 auto;width:100%;max-width:400px;"><div class="vturb-player-placeholder" style="position:relative;width:100%;padding:177.78% 0 0;z-index:0;background-color:black;"></div></vturb-smartplayer>' }}
+          />
           <p style={{
             textAlign: 'center', marginTop: 16, fontSize: 11,
             letterSpacing: 3, textTransform: 'uppercase', fontWeight: 600, color: C.t4,
@@ -601,7 +619,7 @@ export default function SpanishSalesPage() {
 // CTA BUTTON — points to checkout (placeholder). No pixel tracking.
 // ═══════════════════════════════════════════════════════════════
 function Btn({ text = 'I WANT IN', compact }: { text?: string; compact?: boolean }) {
-  const onClick = () => trackEs('InitiateCheckout', { content_name: COURSE, content_type: 'product' })
+  const onClick = () => trackEs('InitiateCheckout')
   return (
     <a href={CHECKOUT} target="_blank" rel="noopener noreferrer" className="cta-btn"
       onClick={onClick}
