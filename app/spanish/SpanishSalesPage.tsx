@@ -26,6 +26,18 @@ const PRICE = '$29'          // TODO: definir preço real em USD
 const FROM = '$497'          // TODO: âncora de preço
 const CHECKOUT = '#'         // TODO: link de checkout do produto espanhol
 
+// Pixel PRÓPRIO do Spanish — isolado do pixel de inglês (938…) que o layout
+// global carrega. Disparamos SEMPRE via trackSingle nesse ID, então os
+// eventos NÃO vão pro pixel de inglês (não contamina atribuição).
+const PIXEL_ID = '690970750622464'
+
+/** Dispara evento só no pixel do Spanish (browser). */
+function trackEs(event: string, params?: Record<string, unknown>) {
+  if (typeof window === 'undefined') return
+  const fbq = (window as any).fbq
+  if (typeof fbq === 'function') fbq('trackSingle', PIXEL_ID, event, params || {})
+}
+
 const PHASES = [
   {
     num: '01',
@@ -114,9 +126,32 @@ export default function SpanishSalesPage() {
   const [seriesPaused, setSeriesPaused] = useState(false)
 
   useEffect(() => {
+    // Sticky CTA
     const fn = () => setSticky(window.scrollY > 600)
     window.addEventListener('scroll', fn)
-    return () => window.removeEventListener('scroll', fn)
+
+    // Pixel próprio do Spanish (690…). O fbq é carregado pelo layout global
+    // (lazyOnload), então pode não existir ainda no mount → poll até aparecer.
+    let tries = 0
+    let iv: ReturnType<typeof setInterval> | undefined
+    const initPixel = () => {
+      const fbq = (window as any).fbq
+      if (typeof fbq !== 'function') return false
+      fbq('init', PIXEL_ID)
+      fbq('trackSingle', PIXEL_ID, 'PageView')
+      fbq('trackSingle', PIXEL_ID, 'ViewContent', {
+        content_name: COURSE, content_type: 'product',
+      })
+      return true
+    }
+    if (!initPixel()) {
+      iv = setInterval(() => { if (initPixel() || ++tries > 40) { if (iv) clearInterval(iv) } }, 250)
+    }
+
+    return () => {
+      window.removeEventListener('scroll', fn)
+      if (iv) clearInterval(iv)
+    }
   }, [])
 
   const cardW = 240
@@ -566,8 +601,10 @@ export default function SpanishSalesPage() {
 // CTA BUTTON — points to checkout (placeholder). No pixel tracking.
 // ═══════════════════════════════════════════════════════════════
 function Btn({ text = 'I WANT IN', compact }: { text?: string; compact?: boolean }) {
+  const onClick = () => trackEs('InitiateCheckout', { content_name: COURSE, content_type: 'product' })
   return (
     <a href={CHECKOUT} target="_blank" rel="noopener noreferrer" className="cta-btn"
+      onClick={onClick}
       style={compact ? { padding: '14px 20px', fontSize: 15 } : undefined}
     >
       <span style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
