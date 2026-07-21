@@ -1,22 +1,17 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import '../../vsl2/vsl.css'
+import { useEffect } from 'react'
 import { genEventId, getFbCookies, getClientIp, getUserAgent } from '../../lib/pixel'
 import { C, FONT } from '../../vsl2/design'
 
 // ═══════════════════════════════════════════════════════════════
 // /spanish/obrigado — PÁGINA DE UPSELL (OTO) pós-compra do front.
-// Copy escrita adaptada do PITCH da VSL de upsell BR (acompanhamento premium),
-// avatar quem fala inglês aprendendo espanhol, $497.
+// Copy escrita adaptada do PITCH da VSL de upsell BR (premium coaching), $497.
+// Os BOTÕES de aceitar/recusar vêm do WIDGET Hotmart (salesFunnel) — os textos
+// deles são configurados no painel do Hotmart (na oferta de upsell).
 // Também dispara o Purchase do FRONT (pixel 690 + CAPI, dedup por order_id).
 // ═══════════════════════════════════════════════════════════════
 const PIXEL_ID = '690970750622464'
-
-// ⚠️ PLACEHOLDER — o Marcos vai mandar o link do upsell Hotmart ($497).
-const UPSELL_LINK = '#'                 // TODO: link de checkout/1-click do upsell $497
-const CONTINUE_LINK = 'https://hotmart.com/en/club'  // decline → área de membros (ajustar)
-
 const UPSELL_PRICE = '$497'
 const UPSELL_FROM = '$997'
 const FRONT_VALUE = 342 // 6 × $57
@@ -54,41 +49,18 @@ async function trackEs(event: string, extra?: Record<string, unknown>, determini
 }
 
 const INCLUDED = [
-  {
-    n: '01',
-    t: 'Private VIP WhatsApp group',
-    d: 'Direct line to our specialist team, weekly challenges, and a small, closed community of people who are actually committed. Being surrounded by serious learners is what keeps your consistency high.',
-  },
-  {
-    n: '02',
-    t: 'Personalized feedback via WhatsApp',
-    d: 'This is the single thing that moves results the most. Send audio of your training, get specific corrections, share where you’re stuck and get guidance built for your case. A Spanish coach in your pocket, ready when you need it.',
-  },
-  {
-    n: '03',
-    t: 'Supervision & personalization of your training',
-    d: 'We don’t just support you — we watch your training and tailor it to your exact level. We pinpoint where you’re stuck and build a plan that attacks that weakness directly. This is what accelerates results the most.',
-  },
-  {
-    n: '04',
-    t: 'Monthly progress reviews',
-    d: 'Every 30 days, a full review of how far you’ve come: what advanced, what to adjust, and the exact next step to move faster.',
-  },
-  {
-    n: '05',
-    t: 'Lifetime access to everything',
-    d: 'Every update and every new material we build lands in your account automatically — free, forever.',
-  },
+  { n: '01', t: 'Private VIP WhatsApp group', d: 'Direct line to our specialist team, weekly challenges, and a small, closed community of people who are actually committed. Being surrounded by serious learners is what keeps your consistency high.' },
+  { n: '02', t: 'Personalized feedback via WhatsApp', d: 'The single thing that moves results the most. Send audio of your training, get specific corrections, share where you’re stuck and get guidance built for your case. A Spanish coach in your pocket.' },
+  { n: '03', t: 'Supervision & personalization of your training', d: 'We don’t just support you — we watch your training and tailor it to your exact level. We pinpoint where you’re stuck and build a plan that attacks that weakness directly.' },
+  { n: '04', t: 'Monthly progress reviews', d: 'Every 30 days, a full review of how far you’ve come: what advanced, what to adjust, and the exact next step to move faster.' },
+  { n: '05', t: 'Lifetime access to everything', d: 'Every update and every new material we build lands in your account automatically — free, forever.' },
 ]
 
 export default function ThankYou() {
-  const [openDecline, setOpenDecline] = useState(false)
-
   useEffect(() => {
     // ── Purchase do FRONT (compra que acabou de acontecer) ──
     const p = new URLSearchParams(window.location.search)
     const orderId = p.get('order_id') || p.get('transaction_id') || p.get('id') || ''
-    const email = (p.get('email') || p.get('customer_email') || '').trim().toLowerCase() || undefined
     const valueParam = parseFloat(p.get('value') || '')
     const value = Number.isFinite(valueParam) && valueParam > 0 ? valueParam : FRONT_VALUE
     const eid = orderId ? `es-purchase-${orderId}` : genEventId()
@@ -97,15 +69,29 @@ export default function ThankYou() {
     let iv: ReturnType<typeof setInterval> | undefined
     const fire = () => {
       if (typeof (window as any).fbq !== 'function') return false
-      trackEs('Purchase', { value, ...(email ? {} : {}), ...(orderId ? { order_id: orderId } : {}) }, eid)
+      trackEs('Purchase', { value, ...(orderId ? { order_id: orderId } : {}) }, eid)
       trackEs('ViewContent', { content_name: 'Premium Coaching (upsell)', value: 497, source: 'upsell' })
       return true
     }
     if (!fire()) iv = setInterval(() => { if (fire() || ++tries > 40) { if (iv) clearInterval(iv) } }, 250)
+
+    // ── Widget Hotmart (salesFunnel) — renderiza os botões de aceitar/recusar ──
+    let script: HTMLScriptElement | null = null
+    const mountWidget = () => {
+      try { (window as any).checkoutElements?.init('salesFunnel').mount('#hotmart-sales-funnel') } catch {}
+    }
+    if ((window as any).checkoutElements) {
+      mountWidget()
+    } else {
+      script = document.createElement('script')
+      script.src = 'https://checkout.hotmart.com/lib/hotmart-checkout-elements.js'
+      script.async = true
+      script.onload = mountWidget
+      document.body.appendChild(script)
+    }
+
     return () => { if (iv) clearInterval(iv) }
   }, [])
-
-  const onAccept = () => trackEs('InitiateCheckout', { content_name: 'Premium Coaching (upsell)', value: 497, source: 'upsell_accept' })
 
   return (
     <div style={{ background: C.bg, color: C.white, fontFamily: FONT.body, fontWeight: 300, minHeight: '100vh', letterSpacing: '-0.01em' }}>
@@ -119,7 +105,6 @@ export default function ThankYou() {
       </div>
 
       <main style={{ maxWidth: 680, margin: '0 auto', padding: '40px 22px 80px' }}>
-        {/* confirm + hook */}
         <p style={{ fontFamily: FONT.mono, fontSize: 11, letterSpacing: 3, textTransform: 'uppercase', color: C.teal, marginBottom: 14 }}>
           ✓ Your enrollment is confirmed · exclusive one-time offer
         </p>
@@ -130,7 +115,6 @@ export default function ThankYou() {
           You just joined the Route — and you already proved you’re serious. This is your <strong style={{ color: C.t1, fontWeight: 700 }}>only chance</strong> to add direct support from our team, personal feedback on your training, and one-on-one supervision. For a fraction of the real price, and only here.
         </p>
 
-        {/* why coaching */}
         <div style={{ height: 1, background: C.border, margin: '36px 0' }} />
         <p style={{ fontFamily: FONT.mono, fontSize: 11, letterSpacing: 3, textTransform: 'uppercase', color: C.teal, marginBottom: 12 }}>Why this changes everything</p>
         <h2 style={{ fontSize: 'clamp(22px, 4.5vw, 28px)', fontWeight: 800, color: C.t1, letterSpacing: '-0.02em', marginBottom: 14 }}>
@@ -139,11 +123,10 @@ export default function ThankYou() {
         <p style={{ fontSize: 16, lineHeight: 1.7, color: C.t2, marginBottom: 16 }}>
           After coaching thousands of students, one thing changes the success rate more than anything else: <strong style={{ color: C.t1, fontWeight: 700 }}>accompaniment and personalized feedback</strong>. The method is flawless on its own — but there’s a giant gap between who trains alone and who has a specialist watching closely.
         </p>
-        <p style={{ fontSize: 16, lineHeight: 1.7, color: C.t2, marginBottom: 8 }}>
+        <p style={{ fontSize: 16, lineHeight: 1.7, color: C.t2 }}>
           Think of a gym. I can hand you a perfect workout — but alone, your brain procrastinates, invents excuses, skips a session, and you’re left wondering: <em style={{ color: C.t1 }}>“is this even working for me?”</em> That’s exactly why serious people hire a personal trainer — someone to correct the small details that make all the difference. That’s the difference between the training you just got and the premium coaching below.
         </p>
 
-        {/* stack */}
         <div style={{ height: 1, background: C.border, margin: '36px 0' }} />
         <p style={{ fontFamily: FONT.mono, fontSize: 11, letterSpacing: 3, textTransform: 'uppercase', color: C.teal, marginBottom: 6 }}>What you get</p>
         <h2 style={{ fontSize: 'clamp(22px, 4.5vw, 28px)', fontWeight: 800, color: C.t1, letterSpacing: '-0.02em', marginBottom: 24 }}>
@@ -166,7 +149,6 @@ export default function ThankYou() {
           ))}
         </div>
 
-        {/* two phases */}
         <div style={{ height: 1, background: C.border, margin: '36px 0' }} />
         <h2 style={{ fontSize: 'clamp(20px, 4.2vw, 26px)', fontWeight: 800, color: C.t1, letterSpacing: '-0.02em', marginBottom: 12 }}>
           From the training phase to the <span style={{ color: C.teal }}>point of no return</span>.
@@ -197,37 +179,12 @@ export default function ThankYou() {
           }}>{UPSELL_PRICE}</p>
           <p style={{ fontSize: 12, color: C.t3, marginTop: 2 }}>one-time · this page only</p>
 
-          <a href={UPSELL_LINK} onClick={onAccept} className="cta-btn"
-            style={{ marginTop: 24, display: 'flex', width: '100%', maxWidth: 460, marginLeft: 'auto', marginRight: 'auto' }}>
-            <span style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
-              YES — ADD PREMIUM COACHING TO MY ORDER
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-            </span>
-          </a>
+          {/* Botões reais do upsell — renderizados pelo widget Hotmart (salesFunnel) */}
+          <div id="hotmart-sales-funnel" style={{ marginTop: 24, minHeight: 60 }} />
 
-          {/* guarantee */}
           <p style={{ fontSize: 13, color: C.t3, marginTop: 18, lineHeight: 1.6 }}>
             🔒 7-day guarantee. Try the coaching — if it’s not for you, email us within 7 days for a full refund. No questions.
           </p>
-        </div>
-
-        {/* decline */}
-        <div style={{ textAlign: 'center', marginTop: 22 }}>
-          {!openDecline ? (
-            <button onClick={() => setOpenDecline(true)}
-              style={{ background: 'none', border: 'none', color: C.t3, fontSize: 13, textDecoration: 'underline', cursor: 'pointer', fontFamily: FONT.body }}>
-              No thanks, I’ll pass on the coaching
-            </button>
-          ) : (
-            <div>
-              <p style={{ fontSize: 13, color: C.t3, marginBottom: 8 }}>
-                Sure? This offer won’t come back — you’d train on your own, without the team watching your progress.
-              </p>
-              <a href={CONTINUE_LINK} style={{ fontSize: 13, color: C.t2, textDecoration: 'underline' }}>
-                I understand — take me to my course
-              </a>
-            </div>
-          )}
         </div>
 
         <p style={{ textAlign: 'center', fontSize: 10, color: C.t4, marginTop: 40 }}>
