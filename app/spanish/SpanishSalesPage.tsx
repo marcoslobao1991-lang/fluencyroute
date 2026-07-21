@@ -96,10 +96,10 @@ const PHASES = [
 ]
 
 const SERIES = [
-  { name: 'Money Heist', detail: 'All seasons', color: C.red },
-  { name: 'Narcos', detail: 'All seasons', color: C.yellow },
-  { name: 'Elite', detail: 'All seasons', color: C.purple },
-  { name: 'Club de Cuervos', detail: 'All seasons', color: C.blue },
+  { name: 'Money Heist', detail: 'All seasons', color: C.red, img: '/spanish-series/moneyheist.jpg' },
+  { name: 'Narcos', detail: 'All seasons', color: C.yellow, img: '/spanish-series/narcos.jpg' },
+  { name: 'Elite', detail: 'All seasons', color: C.purple, img: '/spanish-series/elite.jpg' },
+  { name: 'Who Killed Sara?', detail: 'All seasons', color: C.blue, img: '/spanish-series/quienmatoasara.jpg' },
 ]
 const SERIES_LOOP = [...SERIES, ...SERIES, ...SERIES]
 
@@ -427,16 +427,10 @@ export default function SpanishSalesPage() {
                     position: 'relative',
                   }} className="hud">
                     <div style={{ position: 'relative', overflow: 'hidden' }}>
-                      <div style={{
-                        width: '100%', aspectRatio: '16/10', display: 'flex',
-                        alignItems: 'center', justifyContent: 'center',
-                        background: `linear-gradient(135deg, ${s.color}30, ${C.bg2})`,
-                      }}>
-                        <span style={{
-                          fontFamily: FONT.mono, fontSize: 18, fontWeight: 800,
-                          color: s.color, letterSpacing: 1, textAlign: 'center', padding: '0 12px',
-                        }}>{s.name}</span>
-                      </div>
+                      <img src={s.img} alt={s.name} loading="lazy" style={{
+                        width: '100%', aspectRatio: '16/10', objectFit: 'cover', display: 'block',
+                        filter: 'saturate(0.9) brightness(0.82)',
+                      }} />
                       <div style={{
                         position: 'absolute', inset: 0,
                         background: `linear-gradient(160deg, ${s.color}40, transparent 70%)`,
