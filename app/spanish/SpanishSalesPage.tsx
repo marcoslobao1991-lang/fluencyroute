@@ -14,9 +14,9 @@ import { genEventId, getFbCookies, getClientIp, getUserAgent } from '../lib/pixe
 // repetition / series immersion), copy fully in English, series swapped to
 // Spanish-language shows.
 //
-// Preço: 6 parcelas de $57 (total $342), âncora $497. Vídeo Vturb e CAPI ligados.
-// ⚠️ ÚNICO placeholder: CHECKOUT — link de checkout do produto espanhol (hoje '#').
-//   Ao plugar o checkout real, ligar os botões e o Purchase server-to-server (webhook).
+// Preço: 6 parcelas de $57 (total $342), âncora $497. Vídeo Vturb, CAPI e checkout
+// Hotmart ligados. Pendente: Purchase server-to-server via webhook Hotmart (hoje o
+// Purchase é disparado na /spanish/obrigado — exige o Hotmart redirecionar pra lá).
 // ═══════════════════════════════════════════════════════════════
 
 const BRAND = 'FLUENCY ROUTE'
@@ -25,7 +25,7 @@ const PAY = '$57'            // valor da parcela
 const INSTALLMENTS = 6       // até 6x
 const FROM = '$497'          // âncora (preço cheio, riscado)
 const PURCHASE_VALUE = 342   // 6 × 57 — valor total (tracking)
-const CHECKOUT = '#'         // TODO: link de checkout do produto espanhol
+const CHECKOUT = 'https://pay.hotmart.com/M94188676L?off=qp698at2'  // checkout Hotmart (espanhol)
 
 // Pixel PRÓPRIO do Spanish — isolado do pixel de inglês (938…) que o layout
 // global carrega. No browser usamos trackSingle nesse ID (não vaza pro inglês);
