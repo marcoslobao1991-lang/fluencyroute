@@ -27,6 +27,24 @@ const FROM = '$497'          // âncora (preço cheio, riscado)
 const PURCHASE_VALUE = 342   // 6 × 57 — valor total (tracking)
 const CHECKOUT = 'https://pay.hotmart.com/M94188676L?off=qp698at2'  // checkout Hotmart (espanhol)
 
+// UTMs propagados ad → bridge → VSL → checkout Hotmart (o Hotmart captura UTM
+// nativo + src). fbclid/sck seguem junto pra atribuição.
+const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'src', 'sck', 'fbclid'] as const
+function getUtmsFromUrl(): Record<string, string> {
+  if (typeof window === 'undefined') return {}
+  const p = new URLSearchParams(window.location.search)
+  const o: Record<string, string> = {}
+  UTM_KEYS.forEach(k => { const v = p.get(k); if (v) o[k] = v })
+  return o
+}
+function buildCheckoutUrl(base: string, utms: Record<string, string>): string {
+  try {
+    const u = new URL(base)
+    Object.entries(utms).forEach(([k, v]) => u.searchParams.set(k, v))
+    return u.toString()
+  } catch { return base }
+}
+
 // Pixel PRÓPRIO do Spanish — isolado do pixel de inglês (938…) que o layout
 // global carrega. No browser usamos trackSingle nesse ID (não vaza pro inglês);
 // no servidor o CAPI usa o pixel/token próprios (/api/track-es). Mesmo eventID
@@ -655,9 +673,11 @@ export default function SpanishSalesPage() {
 // CTA BUTTON — points to checkout (placeholder). No pixel tracking.
 // ═══════════════════════════════════════════════════════════════
 function Btn({ text = 'I WANT IN', compact }: { text?: string; compact?: boolean }) {
+  const [href, setHref] = useState(CHECKOUT)
+  useEffect(() => { setHref(buildCheckoutUrl(CHECKOUT, getUtmsFromUrl())) }, [])
   const onClick = () => trackEs('InitiateCheckout')
   return (
-    <a href={CHECKOUT} target="_blank" rel="noopener noreferrer" className="cta-btn"
+    <a href={href} target="_blank" rel="noopener noreferrer" className="cta-btn"
       onClick={onClick}
       style={compact ? { padding: '14px 20px', fontSize: 15 } : undefined}
     >
