@@ -170,7 +170,7 @@ const FAQ = [
 
 // Player Vturb ISOLADO e memoizado: monta o web component uma vez e carrega o
 // script; não re-renderiza no scroll/sticky → o vídeo não some.
-const VTURB_SRC = 'https://scripts.converteai.net/a2b1bd19-973f-4fda-ada9-47d42bffa2ad/players/68b88e3c382f8b589794deea/v4/player.js'
+const VTURB_SRC = 'https://scripts.converteai.net/a2b1bd19-973f-4fda-ada9-47d42bffa2ad/players/6a6013fbc99e7e122a46664a/v4/player.js'
 const VturbPlayer = memo(function VturbPlayer() {
   useEffect(() => {
     if (!document.querySelector(`script[src="${VTURB_SRC}"]`)) {
@@ -183,7 +183,7 @@ const VturbPlayer = memo(function VturbPlayer() {
   return (
     <div
       style={{ maxWidth: 400, margin: '0 auto', borderRadius: 12, overflow: 'hidden', border: `1px solid ${C.border}`, background: C.bg2 }}
-      dangerouslySetInnerHTML={{ __html: '<vturb-smartplayer id="vid-68b88e3c382f8b589794deea" style="display:block;margin:0 auto;width:100%;max-width:400px;"><div class="vturb-player-placeholder" style="position:relative;width:100%;padding:177.78% 0 0;z-index:0;background-color:black;"></div></vturb-smartplayer>' }}
+      dangerouslySetInnerHTML={{ __html: '<vturb-smartplayer id="vid-6a6013fbc99e7e122a46664a" style="display:block;margin:0 auto;width:100%;max-width:400px;"><div class="vturb-player-placeholder" style="position:relative;width:100%;padding:178.14814814814815% 0 0;z-index:0;background-color:black;"></div></vturb-smartplayer>' }}
     />
   )
 })
@@ -218,9 +218,9 @@ export default function SpanishSalesPage() {
     // Monta o conteúdo (escondido via .esconder) logo após o first paint — leveza.
     const restTimer = setTimeout(() => setShowRest(true), 1400)
 
-    // VSL FECHADA: a oferta (.esconder) só aparece aos 19:55 (1195s) do VÍDEO,
+    // VSL FECHADA: a oferta (.esconder) só aparece aos 17:30 (1050s) do VÍDEO,
     // sincronizada com o pitch via displayHiddenElements do Vturb (tempo assistido,
-    // não relógio de página). Vídeo tem 24:29, então dispara com folga.
+    // não relógio de página). Vídeo tem 21:16, então dispara com folga.
     const isPreview = new URLSearchParams(location.search).get('reveal') === '1'
     let revealBound = false
     const bindReveal = () => {
@@ -229,7 +229,7 @@ export default function SpanishSalesPage() {
       if (revealBound) return
       revealBound = true
       pl.addEventListener('player:ready', () => {
-        try { pl.displayHiddenElements(1195, ['.esconder'], { persist: true }) } catch {}
+        try { pl.displayHiddenElements(1050, ['.esconder'], { persist: true }) } catch {}
       })
     }
     if (isPreview) {
