@@ -197,17 +197,33 @@ export default function SpanishSalesPage() {
       iv = setInterval(() => { if (initPixel() || ++tries > 40) { if (iv) clearInterval(iv) } }, 250)
     }
 
-    // Ultraleve: o conteúdo abaixo do vídeo só monta após o 1º scroll ou ~1.4s.
-    // Critical path = só o player. O player é isolado/memoizado (sem Fade/transform)
-    // pra não sumir no scroll.
-    const revealRest = () => setShowRest(true)
-    if (new URLSearchParams(location.search).get('reveal') === '1') revealRest()
-    const restTimer = setTimeout(revealRest, 1400)
-    window.addEventListener('scroll', revealRest, { once: true, passive: true })
+    // Monta o conteúdo (escondido via .esconder) logo após o first paint — leveza.
+    const restTimer = setTimeout(() => setShowRest(true), 1400)
+
+    // VSL FECHADA: a oferta (.esconder) só aparece aos 19:55 (1195s) do VÍDEO,
+    // sincronizada com o pitch via displayHiddenElements do Vturb (tempo assistido,
+    // não relógio de página). Vídeo tem 24:29, então dispara com folga.
+    const isPreview = new URLSearchParams(location.search).get('reveal') === '1'
+    let revealBound = false
+    const bindReveal = () => {
+      const pl = document.querySelector('vturb-smartplayer') as any
+      if (!pl || typeof pl.addEventListener !== 'function') { setTimeout(bindReveal, 150); return }
+      if (revealBound) return
+      revealBound = true
+      pl.addEventListener('player:ready', () => {
+        try { pl.displayHiddenElements(1195, ['.esconder'], { persist: true }) } catch {}
+      })
+    }
+    if (isPreview) {
+      // ?reveal=1 → mostra tudo de cara (revisão), sem esperar o vídeo
+      setShowRest(true)
+      setTimeout(() => document.querySelectorAll('.esconder').forEach(el => el.classList.remove('esconder')), 400)
+    } else {
+      bindReveal()
+    }
 
     return () => {
       window.removeEventListener('scroll', fn)
-      window.removeEventListener('scroll', revealRest)
       clearTimeout(restTimer)
       if (iv) clearInterval(iv)
     }
@@ -234,6 +250,7 @@ export default function SpanishSalesPage() {
         </p>
       </section>
 
+      <div className="esconder">
       {showRest && (<>
 
       {/* ═══ CTA 1 — PRICING ═══ */}
@@ -622,11 +639,14 @@ export default function SpanishSalesPage() {
       </footer>
 
       </>)}
+      </div>{/* end .esconder */}
 
-      {/* ═══ STICKY CTA ═══ */}
-      <div className={`sticky-cta ${sticky ? 'show' : ''}`}>
+      {/* ═══ STICKY CTA (escondido até o reveal do vídeo) ═══ */}
+      <div className={`esconder sticky-cta ${sticky ? 'show' : ''}`}>
         <Btn compact text={`GET STARTED · ${INSTALLMENTS}× ${PAY}`} />
       </div>
+
+      <style>{`.esconder{display:none}`}</style>
     </div>
   )
 }

@@ -510,6 +510,17 @@ export default function SpanishBridgePage() {
         ;(link as any).fetchPriority = 'low'
         document.head.appendChild(link)
       } catch {}
+      // Abre a conexão com os CDNs do vídeo da VSL antecipadamente (é o que mais
+      // demora lá). Deferido → não rouba banda do carregamento da bridge.
+      ;['https://scripts.converteai.net', 'https://cdn.converteai.net'].forEach(href => {
+        try {
+          const pc = document.createElement('link')
+          pc.rel = 'preconnect'
+          pc.href = href
+          pc.crossOrigin = ''
+          document.head.appendChild(pc)
+        } catch {}
+      })
     }, 1800)
 
     return () => {
