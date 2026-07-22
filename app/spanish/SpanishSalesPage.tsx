@@ -14,17 +14,16 @@ import { genEventId, getFbCookies, getClientIp, getUserAgent } from '../lib/pixe
 // repetition / series immersion), copy fully in English, series swapped to
 // Spanish-language shows.
 //
-// Preço: 6 parcelas de $57 (total $342), âncora $497. Vídeo Vturb, CAPI e checkout
+// Preço: $197 pagamento único, âncora $497. Vídeo Vturb, CAPI e checkout
 // Hotmart ligados. Pendente: Purchase server-to-server via webhook Hotmart (hoje o
 // Purchase é disparado na /spanish/obrigado — exige o Hotmart redirecionar pra lá).
 // ═══════════════════════════════════════════════════════════════
 
 const BRAND = 'FLUENCY ROUTE'
 const COURSE = 'Essential Spanish Fluency'
-const PAY = '$57'            // valor da parcela
-const INSTALLMENTS = 6       // até 6x
+const PAY = '$197'           // preço único (pagamento único)
 const FROM = '$497'          // âncora (preço cheio, riscado)
-const PURCHASE_VALUE = 342   // 6 × 57 — valor total (tracking)
+const PURCHASE_VALUE = 197   // valor total (tracking)
 const CHECKOUT = 'https://pay.hotmart.com/M94188676L?off=qp698at2'  // checkout Hotmart (espanhol)
 
 // UTMs propagados ad → bridge → VSL → checkout Hotmart (o Hotmart captura UTM
@@ -542,7 +541,7 @@ export default function SpanishSalesPage() {
                 <p>&#10003; Personalized Feedback ($497) — <span style={{ color: C.teal, fontWeight: 700 }}>FREE</span></p>
                 <p>&#10003; One-on-one WhatsApp Support ($397) — <span style={{ color: C.teal, fontWeight: 700 }}>FREE</span></p>
                 <p style={{ marginTop: 12, color: C.t1, fontWeight: 700 }}>Total: Over $2,000</p>
-                <p style={{ fontSize: 16, fontWeight: 800, color: C.teal, marginTop: 4 }}>Today: {INSTALLMENTS} monthly payments of {PAY}</p>
+                <p style={{ fontSize: 16, fontWeight: 800, color: C.teal, marginTop: 4 }}>Today: {PAY} one-time</p>
               </div>
             </Glass>
           </div>
@@ -661,7 +660,7 @@ export default function SpanishSalesPage() {
 
       {/* ═══ STICKY CTA (escondido até o reveal do vídeo) ═══ */}
       <div className={`esconder sticky-cta ${sticky ? 'show' : ''}`}>
-        <Btn compact text={`GET STARTED · ${INSTALLMENTS}× ${PAY}`} />
+        <Btn compact text={`GET STARTED · ${PAY} one-time`} />
       </div>
 
       <style>{`.esconder{display:none}`}</style>
@@ -729,9 +728,9 @@ function PriceBlock() {
         {PAY}
       </p>
       <p style={{ fontSize: 14, color: C.t1, marginTop: 2, fontWeight: 600 }}>
-        {INSTALLMENTS} easy monthly payments of {PAY}
+        One-time payment · lifetime access
       </p>
-      <p style={{ fontSize: 12, color: C.t3, marginTop: 6 }}>Interest-free · secure checkout</p>
+      <p style={{ fontSize: 12, color: C.t3, marginTop: 6 }}>No subscription · secure checkout</p>
     </div>
   )
 }
