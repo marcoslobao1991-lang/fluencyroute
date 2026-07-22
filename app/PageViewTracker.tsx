@@ -29,10 +29,14 @@ export default function PageViewTracker() {
       }
     } catch {}
 
-    // Browser Pixel
+    // Browser Pixel — trackSingle no pixel INGLÊS (938), NÃO 'track' genérico.
+    // 'track' bate em TODOS os pixels iniciados; em rotas onde o pixel espanhol
+    // (690) também está iniciado (ex: /spanish) isso mandava um PageView
+    // fantasma pro 690 sem contraparte CAPI. trackSingle mantém o PageView
+    // global preso ao 938; o 690 recebe PageView só do próprio SpanishSalesPage.
     const fbq = (window as any).fbq
     if (typeof fbq === 'function') {
-      fbq('track', 'PageView', {}, { eventID: eid })
+      fbq('trackSingle', '938768337634102', 'PageView', {}, { eventID: eid })
     }
 
     // Server-side CAPI — pulls the fbc/fbp cookies already written by the Pixel

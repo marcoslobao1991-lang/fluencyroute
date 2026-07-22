@@ -435,8 +435,11 @@ function CalloutMinute({ vslUrl }: { vslUrl: string }) {
         boxShadow: '0 10px 30px rgba(15,118,110,.32)',
       }}
         onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.filter = 'brightness(1.1)' }}
-        onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.filter = 'brightness(1)' }}
-        onClick={() => { trackEsB('InitiateCheckout', { source: 'bridge_cta' }) }}>
+        onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.filter = 'brightness(1)' }}>
+        {/* SEM InitiateCheckout aqui: este CTA só leva ao VSL, não é início de
+            checkout. IC de verdade só dispara no botão de checkout da /spanish.
+            O bridge já emite PageView + ViewContent no load, e o VSL dispara
+            ViewContent ao carregar — nenhum sinal se perde. */}
         Watch the class
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M5 12h14M12 5l7 7-7 7" />

@@ -672,10 +672,21 @@ export default function SpanishSalesPage() {
 // ═══════════════════════════════════════════════════════════════
 // CTA BUTTON — points to checkout (placeholder). No pixel tracking.
 // ═══════════════════════════════════════════════════════════════
+// InitiateCheckout dispara UMA vez por carregamento de página — NÃO a cada
+// clique de CTA. A página tem 7 botões (incl. o sticky sempre visível); sem
+// esta trava, um único visitante clicando em vários CTAs gera vários IC e
+// infla o funil (e sabota a otimização da campanha no Meta). A navegação
+// (href) segue funcionando em todo clique; só o evento é que não se repete.
+let icFired = false
+
 function Btn({ text = 'I WANT IN', compact }: { text?: string; compact?: boolean }) {
   const [href, setHref] = useState(CHECKOUT)
   useEffect(() => { setHref(buildCheckoutUrl(CHECKOUT, getUtmsFromUrl())) }, [])
-  const onClick = () => trackEs('InitiateCheckout')
+  const onClick = () => {
+    if (icFired) return
+    icFired = true
+    trackEs('InitiateCheckout')
+  }
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" className="cta-btn"
       onClick={onClick}
