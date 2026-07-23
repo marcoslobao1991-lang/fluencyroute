@@ -221,6 +221,11 @@
   .abtn{display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:13px;font-weight:700;font-size:13px;color:var(--ink);transition:.14s;}
   .abtn svg{width:15px;height:15px;flex:none;} .abtn:hover{border-color:var(--accent);}
   .pron-note{margin-top:14px;font-size:13px;line-height:1.5;color:var(--ink-soft);background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;}
+  .rep-dots{display:flex;gap:7px;justify-content:center;margin:2px 0 16px;}
+  .rep-dots i{width:32px;height:6px;border-radius:3px;background:var(--panel-2);transition:.3s;}
+  .rep-dots i.on{background:linear-gradient(90deg,var(--accent),var(--accent-2));}
+  .tip-line{text-align:center;color:var(--muted);font-size:13px;margin-top:14px;line-height:1.5;}
+  .rep-note{margin-top:14px;text-align:center;font-weight:700;font-size:14px;color:var(--accent);}
   /* app-native type: clean bold sans, no editorial serif */
   .hero h1,.onb-top h1{font-weight:800;letter-spacing:-.03em;}
   .es-lg,.es-md,.teach .es,.soundcard .nm,.soundcard .big,.shadow-model,.conv .txt,.today h2,.mode .mt,#sum h2,.sum-stat b,.log b,.clarity .pc,.clarity .tgt,.boot-in b,.brand b{font-weight:700;}
@@ -869,9 +874,14 @@ function buildTED(){
   const cards=[{t:"tedwatch"}];
   const sents=TED.sentences.map((s,i)=>({s,i}));
   const chosen=pick(sents,x=>"ted:"+x.i,beginner()?4:6);
-  chosen.forEach(o=>{ cards.push({t:"listen",es:o.s.es,en:o.s.en,id:"ted:"+o.i,kind:"word"}); cards.push({t:"shadow",text:o.s.es,en:o.s.en,id:"ted:"+o.i}); });
+  chosen.forEach((o,k)=>cards.push({t:"teddrill",s:o.s,id:"ted:"+o.i,n:k+1,total:chosen.length}));
+  cards.push({t:"tedreview"});
   return cards;
 }
+// Toca o TRECHO real da fala (segmento do vídeo) se houver timestamps; senão voz nativa Azure.
+function playExcerpt(s,slow){ if(ytPlaySegment(s,slow))return; say(s.es,null,slow?.55:null); }
+function dots(done,total){ let h=""; for(let i=0;i<total;i++)h+=`<i class="${i<done?'on':''}"></i>`; return h; }
+function ytPlaySegment(){ return false; } /* vira playback do trecho REAL do vídeo quando os timestamps entrarem */
 
 /* ---- card renderers ---- */
 function audioCtrls(getText,orbId){
@@ -977,6 +987,62 @@ CARD.tedwatch=(c,st)=>{
     <div class="spacer"></div>
     <button class="btn solid" id="tedGo">Start the training</button>`;
   $("tedGo").onclick=()=>{ stopAudio(); next(); };
+};
+CARD.teddrill=(c,st)=>{
+  const s=c.s, model=s.es, REPS=4;
+  let phase="study", rep=0, best=0, busy=false, myUrl=null;
+  const clean=()=>{ if(myUrl){try{URL.revokeObjectURL(myUrl);}catch(e){}myUrl=null;} };
+  function finishExcerpt(){ srsBump(c.id, best>=55||best===0); save(); clean(); next(); }
+  function render(){
+    st.innerHTML="";
+    if(phase==="study"){
+      st.innerHTML=`<div class="cue">Study the excerpt · line ${c.n} of ${c.total}</div>
+        <div class="es-lg">${s.es}</div><div class="en-sub">${s.en}</div>
+        <div class="audio-ctrls"><button class="actrl" id="hear">${SVG.spk} Hear it</button><button class="actrl" id="slow">${SVG.slow} Slower</button></div>
+        <div class="tip-line">Listen a few times and get the meaning. Then drill it until it's automatic.</div>
+        <div class="spacer"></div>
+        <button class="btn solid" id="go">Drill this line →</button>`;
+      $("hear").onclick=()=>playExcerpt(s); $("slow").onclick=()=>playExcerpt(s,1); playExcerpt(s);
+      $("go").onclick=()=>{ phase="drill"; stopAudio(); render(); };
+    } else {
+      st.innerHTML=`<div class="cue">Repeat it · ${Math.min(rep+1,REPS)} of ${REPS}</div>
+        <div class="rep-dots">${dots(rep,REPS)}</div>
+        <div class="es-lg">${s.es}</div>
+        <div class="audio-ctrls"><button class="actrl" id="hear">${SVG.spk} Model</button><button class="actrl" id="slow">${SVG.slow} Slower</button></div>
+        <div class="pron" id="pron"></div>
+        <div class="spacer"></div>
+        <button class="recbtn" id="rec">${SVG.mic} Say it</button>
+        <button class="btn ghost mt10" id="skip">Skip line</button>`;
+      $("hear").onclick=()=>playExcerpt(s); $("slow").onclick=()=>playExcerpt(s,1); playExcerpt(s);
+      const rec=$("rec"),pron=$("pron");
+      $("skip").onclick=()=>finishExcerpt();
+      rec.onclick=async()=>{
+        if(busy)return; busy=true;
+        rec.className="recbtn rec"; rec.innerHTML=SVG.mic+" Listening…"; stopAudio();
+        const wav=await pronRecord(6500);
+        if(wav==="denied"||!wav){ rec.className="recbtn"; rec.innerHTML=SVG.mic+" Try again"; pron.className="pron show"; pron.innerHTML='<div class="pron-note">'+(wav==="denied"?"Allow microphone access to score your pronunciation.":"Didn't catch that — say it clearly.")+'</div>'; busy=false; return; }
+        clean(); myUrl=URL.createObjectURL(wav); rec.className="recbtn"; rec.innerHTML=SVG.mic+" Scoring…";
+        const r=await pronAssess(wav,model);
+        rep++;
+        if(r&&!r.silence){ best=Math.max(best,r.score); S.shadowed++;ST.shadowed++;ST.clarSum+=r.score;ST.clarN++;S.clar.push(r.score);
+          pron.className="pron show"; pron.innerHTML=pronResultHtml(r,model)+`<div class="rep-note">${rep<REPS?"Again — lock it in. "+(REPS-rep)+" to go.":"Line mastered ✦"}</div>`; bindAB(pron,myUrl,model); }
+        else { S.shadowed++;ST.shadowed++; pron.className="pron show"; pron.innerHTML=pronABHtml()+'<div class="pron-note">Couldn\'t score — hear yourself vs the native model.</div>'; bindAB(pron,myUrl,model); }
+        save(); haptic(12);
+        if(rep>=REPS || (r&&r.score>=85&&rep>=2)){ rec.innerHTML=SVG.arw+" Next line"; rec.onclick=()=>finishExcerpt(); }
+        else { rec.innerHTML=SVG.mic+" Repeat"; busy=false; }
+      };
+    }
+  }
+  render();
+};
+CARD.tedreview=(c,st)=>{
+  st.innerHTML=`<div class="cue">Immersion · the payoff</div>
+    <div class="es-md" style="text-align:center;font-size:24px">Now watch it again.</div>
+    <p class="en-sub" style="font-size:15px">You just drilled the key lines. Play the talk once more — feel how much more you catch now.</p>
+    ${TED.embedUrl?`<div class="ep-video"><iframe src="${TED.embedUrl}" title="TED talk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>`:""}
+    <div class="spacer"></div>
+    <button class="btn solid" id="tedDone">Finish episode</button>`;
+  $("tedDone").onclick=()=>{ stopAudio(); next(); };
 };
 CARD.immerse=(c,st)=>{
   const sc=c.sc;
