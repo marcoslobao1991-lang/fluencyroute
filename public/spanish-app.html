@@ -6,7 +6,7 @@
 <title>Essential Spanish · Training Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#141110; --panel:#1E1917; --panel-2:#282120; --line:#382E29; --line-soft:#2C2421;
@@ -17,7 +17,7 @@
     --shadow:0 2px 4px rgba(0,0,0,.3), 0 18px 44px rgba(0,0,0,.42);
     --shadow-sm:0 1px 2px rgba(0,0,0,.3), 0 6px 16px rgba(0,0,0,.3);
     --r:16px; --r-lg:24px; --r-pill:999px;
-    --serif:"Fraunces",Georgia,serif; --sans:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --serif:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif; --sans:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   }
   @media (prefers-color-scheme:light){
     :root{ --bg:#F4EEE4; --panel:#FFFFFF; --panel-2:#F0E8DB; --line:#E3D8C7; --line-soft:#EEE6D8;
@@ -199,6 +199,10 @@
   .mode.feat .meta{color:var(--accent);}
   .ted-embed{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:16px;border:1px solid var(--line);margin:16px 0;background:#000;}
   .ted-embed iframe{position:absolute;inset:0;width:100%;height:100%;}
+  /* app-native type: clean bold sans, no editorial serif */
+  .hero h1,.onb-top h1{font-weight:800;letter-spacing:-.03em;}
+  .es-lg,.es-md,.teach .es,.soundcard .nm,.soundcard .big,.shadow-model,.conv .txt,.today h2,.mode .mt,#sum h2,.sum-stat b,.log b,.clarity .pc,.clarity .tgt,.boot-in b,.brand b{font-weight:700;}
+  .es-lg,.es-md,.teach .es,.shadow-model,.hero h1,.onb-top h1{letter-spacing:-.02em;}
 
   /* onboarding */
   #onb{position:fixed;inset:0;z-index:80;background:var(--bg);display:none;flex-direction:column;padding:38px 26px calc(30px + env(safe-area-inset-bottom));}
