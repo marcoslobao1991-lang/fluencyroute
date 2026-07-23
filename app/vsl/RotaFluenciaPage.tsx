@@ -330,16 +330,32 @@ export default function RotaFluenciaPage({ alwaysOpen = false, vsl2 = false }: {
       {/* ═══ HERO — VIDEO ═══ */}
       <section style={{ maxWidth: 600, margin: '0 auto', padding: '40px 20px 0' }}>
         {vsl2 && (
-          <div style={{ maxWidth: 380, margin: '0 auto 16px', textAlign: 'center' }}>
-            <p style={{
-              display: 'inline-block', fontSize: 10, letterSpacing: 2, textTransform: 'uppercase',
-              fontWeight: 700, color: C.teal, background: `${C.teal}12`,
-              border: `1px solid ${C.teal}33`, borderRadius: 999, padding: '6px 13px',
-            }}>🔓 Treino enviado · chega no seu e-mail em ~5 min</p>
-            <p style={{ fontSize: 15, fontWeight: 700, letterSpacing: '-0.01em', marginTop: 9, color: C.t1 }}>
-              Enquanto ele chega, assiste na prática <span style={{ color: C.teal }}>👇</span>
-            </p>
-          </div>
+          <Fade>
+            <div style={{ maxWidth: 520, margin: '4px auto 26px', textAlign: 'center' }}>
+              <p style={{
+                fontFamily: FONT.mono, fontSize: 10.5, letterSpacing: 3, textTransform: 'uppercase',
+                fontWeight: 600, color: C.teal, marginBottom: 16,
+              }}>
+                <span style={{ opacity: 0.5 }}>▚</span>&nbsp; Rota da Fluência Essencial
+              </p>
+              <h1 style={{
+                fontSize: 'clamp(30px, 7vw, 46px)', fontWeight: 800, lineHeight: 1.07,
+                letterSpacing: '-0.04em', margin: 0,
+              }}>
+                <span style={{
+                  display: 'block', fontWeight: 300, fontStyle: 'italic',
+                  fontSize: '0.66em', color: C.t2, letterSpacing: '-0.02em', marginBottom: 7,
+                }}>
+                  Isso é sem graça
+                </span>
+                <span style={{ color: C.t1 }}>mas me deixou </span>
+                <span style={{
+                  background: C.gradText, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}>fluente em inglês</span>
+              </h1>
+            </div>
+          </Fade>
         )}
         <Fade delay={0.15}>
           <div id="ifr_67d1c8ba61d59aeb47caf87d_wrapper" style={{ maxWidth: 400, margin: '0 auto', borderRadius: 12, overflow: 'hidden', border: `1px solid ${C.border}` }}>
