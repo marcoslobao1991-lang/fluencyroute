@@ -1,226 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
 <meta charset="utf-8">
-<title>Essential Spanish Fluency</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Essential Spanish · Training Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#D3DEEC; --surface:#EDF2F9; --surface-2:#E1E9F4; --line:#C2CFE0;
-    --text:#16202F; --text-soft:#3B475C; --muted:#4F5D74;
-    --accent:#A96A05; --accent-fill:#F4B740; --accent-ink:#2A1C00;
-    --signal:#0F7A50; --signal-soft:#DCF0E7; --coral:#C7423A; --coral-soft:#F8E3E1;
-    --teal:#0E8C86; --teal-soft:#D6EEEC;
-    --glow:rgba(244,183,64,.30);
-    --shadow:0 1px 2px rgba(20,32,51,.07),0 10px 28px rgba(20,32,51,.10);
-    --r-sm:10px; --r-md:14px; --r-lg:20px;
-    --t-xs:11px; --t-sm:13px; --t-md:15px; --t-lg:20px; --t-hero:28px;
+    --bg:#141110; --panel:#1E1917; --panel-2:#282120; --line:#382E29; --line-soft:#2C2421;
+    --ink:#F4EDE4; --ink-soft:#C3B7AB; --muted:#8B7E72;
+    --accent:#E0913C; --accent-2:#EBA85A; --accent-soft:#33251699; --accent-ink:#1A1006;
+    --calm:#84AAA1; --calm-soft:#1B2725;
+    --good:#77C295; --bad:#DC9080;
+    --shadow:0 2px 4px rgba(0,0,0,.3), 0 18px 44px rgba(0,0,0,.42);
+    --shadow-sm:0 1px 2px rgba(0,0,0,.3), 0 6px 16px rgba(0,0,0,.3);
+    --r:16px; --r-lg:24px; --r-pill:999px;
+    --serif:"Fraunces",Georgia,serif; --sans:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   }
-  @media (prefers-color-scheme: dark){
-    :root{ --ink:#0C1219; --surface:#161F2E; --surface-2:#1E293B; --line:#2C3A50;
-      --text:#E9EEF6; --text-soft:#BCC7D8; --muted:#8A98AD;
-      --accent:#F4B740; --accent-fill:#F4B740; --accent-ink:#2A1C00;
-      --signal:#3DD68C; --signal-soft:#123026; --coral:#FF6B6B; --coral-soft:#3A1D1D;
-      --teal:#38C6BE; --teal-soft:#0E2E2C;
-      --glow:rgba(244,183,64,.16);
-      --shadow:0 1px 2px rgba(0,0,0,.3),0 14px 36px rgba(0,0,0,.42); }
+  @media (prefers-color-scheme:light){
+    :root{ --bg:#F4EEE4; --panel:#FFFFFF; --panel-2:#F0E8DB; --line:#E3D8C7; --line-soft:#EEE6D8;
+      --ink:#231B15; --ink-soft:#5B4F44; --muted:#8B7D6D;
+      --accent:#B4691A; --accent-2:#C97E2A; --accent-soft:#F6E7CF; --accent-ink:#FFF6EA;
+      --calm:#3C6E64; --calm-soft:#E4EEEB; --good:#2E8B5E; --bad:#BA5A46;
+      --shadow:0 2px 4px rgba(70,50,20,.06), 0 16px 40px rgba(70,50,20,.12);
+      --shadow-sm:0 1px 2px rgba(70,50,20,.06), 0 5px 14px rgba(70,50,20,.08); }
   }
-  :root[data-theme="dark"]{--ink:#0C1219;--surface:#161F2E;--surface-2:#1E293B;--line:#2C3A50;--text:#E9EEF6;--text-soft:#BCC7D8;--muted:#8A98AD;--accent:#F4B740;--accent-fill:#F4B740;--accent-ink:#2A1C00;--signal:#3DD68C;--signal-soft:#123026;--coral:#FF6B6B;--coral-soft:#3A1D1D;--teal:#38C6BE;--teal-soft:#0E2E2C;--glow:rgba(244,183,64,.16);--shadow:0 1px 2px rgba(0,0,0,.3),0 14px 36px rgba(0,0,0,.42);}
-  :root[data-theme="light"]{--ink:#D3DEEC;--surface:#EDF2F9;--surface-2:#E1E9F4;--line:#C2CFE0;--text:#16202F;--text-soft:#3B475C;--muted:#4F5D74;--accent:#A96A05;--accent-fill:#F4B740;--accent-ink:#2A1C00;--signal:#0F7A50;--signal-soft:#DCF0E7;--coral:#C7423A;--coral-soft:#F8E3E1;--teal:#0E8C86;--teal-soft:#D6EEEC;--glow:rgba(244,183,64,.30);--shadow:0 1px 2px rgba(20,32,51,.07),0 10px 28px rgba(20,32,51,.10);}
+  :root[data-theme="light"]{--bg:#F4EEE4;--panel:#FFFFFF;--panel-2:#F0E8DB;--line:#E3D8C7;--line-soft:#EEE6D8;--ink:#231B15;--ink-soft:#5B4F44;--muted:#8B7D6D;--accent:#B4691A;--accent-2:#C97E2A;--accent-soft:#F6E7CF;--accent-ink:#FFF6EA;--calm:#3C6E64;--calm-soft:#E4EEEB;--good:#2E8B5E;--bad:#BA5A46;--shadow:0 2px 4px rgba(70,50,20,.06),0 16px 40px rgba(70,50,20,.12);--shadow-sm:0 1px 2px rgba(70,50,20,.06),0 5px 14px rgba(70,50,20,.08);}
+  :root[data-theme="dark"]{--bg:#141110;--panel:#1E1917;--panel-2:#282120;--line:#382E29;--line-soft:#2C2421;--ink:#F4EDE4;--ink-soft:#C3B7AB;--muted:#8B7E72;--accent:#E0913C;--accent-2:#EBA85A;--accent-soft:#33251699;--accent-ink:#1A1006;--calm:#84AAA1;--calm-soft:#1B2725;--good:#77C295;--bad:#DC9080;--shadow:0 2px 4px rgba(0,0,0,.3),0 18px 44px rgba(0,0,0,.42);--shadow-sm:0 1px 2px rgba(0,0,0,.3),0 6px 16px rgba(0,0,0,.3);}
 
-  *{box-sizing:border-box;} html,body{margin:0;}
-  body{ background:var(--ink); color:var(--text);
-    background-image:radial-gradient(130% 60% at 50% -12%, var(--glow), transparent 62%);
-    background-attachment:fixed; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-    line-height:1.5; -webkit-font-smoothing:antialiased; }
-  .mono{font-family:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Menlo,Consolas,monospace;}
-  .wrap{max-width:660px; margin:0 auto; padding:0 16px 120px;}
-  svg{display:block;}
+  *{box-sizing:border-box;} html,body{margin:0;height:100%;}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none;}
+  button{font-family:inherit;color:inherit;cursor:pointer;border:none;background:none;}
+  .serif{font-family:var(--serif);}
   .hidden{display:none!important;}
+  ::selection{background:var(--accent-soft);}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px;}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;}}
+  .wrap{max-width:600px;margin:0 auto;padding:0 20px;}
+  .k{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);font-weight:700;}
 
   /* boot */
-  #boot{position:fixed;inset:0;z-index:60;background:var(--ink);
-    background-image:radial-gradient(130% 62% at 50% 40%, var(--glow), transparent 62%);
-    display:grid;place-items:center;transition:opacity .5s;}
+  #boot{position:fixed;inset:0;z-index:90;background:var(--bg);display:grid;place-items:center;transition:opacity .6s;}
   #boot.gone{opacity:0;pointer-events:none;}
-  .boot-glyph{width:60px;height:60px;border-radius:16px;margin:0 auto 16px;background:var(--accent-fill);
-    color:var(--accent-ink);display:grid;place-items:center;font-weight:800;font-size:var(--t-hero);
-    box-shadow:0 0 44px rgba(244,183,64,.55);animation:bootpulse 1.4s ease-in-out infinite;}
-  @keyframes bootpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
   .boot-in{text-align:center;}
-  .boot-in b{font-size:var(--t-md);letter-spacing:.01em;}
-  .boot-in span{display:block;font-size:var(--t-xs);letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:4px;}
-  .boot-line{width:176px;height:3px;margin:20px auto 0;border-radius:3px;background:var(--surface-2);overflow:hidden;}
-  .boot-line i{display:block;height:100%;width:0;border-radius:3px;background:var(--accent-fill);
-    box-shadow:0 0 12px var(--accent-fill);animation:bootfill 1.5s ease forwards;}
-  @keyframes bootfill{to{width:100%;}}
+  .boot-mk{width:66px;height:66px;border-radius:20px;margin:0 auto 20px;border:1px solid var(--line);background:var(--panel);
+    display:grid;place-items:center;font-family:var(--serif);font-style:italic;font-weight:500;font-size:34px;color:var(--accent);box-shadow:var(--shadow-sm);}
+  .boot-in b{font-family:var(--serif);font-weight:500;font-size:20px;display:block;letter-spacing:.01em;}
+  .boot-in span{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);}
+  .boot-eq{display:flex;gap:4px;justify-content:center;margin-top:20px;height:20px;align-items:flex-end;}
+  .boot-eq i{width:3px;background:var(--accent);border-radius:2px;animation:eq 1s ease-in-out infinite;}
+  .boot-eq i:nth-child(2){animation-delay:.15s} .boot-eq i:nth-child(3){animation-delay:.3s} .boot-eq i:nth-child(4){animation-delay:.45s} .boot-eq i:nth-child(5){animation-delay:.6s}
+  @keyframes eq{0%,100%{height:5px}50%{height:20px}}
 
-  /* appbar */
-  .appbar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--ink) 82%,transparent);
-    backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
-  .appbar-in{max-width:660px;margin:0 auto;padding:11px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
-  .brand{display:flex;align-items:center;gap:10px;}
-  .brand .glyph{width:30px;height:30px;border-radius:var(--r-sm);flex:none;background:var(--accent-fill);
-    color:var(--accent-ink);display:grid;place-items:center;font-weight:800;font-size:var(--t-md);
-    box-shadow:0 0 0 1px rgba(0,0,0,.05),0 0 16px rgba(244,183,64,.4);}
-  .brand b{font-size:var(--t-sm);letter-spacing:.01em;}
-  .brand span{display:block;font-size:var(--t-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:-1px;}
-  .bar-btns{display:flex;gap:8px;align-items:center;}
-  .streak-pill{display:inline-flex;align-items:center;gap:5px;font-size:var(--t-sm);font-weight:700;color:var(--accent);
-    background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 11px;}
-  .icon-btn{background:var(--surface);color:var(--muted);border:1px solid var(--line);border-radius:999px;
-    padding:8px;cursor:pointer;font-family:inherit;transition:.15s;display:inline-flex;align-items:center;justify-content:center;}
-  .icon-btn:hover{color:var(--text);border-color:var(--accent);} .icon-btn svg{width:16px;height:16px;}
+  /* topbar */
+  .topbar{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line-soft);}
+  .topbar-in{max-width:600px;margin:0 auto;padding:13px 20px;display:flex;align-items:center;gap:12px;}
+  .brand{display:flex;align-items:center;gap:10px;margin-right:auto;}
+  .brand .mk{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--panel);display:grid;place-items:center;
+    font-family:var(--serif);font-style:italic;font-weight:500;font-size:19px;color:var(--accent);}
+  .brand b{font-family:var(--serif);font-weight:500;font-size:16px;} .brand span{display:block;}
+  .lvl-chip{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:var(--calm);border:1px solid var(--line);border-radius:var(--r-pill);padding:5px 11px;}
+  .iconbtn{width:38px;height:38px;border-radius:var(--r-pill);border:1px solid var(--line);background:var(--panel);color:var(--muted);display:grid;place-items:center;transition:.15s;}
+  .iconbtn:hover{color:var(--ink);border-color:var(--accent);} .iconbtn svg{width:18px;height:18px;}
 
-  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:20px;margin-top:16px;}
-  .btn{appearance:none;font-family:inherit;cursor:pointer;border-radius:var(--r-sm);border:1px solid var(--line);
-    background:var(--surface-2);color:var(--text);padding:12px 16px;font-size:var(--t-md);font-weight:600;
-    display:inline-flex;align-items:center;justify-content:center;gap:9px;transition:.15s;}
-  .btn:hover{border-color:var(--accent);}
-  .btn.primary{background:var(--accent-fill);color:var(--accent-ink);border-color:var(--accent-fill);}
-  .btn.primary:hover{filter:brightness(1.05);}
-  .btn.big{width:100%;padding:15px;font-size:16px;}
-  .btn.mic.rec{background:var(--coral);border-color:var(--coral);color:#fff;}
-  .btn svg{width:17px;height:17px;} .btn:disabled{opacity:.5;cursor:default;}
-  .btn.ghost{background:transparent;}
-  .speaking{animation:spk 1s ease-in-out infinite;}
-  @keyframes spk{0%,100%{box-shadow:0 0 0 0 rgba(244,183,64,.5)}50%{box-shadow:0 0 0 8px rgba(244,183,64,0)}}
-  .row{display:flex;gap:10px;flex-wrap:wrap;} .row>.btn{flex:1;}
+  /* home */
+  .hero{padding:30px 2px 4px;}
+  .hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(28px,7.5vw,38px);line-height:1.08;letter-spacing:-.02em;margin:10px 0 0;}
+  .hero h1 em{font-style:italic;color:var(--accent);}
 
-  /* hero today */
-  .hero{background:linear-gradient(160deg,var(--surface),var(--surface-2));border:1px solid var(--line);
-    border-radius:var(--r-lg);box-shadow:var(--shadow);padding:22px 20px;margin-top:18px;position:relative;overflow:hidden;}
-  .hero::after{content:"";position:absolute;inset:-40% 40% auto auto;width:220px;height:220px;border-radius:50%;
-    background:radial-gradient(circle,var(--glow),transparent 70%);pointer-events:none;}
-  .hero-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;position:relative;}
-  .daychip{font-size:var(--t-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-family:ui-monospace,monospace;}
-  .hero-big{font-size:54px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.03em;position:relative;}
-  .hero-sub{font-size:var(--t-md);color:var(--text-soft);margin:6px 0 18px;position:relative;}
-  .hero-sub b{color:var(--accent);}
-  .hero .btn{position:relative;}
-  .hero-done{font-size:var(--t-md);color:var(--signal);font-weight:600;margin:6px 0 16px;}
+  .log{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin:22px 0 6px;box-shadow:var(--shadow-sm);}
+  .log div{background:var(--panel);padding:15px 12px;text-align:center;}
+  .log b{font-family:var(--serif);font-size:26px;font-weight:600;font-variant-numeric:tabular-nums;display:block;line-height:1;}
+  .log .u{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-top:6px;}
 
-  /* coverage */
-  .cover{display:flex;align-items:center;gap:18px;}
-  .cover-ring{flex:none;position:relative;width:96px;height:96px;}
-  .cover-ring svg{width:96px;height:96px;transform:rotate(-90deg);}
-  .cover-ring .cnum{position:absolute;inset:0;display:grid;place-items:center;font-weight:800;font-size:20px;font-variant-numeric:tabular-nums;}
-  .cover-txt b{display:block;font-size:var(--t-md);color:var(--text);}
-  .cover-txt p{margin:4px 0 0;font-size:var(--t-sm);color:var(--muted);line-height:1.5;}
-  .cover-txt .big{font-size:26px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums;}
+  .today{margin:24px 0 8px;border:1px solid var(--line);border-radius:var(--r-lg);padding:22px;background:
+    radial-gradient(120% 130% at 100% 0%, var(--accent-soft), transparent 55%), var(--panel);box-shadow:var(--shadow);}
+  .today .k{color:var(--accent);}
+  .today h2{font-family:var(--serif);font-weight:500;font-size:23px;margin:8px 0 3px;}
+  .today p{margin:0 0 18px;color:var(--ink-soft);font-size:14px;}
+  .startbtn{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:var(--accent-ink);border-radius:var(--r-pill);
+    padding:14px 24px;font-weight:800;font-size:15px;box-shadow:0 6px 18px rgba(224,145,60,.28);transition:transform .12s;}
+  .startbtn:active{transform:translateY(1px);} .startbtn svg{width:17px;height:17px;}
 
-  /* phase cards */
-  .sect-label{font-size:var(--t-xs);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:26px 4px 2px;}
-  .phase{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--line);
-    border-radius:var(--r-md);box-shadow:var(--shadow);padding:14px 16px;margin-top:12px;cursor:pointer;transition:.15s;text-align:left;width:100%;font-family:inherit;color:inherit;}
-  .phase:hover{border-color:var(--accent);transform:translateY(-1px);}
-  .phase .pico{width:46px;height:46px;border-radius:12px;flex:none;display:grid;place-items:center;font-size:22px;
-    background:var(--surface-2);border:1px solid var(--line);}
-  .phase .pmid{flex:1;min-width:0;}
-  .phase .pn{font-size:var(--t-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--teal);font-family:ui-monospace,monospace;font-weight:700;}
-  .phase .pt{font-size:var(--t-md);font-weight:700;color:var(--text);}
-  .phase .pd{font-size:var(--t-sm);color:var(--muted);}
-  .pbar{height:6px;border-radius:3px;background:var(--surface-2);overflow:hidden;margin-top:7px;}
-  .pbar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent-fill),#ffd884);border-radius:3px;transition:width .5s cubic-bezier(.4,0,.2,1);}
-  .phase .pright{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:6px;}
-  .duebadge{font-size:var(--t-xs);font-weight:800;font-variant-numeric:tabular-nums;color:var(--accent-ink);background:var(--accent-fill);border-radius:999px;padding:2px 9px;min-width:22px;text-align:center;}
-  .duebadge.zero{color:var(--muted);background:var(--surface-2);border:1px solid var(--line);}
-  .phase .chev{color:var(--muted);}
+  .sec-k{margin:30px 4px 12px;}
+  .modes{display:flex;flex-direction:column;gap:12px;padding-bottom:44px;}
+  .mode{display:flex;align-items:center;gap:16px;width:100%;text-align:left;background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--r);padding:16px 18px;transition:.16s;box-shadow:var(--shadow-sm);}
+  .mode:hover{border-color:var(--accent);transform:translateY(-1px);}
+  .mode .ic{width:50px;height:50px;flex:none;border-radius:14px;display:grid;place-items:center;font-size:23px;background:var(--panel-2);border:1px solid var(--line);}
+  .mode.beg .ic{background:var(--calm-soft);border-color:color-mix(in srgb,var(--calm) 40%,transparent);}
+  .mode .mid{flex:1;min-width:0;}
+  .mode .mt{font-family:var(--serif);font-weight:500;font-size:18px;line-height:1.15;}
+  .mode .ms{font-size:13px;color:var(--muted);margin-top:1px;}
+  .mode .meta{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--calm);font-weight:800;margin-top:6px;}
+  .mode .arw{color:var(--muted);flex:none;} .mode .arw svg{width:20px;height:20px;}
 
-  /* session */
-  .sess-top{display:flex;align-items:center;gap:12px;padding:14px 0 4px;position:sticky;top:53px;background:transparent;}
-  .sess-x{background:var(--surface);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:8px;cursor:pointer;display:inline-flex;}
-  .sess-x svg{width:16px;height:16px;}
-  .sprog{flex:1;height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden;}
-  .sprog i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--accent-fill));border-radius:4px;transition:width .35s ease;}
-  .scount{font-size:var(--t-sm);color:var(--muted);font-variant-numeric:tabular-nums;font-family:ui-monospace,monospace;}
+  /* session shell */
+  #sess{position:fixed;inset:0;z-index:40;background:var(--bg);display:flex;flex-direction:column;}
+  .shead{max-width:600px;width:100%;margin:0 auto;padding:16px 20px 8px;display:flex;align-items:center;gap:16px;}
+  .sclose{width:34px;height:34px;flex:none;color:var(--muted);display:grid;place-items:center;}
+  .sclose svg{width:22px;height:22px;}
+  .sbar{flex:1;height:5px;border-radius:3px;background:var(--panel-2);overflow:hidden;}
+  .sbar i{display:block;height:100%;background:var(--accent);border-radius:3px;transition:width .4s cubic-bezier(.2,.9,.2,1);}
+  .scount{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;font-weight:700;min-width:38px;text-align:right;}
+  .sstage{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+  .sstage-in{max-width:600px;margin:0 auto;padding:20px 20px 30px;min-height:100%;display:flex;flex-direction:column;}
+  .cue{text-align:center;color:var(--muted);font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin:4px 0 26px;}
 
-  .qcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:24px 20px;margin-top:16px;min-height:300px;display:flex;flex-direction:column;}
-  .qphase{font-size:var(--t-xs);letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin-bottom:14px;font-family:ui-monospace,monospace;display:flex;justify-content:space-between;}
-  .qphase .mold{color:var(--accent);}
-  .prompt{text-align:center;margin:10px 0 6px;}
-  .prompt .big{font-size:30px;font-weight:600;line-height:1.15;text-wrap:balance;}
-  .prompt .big.q{font-weight:600;}
-  .prompt .sub{font-size:var(--t-md);color:var(--muted);margin-top:6px;}
-  .reveal{margin-top:18px;padding-top:16px;border-top:1px dashed var(--line);animation:fade .25s ease;}
-  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-  .reveal .es{font-size:var(--t-lg);font-weight:600;margin:0 0 4px;}
-  .reveal .es em{color:var(--accent);font-style:normal;}
-  .reveal .en{font-size:var(--t-md);color:var(--text-soft);}
-  .reveal .exline{margin-top:12px;font-size:var(--t-md);} .reveal .exline .esx{color:var(--text);} .reveal .exline .enx{color:var(--muted);font-size:var(--t-sm);display:block;margin-top:2px;}
-  .spacer{flex:1;}
-  .center{text-align:center;}
-  .hintline{font-size:var(--t-xs);color:var(--muted);text-align:center;margin-top:14px;display:flex;gap:6px;align-items:center;justify-content:center;}
-  .hintline svg{width:13px;height:13px;}
+  /* audio focus */
+  .listen-orb{margin:8px auto 8px;width:132px;height:132px;border-radius:50%;display:grid;place-items:center;position:relative;
+    background:var(--panel);border:1px solid var(--line);color:var(--accent);box-shadow:var(--shadow);transition:transform .12s;}
+  .listen-orb:active{transform:scale(.97);} .listen-orb svg{width:52px;height:52px;}
+  .listen-orb.playing::before,.listen-orb.playing::after{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid var(--accent);animation:ripple 1.6s ease-out infinite;}
+  .listen-orb.playing::after{animation-delay:.8s;}
+  @keyframes ripple{0%{transform:scale(1);opacity:.5}100%{transform:scale(1.5);opacity:0}}
+  .audio-ctrls{display:flex;gap:10px;justify-content:center;margin:18px 0 8px;}
+  .actrl{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--panel);border-radius:var(--r-pill);padding:9px 16px;font-weight:700;font-size:13px;color:var(--ink-soft);transition:.14s;}
+  .actrl:hover{border-color:var(--accent);color:var(--ink);} .actrl svg{width:15px;height:15px;}
 
-  /* grade buttons */
-  .grades{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:16px;}
-  .grade{appearance:none;font-family:inherit;cursor:pointer;border-radius:var(--r-sm);border:1px solid var(--line);
-    background:var(--surface-2);padding:12px 6px;font-weight:700;font-size:var(--t-sm);transition:.15s;display:flex;flex-direction:column;gap:3px;align-items:center;}
-  .grade small{font-weight:500;font-size:10px;color:var(--muted);}
-  .grade.again{color:var(--coral);} .grade.again:hover{border-color:var(--coral);background:var(--coral-soft);}
-  .grade.good{color:var(--teal);} .grade.good:hover{border-color:var(--teal);background:var(--teal-soft);}
-  .grade.easy{color:var(--signal);} .grade.easy:hover{border-color:var(--signal);background:var(--signal-soft);}
-  .grade.suggest{box-shadow:0 0 0 2px var(--accent-fill);}
+  .es-lg{font-family:var(--serif);font-weight:500;font-size:clamp(28px,8vw,40px);line-height:1.14;text-align:center;letter-spacing:-.01em;}
+  .es-md{font-family:var(--serif);font-weight:500;font-size:clamp(22px,6vw,29px);line-height:1.2;text-align:center;}
+  .en-sub{text-align:center;color:var(--ink-soft);font-size:17px;margin-top:12px;}
+  .en-mut{text-align:center;color:var(--muted);font-size:14px;margin-top:6px;}
+  .spacer{flex:1;min-height:14px;}
 
-  /* clarity report (shadowing) */
-  .report{margin-top:16px;border-radius:var(--r-sm);padding:14px 15px;background:var(--surface-2);border:1px solid var(--line);display:none;}
-  .report.show{display:block;animation:fade .25s ease;}
-  .rep-head{display:flex;align-items:baseline;gap:9px;margin-bottom:11px;}
-  .rep-score{font-size:27px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1;}
-  .rep-score.g-ok{color:var(--signal);} .rep-score.g-mid{color:var(--accent);} .rep-score.g-low{color:var(--coral);}
-  .rep-label{font-size:var(--t-xs);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
-  .rep-target{font-size:var(--t-md);line-height:1.85;}
-  .rep-target .w{padding:1px 3px;border-radius:4px;}
-  .rep-target .w-ok{color:var(--signal);} .rep-target .w-miss{color:var(--coral);text-decoration:underline wavy;text-underline-offset:3px;}
-  .rep-tip{margin-top:11px;font-size:var(--t-sm);color:var(--text-soft);} .rep-tip b{color:var(--coral);}
-  .rep-heard{margin-top:9px;font-size:var(--t-xs);color:var(--muted);} .rep-heard b{color:var(--text);}
+  .panel-reveal{margin-top:22px;padding:20px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow-sm);animation:rise .3s ease;}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .conv .line{padding:12px 0;border-bottom:1px solid var(--line-soft);}
+  .conv .line:last-child{border:none;}
+  .conv .who{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:4px;}
+  .conv .txt{font-family:var(--serif);font-size:19px;} .conv .txt em{font-style:normal;color:var(--accent);font-weight:600;}
+  .conv .tn{color:var(--muted);font-size:14px;margin-top:2px;}
 
-  /* done screen */
-  .done-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);
-    padding:32px 24px;margin-top:40px;text-align:center;position:relative;overflow:hidden;}
-  .done-badge{width:66px;height:66px;border-radius:50%;margin:0 auto 18px;border:2px solid var(--accent-fill);color:var(--accent);
-    display:grid;place-items:center;box-shadow:0 0 34px rgba(244,183,64,.4);}
-  .done-badge svg{width:30px;height:30px;}
-  .done-card h2{margin:0 0 6px;font-size:22px;}
-  .done-card p{margin:0 0 20px;color:var(--text-soft);font-size:var(--t-md);}
-  .done-stats{display:flex;justify-content:center;gap:26px;margin:0 0 22px;}
-  .done-stat b{display:block;font-size:26px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums;}
-  .done-stat span{font-size:var(--t-xs);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
+  /* buttons */
+  .btn{display:block;width:100%;border-radius:var(--r);padding:16px;font-weight:800;font-size:16px;text-align:center;transition:transform .1s;}
+  .btn.solid{background:var(--accent);color:var(--accent-ink);box-shadow:0 4px 14px rgba(224,145,60,.25);}
+  .btn.solid:active{transform:translateY(2px);}
+  .btn.calm{background:var(--calm);color:var(--accent-ink);}
+  .btn.line{border:1px solid var(--line);color:var(--ink-soft);background:var(--panel);}
+  .btn.ghost{color:var(--muted);font-weight:700;font-size:14px;padding:12px;}
+  .btnrow{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .mt10{margin-top:10px;} .mt16{margin-top:16px;}
 
-  #fx{position:fixed;inset:0;pointer-events:none;z-index:70;}
-  @media (max-width:460px){ .prompt .big{font-size:25px;} .hero-big{font-size:46px;} }
-  @media (prefers-reduced-motion:reduce){*,*::before{animation:none!important;transition:none!important;}}
-  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  /* comprehension self-check */
+  .selfcheck{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px;}
+  .sc{border:1px solid var(--line);background:var(--panel);border-radius:var(--r);padding:15px;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;transition:.14s;}
+  .sc.no:hover{border-color:var(--bad);color:var(--bad);} .sc.yes:hover{border-color:var(--good);color:var(--good);}
+  .sc svg{width:17px;height:17px;}
+
+  /* shadow record */
+  .recbtn{margin:6px auto 0;width:100%;max-width:340px;display:flex;align-items:center;justify-content:center;gap:11px;
+    background:var(--calm);color:var(--accent-ink);border-radius:var(--r-pill);padding:16px;font-weight:800;font-size:16px;transition:.14s;}
+  .recbtn.rec{background:var(--bad);color:#fff;animation:recpulse 1.1s ease-in-out infinite;}
+  @keyframes recpulse{0%,100%{box-shadow:0 0 0 0 rgba(220,144,128,.5)}50%{box-shadow:0 0 0 12px rgba(220,144,128,0)}}
+  .recbtn svg{width:20px;height:20px;}
+  .clarity{margin-top:20px;padding:18px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);display:none;box-shadow:var(--shadow-sm);}
+  .clarity.show{display:block;animation:rise .3s ease;}
+  .clarity .top{display:flex;align-items:baseline;gap:10px;}
+  .clarity .pc{font-family:var(--serif);font-size:32px;font-weight:600;font-variant-numeric:tabular-nums;}
+  .clarity .pc.ok{color:var(--good);} .clarity .pc.mid{color:var(--accent);} .clarity .pc.low{color:var(--bad);}
+  .clarity .lb{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+  .clarity .tgt{font-family:var(--serif);font-size:19px;margin-top:12px;line-height:1.7;}
+  .clarity .tgt .w-ok{color:var(--good);} .clarity .tgt .w-miss{color:var(--bad);text-decoration:underline wavy;text-underline-offset:3px;}
+  .clarity .heard{font-size:12px;color:var(--muted);margin-top:10px;} .clarity .heard b{color:var(--ink-soft);}
+
+  /* sound tiles (foundations) */
+  .soundcard{text-align:center;padding:26px 20px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);}
+  .soundcard .big{font-family:var(--serif);font-size:64px;font-weight:600;color:var(--accent);line-height:1;}
+  .soundcard .nm{font-family:var(--serif);font-size:20px;margin-top:6px;}
+  .soundcard .tip{color:var(--ink-soft);font-size:15px;margin-top:12px;max-width:380px;margin-left:auto;margin-right:auto;}
+  .wordchips{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-top:20px;}
+  .wchip{display:inline-flex;flex-direction:column;align-items:center;gap:1px;border:1px solid var(--line);background:var(--panel-2);border-radius:12px;padding:9px 14px;transition:.14s;}
+  .wchip:hover{border-color:var(--accent);} .wchip b{font-family:var(--serif);font-weight:500;font-size:17px;} .wchip small{color:var(--muted);font-size:11px;}
+
+  /* choice options (conversation) */
+  .choices{display:flex;flex-direction:column;gap:11px;margin-top:auto;}
+  .choice{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px;font-family:var(--serif);font-size:17px;transition:.14s;}
+  .choice:hover{border-color:var(--accent);} .choice.ok{border-color:var(--good);background:color-mix(in srgb,var(--good) 12%,var(--panel));}
+  .choice.no{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--panel));opacity:.85;}
+  .choice .spk{margin-left:auto;color:var(--muted);flex:none;} .choice .spk svg{width:18px;height:18px;}
+
+  /* summary */
+  #sum{position:fixed;inset:0;z-index:60;background:var(--bg);display:none;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:32px 24px;}
+  #sum.show{display:flex;}
+  .sum-badge{width:92px;height:92px;border-radius:26px;border:1px solid var(--line);background:var(--panel);display:grid;place-items:center;color:var(--accent);margin-bottom:22px;box-shadow:var(--shadow);animation:rise .5s ease;}
+  .sum-badge svg{width:44px;height:44px;}
+  #sum h2{font-family:var(--serif);font-weight:500;font-size:29px;margin:0 0 6px;}
+  #sum p{color:var(--ink-soft);margin:0 0 26px;font-size:16px;max-width:360px;}
+  .sum-stats{display:flex;gap:12px;margin-bottom:30px;}
+  .sum-stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px 20px;min-width:96px;box-shadow:var(--shadow-sm);}
+  .sum-stat b{font-family:var(--serif);font-size:28px;font-weight:600;display:block;line-height:1;}
+  .sum-stat span{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-top:7px;display:block;}
+  .sum-cta{width:100%;max-width:340px;}
+
+  /* onboarding */
+  #onb{position:fixed;inset:0;z-index:80;background:var(--bg);display:none;flex-direction:column;padding:38px 26px calc(30px + env(safe-area-inset-bottom));}
+  #onb.show{display:flex;}
+  .onb-top{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center;}
+  .onb-mk{width:78px;height:78px;border-radius:22px;border:1px solid var(--line);background:var(--panel);display:grid;place-items:center;margin:0 auto 20px;
+    font-family:var(--serif);font-style:italic;font-weight:500;font-size:38px;color:var(--accent);box-shadow:var(--shadow-sm);}
+  .onb-top h1{font-family:var(--serif);font-weight:500;font-size:31px;line-height:1.12;margin:0 0 8px;letter-spacing:-.02em;}
+  .onb-top h1 em{font-style:italic;color:var(--accent);}
+  .onb-top>p{color:var(--ink-soft);font-size:16px;max-width:360px;margin:0 auto 26px;}
+  .levels{display:flex;flex-direction:column;gap:12px;max-width:380px;margin:0 auto;width:100%;}
+  .lvl{display:flex;align-items:center;gap:14px;text-align:left;border:1px solid var(--line);background:var(--panel);border-radius:var(--r);padding:16px 18px;transition:.14s;}
+  .lvl .e{font-size:26px;} .lvl b{font-family:var(--serif);font-weight:500;font-size:18px;display:block;} .lvl small{color:var(--muted);font-size:13px;}
+  .lvl.sel{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent);}
+
+  @media (max-width:390px){ .sum-stats{gap:8px;} .sum-stat{min-width:0;padding:14px;} .log b{font-size:22px;} }
 </style>
+</head>
+<body>
 
 <div id="boot"><div class="boot-in">
-  <div class="boot-glyph">FR</div>
-  <b>Fluency Route</b><span>Essential Spanish Fluency</span>
-  <div class="boot-line"><i></i></div>
+  <div class="boot-mk">á</div>
+  <b>Essential Spanish</b><span class="k">Training Studio</span>
+  <div class="boot-eq"><i></i><i></i><i></i><i></i><i></i></div>
 </div></div>
 
-<header class="appbar"><div class="appbar-in">
-  <div class="brand"><div class="glyph">FR</div><div><b>Essential Spanish</b><span>Fluency Route</span></div></div>
-  <div class="bar-btns">
-    <span class="streak-pill" id="streakPill">🔥 0</span>
-    <button class="icon-btn" id="theme" aria-label="Toggle theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg></button>
+<!-- ONBOARDING -->
+<div id="onb"><div class="onb-top">
+  <div class="onb-mk">¡Hola!</div>
+  <h1>Train your ear.<br><em>Free your voice.</em></h1>
+  <p>This isn't a game. It's a daily training studio — listening, shadowing and real conversation until Spanish becomes automatic. Where do you start?</p>
+  <div class="levels" id="levels">
+    <button class="lvl sel" data-l="beginner"><span class="e">🌱</span><span><b>I'm a beginner</b><small>Start from the sounds and survival phrases</small></span></button>
+    <button class="lvl" data-l="intermediate"><span class="e">🔥</span><span><b>I know some Spanish</b><small>Jump into real conversational training</small></span></button>
   </div>
-</div></header>
-
-<div class="wrap">
-  <main id="home" class="screen"></main>
-  <section id="session" class="screen hidden"></section>
-  <section id="done" class="screen hidden"></section>
+</div>
+<button class="btn solid" id="onbStart" style="max-width:380px;margin:0 auto;width:100%">Enter the studio →</button>
 </div>
 
-<canvas id="fx"></canvas>
+<!-- APP -->
+<div id="app">
+  <div class="topbar"><div class="topbar-in">
+    <div class="brand"><div class="mk">á</div><div><b>Essential Spanish</b><span class="k">Training Studio</span></div></div>
+    <button class="lvl-chip" id="lvlChip">Beginner</button>
+    <button class="iconbtn" id="theme" aria-label="Toggle theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg></button>
+  </div></div>
+  <div class="wrap">
+    <div class="hero"><div class="k" id="heroK">Buenos días</div><h1 id="heroH">Time to <em>train</em>.</h1></div>
+    <div class="log" id="log"></div>
+    <div id="todaySlot"></div>
+    <div class="k sec-k">Training modes</div>
+    <div class="modes" id="modes"></div>
+  </div>
+</div>
+
+<!-- SESSION -->
+<div id="sess" class="hidden">
+  <div class="shead">
+    <button class="sclose" id="sClose" aria-label="End session"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="sbar"><i id="sBar" style="width:0"></i></div>
+    <span class="scount" id="sCount">1/1</span>
+  </div>
+  <div class="sstage"><div class="sstage-in" id="stage"></div></div>
+</div>
+
+<!-- SUMMARY -->
+<div id="sum"><div style="display:flex;flex-direction:column;align-items:center">
+  <div class="sum-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+  <h2 id="sumTt">Session complete</h2>
+  <p id="sumP"></p>
+  <div class="sum-stats" id="sumStats"></div>
+  <div class="sum-cta">
+    <button class="btn solid" id="sumAgain">Train again</button>
+    <button class="btn ghost mt10" id="sumHome">Back to studio</button>
+  </div>
+</div></div>
 
 <script>
 "use strict";
-(function(){ document.documentElement.lang="en";
-  if(!document.querySelector('meta[name="viewport"]')){ var m=document.createElement("meta"); m.name="viewport"; m.content="width=device-width, initial-scale=1, viewport-fit=cover"; (document.head||document.documentElement).appendChild(m); } })();
-try{ var _th=localStorage.getItem("esf_theme"); if(_th) document.documentElement.setAttribute("data-theme",_th); }catch(e){}
+try{var _th=localStorage.getItem("esf4_theme");if(_th)document.documentElement.setAttribute("data-theme",_th);}catch(e){}
 
-/* ═══════════════ CONTENT ═══════════════ */
-/* Phase 1 — Auditory Perception: essential high-frequency vocabulary (neutral Latin American Spanish) */
-const VOCAB = [/*__VOCAB_START__*/
+/* ═══ CONTENT ═══ */
+const VOCAB=[/*__VOCAB_START__*/
   {"es":"yo","en":"I","ex":"Yo estudio español todos los días.","exEn":"I study Spanish every day.","cat":"pronoun"},
   {"es":"tú","en":"you (informal)","ex":"¿Tú vas a la fiesta esta noche?","exEn":"Are you going to the party tonight?","cat":"pronoun"},
   {"es":"él","en":"he / him","ex":"Él trabaja en un banco desde hace tres años.","exEn":"He has worked at a bank for three years.","cat":"pronoun"},
@@ -293,7 +349,7 @@ const VOCAB = [/*__VOCAB_START__*/
   {"es":"mantener","en":"to maintain / to keep","ex":"Es difícil mantener la casa limpia con niños.","exEn":"It's hard to keep the house clean with kids.","cat":"verb"},
   {"es":"resultar","en":"to turn out / to result","ex":"Al final, todo resultó mejor de lo esperado.","exEn":"In the end, everything turned out better than expected.","cat":"verb"},
   {"es":"leer","en":"to read","ex":"Leo un libro nuevo casi cada mes.","exEn":"I read a new book almost every month.","cat":"verb"},
-  {"es":"caer","en":"to fall","ex":"Ten cuidado, el piso está mojado y te puedes caer.","exEn":"Be careful, the floor is wet and you might fall.","cat":"verb"},
+  {"es":"caer","en":"to fall","ex":"Ten cuidado, el piso está mojado y puedes caer.","exEn":"Be careful, the floor is wet and you might fall.","cat":"verb"},
   {"es":"cambiar","en":"to change","ex":"Quiero cambiar de trabajo el próximo año.","exEn":"I want to change jobs next year.","cat":"verb"},
   {"es":"presentar","en":"to present / to introduce","ex":"Te quiero presentar a un amigo mío.","exEn":"I want to introduce you to a friend of mine.","cat":"verb"},
   {"es":"crear","en":"to create","ex":"Ella creó su propia empresa hace dos años.","exEn":"She created her own company two years ago.","cat":"verb"},
@@ -423,11 +479,15 @@ const VOCAB = [/*__VOCAB_START__*/
   {"es":"vale la pena","en":"it's worth it","ex":"Vale la pena esperar por un buen resultado.","exEn":"It's worth waiting for a good result.","cat":"expression"}
 /*__VOCAB_END__*/];
 
-/* Phase 2 & 3 — conversational blocks (es stem, en gloss, variations) */
-const CATS=["Start opinions","Doubt & uncertainty","Explain better","Wishes & plans","Need & preference","Current actions","Experience & change","Telling stories","Asking for help","Keep it going"];
+const FOUND={/*__FOUND_START__*/
+  sounds:[{"sound":"rr","name":"The rolled R","tipEn":"Trill the tip of your tongue rapidly against the ridge behind your top teeth, like a tiny purring motor.","words":[{"es":"perro","en":"dog"},{"es":"carro","en":"car"},{"es":"tierra","en":"earth / land"},{"es":"arroz","en":"rice"}]},{"sound":"r","name":"The tapped R","tipEn":"Tap your tongue once against the roof of your mouth - it sounds like the quick 'dd' in the American English word 'ladder'.","words":[{"es":"pero","en":"but"},{"es":"caro","en":"expensive"},{"es":"para","en":"for"},{"es":"cara","en":"face"}]},{"sound":"ñ","name":"The Ñ sound","tipEn":"Press the middle of your tongue against the roof of your mouth, like the 'ny' in 'canyon'.","words":[{"es":"niño","en":"boy / child"},{"es":"año","en":"year"},{"es":"español","en":"Spanish"},{"es":"mañana","en":"tomorrow / morning"}]},{"sound":"j / g+e,i","name":"The J sound","tipEn":"A breathy sound from the back of the throat, stronger than an English 'h' - think of gently fogging up a mirror.","words":[{"es":"jamón","en":"ham"},{"es":"gente","en":"people"},{"es":"jugo","en":"juice"},{"es":"gigante","en":"giant"}]},{"sound":"ll / y","name":"The LL / Y sound","tipEn":"Across most of Latin America both letters sound like the 'y' in 'yes' - never like the English 'll' in 'call'.","words":[{"es":"llave","en":"key"},{"es":"yo","en":"I"},{"es":"calle","en":"street"},{"es":"playa","en":"beach"}]},{"sound":"a, e, i, o, u","name":"Pure vowels","tipEn":"Keep each vowel short and pure - Spanish vowels never glide into a second sound the way English ones do (Spanish 'o' is not 'oh-oo').","words":[{"es":"casa","en":"house"},{"es":"mesa","en":"table"},{"es":"sí","en":"yes"},{"es":"tú","en":"you"}]},{"sound":"h","name":"The silent H","tipEn":"The letter h is always silent in Spanish - never pronounce it, no matter how the word looks.","words":[{"es":"hola","en":"hi"},{"es":"hermano","en":"brother"},{"es":"ahora","en":"now"},{"es":"hasta","en":"until"}]},{"sound":"z / c+e,i","name":"The Z / soft C sound","tipEn":"In Latin American Spanish this is pronounced just like the English 's' (unlike Spain, where it sounds like 'th').","words":[{"es":"gracias","en":"thank you"},{"es":"cielo","en":"sky"},{"es":"zapato","en":"shoe"},{"es":"cero","en":"zero"}]},{"sound":"b / v","name":"The B / V sound","tipEn":"B and V are pronounced exactly the same in Spanish - a soft sound between an English 'b' and 'v'.","words":[{"es":"bueno","en":"good"},{"es":"vamos","en":"let's go"},{"es":"vivir","en":"to live"},{"es":"boca","en":"mouth"}]}],
+  survival:[{"es":"Hola","en":"Hi / Hello"},{"es":"Buenos días","en":"Good morning"},{"es":"Buenas tardes","en":"Good afternoon"},{"es":"Buenas noches","en":"Good evening / Good night"},{"es":"¿Cómo estás?","en":"How are you?","tipEn":"Informal (tú); the formal version, used with strangers or elders, is ¿Cómo está usted?"},{"es":"Bien, gracias","en":"Good, thanks"},{"es":"¿Y tú?","en":"And you?","tipEn":"Informal; use ¿Y usted? in formal situations."},{"es":"Mucho gusto","en":"Nice to meet you"},{"es":"Me llamo...","en":"My name is..."},{"es":"¿Cómo te llamas?","en":"What's your name?","tipEn":"Informal; the formal version is ¿Cómo se llama usted?"},{"es":"Por favor","en":"Please"},{"es":"Gracias","en":"Thank you"},{"es":"De nada","en":"You're welcome"},{"es":"Perdón","en":"Sorry / Excuse me"},{"es":"Disculpa","en":"Excuse me","tipEn":"Informal, used to get someone's attention or apologize lightly; the formal version is Disculpe."},{"es":"Sí","en":"Yes"},{"es":"No","en":"No"},{"es":"¿Hablas inglés?","en":"Do you speak English?"},{"es":"No entiendo","en":"I don't understand"},{"es":"¿Puedes repetir?","en":"Can you repeat that?"},{"es":"Más despacio, por favor","en":"Slower, please"},{"es":"¿Cuánto cuesta?","en":"How much does it cost?"},{"es":"La cuenta, por favor","en":"The check, please"},{"es":"¿Dónde está el baño?","en":"Where's the bathroom?"},{"es":"¿Dónde está...?","en":"Where is...?"},{"es":"Quisiera...","en":"I would like...","tipEn":"A softer, more polite way to ask for something than quiero ('I want')."},{"es":"Ayuda","en":"Help"},{"es":"Hasta luego","en":"See you later"},{"es":"Adiós","en":"Goodbye"}],
+  numbers:[{"es":"cero","en":"zero"},{"es":"uno","en":"one"},{"es":"dos","en":"two"},{"es":"tres","en":"three"},{"es":"cuatro","en":"four"},{"es":"cinco","en":"five"},{"es":"seis","en":"six"},{"es":"siete","en":"seven"},{"es":"ocho","en":"eight"},{"es":"nueve","en":"nine"},{"es":"diez","en":"ten"},{"es":"once","en":"eleven"},{"es":"doce","en":"twelve"},{"es":"trece","en":"thirteen"},{"es":"catorce","en":"fourteen"},{"es":"quince","en":"fifteen"},{"es":"dieciséis","en":"sixteen"},{"es":"diecisiete","en":"seventeen"},{"es":"dieciocho","en":"eighteen"},{"es":"diecinueve","en":"nineteen"},{"es":"veinte","en":"twenty"},{"es":"treinta","en":"thirty"},{"es":"cuarenta","en":"forty"},{"es":"cincuenta","en":"fifty"},{"es":"sesenta","en":"sixty"},{"es":"setenta","en":"seventy"},{"es":"ochenta","en":"eighty"},{"es":"noventa","en":"ninety"},{"es":"cien","en":"one hundred"}]
+/*__FOUND_END__*/};
+
 const B=[
   {c:0,es:"Creo que…",en:"I think…",m:"phrase",v:["es buena idea","deberíamos esperar","tienes razón","es muy tarde","funciona","se les olvidó"],q:"¿Qué crees de esto?"},
-  {c:0,es:"No creo que…",en:"I don't think…",m:"subj",warn:1,v:["sea buena idea","sea verdad","tengamos tiempo","venga","importe","ella lo sepa"],q:"¿Crees que esto va a funcionar?"},
+  {c:0,es:"No creo que…",en:"I don't think…",m:"subj",v:["sea buena idea","sea verdad","tengamos tiempo","venga","importe","ella lo sepa"],q:"¿Crees que esto va a funcionar?"},
   {c:0,es:"Tengo ganas de…",en:"I feel like…",m:"inf",v:["irme a casa","descansar un rato","comer algo","quedarme en casa","intentarlo de nuevo"],q:"¿Qué tienes ganas de hacer?"},
   {c:0,es:"En mi opinión…",en:"In my opinion…",m:"phrase",v:["es muy caro","necesitamos más tiempo","esta es la mejor opción","él tiene razón","no vale la pena"],q:"En tu opinión, ¿qué es lo mejor?"},
   {c:0,es:"Para mí…",en:"The way I see it…",m:"phrase",v:["tenemos dos opciones","ya está decidido","así nadie gana","deberíamos empezar ya","es su decisión"],q:"Para ti, ¿y ahora qué?"},
@@ -443,7 +503,7 @@ const B=[
   {c:2,es:"Hasta donde sé…",en:"As far as I know…",m:"phrase",v:["sigue abierto","ya se fueron","es gratis","ella va a venir","nada cambió"],q:"¿Todavía va a pasar?"},
   {c:3,es:"Quiero…",en:"I want to…",m:"inf",v:["aprender español","viajar más","empezar hoy","cambiar de trabajo","ayudarte","mejorar"],q:"¿Qué quieres hacer?"},
   {c:3,es:"Me gustaría…",en:"I'd like to…",m:"inf",v:["preguntarte algo","intentarlo","ir ahí","aprender más","tomar un descanso"],q:"¿Qué te gustaría hacer?"},
-  {c:3,es:"Estoy tratando de…",en:"I'm trying to…",m:"inf",v:["aprender","acordarme","explicar","encontrarlo","entender","concentrarme"],q:"¿Qué estás tratando de hacer ahora?"},
+  {c:3,es:"Estoy tratando de…",en:"I'm trying to…",m:"inf",v:["aprender","acordarme","explicar","encontrarlo","entender","concentrarme"],q:"¿Qué estás tratando de hacer?"},
   {c:3,es:"Estoy planeando…",en:"I'm planning to…",m:"inf",v:["viajar el próximo año","mudarme","empezar un negocio","estudiar en el extranjero","ahorrar dinero"],q:"¿Qué estás planeando este año?"},
   {c:3,es:"Estoy pensando en…",en:"I'm thinking about…",m:"inf",v:["cambiar de trabajo","mudarme","aprender inglés","empezar de nuevo","comprar un carro"],q:"¿En qué estás pensando?"},
   {c:4,es:"Necesito…",en:"I need to…",m:"inf",v:["terminar esto","llamarla","irme ya","estudiar más","pensarlo","dormir un poco"],q:"¿Qué necesitas hacer hoy?"},
@@ -455,13 +515,13 @@ const B=[
   {c:5,es:"Estoy trabajando en…",en:"I'm working on…",m:"noun",v:["un nuevo proyecto","mi español","algo grande","una presentación","un plan"],q:"¿En qué estás trabajando?"},
   {c:5,es:"Estoy esperando…",en:"I'm waiting for…",m:"noun",v:["el autobús","una respuesta","mi turno","el momento justo","los resultados"],q:"¿Qué estás esperando?"},
   {c:5,es:"Voy a…",en:"I'm going to…",m:"inf",v:["llamarte más tarde","intentarlo de nuevo","hacer la cena","explicarte todo","empezar ya"],q:"¿Qué vas a hacer mañana?"},
-  {c:5,es:"Estoy a punto de…",en:"I'm about to…",m:"inf",v:["salir","empezar","llamarte","rendirme","terminar"],q:"¿Estás ocupado? — Estoy a punto de…"},
+  {c:5,es:"Estoy a punto de…",en:"I'm about to…",m:"inf",v:["salir","empezar","llamarte","rendirme","terminar"],q:"¿Estás ocupado?"},
   {c:6,es:"Solía…",en:"I used to…",m:"inf",v:["vivir en México","trabajar de noche","jugar fútbol","odiarlo","ser tímido"],q:"¿Qué solías hacer de niño?"},
-  {c:6,es:"Ya estoy acostumbrado a…",en:"I'm used to…",m:"inf",v:["trabajar desde casa","levantarme temprano","comer tarde","estar solo","trabajar hasta tarde"],q:"¿No es difícil? — No, ya estoy acostumbrado."},
+  {c:6,es:"Ya estoy acostumbrado a…",en:"I'm used to…",m:"inf",v:["trabajar desde casa","levantarme temprano","comer tarde","estar solo","trabajar hasta tarde"],q:"¿No es difícil?"},
   {c:6,es:"He estado tratando de…",en:"I've been trying to…",m:"inf",v:["aprender español","localizarte","arreglarlo","mantener la calma","comer mejor"],q:"¿Qué has estado tratando de hacer?"},
-  {c:6,es:"Nunca he…",en:"I've never…",m:"part",warn:1,v:["estado ahí","intentado eso","visto eso","hecho esto","oído de eso"],q:"¿Alguna vez has viajado al extranjero?"},
+  {c:6,es:"Nunca he…",en:"I've never…",m:"part",v:["estado ahí","intentado eso","visto eso","hecho esto","oído de eso"],q:"¿Alguna vez has viajado al extranjero?"},
   {c:6,es:"Siempre he querido…",en:"I've always wanted to…",m:"inf",v:["visitar Nueva York","aprender guitarra","viajar por el mundo","hablar español","escribir un libro"],q:"¿Qué siempre has querido hacer?"},
-  {c:7,es:"Terminé…",en:"I ended up…",m:"ger",warn:1,v:["quedándome en casa","pagando más","haciéndolo yo mismo","perdiéndome","llegando tarde"],q:"¿Y qué pasó al final?"},
+  {c:7,es:"Terminé…",en:"I ended up…",m:"ger",v:["quedándome en casa","pagando más","haciéndolo yo mismo","perdiéndome","llegando tarde"],q:"¿Y qué pasó al final?"},
   {c:7,es:"Me enteré de que…",en:"I found out…",m:"phrase",v:["él estaba ahí","era falso","ya lo sabían","ella se fue","estaba equivocado"],q:"¿Cómo te enteraste?"},
   {c:7,es:"Resultó que…",en:"It turned out…",m:"phrase",v:["tenía razón","era fácil","se les olvidó","fue un error","todo estaba bien"],q:"¿Y cómo resultó?"},
   {c:7,es:"No fue mi intención…",en:"I didn't mean to…",m:"inf",v:["lastimarte","llegar tarde","decir eso","molestarte","romperlo","interrumpir"],q:"¿Por qué hiciste eso?"},
@@ -477,9 +537,6 @@ const B=[
   {c:9,es:"¿Y tú?",en:"What about you?",m:"ready",v:["¿Y tú?","¿Y tú qué?","¿Tú qué opinas?","¿A ti qué te parece?"],q:"(devuelve la pregunta)"},
   {c:9,es:"Cuéntame más de…",en:"Tell me more about…",m:"noun",v:["eso","tu viaje","tu trabajo","lo que pasó","tu idea"],q:"(muestra interés)"}
 ];
-const MOLD_LABEL={inf:"+ verb",ger:"+ -ndo",noun:"+ noun",phrase:"+ phrase",part:"+ participle",subj:"subjunctive",ready:"set phrase"};
-
-/* Phase 4 — immersion dialogues (2-line scenes, index-aligned to B) */
 const SCENES=[
   {a:"¿Y qué opinas del nuevo diseño de la oficina?",b:"Creo que es buena idea, la verdad — ahora la gente sí conversa.",s:"Creo que"},
   {a:"Tranquilo, seguro llega. Siempre llega.",b:"No creo que venga, en serio. No contesta desde hace tres horas.",s:"No creo que"},
@@ -533,378 +590,298 @@ const SCENES=[
   {a:"Por fin renuncié y empecé a trabajar por mi cuenta.",b:"¡No me digas! Cuéntame más de eso, ¿cómo va?",s:"Cuéntame más de"}
 ];
 
-const PHASES=[
-  {key:"p1",name:"Phase 01",icon:"👂",title:"Auditory Perception",tag:"Listen & recognize essential words",mode:"word"},
-  {key:"p2",name:"Phase 02",icon:"💬",title:"Conversational",tag:"Catch fast, connected speech",mode:"comprehend"},
-  {key:"p3",name:"Phase 03",icon:"🎙️",title:"Shadowing",tag:"Repeat out loud, fix your accent",mode:"shadow"},
-  {key:"p4",name:"Phase 04",icon:"🌍",title:"Simulated Immersion",tag:"Whole scenes, no subtitles",mode:"immerse"}
-];
-const DECK={
-  p1: VOCAB.map((_,i)=>"v"+i),
-  p2: B.map((_,i)=>"b"+i),
-  p3: B.map((_,i)=>"b"+i),
-  p4: SCENES.map((_,i)=>"d"+i)
-};
-
-/* ═══════════════ HELPERS ═══════════════ */
+/* ═══ HELPERS ═══ */
 const $=id=>document.getElementById(id);
 const esc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
 const norm=s=>(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9\s']/g," ").replace(/\s+/g," ").trim();
 const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
-function loadJSON(k,def){ try{ const v=JSON.parse(localStorage.getItem(k)); return v==null?def:v; }catch(e){ return def; } }
-function saveJSON(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
-function buzz(p){ try{ if(navigator.vibrate) navigator.vibrate(p); }catch(e){} }
-function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
-
-const stemOf=b=>b.es.replace(/[…?¿¡]/g,"").trim();
-const fullSentence=(b,v)=>b.m==="ready"?v:(stemOf(b)+" "+v).replace(/\bde el\b/gi,"del").replace(/\ba el\b/gi,"al");
-function itemContent(id){ const t=id[0], n=+id.slice(1);
-  if(t==="v") return {type:"word",data:VOCAB[n]};
-  if(t==="b") return {type:"block",data:B[n],idx:n};
-  if(t==="d") return {type:"scene",data:SCENES[n],idx:n}; }
-
-/* ═══════════════ SPEECH ═══════════════ */
-let esVoice=null;
-function pickVoice(){ const vs=speechSynthesis.getVoices();
-  esVoice=vs.find(v=>/es[-_]MX/i.test(v.lang)&&/google/i.test(v.name))||vs.find(v=>/es[-_]MX/i.test(v.lang))||vs.find(v=>/es[-_]US/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null; }
-if("speechSynthesis" in window){ pickVoice(); speechSynthesis.onvoiceschanged=pickVoice; }
-function speak(text,btn,onend,rate){ if(!("speechSynthesis" in window)){ if(onend)onend(); return; }
-  speechSynthesis.cancel();
-  const go=()=>{ const u=new SpeechSynthesisUtterance(text); u.lang="es-MX"; u.rate=rate||.95; if(esVoice)u.voice=esVoice;
-    if(btn)btn.classList.add("speaking");
-    u.onend=()=>{ if(btn)btn.classList.remove("speaking"); if(onend)onend(); };
-    u.onerror=()=>{ if(btn)btn.classList.remove("speaking"); };
-    speechSynthesis.speak(u); };
-  setTimeout(go,60); }
-function speakSeq(lines,i,rate){ i=i||0; if(!("speechSynthesis" in window)||i>=lines.length)return; if(i===0)speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(lines[i]); u.lang="es-MX"; u.rate=rate||.95; if(esVoice)u.voice=esVoice;
-  u.onend=()=>speakSeq(lines,i+1,rate); setTimeout(()=>speechSynthesis.speak(u),i===0?60:0); }
-
-const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-const micOK=!!SR;
-let activeRec=null;
-function listen(target,onResult){ if(!micOK){ onResult(null); return; }
-  const r=new SR(); activeRec=r; r.lang="es-MX"; r.interimResults=false; r.maxAlternatives=3;
-  r.onresult=e=>{ let best="",score=0; for(let i=0;i<e.results[0].length;i++){ const t=e.results[0][i].transcript, sc=simil(norm(t),norm(target)); if(sc>=score){score=sc;best=t;} } onResult({heard:best,score}); };
-  r.onerror=e=>onResult({error:e.error});
-  r.onend=()=>{ if(activeRec===r)activeRec=null; };
-  try{ r.start(); }catch(e){ onResult({error:"start"}); } }
-function simil(a,b){ const A=a.split(" ").filter(Boolean),Bw=b.split(" ").filter(Boolean); if(!Bw.length)return 0;
-  let hit=0; const used=[]; Bw.forEach(w=>{ const i=A.findIndex((x,k)=>x===w&&!used.includes(k)); if(i>=0){hit++;used.push(i);} }); return hit/Bw.length; }
-function diagnose(target,said){ const rawT=target.replace(/\s+/g," ").trim().split(" ");
-  const T=rawT.map(norm),S=norm(said).split(" ").filter(Boolean);
-  const n=T.length,m=S.length,dp=Array.from({length:n+1},()=>new Array(m+1).fill(0));
-  for(let i=1;i<=n;i++)for(let j=1;j<=m;j++)dp[i][j]=T[i-1]===S[j-1]?dp[i-1][j-1]+1:Math.max(dp[i-1][j],dp[i][j-1]);
-  const ok=new Array(n).fill(false); let i=n,j=m;
-  while(i>0&&j>0){ if(T[i-1]===S[j-1]){ok[i-1]=true;i--;j--;} else if(dp[i-1][j]>=dp[i][j-1])i--; else j--; }
-  const hits=ok.filter(Boolean).length; return {rawT,ok,hits,total:n,pct:n?Math.round(hits/n*100):0}; }
-function stopAll(){ try{ if(activeRec)activeRec.abort(); }catch(e){} activeRec=null; if("speechSynthesis" in window)speechSynthesis.cancel(); }
-
-const ICON={
-  play:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',
-  slow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function sample(a,n){return shuffle(a).slice(0,n);}
+function loadJSON(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v;}catch(e){return d;}}
+const stem=b=>b.es.replace(/[…?¿¡]/g,"").trim();
+const full=(b,v)=>b.m==="ready"?v:(stem(b)+" "+v).replace(/\bde el\b/gi,"del").replace(/\ba el\b/gi,"al");
+function haptic(p){try{if(navigator.vibrate)navigator.vibrate(p);}catch(e){}}
+const SVG={play:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',
+  spk:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 9v6h4l5 4V5L8 9H4z"/></svg>',
+  slow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg>',
+  loop:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 2l4 4-4 4"/><path d="M3 12V10a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 12v2a4 4 0 0 1-4 4H3"/></svg>',
   mic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4"/></svg>',
-  eye:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
-  x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
-  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>'
-};
+  arw:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>'};
 
-/* ═══════════════ SRS ═══════════════ */
-const DAY=86400000, MATURE=21;
-let SRS=loadJSON("esf_srs",{});
-const skey=(ph,id)=>ph+"|"+id;
-const stateOf=(ph,id)=>SRS[skey(ph,id)]||null;
-const isDue=s=>!!s&&s.d<=Date.now();
-function gradeItem(ph,id,g){ let s=SRS[skey(ph,id)]; const now=Date.now();
-  if(!s)s={r:0,i:0,e:2.3,l:0,d:now};
-  if(g==="again"){ s.r=0; s.l++; s.e=Math.max(1.3,s.e-0.2); s.i=0; s.d=now+10*60000; }
-  else if(g==="good"){ s.r++; s.i=s.i<1?1:Math.round(s.i*s.e); s.d=now+s.i*DAY; }
-  else if(g==="easy"){ s.r++; s.e=Math.min(3.2,s.e+0.15); s.i=s.i<1?3:Math.round(s.i*s.e*1.3); s.d=now+s.i*DAY; }
-  SRS[skey(ph,id)]=s; saveJSON("esf_srs",SRS); }
-const dueCount=ph=>DECK[ph].filter(id=>isDue(stateOf(ph,id))).length;
-const newCount=ph=>DECK[ph].filter(id=>!stateOf(ph,id)).length;
-const masteredCount=ph=>DECK[ph].filter(id=>{ const s=stateOf(ph,id); return s&&s.i>=MATURE; }).length;
-const seenCount=ph=>DECK[ph].filter(id=>!!stateOf(ph,id)).length;
+/* ═══ AUDIO / SPEECH ═══ */
+let AC=null;
+function ac(){if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}if(AC&&AC.state==="suspended")AC.resume();return AC;}
+function chime(){const c=ac();if(!c)return;[523.25,659.25,783.99].forEach((f,i)=>{const o=c.createOscillator(),g=c.createGain();o.type="sine";o.frequency.value=f;o.connect(g);g.connect(c.destination);const t=c.currentTime+i*.12;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.12,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+.5);o.start(t);o.stop(t+.55);});}
+let esVoice=null;
+function pickVoice(){const vs=speechSynthesis.getVoices();esVoice=vs.find(v=>/es[-_]MX/i.test(v.lang)&&/google/i.test(v.name))||vs.find(v=>/es[-_]MX/i.test(v.lang))||vs.find(v=>/es[-_]US/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null;}
+if("speechSynthesis" in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function say(text,orb,rate,onend){if(!("speechSynthesis" in window)){if(onend)onend();return;}speechSynthesis.cancel();
+  setTimeout(()=>{const u=new SpeechSynthesisUtterance(text);u.lang="es-MX";u.rate=rate||.95;if(esVoice)u.voice=esVoice;
+    if(orb)orb.classList.add("playing");u.onend=()=>{if(orb)orb.classList.remove("playing");if(onend)onend();};u.onerror=()=>{if(orb)orb.classList.remove("playing");};
+    speechSynthesis.speak(u);},50);}
+function sayseq(lines,orb,rate,i){i=i||0;if(!("speechSynthesis" in window)||i>=lines.length){if(orb)orb.classList.remove("playing");return;}if(i===0){speechSynthesis.cancel();if(orb)orb.classList.add("playing");}
+  const u=new SpeechSynthesisUtterance(lines[i]);u.lang="es-MX";u.rate=rate||.95;if(esVoice)u.voice=esVoice;u.onend=()=>sayseq(lines,orb,rate,i+1);setTimeout(()=>speechSynthesis.speak(u),i===0?50:0);}
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;const micOK=!!SR;let activeRec=null;
+function listen(cb){if(!micOK){cb(null);return;}const r=new SR();activeRec=r;r.lang="es-MX";r.interimResults=false;r.maxAlternatives=1;
+  r.onresult=e=>cb({heard:e.results[0][0].transcript});r.onerror=e=>cb({error:e.error});r.onend=()=>{if(activeRec===r)activeRec=null;};
+  try{r.start();}catch(e){cb({error:"start"});}}
+function diagnose(t,said){const T=t.replace(/\s+/g," ").trim().split(" "),Tn=T.map(norm),S=norm(said).split(" ").filter(Boolean);
+  const n=Tn.length,m=S.length,dp=Array.from({length:n+1},()=>new Array(m+1).fill(0));
+  for(let i=1;i<=n;i++)for(let j=1;j<=m;j++)dp[i][j]=Tn[i-1]===S[j-1]?dp[i-1][j-1]+1:Math.max(dp[i-1][j],dp[i][j-1]);
+  const ok=new Array(n).fill(false);let i=n,j=m;while(i>0&&j>0){if(Tn[i-1]===S[j-1]){ok[i-1]=true;i--;j--;}else if(dp[i-1][j]>=dp[i][j-1])i--;else j--;}
+  return{T,ok,pct:n?Math.round(ok.filter(Boolean).length/n*100):0};}
+function stopAudio(){try{if(activeRec)activeRec.abort();}catch(e){}activeRec=null;if("speechSynthesis" in window)speechSynthesis.cancel();}
 
-const NEW_TODAY=12, PER_PHASE_NEW=8;
-function buildToday(){ const due=[],news=[];
-  PHASES.forEach(p=>DECK[p.key].forEach(id=>{ const s=stateOf(p.key,id); if(isDue(s))due.push({ph:p.key,id}); else if(!s)news.push({ph:p.key,id}); }));
-  return shuffle(due).concat(news.slice(0,NEW_TODAY)); }
-function buildPhase(ph){ const due=[],news=[];
-  DECK[ph].forEach(id=>{ const s=stateOf(ph,id); if(isDue(s))due.push({ph,id}); else if(!s)news.push({ph,id}); });
-  return shuffle(due).concat(news.slice(0,PER_PHASE_NEW)); }
+/* ═══ STATE / LOG ═══ */
+let ST=loadJSON("esf4",{level:"beginner",onboarded:false,days:0,lastDay:0,heard:0,shadowed:0,clarSum:0,clarN:0,srs:{},found:{}});
+["srs","found"].forEach(k=>{if(!ST[k])ST[k]={};});
+function save(){try{localStorage.setItem("esf4",JSON.stringify(ST));}catch(e){}}
+const DAY=86400000,dayNum=ts=>Math.floor((ts-new Date().getTimezoneOffset()*60000)/DAY);
+function markTrained(){const t=dayNum(Date.now());if(ST.lastDay!==t){ST.days=(ST.lastDay===t-1)?ST.days+1:1;ST.lastDay=t;}}
+function srsBump(id,ok){const s=ST.srs[id]||{n:0,due:0};if(ok){s.n=Math.min(6,s.n+1);s.due=Date.now()+[0,1,3,7,14,30,60][s.n]*DAY;}else{s.n=Math.max(0,s.n-1);s.due=Date.now()+0.4*DAY;}ST.srs[id]=s;}
+function clarAvg(){return ST.clarN?Math.round(ST.clarSum/ST.clarN):0;}
 
-/* ═══════════════ PROGRESS / STREAK / PLAN ═══════════════ */
-let planStart=+localStorage.getItem("esf_start")||0;
-if(!planStart){ planStart=Date.now(); try{ localStorage.setItem("esf_start",planStart); }catch(e){} }
-const planDay=()=>Math.min(90,Math.floor((Date.now()-planStart)/DAY)+1);
-let streak=loadJSON("esf_streak",{count:0,last:0});
-const dayNum=ts=>Math.floor((ts-new Date().getTimezoneOffset()*60000)/DAY);
-function bumpStreak(){ const t=dayNum(Date.now()); if(streak.last===t)return;
-  streak.count=(streak.last===t-1)?streak.count+1:1; streak.last=t; saveJSON("esf_streak",streak); }
+/* ═══ CONTENT POOLS BY LEVEL ═══ */
+function beginner(){return ST.level==="beginner";}
+function wordPool(){return beginner()?VOCAB.slice(0,90):VOCAB;}
+function blockPool(){return beginner()?B.filter(b=>["inf","noun","ready","phrase"].includes(b.m)&&["Creo que…","Quiero…","Necesito…","Tengo que…","Me gustaría…","Puedo…","¿Podrías…?","¿Me puedes ayudar a…?","Tiene sentido.","¿Y tú?","Cuéntame más de…","Voy a…","Prefiero…"].includes(b.es)):B;}
+function scenePool(){return SCENES;}
+// pick with SRS priority (due first)
+function pick(list,keyFn,n){const now=Date.now();const scored=list.map(x=>{const id=keyFn(x);const s=ST.srs[id];const due=s&&s.due<=now?0:(s?1:.5);return{x,due,r:Math.random()};});
+  scored.sort((a,b)=>a.due-b.due||a.r-b.r);return scored.slice(0,n).map(o=>o.x);}
 
-/* ═══════════════ HOME ═══════════════ */
-const home=$("home"), sessionEl=$("session"), doneEl=$("done");
-function show(el){ [home,sessionEl,doneEl].forEach(s=>s.classList.add("hidden")); el.classList.remove("hidden"); window.scrollTo(0,0); }
+/* ═══ SCREENS ═══ */
+const app=$("app"),sess=$("sess"),sumEl=$("sum"),onb=$("onb");
+function showHome(){stopAudio();sess.classList.add("hidden");sumEl.classList.remove("show");onb.classList.remove("show");renderHome();scrollTo(0,0);}
 
+const MODES=[
+  {key:"foundations",icon:"🔤",t:"Foundations",s:"The sounds & survival phrases",beg:1,meta:"Start here"},
+  {key:"listening",icon:"🎧",t:"Listening",s:"Tune your ear to real speech",meta:"Ear"},
+  {key:"shadowing",icon:"🎙️",t:"Shadowing",s:"Repeat aloud, sharpen your accent",meta:"Voice"},
+  {key:"conversation",icon:"💬",t:"Conversation",s:"Understand & respond in real time",meta:"Talk"},
+  {key:"immersion",icon:"🌊",t:"Immersion",s:"Whole dialogues, no subtitles",meta:"Flow"}
+];
+function greet(){const h=new Date().getHours();return h<12?"Buenos días":h<19?"Buenas tardes":"Buenas noches";}
 function renderHome(){
-  stopAll();
-  $("streakPill").textContent="🔥 "+streak.count;
-  const dueAll=PHASES.reduce((n,p)=>n+dueCount(p.key),0);
-  const newAvail=PHASES.reduce((n,p)=>n+newCount(p.key),0);
-  const newToday=Math.min(NEW_TODAY,newAvail);
-  const total=dueAll+newToday;
-  const words=masteredCount("p1"), wordsSeen=seenCount("p1");
-  const pct=Math.round(words/Math.max(1,VOCAB.length)*100);
-  const R=42, C=2*Math.PI*R, off=C*(1-words/Math.max(1,VOCAB.length));
+  $("heroK").textContent=greet();
+  $("heroH").innerHTML=ST.days>0?`Day <em>${ST.days}</em> of training.`:`Time to <em>train</em>.`;
+  $("lvlChip").textContent=beginner()?"Beginner":"Intermediate";
+  $("log").innerHTML=`
+    <div><b>${ST.days}</b><div class="u">Day streak</div></div>
+    <div><b>${ST.shadowed}</b><div class="u">Lines shadowed</div></div>
+    <div><b>${clarAvg()}%</b><div class="u">Avg clarity</div></div>`;
+  const rec=beginner()?MODES[0]:MODES[1];
+  $("todaySlot").innerHTML=`<div class="today"><div class="k">Recommended now</div>
+    <h2>${rec.icon} ${rec.t} session</h2><p>${rec.s}. About 4 minutes.</p>
+    <button class="startbtn" id="recStart">Begin training ${SVG.arw}</button></div>`;
+  $("recStart").onclick=()=>openMode(rec.key);
+  const m=$("modes");m.innerHTML="";
+  MODES.forEach(md=>{const el=document.createElement("button");el.className="mode"+(md.beg?" beg":"");
+    el.innerHTML=`<div class="ic">${md.icon}</div><div class="mid"><div class="mt">${md.t}</div><div class="ms">${md.s}</div><div class="meta">${md.meta}</div></div><div class="arw">${SVG.arw}</div>`;
+    el.onclick=()=>openMode(md.key);m.appendChild(el);});
+}
 
-  let html=`
-  <div class="hero">
-    <div class="hero-top"><span class="daychip">Day ${planDay()} · 90-Day Intensive</span></div>`;
-  if(total>0){
-    html+=`<div class="hero-big">${total}</div>
-    <div class="hero-sub"><b>${dueAll}</b> reviews · <b>${newToday}</b> new to learn</div>
-    <button class="btn primary big" id="startToday">Start today's session</button>`;
+/* ═══ SESSION ENGINE ═══ */
+let S=null;
+function openMode(key){ac();stopAudio();
+  let cards=[];
+  if(key==="foundations")cards=buildFoundations();
+  else if(key==="listening")cards=buildListening();
+  else if(key==="shadowing")cards=buildShadowing();
+  else if(key==="conversation")cards=buildConversation();
+  else if(key==="immersion")cards=buildImmersion();
+  if(!cards.length){showHome();return;}
+  S={key,cards,pos:0,heard:0,shadowed:0,clar:[]};
+  app.classList.add("hidden");sess.classList.remove("hidden");sumEl.classList.remove("show");
+  renderCard();
+}
+$("sClose").onclick=()=>{stopAudio();app.classList.remove("hidden");showHome();};
+function sprog(){$("sBar").style.width=Math.round(S.pos/S.cards.length*100)+"%";$("sCount").textContent=Math.min(S.pos+1,S.cards.length)+"/"+S.cards.length;}
+function next(){S.pos++;renderCard();}
+function renderCard(){stopAudio();sprog();
+  if(S.pos>=S.cards.length){finish();return;}
+  const c=S.cards[S.pos],st=$("stage");st.innerHTML="";st.scrollTop=0;
+  CARD[c.t](c,st);
+}
+const CARD={};
+
+/* ---- builders ---- */
+function buildFoundations(){
+  // rotate through: sounds → survival → numbers, small doses
+  const cards=[];
+  sample(FOUND.sounds,2).forEach(s=>cards.push({t:"sound",s}));
+  pick(FOUND.survival,x=>"sv:"+x.es,5).forEach(p=>cards.push({t:"shadow",text:p.es,en:p.en,id:"sv:"+p.es,intro:true}));
+  sample(FOUND.numbers,4).forEach(nm=>cards.push({t:"shadow",text:nm.es,en:nm.en,id:"nm:"+nm.es}));
+  return cards;
+}
+function buildListening(){
+  const cards=[];
+  const words=pick(wordPool(),x=>"v:"+x.es,beginner()?6:5);
+  words.forEach(w=>cards.push({t:"listen",es:w.es,en:w.en,ex:w.ex,exEn:w.exEn,id:"v:"+w.es,kind:"word"}));
+  const lines=pick(scenePool(),x=>"d:"+x.b,beginner()?2:5);
+  lines.forEach(sc=>cards.push({t:"listen",es:sc.b,en:null,id:"d:"+sc.b,kind:"line",hi:sc.s}));
+  return shuffle(cards);
+}
+function buildShadowing(){
+  const cards=[];
+  if(beginner()){
+    pick(FOUND.survival,x=>"sv:"+x.es,5).forEach(p=>cards.push({t:"shadow",text:p.es,en:p.en,id:"sv:"+p.es}));
+    pick(wordPool().slice(0,40),x=>"v:"+x.es,3).forEach(w=>cards.push({t:"shadow",text:w.es,en:w.en,id:"v:"+w.es}));
   } else {
-    html+=`<div class="hero-done">✓ You're all caught up for today.</div>
-    <div class="hero-sub" style="margin-top:-4px">Come back tomorrow for your spaced reviews — or push ahead into any phase below.</div>
-    <button class="btn big" id="startToday">Practice anyway</button>`;
+    pick(blockPool(),x=>"b:"+x.es,7).forEach(b=>cards.push({t:"shadow",text:b.m==="ready"?b.es:full(b,b.v[0]),en:b.en.replace(/…/g,""),id:"b:"+b.es}));
+    pick(scenePool(),x=>"d:"+x.b,2).forEach(sc=>cards.push({t:"shadow",text:sc.b,en:null,id:"d:"+sc.b}));
   }
-  html+=`</div>
-
-  <div class="card cover">
-    <div class="cover-ring">
-      <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="${R}" fill="none" stroke="var(--surface-2)" stroke-width="9"/>
-        <circle cx="50" cy="50" r="${R}" fill="none" stroke="var(--accent-fill)" stroke-width="9" stroke-linecap="round"
-          stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}" style="transition:stroke-dashoffset 1s cubic-bezier(.16,1,.3,1)"/></svg>
-      <div class="cnum">${pct}%</div>
-    </div>
-    <div class="cover-txt">
-      <span class="big">${words}</span> <b style="display:inline">essential words on autopilot</b>
-      <p>${wordsSeen} of ${VOCAB.length} started · with the core set you cover ~90% of everyday conversation.</p>
-    </div>
-  </div>
-
-  <div class="sect-label">The 4 phases of essential fluency</div>`;
-
-  PHASES.forEach(p=>{
-    const deck=DECK[p.key], mst=masteredCount(p.key), du=dueCount(p.key);
-    const prog=Math.round(mst/Math.max(1,deck.length)*100);
-    html+=`
-    <button class="phase" data-ph="${p.key}">
-      <div class="pico">${p.icon}</div>
-      <div class="pmid">
-        <div class="pn">${p.name}</div>
-        <div class="pt">${p.title}</div>
-        <div class="pd">${p.tag}</div>
-        <div class="pbar"><i style="width:${prog}%"></i></div>
-      </div>
-      <div class="pright">
-        <span class="duebadge ${du?'':'zero'}">${du?du:'✓'}</span>
-        <span class="chev">›</span>
-      </div>
-    </button>`;
+  return cards;
+}
+function buildConversation(){
+  const cards=[];
+  const bl=pick(blockPool().filter(b=>b.q&&!b.q.startsWith("(")),x=>"b:"+x.es,beginner()?5:7);
+  bl.forEach(b=>{
+    const correct=full(b,b.v[0]);
+    const distr=sample(blockPool().filter(x=>x.es!==b.es),3).map(x=>x.m==="ready"?x.es:full(x,x.v[0]));
+    cards.push({t:"convo",prompt:b.q,correct,options:shuffle([correct,...distr]),en:b.en.replace(/…/g,""),id:"b:"+b.es});
   });
-  home.innerHTML=html;
-
-  const st=$("startToday"); if(st) st.onclick=()=>openSession("today");
-  home.querySelectorAll(".phase").forEach(el=>el.onclick=()=>openSession(el.dataset.ph));
-  show(home);
+  return cards;
+}
+function buildImmersion(){
+  return pick(scenePool(),x=>"d:"+x.b,beginner()?4:6).map(sc=>({t:"immerse",sc,id:"d:"+sc.b}));
 }
 
-/* ═══════════════ SESSION ═══════════════ */
-let queue=[], qpos=0, sess={reviews:0,learned:0,mode:"today"};
-function openSession(mode){
-  queue = mode==="today"?buildToday():buildPhase(mode);
-  if(!queue.length){ // nothing due & no new — offer a free practice pull
-    const pool = mode==="today" ? PHASES.flatMap(p=>DECK[p.key].map(id=>({ph:p.key,id}))) : DECK[mode].map(id=>({ph:mode,id}));
-    queue=shuffle(pool).slice(0,10);
-  }
-  qpos=0; sess={reviews:0,learned:0,mode};
-  show(sessionEl); renderCard();
-}
-function nextCard(){ qpos++; renderCard(); }
-function sessHeader(){
-  return `<div class="sess-top">
-    <button class="sess-x" id="sx" aria-label="Exit session">${ICON.x}</button>
-    <div class="sprog"><i style="width:${Math.round(qpos/queue.length*100)}%"></i></div>
-    <span class="scount">${Math.min(qpos+1,queue.length)}/${queue.length}</span>
+/* ---- card renderers ---- */
+function audioCtrls(getText,orbId){
+  return `<div class="audio-ctrls">
+    <button class="actrl" id="cReplay">${SVG.spk} Replay</button>
+    <button class="actrl" id="cSlow">${SVG.slow} Slower</button>
   </div>`;
 }
-function renderCard(){
-  stopAll();
-  if(qpos>=queue.length){ finishSession(); return; }
-  const {ph,id}=queue[qpos]; const wasNew=!stateOf(ph,id);
-  const P=PHASES.find(p=>p.key===ph); const c=itemContent(id);
-  sessionEl.innerHTML=sessHeader()+`<div class="qcard" id="qcard"></div>`;
-  $("sx").onclick=()=>{ stopAll(); renderHome(); };
-  const card=$("qcard");
-  const doGrade=g=>{ gradeItem(ph,id,g); if(wasNew)sess.learned++; else sess.reviews++; nextCard(); };
-
-  if(P.mode==="word") cardWord(card,c.data,doGrade,ph,id);
-  else if(P.mode==="comprehend") cardComprehend(card,c,doGrade,P);
-  else if(P.mode==="shadow") cardShadow(card,c,doGrade,P);
-  else if(P.mode==="immerse") cardImmerse(card,c,doGrade,P);
-}
-
-function gradeRow(onGrade,suggest){
-  const wrap=document.createElement("div"); wrap.className="grades";
-  [["again","Again","< 1 min"],["good","Good","spaced"],["easy","Easy","long gap"]].forEach(([g,lbl,sub])=>{
-    const b=document.createElement("button"); b.className="grade "+g+(suggest===g?" suggest":"");
-    b.innerHTML=`${lbl}<small>${sub}</small>`; b.onclick=()=>onGrade(g); wrap.appendChild(b); });
-  return wrap;
-}
-
-/* Phase 1 — word recognition */
-function cardWord(card,w,onGrade,ph,id){
-  card.innerHTML=`<div class="qphase"><span>👂 Auditory Perception</span><span>${seenCount(ph)>DECK[ph].indexOf(id)?'':''}</span></div>
-    <div class="prompt"><div class="sub">Listen. What does it mean?</div></div>`;
-  const play=document.createElement("button"); play.className="btn primary big"; play.style.marginTop="10px";
-  play.innerHTML=ICON.play+" Play the word";
-  play.onclick=()=>speak(w.es,play);
-  card.append(play);
-  const spacer=document.createElement("div"); spacer.className="spacer"; card.append(spacer);
-  const reveal=document.createElement("button"); reveal.className="btn"; reveal.style.width="100%";
-  reveal.innerHTML=ICON.eye+" Show meaning";
-  reveal.onclick=()=>{
-    reveal.remove();
-    const r=document.createElement("div"); r.className="reveal";
-    r.innerHTML=`<p class="es mono">${w.es}</p><p class="en">${w.en}</p>
-      <div class="exline"><span class="esx mono">${w.ex}</span><span class="enx">${w.exEn}</span></div>`;
-    const ex=document.createElement("button"); ex.className="btn ghost"; ex.style.marginTop="10px";
-    ex.innerHTML=ICON.play+" Hear it in a sentence"; ex.onclick=()=>speak(w.ex,ex);
-    r.append(ex);
-    card.insertBefore(r,spacer.nextSibling||null);
-    card.append(gradeRow(onGrade));
+CARD.listen=(c,st)=>{
+  const model=c.es;
+  st.innerHTML=`<div class="cue">Listen · what do you hear?</div>
+    <button class="listen-orb" id="orb">${SVG.play}</button>
+    ${audioCtrls()}
+    <div class="spacer"></div>
+    <div id="rev"></div>
+    <button class="btn line" id="reveal">Reveal</button>`;
+  const orb=$("orb");const play=(r)=>say(model,orb,r);orb.onclick=()=>play();$("cReplay").onclick=()=>play();$("cSlow").onclick=()=>play(.58);
+  play();
+  $("reveal").onclick=()=>{
+    const txt=c.kind==="word"
+      ? `<div class="es-md serif">${c.es}</div><div class="en-sub">${c.en}</div>${c.ex?`<div class="panel-reveal" style="text-align:center"><div class="serif" style="font-size:18px">${c.ex}</div><div class="en-mut">${c.exEn}</div></div>`:""}`
+      : `<div class="es-md serif">${c.hi?c.es.replace(new RegExp("("+esc(c.hi)+")","i"),'<em style="font-style:normal;color:var(--accent)">$1</em>'):c.es}</div>`;
+    $("rev").innerHTML=`<div style="margin-bottom:18px">${txt}</div>`;
+    $("reveal").outerHTML=`<div class="selfcheck"><button class="sc no" id="scNo">Missed it</button><button class="sc yes" id="scYes">Understood ✓</button></div>`;
+    $("scNo").onclick=()=>{srsBump(c.id,false);S.heard++;save();haptic(8);next();};
+    $("scYes").onclick=()=>{srsBump(c.id,true);S.heard++;save();haptic(12);next();};
   };
-  card.append(reveal);
-  speak(w.es);
-}
-
-/* Phase 2 — comprehension of fast connected speech */
-function cardComprehend(card,c,onGrade,P){
-  const b=c.data, sc=SCENES[c.idx]; const line=sc?sc.b:fullSentence(b,b.v[0]);
-  card.innerHTML=`<div class="qphase"><span>💬 Conversational</span><span class="mold">${MOLD_LABEL[b.m]}</span></div>
-    <div class="prompt"><div class="sub">Listen at natural speed. Can you catch it?</div></div>`;
-  const row=document.createElement("div"); row.className="row"; row.style.marginTop="12px";
-  const play=document.createElement("button"); play.className="btn primary"; play.innerHTML=ICON.play+" Play"; play.onclick=()=>speak(line,play);
-  const slow=document.createElement("button"); slow.className="btn"; slow.innerHTML=ICON.slow+" Slow"; slow.onclick=()=>speak(line,slow,null,.62);
-  row.append(play,slow); card.append(row);
-  const spacer=document.createElement("div"); spacer.className="spacer"; card.append(spacer);
-  const reveal=document.createElement("button"); reveal.className="btn"; reveal.style.width="100%";
-  reveal.innerHTML=ICON.eye+" Reveal";
-  reveal.onclick=()=>{
-    reveal.remove();
-    const hi=line.replace(new RegExp("("+esc(sc?sc.s:stemOf(b))+")","i"),"<em>$1</em>");
-    const r=document.createElement("div"); r.className="reveal";
-    r.innerHTML=`<p class="es mono">${hi}</p><p class="en">Key phrase — <b>${b.es.replace(/…/g,'…')}</b> = ${b.en}</p>`;
-    card.insertBefore(r,spacer.nextSibling||null);
-    card.append(gradeRow(onGrade));
-  };
-  card.append(reveal);
-  speak(line);
-}
-
-/* Phase 3 — shadowing (record + clarity diagnosis) */
-function cardShadow(card,c,onGrade,P){
-  const b=c.data; const model=b.m==="ready"?b.es:fullSentence(b,b.v[0]);
-  card.innerHTML=`<div class="qphase"><span>🎙️ Shadowing</span><span class="mold">${b.en}</span></div>
-    <div class="prompt"><div class="big mono">${b.m==="ready"?model:('<em style="color:var(--accent);font-style:normal">'+stemOf(b)+'</em> '+b.v[0])}</div></div>`;
-  const row=document.createElement("div"); row.className="row"; row.style.marginTop="14px";
-  const play=document.createElement("button"); play.className="btn"; play.innerHTML=ICON.play+" Hear it"; play.onclick=()=>speak(model,play);
-  const mic=document.createElement("button"); mic.className="btn mic primary"; mic.innerHTML=ICON.mic+" Say it";
-  row.append(play,mic); card.append(row);
-  const rep=document.createElement("div"); rep.className="report"; card.append(rep);
-  const spacer=document.createElement("div"); spacer.className="spacer"; card.append(spacer);
-  let graded=false;
-  const showGrades=sg=>{ if(card.querySelector(".grades"))return; card.append(gradeRow(onGrade,sg)); };
-  mic.onclick=()=>{
-    if(!micOK){ rep.className="report show"; rep.innerHTML='<div class="rep-tip">Your browser can\'t record here — say it out loud along with the model, then grade yourself. For the clarity score, open in Chrome.</div>'; showGrades("good"); return; }
-    mic.classList.add("rec"); mic.innerHTML=ICON.mic+" Listening…";
-    listen(model,res=>{ mic.classList.remove("rec"); mic.innerHTML=ICON.mic+" Try again";
-      if(!res||res.error){ rep.className="report show"; rep.innerHTML='<div class="rep-tip">I couldn\'t hear you. Try again somewhere quieter.</div>'; return; }
-      buzz(20); const d=diagnose(model,res.heard); const g=grade(d.pct);
-      const words=d.rawT.map((w,k)=>`<span class="w ${d.ok[k]?'w-ok':'w-miss'}">${w}</span>`).join(" ");
-      const miss=d.rawT.filter((w,k)=>!d.ok[k]);
-      rep.className="report show";
-      rep.innerHTML=`<div class="rep-head"><span class="rep-score ${g[0]}">${d.pct}%</span><span class="rep-label">Clarity · ${g[1]}</span></div>
-        <div class="rep-target mono">${words}</div>`+
-        (miss.length?`<div class="rep-tip">Sounds to polish: <b>${miss.join(", ")}</b>. Play it again focusing on those.</div>`:`<div class="rep-tip">Clean — the rhythm is going on autopilot.</div>`)+
-        `<div class="rep-heard">Heard: <b>${res.heard||"—"}</b></div>`;
-      showGrades(d.pct>=85?"easy":d.pct>=60?"good":"again");
+};
+CARD.shadow=(c,st)=>{
+  const model=c.text;
+  st.innerHTML=`<div class="cue">${c.intro?"New phrase · repeat it":"Shadow · say it out loud"}</div>
+    <div class="es-lg serif">${model}</div>${c.en?`<div class="en-sub">${c.en}</div>`:""}
+    <div class="audio-ctrls">
+      <button class="actrl" id="cReplay">${SVG.spk} Model</button>
+      <button class="actrl" id="cSlow">${SVG.slow} Slower</button>
+    </div>
+    <div class="spacer"></div>
+    <div class="clarity" id="clar"></div>
+    <button class="recbtn" id="rec">${SVG.mic} Tap & speak</button>
+    <button class="btn ghost mt10" id="skip">Skip</button>`;
+  const play=(r)=>say(model,null,r);$("cReplay").onclick=()=>play();$("cSlow").onclick=()=>play(.58);play();
+  const rec=$("rec"),clar=$("clar");
+  let scored=false;
+  function record(pct){ S.shadowed++;ST.shadowed++; if(pct!=null){ST.clarSum+=pct;ST.clarN++;S.clar.push(pct);} srsBump(c.id, pct==null?true:pct>=55); save(); }
+  $("skip").onclick=()=>{ next(); };
+  rec.onclick=()=>{
+    if(scored){ haptic(10); next(); return; }        // button is "Continue" after a scored attempt
+    if(!micOK){ clar.className="clarity show"; clar.innerHTML='<div class="lb">Say it out loud along with the model. For a clarity score, open in Chrome or Safari.</div>'; record(null); scored=true; rec.innerHTML=SVG.arw+" Continue"; return; }
+    rec.className="recbtn rec"; rec.innerHTML=SVG.mic+" Listening…"; stopAudio();
+    listen(res=>{
+      rec.className="recbtn";
+      if(!res||res.error){ rec.innerHTML=SVG.mic+" Try again"; clar.className="clarity show"; clar.innerHTML='<div class="lb">Didn\'t catch that — try again, a bit closer to the mic.</div>'; return; }
+      const d=diagnose(model,res.heard); const g=d.pct>=80?["ok","Crystal clear"]:d.pct>=55?["mid","Almost there"]:["low","Keep drilling"];
+      const words=d.T.map((w,k)=>`<span class="${d.ok[k]?'w-ok':'w-miss'}">${w}</span>`).join(" ");
+      clar.className="clarity show";
+      clar.innerHTML=`<div class="top"><span class="pc ${g[0]}">${d.pct}%</span><span class="lb">${g[1]}</span></div><div class="tgt serif">${words}</div><div class="heard">Heard: <b>${res.heard||"—"}</b></div>`;
+      record(d.pct); scored=true; haptic(12); rec.innerHTML=SVG.arw+" Continue";
     });
   };
-}
-function grade(pct){ return pct>=85?["g-ok","crystal clear"]:pct>=60?["g-mid","almost there"]:["g-low","needs work"]; }
-
-/* Phase 4 — immersion (whole scene, subtitles hidden) */
-function cardImmerse(card,c,onGrade,P){
-  const sc=c.data;
-  card.innerHTML=`<div class="qphase"><span>🌍 Simulated Immersion</span><span>no subtitles</span></div>
-    <div class="prompt"><div class="sub">Listen to the whole exchange. Get the gist — don't translate.</div></div>`;
-  const play=document.createElement("button"); play.className="btn primary big"; play.style.marginTop="10px";
-  play.innerHTML=ICON.play+" Play the scene"; play.onclick=()=>speakSeq([sc.a,sc.b]);
-  card.append(play);
-  const spacer=document.createElement("div"); spacer.className="spacer"; card.append(spacer);
-  const reveal=document.createElement("button"); reveal.className="btn"; reveal.style.width="100%";
-  reveal.innerHTML=ICON.eye+" Reveal the text";
-  reveal.onclick=()=>{
-    reveal.remove();
-    const hi=sc.b.replace(new RegExp("("+esc(sc.s)+")","i"),"<em>$1</em>");
-    const r=document.createElement("div"); r.className="reveal";
-    r.innerHTML=`<p class="es mono" style="color:var(--muted)">${sc.a}</p><p class="es mono">${hi}</p>`;
-    card.insertBefore(r,spacer.nextSibling||null);
-    card.append(gradeRow(onGrade));
+};
+CARD.sound=(c,st)=>{
+  const s=c.s;
+  st.innerHTML=`<div class="cue">Foundations · a sound of Spanish</div>
+    <div class="soundcard"><div class="big serif">${s.sound}</div><div class="nm serif">${s.name}</div><div class="tip">${s.tipEn}</div>
+      <div class="wordchips" id="chips"></div></div>
+    <div class="spacer"></div>
+    <button class="btn solid" id="cont">Got the sound ${SVG.arw}</button>`;
+  const chips=$("chips");
+  s.words.forEach(w=>{const b=document.createElement("button");b.className="wchip";b.innerHTML=`<b class="serif">${w.es}</b><small>${w.en}</small>`;b.onclick=()=>say(w.es);chips.appendChild(b);});
+  setTimeout(()=>{if(s.words[0])say(s.words[0].es);},400);
+  $("cont").onclick=()=>{ST.found[s.sound]=1;save();next();};
+};
+CARD.convo=(c,st)=>{
+  st.innerHTML=`<div class="cue">Conversation · reply naturally</div>
+    <div class="conv"><div class="line"><div class="who">They say</div><div class="txt serif" id="pr">${c.prompt}</div></div></div>
+    <button class="actrl" id="hear" style="margin:14px auto 0">${SVG.spk} Hear it</button>
+    <div class="en-mut">Choose your reply — <b>${c.en}</b></div>
+    <div class="spacer"></div>
+    <div class="choices" id="ch"></div>`;
+  $("hear").onclick=()=>say(c.prompt);say(c.prompt);
+  const box=$("ch");
+  c.options.forEach(o=>{const b=document.createElement("button");b.className="choice";b.innerHTML=`<span>${o}</span><span class="spk">${SVG.spk}</span>`;
+    b.onclick=()=>{const ok=o===c.correct;say(o);box.querySelectorAll(".choice").forEach(x=>x.disabled=true);b.classList.add(ok?"ok":"no");
+      if(!ok)box.querySelectorAll(".choice").forEach(x=>{if(x.querySelector("span").textContent===c.correct)x.classList.add("ok");});
+      srsBump(c.id,ok);S.heard++;save();haptic(ok?12:[8,40,8]);
+      setTimeout(()=>{ // brief pause to hear, then continue button
+        let cont=$("convCont");if(!cont){cont=document.createElement("button");cont.id="convCont";cont.className="btn solid mt16";cont.innerHTML="Continue "+SVG.arw;cont.onclick=()=>next();st.appendChild(cont);}
+      },300);
+    };box.appendChild(b);});
+};
+CARD.immerse=(c,st)=>{
+  const sc=c.sc;
+  st.innerHTML=`<div class="cue">Immersion · listen, no subtitles</div>
+    <button class="listen-orb" id="orb">${SVG.play}</button>
+    <div class="audio-ctrls"><button class="actrl" id="cReplay">${SVG.spk} Replay</button><button class="actrl" id="cSlow">${SVG.slow} Slower</button></div>
+    <div class="spacer"></div>
+    <div id="rev"></div>
+    <button class="btn line" id="reveal">Show transcript</button>`;
+  const orb=$("orb");const play=(r)=>sayseq([sc.a,sc.b],orb,r);orb.onclick=()=>play();$("cReplay").onclick=()=>play();$("cSlow").onclick=()=>play(.6);play();
+  $("reveal").onclick=()=>{
+    const hi=sc.b.replace(new RegExp("("+esc(sc.s)+")","i"),'<em>$1</em>');
+    $("rev").innerHTML=`<div class="panel-reveal conv"><div class="line"><div class="who">A</div><div class="txt serif" style="color:var(--muted)">${sc.a}</div></div><div class="line"><div class="who">B</div><div class="txt serif">${hi}</div></div></div>`;
+    $("reveal").outerHTML=`<div class="selfcheck"><button class="sc no" id="scNo">Lost me</button><button class="sc yes" id="scYes">Got the gist ✓</button></div>`;
+    $("scNo").onclick=()=>{srsBump(c.id,false);S.heard++;save();next();};
+    $("scYes").onclick=()=>{srsBump(c.id,true);S.heard++;save();next();};
   };
-  card.append(reveal);
-  speakSeq([sc.a,sc.b]);
+};
+
+/* ---- finish ---- */
+function finish(){
+  stopAudio();markTrained();save();
+  const sc=S.clar.length?Math.round(S.clar.reduce((a,b)=>a+b,0)/S.clar.length):null;
+  const stats=[];
+  if(S.shadowed)stats.push(["b",S.shadowed,"Lines"]);
+  if(sc!==null)stats.push(["b",sc+"%","Clarity"]);
+  if(S.heard&&!S.shadowed)stats.push(["b",S.heard,"Items"]);
+  stats.push(["b",ST.days,"Day streak"]);
+  $("sumStats").innerHTML=stats.slice(0,3).map(s=>`<div class="sum-stat"><b>${s[1]}</b><span>${s[2]}</span></div>`).join("");
+  const mode=MODES.find(m=>m.key===S.key);
+  $("sumTt").textContent="Buen trabajo";
+  $("sumP").textContent=sc!==null?(sc>=80?"Your pronunciation is landing. Keep this rhythm daily.":"Every rep tunes your ear and mouth. Come back tomorrow."):"That's how the ear gets sharp — a little every day.";
+  sess.classList.add("hidden");sumEl.classList.add("show");chime();haptic([15,40,15]);
+  $("sumAgain").onclick=()=>openMode(S.key);
+  $("sumHome").onclick=showHome;
+  renderHome();
 }
 
-/* ═══════════════ DONE ═══════════════ */
-function finishSession(){
-  stopAll();
-  const did=sess.reviews+sess.learned;
-  if(did>0) bumpStreak();
-  fx(70); buzz([30,50,30]);
-  const words=masteredCount("p1");
-  doneEl.innerHTML=`<div class="done-card">
-    <div class="done-badge">${ICON.check}</div>
-    <h2>${did>0?"Session complete":"Nice run"}</h2>
-    <p>${did>0?"Every rep pushes Spanish deeper into your subconscious.":"Come back tomorrow for your spaced reviews."}</p>
-    <div class="done-stats">
-      <div class="done-stat"><b>${sess.learned}</b><span>new</span></div>
-      <div class="done-stat"><b>${sess.reviews}</b><span>reviews</span></div>
-      <div class="done-stat"><b>🔥 ${streak.count}</b><span>streak</span></div>
-    </div>
-    <button class="btn primary big" id="doneHome">Back to home</button>
-    <button class="btn ghost" id="doneMore" style="width:100%;margin-top:10px">Keep training</button>
-  </div>`;
-  show(doneEl);
-  $("doneHome").onclick=renderHome;
-  $("doneMore").onclick=()=>openSession(sess.mode);
-}
-
-/* ═══════════════ FX / THEME / BOOT ═══════════════ */
-const cv=$("fx"),cx=cv.getContext("2d"); let parts=[],raf=null;
-function rz(){ cv.width=innerWidth; cv.height=innerHeight; } rz(); addEventListener("resize",rz);
-function fx(n){ if(reduced)return; const cols=["#F4B740","#FFD884","#FFE9B0"];
-  for(let i=0;i<n;i++)parts.push({x:cv.width/2+(Math.random()-.5)*140,y:cv.height*.32,vx:(Math.random()-.5)*5,vy:Math.random()*-8.5-3.5,g:.24,len:Math.random()*10+7,w:Math.random()*1.6+1,c:cols[i%3],life:66,rot:(Math.random()-.5)*.6});
-  if(!raf)raf=requestAnimationFrame(tick); }
-function tick(){ cx.clearRect(0,0,cv.width,cv.height); parts=parts.filter(p=>p.life>0);
-  parts.forEach(p=>{ p.vy+=p.g; p.x+=p.vx; p.y+=p.vy; p.life--; cx.save(); cx.translate(p.x,p.y); cx.rotate(p.rot+Math.atan2(p.vy,p.vx)+Math.PI/2);
-    cx.globalAlpha=Math.min(1,p.life/28); cx.fillStyle=p.c; cx.shadowBlur=8; cx.shadowColor=p.c; cx.fillRect(-p.w/2,-p.len/2,p.w,p.len); cx.restore(); });
-  if(parts.length)raf=requestAnimationFrame(tick); else raf=null; }
-
-$("theme").onclick=()=>{ const cur=document.documentElement.getAttribute("data-theme");
-  const isDark=cur?cur==="dark":matchMedia("(prefers-color-scheme: dark)").matches;
-  const next=isDark?"light":"dark"; document.documentElement.setAttribute("data-theme",next);
-  try{ localStorage.setItem("esf_theme",next); }catch(e){} };
-
-addEventListener("keydown",e=>{ if(e.key==="Escape"&&!sessionEl.classList.contains("hidden")){ stopAll(); renderHome(); } });
-
-let bootMs=1500; try{ if(localStorage.getItem("esf_boot"))bootMs=500; localStorage.setItem("esf_boot","1"); }catch(e){}
-if(reduced){ $("boot").classList.add("gone"); } else { setTimeout(()=>$("boot").classList.add("gone"),bootMs); }
-$("boot").onclick=()=>$("boot").classList.add("gone");
-
-renderHome();
+/* ═══ theme / level / onboarding / boot ═══ */
+$("theme").onclick=()=>{const cur=document.documentElement.getAttribute("data-theme");const dark=cur?cur==="dark":!matchMedia("(prefers-color-scheme: light)").matches;const nx=dark?"light":"dark";document.documentElement.setAttribute("data-theme",nx);try{localStorage.setItem("esf4_theme",nx);}catch(e){}};
+$("lvlChip").onclick=()=>{ST.level=beginner()?"intermediate":"beginner";save();renderHome();};
+$("levels").querySelectorAll(".lvl").forEach(l=>l.onclick=()=>{$("levels").querySelectorAll(".lvl").forEach(x=>x.classList.remove("sel"));l.classList.add("sel");ST.level=l.dataset.l;});
+$("onbStart").onclick=()=>{ac();ST.onboarded=true;save();onb.classList.remove("show");showHome();};
+["pointerdown","keydown"].forEach(ev=>addEventListener(ev,function o(){ac();removeEventListener(ev,o);},{once:true}));
+function boot(){const b=$("boot");setTimeout(()=>b.classList.add("gone"),reduced?200:1300);b.onclick=()=>b.classList.add("gone");
+  if(!ST.onboarded)onb.classList.add("show");else showHome();}
+boot();
 </script>
+</body>
+</html>
