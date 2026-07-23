@@ -78,6 +78,44 @@
   .startbtn:active{transform:translateY(1px);} .startbtn svg{width:17px;height:17px;}
 
   .sec-k{margin:30px 4px 12px;}
+  /* home · journey + mastery + open */
+  .hero2{display:flex;align-items:center;gap:16px;padding:26px 2px 4px;}
+  .hero2-l{flex:1;min-width:0;}
+  .hero2-h{font-size:clamp(26px,7.5vw,34px);font-weight:800;letter-spacing:-.03em;margin:6px 0 0;line-height:1.05;}
+  .hero2-h em{font-style:normal;color:var(--accent);}
+  .minis{display:flex;gap:14px;margin-top:11px;font-size:13px;font-weight:700;color:var(--ink-soft);}
+  .minis span{font-variant-numeric:tabular-nums;}
+  .mastery{flex:none;display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;width:96px;}
+  .mring{position:relative;width:80px;height:80px;}
+  .mring svg{width:80px;height:80px;transform:rotate(-90deg);}
+  .mring circle{fill:none;stroke-width:7;}
+  .mring .mb{stroke:var(--panel-2);}
+  .mring .mf{stroke:var(--accent);stroke-linecap:round;stroke-dasharray:213.6;transition:stroke-dashoffset 1s cubic-bezier(.2,.9,.2,1);}
+  .mring b{position:absolute;inset:0;display:grid;place-items:center;font-weight:800;font-size:17px;font-variant-numeric:tabular-nums;}
+  .mtxt b{display:block;font-size:20px;font-weight:800;color:var(--accent);line-height:1;}
+  .mtxt span{font-size:10px;color:var(--muted);line-height:1.3;display:block;margin-top:3px;}
+  .jhero{display:block;width:100%;text-align:left;margin:18px 0 4px;border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line));border-radius:var(--r-lg);padding:22px;
+    background:radial-gradient(130% 140% at 100% 0%, color-mix(in srgb,var(--accent) 15%,transparent), transparent 55%), var(--panel);box-shadow:var(--shadow);transition:.15s;}
+  .jhero:hover{transform:translateY(-1px);border-color:var(--accent);}
+  .jhero .k{color:var(--accent);}
+  .jhero h2{font-size:22px;font-weight:800;margin:8px 0 3px;letter-spacing:-.01em;}
+  .jhero p{margin:0 0 16px;color:var(--ink-soft);font-size:14px;}
+  .jhero .startbtn{pointer-events:none;}
+  .jroute{position:relative;display:flex;flex-direction:column;}
+  .jstep{position:relative;display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:none;padding:9px 0;}
+  .jstep::before{content:"";position:absolute;left:21px;top:0;bottom:0;width:2px;background:var(--line);}
+  .jstep:first-child::before{top:50%;} .jstep:last-child::before{bottom:50%;}
+  .jstep .jnode{position:relative;z-index:1;width:44px;height:44px;flex:none;border-radius:13px;display:grid;place-items:center;font-size:20px;background:var(--panel);border:1px solid var(--line);}
+  .jstep.done .jnode{background:color-mix(in srgb,var(--good) 20%,var(--panel));border-color:var(--good);color:var(--good);}
+  .jstep.cur .jnode{background:linear-gradient(150deg,var(--accent),var(--accent-2));border-color:transparent;color:var(--accent-ink);box-shadow:0 6px 18px color-mix(in srgb,var(--accent) 45%,transparent);}
+  .jstep.next{opacity:.55;}
+  .jstep .jmid{flex:1;min-width:0;}
+  .jstep .jn{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-2);font-weight:800;}
+  .jstep.cur .jn{color:var(--accent);}
+  .jstep .jt{font-weight:700;font-size:15px;}
+  .jstep .jarw{color:var(--muted);flex:none;} .jstep .jarw svg{width:18px;height:18px;}
+  .reviewlink{color:var(--accent-2);cursor:pointer;text-transform:none;letter-spacing:0;font-weight:700;}
+  .prod-cue{text-align:center;color:var(--accent);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;margin-top:22px;}
   .modes{display:flex;flex-direction:column;gap:12px;padding-bottom:44px;}
   .mode{display:flex;align-items:center;gap:16px;width:100%;text-align:left;background:var(--panel);border:1px solid var(--line);
     border-radius:var(--r);padding:16px 18px;transition:.16s;box-shadow:var(--shadow-sm);}
@@ -279,11 +317,7 @@
     <button class="iconbtn" id="theme" aria-label="Toggle theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg></button>
   </div></div>
   <div class="wrap">
-    <div class="hero"><div class="k" id="heroK">Buenos días</div><h1 id="heroH">Time to <em>train</em>.</h1></div>
-    <div class="log" id="log"></div>
-    <div id="todaySlot"></div>
-    <div class="k sec-k">Training modes</div>
-    <div class="modes" id="modes"></div>
+    <div id="homeBody"></div>
   </div>
 </div>
 
@@ -754,7 +788,7 @@ function bindAB(box,myUrl,model){ box.querySelectorAll(".abtn").forEach(b=>b.onc
 
 /* ═══ STATE / LOG ═══ */
 let ST=loadJSON("esf4",{level:"beginner",onboarded:false,days:0,lastDay:0,heard:0,shadowed:0,clarSum:0,clarN:0,srs:{},found:{}});
-["srs","found"].forEach(k=>{if(!ST[k])ST[k]={};});
+["srs","found"].forEach(k=>{if(!ST[k])ST[k]={};}); if(ST.journeyIdx==null)ST.journeyIdx=0;
 function save(){try{localStorage.setItem("esf4",JSON.stringify(ST));}catch(e){}}
 const DAY=86400000,dayNum=ts=>Math.floor((ts-new Date().getTimezoneOffset()*60000)/DAY);
 function markTrained(){const t=dayNum(Date.now());if(ST.lastDay!==t){ST.days=(ST.lastDay===t-1)?ST.days+1:1;ST.lastDay=t;}}
@@ -782,32 +816,63 @@ const MODES=[
   {key:"immersion",icon:"🌊",t:"Immersion",s:"Whole dialogues, no subtitles",meta:"Flow"}
 ];
 function greet(){const h=new Date().getHours();return h<12?"Buenos días":h<19?"Buenas tardes":"Buenas noches";}
+function masteredWords(){ let n=0; VOCAB.forEach(w=>{const s=ST.srs["v:"+w.es]; if(s&&s.n>=4)n++;}); return n; }
+function dueCount(){ const now=Date.now(); let n=0; for(const k in ST.srs){ if(ST.srs[k].due&&ST.srs[k].due<=now)n++; } return n; }
+function journeySteps(){ const base=[
+  {k:"p1",phase:"Phase 1 · Perception",title:"Tune your ear",mode:"listening",icon:"👂",desc:"Catch real Spanish by ear."},
+  {k:"p2",phase:"Phase 2 · Conversational",title:"Understand & reply",mode:"conversation",icon:"💬",desc:"Real exchanges — your response."},
+  {k:"p3",phase:"Phase 3 · Shadowing",title:"Sharpen your accent",mode:"shadowing",icon:"🎙️",desc:"Repeat each line until it's automatic."},
+  {k:"ted",phase:"Milestone · TED",title:"El enigma de la motivación",mode:"ted",icon:"🎤",desc:"Train on a real native talk."},
+  {k:"p4",phase:"Phase 4 · Immersion",title:"Live in Spanish",mode:"immersion",icon:"🌊",desc:"Whole dialogues, no subtitles."}];
+  return beginner()?[{k:"f0",phase:"Foundations",title:"Sounds & survival kit",mode:"foundations",icon:"🔤",desc:"Start from absolute zero."},...base]:base; }
+function openStep(st,i){ pendingStep=i; openMode(st.mode); }
 function renderHome(){
-  $("heroK").textContent=greet();
-  $("heroH").innerHTML=ST.days>0?`Day <em>${ST.days}</em> of training.`:`Time to <em>train</em>.`;
   $("lvlChip").textContent=beginner()?"Beginner":"Intermediate";
-  $("log").innerHTML=`
-    <div><b>${ST.days}</b><div class="u">Day streak</div></div>
-    <div><b>${ST.shadowed}</b><div class="u">Lines shadowed</div></div>
-    <div><b>${clarAvg()}%</b><div class="u">Avg clarity</div></div>`;
-  const rec=beginner()?MODES[0]:MODES[1];
-  $("todaySlot").innerHTML=`<div class="today"><div class="k">Recommended now</div>
-    <h2>${rec.icon} ${rec.t} session</h2><p>${rec.s}. About 4 minutes.</p>
-    <button class="startbtn" id="recStart">Begin training ${SVG.arw}</button></div>`;
-  $("recStart").onclick=()=>openMode(rec.key);
-  const m=$("modes");m.innerHTML="";
-  if(TED&&TED.embedUrl&&TED.sentences&&TED.sentences.length){
-    const tel=document.createElement("button");tel.className="mode feat";
-    tel.innerHTML=`<div class="ic">🎤</div><div class="mid"><div class="mt">${TED.title}</div><div class="ms">Real TED talk · ${TED.speaker}</div><div class="meta">Watch · shadow · spaced review</div></div><div class="arw">${SVG.arw}</div>`;
-    tel.onclick=()=>openMode("ted");m.appendChild(tel);
+  const words=masteredWords(), pct=Math.min(100,Math.round(words/500*100)), off=(213.6*(1-Math.min(1,words/500))).toFixed(1);
+  const steps=journeySteps(), jIdx=Math.min(ST.journeyIdx||0,steps.length), dueN=dueCount();
+  let h=`<div class="hero2">
+    <div class="hero2-l"><div class="k">${greet()}</div><h1 class="hero2-h">${ST.days>0?`Day <em>${ST.days}</em>`:`¡Empecemos!`}</h1>
+      <div class="minis"><span>🔥 ${ST.days}</span><span>🎙️ ${ST.shadowed}</span><span>✦ ${clarAvg()}%</span></div></div>
+    <div class="mastery"><div class="mring"><svg viewBox="0 0 80 80"><circle class="mb" cx="40" cy="40" r="34"/><circle class="mf" cx="40" cy="40" r="34" style="stroke-dashoffset:${off}"/></svg><b>${pct}%</b></div>
+      <div class="mtxt"><b>${words}</b><span>of 500 essential<br>words on autopilot</span></div></div>
+  </div>`;
+  if(jIdx<steps.length){ const s=steps[jIdx];
+    h+=`<button class="jhero" id="jgo"><div class="k">Continue your journey · ${s.phase}</div><h2>${s.icon} ${s.title}</h2><p>${s.desc}</p><span class="startbtn">Continue ${SVG.arw}</span></button>`;
+  } else {
+    h+=`<button class="jhero done" id="jgo"><div class="k">Daily training</div><h2>Keep it sharp</h2><p>${dueN} reviews due · plus fresh material.</p><span class="startbtn">Train today ${SVG.arw}</span></button>`;
   }
+  h+=`<div class="k sec-k">The method · your path</div><div class="jroute">`;
+  steps.forEach((s,i)=>{ const state=i<jIdx?"done":i===jIdx?"cur":"next";
+    h+=`<button class="jstep ${state}" data-i="${i}"><div class="jnode">${i<jIdx?'✓':s.icon}</div><div class="jmid"><div class="jn">${s.phase}</div><div class="jt">${s.title}</div></div><span class="jarw">${SVG.arw}</span></button>`; });
+  h+=`</div><div class="k sec-k">Practice freely${dueN?` · <span class="reviewlink" id="rev">review ${dueN} due</span>`:''}</div><div class="modes" id="modes"></div>`;
+  $("homeBody").innerHTML=h;
+  $("jgo").onclick=()=>{ if(jIdx<steps.length)openStep(steps[jIdx],jIdx); else openMode("today"); };
+  document.querySelectorAll(".jstep").forEach(el=>el.onclick=()=>{const i=+el.dataset.i;openStep(steps[i],i);});
+  const rv=$("rev"); if(rv)rv.onclick=(e)=>{e.stopPropagation();openMode("review");};
+  const m=$("modes");
+  if(TED&&TED.embedUrl&&TED.sentences&&TED.sentences.length){ const tel=document.createElement("button");tel.className="mode feat";
+    tel.innerHTML=`<div class="ic">🎤</div><div class="mid"><div class="mt">${TED.title}</div><div class="ms">Real TED talk · native</div><div class="meta">Watch · drill · spaced</div></div><div class="arw">${SVG.arw}</div>`;
+    tel.onclick=()=>openMode("ted");m.appendChild(tel); }
   MODES.forEach(md=>{const el=document.createElement("button");el.className="mode"+(md.beg?" beg":"");
-    el.innerHTML=`<div class="ic">${md.icon}</div><div class="mid"><div class="mt">${md.t}</div><div class="ms">${md.s}</div><div class="meta">${md.meta}</div></div><div class="arw">${SVG.arw}</div>`;
+    el.innerHTML=`<div class="ic">${md.icon}</div><div class="mid"><div class="mt">${md.t}</div><div class="ms">${md.s}</div></div><div class="arw">${SVG.arw}</div>`;
     el.onclick=()=>openMode(md.key);m.appendChild(el);});
 }
 
 /* ═══ SESSION ENGINE ═══ */
-let S=null;
+let S=null, pendingStep=null;
+function cardFromId(id){ const p=id.indexOf(":"); if(p<0)return null; const t=id.slice(0,p), v=id.slice(p+1);
+  if(t==="v"){const w=VOCAB.find(x=>x.es===v); return w?{t:"listen",es:w.es,en:w.en,ex:w.ex,exEn:w.exEn,id,kind:"word"}:null;}
+  if(t==="b"){const b=B.find(x=>x.es===v); return b?{t:"shadow",text:b.m==="ready"?b.es:full(b,b.v[0]),en:b.en.replace(/…/g,""),id}:null;}
+  if(t==="d"){const sc=SCENES.find(x=>x.b===v); return sc?{t:"listen",es:sc.b,en:null,id,kind:"line",hi:sc.s}:null;}
+  if(t==="sv"){const p2=FOUND.survival.find(x=>x.es===v); return {t:"shadow",text:v,en:p2?p2.en:null,id};}
+  if(t==="nm"){const p2=FOUND.numbers.find(x=>x.es===v); return {t:"shadow",text:v,en:p2?p2.en:null,id};}
+  if(t==="ted"){const s=TED.sentences[+v]; return s?{t:"shadow",text:s.es,en:s.en,id}:null;}
+  return null; }
+function buildReview(withNew){ const now=Date.now();
+  const due=Object.keys(ST.srs).filter(id=>ST.srs[id].due&&ST.srs[id].due<=now);
+  let cards=shuffle(due).slice(0,10).map(cardFromId).filter(Boolean);
+  if(withNew&&cards.length<8)cards=cards.concat(buildListening().slice(0,8-cards.length));
+  return cards; }
 function openMode(key){ac();stopAudio();
   let cards=[];
   if(key==="foundations")cards=buildFoundations();
@@ -816,8 +881,9 @@ function openMode(key){ac();stopAudio();
   else if(key==="conversation")cards=buildConversation();
   else if(key==="immersion")cards=buildImmersion();
   else if(key==="ted")cards=buildTED();
-  if(!cards.length){showHome();return;}
-  S={key,cards,pos:0,heard:0,shadowed:0,clar:[]};
+  else if(key==="review"||key==="today")cards=buildReview(key==="today");
+  if(!cards.length){ if(key==="review"||key==="today")cards=buildListening(); else {showHome();return;} }
+  S={key,cards,pos:0,heard:0,shadowed:0,clar:[],journeyStep:pendingStep}; pendingStep=null;
   app.classList.add("hidden");sess.classList.remove("hidden");sumEl.classList.remove("show");
   renderCard();
 }
@@ -903,7 +969,7 @@ CARD.listen=(c,st)=>{
     <div id="rev"></div>
     <button class="btn line" id="reveal">Reveal</button>`;
   const orb=$("orb");const play=(r)=>say(model,orb,r);orb.onclick=()=>play();$("cReplay").onclick=()=>play();$("cSlow").onclick=()=>play(.58);
-  play();
+  say(model,orb,null,()=>setTimeout(()=>{if(!$("orb"))return;say(model,orb);},240));
   $("reveal").onclick=()=>{
     const txt=c.kind==="word"
       ? `<div class="es-md serif">${c.es}</div><div class="en-sub">${c.en}</div>${c.ex?`<div class="panel-reveal" style="text-align:center"><div class="serif" style="font-size:18px">${c.ex}</div><div class="en-mut">${c.exEn}</div></div>`:""}`
@@ -915,36 +981,37 @@ CARD.listen=(c,st)=>{
   };
 };
 CARD.shadow=(c,st)=>{
-  const model=c.text;
-  st.innerHTML=`<div class="cue">${c.intro?"New phrase · repeat it":"Shadow · match the native voice"}</div>
-    <div class="es-lg">${model}</div>${c.en?`<div class="en-sub">${c.en}</div>`:""}
-    <div class="audio-ctrls">
-      <button class="actrl" id="cReplay">${SVG.spk} Model</button>
-      <button class="actrl" id="cSlow">${SVG.slow} Slower</button>
-    </div>
-    <div class="pron" id="pron"></div>
-    <div class="spacer"></div>
-    <button class="recbtn" id="rec">${SVG.mic} Tap &amp; speak</button>
-    <button class="btn ghost mt10" id="skip">Skip</button>`;
-  const play=(r)=>say(model,null,r);$("cReplay").onclick=()=>play();$("cSlow").onclick=()=>play(.58);play();
-  const rec=$("rec"),pron=$("pron");
-  let scored=false,myUrl=null;
-  const commitStats=(pct)=>{ S.shadowed++;ST.shadowed++; if(pct!=null){ST.clarSum+=pct;ST.clarN++;S.clar.push(pct);} srsBump(c.id,pct==null?true:pct>=55); save(); };
-  const cleanup=()=>{ if(myUrl){try{URL.revokeObjectURL(myUrl);}catch(e){}myUrl=null;} };
-  $("skip").onclick=()=>{ cleanup(); next(); };
-  rec.onclick=async()=>{
-    if(scored){ haptic(10); cleanup(); next(); return; }
-    rec.className="recbtn rec"; rec.innerHTML=SVG.mic+" Listening…"; stopAudio();
-    const wav=await pronRecord(6500);
-    if(wav==="denied"){ rec.className="recbtn"; rec.innerHTML=SVG.mic+" Enable mic & retry"; pron.className="pron show"; pron.innerHTML='<div class="pron-note">Allow microphone access to score your pronunciation — your browser asks once, then it just works.</div>'; return; }
-    if(!wav){ rec.className="recbtn"; rec.innerHTML=SVG.mic+" Try again"; pron.className="pron show"; pron.innerHTML='<div class="pron-note">Didn\'t catch that — tap, wait a beat, then say it clearly.</div>'; return; }
-    myUrl=URL.createObjectURL(wav);
-    rec.className="recbtn"; rec.innerHTML=SVG.mic+" Scoring…";
-    const r=await pronAssess(wav,model);
-    if(!r||r.silence){ pron.className="pron show"; pron.innerHTML=pronABHtml()+`<div class="pron-note">${r&&r.silence?"Couldn't make out the words — hear yourself vs the native model, then try again.":"Scoring is busy — compare your take to the native model below."}</div>`; bindAB(pron,myUrl,model); commitStats(null); scored=true; rec.innerHTML=SVG.arw+" Continue"; return; }
-    pron.className="pron show"; pron.innerHTML=pronResultHtml(r,model); bindAB(pron,myUrl,model);
-    commitStats(r.score); haptic(r.score>=80?[10,30,10]:12); scored=true; rec.innerHTML=SVG.arw+" Continue";
-  };
+  const model=c.text, REPS=c.intro?2:3; let rep=0,best=0,busy=false,myUrl=null;
+  const clean=()=>{ if(myUrl){try{URL.revokeObjectURL(myUrl);}catch(e){}myUrl=null;} };
+  function done(){ srsBump(c.id,best>=55||best===0); save(); clean(); next(); }
+  function render(){
+    busy=false;
+    st.innerHTML=`<div class="cue">${c.intro?"New phrase · say it back":"Shadow · rep "+Math.min(rep+1,REPS)+" of "+REPS}</div>
+      <div class="rep-dots">${dots(rep,REPS)}</div>
+      <div class="es-lg">${model}</div>${c.en?`<div class="en-sub">${c.en}</div>`:""}
+      <div class="audio-ctrls"><button class="actrl" id="cReplay">${SVG.spk} Model</button><button class="actrl" id="cSlow">${SVG.slow} Slower</button></div>
+      <div class="pron" id="pron"></div>
+      <div class="spacer"></div>
+      <button class="recbtn" id="rec">${SVG.mic} Say it</button>
+      <button class="btn ghost mt10" id="skip">Skip line</button>`;
+    const play=(r)=>say(model,null,r);$("cReplay").onclick=()=>play();$("cSlow").onclick=()=>play(.58);play();
+    const rec=$("rec"),pron=$("pron");
+    $("skip").onclick=()=>done();
+    rec.onclick=async()=>{ if(busy)return; busy=true;
+      rec.className="recbtn rec"; rec.innerHTML=SVG.mic+" Listening…"; stopAudio();
+      const wav=await pronRecord(6500);
+      if(wav==="denied"||!wav){ rec.className="recbtn"; rec.innerHTML=SVG.mic+" Try again"; pron.className="pron show"; pron.innerHTML='<div class="pron-note">'+(wav==="denied"?"Allow microphone access to score your pronunciation.":"Didn't catch that — tap, wait a beat, then say it clearly.")+'</div>'; busy=false; return; }
+      clean(); myUrl=URL.createObjectURL(wav); rec.className="recbtn"; rec.innerHTML=SVG.mic+" Scoring…";
+      const r=await pronAssess(wav,model); rep++;
+      if(r&&!r.silence){ best=Math.max(best,r.score); S.shadowed++;ST.shadowed++;ST.clarSum+=r.score;ST.clarN++;S.clar.push(r.score);
+        pron.className="pron show"; pron.innerHTML=pronResultHtml(r,model)+`<div class="rep-note">${rep<REPS?"Again — lock it in.":"Nailed it ✦"}</div>`; bindAB(pron,myUrl,model); }
+      else{ S.shadowed++;ST.shadowed++; pron.className="pron show"; pron.innerHTML=pronABHtml()+'<div class="pron-note">Couldn\'t score — hear yourself vs the native model.</div>'; bindAB(pron,myUrl,model); }
+      save(); haptic(12);
+      if(rep>=REPS||(r&&r.score>=88&&rep>=2)){ rec.innerHTML=SVG.arw+" Continue"; rec.onclick=()=>done(); }
+      else { rec.innerHTML="↻ Next rep"; rec.onclick=()=>render(); }
+    };
+  }
+  render();
 };
 CARD.sound=(c,st)=>{
   const s=c.s;
@@ -959,22 +1026,41 @@ CARD.sound=(c,st)=>{
   $("cont").onclick=()=>{ST.found[s.sound]=1;save();next();};
 };
 CARD.convo=(c,st)=>{
-  st.innerHTML=`<div class="cue">Conversation · reply naturally</div>
-    <div class="conv"><div class="line"><div class="who">They say</div><div class="txt serif" id="pr">${c.prompt}</div></div></div>
+  st.innerHTML=`<div class="cue">Conversation · understand & reply</div>
+    <div class="conv"><div class="line"><div class="who">They say</div><div class="txt" id="pr">${c.prompt}</div></div></div>
     <button class="actrl" id="hear" style="margin:14px auto 0">${SVG.spk} Hear it</button>
-    <div class="en-mut">Choose your reply — <b>${c.en}</b></div>
+    <div class="en-mut">Pick the natural reply — <b>${c.en}</b></div>
     <div class="spacer"></div>
-    <div class="choices" id="ch"></div>`;
+    <div class="choices" id="ch"></div>
+    <div id="prod"></div>`;
   $("hear").onclick=()=>say(c.prompt);say(c.prompt);
   const box=$("ch");
   c.options.forEach(o=>{const b=document.createElement("button");b.className="choice";b.innerHTML=`<span>${o}</span><span class="spk">${SVG.spk}</span>`;
     b.onclick=()=>{const ok=o===c.correct;say(o);box.querySelectorAll(".choice").forEach(x=>x.disabled=true);b.classList.add(ok?"ok":"no");
       if(!ok)box.querySelectorAll(".choice").forEach(x=>{if(x.querySelector("span").textContent===c.correct)x.classList.add("ok");});
-      srsBump(c.id,ok);S.heard++;save();haptic(ok?12:[8,40,8]);
-      setTimeout(()=>{ // brief pause to hear, then continue button
-        let cont=$("convCont");if(!cont){cont=document.createElement("button");cont.id="convCont";cont.className="btn solid mt16";cont.innerHTML="Continue "+SVG.arw;cont.onclick=()=>next();st.appendChild(cont);}
-      },300);
+      srsBump(c.id,ok);S.heard++;save();haptic(ok?12:[8,40,8]); showProduce();
     };box.appendChild(b);});
+  function showProduce(){
+    const prod=$("prod"); let done=false,myUrl=null;
+    prod.innerHTML=`<div class="prod-cue">Now say it yourself</div>
+      <div class="es-lg" style="font-size:23px;text-align:center;margin:6px 0 4px">${c.correct}</div>
+      <div class="pron" id="pron"></div>
+      <button class="recbtn" id="prec" style="margin-top:8px">${SVG.mic} Say it</button>
+      <button class="btn ghost mt10" id="pskip">Continue</button>`;
+    const prec=$("prec"),pron=$("pron");
+    $("pskip").onclick=()=>{ if(myUrl)URL.revokeObjectURL(myUrl); next(); };
+    prec.onclick=async()=>{ if(done){ if(myUrl)URL.revokeObjectURL(myUrl); next(); return; }
+      prec.className="recbtn rec"; prec.innerHTML=SVG.mic+" Listening…"; stopAudio();
+      const wav=await pronRecord(6500);
+      if(wav==="denied"||!wav){ prec.className="recbtn"; prec.innerHTML=SVG.mic+" Try again"; pron.className="pron show"; pron.innerHTML='<div class="pron-note">'+(wav==="denied"?"Allow mic access to score your speaking.":"Didn't catch that — say it clearly.")+'</div>'; return; }
+      myUrl=URL.createObjectURL(wav); prec.className="recbtn"; prec.innerHTML=SVG.mic+" Scoring…";
+      const r=await pronAssess(wav,c.correct);
+      if(r&&!r.silence){ S.shadowed++;ST.shadowed++;ST.clarSum+=r.score;ST.clarN++;S.clar.push(r.score); pron.className="pron show"; pron.innerHTML=pronResultHtml(r,c.correct); bindAB(pron,myUrl,c.correct); }
+      else{ pron.className="pron show"; pron.innerHTML=pronABHtml()+'<div class="pron-note">Couldn\'t score — hear yourself vs the model.</div>'; bindAB(pron,myUrl,c.correct); }
+      save(); haptic(12); done=true; prec.innerHTML=SVG.arw+" Continue";
+    };
+    setTimeout(()=>{try{prod.scrollIntoView({behavior:"smooth",block:"nearest"});}catch(e){}},120);
+  }
 };
 CARD.tedwatch=(c,st)=>{
   st.innerHTML=`<div class="ep-k">Episode 01 · TED</div>
@@ -1071,7 +1157,9 @@ CARD.immerse=(c,st)=>{
 
 /* ---- finish ---- */
 function finish(){
-  stopAudio();markTrained();save();
+  stopAudio();markTrained();
+  if(S.journeyStep!=null && S.journeyStep>=(ST.journeyIdx||0)){ ST.journeyIdx=S.journeyStep+1; }
+  save();
   const sc=S.clar.length?Math.round(S.clar.reduce((a,b)=>a+b,0)/S.clar.length):null;
   const stats=[];
   if(S.shadowed)stats.push(["b",S.shadowed,"Lines"]);
