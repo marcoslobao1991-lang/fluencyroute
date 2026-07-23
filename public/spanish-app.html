@@ -1,0 +1,910 @@
+<meta charset="utf-8">
+<title>Essential Spanish Fluency</title>
+<style>
+  :root{
+    --ink:#D3DEEC; --surface:#EDF2F9; --surface-2:#E1E9F4; --line:#C2CFE0;
+    --text:#16202F; --text-soft:#3B475C; --muted:#4F5D74;
+    --accent:#A96A05; --accent-fill:#F4B740; --accent-ink:#2A1C00;
+    --signal:#0F7A50; --signal-soft:#DCF0E7; --coral:#C7423A; --coral-soft:#F8E3E1;
+    --teal:#0E8C86; --teal-soft:#D6EEEC;
+    --glow:rgba(244,183,64,.30);
+    --shadow:0 1px 2px rgba(20,32,51,.07),0 10px 28px rgba(20,32,51,.10);
+    --r-sm:10px; --r-md:14px; --r-lg:20px;
+    --t-xs:11px; --t-sm:13px; --t-md:15px; --t-lg:20px; --t-hero:28px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --ink:#0C1219; --surface:#161F2E; --surface-2:#1E293B; --line:#2C3A50;
+      --text:#E9EEF6; --text-soft:#BCC7D8; --muted:#8A98AD;
+      --accent:#F4B740; --accent-fill:#F4B740; --accent-ink:#2A1C00;
+      --signal:#3DD68C; --signal-soft:#123026; --coral:#FF6B6B; --coral-soft:#3A1D1D;
+      --teal:#38C6BE; --teal-soft:#0E2E2C;
+      --glow:rgba(244,183,64,.16);
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 14px 36px rgba(0,0,0,.42); }
+  }
+  :root[data-theme="dark"]{--ink:#0C1219;--surface:#161F2E;--surface-2:#1E293B;--line:#2C3A50;--text:#E9EEF6;--text-soft:#BCC7D8;--muted:#8A98AD;--accent:#F4B740;--accent-fill:#F4B740;--accent-ink:#2A1C00;--signal:#3DD68C;--signal-soft:#123026;--coral:#FF6B6B;--coral-soft:#3A1D1D;--teal:#38C6BE;--teal-soft:#0E2E2C;--glow:rgba(244,183,64,.16);--shadow:0 1px 2px rgba(0,0,0,.3),0 14px 36px rgba(0,0,0,.42);}
+  :root[data-theme="light"]{--ink:#D3DEEC;--surface:#EDF2F9;--surface-2:#E1E9F4;--line:#C2CFE0;--text:#16202F;--text-soft:#3B475C;--muted:#4F5D74;--accent:#A96A05;--accent-fill:#F4B740;--accent-ink:#2A1C00;--signal:#0F7A50;--signal-soft:#DCF0E7;--coral:#C7423A;--coral-soft:#F8E3E1;--teal:#0E8C86;--teal-soft:#D6EEEC;--glow:rgba(244,183,64,.30);--shadow:0 1px 2px rgba(20,32,51,.07),0 10px 28px rgba(20,32,51,.10);}
+
+  *{box-sizing:border-box;} html,body{margin:0;}
+  body{ background:var(--ink); color:var(--text);
+    background-image:radial-gradient(130% 60% at 50% -12%, var(--glow), transparent 62%);
+    background-attachment:fixed; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    line-height:1.5; -webkit-font-smoothing:antialiased; }
+  .mono{font-family:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Menlo,Consolas,monospace;}
+  .wrap{max-width:660px; margin:0 auto; padding:0 16px 120px;}
+  svg{display:block;}
+  .hidden{display:none!important;}
+
+  /* boot */
+  #boot{position:fixed;inset:0;z-index:60;background:var(--ink);
+    background-image:radial-gradient(130% 62% at 50% 40%, var(--glow), transparent 62%);
+    display:grid;place-items:center;transition:opacity .5s;}
+  #boot.gone{opacity:0;pointer-events:none;}
+  .boot-glyph{width:60px;height:60px;border-radius:16px;margin:0 auto 16px;background:var(--accent-fill);
+    color:var(--accent-ink);display:grid;place-items:center;font-weight:800;font-size:var(--t-hero);
+    box-shadow:0 0 44px rgba(244,183,64,.55);animation:bootpulse 1.4s ease-in-out infinite;}
+  @keyframes bootpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+  .boot-in{text-align:center;}
+  .boot-in b{font-size:var(--t-md);letter-spacing:.01em;}
+  .boot-in span{display:block;font-size:var(--t-xs);letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+  .boot-line{width:176px;height:3px;margin:20px auto 0;border-radius:3px;background:var(--surface-2);overflow:hidden;}
+  .boot-line i{display:block;height:100%;width:0;border-radius:3px;background:var(--accent-fill);
+    box-shadow:0 0 12px var(--accent-fill);animation:bootfill 1.5s ease forwards;}
+  @keyframes bootfill{to{width:100%;}}
+
+  /* appbar */
+  .appbar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--ink) 82%,transparent);
+    backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+  .appbar-in{max-width:660px;margin:0 auto;padding:11px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand .glyph{width:30px;height:30px;border-radius:var(--r-sm);flex:none;background:var(--accent-fill);
+    color:var(--accent-ink);display:grid;place-items:center;font-weight:800;font-size:var(--t-md);
+    box-shadow:0 0 0 1px rgba(0,0,0,.05),0 0 16px rgba(244,183,64,.4);}
+  .brand b{font-size:var(--t-sm);letter-spacing:.01em;}
+  .brand span{display:block;font-size:var(--t-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:-1px;}
+  .bar-btns{display:flex;gap:8px;align-items:center;}
+  .streak-pill{display:inline-flex;align-items:center;gap:5px;font-size:var(--t-sm);font-weight:700;color:var(--accent);
+    background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 11px;}
+  .icon-btn{background:var(--surface);color:var(--muted);border:1px solid var(--line);border-radius:999px;
+    padding:8px;cursor:pointer;font-family:inherit;transition:.15s;display:inline-flex;align-items:center;justify-content:center;}
+  .icon-btn:hover{color:var(--text);border-color:var(--accent);} .icon-btn svg{width:16px;height:16px;}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:20px;margin-top:16px;}
+  .btn{appearance:none;font-family:inherit;cursor:pointer;border-radius:var(--r-sm);border:1px solid var(--line);
+    background:var(--surface-2);color:var(--text);padding:12px 16px;font-size:var(--t-md);font-weight:600;
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;transition:.15s;}
+  .btn:hover{border-color:var(--accent);}
+  .btn.primary{background:var(--accent-fill);color:var(--accent-ink);border-color:var(--accent-fill);}
+  .btn.primary:hover{filter:brightness(1.05);}
+  .btn.big{width:100%;padding:15px;font-size:16px;}
+  .btn.mic.rec{background:var(--coral);border-color:var(--coral);color:#fff;}
+  .btn svg{width:17px;height:17px;} .btn:disabled{opacity:.5;cursor:default;}
+  .btn.ghost{background:transparent;}
+  .speaking{animation:spk 1s ease-in-out infinite;}
+  @keyframes spk{0%,100%{box-shadow:0 0 0 0 rgba(244,183,64,.5)}50%{box-shadow:0 0 0 8px rgba(244,183,64,0)}}
+  .row{display:flex;gap:10px;flex-wrap:wrap;} .row>.btn{flex:1;}
+
+  /* hero today */
+  .hero{background:linear-gradient(160deg,var(--surface),var(--surface-2));border:1px solid var(--line);
+    border-radius:var(--r-lg);box-shadow:var(--shadow);padding:22px 20px;margin-top:18px;position:relative;overflow:hidden;}
+  .hero::after{content:"";position:absolute;inset:-40% 40% auto auto;width:220px;height:220px;border-radius:50%;
+    background:radial-gradient(circle,var(--glow),transparent 70%);pointer-events:none;}
+  .hero-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;position:relative;}
+  .daychip{font-size:var(--t-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-family:ui-monospace,monospace;}
+  .hero-big{font-size:54px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.03em;position:relative;}
+  .hero-sub{font-size:var(--t-md);color:var(--text-soft);margin:6px 0 18px;position:relative;}
+  .hero-sub b{color:var(--accent);}
+  .hero .btn{position:relative;}
+  .hero-done{font-size:var(--t-md);color:var(--signal);font-weight:600;margin:6px 0 16px;}
+
+  /* coverage */
+  .cover{display:flex;align-items:center;gap:18px;}
+  .cover-ring{flex:none;position:relative;width:96px;height:96px;}
+  .cover-ring svg{width:96px;height:96px;transform:rotate(-90deg);}
+  .cover-ring .cnum{position:absolute;inset:0;display:grid;place-items:center;font-weight:800;font-size:20px;font-variant-numeric:tabular-nums;}
+  .cover-txt b{display:block;font-size:var(--t-md);color:var(--text);}
+  .cover-txt p{margin:4px 0 0;font-size:var(--t-sm);color:var(--muted);line-height:1.5;}
+  .cover-txt .big{font-size:26px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums;}
+
+  /* phase cards */
+  .sect-label{font-size:var(--t-xs);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:26px 4px 2px;}
+  .phase{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--r-md);box-shadow:var(--shadow);padding:14px 16px;margin-top:12px;cursor:pointer;transition:.15s;text-align:left;width:100%;font-family:inherit;color:inherit;}
+  .phase:hover{border-color:var(--accent);transform:translateY(-1px);}
+  .phase .pico{width:46px;height:46px;border-radius:12px;flex:none;display:grid;place-items:center;font-size:22px;
+    background:var(--surface-2);border:1px solid var(--line);}
+  .phase .pmid{flex:1;min-width:0;}
+  .phase .pn{font-size:var(--t-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--teal);font-family:ui-monospace,monospace;font-weight:700;}
+  .phase .pt{font-size:var(--t-md);font-weight:700;color:var(--text);}
+  .phase .pd{font-size:var(--t-sm);color:var(--muted);}
+  .pbar{height:6px;border-radius:3px;background:var(--surface-2);overflow:hidden;margin-top:7px;}
+  .pbar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent-fill),#ffd884);border-radius:3px;transition:width .5s cubic-bezier(.4,0,.2,1);}
+  .phase .pright{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:6px;}
+  .duebadge{font-size:var(--t-xs);font-weight:800;font-variant-numeric:tabular-nums;color:var(--accent-ink);background:var(--accent-fill);border-radius:999px;padding:2px 9px;min-width:22px;text-align:center;}
+  .duebadge.zero{color:var(--muted);background:var(--surface-2);border:1px solid var(--line);}
+  .phase .chev{color:var(--muted);}
+
+  /* session */
+  .sess-top{display:flex;align-items:center;gap:12px;padding:14px 0 4px;position:sticky;top:53px;background:transparent;}
+  .sess-x{background:var(--surface);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:8px;cursor:pointer;display:inline-flex;}
+  .sess-x svg{width:16px;height:16px;}
+  .sprog{flex:1;height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden;}
+  .sprog i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--accent-fill));border-radius:4px;transition:width .35s ease;}
+  .scount{font-size:var(--t-sm);color:var(--muted);font-variant-numeric:tabular-nums;font-family:ui-monospace,monospace;}
+
+  .qcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:24px 20px;margin-top:16px;min-height:300px;display:flex;flex-direction:column;}
+  .qphase{font-size:var(--t-xs);letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin-bottom:14px;font-family:ui-monospace,monospace;display:flex;justify-content:space-between;}
+  .qphase .mold{color:var(--accent);}
+  .prompt{text-align:center;margin:10px 0 6px;}
+  .prompt .big{font-size:30px;font-weight:600;line-height:1.15;text-wrap:balance;}
+  .prompt .big.q{font-weight:600;}
+  .prompt .sub{font-size:var(--t-md);color:var(--muted);margin-top:6px;}
+  .reveal{margin-top:18px;padding-top:16px;border-top:1px dashed var(--line);animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .reveal .es{font-size:var(--t-lg);font-weight:600;margin:0 0 4px;}
+  .reveal .es em{color:var(--accent);font-style:normal;}
+  .reveal .en{font-size:var(--t-md);color:var(--text-soft);}
+  .reveal .exline{margin-top:12px;font-size:var(--t-md);} .reveal .exline .esx{color:var(--text);} .reveal .exline .enx{color:var(--muted);font-size:var(--t-sm);display:block;margin-top:2px;}
+  .spacer{flex:1;}
+  .center{text-align:center;}
+  .hintline{font-size:var(--t-xs);color:var(--muted);text-align:center;margin-top:14px;display:flex;gap:6px;align-items:center;justify-content:center;}
+  .hintline svg{width:13px;height:13px;}
+
+  /* grade buttons */
+  .grades{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:16px;}
+  .grade{appearance:none;font-family:inherit;cursor:pointer;border-radius:var(--r-sm);border:1px solid var(--line);
+    background:var(--surface-2);padding:12px 6px;font-weight:700;font-size:var(--t-sm);transition:.15s;display:flex;flex-direction:column;gap:3px;align-items:center;}
+  .grade small{font-weight:500;font-size:10px;color:var(--muted);}
+  .grade.again{color:var(--coral);} .grade.again:hover{border-color:var(--coral);background:var(--coral-soft);}
+  .grade.good{color:var(--teal);} .grade.good:hover{border-color:var(--teal);background:var(--teal-soft);}
+  .grade.easy{color:var(--signal);} .grade.easy:hover{border-color:var(--signal);background:var(--signal-soft);}
+  .grade.suggest{box-shadow:0 0 0 2px var(--accent-fill);}
+
+  /* clarity report (shadowing) */
+  .report{margin-top:16px;border-radius:var(--r-sm);padding:14px 15px;background:var(--surface-2);border:1px solid var(--line);display:none;}
+  .report.show{display:block;animation:fade .25s ease;}
+  .rep-head{display:flex;align-items:baseline;gap:9px;margin-bottom:11px;}
+  .rep-score{font-size:27px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1;}
+  .rep-score.g-ok{color:var(--signal);} .rep-score.g-mid{color:var(--accent);} .rep-score.g-low{color:var(--coral);}
+  .rep-label{font-size:var(--t-xs);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
+  .rep-target{font-size:var(--t-md);line-height:1.85;}
+  .rep-target .w{padding:1px 3px;border-radius:4px;}
+  .rep-target .w-ok{color:var(--signal);} .rep-target .w-miss{color:var(--coral);text-decoration:underline wavy;text-underline-offset:3px;}
+  .rep-tip{margin-top:11px;font-size:var(--t-sm);color:var(--text-soft);} .rep-tip b{color:var(--coral);}
+  .rep-heard{margin-top:9px;font-size:var(--t-xs);color:var(--muted);} .rep-heard b{color:var(--text);}
+
+  /* done screen */
+  .done-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);
+    padding:32px 24px;margin-top:40px;text-align:center;position:relative;overflow:hidden;}
+  .done-badge{width:66px;height:66px;border-radius:50%;margin:0 auto 18px;border:2px solid var(--accent-fill);color:var(--accent);
+    display:grid;place-items:center;box-shadow:0 0 34px rgba(244,183,64,.4);}
+  .done-badge svg{width:30px;height:30px;}
+  .done-card h2{margin:0 0 6px;font-size:22px;}
+  .done-card p{margin:0 0 20px;color:var(--text-soft);font-size:var(--t-md);}
+  .done-stats{display:flex;justify-content:center;gap:26px;margin:0 0 22px;}
+  .done-stat b{display:block;font-size:26px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums;}
+  .done-stat span{font-size:var(--t-xs);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
+
+  #fx{position:fixed;inset:0;pointer-events:none;z-index:70;}
+  @media (max-width:460px){ .prompt .big{font-size:25px;} .hero-big{font-size:46px;} }
+  @media (prefers-reduced-motion:reduce){*,*::before{animation:none!important;transition:none!important;}}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+</style>
+
+<div id="boot"><div class="boot-in">
+  <div class="boot-glyph">FR</div>
+  <b>Fluency Route</b><span>Essential Spanish Fluency</span>
+  <div class="boot-line"><i></i></div>
+</div></div>
+
+<header class="appbar"><div class="appbar-in">
+  <div class="brand"><div class="glyph">FR</div><div><b>Essential Spanish</b><span>Fluency Route</span></div></div>
+  <div class="bar-btns">
+    <span class="streak-pill" id="streakPill">🔥 0</span>
+    <button class="icon-btn" id="theme" aria-label="Toggle theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg></button>
+  </div>
+</div></header>
+
+<div class="wrap">
+  <main id="home" class="screen"></main>
+  <section id="session" class="screen hidden"></section>
+  <section id="done" class="screen hidden"></section>
+</div>
+
+<canvas id="fx"></canvas>
+
+<script>
+"use strict";
+(function(){ document.documentElement.lang="en";
+  if(!document.querySelector('meta[name="viewport"]')){ var m=document.createElement("meta"); m.name="viewport"; m.content="width=device-width, initial-scale=1, viewport-fit=cover"; (document.head||document.documentElement).appendChild(m); } })();
+try{ var _th=localStorage.getItem("esf_theme"); if(_th) document.documentElement.setAttribute("data-theme",_th); }catch(e){}
+
+/* ═══════════════ CONTENT ═══════════════ */
+/* Phase 1 — Auditory Perception: essential high-frequency vocabulary (neutral Latin American Spanish) */
+const VOCAB = [/*__VOCAB_START__*/
+  {"es":"yo","en":"I","ex":"Yo estudio español todos los días.","exEn":"I study Spanish every day.","cat":"pronoun"},
+  {"es":"tú","en":"you (informal)","ex":"¿Tú vas a la fiesta esta noche?","exEn":"Are you going to the party tonight?","cat":"pronoun"},
+  {"es":"él","en":"he / him","ex":"Él trabaja en un banco desde hace tres años.","exEn":"He has worked at a bank for three years.","cat":"pronoun"},
+  {"es":"ella","en":"she / her","ex":"Ella vive cerca del centro de la ciudad.","exEn":"She lives near downtown.","cat":"pronoun"},
+  {"es":"usted","en":"you (formal)","ex":"¿Usted quiere un café o un té?","exEn":"Would you like coffee or tea?","cat":"pronoun"},
+  {"es":"nosotros","en":"we / us","ex":"Nosotros vamos al cine los viernes.","exEn":"We go to the movies on Fridays.","cat":"pronoun"},
+  {"es":"ustedes","en":"you all / you (plural)","ex":"¿Ustedes ya comieron algo?","exEn":"Have you all eaten something already?","cat":"pronoun"},
+  {"es":"ellos","en":"they / them (masc.)","ex":"Ellos llegan mañana por la mañana.","exEn":"They arrive tomorrow morning.","cat":"pronoun"},
+  {"es":"ellas","en":"they / them (fem.)","ex":"Ellas trabajan juntas en el mismo proyecto.","exEn":"They work together on the same project.","cat":"pronoun"},
+  {"es":"me","en":"me / myself (object)","ex":"Me gusta mucho la comida picante.","exEn":"I really like spicy food.","cat":"pronoun"},
+  {"es":"te","en":"you (object)","ex":"Te llamo en cuanto termine la reunión.","exEn":"I'll call you as soon as the meeting ends.","cat":"pronoun"},
+  {"es":"le","en":"to him/her/you (indirect object)","ex":"Le mandé un mensaje pero no contestó.","exEn":"I sent him a message but he didn't answer.","cat":"pronoun"},
+  {"es":"nos","en":"us / ourselves (object)","ex":"Nos vemos en la entrada del cine.","exEn":"We'll see each other at the movie theater entrance.","cat":"pronoun"},
+  {"es":"se","en":"himself / herself / themselves (reflexive)","ex":"Ella se levanta muy temprano para trabajar.","exEn":"She gets up very early to work.","cat":"pronoun"},
+  {"es":"mí","en":"me (after preposition)","ex":"Ese regalo es para mí, ¿verdad?","exEn":"That gift is for me, right?","cat":"pronoun"},
+  {"es":"ser","en":"to be (identity/permanent)","ex":"Mi hermano es médico en un hospital grande.","exEn":"My brother is a doctor at a big hospital.","cat":"verb"},
+  {"es":"estar","en":"to be (state/location)","ex":"Estoy muy cansado después del trabajo.","exEn":"I'm very tired after work.","cat":"verb"},
+  {"es":"tener","en":"to have","ex":"Tengo dos hermanos y una hermana menor.","exEn":"I have two brothers and a younger sister.","cat":"verb"},
+  {"es":"haber","en":"to have (auxiliary) / there is / there are","ex":"Hay mucha gente esperando en la fila.","exEn":"There are a lot of people waiting in line.","cat":"verb"},
+  {"es":"hacer","en":"to do / to make","ex":"¿Qué haces los fines de semana normalmente?","exEn":"What do you usually do on weekends?","cat":"verb"},
+  {"es":"ir","en":"to go","ex":"Vamos a la playa este fin de semana.","exEn":"We're going to the beach this weekend.","cat":"verb"},
+  {"es":"poder","en":"to be able to / can","ex":"No puedo salir hoy porque tengo que estudiar.","exEn":"I can't go out today because I have to study.","cat":"verb"},
+  {"es":"querer","en":"to want / to love","ex":"Quiero que vengas a mi fiesta el sábado.","exEn":"I want you to come to my party on Saturday.","cat":"verb"},
+  {"es":"decir","en":"to say / to tell","ex":"Dime la verdad, no me mientas por favor.","exEn":"Tell me the truth, please don't lie to me.","cat":"verb"},
+  {"es":"ver","en":"to see / to watch","ex":"Vi una película muy buena anoche.","exEn":"I watched a really good movie last night.","cat":"verb"},
+  {"es":"dar","en":"to give","ex":"¿Me das tu número de teléfono, por favor?","exEn":"Will you give me your phone number, please?","cat":"verb"},
+  {"es":"saber","en":"to know (fact / how to)","ex":"No sé cómo llegar a tu casa desde aquí.","exEn":"I don't know how to get to your house from here.","cat":"verb"},
+  {"es":"poner","en":"to put / to place","ex":"Pon los platos en la mesa antes de comer.","exEn":"Put the plates on the table before eating.","cat":"verb"},
+  {"es":"venir","en":"to come","ex":"¿Vienes a la reunión conmigo esta tarde?","exEn":"Are you coming to the meeting with me this afternoon?","cat":"verb"},
+  {"es":"salir","en":"to leave / to go out","ex":"Salgo del trabajo a las seis de la tarde.","exEn":"I leave work at six in the evening.","cat":"verb"},
+  {"es":"llegar","en":"to arrive","ex":"Llegamos tarde porque había mucho tráfico.","exEn":"We arrived late because there was a lot of traffic.","cat":"verb"},
+  {"es":"pasar","en":"to happen / to pass / to spend (time)","ex":"¿Qué pasó en la reunión de ayer?","exEn":"What happened at yesterday's meeting?","cat":"verb"},
+  {"es":"deber","en":"should / must / to owe","ex":"Deberías descansar un poco más esta semana.","exEn":"You should rest a bit more this week.","cat":"verb"},
+  {"es":"parecer","en":"to seem / to appear","ex":"Me parece una idea excelente para el proyecto.","exEn":"It seems like an excellent idea for the project.","cat":"verb"},
+  {"es":"quedar","en":"to remain / to fit / to arrange to meet","ex":"Quedamos en vernos frente al restaurante a las ocho.","exEn":"We agreed to meet in front of the restaurant at eight.","cat":"verb"},
+  {"es":"creer","en":"to believe / to think","ex":"No creo que él tenga razón esta vez.","exEn":"I don't think he's right this time.","cat":"verb"},
+  {"es":"hablar","en":"to speak / to talk","ex":"Hablo español e inglés sin ningún problema.","exEn":"I speak Spanish and English without any problem.","cat":"verb"},
+  {"es":"llevar","en":"to carry / to wear / to take","ex":"Siempre llevo mi celular en el bolsillo.","exEn":"I always carry my phone in my pocket.","cat":"verb"},
+  {"es":"dejar","en":"to leave (behind) / to let / to stop","ex":"Deja el paraguas aquí, no va a llover.","exEn":"Leave the umbrella here, it's not going to rain.","cat":"verb"},
+  {"es":"seguir","en":"to continue / to follow","ex":"Sigue derecho y luego dobla a la izquierda.","exEn":"Keep going straight and then turn left.","cat":"verb"},
+  {"es":"encontrar","en":"to find","ex":"No encuentro mis llaves por ningún lado.","exEn":"I can't find my keys anywhere.","cat":"verb"},
+  {"es":"llamar","en":"to call","ex":"Llámame cuando llegues a la estación.","exEn":"Call me when you arrive at the station.","cat":"verb"},
+  {"es":"pensar","en":"to think / to plan","ex":"Pienso viajar a México en las próximas vacaciones.","exEn":"I'm planning to travel to Mexico next vacation.","cat":"verb"},
+  {"es":"volver","en":"to return / to go back","ex":"Vuelvo a casa después de recoger a los niños.","exEn":"I go back home after picking up the kids.","cat":"verb"},
+  {"es":"tomar","en":"to take / to drink","ex":"Tomo café todas las mañanas antes de salir.","exEn":"I drink coffee every morning before leaving.","cat":"verb"},
+  {"es":"conocer","en":"to know (a person/place) / to meet","ex":"Conozco a esa chica desde la escuela primaria.","exEn":"I've known that girl since elementary school.","cat":"verb"},
+  {"es":"sentir","en":"to feel / to be sorry","ex":"Siento mucho no haber llegado a tiempo.","exEn":"I'm really sorry for not arriving on time.","cat":"verb"},
+  {"es":"mirar","en":"to look at / to watch","ex":"Mira ese edificio tan alto en la esquina.","exEn":"Look at that really tall building on the corner.","cat":"verb"},
+  {"es":"contar","en":"to count / to tell (a story)","ex":"Cuéntame qué pasó en tu entrevista de trabajo.","exEn":"Tell me what happened at your job interview.","cat":"verb"},
+  {"es":"empezar","en":"to start / to begin","ex":"La película empieza a las nueve en punto.","exEn":"The movie starts at nine o'clock sharp.","cat":"verb"},
+  {"es":"esperar","en":"to wait / to hope","ex":"Espero que todo salga bien en tu viaje.","exEn":"I hope everything goes well on your trip.","cat":"verb"},
+  {"es":"buscar","en":"to look for / to search","ex":"Estoy buscando un trabajo mejor pagado.","exEn":"I'm looking for a better-paying job.","cat":"verb"},
+  {"es":"existir","en":"to exist","ex":"Existen muchas maneras de aprender un idioma.","exEn":"There are many ways to learn a language.","cat":"verb"},
+  {"es":"entrar","en":"to enter / to go in","ex":"Entramos al cine justo antes de que empezara.","exEn":"We went into the theater right before it started.","cat":"verb"},
+  {"es":"trabajar","en":"to work","ex":"Trabajo desde casa los lunes y miércoles.","exEn":"I work from home on Mondays and Wednesdays.","cat":"verb"},
+  {"es":"escribir","en":"to write","ex":"Le voy a escribir un correo esta noche.","exEn":"I'm going to write him an email tonight.","cat":"verb"},
+  {"es":"perder","en":"to lose","ex":"No quiero perder el autobús otra vez.","exEn":"I don't want to miss the bus again.","cat":"verb"},
+  {"es":"ocurrir","en":"to happen / to occur","ex":"No sé qué ocurrió, todo pasó muy rápido.","exEn":"I don't know what happened, everything happened so fast.","cat":"verb"},
+  {"es":"entender","en":"to understand","ex":"No entiendo bien esta parte del contrato.","exEn":"I don't quite understand this part of the contract.","cat":"verb"},
+  {"es":"pedir","en":"to ask for / to order","ex":"Voy a pedir una pizza para la cena.","exEn":"I'm going to order a pizza for dinner.","cat":"verb"},
+  {"es":"recordar","en":"to remember / to remind","ex":"Recuérdame comprar leche cuando salgamos.","exEn":"Remind me to buy milk when we go out.","cat":"verb"},
+  {"es":"terminar","en":"to finish / to end","ex":"Termino de trabajar a las cinco hoy.","exEn":"I finish work at five today.","cat":"verb"},
+  {"es":"permitir","en":"to allow / to permit","ex":"Mis papás no me permiten llegar tarde.","exEn":"My parents don't allow me to arrive late.","cat":"verb"},
+  {"es":"aparecer","en":"to appear / to show up","ex":"Mis lentes aparecieron debajo del sofá.","exEn":"My glasses turned up under the couch.","cat":"verb"},
+  {"es":"conseguir","en":"to get / to obtain / to manage to","ex":"Por fin conseguí boletos para el concierto.","exEn":"I finally got tickets for the concert.","cat":"verb"},
+  {"es":"comenzar","en":"to begin / to start","ex":"Las clases comienzan la próxima semana.","exEn":"Classes start next week.","cat":"verb"},
+  {"es":"servir","en":"to serve / to be useful","ex":"Esta herramienta no sirve para nada aquí.","exEn":"This tool is useless here.","cat":"verb"},
+  {"es":"sacar","en":"to take out / to get","ex":"Voy a sacar dinero del cajero automático.","exEn":"I'm going to take out money from the ATM.","cat":"verb"},
+  {"es":"necesitar","en":"to need","ex":"Necesito descansar un poco antes de seguir.","exEn":"I need to rest a little before continuing.","cat":"verb"},
+  {"es":"mantener","en":"to maintain / to keep","ex":"Es difícil mantener la casa limpia con niños.","exEn":"It's hard to keep the house clean with kids.","cat":"verb"},
+  {"es":"resultar","en":"to turn out / to result","ex":"Al final, todo resultó mejor de lo esperado.","exEn":"In the end, everything turned out better than expected.","cat":"verb"},
+  {"es":"leer","en":"to read","ex":"Leo un libro nuevo casi cada mes.","exEn":"I read a new book almost every month.","cat":"verb"},
+  {"es":"caer","en":"to fall","ex":"Ten cuidado, el piso está mojado y te puedes caer.","exEn":"Be careful, the floor is wet and you might fall.","cat":"verb"},
+  {"es":"cambiar","en":"to change","ex":"Quiero cambiar de trabajo el próximo año.","exEn":"I want to change jobs next year.","cat":"verb"},
+  {"es":"presentar","en":"to present / to introduce","ex":"Te quiero presentar a un amigo mío.","exEn":"I want to introduce you to a friend of mine.","cat":"verb"},
+  {"es":"crear","en":"to create","ex":"Ella creó su propia empresa hace dos años.","exEn":"She created her own company two years ago.","cat":"verb"},
+  {"es":"abrir","en":"to open","ex":"¿Puedes abrir la ventana? Hace mucho calor.","exEn":"Can you open the window? It's very hot.","cat":"verb"},
+  {"es":"considerar","en":"to consider","ex":"Deberías considerar todas tus opciones antes de decidir.","exEn":"You should consider all your options before deciding.","cat":"verb"},
+  {"es":"oír","en":"to hear","ex":"¿Oíste ese ruido que vino de la cocina?","exEn":"Did you hear that noise that came from the kitchen?","cat":"verb"},
+  {"es":"recibir","en":"to receive","ex":"Recibí tu mensaje pero no pude contestar antes.","exEn":"I received your message but couldn't answer sooner.","cat":"verb"},
+  {"es":"ganar","en":"to win / to earn","ex":"Gana bastante dinero trabajando como ingeniero.","exEn":"He earns quite a bit of money working as an engineer.","cat":"verb"},
+  {"es":"comer","en":"to eat","ex":"Comemos juntos en familia los domingos.","exEn":"We eat together as a family on Sundays.","cat":"verb"},
+  {"es":"pagar","en":"to pay","ex":"¿Vas a pagar con tarjeta o en efectivo?","exEn":"Are you going to pay by card or in cash?","cat":"verb"},
+  {"es":"ayudar","en":"to help","ex":"¿Me puedes ayudar a mover este sofá?","exEn":"Can you help me move this couch?","cat":"verb"},
+  {"es":"gustar","en":"to like (lit. to be pleasing)","ex":"Me gusta caminar por el parque los domingos.","exEn":"I like walking in the park on Sundays.","cat":"verb"},
+  {"es":"pero","en":"but","ex":"Quiero ir a la fiesta, pero tengo que trabajar.","exEn":"I want to go to the party, but I have to work.","cat":"connector"},
+  {"es":"porque","en":"because","ex":"No fui a la escuela porque estaba enfermo.","exEn":"I didn't go to school because I was sick.","cat":"connector"},
+  {"es":"entonces","en":"so / then","ex":"No tenía dinero, entonces me quedé en casa.","exEn":"I didn't have money, so I stayed home.","cat":"connector"},
+  {"es":"aunque","en":"although / even though","ex":"Voy a salir aunque esté lloviendo afuera.","exEn":"I'm going out even though it's raining outside.","cat":"connector"},
+  {"es":"además","en":"besides / also / in addition","ex":"El hotel es barato y, además, está cerca del centro.","exEn":"The hotel is cheap and, besides, it's close to downtown.","cat":"connector"},
+  {"es":"sin embargo","en":"however / nevertheless","ex":"Estudió mucho; sin embargo, no aprobó el examen.","exEn":"He studied a lot; however, he didn't pass the exam.","cat":"connector"},
+  {"es":"por eso","en":"that's why / for that reason","ex":"Llovió toda la noche, por eso cancelamos el viaje.","exEn":"It rained all night, that's why we canceled the trip.","cat":"connector"},
+  {"es":"así que","en":"so / therefore","ex":"Ya es tarde, así que mejor nos vamos ahora.","exEn":"It's late already, so we'd better leave now.","cat":"connector"},
+  {"es":"mientras","en":"while / as long as","ex":"Ella cocina mientras yo pongo la mesa.","exEn":"She cooks while I set the table.","cat":"connector"},
+  {"es":"cuando","en":"when","ex":"Vamos a comer cuando llegue mi hermano.","exEn":"We'll eat when my brother arrives.","cat":"connector"},
+  {"es":"si","en":"if","ex":"Si tienes tiempo, pásame a buscar más tarde.","exEn":"If you have time, come pick me up later.","cat":"connector"},
+  {"es":"ya que","en":"since / given that","ex":"Ya que estás aquí, ayúdame con esto un momento.","exEn":"Since you're here, help me with this for a moment.","cat":"connector"},
+  {"es":"o sea","en":"that is to say / I mean","ex":"Llego en una hora, o sea, como a las ocho.","exEn":"I'll arrive in an hour, that is, around eight.","cat":"connector"},
+  {"es":"y","en":"and","ex":"Compramos pan, leche y unas frutas frescas.","exEn":"We bought bread, milk, and some fresh fruit.","cat":"connector"},
+  {"es":"también","en":"also / too","ex":"Yo también quiero ir al concierto contigo.","exEn":"I also want to go to the concert with you.","cat":"connector"},
+  {"es":"qué","en":"what","ex":"¿Qué quieres comer hoy en la noche?","exEn":"What do you want to eat tonight?","cat":"question"},
+  {"es":"quién","en":"who","ex":"¿Quién dejó la puerta abierta otra vez?","exEn":"Who left the door open again?","cat":"question"},
+  {"es":"quiénes","en":"who (plural)","ex":"¿Quiénes van a venir a la cena mañana?","exEn":"Who is coming to dinner tomorrow?","cat":"question"},
+  {"es":"cuándo","en":"when","ex":"¿Cuándo empieza tu nuevo trabajo exactamente?","exEn":"When does your new job start exactly?","cat":"question"},
+  {"es":"dónde","en":"where","ex":"¿Dónde dejaste las llaves del carro?","exEn":"Where did you leave the car keys?","cat":"question"},
+  {"es":"cómo","en":"how","ex":"¿Cómo se llama esa canción tan bonita?","exEn":"What's that beautiful song called?","cat":"question"},
+  {"es":"cuánto","en":"how much","ex":"¿Cuánto cuesta este boleto de ida y vuelta?","exEn":"How much does this round-trip ticket cost?","cat":"question"},
+  {"es":"cuánta","en":"how much (fem.)","ex":"¿Cuánta agua debo tomar al día?","exEn":"How much water should I drink a day?","cat":"question"},
+  {"es":"por qué","en":"why","ex":"¿Por qué no viniste a la reunión de ayer?","exEn":"Why didn't you come to yesterday's meeting?","cat":"question"},
+  {"es":"cuál","en":"which / what","ex":"¿Cuál de estos dos vestidos te gusta más?","exEn":"Which of these two dresses do you like more?","cat":"question"},
+  {"es":"hoy","en":"today","ex":"Hoy tengo que terminar un proyecto importante.","exEn":"Today I have to finish an important project.","cat":"time"},
+  {"es":"ahora","en":"now","ex":"Ahora mismo no puedo hablar, te llamo luego.","exEn":"I can't talk right now, I'll call you later.","cat":"time"},
+  {"es":"luego","en":"later / then","ex":"Nos vemos luego, tengo que ir al banco.","exEn":"See you later, I have to go to the bank.","cat":"time"},
+  {"es":"después","en":"after / afterward","ex":"Después de comer, vamos a dar una vuelta.","exEn":"After eating, we're going for a walk.","cat":"time"},
+  {"es":"antes","en":"before","ex":"Llega antes de las ocho si puedes, por favor.","exEn":"Arrive before eight if you can, please.","cat":"time"},
+  {"es":"mañana","en":"tomorrow / morning","ex":"Mañana tengo cita con el doctor a las diez.","exEn":"Tomorrow I have an appointment with the doctor at ten.","cat":"time"},
+  {"es":"ayer","en":"yesterday","ex":"Ayer estuvimos toda la tarde en la playa.","exEn":"Yesterday we spent the whole afternoon at the beach.","cat":"time"},
+  {"es":"siempre","en":"always","ex":"Siempre desayuno algo ligero antes de salir.","exEn":"I always have something light for breakfast before leaving.","cat":"time"},
+  {"es":"nunca","en":"never","ex":"Nunca había probado una comida tan picante.","exEn":"I had never tried such spicy food.","cat":"time"},
+  {"es":"temprano","en":"early","ex":"Nos levantamos temprano para evitar el tráfico.","exEn":"We got up early to avoid traffic.","cat":"time"},
+  {"es":"tarde","en":"late / afternoon","ex":"Llegamos tarde porque perdimos el autobús.","exEn":"We arrived late because we missed the bus.","cat":"time"},
+  {"es":"ya","en":"already / now","ex":"Ya terminé la tarea, ¿quieres ver una película?","exEn":"I already finished my homework, want to watch a movie?","cat":"time"},
+  {"es":"todavía","en":"still / yet","ex":"Todavía no he recibido tu correo electrónico.","exEn":"I still haven't received your email.","cat":"time"},
+  {"es":"a veces","en":"sometimes","ex":"A veces prefiero quedarme en casa el sábado.","exEn":"Sometimes I prefer to stay home on Saturday.","cat":"time"},
+  {"es":"enseguida","en":"right away / immediately","ex":"Espera un momento, vengo enseguida.","exEn":"Wait a moment, I'll be right there.","cat":"time"},
+  {"es":"mucho","en":"a lot / much","ex":"Hay mucho tráfico a esta hora del día.","exEn":"There's a lot of traffic at this time of day.","cat":"quantity"},
+  {"es":"poco","en":"little / few","ex":"Tengo poco tiempo antes de la reunión.","exEn":"I have little time before the meeting.","cat":"quantity"},
+  {"es":"más","en":"more","ex":"¿Quieres más café o ya estás bien?","exEn":"Do you want more coffee or are you good?","cat":"quantity"},
+  {"es":"menos","en":"less","ex":"Ahora salgo menos porque tengo mucho trabajo.","exEn":"I go out less now because I have a lot of work.","cat":"quantity"},
+  {"es":"todo","en":"everything / all","ex":"Ya revisé todo antes de enviar el correo.","exEn":"I already checked everything before sending the email.","cat":"quantity"},
+  {"es":"nada","en":"nothing","ex":"No quiero comer nada, no tengo hambre.","exEn":"I don't want to eat anything, I'm not hungry.","cat":"quantity"},
+  {"es":"algo","en":"something","ex":"¿Quieres tomar algo antes de irnos?","exEn":"Do you want to drink something before we leave?","cat":"quantity"},
+  {"es":"alguien","en":"someone","ex":"Alguien tocó la puerta hace un momento.","exEn":"Someone knocked on the door a moment ago.","cat":"quantity"},
+  {"es":"nadie","en":"no one / nobody","ex":"No había nadie en la oficina cuando llegué.","exEn":"There was no one in the office when I arrived.","cat":"quantity"},
+  {"es":"bastante","en":"enough / quite a lot","ex":"Tenemos bastante comida para todos los invitados.","exEn":"We have enough food for all the guests.","cat":"quantity"},
+  {"es":"demasiado","en":"too much","ex":"Comiste demasiado, por eso te duele el estómago.","exEn":"You ate too much, that's why your stomach hurts.","cat":"quantity"},
+  {"es":"varios","en":"several","ex":"Probé varios restaurantes nuevos este mes.","exEn":"I tried several new restaurants this month.","cat":"quantity"},
+  {"es":"cosa","en":"thing","ex":"Olvidé una cosa importante en la oficina.","exEn":"I forgot an important thing at the office.","cat":"noun"},
+  {"es":"tiempo","en":"time / weather","ex":"No tengo tiempo para terminar esto hoy.","exEn":"I don't have time to finish this today.","cat":"noun"},
+  {"es":"día","en":"day","ex":"Fue un día muy largo en el trabajo.","exEn":"It was a very long day at work.","cat":"noun"},
+  {"es":"persona","en":"person","ex":"Es una persona muy amable y paciente.","exEn":"She's a very kind and patient person.","cat":"noun"},
+  {"es":"gente","en":"people","ex":"Había mucha gente esperando afuera del cine.","exEn":"There were a lot of people waiting outside the theater.","cat":"noun"},
+  {"es":"casa","en":"house / home","ex":"Voy a quedarme en casa este fin de semana.","exEn":"I'm going to stay home this weekend.","cat":"noun"},
+  {"es":"vida","en":"life","ex":"Su vida cambió mucho después de mudarse.","exEn":"His life changed a lot after moving.","cat":"noun"},
+  {"es":"año","en":"year","ex":"Este año quiero viajar más que el anterior.","exEn":"This year I want to travel more than last year.","cat":"noun"},
+  {"es":"trabajo","en":"work / job","ex":"Encontré un trabajo nuevo cerca de mi casa.","exEn":"I found a new job close to my house.","cat":"noun"},
+  {"es":"mundo","en":"world","ex":"Ella ha viajado por medio mundo trabajando.","exEn":"She has traveled through half the world for work.","cat":"noun"},
+  {"es":"momento","en":"moment","ex":"Espera un momento, ya casi termino.","exEn":"Wait a moment, I'm almost done.","cat":"noun"},
+  {"es":"lugar","en":"place","ex":"Este es mi lugar favorito para desayunar.","exEn":"This is my favorite place to have breakfast.","cat":"noun"},
+  {"es":"mano","en":"hand","ex":"Se lastimó la mano jugando fútbol ayer.","exEn":"He hurt his hand playing soccer yesterday.","cat":"noun"},
+  {"es":"forma","en":"way / shape / form","ex":"No hay otra forma de resolver este problema.","exEn":"There's no other way to solve this problem.","cat":"noun"},
+  {"es":"parte","en":"part","ex":"Esa es la parte más difícil del examen.","exEn":"That's the hardest part of the exam.","cat":"noun"},
+  {"es":"hombre","en":"man","ex":"El hombre que vive al lado es muy simpático.","exEn":"The man who lives next door is very nice.","cat":"noun"},
+  {"es":"mujer","en":"woman","ex":"Esa mujer trabaja como abogada en el centro.","exEn":"That woman works as a lawyer downtown.","cat":"noun"},
+  {"es":"niño","en":"child / boy","ex":"El niño estaba jugando solo en el parque.","exEn":"The boy was playing alone in the park.","cat":"noun"},
+  {"es":"dinero","en":"money","ex":"No tengo suficiente dinero para el boleto.","exEn":"I don't have enough money for the ticket.","cat":"noun"},
+  {"es":"agua","en":"water","ex":"Bebo mucha agua durante todo el día.","exEn":"I drink a lot of water throughout the day.","cat":"noun"},
+  {"es":"comida","en":"food","ex":"La comida de este restaurante es deliciosa.","exEn":"The food at this restaurant is delicious.","cat":"noun"},
+  {"es":"amigo","en":"friend","ex":"Es mi mejor amigo desde la secundaria.","exEn":"He's been my best friend since high school.","cat":"noun"},
+  {"es":"familia","en":"family","ex":"Toda mi familia se reúne en diciembre.","exEn":"My whole family gets together in December.","cat":"noun"},
+  {"es":"ciudad","en":"city","ex":"Esta ciudad es muy segura para caminar de noche.","exEn":"This city is very safe to walk at night.","cat":"noun"},
+  {"es":"país","en":"country","ex":"Ese país tiene playas hermosas en el sur.","exEn":"That country has beautiful beaches in the south.","cat":"noun"},
+  {"es":"bueno","en":"good","ex":"Este restaurante es muy bueno y barato.","exEn":"This restaurant is very good and cheap.","cat":"adjective"},
+  {"es":"malo","en":"bad","ex":"El clima estuvo muy malo todo el fin de semana.","exEn":"The weather was really bad all weekend.","cat":"adjective"},
+  {"es":"grande","en":"big / large","ex":"Necesitamos una casa más grande para la familia.","exEn":"We need a bigger house for the family.","cat":"adjective"},
+  {"es":"pequeño","en":"small","ex":"Vivo en un departamento pequeño pero cómodo.","exEn":"I live in a small but comfortable apartment.","cat":"adjective"},
+  {"es":"nuevo","en":"new","ex":"Compré un teléfono nuevo la semana pasada.","exEn":"I bought a new phone last week.","cat":"adjective"},
+  {"es":"viejo","en":"old","ex":"Ese carro viejo todavía funciona muy bien.","exEn":"That old car still works really well.","cat":"adjective"},
+  {"es":"mismo","en":"same","ex":"Siempre pedimos lo mismo en ese restaurante.","exEn":"We always order the same thing at that restaurant.","cat":"adjective"},
+  {"es":"otro","en":"other / another","ex":"¿Tienes otro par de zapatos más cómodos?","exEn":"Do you have another pair of more comfortable shoes?","cat":"adjective"},
+  {"es":"mejor","en":"better / best","ex":"Este plan es mucho mejor que el anterior.","exEn":"This plan is much better than the previous one.","cat":"adjective"},
+  {"es":"peor","en":"worse / worst","ex":"El tráfico hoy fue peor que ayer.","exEn":"Traffic today was worse than yesterday.","cat":"adjective"},
+  {"es":"fácil","en":"easy","ex":"El examen fue más fácil de lo que pensaba.","exEn":"The exam was easier than I thought.","cat":"adjective"},
+  {"es":"difícil","en":"difficult / hard","ex":"Es difícil encontrar tiempo para hacer ejercicio.","exEn":"It's hard to find time to exercise.","cat":"adjective"},
+  {"es":"importante","en":"important","ex":"Es muy importante llegar temprano a la entrevista.","exEn":"It's very important to arrive early for the interview.","cat":"adjective"},
+  {"es":"seguro","en":"sure / safe","ex":"No estoy seguro de qué hora es la reunión.","exEn":"I'm not sure what time the meeting is.","cat":"adjective"},
+  {"es":"listo","en":"ready / smart","ex":"¿Ya estás listo para salir a cenar?","exEn":"Are you ready to go out for dinner?","cat":"adjective"},
+  {"es":"ocupado","en":"busy","ex":"Hoy estoy muy ocupado, hablamos mañana mejor.","exEn":"I'm very busy today, let's talk tomorrow instead.","cat":"adjective"},
+  {"es":"cansado","en":"tired","ex":"Estoy cansado, trabajé más de diez horas hoy.","exEn":"I'm tired, I worked more than ten hours today.","cat":"adjective"},
+  {"es":"feliz","en":"happy","ex":"Se veía muy feliz con su nuevo trabajo.","exEn":"She looked very happy with her new job.","cat":"adjective"},
+  {"es":"tener que","en":"to have to","ex":"Tengo que terminar este informe antes del viernes.","exEn":"I have to finish this report before Friday.","cat":"expression"},
+  {"es":"hay que","en":"one must / it's necessary to","ex":"Hay que llegar temprano para conseguir buen lugar.","exEn":"You have to arrive early to get a good spot.","cat":"expression"},
+  {"es":"acabar de","en":"to have just (done something)","ex":"Acabo de llegar a casa hace un minuto.","exEn":"I just got home a minute ago.","cat":"expression"},
+  {"es":"ir a","en":"to be going to","ex":"Voy a llamar a mi mamá esta noche.","exEn":"I'm going to call my mom tonight.","cat":"expression"},
+  {"es":"estar por","en":"to be about to","ex":"Estoy por salir, ¿necesitas algo del súper?","exEn":"I'm about to leave, do you need anything from the store?","cat":"expression"},
+  {"es":"de nuevo","en":"again","ex":"Se me olvidaron las llaves de nuevo.","exEn":"I forgot my keys again.","cat":"expression"},
+  {"es":"por supuesto","en":"of course","ex":"¿Puedes ayudarme? Por supuesto que sí.","exEn":"Can you help me? Of course I can.","cat":"expression"},
+  {"es":"tal vez","en":"maybe / perhaps","ex":"Tal vez lleguemos tarde por el tráfico.","exEn":"We might arrive late because of traffic.","cat":"expression"},
+  {"es":"de repente","en":"suddenly","ex":"De repente empezó a llover muy fuerte.","exEn":"Suddenly it started raining really hard.","cat":"expression"},
+  {"es":"en serio","en":"seriously / for real","ex":"¿En serio vas a renunciar a tu trabajo?","exEn":"Are you seriously going to quit your job?","cat":"expression"},
+  {"es":"más o menos","en":"more or less / so-so","ex":"¿Cómo estuvo la fiesta? Más o menos, la verdad.","exEn":"How was the party? So-so, honestly.","cat":"expression"},
+  {"es":"de hecho","en":"in fact / actually","ex":"De hecho, ya había hablado con ella antes.","exEn":"Actually, I had already talked to her before.","cat":"expression"},
+  {"es":"por lo menos","en":"at least","ex":"Deberías dormir por lo menos ocho horas.","exEn":"You should sleep at least eight hours.","cat":"expression"},
+  {"es":"sobre todo","en":"especially / above all","ex":"Me gusta la fruta, sobre todo el mango.","exEn":"I like fruit, especially mango.","cat":"expression"},
+  {"es":"a lo mejor","en":"maybe / probably","ex":"A lo mejor llegamos antes si salimos ya.","exEn":"We'll probably arrive earlier if we leave now.","cat":"expression"},
+  {"es":"en cambio","en":"on the other hand / instead","ex":"Yo prefiero café; ella, en cambio, toma té.","exEn":"I prefer coffee; she, on the other hand, drinks tea.","cat":"expression"},
+  {"es":"para nada","en":"not at all","ex":"No me molesta para nada esperar un poco.","exEn":"It doesn't bother me at all to wait a little.","cat":"expression"},
+  {"es":"claro que sí","en":"of course / absolutely","ex":"¿Me puedes acompañar? Claro que sí.","exEn":"Can you come with me? Of course.","cat":"expression"},
+  {"es":"no importa","en":"it doesn't matter / never mind","ex":"No importa si llegas un poco tarde.","exEn":"It doesn't matter if you arrive a bit late.","cat":"expression"},
+  {"es":"vale la pena","en":"it's worth it","ex":"Vale la pena esperar por un buen resultado.","exEn":"It's worth waiting for a good result.","cat":"expression"}
+/*__VOCAB_END__*/];
+
+/* Phase 2 & 3 — conversational blocks (es stem, en gloss, variations) */
+const CATS=["Start opinions","Doubt & uncertainty","Explain better","Wishes & plans","Need & preference","Current actions","Experience & change","Telling stories","Asking for help","Keep it going"];
+const B=[
+  {c:0,es:"Creo que…",en:"I think…",m:"phrase",v:["es buena idea","deberíamos esperar","tienes razón","es muy tarde","funciona","se les olvidó"],q:"¿Qué crees de esto?"},
+  {c:0,es:"No creo que…",en:"I don't think…",m:"subj",warn:1,v:["sea buena idea","sea verdad","tengamos tiempo","venga","importe","ella lo sepa"],q:"¿Crees que esto va a funcionar?"},
+  {c:0,es:"Tengo ganas de…",en:"I feel like…",m:"inf",v:["irme a casa","descansar un rato","comer algo","quedarme en casa","intentarlo de nuevo"],q:"¿Qué tienes ganas de hacer?"},
+  {c:0,es:"En mi opinión…",en:"In my opinion…",m:"phrase",v:["es muy caro","necesitamos más tiempo","esta es la mejor opción","él tiene razón","no vale la pena"],q:"En tu opinión, ¿qué es lo mejor?"},
+  {c:0,es:"Para mí…",en:"The way I see it…",m:"phrase",v:["tenemos dos opciones","ya está decidido","así nadie gana","deberíamos empezar ya","es su decisión"],q:"Para ti, ¿y ahora qué?"},
+  {c:1,es:"No estoy seguro…",en:"I'm not sure…",m:"phrase",v:["de eso","de si está bien","del precio","de si puedo ir","de si funciona"],q:"¿Estás seguro de esto?"},
+  {c:1,es:"No sé si…",en:"I don't know if…",m:"phrase",v:["puedo ir","es verdad","va a venir","va a funcionar","le gusta","llego a tiempo"],q:"¿Sabes si está abierto?"},
+  {c:1,es:"Supongo que…",en:"I guess…",m:"phrase",v:["tienes razón","está bien","podemos intentarlo","tiene sentido","es muy tarde"],q:"Entonces está decidido, ¿supongo?"},
+  {c:1,es:"Parece que…",en:"It seems like…",m:"phrase",v:["va a llover","están ocupados","se le olvidó","a nadie le importa","está funcionando"],q:"Parece que algo anda mal, ¿no?"},
+  {c:1,es:"Depende de…",en:"It depends on…",m:"noun",v:["ti","cómo salga esto","cuánto cueste","la situación","lo que quieras"],q:"¿Vienes? — Depende de…"},
+  {c:2,es:"Lo que pasa es que…",en:"The thing is…",m:"phrase",v:["no tengo tiempo","es muy caro","ya lo intenté","nadie me avisó","no estoy listo"],q:"¿Entonces cuál es el problema?"},
+  {c:2,es:"El problema es que…",en:"The problem is…",m:"phrase",v:["es muy tarde","no tenemos dinero","él no está","no funciona","está dañado"],q:"¿Por qué no lo hacemos ya?"},
+  {c:2,es:"La razón es que…",en:"The reason is…",m:"phrase",v:["estaba ocupado","es más barato","se nos acabó el tiempo","no vinieron","es más seguro"],q:"¿Por qué elegiste esto?"},
+  {c:2,es:"Lo que quiero decir es que…",en:"What I mean is…",m:"phrase",v:["necesitamos un nuevo plan","no es tu culpa","deberíamos esperar","no estoy enojado","me importa"],q:"Espera, ¿qué quieres decir?"},
+  {c:2,es:"Hasta donde sé…",en:"As far as I know…",m:"phrase",v:["sigue abierto","ya se fueron","es gratis","ella va a venir","nada cambió"],q:"¿Todavía va a pasar?"},
+  {c:3,es:"Quiero…",en:"I want to…",m:"inf",v:["aprender español","viajar más","empezar hoy","cambiar de trabajo","ayudarte","mejorar"],q:"¿Qué quieres hacer?"},
+  {c:3,es:"Me gustaría…",en:"I'd like to…",m:"inf",v:["preguntarte algo","intentarlo","ir ahí","aprender más","tomar un descanso"],q:"¿Qué te gustaría hacer?"},
+  {c:3,es:"Estoy tratando de…",en:"I'm trying to…",m:"inf",v:["aprender","acordarme","explicar","encontrarlo","entender","concentrarme"],q:"¿Qué estás tratando de hacer ahora?"},
+  {c:3,es:"Estoy planeando…",en:"I'm planning to…",m:"inf",v:["viajar el próximo año","mudarme","empezar un negocio","estudiar en el extranjero","ahorrar dinero"],q:"¿Qué estás planeando este año?"},
+  {c:3,es:"Estoy pensando en…",en:"I'm thinking about…",m:"inf",v:["cambiar de trabajo","mudarme","aprender inglés","empezar de nuevo","comprar un carro"],q:"¿En qué estás pensando?"},
+  {c:4,es:"Necesito…",en:"I need to…",m:"inf",v:["terminar esto","llamarla","irme ya","estudiar más","pensarlo","dormir un poco"],q:"¿Qué necesitas hacer hoy?"},
+  {c:4,es:"Tengo que…",en:"I have to…",m:"inf",v:["irme ya","trabajar mañana","decirte algo","tomar una decisión","levantarme temprano"],q:"¿Por qué tienes que irte?"},
+  {c:4,es:"Se supone que…",en:"I'm supposed to…",m:"phrase",v:["la llamo ahora","estoy ahí a las 8","lo termino hoy","me reúno con él","lo envío ya"],q:"¿No se supone que estás en el trabajo?"},
+  {c:4,es:"Puedo…",en:"I can…",m:"inf",v:["hacerlo","ayudarte","entenderlo ahora","hablar un poco","encargarme"],q:"¿Puedes hacer esto solo?"},
+  {c:4,es:"Prefiero…",en:"I'd rather…",m:"inf",v:["quedarme en casa","esperar","hacerlo yo mismo","no hablar de eso","ir más tarde","caminar"],q:"¿Salir o quedarnos?"},
+  {c:5,es:"Estoy buscando…",en:"I'm looking for…",m:"noun",v:["un nuevo trabajo","un departamento","mis llaves","una mejor opción","ayuda","la salida"],q:"¿Qué estás buscando?"},
+  {c:5,es:"Estoy trabajando en…",en:"I'm working on…",m:"noun",v:["un nuevo proyecto","mi español","algo grande","una presentación","un plan"],q:"¿En qué estás trabajando?"},
+  {c:5,es:"Estoy esperando…",en:"I'm waiting for…",m:"noun",v:["el autobús","una respuesta","mi turno","el momento justo","los resultados"],q:"¿Qué estás esperando?"},
+  {c:5,es:"Voy a…",en:"I'm going to…",m:"inf",v:["llamarte más tarde","intentarlo de nuevo","hacer la cena","explicarte todo","empezar ya"],q:"¿Qué vas a hacer mañana?"},
+  {c:5,es:"Estoy a punto de…",en:"I'm about to…",m:"inf",v:["salir","empezar","llamarte","rendirme","terminar"],q:"¿Estás ocupado? — Estoy a punto de…"},
+  {c:6,es:"Solía…",en:"I used to…",m:"inf",v:["vivir en México","trabajar de noche","jugar fútbol","odiarlo","ser tímido"],q:"¿Qué solías hacer de niño?"},
+  {c:6,es:"Ya estoy acostumbrado a…",en:"I'm used to…",m:"inf",v:["trabajar desde casa","levantarme temprano","comer tarde","estar solo","trabajar hasta tarde"],q:"¿No es difícil? — No, ya estoy acostumbrado."},
+  {c:6,es:"He estado tratando de…",en:"I've been trying to…",m:"inf",v:["aprender español","localizarte","arreglarlo","mantener la calma","comer mejor"],q:"¿Qué has estado tratando de hacer?"},
+  {c:6,es:"Nunca he…",en:"I've never…",m:"part",warn:1,v:["estado ahí","intentado eso","visto eso","hecho esto","oído de eso"],q:"¿Alguna vez has viajado al extranjero?"},
+  {c:6,es:"Siempre he querido…",en:"I've always wanted to…",m:"inf",v:["visitar Nueva York","aprender guitarra","viajar por el mundo","hablar español","escribir un libro"],q:"¿Qué siempre has querido hacer?"},
+  {c:7,es:"Terminé…",en:"I ended up…",m:"ger",warn:1,v:["quedándome en casa","pagando más","haciéndolo yo mismo","perdiéndome","llegando tarde"],q:"¿Y qué pasó al final?"},
+  {c:7,es:"Me enteré de que…",en:"I found out…",m:"phrase",v:["él estaba ahí","era falso","ya lo sabían","ella se fue","estaba equivocado"],q:"¿Cómo te enteraste?"},
+  {c:7,es:"Resultó que…",en:"It turned out…",m:"phrase",v:["tenía razón","era fácil","se les olvidó","fue un error","todo estaba bien"],q:"¿Y cómo resultó?"},
+  {c:7,es:"No fue mi intención…",en:"I didn't mean to…",m:"inf",v:["lastimarte","llegar tarde","decir eso","molestarte","romperlo","interrumpir"],q:"¿Por qué hiciste eso?"},
+  {c:7,es:"Estaba a punto de…",en:"I was about to…",m:"inf",v:["irme","llamarte","rendirme","decir lo mismo","preguntarte eso"],q:"¿Qué ibas a decir?"},
+  {c:8,es:"¿Podrías…?",en:"Could you…?",m:"inf",v:["repetir eso","ayudarme","decirlo otra vez","hablar más despacio","explicarme","esperar un momento"],q:"(pide algo con amabilidad)"},
+  {c:8,es:"¿Te importaría…?",en:"Would you mind…?",m:"inf",v:["ayudarme","repetir eso","esperar","cerrar la puerta","hablar más despacio"],q:"¿Te importaría ayudarme?"},
+  {c:8,es:"¿Me puedes ayudar a…?",en:"Can you help me…?",m:"inf",v:["entender esto","encontrarlo","decidir","cargar esto","mover esto"],q:"(pide ayuda)"},
+  {c:8,es:"¿Sabes cómo…?",en:"Do you know how to…?",m:"inf",v:["llegar ahí","arreglar esto","decir esto en español","usarlo","empezar"],q:"¿Sabes cómo llegar ahí?"},
+  {c:8,es:"Avísame…",en:"Let me know…",m:"phrase",v:["cuando estés listo","si necesitas algo","cuando llegues","si funciona","qué piensas"],q:"(cerrando la conversación)"},
+  {c:9,es:"¿Qué quieres decir?",en:"What do you mean?",m:"ready",v:["¿Qué quieres decir con eso?","¿Qué quieres decir exactamente?","¿A qué te refieres?"],q:"(reacciona a algo confuso)"},
+  {c:9,es:"¿Estás diciendo que…?",en:"Are you saying that…?",m:"phrase",v:["es mi culpa","no podemos ir","se acabó","estaba equivocado","estás de acuerdo"],q:"(confirma lo que dijo el otro)"},
+  {c:9,es:"Tiene sentido.",en:"That makes sense.",m:"ready",v:["Ahora tiene sentido.","Tiene sentido para mí.","La verdad sí tiene sentido.","Sí, tiene sentido."],q:"(reacciona a una explicación)"},
+  {c:9,es:"¿Y tú?",en:"What about you?",m:"ready",v:["¿Y tú?","¿Y tú qué?","¿Tú qué opinas?","¿A ti qué te parece?"],q:"(devuelve la pregunta)"},
+  {c:9,es:"Cuéntame más de…",en:"Tell me more about…",m:"noun",v:["eso","tu viaje","tu trabajo","lo que pasó","tu idea"],q:"(muestra interés)"}
+];
+const MOLD_LABEL={inf:"+ verb",ger:"+ -ndo",noun:"+ noun",phrase:"+ phrase",part:"+ participle",subj:"subjunctive",ready:"set phrase"};
+
+/* Phase 4 — immersion dialogues (2-line scenes, index-aligned to B) */
+const SCENES=[
+  {a:"¿Y qué opinas del nuevo diseño de la oficina?",b:"Creo que es buena idea, la verdad — ahora la gente sí conversa.",s:"Creo que"},
+  {a:"Tranquilo, seguro llega. Siempre llega.",b:"No creo que venga, en serio. No contesta desde hace tres horas.",s:"No creo que"},
+  {a:"¿Vamos a otro bar o ya nos vamos?",b:"¿La verdad? Tengo ganas de irme a casa y caer rendido.",s:"Tengo ganas de"},
+  {a:"¿Lo contratamos o seguimos buscando?",b:"En mi opinión, es muy caro para lo que necesitamos ahora.",s:"En mi opinión"},
+  {a:"¿Entonces nos separamos o seguimos juntos?",b:"Para mí, tenemos dos opciones y ninguna es buena.",s:"Para mí"},
+  {a:"¿La reunión es a las tres o a las cuatro?",b:"No estoy seguro, déjame revisar la invitación.",s:"No estoy seguro"},
+  {a:"¿Vienes a lo de Dani el sábado?",b:"No sé si puedo ir, quizás tenga que trabajar.",s:"No sé si"},
+  {a:"¿Entonces ese es el plan? ¿Le entramos?",b:"Sí, supongo que tiene sentido si lo pones así.",s:"supongo que"},
+  {a:"¿Por qué están todos tan callados ahí adentro?",b:"Parece que están muy ocupados hoy — mal momento para preguntar.",s:"Parece que"},
+  {a:"¿Vienes a la playa con nosotros o no?",b:"Depende del clima — si llueve, me quedo en casa.",s:"Depende del"},
+  {a:"Solo dile que no puedes este fin de semana.",b:"Lo que pasa es que ya le prometí la semana pasada.",s:"Lo que pasa es que"},
+  {a:"¿Por qué no lo lanzamos esta noche?",b:"El problema es que todavía está fallando y nadie lo probó.",s:"El problema es que"},
+  {a:"¿Por qué elegiste el departamento más chico?",b:"La razón es que es más barato y más cerca del trabajo.",s:"La razón es que"},
+  {a:"¿O sea que es toda mi culpa?",b:"No — lo que quiero decir es que los dos debimos revisarlo.",s:"lo que quiero decir es que"},
+  {a:"¿La tienda sigue abierta a esta hora?",b:"Hasta donde sé, cierra a las nueve, pero mejor llama.",s:"Hasta donde sé"},
+  {a:"¿Cuál es el gran sueño estos días?",b:"Quiero viajar más y dejar de vivir en las mismas tres calles.",s:"Quiero"},
+  {a:"Llevas como un minuto mirándome.",b:"Perdón — me gustaría preguntarte algo, pero es un poco raro.",s:"me gustaría"},
+  {a:"¿Por qué haces esa cara?",b:"Estoy tratando de acordarme dónde dejé el coche.",s:"Estoy tratando de"},
+  {a:"¿Grandes planes para el próximo año?",b:"Sí, estoy planeando mudarme y por fin tener mi propio lugar.",s:"estoy planeando"},
+  {a:"Estuviste callado toda la cena. ¿Qué pasa?",b:"Estoy pensando en cambiar de trabajo, llevo semanas con eso.",s:"Estoy pensando en"},
+  {a:"¿Comemos algo antes de la reunión?",b:"No puedo — necesito terminar esto primero, perdón.",s:"necesito"},
+  {a:"¿Ya te vas? Son apenas las nueve.",b:"Sí, tengo que levantarme temprano mañana. Día pesado.",s:"tengo que"},
+  {a:"¿Por qué sigues aquí sentado? Ya casi son las ocho.",b:"Ay, no — se supone que la llamo ahora mismo.",s:"se supone que"},
+  {a:"¿Seguro que puedes con todo eso tú solo?",b:"Tranquilo, puedo encargarme. Lo hago todos los días.",s:"puedo encargarme"},
+  {a:"¿Salimos al cine o pedimos algo a casa?",b:"La verdad, prefiero quedarme en casa. Estoy agotado.",s:"prefiero"},
+  {a:"Te ves perdido, ¿te ayudo?",b:"Sí, estoy buscando la salida. Este centro comercial es un laberinto.",s:"estoy buscando"},
+  {a:"Llevas toda la semana pegado a la laptop.",b:"Lo sé, estoy trabajando en una presentación importante para el viernes.",s:"estoy trabajando en"},
+  {a:"¿Por qué estás parado en la esquina?",b:"Estoy esperando el autobús — ya lleva diez minutos de retraso.",s:"Estoy esperando"},
+  {a:"¡Anoche nunca me devolviste la llamada!",b:"Lo sé, perdón — voy a llamarte más tarde hoy, te lo prometo.",s:"voy a"},
+  {a:"Oye, ¿tienes un segundo para hablar?",b:"Justo ahora no — estoy a punto de salir, ¿puede esperar?",s:"estoy a punto de"},
+  {a:"Conoces bien esta ciudad, ¿eh?",b:"Sí, solía vivir aquí cuando estaba en la universidad.",s:"solía vivir"},
+  {a:"¿No es difícil trabajar en casa con los niños?",b:"Ya no — ya estoy acostumbrado, la verdad.",s:"ya estoy acostumbrado"},
+  {a:"¿Por qué me llamas toda la mañana?",b:"He estado tratando de localizarte desde las ocho — ¡es urgente!",s:"He estado tratando de"},
+  {a:"Espera, tú has ido a Japón, ¿no?",b:"No, nunca he estado ahí. Siempre he querido, eso sí.",s:"nunca he estado"},
+  {a:"Dan clases de guitarra abajo, ¿te apuntas?",b:"Claro que sí — siempre he querido aprender guitarra.",s:"siempre he querido"},
+  {a:"¿Y al final encontraste hotel?",b:"No, terminé quedándome en casa de mi primo.",s:"terminé quedándome"},
+  {a:"Te ves molesto. ¿Pasó algo?",b:"Me enteré de que me estuvo mintiendo todo este tiempo.",s:"Me enteré de que"},
+  {a:"¿Y cómo te fue en la entrevista?",b:"Mucho mejor de lo que esperaba — resultó que era muy amable.",s:"resultó que"},
+  {a:"Me dejaste en ridículo ahí adentro.",b:"Perdón de verdad, no fue mi intención decir eso frente a todos.",s:"no fue mi intención"},
+  {a:"¿Por qué te quedaste callado a media frase?",b:"Ah — estaba a punto de decir exactamente lo mismo que tú.",s:"estaba a punto de"},
+  {a:"Perdón, esta conexión está fatal.",b:"No te preocupes — ¿podrías repetir eso? Se cortó.",s:"podrías repetir eso"},
+  {a:"Traigo las manos llenas con estas cajas.",b:"¿Te importaría ayudarme a subir un par?",s:"Te importaría ayudarme"},
+  {a:"Parece que te cuesta ese formulario.",b:"Sí, ¿me puedes ayudar a entender esto? Está confuso.",s:"me puedes ayudar a entender esto"},
+  {a:"La fiesta es al otro lado de la ciudad, en casa de Jenny.",b:"Bien — ¿sabes cómo llegar ahí? Nunca he ido.",s:"sabes cómo llegar ahí"},
+  {a:"Listo, dejo todo preparado para hoy en la noche.",b:"Perfecto — avísame cuando estés listo y salgo para allá.",s:"avísame cuando estés listo"},
+  {a:"Lo vemos después, ¿va?",b:"Espera, ¿qué quieres decir exactamente con \"después\"?",s:"qué quieres decir"},
+  {a:"Solo digo que no deberíamos apresurar el viaje.",b:"Espera — ¿estás diciendo que no podemos ir para nada?",s:"estás diciendo que"},
+  {a:"El botón va a la izquierda porque ahí es donde la gente mira primero.",b:"Ah, la verdad sí tiene sentido ahora que lo explicas.",s:"tiene sentido"},
+  {a:"Tuve un finde increíble — acampada, sin celular, desconexión total.",b:"Suena genial. ¿Y tú, algún plan grande?",s:"¿Y tú"},
+  {a:"Por fin renuncié y empecé a trabajar por mi cuenta.",b:"¡No me digas! Cuéntame más de eso, ¿cómo va?",s:"Cuéntame más de"}
+];
+
+const PHASES=[
+  {key:"p1",name:"Phase 01",icon:"👂",title:"Auditory Perception",tag:"Listen & recognize essential words",mode:"word"},
+  {key:"p2",name:"Phase 02",icon:"💬",title:"Conversational",tag:"Catch fast, connected speech",mode:"comprehend"},
+  {key:"p3",name:"Phase 03",icon:"🎙️",title:"Shadowing",tag:"Repeat out loud, fix your accent",mode:"shadow"},
+  {key:"p4",name:"Phase 04",icon:"🌍",title:"Simulated Immersion",tag:"Whole scenes, no subtitles",mode:"immerse"}
+];
+const DECK={
+  p1: VOCAB.map((_,i)=>"v"+i),
+  p2: B.map((_,i)=>"b"+i),
+  p3: B.map((_,i)=>"b"+i),
+  p4: SCENES.map((_,i)=>"d"+i)
+};
+
+/* ═══════════════ HELPERS ═══════════════ */
+const $=id=>document.getElementById(id);
+const esc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+const norm=s=>(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9\s']/g," ").replace(/\s+/g," ").trim();
+const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function loadJSON(k,def){ try{ const v=JSON.parse(localStorage.getItem(k)); return v==null?def:v; }catch(e){ return def; } }
+function saveJSON(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+function buzz(p){ try{ if(navigator.vibrate) navigator.vibrate(p); }catch(e){} }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+const stemOf=b=>b.es.replace(/[…?¿¡]/g,"").trim();
+const fullSentence=(b,v)=>b.m==="ready"?v:(stemOf(b)+" "+v).replace(/\bde el\b/gi,"del").replace(/\ba el\b/gi,"al");
+function itemContent(id){ const t=id[0], n=+id.slice(1);
+  if(t==="v") return {type:"word",data:VOCAB[n]};
+  if(t==="b") return {type:"block",data:B[n],idx:n};
+  if(t==="d") return {type:"scene",data:SCENES[n],idx:n}; }
+
+/* ═══════════════ SPEECH ═══════════════ */
+let esVoice=null;
+function pickVoice(){ const vs=speechSynthesis.getVoices();
+  esVoice=vs.find(v=>/es[-_]MX/i.test(v.lang)&&/google/i.test(v.name))||vs.find(v=>/es[-_]MX/i.test(v.lang))||vs.find(v=>/es[-_]US/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null; }
+if("speechSynthesis" in window){ pickVoice(); speechSynthesis.onvoiceschanged=pickVoice; }
+function speak(text,btn,onend,rate){ if(!("speechSynthesis" in window)){ if(onend)onend(); return; }
+  speechSynthesis.cancel();
+  const go=()=>{ const u=new SpeechSynthesisUtterance(text); u.lang="es-MX"; u.rate=rate||.95; if(esVoice)u.voice=esVoice;
+    if(btn)btn.classList.add("speaking");
+    u.onend=()=>{ if(btn)btn.classList.remove("speaking"); if(onend)onend(); };
+    u.onerror=()=>{ if(btn)btn.classList.remove("speaking"); };
+    speechSynthesis.speak(u); };
+  setTimeout(go,60); }
+function speakSeq(lines,i,rate){ i=i||0; if(!("speechSynthesis" in window)||i>=lines.length)return; if(i===0)speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(lines[i]); u.lang="es-MX"; u.rate=rate||.95; if(esVoice)u.voice=esVoice;
+  u.onend=()=>speakSeq(lines,i+1,rate); setTimeout(()=>speechSynthesis.speak(u),i===0?60:0); }
+
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+const micOK=!!SR;
+let activeRec=null;
+function listen(target,onResult){ if(!micOK){ onResult(null); return; }
+  const r=new SR(); activeRec=r; r.lang="es-MX"; r.interimResults=false; r.maxAlternatives=3;
+  r.onresult=e=>{ let best="",score=0; for(let i=0;i<e.results[0].length;i++){ const t=e.results[0][i].transcript, sc=simil(norm(t),norm(target)); if(sc>=score){score=sc;best=t;} } onResult({heard:best,score}); };
+  r.onerror=e=>onResult({error:e.error});
+  r.onend=()=>{ if(activeRec===r)activeRec=null; };
+  try{ r.start(); }catch(e){ onResult({error:"start"}); } }
+function simil(a,b){ const A=a.split(" ").filter(Boolean),Bw=b.split(" ").filter(Boolean); if(!Bw.length)return 0;
+  let hit=0; const used=[]; Bw.forEach(w=>{ const i=A.findIndex((x,k)=>x===w&&!used.includes(k)); if(i>=0){hit++;used.push(i);} }); return hit/Bw.length; }
+function diagnose(target,said){ const rawT=target.replace(/\s+/g," ").trim().split(" ");
+  const T=rawT.map(norm),S=norm(said).split(" ").filter(Boolean);
+  const n=T.length,m=S.length,dp=Array.from({length:n+1},()=>new Array(m+1).fill(0));
+  for(let i=1;i<=n;i++)for(let j=1;j<=m;j++)dp[i][j]=T[i-1]===S[j-1]?dp[i-1][j-1]+1:Math.max(dp[i-1][j],dp[i][j-1]);
+  const ok=new Array(n).fill(false); let i=n,j=m;
+  while(i>0&&j>0){ if(T[i-1]===S[j-1]){ok[i-1]=true;i--;j--;} else if(dp[i-1][j]>=dp[i][j-1])i--; else j--; }
+  const hits=ok.filter(Boolean).length; return {rawT,ok,hits,total:n,pct:n?Math.round(hits/n*100):0}; }
+function stopAll(){ try{ if(activeRec)activeRec.abort(); }catch(e){} activeRec=null; if("speechSynthesis" in window)speechSynthesis.cancel(); }
+
+const ICON={
+  play:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',
+  slow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+  mic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4"/></svg>',
+  eye:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+  x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>'
+};
+
+/* ═══════════════ SRS ═══════════════ */
+const DAY=86400000, MATURE=21;
+let SRS=loadJSON("esf_srs",{});
+const skey=(ph,id)=>ph+"|"+id;
+const stateOf=(ph,id)=>SRS[skey(ph,id)]||null;
+const isDue=s=>!!s&&s.d<=Date.now();
+function gradeItem(ph,id,g){ let s=SRS[skey(ph,id)]; const now=Date.now();
+  if(!s)s={r:0,i:0,e:2.3,l:0,d:now};
+  if(g==="again"){ s.r=0; s.l++; s.e=Math.max(1.3,s.e-0.2); s.i=0; s.d=now+10*60000; }
+  else if(g==="good"){ s.r++; s.i=s.i<1?1:Math.round(s.i*s.e); s.d=now+s.i*DAY; }
+  else if(g==="easy"){ s.r++; s.e=Math.min(3.2,s.e+0.15); s.i=s.i<1?3:Math.round(s.i*s.e*1.3); s.d=now+s.i*DAY; }
+  SRS[skey(ph,id)]=s; saveJSON("esf_srs",SRS); }
+const dueCount=ph=>DECK[ph].filter(id=>isDue(stateOf(ph,id))).length;
+const newCount=ph=>DECK[ph].filter(id=>!stateOf(ph,id)).length;
+const masteredCount=ph=>DECK[ph].filter(id=>{ const s=stateOf(ph,id); return s&&s.i>=MATURE; }).length;
+const seenCount=ph=>DECK[ph].filter(id=>!!stateOf(ph,id)).length;
+
+const NEW_TODAY=12, PER_PHASE_NEW=8;
+function buildToday(){ const due=[],news=[];
+  PHASES.forEach(p=>DECK[p.key].forEach(id=>{ const s=stateOf(p.key,id); if(isDue(s))due.push({ph:p.key,id}); else if(!s)news.push({ph:p.key,id}); }));
+  return shuffle(due).concat(news.slice(0,NEW_TODAY)); }
+function buildPhase(ph){ const due=[],news=[];
+  DECK[ph].forEach(id=>{ const s=stateOf(ph,id); if(isDue(s))due.push({ph,id}); else if(!s)news.push({ph,id}); });
+  return shuffle(due).concat(news.slice(0,PER_PHASE_NEW)); }
+
+/* ═══════════════ PROGRESS / STREAK / PLAN ═══════════════ */
+let planStart=+localStorage.getItem("esf_start")||0;
+if(!planStart){ planStart=Date.now(); try{ localStorage.setItem("esf_start",planStart); }catch(e){} }
+const planDay=()=>Math.min(90,Math.floor((Date.now()-planStart)/DAY)+1);
+let streak=loadJSON("esf_streak",{count:0,last:0});
+const dayNum=ts=>Math.floor((ts-new Date().getTimezoneOffset()*60000)/DAY);
+function bumpStreak(){ const t=dayNum(Date.now()); if(streak.last===t)return;
+  streak.count=(streak.last===t-1)?streak.count+1:1; streak.last=t; saveJSON("esf_streak",streak); }
+
+/* ═══════════════ HOME ═══════════════ */
+const home=$("home"), sessionEl=$("session"), doneEl=$("done");
+function show(el){ [home,sessionEl,doneEl].forEach(s=>s.classList.add("hidden")); el.classList.remove("hidden"); window.scrollTo(0,0); }
+
+function renderHome(){
+  stopAll();
+  $("streakPill").textContent="🔥 "+streak.count;
+  const dueAll=PHASES.reduce((n,p)=>n+dueCount(p.key),0);
+  const newAvail=PHASES.reduce((n,p)=>n+newCount(p.key),0);
+  const newToday=Math.min(NEW_TODAY,newAvail);
+  const total=dueAll+newToday;
+  const words=masteredCount("p1"), wordsSeen=seenCount("p1");
+  const pct=Math.round(words/Math.max(1,VOCAB.length)*100);
+  const R=42, C=2*Math.PI*R, off=C*(1-words/Math.max(1,VOCAB.length));
+
+  let html=`
+  <div class="hero">
+    <div class="hero-top"><span class="daychip">Day ${planDay()} · 90-Day Intensive</span></div>`;
+  if(total>0){
+    html+=`<div class="hero-big">${total}</div>
+    <div class="hero-sub"><b>${dueAll}</b> reviews · <b>${newToday}</b> new to learn</div>
+    <button class="btn primary big" id="startToday">Start today's session</button>`;
+  } else {
+    html+=`<div class="hero-done">✓ You're all caught up for today.</div>
+    <div class="hero-sub" style="margin-top:-4px">Come back tomorrow for your spaced reviews — or push ahead into any phase below.</div>
+    <button class="btn big" id="startToday">Practice anyway</button>`;
+  }
+  html+=`</div>
+
+  <div class="card cover">
+    <div class="cover-ring">
+      <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="${R}" fill="none" stroke="var(--surface-2)" stroke-width="9"/>
+        <circle cx="50" cy="50" r="${R}" fill="none" stroke="var(--accent-fill)" stroke-width="9" stroke-linecap="round"
+          stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}" style="transition:stroke-dashoffset 1s cubic-bezier(.16,1,.3,1)"/></svg>
+      <div class="cnum">${pct}%</div>
+    </div>
+    <div class="cover-txt">
+      <span class="big">${words}</span> <b style="display:inline">essential words on autopilot</b>
+      <p>${wordsSeen} of ${VOCAB.length} started · with the core set you cover ~90% of everyday conversation.</p>
+    </div>
+  </div>
+
+  <div class="sect-label">The 4 phases of essential fluency</div>`;
+
+  PHASES.forEach(p=>{
+    const deck=DECK[p.key], mst=masteredCount(p.key), du=dueCount(p.key);
+    const prog=Math.round(mst/Math.max(1,deck.length)*100);
+    html+=`
+    <button class="phase" data-ph="${p.key}">
+      <div class="pico">${p.icon}</div>
+      <div class="pmid">
+        <div class="pn">${p.name}</div>
+        <div class="pt">${p.title}</div>
+        <div class="pd">${p.tag}</div>
+        <div class="pbar"><i style="width:${prog}%"></i></div>
+      </div>
+      <div class="pright">
+        <span class="duebadge ${du?'':'zero'}">${du?du:'✓'}</span>
+        <span class="chev">›</span>
+      </div>
+    </button>`;
+  });
+  home.innerHTML=html;
+
+  const st=$("startToday"); if(st) st.onclick=()=>openSession("today");
+  home.querySelectorAll(".phase").forEach(el=>el.onclick=()=>openSession(el.dataset.ph));
+  show(home);
+}
+
+/* ═══════════════ SESSION ═══════════════ */
+let queue=[], qpos=0, sess={reviews:0,learned:0,mode:"today"};
+function openSession(mode){
+  queue = mode==="today"?buildToday():buildPhase(mode);
+  if(!queue.length){ // nothing due & no new — offer a free practice pull
+    const pool = mode==="today" ? PHASES.flatMap(p=>DECK[p.key].map(id=>({ph:p.key,id}))) : DECK[mode].map(id=>({ph:mode,id}));
+    queue=shuffle(pool).slice(0,10);
+  }
+  qpos=0; sess={reviews:0,learned:0,mode};
+  show(sessionEl); renderCard();
+}
+function nextCard(){ qpos++; renderCard(); }
+function sessHeader(){
+  return `<div class="sess-top">
+    <button class="sess-x" id="sx" aria-label="Exit session">${ICON.x}</button>
+    <div class="sprog"><i style="width:${Math.round(qpos/queue.length*100)}%"></i></div>
+    <span class="scount">${Math.min(qpos+1,queue.length)}/${queue.length}</span>
+  </div>`;
+}
+function renderCard(){
+  stopAll();
+  if(qpos>=queue.length){ finishSession(); return; }
+  const {ph,id}=queue[qpos]; const wasNew=!stateOf(ph,id);
+  const P=PHASES.find(p=>p.key===ph); const c=itemContent(id);
+  sessionEl.innerHTML=sessHeader()+`<div class="qcard" id="qcard"></div>`;
+  $("sx").onclick=()=>{ stopAll(); renderHome(); };
+  const card=$("qcard");
+  const doGrade=g=>{ gradeItem(ph,id,g); if(wasNew)sess.learned++; else sess.reviews++; nextCard(); };
+
+  if(P.mode==="word") cardWord(card,c.data,doGrade,ph,id);
+  else if(P.mode==="comprehend") cardComprehend(card,c,doGrade,P);
+  else if(P.mode==="shadow") cardShadow(card,c,doGrade,P);
+  else if(P.mode==="immerse") cardImmerse(card,c,doGrade,P);
+}
+
+function gradeRow(onGrade,suggest){
+  const wrap=document.createElement("div"); wrap.className="grades";
+  [["again","Again","< 1 min"],["good","Good","spaced"],["easy","Easy","long gap"]].forEach(([g,lbl,sub])=>{
+    const b=document.createElement("button"); b.className="grade "+g+(suggest===g?" suggest":"");
+    b.innerHTML=`${lbl}<small>${sub}</small>`; b.onclick=()=>onGrade(g); wrap.appendChild(b); });
+  return wrap;
+}
+
+/* Phase 1 — word recognition */
+function cardWord(card,w,onGrade,ph,id){
+  card.innerHTML=`<div class="qphase"><span>👂 Auditory Perception</span><span>${seenCount(ph)>DECK[ph].indexOf(id)?'':''}</span></div>
+    <div class="prompt"><div class="sub">Listen. What does it mean?</div></div>`;
+  const play=document.createElement("button"); play.className="btn primary big"; play.style.marginTop="10px";
+  play.innerHTML=ICON.play+" Play the word";
+  play.onclick=()=>speak(w.es,play);
+  card.append(play);
+  const spacer=document.createElement("div"); spacer.className="spacer"; card.append(spacer);
+  const reveal=document.createElement("button"); reveal.className="btn"; reveal.style.width="100%";
+  reveal.innerHTML=ICON.eye+" Show meaning";
+  reveal.onclick=()=>{
+    reveal.remove();
+    const r=document.createElement("div"); r.className="reveal";
+    r.innerHTML=`<p class="es mono">${w.es}</p><p class="en">${w.en}</p>
+      <div class="exline"><span class="esx mono">${w.ex}</span><span class="enx">${w.exEn}</span></div>`;
+    const ex=document.createElement("button"); ex.className="btn ghost"; ex.style.marginTop="10px";
+    ex.innerHTML=ICON.play+" Hear it in a sentence"; ex.onclick=()=>speak(w.ex,ex);
+    r.append(ex);
+    card.insertBefore(r,spacer.nextSibling||null);
+    card.append(gradeRow(onGrade));
+  };
+  card.append(reveal);
+  speak(w.es);
+}
+
+/* Phase 2 — comprehension of fast connected speech */
+function cardComprehend(card,c,onGrade,P){
+  const b=c.data, sc=SCENES[c.idx]; const line=sc?sc.b:fullSentence(b,b.v[0]);
+  card.innerHTML=`<div class="qphase"><span>💬 Conversational</span><span class="mold">${MOLD_LABEL[b.m]}</span></div>
+    <div class="prompt"><div class="sub">Listen at natural speed. Can you catch it?</div></div>`;
+  const row=document.createElement("div"); row.className="row"; row.style.marginTop="12px";
+  const play=document.createElement("button"); play.className="btn primary"; play.innerHTML=ICON.play+" Play"; play.onclick=()=>speak(line,play);
+  const slow=document.createElement("button"); slow.className="btn"; slow.innerHTML=ICON.slow+" Slow"; slow.onclick=()=>speak(line,slow,null,.62);
+  row.append(play,slow); card.append(row);
+  const spacer=document.createElement("div"); spacer.className="spacer"; card.append(spacer);
+  const reveal=document.createElement("button"); reveal.className="btn"; reveal.style.width="100%";
+  reveal.innerHTML=ICON.eye+" Reveal";
+  reveal.onclick=()=>{
+    reveal.remove();
+    const hi=line.replace(new RegExp("("+esc(sc?sc.s:stemOf(b))+")","i"),"<em>$1</em>");
+    const r=document.createElement("div"); r.className="reveal";
+    r.innerHTML=`<p class="es mono">${hi}</p><p class="en">Key phrase — <b>${b.es.replace(/…/g,'…')}</b> = ${b.en}</p>`;
+    card.insertBefore(r,spacer.nextSibling||null);
+    card.append(gradeRow(onGrade));
+  };
+  card.append(reveal);
+  speak(line);
+}
+
+/* Phase 3 — shadowing (record + clarity diagnosis) */
+function cardShadow(card,c,onGrade,P){
+  const b=c.data; const model=b.m==="ready"?b.es:fullSentence(b,b.v[0]);
+  card.innerHTML=`<div class="qphase"><span>🎙️ Shadowing</span><span class="mold">${b.en}</span></div>
+    <div class="prompt"><div class="big mono">${b.m==="ready"?model:('<em style="color:var(--accent);font-style:normal">'+stemOf(b)+'</em> '+b.v[0])}</div></div>`;
+  const row=document.createElement("div"); row.className="row"; row.style.marginTop="14px";
+  const play=document.createElement("button"); play.className="btn"; play.innerHTML=ICON.play+" Hear it"; play.onclick=()=>speak(model,play);
+  const mic=document.createElement("button"); mic.className="btn mic primary"; mic.innerHTML=ICON.mic+" Say it";
+  row.append(play,mic); card.append(row);
+  const rep=document.createElement("div"); rep.className="report"; card.append(rep);
+  const spacer=document.createElement("div"); spacer.className="spacer"; card.append(spacer);
+  let graded=false;
+  const showGrades=sg=>{ if(card.querySelector(".grades"))return; card.append(gradeRow(onGrade,sg)); };
+  mic.onclick=()=>{
+    if(!micOK){ rep.className="report show"; rep.innerHTML='<div class="rep-tip">Your browser can\'t record here — say it out loud along with the model, then grade yourself. For the clarity score, open in Chrome.</div>'; showGrades("good"); return; }
+    mic.classList.add("rec"); mic.innerHTML=ICON.mic+" Listening…";
+    listen(model,res=>{ mic.classList.remove("rec"); mic.innerHTML=ICON.mic+" Try again";
+      if(!res||res.error){ rep.className="report show"; rep.innerHTML='<div class="rep-tip">I couldn\'t hear you. Try again somewhere quieter.</div>'; return; }
+      buzz(20); const d=diagnose(model,res.heard); const g=grade(d.pct);
+      const words=d.rawT.map((w,k)=>`<span class="w ${d.ok[k]?'w-ok':'w-miss'}">${w}</span>`).join(" ");
+      const miss=d.rawT.filter((w,k)=>!d.ok[k]);
+      rep.className="report show";
+      rep.innerHTML=`<div class="rep-head"><span class="rep-score ${g[0]}">${d.pct}%</span><span class="rep-label">Clarity · ${g[1]}</span></div>
+        <div class="rep-target mono">${words}</div>`+
+        (miss.length?`<div class="rep-tip">Sounds to polish: <b>${miss.join(", ")}</b>. Play it again focusing on those.</div>`:`<div class="rep-tip">Clean — the rhythm is going on autopilot.</div>`)+
+        `<div class="rep-heard">Heard: <b>${res.heard||"—"}</b></div>`;
+      showGrades(d.pct>=85?"easy":d.pct>=60?"good":"again");
+    });
+  };
+}
+function grade(pct){ return pct>=85?["g-ok","crystal clear"]:pct>=60?["g-mid","almost there"]:["g-low","needs work"]; }
+
+/* Phase 4 — immersion (whole scene, subtitles hidden) */
+function cardImmerse(card,c,onGrade,P){
+  const sc=c.data;
+  card.innerHTML=`<div class="qphase"><span>🌍 Simulated Immersion</span><span>no subtitles</span></div>
+    <div class="prompt"><div class="sub">Listen to the whole exchange. Get the gist — don't translate.</div></div>`;
+  const play=document.createElement("button"); play.className="btn primary big"; play.style.marginTop="10px";
+  play.innerHTML=ICON.play+" Play the scene"; play.onclick=()=>speakSeq([sc.a,sc.b]);
+  card.append(play);
+  const spacer=document.createElement("div"); spacer.className="spacer"; card.append(spacer);
+  const reveal=document.createElement("button"); reveal.className="btn"; reveal.style.width="100%";
+  reveal.innerHTML=ICON.eye+" Reveal the text";
+  reveal.onclick=()=>{
+    reveal.remove();
+    const hi=sc.b.replace(new RegExp("("+esc(sc.s)+")","i"),"<em>$1</em>");
+    const r=document.createElement("div"); r.className="reveal";
+    r.innerHTML=`<p class="es mono" style="color:var(--muted)">${sc.a}</p><p class="es mono">${hi}</p>`;
+    card.insertBefore(r,spacer.nextSibling||null);
+    card.append(gradeRow(onGrade));
+  };
+  card.append(reveal);
+  speakSeq([sc.a,sc.b]);
+}
+
+/* ═══════════════ DONE ═══════════════ */
+function finishSession(){
+  stopAll();
+  const did=sess.reviews+sess.learned;
+  if(did>0) bumpStreak();
+  fx(70); buzz([30,50,30]);
+  const words=masteredCount("p1");
+  doneEl.innerHTML=`<div class="done-card">
+    <div class="done-badge">${ICON.check}</div>
+    <h2>${did>0?"Session complete":"Nice run"}</h2>
+    <p>${did>0?"Every rep pushes Spanish deeper into your subconscious.":"Come back tomorrow for your spaced reviews."}</p>
+    <div class="done-stats">
+      <div class="done-stat"><b>${sess.learned}</b><span>new</span></div>
+      <div class="done-stat"><b>${sess.reviews}</b><span>reviews</span></div>
+      <div class="done-stat"><b>🔥 ${streak.count}</b><span>streak</span></div>
+    </div>
+    <button class="btn primary big" id="doneHome">Back to home</button>
+    <button class="btn ghost" id="doneMore" style="width:100%;margin-top:10px">Keep training</button>
+  </div>`;
+  show(doneEl);
+  $("doneHome").onclick=renderHome;
+  $("doneMore").onclick=()=>openSession(sess.mode);
+}
+
+/* ═══════════════ FX / THEME / BOOT ═══════════════ */
+const cv=$("fx"),cx=cv.getContext("2d"); let parts=[],raf=null;
+function rz(){ cv.width=innerWidth; cv.height=innerHeight; } rz(); addEventListener("resize",rz);
+function fx(n){ if(reduced)return; const cols=["#F4B740","#FFD884","#FFE9B0"];
+  for(let i=0;i<n;i++)parts.push({x:cv.width/2+(Math.random()-.5)*140,y:cv.height*.32,vx:(Math.random()-.5)*5,vy:Math.random()*-8.5-3.5,g:.24,len:Math.random()*10+7,w:Math.random()*1.6+1,c:cols[i%3],life:66,rot:(Math.random()-.5)*.6});
+  if(!raf)raf=requestAnimationFrame(tick); }
+function tick(){ cx.clearRect(0,0,cv.width,cv.height); parts=parts.filter(p=>p.life>0);
+  parts.forEach(p=>{ p.vy+=p.g; p.x+=p.vx; p.y+=p.vy; p.life--; cx.save(); cx.translate(p.x,p.y); cx.rotate(p.rot+Math.atan2(p.vy,p.vx)+Math.PI/2);
+    cx.globalAlpha=Math.min(1,p.life/28); cx.fillStyle=p.c; cx.shadowBlur=8; cx.shadowColor=p.c; cx.fillRect(-p.w/2,-p.len/2,p.w,p.len); cx.restore(); });
+  if(parts.length)raf=requestAnimationFrame(tick); else raf=null; }
+
+$("theme").onclick=()=>{ const cur=document.documentElement.getAttribute("data-theme");
+  const isDark=cur?cur==="dark":matchMedia("(prefers-color-scheme: dark)").matches;
+  const next=isDark?"light":"dark"; document.documentElement.setAttribute("data-theme",next);
+  try{ localStorage.setItem("esf_theme",next); }catch(e){} };
+
+addEventListener("keydown",e=>{ if(e.key==="Escape"&&!sessionEl.classList.contains("hidden")){ stopAll(); renderHome(); } });
+
+let bootMs=1500; try{ if(localStorage.getItem("esf_boot"))bootMs=500; localStorage.setItem("esf_boot","1"); }catch(e){}
+if(reduced){ $("boot").classList.add("gone"); } else { setTimeout(()=>$("boot").classList.add("gone"),bootMs); }
+$("boot").onclick=()=>$("boot").classList.add("gone");
+
+renderHome();
+</script>
