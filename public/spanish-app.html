@@ -194,6 +194,11 @@
   .sum-stat b{font-family:var(--serif);font-size:28px;font-weight:600;display:block;line-height:1;}
   .sum-stat span{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-top:7px;display:block;}
   .sum-cta{width:100%;max-width:340px;}
+  .mode.feat{background:radial-gradient(130% 130% at 100% 0%, var(--accent-soft), transparent 60%), var(--panel);border-color:color-mix(in srgb,var(--accent) 45%,var(--line));}
+  .mode.feat .ic{background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 40%,transparent);}
+  .mode.feat .meta{color:var(--accent);}
+  .ted-embed{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:16px;border:1px solid var(--line);margin:16px 0;background:#000;}
+  .ted-embed iframe{position:absolute;inset:0;width:100%;height:100%;}
 
   /* onboarding */
   #onb{position:fixed;inset:0;z-index:80;background:var(--bg);display:none;flex-direction:column;padding:38px 26px calc(30px + env(safe-area-inset-bottom));}
@@ -590,6 +595,11 @@ const SCENES=[
   {a:"Por fin renuncié y empecé a trabajar por mi cuenta.",b:"¡No me digas! Cuéntame más de eso, ¿cómo va?",s:"Cuéntame más de"}
 ];
 
+const TED={/*__TED_START__*/
+  title:"El enigma de la motivación",speaker:"Paula Carazo Austro (Spain)",lengthMin:7,watchUrl:"https://www.ted.com/talks/paula_carazo_austro_el_enigma_de_la_motivacion?language=es",embedUrl:"https://embed.ted.com/talks/paula_carazo_austro_el_enigma_de_la_motivacion",intro:"From Spain — A young student's TEDx talk on how attitude and clear goals are the keys to finding motivation in everyday life.",
+  sentences:[{"es":"El rompecabezas de la motivación.","en":"The puzzle of motivation."},{"es":"Cuando hablo de motivación no me queda otra que hablar de actitud.","en":"When I talk about motivation, I have no choice but to talk about attitude."},{"es":"En su momento no lo supe, pero ahora sí.","en":"At the time I didn't know it, but now I do."},{"es":"Porque es de valientes querer ser feliz.","en":"Because wanting to be happy takes courage."},{"es":"Al ver este vídeo entendí que todo depende de mí.","en":"Watching this video, I understood that everything depends on me."},{"es":"Que tú mismo eres el pintor de tu vida.","en":"That you yourself are the painter of your own life."},{"es":"No hay nada peor que eso.","en":"There is nothing worse than that."},{"es":"¿Dónde está la magia ahí?","en":"Where is the magic in that?"},{"es":"Les muestra su afecto y su cariño en palabras.","en":"She shows them her affection and her love in words."},{"es":"Nos considero a los seres humanos similares a las plantas.","en":"I consider us human beings to be similar to plants."},{"es":"Se mueren por dentro.","en":"They die inside."},{"es":"Personas vacías son personas tristes.","en":"Empty people are sad people."},{"es":"Necesitamos unos objetivos para poder tener unas aspiraciones.","en":"We need goals in order to have aspirations."},{"es":"Unas aspiraciones tienen unas motivaciones.","en":"Aspirations carry motivations."},{"es":"Todo es por no tener unos objetivos claros y fijos.","en":"It's all from not having clear and firm goals."},{"es":"Porque sin los objetivos no tenemos esta dirección, esta guía.","en":"Because without goals we don't have this direction, this guidance."},{"es":"Realmente nuestra vida ya no tiene sentido, ya no cobra sentido.","en":"Our life really no longer makes sense, it no longer has meaning."},{"es":"Yo digo que están echando de su vida a perder.","en":"I say that they are throwing their lives away."},{"es":"Es la suma de actitudes y aptitudes.","en":"It is the sum of attitudes and aptitudes."}]
+/*__TED_END__*/};
+
 /* ═══ HELPERS ═══ */
 const $=id=>document.getElementById(id);
 const esc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
@@ -615,12 +625,35 @@ function chime(){const c=ac();if(!c)return;[523.25,659.25,783.99].forEach((f,i)=
 let esVoice=null;
 function pickVoice(){const vs=speechSynthesis.getVoices();esVoice=vs.find(v=>/es[-_]MX/i.test(v.lang)&&/google/i.test(v.name))||vs.find(v=>/es[-_]MX/i.test(v.lang))||vs.find(v=>/es[-_]US/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null;}
 if("speechSynthesis" in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
-function say(text,orb,rate,onend){if(!("speechSynthesis" in window)){if(onend)onend();return;}speechSynthesis.cancel();
+// Voz PREMIUM: Azure Neural es-MX (Dalia) via /api/tts. Fallback pro navegador se falhar.
+let curAudio=null, ttsFail=false;
+function ttsUrl(text,rate){return "/api/tts?t="+encodeURIComponent(text)+((rate&&rate<0.9)?"&r=slow":"");}
+function wsSay(text,orb,rate,onend){ if(!("speechSynthesis" in window)){if(orb)orb.classList.remove("playing");if(onend)onend();return;}
+  speechSynthesis.cancel();
   setTimeout(()=>{const u=new SpeechSynthesisUtterance(text);u.lang="es-MX";u.rate=rate||.95;if(esVoice)u.voice=esVoice;
-    if(orb)orb.classList.add("playing");u.onend=()=>{if(orb)orb.classList.remove("playing");if(onend)onend();};u.onerror=()=>{if(orb)orb.classList.remove("playing");};
-    speechSynthesis.speak(u);},50);}
-function sayseq(lines,orb,rate,i){i=i||0;if(!("speechSynthesis" in window)||i>=lines.length){if(orb)orb.classList.remove("playing");return;}if(i===0){speechSynthesis.cancel();if(orb)orb.classList.add("playing");}
-  const u=new SpeechSynthesisUtterance(lines[i]);u.lang="es-MX";u.rate=rate||.95;if(esVoice)u.voice=esVoice;u.onend=()=>sayseq(lines,orb,rate,i+1);setTimeout(()=>speechSynthesis.speak(u),i===0?50:0);}
+    if(orb)orb.classList.add("playing");
+    u.onend=()=>{if(orb)orb.classList.remove("playing");if(onend)onend();};
+    u.onerror=()=>{if(orb)orb.classList.remove("playing");if(onend)onend();};
+    speechSynthesis.speak(u);},40);}
+function say(text,orb,rate,onend){
+  if(ttsFail){wsSay(text,orb,rate,onend);return;}
+  try{if(curAudio){curAudio.pause();curAudio=null;}}catch(e){}
+  if(orb)orb.classList.add("playing");
+  let a; try{a=new Audio(ttsUrl(text,rate));}catch(e){wsSay(text,orb,rate,onend);return;}
+  curAudio=a; let fb=false;
+  const fallback=()=>{if(fb)return;fb=true;ttsFail=true;wsSay(text,orb,rate,onend);};
+  a.onended=()=>{if(orb)orb.classList.remove("playing");if(curAudio===a)curAudio=null;if(onend)onend();};
+  a.onerror=fallback;
+  const p=a.play(); if(p&&p.catch)p.catch(()=>fallback());
+}
+function sayseq(lines,orb,rate){
+  try{if(curAudio){curAudio.pause();curAudio=null;}}catch(e){}
+  if("speechSynthesis" in window)speechSynthesis.cancel();
+  if(orb)orb.classList.add("playing");
+  let i=0;
+  const step=()=>{ if(i>=lines.length){if(orb)orb.classList.remove("playing");return;} say(lines[i++],null,rate,step); };
+  step();
+}
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;const micOK=!!SR;let activeRec=null;
 function listen(cb){if(!micOK){cb(null);return;}const r=new SR();activeRec=r;r.lang="es-MX";r.interimResults=false;r.maxAlternatives=1;
   r.onresult=e=>cb({heard:e.results[0][0].transcript});r.onerror=e=>cb({error:e.error});r.onend=()=>{if(activeRec===r)activeRec=null;};
@@ -630,7 +663,7 @@ function diagnose(t,said){const T=t.replace(/\s+/g," ").trim().split(" "),Tn=T.m
   for(let i=1;i<=n;i++)for(let j=1;j<=m;j++)dp[i][j]=Tn[i-1]===S[j-1]?dp[i-1][j-1]+1:Math.max(dp[i-1][j],dp[i][j-1]);
   const ok=new Array(n).fill(false);let i=n,j=m;while(i>0&&j>0){if(Tn[i-1]===S[j-1]){ok[i-1]=true;i--;j--;}else if(dp[i-1][j]>=dp[i][j-1])i--;else j--;}
   return{T,ok,pct:n?Math.round(ok.filter(Boolean).length/n*100):0};}
-function stopAudio(){try{if(activeRec)activeRec.abort();}catch(e){}activeRec=null;if("speechSynthesis" in window)speechSynthesis.cancel();}
+function stopAudio(){try{if(activeRec)activeRec.abort();}catch(e){}activeRec=null;try{if(curAudio){curAudio.pause();curAudio=null;}}catch(e){}if("speechSynthesis" in window)speechSynthesis.cancel();}
 
 /* ═══ STATE / LOG ═══ */
 let ST=loadJSON("esf4",{level:"beginner",onboarded:false,days:0,lastDay:0,heard:0,shadowed:0,clarSum:0,clarN:0,srs:{},found:{}});
@@ -676,6 +709,11 @@ function renderHome(){
     <button class="startbtn" id="recStart">Begin training ${SVG.arw}</button></div>`;
   $("recStart").onclick=()=>openMode(rec.key);
   const m=$("modes");m.innerHTML="";
+  if(TED&&TED.embedUrl&&TED.sentences&&TED.sentences.length){
+    const tel=document.createElement("button");tel.className="mode feat";
+    tel.innerHTML=`<div class="ic">🎤</div><div class="mid"><div class="mt">${TED.title}</div><div class="ms">Real TED talk · ${TED.speaker}</div><div class="meta">Watch · shadow · spaced review</div></div><div class="arw">${SVG.arw}</div>`;
+    tel.onclick=()=>openMode("ted");m.appendChild(tel);
+  }
   MODES.forEach(md=>{const el=document.createElement("button");el.className="mode"+(md.beg?" beg":"");
     el.innerHTML=`<div class="ic">${md.icon}</div><div class="mid"><div class="mt">${md.t}</div><div class="ms">${md.s}</div><div class="meta">${md.meta}</div></div><div class="arw">${SVG.arw}</div>`;
     el.onclick=()=>openMode(md.key);m.appendChild(el);});
@@ -690,6 +728,7 @@ function openMode(key){ac();stopAudio();
   else if(key==="shadowing")cards=buildShadowing();
   else if(key==="conversation")cards=buildConversation();
   else if(key==="immersion")cards=buildImmersion();
+  else if(key==="ted")cards=buildTED();
   if(!cards.length){showHome();return;}
   S={key,cards,pos:0,heard:0,shadowed:0,clar:[]};
   app.classList.add("hidden");sess.classList.remove("hidden");sumEl.classList.remove("show");
@@ -745,6 +784,13 @@ function buildConversation(){
 }
 function buildImmersion(){
   return pick(scenePool(),x=>"d:"+x.b,beginner()?4:6).map(sc=>({t:"immerse",sc,id:"d:"+sc.b}));
+}
+function buildTED(){
+  const cards=[{t:"tedwatch"}];
+  const sents=TED.sentences.map((s,i)=>({s,i}));
+  const chosen=pick(sents,x=>"ted:"+x.i,beginner()?4:6);
+  chosen.forEach(o=>{ cards.push({t:"listen",es:o.s.es,en:o.s.en,id:"ted:"+o.i,kind:"word"}); cards.push({t:"shadow",text:o.s.es,en:o.s.en,id:"ted:"+o.i}); });
+  return cards;
 }
 
 /* ---- card renderers ---- */
@@ -835,6 +881,16 @@ CARD.convo=(c,st)=>{
         let cont=$("convCont");if(!cont){cont=document.createElement("button");cont.id="convCont";cont.className="btn solid mt16";cont.innerHTML="Continue "+SVG.arw;cont.onclick=()=>next();st.appendChild(cont);}
       },300);
     };box.appendChild(b);});
+};
+CARD.tedwatch=(c,st)=>{
+  st.innerHTML=`<div class="cue">Real content · TED talk</div>
+    <div class="es-md serif" style="text-align:center;font-size:24px">${TED.title}</div>
+    <div class="en-mut">${TED.speaker} · ${TED.lengthMin} min · native Spanish</div>
+    ${TED.embedUrl?`<div class="ted-embed"><iframe src="${TED.embedUrl}" frameborder="0" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>`:""}
+    <p class="en-sub" style="font-size:15px">${TED.intro}</p>
+    <div class="spacer"></div>
+    <button class="btn solid" id="tedGo">Now train the key lines ${SVG.arw}</button>`;
+  $("tedGo").onclick=()=>{ stopAudio(); next(); };
 };
 CARD.immerse=(c,st)=>{
   const sc=c.sc;
