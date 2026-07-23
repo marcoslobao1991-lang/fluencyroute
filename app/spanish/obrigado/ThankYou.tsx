@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { genEventId, getFbCookies, getClientIp, getUserAgent } from '../../lib/pixel'
+import { getFbCookies, getClientIp, getUserAgent } from '../../lib/pixel'
 import { C, FONT } from '../../vsl2/design'
 
 // ═══════════════════════════════════════════════════════════════
@@ -14,7 +14,6 @@ import { C, FONT } from '../../vsl2/design'
 const PIXEL_ID = '690970750622464'
 const UPSELL_PRICE = '$497'
 const UPSELL_FROM = '$997'
-const FRONT_VALUE = 342 // 6 × $57
 
 function getExternalId(): string {
   try {
@@ -58,18 +57,13 @@ const INCLUDED = [
 
 export default function ThankYou() {
   useEffect(() => {
-    // ── Purchase do FRONT (compra que acabou de acontecer) ──
-    const p = new URLSearchParams(window.location.search)
-    const orderId = p.get('order_id') || p.get('transaction_id') || p.get('id') || ''
-    const valueParam = parseFloat(p.get('value') || '')
-    const value = Number.isFinite(valueParam) && valueParam > 0 ? valueParam : FRONT_VALUE
-    const eid = orderId ? `es-purchase-${orderId}` : genEventId()
-
+    // O Purchase do FRONT é 100% server-side (webhook Hotmart, com stitch + EMQ alto).
+    // O browser NÃO dispara Purchase aqui (evita duplicação e value errado). Só o
+    // ViewContent do upsell, pra retargeting.
     let tries = 0
     let iv: ReturnType<typeof setInterval> | undefined
     const fire = () => {
       if (typeof (window as any).fbq !== 'function') return false
-      trackEs('Purchase', { value, ...(orderId ? { order_id: orderId } : {}) }, eid)
       trackEs('ViewContent', { content_name: 'Premium Coaching (upsell)', value: 497, source: 'upsell' })
       return true
     }

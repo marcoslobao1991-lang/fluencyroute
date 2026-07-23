@@ -1,72 +1,15 @@
 'use client'
 
-import { useEffect } from 'react'
-import { genEventId, getFbCookies, getClientIp, getUserAgent } from '../../lib/pixel'
 import { C, FONT } from '../../vsl2/design'
 
 // ═══════════════════════════════════════════════════════════════
-// /spanish/thankyou — página FINAL (após o upsell). Dispara o Purchase do
-// UPSELL ($497) SE a URL indicar que o upsell foi aprovado. Pra isso, no
-// Hotmart configure a URL de "após aprovação do upsell" apontando pra:
-//   fluencyroute.com.br/spanish/thankyou?upsell=1
-// (o caminho de RECUSA aponta pra /spanish/thankyou sem o param → sem Purchase).
-// O jeito à prova de erro é webhook Hotmart server-to-server (pendente).
+// /spanish/thankyou — página FINAL (após o upsell).
+// O Purchase do upsell é 100% server-side via webhook do Hotmart (com stitch +
+// EMQ alto + dedup por eventId es-purchase-<transaction>). O browser NÃO dispara
+// Purchase aqui — evita contagem dobrada. Esta página é só a confirmação visual.
 // ═══════════════════════════════════════════════════════════════
-const PIXEL_ID = '690970750622464'
-const UPSELL_VALUE = 497
-
-function getExternalId(): string {
-  try {
-    if (typeof document === 'undefined') return ''
-    const m = document.cookie.match(/(?:^|;\s*)_fluency_uid=([^;]+)/)
-    return m ? decodeURIComponent(m[1]) : ''
-  } catch { return '' }
-}
-
-async function trackEs(event: string, extra: Record<string, unknown>, deterministicId: string) {
-  if (typeof window === 'undefined') return
-  const custom = { content_name: 'Premium Coaching (upsell)', content_type: 'product', currency: 'USD', ...extra }
-  const fbq = (window as any).fbq
-  if (typeof fbq === 'function') { fbq('init', PIXEL_ID); fbq('trackSingle', PIXEL_ID, event, custom, { eventID: deterministicId }) }
-  try {
-    const { fbc, fbp } = getFbCookies()
-    const ip = await getClientIp()
-    fetch('/api/track-es', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        event, eventId: deterministicId, fbc, fbp,
-        external_id: getExternalId(),
-        client_ip_address: ip,
-        client_user_agent: getUserAgent(),
-        ...custom,
-      }),
-    }).catch(() => {})
-  } catch {}
-}
 
 export default function ThankYouFinal() {
-  useEffect(() => {
-    const p = new URLSearchParams(window.location.search)
-    const boughtUpsell = ['1', 'true', 'approved', 'yes'].includes((p.get('upsell') || '').toLowerCase())
-    if (!boughtUpsell) return
-
-    const orderId = p.get('order_id') || p.get('transaction_id') || p.get('id') || ''
-    const valueParam = parseFloat(p.get('value') || '')
-    const value = Number.isFinite(valueParam) && valueParam > 0 ? valueParam : UPSELL_VALUE
-    const eid = orderId ? `es-upsell-${orderId}` : `es-upsell-${genEventId()}`
-
-    let tries = 0
-    let iv: ReturnType<typeof setInterval> | undefined
-    const fire = () => {
-      if (typeof (window as any).fbq !== 'function') return false
-      trackEs('Purchase', { value, ...(orderId ? { order_id: orderId } : {}) }, eid)
-      return true
-    }
-    if (!fire()) iv = setInterval(() => { if (fire() || ++tries > 40) { if (iv) clearInterval(iv) } }, 250)
-    return () => { if (iv) clearInterval(iv) }
-  }, [])
-
   return (
     <main style={{
       background: C.bg, color: C.white, fontFamily: FONT.body, fontWeight: 300,

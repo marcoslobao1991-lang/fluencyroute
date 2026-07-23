@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, Suspense, memo } from 'react'
+import React, { useEffect, useState, Suspense, memo } from 'react'
 import '../vsl2/vsl.css'
 import { C, FONT } from '../vsl2/design'
 import { Fade, Glass, Label, S, Grad, useInView } from '../vsl2/primitives'
@@ -197,6 +197,31 @@ export default function SpanishSalesPage() {
     // Sticky CTA
     const fn = () => setSticky(window.scrollY > 600)
     window.addEventListener('scroll', fn)
+
+    // Cart stitching: salva fbc/fbp/ip/ua desta sessão pro webhook do Hotmart
+    // recuperar no Purchase (EMQ alto). A chave (stitchSid) vai no sck do checkout.
+    try {
+      if (!stitchSid) {
+        stitchSid = (typeof crypto !== 'undefined' && crypto.randomUUID)
+          ? crypto.randomUUID()
+          : `${Date.now()}-${Math.random().toString(36).slice(2)}`
+      }
+      const { fbc, fbp } = getFbCookies()
+      const u = getUtmsFromUrl()
+      getClientIp().then((ip) => {
+        fetch('/api/checkout-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            session_id: stitchSid, sck: stitchSid,
+            fbc, fbp, fbclid: u.fbclid || null,
+            client_ip_address: ip, client_user_agent: getUserAgent(),
+            utm_source: u.utm_source, utm_medium: u.utm_medium, utm_campaign: u.utm_campaign,
+            utm_content: u.utm_content, utm_term: u.utm_term,
+          }),
+        }).catch(() => {})
+      })
+    } catch {}
 
     // Pixel próprio do Spanish (690…). O fbq é carregado pelo layout global
     // (lazyOnload), então pode não existir ainda no mount → poll até aparecer.
@@ -677,11 +702,16 @@ export default function SpanishSalesPage() {
 // infla o funil (e sabota a otimização da campanha no Meta). A navegação
 // (href) segue funcionando em todo clique; só o evento é que não se repete.
 let icFired = false
+let stitchSid = ''
 
 function Btn({ text = 'I WANT IN', compact }: { text?: string; compact?: boolean }) {
   const [href, setHref] = useState(CHECKOUT)
   useEffect(() => { setHref(buildCheckoutUrl(CHECKOUT, getUtmsFromUrl())) }, [])
-  const onClick = () => {
+  const onClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // injeta nosso session_id no sck do checkout (Hotmart repassa como source_sck no webhook)
+    try {
+      if (stitchSid) e.currentTarget.href = buildCheckoutUrl(CHECKOUT, { ...getUtmsFromUrl(), sck: stitchSid })
+    } catch {}
     if (icFired) return
     icFired = true
     trackEs('InitiateCheckout')
