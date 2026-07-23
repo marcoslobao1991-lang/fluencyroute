@@ -198,9 +198,16 @@
   .mode.feat{background:radial-gradient(130% 130% at 100% 0%, var(--accent-soft), transparent 60%), var(--panel);border-color:color-mix(in srgb,var(--accent) 45%,var(--line));}
   .mode.feat .ic{background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 40%,transparent);}
   .mode.feat .meta{color:var(--accent);}
-  .ted-watch{display:flex;align-items:center;gap:14px;margin:18px 0;padding:15px 16px;border-radius:16px;text-decoration:none;color:var(--accent-ink);background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 8px 22px rgba(224,145,60,.28);}
-  .ted-watch .tp{width:44px;height:44px;flex:none;border-radius:50%;background:rgba(0,0,0,.16);display:grid;place-items:center;font-size:15px;}
-  .ted-watch .tw b{display:block;font-weight:800;font-size:16px;} .ted-watch .tw small{opacity:.82;font-size:12px;}
+  .ep-k{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:800;text-align:center;}
+  .ep-title{font-size:25px;font-weight:800;letter-spacing:-.02em;text-align:center;margin:7px 0 3px;line-height:1.12;}
+  .ep-meta{text-align:center;color:var(--muted);font-size:13px;margin-bottom:16px;}
+  .ep-video{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:16px;border:1px solid var(--line);background:#0b0b0b;box-shadow:var(--shadow);}
+  .ep-video iframe{position:absolute;inset:0;width:100%;height:100%;}
+  .ep-intro{color:var(--ink-soft);font-size:15px;line-height:1.6;margin:16px 0 2px;text-align:center;}
+  .ep-how{margin-top:14px;display:flex;flex-direction:column;gap:9px;}
+  .ep-step{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--ink-soft);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 13px;}
+  .ep-step .n{width:25px;height:25px;flex:none;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:800;font-size:13px;}
+  .ep-link{display:block;text-align:center;margin-top:13px;color:var(--accent);font-weight:700;font-size:13px;text-decoration:none;}
   /* app-native type: clean bold sans, no editorial serif */
   .hero h1,.onb-top h1{font-weight:800;letter-spacing:-.03em;}
   .es-lg,.es-md,.teach .es,.soundcard .nm,.soundcard .big,.shadow-model,.conv .txt,.today h2,.mode .mt,#sum h2,.sum-stat b,.log b,.clarity .pc,.clarity .tgt,.boot-in b,.brand b{font-weight:700;}
@@ -602,7 +609,7 @@ const SCENES=[
 ];
 
 const TED={/*__TED_START__*/
-  title:"El enigma de la motivación",speaker:"Paula Carazo Austro (Spain)",lengthMin:7,watchUrl:"https://www.ted.com/talks/paula_carazo_austro_el_enigma_de_la_motivacion?language=es",embedUrl:"https://embed.ted.com/talks/paula_carazo_austro_el_enigma_de_la_motivacion",intro:"From Spain — A young student's TEDx talk on how attitude and clear goals are the keys to finding motivation in everyday life.",
+  title:"El enigma de la motivación",speaker:"Paula Carazo Austro (Spain)",lengthMin:7,watchUrl:"https://www.ted.com/talks/paula_carazo_austro_el_enigma_de_la_motivacion?language=es",embedUrl:"https://www.youtube.com/embed/KofVoozWwD0?rel=0&modestbranding=1&cc_lang_pref=es&cc_load_policy=1",intro:"From Spain — A young student's TEDx talk on how attitude and clear goals are the keys to finding motivation in everyday life.",
   sentences:[{"es":"El rompecabezas de la motivación.","en":"The puzzle of motivation."},{"es":"Cuando hablo de motivación no me queda otra que hablar de actitud.","en":"When I talk about motivation, I have no choice but to talk about attitude."},{"es":"En su momento no lo supe, pero ahora sí.","en":"At the time I didn't know it, but now I do."},{"es":"Porque es de valientes querer ser feliz.","en":"Because wanting to be happy takes courage."},{"es":"Al ver este vídeo entendí que todo depende de mí.","en":"Watching this video, I understood that everything depends on me."},{"es":"Que tú mismo eres el pintor de tu vida.","en":"That you yourself are the painter of your own life."},{"es":"No hay nada peor que eso.","en":"There is nothing worse than that."},{"es":"¿Dónde está la magia ahí?","en":"Where is the magic in that?"},{"es":"Les muestra su afecto y su cariño en palabras.","en":"She shows them her affection and her love in words."},{"es":"Nos considero a los seres humanos similares a las plantas.","en":"I consider us human beings to be similar to plants."},{"es":"Se mueren por dentro.","en":"They die inside."},{"es":"Personas vacías son personas tristes.","en":"Empty people are sad people."},{"es":"Necesitamos unos objetivos para poder tener unas aspiraciones.","en":"We need goals in order to have aspirations."},{"es":"Unas aspiraciones tienen unas motivaciones.","en":"Aspirations carry motivations."},{"es":"Todo es por no tener unos objetivos claros y fijos.","en":"It's all from not having clear and firm goals."},{"es":"Porque sin los objetivos no tenemos esta dirección, esta guía.","en":"Because without goals we don't have this direction, this guidance."},{"es":"Realmente nuestra vida ya no tiene sentido, ya no cobra sentido.","en":"Our life really no longer makes sense, it no longer has meaning."},{"es":"Yo digo que están echando de su vida a perder.","en":"I say that they are throwing their lives away."},{"es":"Es la suma de actitudes y aptitudes.","en":"It is the sum of attitudes and aptitudes."}]
 /*__TED_END__*/};
 
@@ -889,13 +896,19 @@ CARD.convo=(c,st)=>{
     };box.appendChild(b);});
 };
 CARD.tedwatch=(c,st)=>{
-  st.innerHTML=`<div class="cue">Real content · TED talk</div>
-    <div class="es-md" style="text-align:center;font-size:23px">${TED.title}</div>
-    <div class="en-mut">${TED.speaker} · ${TED.lengthMin} min · native Spanish</div>
-    <a class="ted-watch" href="${TED.watchUrl}" target="_blank" rel="noopener"><span class="tp">▶</span><span class="tw"><b>Watch the full talk</b><small>Real native Spanish · opens on TED</small></span></a>
-    <p class="en-sub" style="font-size:14px">${TED.intro} Then train its key lines below with native audio.</p>
+  st.innerHTML=`<div class="ep-k">Episode 01 · TED</div>
+    <div class="ep-title">${TED.title}</div>
+    <div class="ep-meta">${TED.speaker} · ${TED.lengthMin} min · real native Spanish</div>
+    ${TED.embedUrl?`<div class="ep-video"><iframe src="${TED.embedUrl}" title="TED talk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>`:""}
+    <p class="ep-intro">${TED.intro}</p>
+    <div class="ep-how">
+      <div class="ep-step"><span class="n">1</span> Watch the real talk — let your ear soak it in.</div>
+      <div class="ep-step"><span class="n">2</span> Train its key lines: listen, then shadow out loud.</div>
+      <div class="ep-step"><span class="n">3</span> The lines come back over the next days until they stick.</div>
+    </div>
+    <a class="ep-link" href="${TED.watchUrl}" target="_blank" rel="noopener">Open on TED ↗</a>
     <div class="spacer"></div>
-    <button class="btn solid" id="tedGo">Train the key lines</button>`;
+    <button class="btn solid" id="tedGo">Start the training</button>`;
   $("tedGo").onclick=()=>{ stopAudio(); next(); };
 };
 CARD.immerse=(c,st)=>{
