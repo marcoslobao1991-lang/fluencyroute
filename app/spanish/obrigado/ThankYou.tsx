@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { getFbCookies, getClientIp, getUserAgent } from '../../lib/pixel'
+import { getFbCookies, getClientIp, getUserAgent, genEventId } from '../../lib/pixel'
 import { C, FONT } from '../../vsl2/design'
 
 // ═══════════════════════════════════════════════════════════════
