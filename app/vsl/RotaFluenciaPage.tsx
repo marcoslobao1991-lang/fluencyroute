@@ -331,30 +331,18 @@ export default function RotaFluenciaPage({ alwaysOpen = false, vsl2 = false }: {
       <section style={{ maxWidth: 600, margin: '0 auto', padding: '40px 20px 0' }}>
         {vsl2 && (
           <Fade>
-            <div style={{ maxWidth: 520, margin: '4px auto 26px', textAlign: 'center' }}>
-              <p style={{
-                fontFamily: FONT.mono, fontSize: 10.5, letterSpacing: 3, textTransform: 'uppercase',
-                fontWeight: 600, color: C.teal, marginBottom: 16,
-              }}>
-                <span style={{ opacity: 0.5 }}>▚</span>&nbsp; Rota da Fluência Essencial
-              </p>
-              <h1 style={{
-                fontSize: 'clamp(30px, 7vw, 46px)', fontWeight: 800, lineHeight: 1.07,
-                letterSpacing: '-0.04em', margin: 0,
-              }}>
-                <span style={{
-                  display: 'block', fontWeight: 300, fontStyle: 'italic',
-                  fontSize: '0.66em', color: C.t2, letterSpacing: '-0.02em', marginBottom: 7,
-                }}>
-                  Isso é sem graça
-                </span>
-                <span style={{ color: C.t1 }}>mas me deixou </span>
-                <span style={{
-                  background: C.gradText, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}>fluente em inglês</span>
-              </h1>
-            </div>
+            <h1 style={{
+              maxWidth: 400, margin: '2px auto 18px', textAlign: 'center',
+              fontSize: 'clamp(15px, 3.3vw, 19px)', fontWeight: 400, lineHeight: 1.4,
+              letterSpacing: '-0.015em', fontStyle: 'italic', color: C.t2,
+            }}>
+              Isso é sem graça, mas me deixou{' '}
+              <span style={{
+                color: C.teal, fontWeight: 500, fontStyle: 'normal',
+                textDecoration: 'underline', textDecorationColor: 'rgba(78,205,196,0.35)',
+                textUnderlineOffset: '3px', textDecorationThickness: '1px',
+              }}>fluente em inglês</span>
+            </h1>
           </Fade>
         )}
         <Fade delay={0.15}>
