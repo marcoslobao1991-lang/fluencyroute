@@ -6,29 +6,22 @@
 <title>Essential Spanish · Training Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#141110; --panel:#1E1917; --panel-2:#282120; --line:#382E29; --line-soft:#2C2421;
-    --ink:#F4EDE4; --ink-soft:#C3B7AB; --muted:#8B7E72;
-    --accent:#E0913C; --accent-2:#EBA85A; --accent-soft:#33251699; --accent-ink:#1A1006;
-    --calm:#84AAA1; --calm-soft:#1B2725;
-    --good:#77C295; --bad:#DC9080;
-    --shadow:0 2px 4px rgba(0,0,0,.3), 0 18px 44px rgba(0,0,0,.42);
-    --shadow-sm:0 1px 2px rgba(0,0,0,.3), 0 6px 16px rgba(0,0,0,.3);
+    --bg:#050509; --panel:#0D0D15; --panel-2:#15151F; --line:rgba(255,255,255,.075); --line-soft:rgba(255,255,255,.045);
+    --ink:rgba(255,255,255,.92); --ink-soft:rgba(255,255,255,.52); --muted:rgba(255,255,255,.30);
+    --accent:#4ECDC4; --accent-2:#A78BFA; --accent-soft:rgba(78,205,196,.15); --accent-ink:#042420;
+    --calm:#A78BFA; --calm-soft:rgba(167,139,250,.15);
+    --good:#34D399; --bad:#FF6B6B;
+    --shadow:0 2px 6px rgba(0,0,0,.5), 0 20px 50px rgba(0,0,0,.55);
+    --shadow-sm:0 1px 2px rgba(0,0,0,.4), 0 8px 20px rgba(0,0,0,.4);
     --r:16px; --r-lg:24px; --r-pill:999px;
-    --serif:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif; --sans:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --serif:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif; --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
   }
-  @media (prefers-color-scheme:light){
-    :root{ --bg:#F4EEE4; --panel:#FFFFFF; --panel-2:#F0E8DB; --line:#E3D8C7; --line-soft:#EEE6D8;
-      --ink:#231B15; --ink-soft:#5B4F44; --muted:#8B7D6D;
-      --accent:#B4691A; --accent-2:#C97E2A; --accent-soft:#F6E7CF; --accent-ink:#FFF6EA;
-      --calm:#3C6E64; --calm-soft:#E4EEEB; --good:#2E8B5E; --bad:#BA5A46;
-      --shadow:0 2px 4px rgba(70,50,20,.06), 0 16px 40px rgba(70,50,20,.12);
-      --shadow-sm:0 1px 2px rgba(70,50,20,.06), 0 5px 14px rgba(70,50,20,.08); }
-  }
-  :root[data-theme="light"]{--bg:#F4EEE4;--panel:#FFFFFF;--panel-2:#F0E8DB;--line:#E3D8C7;--line-soft:#EEE6D8;--ink:#231B15;--ink-soft:#5B4F44;--muted:#8B7D6D;--accent:#B4691A;--accent-2:#C97E2A;--accent-soft:#F6E7CF;--accent-ink:#FFF6EA;--calm:#3C6E64;--calm-soft:#E4EEEB;--good:#2E8B5E;--bad:#BA5A46;--shadow:0 2px 4px rgba(70,50,20,.06),0 16px 40px rgba(70,50,20,.12);--shadow-sm:0 1px 2px rgba(70,50,20,.06),0 5px 14px rgba(70,50,20,.08);}
-  :root[data-theme="dark"]{--bg:#141110;--panel:#1E1917;--panel-2:#282120;--line:#382E29;--line-soft:#2C2421;--ink:#F4EDE4;--ink-soft:#C3B7AB;--muted:#8B7E72;--accent:#E0913C;--accent-2:#EBA85A;--accent-soft:#33251699;--accent-ink:#1A1006;--calm:#84AAA1;--calm-soft:#1B2725;--good:#77C295;--bad:#DC9080;--shadow:0 2px 4px rgba(0,0,0,.3),0 18px 44px rgba(0,0,0,.42);--shadow-sm:0 1px 2px rgba(0,0,0,.3),0 6px 16px rgba(0,0,0,.3);}
+  :root[data-theme="light"]{--bg:#EEF0F6;--panel:#FFFFFF;--panel-2:#F3F5FA;--line:#E2E5EF;--line-soft:#EDEFF6;--ink:#0E1220;--ink-soft:#4A5163;--muted:#8A90A2;--accent:#0E9C93;--accent-2:#7C5CE0;--accent-soft:rgba(14,156,147,.12);--accent-ink:#FFFFFF;--calm:#7C5CE0;--calm-soft:rgba(124,92,224,.1);--good:#0E9C7A;--bad:#E5484D;--shadow:0 2px 6px rgba(20,25,50,.06),0 16px 40px rgba(20,25,50,.1);--shadow-sm:0 1px 2px rgba(20,25,50,.05),0 6px 16px rgba(20,25,50,.07);}
+  :root[data-theme="dark"]{--bg:#050509;--panel:#0D0D15;--panel-2:#15151F;--line:rgba(255,255,255,.075);--line-soft:rgba(255,255,255,.045);--ink:rgba(255,255,255,.92);--ink-soft:rgba(255,255,255,.52);--muted:rgba(255,255,255,.30);--accent:#4ECDC4;--accent-2:#A78BFA;--accent-soft:rgba(78,205,196,.15);--accent-ink:#042420;--calm:#A78BFA;--calm-soft:rgba(167,139,250,.15);--good:#34D399;--bad:#FF6B6B;--shadow:0 2px 6px rgba(0,0,0,.5),0 20px 50px rgba(0,0,0,.55);--shadow-sm:0 1px 2px rgba(0,0,0,.4),0 8px 20px rgba(0,0,0,.4);}
 
   *{box-sizing:border-box;} html,body{margin:0;height:100%;}
   body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none;}
@@ -81,7 +74,7 @@
   .today h2{font-family:var(--serif);font-weight:500;font-size:23px;margin:8px 0 3px;}
   .today p{margin:0 0 18px;color:var(--ink-soft);font-size:14px;}
   .startbtn{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:var(--accent-ink);border-radius:var(--r-pill);
-    padding:14px 24px;font-weight:800;font-size:15px;box-shadow:0 6px 18px rgba(224,145,60,.28);transition:transform .12s;}
+    padding:14px 24px;font-weight:800;font-size:15px;box-shadow:0 6px 18px rgba(78,205,196,.28);transition:transform .12s;}
   .startbtn:active{transform:translateY(1px);} .startbtn svg{width:17px;height:17px;}
 
   .sec-k{margin:30px 4px 12px;}
@@ -137,7 +130,7 @@
   /* buttons */
   .btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;border-radius:var(--r);padding:16px;font-weight:800;font-size:16px;transition:transform .1s;}
   .btn svg{width:18px;height:18px;flex:none;}
-  .btn.solid{background:var(--accent);color:var(--accent-ink);box-shadow:0 4px 14px rgba(224,145,60,.25);}
+  .btn.solid{background:var(--accent);color:var(--accent-ink);box-shadow:0 4px 14px rgba(78,205,196,.25);}
   .btn.solid:active{transform:translateY(2px);}
   .btn.calm{background:var(--calm);color:var(--accent-ink);}
   .btn.line{border:1px solid var(--line);color:var(--ink-soft);background:var(--panel);}
@@ -208,6 +201,26 @@
   .ep-step{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--ink-soft);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 13px;}
   .ep-step .n{width:25px;height:25px;flex:none;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:800;font-size:13px;}
   .ep-link{display:block;text-align:center;margin-top:13px;color:var(--accent);font-weight:700;font-size:13px;text-decoration:none;}
+  /* pronunciation diagnostic (ELSA-style) */
+  .pron{margin-top:18px;display:none;} .pron.show{display:block;animation:rise .3s ease;}
+  .pron-top{display:flex;align-items:center;gap:16px;}
+  .pron-ring{position:relative;width:72px;height:72px;flex:none;}
+  .pron-ring svg{width:72px;height:72px;transform:rotate(-90deg);}
+  .pron-ring circle{fill:none;stroke-width:6;}
+  .pron-ring .rb{stroke:var(--panel-2);}
+  .pron-ring .rf{stroke:var(--accent);stroke-linecap:round;stroke-dasharray:188.5;transition:stroke-dashoffset .9s cubic-bezier(.2,.9,.2,1);}
+  .pron-ring.ok .rf{stroke:var(--good);} .pron-ring.mid .rf{stroke:var(--accent-2);} .pron-ring.low .rf{stroke:var(--bad);}
+  .pron-ring b{position:absolute;inset:0;display:grid;place-items:center;font-weight:800;font-size:23px;font-variant-numeric:tabular-nums;}
+  .pron-lab{min-width:0;} .pron-lab .pt{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:800;}
+  .pron-lab .ps{font-weight:700;font-size:16px;margin:2px 0 9px;}
+  .pron-bars{display:grid;grid-template-columns:auto 1fr;gap:6px 9px;align-items:center;font-size:11px;color:var(--muted);max-width:230px;}
+  .pron-bars .bar{height:5px;border-radius:3px;background:var(--panel-2);overflow:hidden;} .pron-bars .bar u{display:block;height:100%;background:var(--accent-2);border-radius:3px;transition:width .8s ease;}
+  .pron-words{margin-top:18px;font-size:20px;line-height:1.95;font-weight:600;letter-spacing:-.01em;}
+  .pw{padding:0 1px;} .pw.w-ok{color:var(--good);} .pw.w-mid{color:var(--accent-2);} .pw.w-low{color:var(--bad);text-decoration:underline wavy;text-underline-offset:4px;} .pw.w-omit{color:var(--muted);opacity:.45;}
+  .pron-ab{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px;}
+  .abtn{display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:13px;font-weight:700;font-size:13px;color:var(--ink);transition:.14s;}
+  .abtn svg{width:15px;height:15px;flex:none;} .abtn:hover{border-color:var(--accent);}
+  .pron-note{margin-top:14px;font-size:13px;line-height:1.5;color:var(--ink-soft);background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;}
   /* app-native type: clean bold sans, no editorial serif */
   .hero h1,.onb-top h1{font-weight:800;letter-spacing:-.03em;}
   .es-lg,.es-md,.teach .es,.soundcard .nm,.soundcard .big,.shadow-model,.conv .txt,.today h2,.mode .mt,#sum h2,.sum-stat b,.log b,.clarity .pc,.clarity .tgt,.boot-in b,.brand b{font-weight:700;}
@@ -678,6 +691,60 @@ function diagnose(t,said){const T=t.replace(/\s+/g," ").trim().split(" "),Tn=T.m
   return{T,ok,pct:n?Math.round(ok.filter(Boolean).length/n*100):0};}
 function stopAudio(){try{if(activeRec)activeRec.abort();}catch(e){}activeRec=null;try{if(curAudio){curAudio.pause();curAudio=null;}}catch(e){}if("speechSynthesis" in window)speechSynthesis.cancel();}
 
+/* ═══ PRONUNCIATION — grava WAV + Azure Pronunciation Assessment (es-MX) ═══ */
+const PRON={stream:null,ctx:null,proc:null,samples:[],rate:16000,resolve:null,timer:null,tok:null,tokTs:0};
+async function pronEnsure(){ const s=PRON.stream; if(s&&s.getAudioTracks().some(t=>t.readyState==="live"&&t.enabled&&!t.muted))return s;
+  try{ PRON.stream=await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,echoCancellation:true,noiseSuppression:true}}); return PRON.stream; }catch(e){ return null; } }
+function pronStop(){ if(PRON.timer){clearTimeout(PRON.timer);PRON.timer=null;} if(PRON.proc){try{PRON.proc.disconnect();}catch(e){}PRON.proc=null;} if(PRON.ctx&&PRON.ctx.state!=="closed"){try{PRON.ctx.close();}catch(e){}PRON.ctx=null;}
+  if(PRON.resolve){ const all=PRON.samples,total=all.reduce((s,c)=>s+c.length,0);
+    if(total<PRON.rate*0.15)PRON.resolve(null);
+    else{ const merged=new Float32Array(total);let off=0;for(const c of all){merged.set(c,off);off+=c.length;} PRON.resolve(float32ToWav(resampleTo16k(merged,PRON.rate),16000)); }
+    PRON.resolve=null; }
+  PRON.samples=[]; }
+async function pronRecord(maxMs){ const stream=await pronEnsure(); if(!stream)return "denied";
+  try{ const Ctx=window.AudioContext||window.webkitAudioContext; const ctx=new Ctx(); PRON.ctx=ctx; PRON.rate=ctx.sampleRate||48000; if(ctx.state==="suspended"){try{await ctx.resume();}catch(e){}}
+    const src=ctx.createMediaStreamSource(stream); const proc=ctx.createScriptProcessor(4096,1,1); PRON.proc=proc; PRON.samples=[];
+    let silent=0,spoke=0; const SIL=0.006,SILLIM=7,SPMIN=5;
+    proc.onaudioprocess=e=>{ const input=e.inputBuffer.getChannelData(0); PRON.samples.push(new Float32Array(input));
+      let sum=0;for(let i=0;i<input.length;i++)sum+=input[i]*input[i]; const rms=Math.sqrt(sum/input.length);
+      if(rms>SIL){spoke++;silent=0;}else if(spoke>=SPMIN){silent++;if(silent>=SILLIM)pronStop();} };
+    const zero=ctx.createGain(); zero.gain.value=0; src.connect(proc); proc.connect(zero); zero.connect(ctx.destination);
+    return await new Promise(res=>{ PRON.resolve=res; PRON.timer=setTimeout(()=>{if(PRON.resolve)pronStop();},maxMs); });
+  }catch(e){ return null; } }
+async function pronGetToken(){ const now=Date.now(); if(PRON.tok&&now-PRON.tokTs<540000)return PRON.tok;
+  try{ const r=await fetch("/api/pron-token"); const d=await r.json(); if(!d||d.error)return null; PRON.tok={token:d.token,region:d.region}; PRON.tokTs=now; return PRON.tok; }catch(e){ return null; } }
+function b64utf8(s){ try{ const b=new TextEncoder().encode(s); let bin="";for(let i=0;i<b.length;i++)bin+=String.fromCharCode(b[i]); return btoa(bin); }catch(e){ return btoa(unescape(encodeURIComponent(s))); } }
+async function pronAssess(wav,ref){ const tok=await pronGetToken(); if(!tok)return null;
+  const cfg={ReferenceText:ref,GradingSystem:"HundredMark",Granularity:"Phoneme",Dimension:"Comprehensive",EnableMiscue:false,EnableProsodyAssessment:true};
+  try{ const res=await fetch("https://"+tok.region+".stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1?language=es-MX",{method:"POST",headers:{Authorization:"Bearer "+tok.token,"Content-Type":"audio/wav; codecs=audio/pcm; samplerate=16000","Pronunciation-Assessment":b64utf8(JSON.stringify(cfg)),Accept:"application/json"},body:wav});
+    if(!res.ok)return null; const data=await res.json(); if(data.RecognitionStatus!=="Success")return {silence:true};
+    const best=(data.NBest&&data.NBest[0])||{}; const pa=best.PronunciationAssessment||best||{};
+    const words=(best.Words||[]).map(w=>{const wpa=w.PronunciationAssessment||w;return{word:String(w.Word||""),acc:Math.round(Number(wpa.AccuracyScore||0)),err:String(wpa.ErrorType||"None")};});
+    return {score:Math.round(Number(pa.PronScore||0)),accuracy:Math.round(Number(pa.AccuracyScore||0)),fluency:Math.round(Number(pa.FluencyScore||0)),prosody:Math.round(Number(pa.ProsodyScore||0)),words,heard:data.DisplayText||""};
+  }catch(e){ return null; } }
+function resampleTo16k(input,src){ if(!src||src===16000||input.length===0)return input; const ratio=src/16000,outLen=Math.max(1,Math.floor(input.length/ratio)),out=new Float32Array(outLen);
+  for(let i=0;i<outLen;i++){const pos=i*ratio,i0=Math.floor(pos),i1=Math.min(i0+1,input.length-1),frac=pos-i0;out[i]=input[i0]*(1-frac)+input[i1]*frac;} return out; }
+function float32ToWav(samples,rate){ const int16=new Int16Array(samples.length);
+  for(let i=0;i<samples.length;i++){const s=Math.max(-1,Math.min(1,samples[i]));int16[i]=s<0?s*0x8000:s*0x7fff;}
+  const buf=new ArrayBuffer(44+int16.length*2),v=new DataView(buf),ws=(o,str)=>{for(let i=0;i<str.length;i++)v.setUint8(o+i,str.charCodeAt(i));};
+  ws(0,"RIFF");v.setUint32(4,36+int16.length*2,true);ws(8,"WAVE");ws(12,"fmt ");v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,rate,true);v.setUint32(28,rate*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);ws(36,"data");v.setUint32(40,int16.length*2,true);
+  for(let i=0;i<int16.length;i++)v.setInt16(44+i*2,int16[i],true); return new Blob([buf],{type:"audio/wav"}); }
+function scoreBand(s){ return s>=80?"ok":s>=55?"mid":"low"; }
+function pronABHtml(){ return `<div class="pron-ab"><button class="abtn" data-ab="me">${SVG.play}<span>Your take</span></button><button class="abtn" data-ab="model">${SVG.play}<span>Native model</span></button></div>`; }
+function pronResultHtml(r,model){
+  const ws=(r.words&&r.words.length)?r.words:model.replace(/[¿?¡!.,]/g,"").split(/\s+/).filter(Boolean).map(w=>({word:w,acc:r.accuracy,err:"None"}));
+  const wh=ws.map(w=>{const cls=w.err==="Omission"?"w-omit":w.acc>=80?"w-ok":w.acc>=55?"w-mid":"w-low";return `<span class="pw ${cls}">${w.word}</span>`;}).join(" ");
+  const off=(188.5*(1-Math.max(0,Math.min(100,r.score))/100)).toFixed(0);
+  return `<div class="pron-top">
+    <div class="pron-ring ${scoreBand(r.score)}"><svg viewBox="0 0 72 72"><circle class="rb" cx="36" cy="36" r="30"/><circle class="rf" cx="36" cy="36" r="30" style="stroke-dashoffset:${off}"/></svg><b>${r.score}</b></div>
+    <div class="pron-lab"><div class="pt">Pronunciation</div><div class="ps">${r.score>=80?"Native-like ✦":r.score>=55?"Getting there":"Keep drilling"}</div>
+      <div class="pron-bars"><span>Fluency</span><i class="bar"><u style="width:${r.fluency}%"></u></i><span>Prosody</span><i class="bar"><u style="width:${r.prosody}%"></u></i></div></div>
+  </div>
+  <div class="pron-words">${wh}</div>${pronABHtml()}`;
+}
+function bindAB(box,myUrl,model){ box.querySelectorAll(".abtn").forEach(b=>b.onclick=()=>{ stopAudio();
+  if(b.dataset.ab==="me"&&myUrl){ try{const a=new Audio(myUrl);curAudio=a;a.play().catch(()=>{});}catch(e){} } else say(model); }); }
+
 /* ═══ STATE / LOG ═══ */
 let ST=loadJSON("esf4",{level:"beginner",onboarded:false,days:0,lastDay:0,heard:0,shadowed:0,clarSum:0,clarN:0,srs:{},found:{}});
 ["srs","found"].forEach(k=>{if(!ST[k])ST[k]={};});
@@ -835,34 +902,34 @@ CARD.listen=(c,st)=>{
 };
 CARD.shadow=(c,st)=>{
   const model=c.text;
-  st.innerHTML=`<div class="cue">${c.intro?"New phrase · repeat it":"Shadow · say it out loud"}</div>
-    <div class="es-lg serif">${model}</div>${c.en?`<div class="en-sub">${c.en}</div>`:""}
+  st.innerHTML=`<div class="cue">${c.intro?"New phrase · repeat it":"Shadow · match the native voice"}</div>
+    <div class="es-lg">${model}</div>${c.en?`<div class="en-sub">${c.en}</div>`:""}
     <div class="audio-ctrls">
       <button class="actrl" id="cReplay">${SVG.spk} Model</button>
       <button class="actrl" id="cSlow">${SVG.slow} Slower</button>
     </div>
+    <div class="pron" id="pron"></div>
     <div class="spacer"></div>
-    <div class="clarity" id="clar"></div>
-    <button class="recbtn" id="rec">${SVG.mic} Tap & speak</button>
+    <button class="recbtn" id="rec">${SVG.mic} Tap &amp; speak</button>
     <button class="btn ghost mt10" id="skip">Skip</button>`;
   const play=(r)=>say(model,null,r);$("cReplay").onclick=()=>play();$("cSlow").onclick=()=>play(.58);play();
-  const rec=$("rec"),clar=$("clar");
-  let scored=false;
-  function record(pct){ S.shadowed++;ST.shadowed++; if(pct!=null){ST.clarSum+=pct;ST.clarN++;S.clar.push(pct);} srsBump(c.id, pct==null?true:pct>=55); save(); }
-  $("skip").onclick=()=>{ next(); };
-  rec.onclick=()=>{
-    if(scored){ haptic(10); next(); return; }        // button is "Continue" after a scored attempt
-    if(!micOK){ clar.className="clarity show"; clar.innerHTML='<div class="lb">Say it out loud along with the model. For a clarity score, open in Chrome or Safari.</div>'; record(null); scored=true; rec.innerHTML=SVG.arw+" Continue"; return; }
+  const rec=$("rec"),pron=$("pron");
+  let scored=false,myUrl=null;
+  const commitStats=(pct)=>{ S.shadowed++;ST.shadowed++; if(pct!=null){ST.clarSum+=pct;ST.clarN++;S.clar.push(pct);} srsBump(c.id,pct==null?true:pct>=55); save(); };
+  const cleanup=()=>{ if(myUrl){try{URL.revokeObjectURL(myUrl);}catch(e){}myUrl=null;} };
+  $("skip").onclick=()=>{ cleanup(); next(); };
+  rec.onclick=async()=>{
+    if(scored){ haptic(10); cleanup(); next(); return; }
     rec.className="recbtn rec"; rec.innerHTML=SVG.mic+" Listening…"; stopAudio();
-    listen(res=>{
-      rec.className="recbtn";
-      if(!res||res.error){ rec.innerHTML=SVG.mic+" Try again"; clar.className="clarity show"; clar.innerHTML='<div class="lb">Didn\'t catch that — try again, a bit closer to the mic.</div>'; return; }
-      const d=diagnose(model,res.heard); const g=d.pct>=80?["ok","Crystal clear"]:d.pct>=55?["mid","Almost there"]:["low","Keep drilling"];
-      const words=d.T.map((w,k)=>`<span class="${d.ok[k]?'w-ok':'w-miss'}">${w}</span>`).join(" ");
-      clar.className="clarity show";
-      clar.innerHTML=`<div class="top"><span class="pc ${g[0]}">${d.pct}%</span><span class="lb">${g[1]}</span></div><div class="tgt serif">${words}</div><div class="heard">Heard: <b>${res.heard||"—"}</b></div>`;
-      record(d.pct); scored=true; haptic(12); rec.innerHTML=SVG.arw+" Continue";
-    });
+    const wav=await pronRecord(6500);
+    if(wav==="denied"){ rec.className="recbtn"; rec.innerHTML=SVG.mic+" Enable mic & retry"; pron.className="pron show"; pron.innerHTML='<div class="pron-note">Allow microphone access to score your pronunciation — your browser asks once, then it just works.</div>'; return; }
+    if(!wav){ rec.className="recbtn"; rec.innerHTML=SVG.mic+" Try again"; pron.className="pron show"; pron.innerHTML='<div class="pron-note">Didn\'t catch that — tap, wait a beat, then say it clearly.</div>'; return; }
+    myUrl=URL.createObjectURL(wav);
+    rec.className="recbtn"; rec.innerHTML=SVG.mic+" Scoring…";
+    const r=await pronAssess(wav,model);
+    if(!r||r.silence){ pron.className="pron show"; pron.innerHTML=pronABHtml()+`<div class="pron-note">${r&&r.silence?"Couldn't make out the words — hear yourself vs the native model, then try again.":"Scoring is busy — compare your take to the native model below."}</div>`; bindAB(pron,myUrl,model); commitStats(null); scored=true; rec.innerHTML=SVG.arw+" Continue"; return; }
+    pron.className="pron show"; pron.innerHTML=pronResultHtml(r,model); bindAB(pron,myUrl,model);
+    commitStats(r.score); haptic(r.score>=80?[10,30,10]:12); scored=true; rec.innerHTML=SVG.arw+" Continue";
   };
 };
 CARD.sound=(c,st)=>{
@@ -949,7 +1016,7 @@ function finish(){
 }
 
 /* ═══ theme / level / onboarding / boot ═══ */
-$("theme").onclick=()=>{const cur=document.documentElement.getAttribute("data-theme");const dark=cur?cur==="dark":!matchMedia("(prefers-color-scheme: light)").matches;const nx=dark?"light":"dark";document.documentElement.setAttribute("data-theme",nx);try{localStorage.setItem("esf4_theme",nx);}catch(e){}};
+$("theme").onclick=()=>{const cur=document.documentElement.getAttribute("data-theme");const dark=cur?cur==="dark":true;const nx=dark?"light":"dark";document.documentElement.setAttribute("data-theme",nx);try{localStorage.setItem("esf4_theme",nx);}catch(e){}};
 $("lvlChip").onclick=()=>{ST.level=beginner()?"intermediate":"beginner";save();renderHome();};
 $("levels").querySelectorAll(".lvl").forEach(l=>l.onclick=()=>{$("levels").querySelectorAll(".lvl").forEach(x=>x.classList.remove("sel"));l.classList.add("sel");ST.level=l.dataset.l;});
 $("onbStart").onclick=()=>{ac();ST.onboarded=true;save();onb.classList.remove("show");showHome();};
