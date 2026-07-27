@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
       req.headers.get('user-agent') ||
       ''
 
-    const row = {
+    const row: Record<string, any> = {
       session_id,
       fbc: body.fbc || null,
       fbp: body.fbp || null,
@@ -34,6 +34,12 @@ export async function POST(req: NextRequest) {
       utm_content: body.utm_content || null,
       utm_term: body.utm_term || null,
       sck: body.sck || null,
+    }
+    // Google click IDs — chaves só entram quando presentes: PostgREST rejeita
+    // a row INTEIRA se receber coluna desconhecida, e isso não pode derrubar
+    // a costura da Meta caso a migração das colunas ainda não tenha rodado.
+    for (const k of ['gclid', 'gbraid', 'wbraid']) {
+      if (body[k]) row[k] = String(body[k]).slice(0, 200)
     }
 
     await fetch(`${SUPA_URL}/rest/v1/checkout_sessions`, {

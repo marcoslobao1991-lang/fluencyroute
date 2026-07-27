@@ -29,6 +29,20 @@ export default function PageViewTracker() {
       }
     } catch {}
 
+    // Google click IDs (gclid/gbraid/wbraid) → cookie 90d, cross-subdomain.
+    // O clique do anúncio Google só chega uma vez na URL; persistir aqui garante
+    // que o CTA da VSL (aberto minutos depois, ou em visita de retorno) ainda
+    // consiga amarrar a compra ao clique pra importação offline de conversões.
+    try {
+      const q = new URLSearchParams(window.location.search)
+      for (const k of ['gclid', 'gbraid', 'wbraid']) {
+        const v = q.get(k)
+        if (v) {
+          document.cookie = `_fr_${k}=${encodeURIComponent(v)}; path=/; domain=.fluencyroute.com.br; max-age=${60 * 60 * 24 * 90}; SameSite=Lax`
+        }
+      }
+    } catch {}
+
     // Browser Pixel — trackSingle no pixel INGLÊS (938), NÃO 'track' genérico.
     // 'track' bate em TODOS os pixels iniciados; em rotas onde o pixel espanhol
     // (690) também está iniciado (ex: /spanish) isso mandava um PageView

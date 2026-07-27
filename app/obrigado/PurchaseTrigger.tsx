@@ -105,9 +105,19 @@ export default function PurchaseTrigger() {
       }, 200)
     }
 
-    // Fast path: email no querystring (Kiwify interpolou)
+    // Fast path: email no querystring (Kiwify interpolou). O valor REAL ainda
+    // vem do server (antes mandava DEFAULT_VALUE=289 fixo — inflava conversões
+    // de R$29/49 e sujava qualquer otimização por valor/tROAS no Google).
     if (emailFromUrl) {
-      waitForGtag(() => fireWithUserData(emailFromUrl, DEFAULT_VALUE))
+      if (orderId) {
+        pollOrderInfo(orderId).then(({ value }) => {
+          if (cancelled) return
+          const v = value && value > 0 ? value : DEFAULT_VALUE
+          waitForGtag(() => fireWithUserData(emailFromUrl, v))
+        })
+      } else {
+        waitForGtag(() => fireWithUserData(emailFromUrl, DEFAULT_VALUE))
+      }
       return () => { cancelled = true }
     }
 

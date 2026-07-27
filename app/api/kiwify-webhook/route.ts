@@ -323,6 +323,30 @@ export async function POST(req: NextRequest) {
     console.log(`[Kiwify trace] stitch_row=${JSON.stringify({ fbc: !!stitched.fbc, fbp: !!stitched.fbp, ip: !!stitched.ip, ua: !!stitched.ua, fbclid: !!stitched.fbclid, sck: !!stitched.sck })}`)
     console.log(`[Kiwify trace] kiwify_params=${JSON.stringify(trackingParams).slice(0,500)}`)
 
+    // ═══ 1b. GOOGLE OFFLINE CONVERSIONS — persiste click IDs no pedido ═══
+    // A sessão costurada pode carregar gclid/gbraid/wbraid (salvos no clique do
+    // CTA). Gravar no pedido é o que permite o /api/google-conversions exportar
+    // a compra pro Google Ads com valor real. Fire-and-forget: falha aqui
+    // (ex: colunas ainda não migradas) não pode afetar CAPI/email.
+    const googleIds: Record<string, string> = {}
+    for (const k of ['gclid', 'gbraid', 'wbraid']) {
+      if (stitched[k]) googleIds[k] = stitched[k]
+    }
+    if (Object.keys(googleIds).length > 0) {
+      fetch(`${SUPA_URL}/rest/v1/orders?pagarme_order_id=eq.${encodeURIComponent(orderId)}`, {
+        method: 'PATCH',
+        headers: {
+          apikey: SUPA_SERVICE_KEY,
+          Authorization: `Bearer ${SUPA_SERVICE_KEY}`,
+          'Content-Type': 'application/json',
+          Prefer: 'return=minimal',
+        },
+        body: JSON.stringify(googleIds),
+      }).then(r => {
+        if (!r.ok) console.warn(`[Kiwify] google click id patch failed HTTP ${r.status} — rode a migração das colunas gclid`)
+      }).catch(e => console.warn('[Kiwify] google click id patch failed:', e?.message))
+    }
+
     // ═══ 1b. META CAPI — Purchase (fully enriched) ═══
     const address = customer.address || customer.Address || {}
     const cpfRaw = String(customer.CPF || customer.cpf || customer.document || '').replace(/\D/g, '')

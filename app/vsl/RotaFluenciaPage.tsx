@@ -799,6 +799,19 @@ function getOrCreateSessionId(): string {
   }
 }
 
+/** gclid/gbraid/wbraid: URL atual primeiro, senão cookie _fr_* (PageViewTracker, 90d) */
+function getGoogleClickIds(): { gclid?: string; gbraid?: string; wbraid?: string } {
+  const out: Record<string, string> = {}
+  try {
+    const q = new URLSearchParams(window.location.search)
+    for (const k of ['gclid', 'gbraid', 'wbraid']) {
+      const v = q.get(k) || document.cookie.match(new RegExp(`(?:^|;\\s*)_fr_${k}=([^;]+)`))?.[1]
+      if (v) out[k] = decodeURIComponent(v)
+    }
+  } catch {}
+  return out
+}
+
 function saveCheckoutSession(sessionId: string) {
   if (typeof window === 'undefined' || !sessionId) return
   const { fbc, fbp } = getFbCookies()
@@ -808,6 +821,7 @@ function saveCheckoutSession(sessionId: string) {
     fbc,
     fbp,
     fbclid: p.get('fbclid') || undefined,
+    ...getGoogleClickIds(),
     client_ip_address: cachedIp || undefined,
     client_user_agent: getUserAgent() || undefined,
     utm_source: p.get('utm_source') || undefined,
@@ -865,6 +879,7 @@ function Btn({ text = 'QUERO FAZER PARTE', compact, utms = {}, checkout = 'https
         fbc,
         fbp,
         fbclid: p.get('fbclid') || undefined,
+        ...getGoogleClickIds(),
         client_ip_address: cachedIp || undefined,
         client_user_agent: getUserAgent() || undefined,
         sck: currentSck,
