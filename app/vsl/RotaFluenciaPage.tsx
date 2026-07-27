@@ -893,6 +893,17 @@ function Btn({ text = 'QUERO FAZER PARTE', compact, utms = {}, checkout = 'https
     saveCheckoutSession(effectiveSid)
     try { frTrack('checkout_click') } catch {}
     trackDual('InitiateCheckout')
+    // Google Ads "IC FLUENCY ROUTE" — clique no CTA, sem event_callback:
+    // o checkout abre em nova aba, esta página não descarrega.
+    try {
+      if (typeof (window as any).gtag === 'function') {
+        (window as any).gtag('event', 'conversion', {
+          send_to: 'AW-16694165189/oKXNCODkutccEMX9spg-',
+          value: 1.0,
+          currency: 'BRL',
+        })
+      }
+    } catch {}
   }
   return (
     <a ref={anchorRef} href={checkoutUrl} target="_blank" rel="noopener noreferrer" className="cta-btn"
