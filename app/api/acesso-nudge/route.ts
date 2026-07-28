@@ -45,7 +45,8 @@ function emailHtml(nome: string, email: string, senha: string, n: number) {
       <p style="color:#fff;font-size:15px;margin:0"><b>Senha:</b> ${senha}</p>
     </div>
     <a href="${APP_URL}" style="display:inline-block;margin:6px 0 8px;background:#0B6E68;color:#fff;font-weight:900;font-size:16px;padding:16px 28px;border-radius:12px;text-decoration:none">ENTRAR NA PLATAFORMA ▶</a>
-    <p style="font-size:13px;color:#7a8a88;line-height:1.6;margin-top:14px">Qualquer dificuldade, responde este e-mail que a gente resolve com você.</p>
+    <p style="font-size:14px;color:#3D4A49;line-height:1.6;margin-top:14px">Prefere entrar <b>sem senha</b>? Acesse <a href="https://fluencyroute.com.br/acesso" style="color:#0B6E68;font-weight:700">fluencyroute.com.br/acesso</a>, digite este e-mail e você entra na hora.</p>
+    <p style="font-size:13px;color:#7a8a88;line-height:1.6;margin-top:10px">Qualquer dificuldade, responde este e-mail que a gente resolve com você.</p>
     <p style="font-size:11px;color:#9aa;margin-top:28px">Fluency Route · você recebeu porque sua compra foi aprovada e o acesso ainda não foi utilizado.</p>
   </div></body></html>`;
 }
