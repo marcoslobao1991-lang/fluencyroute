@@ -1,5 +1,12 @@
 {
   "crons": [
-    { "path": "/api/funil-emails", "schedule": "0 12 * * *" }
+    {
+      "path": "/api/funil-emails",
+      "schedule": "0 12 * * *"
+    },
+    {
+      "path": "/api/acesso-nudge",
+      "schedule": "30 13 * * *"
+    }
   ]
 }
