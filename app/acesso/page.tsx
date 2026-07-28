@@ -45,7 +45,12 @@ export default function AcessoPage() {
             <p style={{ fontSize: 17, fontWeight: 700, margin: 0 }}>Entrando... ✅</p>
             <p style={{ fontSize: 15, color: '#3D4A49', lineHeight: 1.6, marginTop: 8 }}>
               Você está sendo levado pra plataforma agora. Se a página não abrir sozinha em alguns
-              segundos, olha teu e-mail — mandamos um botão de entrada lá também.
+              segundos, olha teu e-mail (<b>confere também o spam/promoções</b>) — mandamos um
+              botão de entrada lá.
+            </p>
+            <p style={{ fontSize: 14, color: '#3D4A49', lineHeight: 1.6, marginTop: 10 }}>
+              Pra entrar de novo qualquer dia: volta aqui em <b>fluencyroute.com.br/acesso</b> —
+              funciona sempre, sem senha.
             </p>
           </div>
         ) : (
