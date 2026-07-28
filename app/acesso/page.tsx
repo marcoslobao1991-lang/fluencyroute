@@ -20,8 +20,10 @@ export default function AcessoPage() {
         body: JSON.stringify({ email }),
       });
       const j = await r.json();
-      if (j.ok) setEstado('enviado');
-      else if (j.motivo === 'compra_nao_encontrada') setEstado('nao_achou');
+      if (j.ok && j.link) {
+        setEstado('enviado');
+        window.location.href = j.link;
+      } else if (j.motivo === 'compra_nao_encontrada') setEstado('nao_achou');
       else setEstado('erro');
     } catch {
       setEstado('erro');
@@ -40,17 +42,17 @@ export default function AcessoPage() {
 
         {estado === 'enviado' ? (
           <div style={{ background: '#E8F7F5', border: '1px solid #12B5AC', borderRadius: 12, padding: '20px 22px' }}>
-            <p style={{ fontSize: 17, fontWeight: 700, margin: 0 }}>Link enviado! 📬</p>
+            <p style={{ fontSize: 17, fontWeight: 700, margin: 0 }}>Entrando... ✅</p>
             <p style={{ fontSize: 15, color: '#3D4A49', lineHeight: 1.6, marginTop: 8 }}>
-              Olha a caixa de entrada de <b>{email}</b> (e a pasta de spam/promoções). O link entra
-              direto, sem senha, e vale por 1 hora.
+              Você está sendo levado pra plataforma agora. Se a página não abrir sozinha em alguns
+              segundos, olha teu e-mail — mandamos um botão de entrada lá também.
             </p>
           </div>
         ) : (
           <>
             <p style={{ fontSize: 16, color: '#3D4A49', lineHeight: 1.65 }}>
-              Digite o e-mail que você usou na compra. A gente te manda um{' '}
-              <b>link de entrada direta</b> — um clique e você está dentro, sem precisar de senha.
+              Digite o e-mail que você usou na compra e clique no botão —{' '}
+              <b>você entra na hora</b>, sem senha e sem precisar abrir e-mail.
             </p>
             <form onSubmit={enviar} style={{ marginTop: 18 }}>
               <input
