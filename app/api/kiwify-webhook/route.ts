@@ -614,7 +614,7 @@ Investigar: Meta Events Manager → Diagnóstico`
     // acesso PRONTA (nome, e-mail, senha). Marcos toca, confere e envia do
     // próprio celular — conversa manual, zero risco de ban.
     if (RESEND_API_KEY) {
-      const msgAluno = `Oi ${firstName}! Aqui é o Marcos, do Rota da Fluência 😊\n\nSua compra foi aprovada — obrigado pela confiança!\n\nSeu curso mora aqui (salva esse link!):\n👉 app.fluencyroute.com.br\n\nE-mail: ${email}\nSenha: ${password || 'a que você já usa (ou entre sem senha: fluencyroute.com.br/acesso)'}\n\nLá dentro a MANU, sua teacher particular de IA, já está te esperando — entra e diz oi pra ela! Qualquer coisa me chama aqui. 💜`
+      const msgAluno = `Oi ${firstName}! Aqui é o Marcos, do Rota da Fluência 😊\n\nSua compra foi aprovada — obrigado pela confiança!\n\n📢 Aviso importante: estamos de PLATAFORMA NOVA, muito melhor — e o seu curso completo mora nela:\n👉 app.fluencyroute.com.br\n(salva esse link nos favoritos!)\n\nSeus dados de acesso:\nE-mail: ${email}\nSenha: ${password || 'a que você já usa (ou entre sem senha: fluencyroute.com.br/acesso)'}\n\nPode chegar um e-mail da Kiwify também — lá é só o pagamento. O curso de verdade é na plataforma nova, tá? 😉\n\nLá dentro a MANU, sua teacher particular de IA, já está te esperando — entra e diz oi pra ela! Qualquer coisa me chama aqui. 💜`
       const foneAluno = phone ? (phone.startsWith('55') ? phone : `55${phone}`) : ''
       const linkZap = foneAluno ? `https://wa.me/${foneAluno}?text=${encodeURIComponent(msgAluno)}` : ''
       await fetch('https://api.resend.com/emails', {
