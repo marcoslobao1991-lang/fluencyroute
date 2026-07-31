@@ -4,14 +4,294 @@
   "graph": {},
   "nodes": [
     {
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "app/privacidade/page.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "app_privacidade_page",
+      "community": 30,
+      "norm_label": "page.tsx"
+    },
+    {
+      "label": "metadata",
+      "file_type": "code",
+      "source_file": "app/privacidade/page.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "app_privacidade_page_metadata",
+      "community": 30,
+      "norm_label": "metadata"
+    },
+    {
+      "label": "Privacidade()",
+      "file_type": "code",
+      "source_file": "app/privacidade/page.tsx",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "app_privacidade_page_privacidade",
+      "community": 30,
+      "norm_label": "privacidade()"
+    },
+    {
+      "label": "WHATSAPP_ACESSO.md",
+      "file_type": "document",
+      "source_file": "WHATSAPP_ACESSO.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 27,
+      "norm_label": "whatsapp_acesso.md",
+      "id": "whatsapp_acesso"
+    },
+    {
+      "label": "Kit WhatsApp \u2014 entrega de acesso (Rota da Flu\u00eancia)",
+      "file_type": "document",
+      "source_file": "WHATSAPP_ACESSO.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 27,
+      "norm_label": "kit whatsapp \u2014 entrega de acesso (rota da fluencia)",
+      "id": "whatsapp_acesso_kit_whatsapp_entrega_de_acesso_rota_da_flu\u00eancia"
+    },
+    {
+      "label": "D0 \u2014 na hora da compra (junto com o e-mail)",
+      "file_type": "document",
+      "source_file": "WHATSAPP_ACESSO.md",
+      "source_location": "L10",
+      "_origin": "ast",
+      "community": 27,
+      "norm_label": "d0 \u2014 na hora da compra (junto com o e-mail)",
+      "id": "whatsapp_acesso_d0_na_hora_da_compra_junto_com_o_e_mail"
+    },
+    {
+      "label": "D+1 \u2014 n\u00e3o logou ainda",
+      "file_type": "document",
+      "source_file": "WHATSAPP_ACESSO.md",
+      "source_location": "L26",
+      "_origin": "ast",
+      "community": 27,
+      "norm_label": "d+1 \u2014 nao logou ainda",
+      "id": "whatsapp_acesso_d_1_n\u00e3o_logou_ainda"
+    },
+    {
+      "label": "D+3 \u2014 segundo toque (prova + facilidade)",
+      "file_type": "document",
+      "source_file": "WHATSAPP_ACESSO.md",
+      "source_location": "L38",
+      "_origin": "ast",
+      "community": 27,
+      "norm_label": "d+3 \u2014 segundo toque (prova + facilidade)",
+      "id": "whatsapp_acesso_d_3_segundo_toque_prova_facilidade"
+    },
+    {
+      "label": "D+7 \u2014 \u00faltimo da r\u00e9gua (tom humano, porta aberta)",
+      "file_type": "document",
+      "source_file": "WHATSAPP_ACESSO.md",
+      "source_location": "L50",
+      "_origin": "ast",
+      "community": 27,
+      "norm_label": "d+7 \u2014 ultimo da regua (tom humano, porta aberta)",
+      "id": "whatsapp_acesso_d_7_\u00faltimo_da_r\u00e9gua_tom_humano_porta_aberta"
+    },
+    {
+      "label": "\ud83d\ude91 Resgate de pedido de reembolso (quem NUNCA logou)",
+      "file_type": "document",
+      "source_file": "WHATSAPP_ACESSO.md",
+      "source_location": "L60",
+      "_origin": "ast",
+      "community": 27,
+      "norm_label": "\ud83d\ude91 resgate de pedido de reembolso (quem nunca logou)",
+      "id": "whatsapp_acesso_resgate_de_pedido_de_reembolso_quem_nunca_logou"
+    },
+    {
+      "label": "\u2705 C\u00d3DIGO J\u00c1 LIGADO (31/07) \u2014 s\u00f3 faltam as envs",
+      "file_type": "document",
+      "source_file": "WHATSAPP_ACESSO.md",
+      "source_location": "L73",
+      "_origin": "ast",
+      "community": 27,
+      "norm_label": "\u2705 codigo ja ligado (31/07) \u2014 so faltam as envs",
+      "id": "whatsapp_acesso_c\u00f3digo_j\u00e1_ligado_31_07_s\u00f3_faltam_as_envs"
+    },
+    {
+      "label": "Setup do n\u00famero novo (~40 min, uma vez)",
+      "file_type": "document",
+      "source_file": "WHATSAPP_ACESSO.md",
+      "source_location": "L95",
+      "_origin": "ast",
+      "community": 27,
+      "norm_label": "setup do numero novo (~40 min, uma vez)",
+      "id": "whatsapp_acesso_setup_do_n\u00famero_novo_40_min_uma_vez"
+    },
+    {
+      "label": "route.ts",
+      "file_type": "code",
+      "source_file": "app/api/kiwify-webhook/route.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "route.ts",
+      "id": "app_api_kiwify_webhook_route"
+    },
+    {
+      "label": "hash()",
+      "file_type": "code",
+      "source_file": "app/api/kiwify-webhook/route.ts",
+      "source_location": "L20",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "hash()",
+      "id": "app_api_kiwify_webhook_route_hash"
+    },
+    {
+      "label": "generatePassword()",
+      "file_type": "code",
+      "source_file": "app/api/kiwify-webhook/route.ts",
+      "source_location": "L24",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "generatepassword()",
+      "id": "app_api_kiwify_webhook_route_generatepassword"
+    },
+    {
+      "label": "createUser()",
+      "file_type": "code",
+      "source_file": "app/api/kiwify-webhook/route.ts",
+      "source_location": "L31",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "createuser()",
+      "id": "app_api_kiwify_webhook_route_createuser"
+    },
+    {
+      "label": "findUserIdByEmail()",
+      "file_type": "code",
+      "source_file": "app/api/kiwify-webhook/route.ts",
+      "source_location": "L51",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "finduseridbyemail()",
+      "id": "app_api_kiwify_webhook_route_finduseridbyemail"
+    },
+    {
+      "label": "lookupStitchedBySessionId()",
+      "file_type": "code",
+      "source_file": "app/api/kiwify-webhook/route.ts",
+      "source_location": "L71",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "lookupstitchedbysessionid()",
+      "id": "app_api_kiwify_webhook_route_lookupstitchedbysessionid"
+    },
+    {
+      "label": "lookupStitchedBySck()",
+      "file_type": "code",
+      "source_file": "app/api/kiwify-webhook/route.ts",
+      "source_location": "L90",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "lookupstitchedbysck()",
+      "id": "app_api_kiwify_webhook_route_lookupstitchedbysck"
+    },
+    {
+      "label": "lookupStitchedByFbclid()",
+      "file_type": "code",
+      "source_file": "app/api/kiwify-webhook/route.ts",
+      "source_location": "L108",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "lookupstitchedbyfbclid()",
+      "id": "app_api_kiwify_webhook_route_lookupstitchedbyfbclid"
+    },
+    {
+      "label": "fbcFromFbclid()",
+      "file_type": "code",
+      "source_file": "app/api/kiwify-webhook/route.ts",
+      "source_location": "L125",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "fbcfromfbclid()",
+      "id": "app_api_kiwify_webhook_route_fbcfromfbclid"
+    },
+    {
+      "label": "createSubscription()",
+      "file_type": "code",
+      "source_file": "app/api/kiwify-webhook/route.ts",
+      "source_location": "L131",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "createsubscription()",
+      "id": "app_api_kiwify_webhook_route_createsubscription"
+    },
+    {
+      "label": "sendWelcomeEmail()",
+      "file_type": "code",
+      "source_file": "app/api/kiwify-webhook/route.ts",
+      "source_location": "L154",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "sendwelcomeemail()",
+      "id": "app_api_kiwify_webhook_route_sendwelcomeemail"
+    },
+    {
+      "label": "waPronto()",
+      "file_type": "code",
+      "source_file": "app/api/kiwify-webhook/route.ts",
+      "source_location": "L209",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "wapronto()",
+      "id": "app_api_kiwify_webhook_route_wapronto"
+    },
+    {
+      "label": "sendWhatsApp()",
+      "file_type": "code",
+      "source_file": "app/api/kiwify-webhook/route.ts",
+      "source_location": "L211",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "sendwhatsapp()",
+      "id": "app_api_kiwify_webhook_route_sendwhatsapp"
+    },
+    {
+      "label": "sendWhatsAppTemplate()",
+      "file_type": "code",
+      "source_file": "app/api/kiwify-webhook/route.ts",
+      "source_location": "L222",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "sendwhatsapptemplate()",
+      "id": "app_api_kiwify_webhook_route_sendwhatsapptemplate"
+    },
+    {
+      "label": "verifyKiwifySignature()",
+      "file_type": "code",
+      "source_file": "app/api/kiwify-webhook/route.ts",
+      "source_location": "L241",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "verifykiwifysignature()",
+      "id": "app_api_kiwify_webhook_route_verifykiwifysignature"
+    },
+    {
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "app/api/kiwify-webhook/route.ts",
+      "source_location": "L258",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "post()",
+      "id": "app_api_kiwify_webhook_route_post"
+    },
+    {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "app/api/acesso-nudge/route.ts",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "app_api_acesso_nudge_route",
       "community": 23,
-      "norm_label": "route.ts"
+      "norm_label": "route.ts",
+      "id": "app_api_acesso_nudge_route"
     },
     {
       "label": "ASSUNTOS",
@@ -19,9 +299,9 @@
       "source_file": "app/api/acesso-nudge/route.ts",
       "source_location": "L19",
       "_origin": "ast",
-      "id": "app_api_acesso_nudge_route_assuntos",
       "community": 23,
-      "norm_label": "assuntos"
+      "norm_label": "assuntos",
+      "id": "app_api_acesso_nudge_route_assuntos"
     },
     {
       "label": "novaSenha()",
@@ -29,9 +309,9 @@
       "source_file": "app/api/acesso-nudge/route.ts",
       "source_location": "L25",
       "_origin": "ast",
-      "id": "app_api_acesso_nudge_route_novasenha",
       "community": 23,
-      "norm_label": "novasenha()"
+      "norm_label": "novasenha()",
+      "id": "app_api_acesso_nudge_route_novasenha"
     },
     {
       "label": "emailHtml()",
@@ -39,19 +319,129 @@
       "source_file": "app/api/acesso-nudge/route.ts",
       "source_location": "L29",
       "_origin": "ast",
-      "id": "app_api_acesso_nudge_route_emailhtml",
       "community": 23,
-      "norm_label": "emailhtml()"
+      "norm_label": "emailhtml()",
+      "id": "app_api_acesso_nudge_route_emailhtml"
     },
     {
       "label": "GET()",
       "file_type": "code",
       "source_file": "app/api/acesso-nudge/route.ts",
-      "source_location": "L54",
+      "source_location": "L56",
       "_origin": "ast",
-      "id": "app_api_acesso_nudge_route_get",
       "community": 23,
-      "norm_label": "get()"
+      "norm_label": "get()",
+      "id": "app_api_acesso_nudge_route_get"
+    },
+    {
+      "label": "layout.tsx",
+      "file_type": "code",
+      "source_file": "app/layout.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 29,
+      "norm_label": "layout.tsx",
+      "id": "app_layout"
+    },
+    {
+      "label": "dmSans",
+      "file_type": "code",
+      "source_file": "app/layout.tsx",
+      "source_location": "L7",
+      "_origin": "ast",
+      "community": 29,
+      "norm_label": "dmsans",
+      "id": "app_layout_dmsans"
+    },
+    {
+      "label": "metadata",
+      "file_type": "code",
+      "source_file": "app/layout.tsx",
+      "source_location": "L13",
+      "_origin": "ast",
+      "community": 29,
+      "norm_label": "metadata",
+      "id": "app_layout_metadata"
+    },
+    {
+      "label": "viewport",
+      "file_type": "code",
+      "source_file": "app/layout.tsx",
+      "source_location": "L36",
+      "_origin": "ast",
+      "community": 29,
+      "norm_label": "viewport",
+      "id": "app_layout_viewport"
+    },
+    {
+      "label": "RootLayout()",
+      "file_type": "code",
+      "source_file": "app/layout.tsx",
+      "source_location": "L42",
+      "_origin": "ast",
+      "community": 29,
+      "norm_label": "rootlayout()",
+      "id": "app_layout_rootlayout"
+    },
+    {
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "app/supremo/page.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 28,
+      "norm_label": "page.tsx",
+      "id": "app_supremo_page"
+    },
+    {
+      "label": "metadata",
+      "file_type": "code",
+      "source_file": "app/supremo/page.tsx",
+      "source_location": "L6",
+      "_origin": "ast",
+      "community": 28,
+      "norm_label": "metadata",
+      "id": "app_supremo_page_metadata"
+    },
+    {
+      "label": "features",
+      "file_type": "code",
+      "source_file": "app/supremo/page.tsx",
+      "source_location": "L11",
+      "_origin": "ast",
+      "community": 28,
+      "norm_label": "features",
+      "id": "app_supremo_page_features"
+    },
+    {
+      "label": "modules",
+      "file_type": "code",
+      "source_file": "app/supremo/page.tsx",
+      "source_location": "L17",
+      "_origin": "ast",
+      "community": 28,
+      "norm_label": "modules",
+      "id": "app_supremo_page_modules"
+    },
+    {
+      "label": "faqs",
+      "file_type": "code",
+      "source_file": "app/supremo/page.tsx",
+      "source_location": "L26",
+      "_origin": "ast",
+      "community": 28,
+      "norm_label": "faqs",
+      "id": "app_supremo_page_faqs"
+    },
+    {
+      "label": "SupremoPage()",
+      "file_type": "code",
+      "source_file": "app/supremo/page.tsx",
+      "source_location": "L34",
+      "_origin": "ast",
+      "community": 28,
+      "norm_label": "supremopage()",
+      "id": "app_supremo_page_supremopage"
     },
     {
       "label": "page.tsx",
@@ -172,146 +562,6 @@
       "community": 22,
       "norm_label": "get()",
       "id": "app_api_google_conversions_route_get"
-    },
-    {
-      "label": "route.ts",
-      "file_type": "code",
-      "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 9,
-      "norm_label": "route.ts",
-      "id": "app_api_kiwify_webhook_route"
-    },
-    {
-      "label": "hash()",
-      "file_type": "code",
-      "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L20",
-      "_origin": "ast",
-      "community": 9,
-      "norm_label": "hash()",
-      "id": "app_api_kiwify_webhook_route_hash"
-    },
-    {
-      "label": "generatePassword()",
-      "file_type": "code",
-      "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L24",
-      "_origin": "ast",
-      "community": 9,
-      "norm_label": "generatepassword()",
-      "id": "app_api_kiwify_webhook_route_generatepassword"
-    },
-    {
-      "label": "createUser()",
-      "file_type": "code",
-      "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L31",
-      "_origin": "ast",
-      "community": 9,
-      "norm_label": "createuser()",
-      "id": "app_api_kiwify_webhook_route_createuser"
-    },
-    {
-      "label": "findUserIdByEmail()",
-      "file_type": "code",
-      "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L51",
-      "_origin": "ast",
-      "community": 9,
-      "norm_label": "finduseridbyemail()",
-      "id": "app_api_kiwify_webhook_route_finduseridbyemail"
-    },
-    {
-      "label": "lookupStitchedBySessionId()",
-      "file_type": "code",
-      "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L71",
-      "_origin": "ast",
-      "community": 9,
-      "norm_label": "lookupstitchedbysessionid()",
-      "id": "app_api_kiwify_webhook_route_lookupstitchedbysessionid"
-    },
-    {
-      "label": "lookupStitchedBySck()",
-      "file_type": "code",
-      "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L90",
-      "_origin": "ast",
-      "community": 9,
-      "norm_label": "lookupstitchedbysck()",
-      "id": "app_api_kiwify_webhook_route_lookupstitchedbysck"
-    },
-    {
-      "label": "lookupStitchedByFbclid()",
-      "file_type": "code",
-      "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L108",
-      "_origin": "ast",
-      "community": 9,
-      "norm_label": "lookupstitchedbyfbclid()",
-      "id": "app_api_kiwify_webhook_route_lookupstitchedbyfbclid"
-    },
-    {
-      "label": "fbcFromFbclid()",
-      "file_type": "code",
-      "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L125",
-      "_origin": "ast",
-      "community": 9,
-      "norm_label": "fbcfromfbclid()",
-      "id": "app_api_kiwify_webhook_route_fbcfromfbclid"
-    },
-    {
-      "label": "createSubscription()",
-      "file_type": "code",
-      "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L131",
-      "_origin": "ast",
-      "community": 9,
-      "norm_label": "createsubscription()",
-      "id": "app_api_kiwify_webhook_route_createsubscription"
-    },
-    {
-      "label": "sendWelcomeEmail()",
-      "file_type": "code",
-      "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L154",
-      "_origin": "ast",
-      "community": 9,
-      "norm_label": "sendwelcomeemail()",
-      "id": "app_api_kiwify_webhook_route_sendwelcomeemail"
-    },
-    {
-      "label": "sendWhatsApp()",
-      "file_type": "code",
-      "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L190",
-      "_origin": "ast",
-      "community": 9,
-      "norm_label": "sendwhatsapp()",
-      "id": "app_api_kiwify_webhook_route_sendwhatsapp"
-    },
-    {
-      "label": "verifyKiwifySignature()",
-      "file_type": "code",
-      "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L202",
-      "_origin": "ast",
-      "community": 9,
-      "norm_label": "verifykiwifysignature()",
-      "id": "app_api_kiwify_webhook_route_verifykiwifysignature"
-    },
-    {
-      "label": "POST()",
-      "file_type": "code",
-      "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L219",
-      "_origin": "ast",
-      "community": 9,
-      "norm_label": "post()",
-      "id": "app_api_kiwify_webhook_route_post"
     },
     {
       "label": "PurchaseTrigger.tsx",
@@ -2308,124 +2558,102 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "app/api/acesso-nudge/route.ts",
-      "source_location": "L19",
+      "source_file": "app/privacidade/page.tsx",
+      "source_location": "L1",
       "weight": 1.0,
-      "source": "app_api_acesso_nudge_route",
-      "target": "app_api_acesso_nudge_route_assuntos",
+      "source": "app_privacidade_page",
+      "target": "app_privacidade_page_metadata",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "app/api/acesso-nudge/route.ts",
-      "source_location": "L29",
-      "weight": 1.0,
-      "source": "app_api_acesso_nudge_route",
-      "target": "app_api_acesso_nudge_route_emailhtml",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "app/api/acesso-nudge/route.ts",
-      "source_location": "L54",
-      "weight": 1.0,
-      "source": "app_api_acesso_nudge_route",
-      "target": "app_api_acesso_nudge_route_get",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "app/api/acesso-nudge/route.ts",
-      "source_location": "L25",
-      "weight": 1.0,
-      "source": "app_api_acesso_nudge_route",
-      "target": "app_api_acesso_nudge_route_novasenha",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "app/api/acesso-nudge/route.ts",
-      "source_location": "L93",
-      "weight": 1.0,
-      "source": "app_api_acesso_nudge_route_get",
-      "target": "app_api_acesso_nudge_route_novasenha",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "app/api/acesso-nudge/route.ts",
-      "source_location": "L108",
-      "weight": 1.0,
-      "source": "app_api_acesso_nudge_route_get",
-      "target": "app_api_acesso_nudge_route_emailhtml",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "app/acesso/page.tsx",
-      "source_location": "L9",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "app_acesso_page",
-      "target": "app_acesso_page_acessopage"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "app/api/acesso-magico/route.ts",
-      "source_location": "L16",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "app_api_acesso_magico_route",
-      "target": "app_api_acesso_magico_route_post"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "vercel.json",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "vercel",
-      "target": "vercel_crons"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "app/PageViewTracker.tsx",
-      "source_location": "L12",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "app_pageviewtracker",
-      "target": "app_pageviewtracker_pageviewtracker"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "app/api/checkout-session/route.ts",
+      "source_file": "app/privacidade/page.tsx",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "app_api_checkout_session_route",
-      "target": "app_api_checkout_session_route_post"
+      "source": "app_privacidade_page",
+      "target": "app_privacidade_page_privacidade",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "app/api/google-conversions/route.ts",
-      "source_location": "L22",
+      "source_file": "WHATSAPP_ACESSO.md",
+      "source_location": "L1",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "app_api_google_conversions_route",
-      "target": "app_api_google_conversions_route_get"
+      "source": "whatsapp_acesso",
+      "target": "whatsapp_acesso_kit_whatsapp_entrega_de_acesso_rota_da_flu\u00eancia"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "WHATSAPP_ACESSO.md",
+      "source_location": "L73",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "whatsapp_acesso_kit_whatsapp_entrega_de_acesso_rota_da_flu\u00eancia",
+      "target": "whatsapp_acesso_c\u00f3digo_j\u00e1_ligado_31_07_s\u00f3_faltam_as_envs"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "WHATSAPP_ACESSO.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "whatsapp_acesso_kit_whatsapp_entrega_de_acesso_rota_da_flu\u00eancia",
+      "target": "whatsapp_acesso_d0_na_hora_da_compra_junto_com_o_e_mail"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "WHATSAPP_ACESSO.md",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "whatsapp_acesso_kit_whatsapp_entrega_de_acesso_rota_da_flu\u00eancia",
+      "target": "whatsapp_acesso_d_1_n\u00e3o_logou_ainda"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "WHATSAPP_ACESSO.md",
+      "source_location": "L38",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "whatsapp_acesso_kit_whatsapp_entrega_de_acesso_rota_da_flu\u00eancia",
+      "target": "whatsapp_acesso_d_3_segundo_toque_prova_facilidade"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "WHATSAPP_ACESSO.md",
+      "source_location": "L50",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "whatsapp_acesso_kit_whatsapp_entrega_de_acesso_rota_da_flu\u00eancia",
+      "target": "whatsapp_acesso_d_7_\u00faltimo_da_r\u00e9gua_tom_humano_porta_aberta"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "WHATSAPP_ACESSO.md",
+      "source_location": "L60",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "whatsapp_acesso_kit_whatsapp_entrega_de_acesso_rota_da_flu\u00eancia",
+      "target": "whatsapp_acesso_resgate_de_pedido_de_reembolso_quem_nunca_logou"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "WHATSAPP_ACESSO.md",
+      "source_location": "L95",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "whatsapp_acesso_kit_whatsapp_entrega_de_acesso_rota_da_flu\u00eancia",
+      "target": "whatsapp_acesso_setup_do_n\u00famero_novo_40_min_uma_vez"
     },
     {
       "relation": "contains",
@@ -2521,7 +2749,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L219",
+      "source_location": "L258",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "app_api_kiwify_webhook_route",
@@ -2541,7 +2769,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L190",
+      "source_location": "L211",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "app_api_kiwify_webhook_route",
@@ -2551,11 +2779,31 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L202",
+      "source_location": "L222",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_api_kiwify_webhook_route",
+      "target": "app_api_kiwify_webhook_route_sendwhatsapptemplate"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/kiwify-webhook/route.ts",
+      "source_location": "L241",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "app_api_kiwify_webhook_route",
       "target": "app_api_kiwify_webhook_route_verifykiwifysignature"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/kiwify-webhook/route.ts",
+      "source_location": "L209",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_api_kiwify_webhook_route",
+      "target": "app_api_kiwify_webhook_route_wapronto"
     },
     {
       "relation": "calls",
@@ -2573,7 +2821,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L477",
+      "source_location": "L581",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "app_api_kiwify_webhook_route_post",
@@ -2584,7 +2832,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L485",
+      "source_location": "L312",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "app_api_kiwify_webhook_route_post",
@@ -2595,7 +2843,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L308",
+      "source_location": "L412",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "app_api_kiwify_webhook_route_post",
@@ -2606,7 +2854,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L313",
+      "source_location": "L417",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "app_api_kiwify_webhook_route_post",
@@ -2617,7 +2865,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L319",
+      "source_location": "L423",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "app_api_kiwify_webhook_route_post",
@@ -2628,7 +2876,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L389",
+      "source_location": "L493",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "app_api_kiwify_webhook_route_post",
@@ -2639,7 +2887,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L481",
+      "source_location": "L585",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "app_api_kiwify_webhook_route_post",
@@ -2650,7 +2898,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L495",
+      "source_location": "L599",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "app_api_kiwify_webhook_route_post",
@@ -2661,7 +2909,29 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L468",
+      "source_location": "L212",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_api_kiwify_webhook_route_sendwhatsapp",
+      "target": "app_api_kiwify_webhook_route_wapronto"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/kiwify-webhook/route.ts",
+      "source_location": "L223",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_api_kiwify_webhook_route_sendwhatsapptemplate",
+      "target": "app_api_kiwify_webhook_route_wapronto"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/kiwify-webhook/route.ts",
+      "source_location": "L572",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "app_api_kiwify_webhook_route_post",
@@ -2672,11 +2942,234 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "app/api/kiwify-webhook/route.ts",
-      "source_location": "L225",
+      "source_location": "L605",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_api_kiwify_webhook_route_post",
+      "target": "app_api_kiwify_webhook_route_sendwhatsapptemplate"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/kiwify-webhook/route.ts",
+      "source_location": "L264",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "app_api_kiwify_webhook_route_post",
       "target": "app_api_kiwify_webhook_route_verifykiwifysignature"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/acesso-nudge/route.ts",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_api_acesso_nudge_route",
+      "target": "app_api_acesso_nudge_route_assuntos"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/acesso-nudge/route.ts",
+      "source_location": "L29",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_api_acesso_nudge_route",
+      "target": "app_api_acesso_nudge_route_emailhtml"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/acesso-nudge/route.ts",
+      "source_location": "L56",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_api_acesso_nudge_route",
+      "target": "app_api_acesso_nudge_route_get"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/acesso-nudge/route.ts",
+      "source_location": "L25",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_api_acesso_nudge_route",
+      "target": "app_api_acesso_nudge_route_novasenha"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/acesso-nudge/route.ts",
+      "source_location": "L95",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_api_acesso_nudge_route_get",
+      "target": "app_api_acesso_nudge_route_novasenha"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/acesso-nudge/route.ts",
+      "source_location": "L110",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_api_acesso_nudge_route_get",
+      "target": "app_api_acesso_nudge_route_emailhtml"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/layout.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_layout",
+      "target": "app_layout_dmsans"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/layout.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_layout",
+      "target": "app_layout_metadata"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/layout.tsx",
+      "source_location": "L42",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_layout",
+      "target": "app_layout_rootlayout"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/layout.tsx",
+      "source_location": "L36",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_layout",
+      "target": "app_layout_viewport"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/supremo/page.tsx",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_supremo_page",
+      "target": "app_supremo_page_faqs"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/supremo/page.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_supremo_page",
+      "target": "app_supremo_page_features"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/supremo/page.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_supremo_page",
+      "target": "app_supremo_page_metadata"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/supremo/page.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_supremo_page",
+      "target": "app_supremo_page_modules"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/supremo/page.tsx",
+      "source_location": "L34",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_supremo_page",
+      "target": "app_supremo_page_supremopage"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/acesso/page.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_acesso_page",
+      "target": "app_acesso_page_acessopage"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/acesso-magico/route.ts",
+      "source_location": "L16",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_api_acesso_magico_route",
+      "target": "app_api_acesso_magico_route_post"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "vercel.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "vercel",
+      "target": "vercel_crons"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/PageViewTracker.tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_pageviewtracker",
+      "target": "app_pageviewtracker_pageviewtracker"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/checkout-session/route.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_api_checkout_session_route",
+      "target": "app_api_checkout_session_route_post"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/google-conversions/route.ts",
+      "source_location": "L22",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_api_google_conversions_route",
+      "target": "app_api_google_conversions_route_get"
     },
     {
       "relation": "contains",
@@ -5002,5 +5495,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "bed8e8e0a7bd9b9eaac144887346d368c11a9cb6"
+  "built_at_commit": "6d3259546069f600b227dd04a1709af724655505"
 }

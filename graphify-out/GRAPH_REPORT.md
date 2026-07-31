@@ -1,16 +1,16 @@
-# Graph Report - fluencyroute  (2026-07-28)
+# Graph Report - fluencyroute  (2026-07-31)
 
 ## Corpus Check
-- 149 files · ~331,764 words
+- 151 files · ~333,811 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 230 nodes · 263 edges · 27 communities (22 shown, 5 thin omitted)
+- 255 nodes · 287 edges · 31 communities (25 shown, 6 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `bed8e8e0`
+- Built from commit: `6d325954`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -36,18 +36,22 @@
 - [[_COMMUNITY_PurchaseTrigger.tsx|PurchaseTrigger.tsx]]
 - [[_COMMUNITY_route.ts|route.ts]]
 - [[_COMMUNITY_vercel.json|vercel.json]]
+- [[_COMMUNITY_Kit WhatsApp — entrega de acesso (Rota da Fluência)|Kit WhatsApp — entrega de acesso (Rota da Fluência)]]
+- [[_COMMUNITY_page.tsx|page.tsx]]
+- [[_COMMUNITY_layout.tsx|layout.tsx]]
+- [[_COMMUNITY_page.tsx|page.tsx]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `Briefing-mestre — Fluency Secrets` - 14 edges
-2. `POST()` - 11 edges
+2. `POST()` - 12 edges
 3. `9. Estrutura do manuscrito` - 9 edges
-4. `Fluency Secrets — blueprint da reescrita definitiva` - 8 edges
-5. `Estrutura proposta` - 8 edges
-6. `RotaFluenciaPage()` - 7 edges
-7. `Btn()` - 7 edges
-8. `trackDual()` - 6 edges
-9. `POST()` - 5 edges
-10. `getUtmsFromUrl()` - 4 edges
+4. `Kit WhatsApp — entrega de acesso (Rota da Fluência)` - 8 edges
+5. `Fluency Secrets — blueprint da reescrita definitiva` - 8 edges
+6. `Estrutura proposta` - 8 edges
+7. `RotaFluenciaPage()` - 7 edges
+8. `Btn()` - 7 edges
+9. `trackDual()` - 6 edges
+10. `POST()` - 5 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `POST()` --calls--> `sendServerEvent()`  [EXTRACTED]
@@ -56,7 +60,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (27 total, 5 thin omitted)
+## Communities (31 total, 6 thin omitted)
 
 ### Community 0 - "build-vsl-static.js"
 Cohesion: 0.50
@@ -87,8 +91,8 @@ Cohesion: 0.25
 Nodes (3): metadata, initialState, ReaderState
 
 ### Community 9 - "9. Estrutura do manuscrito"
-Cohesion: 0.26
-Nodes (12): createSubscription(), createUser(), fbcFromFbclid(), findUserIdByEmail(), generatePassword(), lookupStitchedByFbclid(), lookupStitchedBySck(), lookupStitchedBySessionId() (+4 more)
+Cohesion: 0.24
+Nodes (14): createSubscription(), createUser(), fbcFromFbclid(), findUserIdByEmail(), generatePassword(), lookupStitchedByFbclid(), lookupStitchedBySck(), lookupStitchedBySessionId() (+6 more)
 
 ### Community 10 - "qa-fluency-secrets.mjs"
 Cohesion: 0.28
@@ -122,16 +126,28 @@ Nodes (4): pollOrderInfo(), PurchaseTrigger(), sha256Hex(), Window
 Cohesion: 0.60
 Nodes (4): ASSUNTOS, emailHtml(), GET(), novaSenha()
 
+### Community 27 - "Kit WhatsApp — entrega de acesso (Rota da Fluência)"
+Cohesion: 0.22
+Nodes (8): ✅ CÓDIGO JÁ LIGADO (31/07) — só faltam as envs, D0 — na hora da compra (junto com o e-mail), D+1 — não logou ainda, D+3 — segundo toque (prova + facilidade), D+7 — último da régua (tom humano, porta aberta), Kit WhatsApp — entrega de acesso (Rota da Fluência), 🚑 Resgate de pedido de reembolso (quem NUNCA logou), Setup do número novo (~40 min, uma vez)
+
+### Community 28 - "page.tsx"
+Cohesion: 0.33
+Nodes (4): faqs, features, metadata, modules
+
+### Community 29 - "layout.tsx"
+Cohesion: 0.40
+Nodes (3): dmSans, metadata, viewport
+
 ## Knowledge Gaps
-- **84 isolated node(s):** `ASSUNTOS`, `crons`, `Window`, `VocabCoverage`, `PHASES` (+79 more)
+- **99 isolated node(s):** `metadata`, `D0 — na hora da compra (junto com o e-mail)`, `D+1 — não logou ainda`, `D+3 — segundo toque (prova + facilidade)`, `D+7 — último da régua (tom humano, porta aberta)` (+94 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **5 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **6 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **What connects `ASSUNTOS`, `crons`, `Window` to the rest of the system?**
-  _85 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **What connects `metadata`, `D0 — na hora da compra (junto com o e-mail)`, `D+1 — não logou ainda` to the rest of the system?**
+  _100 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Btn` be split into smaller, more focused modules?**
   _Cohesion score 0.13333333333333333 - nodes in this community are weakly interconnected._
 - **Should `Fluency Secrets — blueprint da reescrita definitiva` be split into smaller, more focused modules?**

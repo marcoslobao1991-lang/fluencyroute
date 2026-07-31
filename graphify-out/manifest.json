@@ -50,8 +50,8 @@
     "semantic_hash": ""
   },
   "app/api/kiwify-webhook/route.ts": {
-    "mtime": 1785165713.5823588,
-    "ast_hash": "5fd9dad193ab01de2c0c1ea276083b95",
+    "mtime": 1785535014.5704434,
+    "ast_hash": "1f47e83268ba64809e7bd0a93b935aed",
     "semantic_hash": ""
   },
   "app/api/lead/route.ts": {
@@ -1390,8 +1390,8 @@
     "semantic_hash": ""
   },
   "app/api/acesso-nudge/route.ts": {
-    "mtime": 1785280603.8875506,
-    "ast_hash": "c809f5886d4462f92a007c6ff9649e66",
+    "mtime": 1785520756.3747232,
+    "ast_hash": "68761f8bef2fbe7456e7824c4524abb3",
     "semantic_hash": ""
   },
   "app/acesso/page.tsx": {
@@ -1402,6 +1402,16 @@
   "app/api/acesso-magico/route.ts": {
     "mtime": 1785280512.84632,
     "ast_hash": "0c2e7c320e0ef9261a109a0aee562b58",
+    "semantic_hash": ""
+  },
+  "WHATSAPP_ACESSO.md": {
+    "mtime": 1785521367.422083,
+    "ast_hash": "bfba15d399a01f8bd49b749285c23726",
+    "semantic_hash": ""
+  },
+  "app/privacidade/page.tsx": {
+    "mtime": 1785523106.9417708,
+    "ast_hash": "bd361a65fb12a447cd57c5c33949e3eb",
     "semantic_hash": ""
   }
 }
