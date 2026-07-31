@@ -72,6 +72,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           gtag('config', 'G-Z35QLQE3PQ');
           gtag('config', 'AW-16694165189');
         `}</Script>
+        {/* Taboola Pixel (Realize) — account 1899594. Canal native/discovery frio → bridge.
+            afterInteractive (NÃO lazyOnload): tráfego Taboola tem bounce alto; lazyOnload
+            esperaria idle e perderia o page_view em quem sai rápido, furando a otimização.
+            page_view dispara aqui (base); Lead/Purchase são disparados via _tfa.push nos
+            pontos de conversão (Lead em PageViewTracker; Purchase será server-to-server). */}
+        <Script id="taboola-pixel" strategy="afterInteractive">{`
+          window._tfa = window._tfa || [];
+          window._tfa.push({notify: 'event', name: 'page_view', id: 1899594});
+          !function (t, f, a, x) {
+            if (!document.getElementById(x)) {
+              t.async = 1;t.src = a;t.id=x;f.parentNode.insertBefore(t, f);
+            }
+          }(document.createElement('script'),
+          document.getElementsByTagName('script')[0],
+          '//cdn.taboola.com/libtrc/unip/1899594/tfa.js',
+          'tb_tfa_script');
+        `}</Script>
         {/* go.fluencyroute.com.br não é usado direto pelo browser nas rotas atuais
             (apenas server-side em webhooks). Preconnect/dns-prefetch removido —
             evita aviso 'Pré-conexão não usada' do Lighthouse. */}

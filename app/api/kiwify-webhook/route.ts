@@ -153,26 +153,37 @@ async function createSubscription(userId: string, orderId: string) {
 
 async function sendWelcomeEmail(email: string, name: string, password: string | null, isNew: boolean) {
   if (!RESEND_API_KEY) return
+  const firstName = (name || '').split(' ')[0] || 'aluno'
   const html = `
     <div style="font-family:'Inter',sans-serif;max-width:520px;margin:0 auto;background:#0A0A0A;border-radius:16px;overflow:hidden">
-      <div style="padding:40px 32px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06)">
-        <h1 style="color:#fff;font-size:24px;margin:0">Bem-vindo ao <span style="color:#4ECDC4">Rota da Fluência</span></h1>
-        <p style="color:rgba(255,255,255,0.5);font-size:14px;margin-top:8px">Seu acesso está pronto!</p>
+      <div style="padding:36px 32px 28px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06)">
+        <h1 style="color:#fff;font-size:23px;margin:0">Bem-vindo ao <span style="color:#4ECDC4">Rota da Fluência</span></h1>
+        <p style="color:rgba(255,255,255,0.55);font-size:14px;margin-top:8px">${firstName}, sua teacher já está te esperando 👇</p>
       </div>
-      <div style="padding:32px">
-        <p style="color:rgba(255,255,255,0.7);font-size:14px;margin:0 0 20px">Olá <strong style="color:#fff">${name}</strong>,</p>
-        <p style="color:rgba(255,255,255,0.7);font-size:14px;line-height:1.7;margin:0 0 24px">
-          ${isNew ? 'Sua conta foi criada com sucesso. Use os dados abaixo para acessar a plataforma:' : 'Seu pagamento foi confirmado e sua assinatura está ativa. Acesse com seu login atual:'}
+      <div style="padding:28px 32px 32px">
+        <p style="color:rgba(255,255,255,0.75);font-size:14px;line-height:1.7;margin:0 0 18px">
+          É só seguir os <strong style="color:#fff">3 passos</strong> (leva 1 minuto):
         </p>
+        <table style="width:100%;border-collapse:collapse;margin:0 0 22px">
+          <tr><td style="vertical-align:top;padding:0 12px 14px 0;color:#4ECDC4;font-weight:800;font-size:16px">1.</td>
+            <td style="padding-bottom:14px;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.6">Toque no botão verde abaixo — <b>é aqui que o curso mora</b> (salva nos favoritos!)</td></tr>
+          <tr><td style="vertical-align:top;padding:0 12px 14px 0;color:#4ECDC4;font-weight:800;font-size:16px">2.</td>
+            <td style="padding-bottom:14px;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.6">Entre com os dados logo abaixo do botão</td></tr>
+          <tr><td style="vertical-align:top;padding:0 12px 0 0;color:#4ECDC4;font-weight:800;font-size:16px">3.</td>
+            <td style="color:rgba(255,255,255,0.85);font-size:14px;line-height:1.6">Diga oi pra <b style="color:#A78BFA">MANU, sua teacher particular de IA</b> — ela conversa com você, te escuta falar e monta seu caminho. É por ela que você começa 💜</td></tr>
+        </table>
+        <a href="${APP_URL}" style="display:block;text-align:center;padding:17px;background:#4ECDC4;color:#000;font-weight:800;font-size:15px;border-radius:10px;text-decoration:none;margin-bottom:18px">ENTRAR E FALAR COM A MANU →</a>
         ${isNew && password ? `
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:20px;margin-bottom:24px">
-          <p style="color:rgba(255,255,255,0.4);font-size:11px;text-transform:uppercase;letter-spacing:1px;margin:0 0 12px">Seus dados de acesso</p>
-          <p style="color:#fff;font-size:14px;margin:0 0 8px"><strong>E-mail:</strong> ${email}</p>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:18px 20px;margin-bottom:18px">
+          <p style="color:rgba(255,255,255,0.4);font-size:11px;text-transform:uppercase;letter-spacing:1px;margin:0 0 10px">Seus dados de acesso</p>
+          <p style="color:#fff;font-size:14px;margin:0 0 6px"><strong>E-mail:</strong> ${email}</p>
           <p style="color:#fff;font-size:14px;margin:0"><strong>Senha:</strong> <code style="background:rgba(78,205,196,0.1);color:#4ECDC4;padding:2px 8px;border-radius:4px;font-size:16px;letter-spacing:1px">${password}</code></p>
         </div>
         ` : ''}
-        <a href="${APP_URL}" style="display:block;text-align:center;padding:16px;background:#4ECDC4;color:#000;font-weight:700;font-size:15px;border-radius:10px;text-decoration:none;margin-bottom:24px">ACESSAR PLATAFORMA</a>
-        <p style="color:rgba(255,255,255,0.3);font-size:12px;text-align:center;margin:0">Qualquer dúvida, responda este e-mail.</p>
+        <div style="background:rgba(255,193,7,0.08);border:1px solid rgba(255,193,7,0.25);border-radius:10px;padding:12px 16px;margin-bottom:18px">
+          <p style="color:#FFD666;font-size:12.5px;line-height:1.6;margin:0">⚠️ <b>Atenção:</b> o curso <b>não fica na Kiwify</b> (lá é só o pagamento). Sua área de aluno é <b>app.fluencyroute.com.br</b> — o botão verde acima.</p>
+        </div>
+        <p style="color:rgba(255,255,255,0.45);font-size:12.5px;line-height:1.6;text-align:center;margin:0">Perdeu a senha? Entre <b>sem senha</b> em <a href="https://fluencyroute.com.br/acesso" style="color:#4ECDC4">fluencyroute.com.br/acesso</a><br>Qualquer dúvida, responda este e-mail.</p>
       </div>
     </div>`
   await fetch('https://api.resend.com/emails', {
@@ -181,7 +192,7 @@ async function sendWelcomeEmail(email: string, name: string, password: string | 
     body: JSON.stringify({
       from: 'Rota da Fluência <contato@acesso.fluencyroute.com.br>',
       to: email,
-      subject: isNew ? 'Seu acesso ao Rota da Fluência está pronto!' : 'Pagamento confirmado — Rota da Fluência',
+      subject: isNew ? 'Seu acesso chegou — a MANU está te esperando 💜' : 'Pagamento confirmado — Rota da Fluência',
       html,
     }),
   }).catch(e => console.error('[Kiwify] Email failed:', e.message))
@@ -231,6 +242,71 @@ export async function POST(req: NextRequest) {
 
     // Kiwify sends order_status: 'paid' for approved purchases
     const status = body.order_status
+
+    // ═══ REEMBOLSO / CHARGEBACK — corta o acesso e avisa ═══
+    const eventType = String(body.webhook_event_type || '')
+    const isRefund = status === 'refunded' || status === 'chargedback' || /refund|chargeback/i.test(eventType)
+    if (isRefund) {
+      const refCustomer = body.Customer || body.customer || {}
+      const refEmail = String(refCustomer.email || '').toLowerCase().trim()
+      const refOrderId = String(body.order_id || '')
+      const nowIso = new Date().toISOString()
+      const H = {
+        'apikey': SUPA_SERVICE_KEY,
+        'Authorization': `Bearer ${SUPA_SERVICE_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=representation',
+      }
+
+      // 1. marca o pedido
+      let marcados = 0
+      if (refOrderId) {
+        const r1 = await fetch(`${SUPA_URL}/rest/v1/orders?pagarme_order_id=eq.${encodeURIComponent(refOrderId)}`, {
+          method: 'PATCH', headers: H, body: JSON.stringify({ status: 'refunded', refunded_at: nowIso }),
+        })
+        marcados = ((await r1.json().catch(() => [])) as any[]).length || 0
+      }
+      if (marcados === 0 && refEmail) {
+        await fetch(`${SUPA_URL}/rest/v1/orders?customer_email=ilike.${encodeURIComponent(refEmail)}&status=eq.paid`, {
+          method: 'PATCH', headers: H, body: JSON.stringify({ status: 'refunded', refunded_at: nowIso }),
+        }).catch(() => {})
+      }
+
+      // 2. corta o acesso (subscriptions do pedido; fallback: todas do usuário)
+      let subsCortadas = 0
+      if (refOrderId) {
+        const r2 = await fetch(`${SUPA_URL}/rest/v1/subscriptions?pagarme_order_id=eq.${encodeURIComponent(refOrderId)}`, {
+          method: 'PATCH', headers: H, body: JSON.stringify({ status: 'refunded', expires_at: nowIso }),
+        })
+        subsCortadas = ((await r2.json().catch(() => [])) as any[]).length || 0
+      }
+      if (subsCortadas === 0 && refEmail) {
+        const uid = await findUserIdByEmail(refEmail)
+        if (uid) {
+          await fetch(`${SUPA_URL}/rest/v1/subscriptions?user_id=eq.${uid}&status=eq.active`, {
+            method: 'PATCH', headers: H, body: JSON.stringify({ status: 'refunded', expires_at: nowIso }),
+          }).catch(() => {})
+        }
+      }
+
+      // 3. avisa Marcos por e-mail (WhatsApp está fora do ar)
+      if (RESEND_API_KEY) {
+        await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            from: 'Rota da Fluência <contato@acesso.fluencyroute.com.br>',
+            to: 'marcoslobao1991@gmail.com',
+            subject: `🔴 ${status === 'chargedback' || /chargeback/i.test(eventType) ? 'CHARGEBACK' : 'Reembolso'} Kiwify — ${refEmail}`,
+            html: `<p>Evento: <b>${eventType || status}</b></p><p>Cliente: <b>${refEmail}</b></p><p>Pedido: ${refOrderId || '—'}</p><p>Acesso cortado automaticamente (subscription encerrada).</p>`,
+          }),
+        }).catch(() => {})
+      }
+
+      console.log(`[Kiwify] REFUND processado: ${refEmail} order=${refOrderId}`)
+      return NextResponse.json({ ok: true, refund: true })
+    }
+
     if (status !== 'paid') {
       return NextResponse.json({ ok: true, skipped: status })
     }

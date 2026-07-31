@@ -1,0 +1,142 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "next.config.ts",
+      "file_type": "code",
+      "source_file": "next.config.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "next_config",
+      "community": 1,
+      "norm_label": "next.config.ts"
+    },
+    {
+      "label": "nextConfig",
+      "file_type": "code",
+      "source_file": "next.config.ts",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "next_config_nextconfig",
+      "community": 1,
+      "norm_label": "nextconfig"
+    },
+    {
+      "label": "build-vsl-static.js",
+      "file_type": "code",
+      "source_file": "scripts/build-vsl-static.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "scripts_build_vsl_static",
+      "community": 0,
+      "norm_label": "build-vsl-static.js"
+    },
+    {
+      "label": "fs",
+      "file_type": "code",
+      "source_file": "scripts/build-vsl-static.js",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "scripts_build_vsl_static_fs",
+      "community": 0,
+      "norm_label": "fs"
+    },
+    {
+      "label": "https",
+      "file_type": "code",
+      "source_file": "scripts/build-vsl-static.js",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "scripts_build_vsl_static_https",
+      "community": 0,
+      "norm_label": "https"
+    },
+    {
+      "label": "get()",
+      "file_type": "code",
+      "source_file": "scripts/build-vsl-static.js",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "scripts_build_vsl_static_get",
+      "community": 2,
+      "norm_label": "get()"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "scripts/build-vsl-static.js",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "scripts_build_vsl_static_main",
+      "community": 2,
+      "norm_label": "main()"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "next.config.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "next_config",
+      "target": "next_config_nextconfig",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/build-vsl-static.js",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "scripts_build_vsl_static",
+      "target": "scripts_build_vsl_static_fs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/build-vsl-static.js",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "scripts_build_vsl_static",
+      "target": "scripts_build_vsl_static_get",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/build-vsl-static.js",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "scripts_build_vsl_static",
+      "target": "scripts_build_vsl_static_https",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/build-vsl-static.js",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "scripts_build_vsl_static",
+      "target": "scripts_build_vsl_static_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/build-vsl-static.js",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "scripts_build_vsl_static_main",
+      "target": "scripts_build_vsl_static_get",
+      "confidence_score": 1.0
+    }
+  ],
+  "hyperedges": [],
+  "built_at_commit": "f6149894be3be1067a9092f9503f2dfbc9914f39"
+}

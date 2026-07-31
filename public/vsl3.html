@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#FAFBFA">
-<title>Fluency Route — O app que treina seu inglês até a fluência</title>
-<meta name="description" content="Treine ouvido, fala e conversação com cenas reais de séries, nota de pronúncia palavra por palavra e a Manu — sua professora de conversação por voz.">
+<meta name="theme-color" content="#070D0C">
+<title>Fluency Route — Aula</title>
+<meta name="description" content="A aula que mostra por que você ainda trava no inglês — e o treino exato que destrava.">
 <meta name="robots" content="noindex, follow">
-<meta property="og:title" content="Fluency Route — O app que treina seu inglês até a fluência">
-<meta property="og:description" content="Cenas reais de séries, nota de pronúncia e conversação por voz com a Manu.">
+<meta property="og:title" content="Fluency Route — Aula">
+<meta property="og:description" content="A aula que mostra por que você ainda trava no inglês — e o treino que destrava.">
 <meta property="og:site_name" content="Fluency Route">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:image" content="https://fluencyroute.com.br/og-image.png">
@@ -17,6 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500;9..40,700;9..40,800;9..40,900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{
+  --dark:#070D0C; --dark2:#0C1614; --ivory:#F4F1E8; --ivory-dim:rgba(244,241,232,.55); --ivory-faint:rgba(244,241,232,.32);
   --bg:#FAFBFA; --card:#FFFFFF; --ink:#0C1A18; --mut:#5B6B68; --soft:#8A9996;
   --line:#E7ECEA; --line2:#D8E0DE;
   --teal:#0DB5A6; --teal-d:#0B7E74; --teal-deep:#085E57; --teal-tint:#E9F7F5;
@@ -25,13 +26,15 @@
   --grad:linear-gradient(135deg,#0DB5A6 0%,#0B7E74 100%);
   --sh-sm:0 1px 2px rgba(12,26,24,.05),0 4px 12px rgba(12,26,24,.05);
   --sh-md:0 2px 4px rgba(12,26,24,.05),0 12px 32px rgba(12,26,24,.09);
-  --sh-lg:0 4px 8px rgba(12,26,24,.05),0 24px 64px rgba(12,26,24,.13);
+  --sh-lg:0 4px 8px rgba(12,26,24,.06),0 28px 70px rgba(12,26,24,.14);
   --disp:'DM Sans',system-ui,sans-serif;
   --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:var(--disp);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.closed{background:var(--dark)}
+body.closed #site,body.closed .sticky-cta{display:none!important}
 img{max-width:100%;display:block}
 a{color:inherit}
 svg{display:block;flex-shrink:0}
@@ -40,64 +43,108 @@ svg{display:block;flex-shrink:0}
 .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
 .narrow{max-width:760px;margin:0 auto;padding:0 20px}
 
-/* ═══ topo ═══ */
-.top{display:flex;justify-content:space-between;align-items:center;max-width:1080px;margin:0 auto;padding:16px 20px}
-.logo{font-weight:900;font-size:19px;letter-spacing:-.03em}
-.logo i{font-style:normal;color:var(--teal)}
-.top-badge{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:var(--teal-d);background:var(--teal-tint);border-radius:99px;padding:7px 14px}
-
-/* ═══ hero ═══ */
-.hero{text-align:center;padding:36px 0 0}
-.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal-d);background:var(--teal-tint);border-radius:99px;padding:8px 16px;margin-bottom:20px}
-.kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pulse 1.8s ease-in-out infinite}
-@keyframes pulse{50%{transform:scale(.55)}}
-h1{font-weight:900;font-size:clamp(32px,7.4vw,58px);line-height:1.04;letter-spacing:-.038em;max-width:17ch;margin:0 auto 16px}
-h1 .hl{color:var(--teal-d);position:relative;white-space:nowrap}
-h1 .hl svg{position:absolute;left:0;right:0;bottom:-6px;width:100%;height:10px}
-.lead{color:var(--mut);font-size:clamp(16px,3.8vw,19px);max-width:46ch;margin:0 auto;font-weight:500}
-
-/* player */
-.player-zone{position:relative;max-width:860px;margin:30px auto 0;padding:0 16px}
-.player-glow{position:absolute;inset:8% 4% -6%;background:radial-gradient(60% 70% at 50% 60%,rgba(13,181,166,.22),transparent 70%);filter:blur(30px);pointer-events:none}
-.player{position:relative;aspect-ratio:16/9;background:#0C1A18;border-radius:20px;overflow:hidden;box-shadow:var(--sh-lg);border:1px solid var(--line2)}
+/* ═════════ ESTADO 1 · O TEATRO ═════════ */
+.stage{position:relative;min-height:100svh;background:var(--dark);color:var(--ivory);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 0 44px;overflow:hidden}
+.aurora{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.aurora i{position:absolute;width:56vmax;height:56vmax;border-radius:50%;filter:blur(90px);opacity:.16}
+.aurora i:nth-child(1){background:#0DB5A6;top:-28vmax;left:-16vmax;animation:drift1 26s ease-in-out infinite alternate}
+.aurora i:nth-child(2){background:#5A3EE0;bottom:-30vmax;right:-18vmax;animation:drift2 32s ease-in-out infinite alternate}
+@keyframes drift1{to{transform:translate(9vmax,7vmax)}}
+@keyframes drift2{to{transform:translate(-8vmax,-6vmax)}}
+.stage-vignette{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 42%,transparent 40%,rgba(4,8,7,.72) 100%);pointer-events:none}
+.stage-in{position:relative;width:100%;max-width:900px;padding:0 18px;text-align:center;z-index:2}
+.stage .mark{font-weight:900;font-size:15px;letter-spacing:-.02em;color:var(--ivory-dim);margin-bottom:26px}
+.stage .mark i{font-style:normal;color:var(--teal)}
+.stage .kick{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.34em;text-transform:uppercase;color:var(--teal);margin-bottom:18px;display:block}
+.stage h1{font-weight:900;font-size:clamp(25px,5.6vw,44px);line-height:1.12;letter-spacing:-.03em;color:var(--ivory);max-width:24ch;margin:0 auto 30px}
+.stage h1 em{font-style:normal;color:var(--teal);white-space:nowrap}
+.player-frame{position:relative;border-radius:20px;padding:1.5px;background:linear-gradient(160deg,rgba(13,181,166,.55),rgba(244,241,232,.1) 32%,rgba(90,62,224,.35) 100%);box-shadow:0 40px 110px -18px rgba(0,0,0,.85),0 0 90px -24px rgba(13,181,166,.4)}
+.player{position:relative;aspect-ratio:16/9;background:#000;border-radius:18.5px;overflow:hidden}
 .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.sound{display:flex;justify-content:center;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:var(--mut);padding:14px 0 0}
-.trust{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:14px 26px;padding:22px 16px 0}
-.avatars{display:flex;align-items:center}
-.avatars b{width:34px;height:34px;border-radius:50%;border:2.5px solid var(--bg);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;margin-left:-9px}
-.avatars b:first-child{margin-left:0}
-.trust .t-txt{font-size:13.5px;color:var(--mut);font-weight:600}
-.trust .t-txt b{color:var(--ink)}
-.t-chip{display:flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;color:var(--mut)}
-.t-chip svg{color:var(--teal)}
+.sound{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ivory-dim);margin-top:20px}
+.sound .eqs{display:inline-flex;align-items:flex-end;gap:2px;height:11px}
+.sound .eqs i{width:2.5px;border-radius:2px;background:var(--teal);animation:eq 1.1s ease-in-out infinite}
+.sound .eqs i:nth-child(2){animation-delay:.15s}.sound .eqs i:nth-child(3){animation-delay:.3s}
+.sound .eqs i:nth-child(1){height:5px}.sound .eqs i:nth-child(2){height:11px}.sound .eqs i:nth-child(3){height:7px}
+@keyframes eq{50%{transform:scaleY(.35)}}
+.gate{margin-top:30px;display:inline-flex;align-items:center;gap:10px;font-size:13.5px;font-weight:600;color:var(--ivory-faint);border:1px solid rgba(244,241,232,.13);border-radius:99px;padding:10px 20px;background:rgba(244,241,232,.04)}
+.gate svg{color:var(--ivory-faint)}
+body:not(.closed) .gate{color:#7FE7DC;border-color:rgba(13,181,166,.45);background:rgba(13,181,166,.1)}
+body:not(.closed) .gate svg{color:#7FE7DC}
+.gate .g-open{display:none}
+body:not(.closed) .gate .g-closed{display:none!important}
+body:not(.closed) .gate .g-open{display:inline-flex;align-items:center;gap:10px}
+.gate a{color:inherit;text-decoration:none;font-weight:800}
 
-/* ═══ seções ═══ */
-section{padding:76px 0}
-.eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--teal-d);margin-bottom:14px}
-h2{font-weight:900;font-size:clamp(27px,5.8vw,42px);line-height:1.08;letter-spacing:-.032em;margin-bottom:14px}
+/* ═════════ ESTADO 2 · A LOJA ═════════ */
+#site{position:relative}
+.noise{position:relative}
+.noise::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.028'/%3E%3C/svg%3E");pointer-events:none}
+section{padding:78px 0;position:relative}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--teal-d);margin-bottom:14px}
+h2{font-weight:900;font-size:clamp(27px,5.8vw,42px);line-height:1.07;letter-spacing:-.033em;margin-bottom:14px}
 .sub{color:var(--mut);font-size:clamp(15.5px,3.6vw,18px);max-width:54ch;font-weight:500}
 .center{text-align:center}
 .center .sub{margin:0 auto}
 
-/* ═══ phones ═══ */
-.phones{display:grid;gap:52px;margin-top:56px}
-@media(min-width:960px){.phones{grid-template-columns:repeat(3,1fr);gap:28px;align-items:start}}
-.ph-col{text-align:center}
-.phone{width:min(300px,88vw);margin:0 auto;aspect-ratio:9/18.6;background:#0C1A18;border-radius:46px;padding:9px;box-shadow:var(--sh-lg);position:relative}
-.screen{position:relative;width:100%;height:100%;border-radius:38px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
-.notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:88px;height:24px;background:#0C1A18;border-radius:99px;z-index:5}
-.ph-head{padding:44px 16px 10px;display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
-.ph-head .st{color:var(--teal-d)}
-.ph-label{margin-top:22px}
-.ph-label .n{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--teal-d);display:block;margin-bottom:8px}
-.ph-label h3{font-weight:800;font-size:20px;letter-spacing:-.02em;margin-bottom:8px}
-.ph-label p{color:var(--mut);font-size:14.5px;max-width:34ch;margin:0 auto;font-weight:500}
+/* — oferta (ponte escuro→claro) — */
+.offer-sec{background:linear-gradient(180deg,var(--dark) 0%,#0B1F1C 34%,#0E2A26 100%);color:#fff;padding:20px 0 96px;margin-top:-1px}
+.offer-sec .eyebrow{color:#57D9CC}
+.offer-sec h2{color:#fff}
+.offer-sec .sub{color:rgba(255,255,255,.62)}
+.offer-head{padding-top:64px}
+.paywall{max-width:568px;margin:46px auto 0;background:#fff;color:var(--ink);border-radius:30px;box-shadow:0 60px 140px -30px rgba(0,0,0,.7);overflow:hidden}
+.pw-ribbon{background:var(--grad);color:#fff;display:flex;justify-content:center;align-items:center;gap:9px;font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;padding:12px 16px}
+.pw-body{padding:30px 24px 28px}
+@media(min-width:640px){.pw-body{padding:38px 42px 36px}}
+.pw-title{font-weight:900;font-size:23px;letter-spacing:-.025em;text-align:center}
+.pw-sub{text-align:center;color:var(--mut);font-size:14px;font-weight:500;margin-top:4px}
+.pw-items{margin:26px 0 6px;border-top:1px solid var(--line)}
+.pw-item{display:flex;align-items:center;gap:13px;padding:13px 0;border-bottom:1px solid var(--line)}
+.pw-item .ic{width:40px;height:40px;border-radius:12px;background:var(--teal-tint);color:var(--teal-d);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pw-item.bn .ic{background:var(--manu-tint);color:var(--manu-deep)}
+.pw-item .tx{flex:1;min-width:0}
+.pw-item .tx b{display:block;font-size:14.5px;font-weight:800;letter-spacing:-.01em}
+.pw-item .tx span{font-size:12.5px;color:var(--mut);font-weight:500}
+.pw-item .pv{font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--soft);white-space:nowrap}
+.pw-item.bn .pv{color:var(--manu-deep)}
+.pw-total{display:flex;justify-content:space-between;align-items:center;padding:16px 0 4px;font-weight:800;font-size:14px}
+.pw-total .tv{font-family:var(--mono);color:var(--soft);text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:var(--coral)}
+.pw-price{text-align:center;margin:16px 0 4px}
+.pw-price .p{font-weight:900;font-size:66px;letter-spacing:-.045em;line-height:1;color:var(--teal-deep)}
+.pw-price .p small{font-size:22px;letter-spacing:-.02em}
+.pw-price .per{font-size:14px;color:var(--mut);font-weight:600;margin-top:6px}
+.pw-price .day{font-size:13px;color:var(--soft);font-weight:500;margin-top:2px}
+.cta-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:var(--grad);color:#fff;text-decoration:none;font-weight:900;font-size:17.5px;letter-spacing:-.01em;padding:20px 22px;border-radius:16px;margin-top:18px;box-shadow:0 16px 38px -8px rgba(13,132,122,.52);transition:transform .12s ease,box-shadow .12s ease;position:relative;overflow:hidden}
+.cta-btn::after{content:'';position:absolute;top:0;bottom:0;left:-70%;width:36%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.36),transparent);transform:skewX(-18deg);animation:shine 3.4s ease-in-out infinite}
+@keyframes shine{0%,55%{left:-70%}90%,100%{left:140%}}
+.cta-btn:hover{transform:translateY(-2px) scale(1.005);box-shadow:0 22px 48px -8px rgba(13,132,122,.64)}
+.pw-secure{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 20px;margin-top:16px}
+.pw-secure span{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--mut)}
+.pw-secure svg{color:var(--teal-d)}
+.founder{max-width:568px;margin:22px auto 0;text-align:center;font-size:13.5px;color:rgba(255,255,255,.55);font-weight:500;line-height:1.7}
+.founder b{color:#fff}
 
-/* fone 1 — player */
+/* — fones — */
+.phones{display:grid;gap:56px;margin-top:58px}
+@media(min-width:960px){.phones{grid-template-columns:repeat(3,1fr);gap:26px;align-items:start}.ph-col:nth-child(2) .phone{transform:scale(1.04)}}
+.ph-col{text-align:center}
+.phone{width:min(296px,86vw);margin:0 auto;aspect-ratio:9/18.8;background:linear-gradient(160deg,#1B2A27,#0C1A18 60%);border-radius:48px;padding:10px;box-shadow:var(--sh-lg),inset 0 1px 1px rgba(255,255,255,.14);position:relative}
+.phone::before{content:'';position:absolute;right:-2.5px;top:22%;width:3px;height:64px;border-radius:3px;background:#22332F}
+.phone::after{content:'';position:absolute;left:-2.5px;top:18%;width:3px;height:34px;border-radius:3px;background:#22332F;box-shadow:0 48px 0 #22332F}
+.screen{position:relative;width:100%;height:100%;border-radius:39px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+.screen::after{content:'';position:absolute;inset:0;background:linear-gradient(118deg,rgba(255,255,255,.14) 0%,transparent 26%);pointer-events:none;border-radius:39px}
+.notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:86px;height:24px;background:#0C1A18;border-radius:99px;z-index:5}
+.ph-head{padding:46px 16px 10px;display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
+.ph-head .st{color:var(--teal-d)}
+.ph-label{margin-top:24px}
+.ph-label .n{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--teal-d);display:block;margin-bottom:8px}
+.ph-label h3{font-weight:900;font-size:21px;letter-spacing:-.02em;margin-bottom:8px}
+.ph-label p{color:var(--mut);font-size:14.5px;max-width:34ch;margin:0 auto;font-weight:500}
 .sc-scene{position:relative;margin:6px 12px;border-radius:18px;overflow:hidden;aspect-ratio:16/10;background:#111}
-.sc-scene img{width:100%;height:100%;object-fit:cover;opacity:.85}
+.sc-scene img{width:100%;height:100%;object-fit:cover;opacity:.88}
 .sc-scene .ep{position:absolute;top:8px;left:8px;font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.08em;color:#fff;background:rgba(0,0,0,.55);padding:4px 8px;border-radius:6px}
-.sc-scene .playbtn{position:absolute;inset:0;margin:auto;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.94);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.sc-scene .playbtn{position:absolute;inset:0;margin:auto;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.95);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(0,0,0,.35)}
 .karaoke{padding:14px 16px 4px;text-align:left}
 .karaoke .en{font-weight:800;font-size:15.5px;line-height:1.5;letter-spacing:-.01em}
 .karaoke .en span{color:#B7C4C1;animation:kfill 4.5s steps(1) infinite}
@@ -107,11 +154,9 @@ h2{font-weight:900;font-size:clamp(27px,5.8vw,42px);line-height:1.08;letter-spac
 .sc-ctrl{display:flex;gap:8px;padding:12px 16px;margin-top:auto}
 .pill{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.06em;border-radius:99px;padding:6px 11px;background:#F1F5F4;color:var(--mut)}
 .pill.on{background:var(--teal-tint);color:var(--teal-d)}
-.sc-loop{margin:0 16px 18px;height:7px;border-radius:99px;background:#EDF2F0;position:relative;overflow:hidden}
-.sc-loop i{position:absolute;top:0;bottom:0;left:0;width:62%;border-radius:99px;background:var(--grad);animation:lp 3s linear infinite;transform-origin:left}
-@keyframes lp{0%{transform:scaleX(.1)}85%,100%{transform:scaleX(1)}}
-
-/* fone 2 — shadowing */
+.sc-loop{margin:0 16px 20px;height:7px;border-radius:99px;background:#EDF2F0;position:relative;overflow:hidden}
+.sc-loop i{position:absolute;top:0;bottom:0;left:0;width:100%;border-radius:99px;background:var(--grad);animation:lp 3s linear infinite;transform-origin:left}
+@keyframes lp{0%{transform:scaleX(.08)}85%,100%{transform:scaleX(1)}}
 .sh-body{padding:10px 16px;text-align:left;display:flex;flex-direction:column;height:100%}
 .sh-phrase{font-weight:800;font-size:16.5px;line-height:1.75;letter-spacing:-.01em;margin-top:4px}
 .sh-phrase .g{color:var(--ok);border-bottom:2.5px solid rgba(22,163,74,.35)}
@@ -126,48 +171,44 @@ h2{font-weight:900;font-size:clamp(27px,5.8vw,42px);line-height:1.08;letter-spac
 .ring .num small{font-family:var(--mono);font-size:8px;font-weight:700;letter-spacing:.14em;color:var(--soft);text-transform:uppercase}
 .sh-note{font-size:12.5px;color:var(--mut);font-weight:600;line-height:1.5}
 .sh-note b{color:var(--warn)}
-.sh-waves{margin-top:auto;padding:12px 0 16px}
+.sh-waves{margin-top:auto;padding:12px 0 18px}
 .sh-waves .row{display:flex;align-items:center;gap:10px;margin-top:10px}
 .sh-waves .who{font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);width:46px;text-align:right}
 .wv{display:flex;align-items:center;gap:2.5px;height:22px;flex:1}
 .wv i{flex:1;border-radius:99px;background:var(--teal);opacity:.9}
 .wv.you i{background:var(--warn)}
-
-/* fone 3 — manu */
 .manu-screen{background:linear-gradient(175deg,#17102E 0%,#241847 60%,#2E1D5C 100%);color:#fff}
 .manu-screen .ph-head{color:rgba(255,255,255,.5)}
 .manu-screen .ph-head .st{color:#C9B8FF}
 .orb-zone{display:flex;flex-direction:column;align-items:center;padding:16px 0 0}
-.orb{position:relative;width:120px;height:120px}
-.orb .halo{position:absolute;inset:-22px;border-radius:50%;background:radial-gradient(circle,rgba(146,108,255,.4),transparent 65%);animation:breathe 3s ease-in-out infinite}
+.orb{position:relative;width:118px;height:118px}
+.orb .halo{position:absolute;inset:-24px;border-radius:50%;background:radial-gradient(circle,rgba(146,108,255,.42),transparent 65%);animation:breathe 3s ease-in-out infinite}
 .orb .core{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,#8F6BFF,#C9B8FF,#6E48F0,#B18CFF,#8F6BFF);animation:spin 7s linear infinite;filter:blur(1px)}
 .orb .glass{position:absolute;inset:7px;border-radius:50%;background:radial-gradient(circle at 34% 30%,rgba(255,255,255,.85),rgba(255,255,255,.06) 42%),radial-gradient(circle at 66% 74%,rgba(110,72,240,.85),rgba(50,28,120,.95))}
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes breathe{50%{transform:scale(1.14)}}
+@keyframes breathe{50%{transform:scale(1.15)}}
 .manu-status{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#C9B8FF;margin-top:16px;display:flex;align-items:center;gap:8px}
-.eq{display:inline-flex;align-items:flex-end;gap:2px;height:12px}
-.eq i{width:2.5px;border-radius:2px;background:#C9B8FF;animation:eq 1s ease-in-out infinite}
-.eq i:nth-child(1){height:5px}.eq i:nth-child(2){height:12px;animation-delay:.12s}.eq i:nth-child(3){height:8px;animation-delay:.24s}.eq i:nth-child(4){height:11px;animation-delay:.36s}
-@keyframes eq{50%{transform:scaleY(.4)}}
-.manu-chat{padding:18px 14px 18px;display:flex;flex-direction:column;gap:9px;margin-top:auto;text-align:left}
+.eq2{display:inline-flex;align-items:flex-end;gap:2px;height:12px}
+.eq2 i{width:2.5px;border-radius:2px;background:#C9B8FF;animation:eq 1s ease-in-out infinite}
+.eq2 i:nth-child(1){height:5px}.eq2 i:nth-child(2){height:12px;animation-delay:.12s}.eq2 i:nth-child(3){height:8px;animation-delay:.24s}.eq2 i:nth-child(4){height:11px;animation-delay:.36s}
+.manu-chat{padding:18px 14px 20px;display:flex;flex-direction:column;gap:9px;margin-top:auto;text-align:left}
 .mbub{border-radius:15px;padding:10px 13px;font-size:12.8px;line-height:1.5;font-weight:500}
 .mbub.you{align-self:flex-end;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.14);max-width:88%}
-.mbub.manu{align-self:flex-start;background:rgba(255,255,255,.95);color:var(--ink);max-width:92%;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.mbub.manu{align-self:flex-start;background:rgba(255,255,255,.96);color:var(--ink);max-width:92%;box-shadow:0 6px 20px rgba(0,0,0,.25)}
 .mbub .tag{display:block;font-family:var(--mono);font-size:7.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px;color:rgba(255,255,255,.45)}
 .mbub.manu .tag{color:var(--manu-deep)}
 .mbub.manu u{text-decoration-color:var(--manu);text-decoration-thickness:2px;text-underline-offset:2px;font-weight:800}
 .fixchip{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.08em;color:var(--manu-deep);background:var(--manu-tint);border-radius:6px;padding:3px 8px;margin-top:7px;text-transform:uppercase}
 
-/* ═══ mecanismo ═══ */
+/* — mecanismo — */
 .mech{background:linear-gradient(180deg,#FFFFFF 0%,#F4F9F8 100%);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .mech-grid{display:grid;gap:18px;margin-top:52px}
 @media(min-width:880px){.mech-grid{grid-template-columns:1.25fr 1fr;grid-template-rows:auto auto}}
-.mcard{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:var(--sh-sm)}
+.mcard{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:30px;box-shadow:var(--sh-sm)}
 .mcard .mk{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal-d);margin-bottom:8px}
 .mcard h3{font-weight:800;font-size:20px;letter-spacing:-.02em;margin-bottom:6px}
 .mcard .mp{font-size:14.5px;color:var(--mut);font-weight:500;max-width:52ch}
 @media(min-width:880px){.mcard.tall{grid-row:span 2}}
-/* penhasco */
 .cliff{display:flex;align-items:flex-end;gap:8%;height:230px;margin-top:30px;padding:0 6px;border-bottom:2.5px solid var(--ink)}
 .bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}
 .bar .count{font-weight:900;font-size:clamp(14px,2.4vw,19px);letter-spacing:-.02em;margin-bottom:8px}
@@ -177,7 +218,6 @@ h2{font-weight:900;font-size:clamp(27px,5.8vw,42px);line-height:1.08;letter-spac
 @keyframes grow{to{transform:scaleY(1)}}
 .bar .lbl{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--mut);margin-top:10px;text-align:center;line-height:1.5}
 .cliff-cap{font-size:13px;color:var(--soft);font-weight:600;margin-top:14px}
-/* donut */
 .donut-zone{display:flex;align-items:center;gap:22px;margin-top:22px}
 .donut{position:relative;width:128px;height:128px;flex-shrink:0}
 .donut svg{transform:rotate(-90deg)}
@@ -187,7 +227,6 @@ h2{font-weight:900;font-size:clamp(27px,5.8vw,42px);line-height:1.08;letter-spac
 .donut .num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:30px;letter-spacing:-.04em}
 .donut-txt{font-size:14.5px;color:var(--mut);font-weight:500}
 .donut-txt b{color:var(--ink)}
-/* 30x */
 .reps{display:flex;align-items:flex-end;gap:18px;margin-top:26px}
 .rep{flex:1;text-align:center}
 .rep .stackv{display:flex;flex-direction:column-reverse;gap:3px;align-items:stretch;min-height:120px;justify-content:flex-start}
@@ -198,8 +237,8 @@ h2{font-weight:900;font-size:clamp(27px,5.8vw,42px);line-height:1.08;letter-spac
 .rep .res{font-size:12px;font-weight:700;margin-top:6px;color:var(--soft)}
 .rep.hot .res{color:var(--teal-d)}
 
-/* ═══ séries marquee ═══ */
-.series-sec{padding:64px 0;overflow:hidden}
+/* — séries — */
+.series-sec{padding:66px 0;overflow:hidden}
 .marquee{display:flex;gap:16px;width:max-content;animation:mq 36s linear infinite;margin-top:44px;padding:6px 0}
 .marquee:hover{animation-play-state:paused}
 @keyframes mq{to{transform:translateX(-50%)}}
@@ -210,45 +249,9 @@ h2{font-weight:900;font-size:clamp(27px,5.8vw,42px);line-height:1.08;letter-spac
 .mq-card.ted{background:linear-gradient(150deg,#1a0b0b,#3d1111);display:flex;align-items:center;justify-content:center}
 .mq-card.ted b{font-size:44px;font-weight:900;color:#EB0028;letter-spacing:-.03em}
 
-/* ═══ oferta ═══ */
-.offer-sec{background:radial-gradient(90% 70% at 50% 0%,#0F2E2A 0%,#0C1A18 70%);color:#fff;padding:88px 0}
-.offer-sec .eyebrow{color:#57D9CC}
-.offer-sec .sub{color:rgba(255,255,255,.66)}
-.paywall{max-width:560px;margin:48px auto 0;background:#fff;color:var(--ink);border-radius:28px;box-shadow:0 40px 100px -20px rgba(0,0,0,.6);overflow:hidden;position:relative}
-.pw-ribbon{background:var(--grad);color:#fff;text-align:center;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:11px 16px}
-.pw-body{padding:30px 26px 28px}
-@media(min-width:640px){.pw-body{padding:38px 40px 36px}}
-.pw-title{font-weight:900;font-size:23px;letter-spacing:-.025em;text-align:center}
-.pw-sub{text-align:center;color:var(--mut);font-size:14px;font-weight:500;margin-top:4px}
-.pw-items{margin:26px 0 8px;border-top:1px solid var(--line)}
-.pw-item{display:flex;align-items:center;gap:13px;padding:13px 0;border-bottom:1px solid var(--line)}
-.pw-item .ic{width:38px;height:38px;border-radius:11px;background:var(--teal-tint);color:var(--teal-d);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.pw-item.bn .ic{background:var(--manu-tint);color:var(--manu-deep)}
-.pw-item .tx{flex:1;min-width:0}
-.pw-item .tx b{display:block;font-size:14.5px;font-weight:800;letter-spacing:-.01em}
-.pw-item .tx span{font-size:12.5px;color:var(--mut);font-weight:500}
-.pw-item .pv{font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--soft);white-space:nowrap}
-.pw-item.bn .pv{color:var(--manu-deep)}
-.pw-total{display:flex;justify-content:space-between;align-items:center;padding:16px 0 6px;font-weight:800;font-size:14px}
-.pw-total .tv{font-family:var(--mono);color:var(--soft);text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:var(--coral)}
-.pw-price{text-align:center;margin:18px 0 6px}
-.pw-price .p{font-weight:900;font-size:64px;letter-spacing:-.045em;line-height:1;color:var(--teal-deep)}
-.pw-price .p small{font-size:22px;letter-spacing:-.02em}
-.pw-price .per{font-size:14px;color:var(--mut);font-weight:600;margin-top:6px}
-.pw-price .day{font-size:13px;color:var(--soft);font-weight:500;margin-top:2px}
-.cta-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:var(--grad);color:#fff;text-decoration:none;font-weight:900;font-size:17.5px;letter-spacing:-.01em;padding:19px 22px;border-radius:15px;margin-top:18px;box-shadow:0 14px 34px -8px rgba(13,132,122,.5);transition:transform .12s ease,box-shadow .12s ease;position:relative;overflow:hidden}
-.cta-btn::after{content:'';position:absolute;top:0;bottom:0;left:-70%;width:36%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.34),transparent);transform:skewX(-18deg);animation:shine 3.4s ease-in-out infinite}
-@keyframes shine{0%,55%{left:-70%}90%,100%{left:140%}}
-.cta-btn:hover{transform:translateY(-2px);box-shadow:0 20px 44px -8px rgba(13,132,122,.62)}
-.pw-secure{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 20px;margin-top:16px}
-.pw-secure span{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--mut)}
-.pw-secure svg{color:var(--teal-d)}
-.founder{max-width:560px;margin:22px auto 0;text-align:center;font-size:13.5px;color:rgba(255,255,255,.6);font-weight:500;line-height:1.7}
-.founder b{color:#fff}
-
-/* ═══ comparação ═══ */
+/* — comparação — */
 .tbl-wrap{overflow-x:auto;margin-top:48px;-webkit-overflow-scrolling:touch;padding-bottom:6px}
-table{border-collapse:separate;border-spacing:0;width:100%;min-width:640px;background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--sh-sm)}
+table{border-collapse:separate;border-spacing:0;width:100%;min-width:640px;background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:var(--sh-sm)}
 th,td{padding:15px 16px;text-align:center;font-size:14px;border-bottom:1px solid var(--line)}
 tr:last-child td{border-bottom:0}
 th{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);background:#F6FAF9}
@@ -259,17 +262,17 @@ th.fr{background:var(--teal);color:#fff}
 td .money{font-family:var(--mono);font-weight:700;font-size:12.5px;color:var(--mut)}
 td.fr .money{color:var(--teal-deep)}
 
-/* ═══ garantia ═══ */
+/* — garantia — */
 .g-sec{background:#F4F9F8;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .g-grid{display:grid;gap:18px;margin-top:48px;max-width:880px;margin-left:auto;margin-right:auto}
 @media(min-width:720px){.g-grid{grid-template-columns:1fr 1fr}}
-.g-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:32px;box-shadow:var(--sh-sm)}
+.g-card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:32px;box-shadow:var(--sh-sm)}
 .g-card .gi{width:52px;height:52px;border-radius:16px;background:var(--teal-tint);color:var(--teal-d);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
 .g-card .gd{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal-d);margin-bottom:8px}
 .g-card h3{font-weight:800;font-size:21px;letter-spacing:-.02em;margin-bottom:8px}
 .g-card p{font-size:14.5px;color:var(--mut);font-weight:500}
 
-/* ═══ faq ═══ */
+/* — faq — */
 .faq{max-width:760px;margin:44px auto 0}
 details{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:10px;box-shadow:var(--sh-sm);overflow:hidden}
 summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:19px 22px;font-weight:800;font-size:16px;letter-spacing:-.015em}
@@ -278,9 +281,7 @@ summary .pl{width:26px;height:26px;border-radius:8px;background:var(--teal-tint)
 details[open] summary .pl{transform:rotate(45deg)}
 details .ans{padding:0 22px 20px;color:var(--mut);font-size:15px;font-weight:500;max-width:62ch}
 
-/* ═══ cta final ═══ */
 .final{text-align:center;padding:84px 0 96px}
-
 footer{border-top:1px solid var(--line);padding:34px 20px 48px;text-align:center;font-size:12.5px;color:var(--soft);line-height:2;font-weight:500}
 
 /* sticky mobile */
@@ -292,7 +293,6 @@ footer{border-top:1px solid var(--line);padding:34px 20px 48px;text-align:center
 .sticky-cta .cta-btn::after{display:none}
 @media(max-width:820px){.sticky-cta{display:flex}}
 
-.esconder{display:none!important}
 @media (prefers-reduced-motion: reduce){
   *{animation:none!important;transition:none!important}
   .bar i{transform:none}
@@ -302,204 +302,47 @@ footer{border-top:1px solid var(--line);padding:34px 20px 48px;text-align:center
 }
 </style>
 </head>
-<body>
+<body class="closed">
 
 <svg width="0" height="0" aria-hidden="true"><defs>
 <linearGradient id="gradRing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0DB5A6"/><stop offset="1" stop-color="#0B7E74"/></linearGradient>
 <linearGradient id="gradRing2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0DB5A6"/><stop offset="1" stop-color="#085E57"/></linearGradient>
 </defs></svg>
 
-<div class="top">
-  <span class="logo">fluency<i>route</i></span>
-  <span class="top-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>garantia de 7 dias</span>
+<!-- ═══════════ ESTADO 1 · O TEATRO (página fechada) ═══════════ -->
+<div class="stage">
+  <div class="aurora" aria-hidden="true"><i></i><i></i></div>
+  <div class="stage-vignette" aria-hidden="true"></div>
+  <div class="stage-in">
+    <p class="mark">fluency<i>route</i></p>
+    <span class="kick">aula gratuita</span>
+    <h1>Por que 10 anos de escola não destravam o seu inglês — <em>e o que destrava</em>.</h1>
+    <div class="player-frame">
+      <div class="player">
+        <iframe frameborder="0" allowfullscreen id="ifr_67d1c8ba61d59aeb47caf87d" src="about:blank" referrerpolicy="origin" title="Aula Fluency Route"></iframe>
+      </div>
+    </div>
+    <span class="sound"><span class="eqs"><i></i><i></i><i></i></span>assista com o som ativado</span>
+    <br>
+    <span class="gate">
+      <span class="g-closed" style="display:inline-flex;align-items:center;gap:10px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>a inscrição abre ao final da aula</span>
+      <span class="g-open"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg><a href="#oferta">inscrição liberada — role a página ↓</a></span>
+    </span>
+  </div>
 </div>
 
-<!-- ═══ HERO ═══ -->
-<header class="hero">
-  <div class="wrap">
-    <span class="kicker"><span class="dot"></span>aula gratuita · assista até o final</span>
-    <h1>Inglês fluente se <span class="hl">treina<svg viewBox="0 0 120 10" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8 Q 30 2 60 5 T 118 4" fill="none" stroke="#0DB5A6" stroke-width="3.5" stroke-linecap="round"/></svg></span>. E o seu treino está pronto.</h1>
-    <p class="lead">Assista a aula e conheça o app que treina seu ouvido, sua fala e sua conversação — todos os dias, no seu celular.</p>
-  </div>
-  <div class="player-zone">
-    <div class="player-glow"></div>
-    <div class="player">
-      <iframe frameborder="0" allowfullscreen id="ifr_67d1c8ba61d59aeb47caf87d" src="about:blank" referrerpolicy="origin" title="Aula Fluency Route"></iframe>
-    </div>
-    <p class="sound"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4.7 6.6 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h3.6L11 19.3a1 1 0 0 0 1.63-.78V5.48A1 1 0 0 0 11 4.7z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.4 5.6a9 9 0 0 1 0 12.8"/></svg> assista com o som ativado</p>
-    <div class="trust">
-      <span class="avatars">
-        <b style="background:#0DB5A6">M</b><b style="background:#0B7E74">A</b><b style="background:#7C5CFC">J</b><b style="background:#F59E0B">C</b><b style="background:#0C1A18">R</b>
-        <span class="t-txt" style="margin-left:10px"><b>4.000+ alunos</b> destravando o inglês</span>
-      </span>
-      <span class="t-chip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>acesso imediato</span>
-      <span class="t-chip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>7 dias de garantia</span>
-    </div>
-  </div>
-</header>
+<!-- ═══════════ ESTADO 2 · A LOJA (abre no reveal) ═══════════ -->
+<div id="site">
 
-<!-- ═══ APP / 3 FONES ═══ -->
-<section>
-  <div class="wrap">
-    <div class="center">
-      <p class="eyebrow">dentro do app</p>
-      <h2>Os 3 treinos que levam<br>até a fluência</h2>
-      <p class="sub">Não é curso pra assistir. É treino pra fazer — e cada um deles está pronto no seu celular.</p>
-    </div>
-    <div class="phones">
-
-      <!-- fone 1: ouvido -->
-      <div class="ph-col">
-        <div class="phone"><div class="screen">
-          <span class="notch"></span>
-          <div class="ph-head"><span>friends · s01e01</span><span class="st">treino de ouvido</span></div>
-          <div class="sc-scene">
-            <img src="/thumb-friends.jpg" alt="Cena de Friends" loading="lazy">
-            <span class="ep">TRECHO 0:42–0:54</span>
-            <span class="playbtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0C1A18"><path d="M8 5v14l11-7z"/></svg></span>
-          </div>
-          <div class="karaoke">
-            <p class="en"><span>There's</span> <span>nothing</span> <span>to</span> <span>tell!</span> <span>He's</span> <span>just…</span></p>
-            <p class="pt">Não tem nada pra contar! Ele é só…</p>
-          </div>
-          <div class="sc-ctrl"><span class="pill on">LOOP A–B</span><span class="pill">0.8x</span><span class="pill">REPETIÇÃO 12/30</span></div>
-          <div class="sc-loop"><i></i></div>
-        </div></div>
-        <div class="ph-label">
-          <span class="n">TREINO 01</span>
-          <h3>Ouvido</h3>
-          <p>Um minuto de cena no repeat, com script na tela — até o embolado virar palavra.</p>
-        </div>
-      </div>
-
-      <!-- fone 2: fala -->
-      <div class="ph-col">
-        <div class="phone"><div class="screen">
-          <span class="notch"></span>
-          <div class="ph-head"><span>shadowing</span><span class="st">sua gravação</span></div>
-          <div class="sh-body">
-            <p class="sh-phrase"><span class="g">There's</span> <span class="g">nothing</span> <span class="y">to</span> <span class="g">tell!</span></p>
-            <div class="ring-zone">
-              <div class="ring">
-                <svg width="92" height="92" viewBox="0 0 92 92"><circle class="track" cx="46" cy="46" r="38.1" fill="none" stroke-width="9"/><circle class="val" cx="46" cy="46" r="38.1" fill="none" stroke-width="9"/></svg>
-                <span class="num">87<small>nota</small></span>
-              </div>
-              <p class="sh-note">Quase lá — o <b>“to”</b> escapou do som real. Ouve o nativo e grava de novo.</p>
-            </div>
-            <div class="sh-waves">
-              <div class="row"><span class="who">nativo</span><span class="wv"><i style="height:30%"></i><i style="height:75%"></i><i style="height:55%"></i><i style="height:95%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:35%"></i><i style="height:65%"></i><i style="height:90%"></i><i style="height:40%"></i><i style="height:70%"></i><i style="height:30%"></i></span></div>
-              <div class="row"><span class="who">você</span><span class="wv you"><i style="height:28%"></i><i style="height:70%"></i><i style="height:50%"></i><i style="height:88%"></i><i style="height:38%"></i><i style="height:85%"></i><i style="height:60%"></i><i style="height:58%"></i><i style="height:84%"></i><i style="height:36%"></i><i style="height:66%"></i><i style="height:28%"></i></span></div>
-            </div>
-          </div>
-        </div></div>
-        <div class="ph-label">
-          <span class="n">TREINO 02</span>
-          <h3>Fala</h3>
-          <p>Você grava por cima do nativo e recebe nota palavra por palavra. Medição, não achismo.</p>
-        </div>
-      </div>
-
-      <!-- fone 3: manu -->
-      <div class="ph-col">
-        <div class="phone"><div class="screen manu-screen">
-          <span class="notch"></span>
-          <div class="ph-head"><span>manu</span><span class="st">conversação por voz</span></div>
-          <div class="orb-zone">
-            <div class="orb"><span class="halo"></span><span class="core"></span><span class="glass"></span></div>
-            <span class="manu-status"><span class="eq"><i></i><i></i><i></i><i></i></span>manu está te ouvindo</span>
-          </div>
-          <div class="manu-chat">
-            <div class="mbub you"><span class="tag">você · voz</span>“I go to the beach yesterday…”</div>
-            <div class="mbub manu"><span class="tag">manu</span>Adorei! Só um ajuste: ontem já passou — <u>I went</u> to the beach. Fala comigo de novo?<span class="fixchip"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>correção em tempo real</span></div>
-          </div>
-        </div></div>
-        <div class="ph-label">
-          <span class="n">TREINO 03</span>
-          <h3>Conversação</h3>
-          <p>A Manu conversa com você por voz, no seu nível, e corrige na hora. Sem plateia, sem hora marcada.</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ═══ MECANISMO ═══ -->
-<section class="mech">
-  <div class="wrap">
-    <div class="center">
-      <p class="eyebrow">por que funciona</p>
-      <h2>A gente mediu o inglês de verdade</h2>
-      <p class="sub">Passamos <b>703 episódios</b> — 1,88 milhão de palavras de diálogo real — por um computador. O resultado mudou o jeito de treinar.</p>
-    </div>
-    <div class="mech-grid">
-      <div class="mcard tall">
-        <p class="mk">descoberta 01 · o penhasco</p>
-        <h3>Pouquíssimas palavras carregam o idioma inteiro</h3>
-        <p class="mp">Quantas vezes cada palavra aparece em 703 episódios:</p>
-        <div class="cliff">
-          <div class="bar"><span class="count">71.849x</span><i style="height:78%"></i><span class="lbl">palavra #1</span></div>
-          <div class="bar"><span class="count">410x</span><i style="height:14%"></i><span class="lbl">palavra #501</span></div>
-          <div class="bar"><span class="count">55x</span><i style="height:5%"></i><span class="lbl">palavra #2001</span></div>
-        </div>
-        <p class="cliff-cap">Isso não é uma escadinha — é um penhasco. Por isso o treino inteiro foca onde o idioma realmente acontece.</p>
-      </div>
-      <div class="mcard">
-        <p class="mk">descoberta 02 · fluência essencial</p>
-        <h3>500 palavras = 90% das conversas</h3>
-        <div class="donut-zone">
-          <div class="donut">
-            <svg width="128" height="128" viewBox="0 0 128 128"><circle class="track" cx="64" cy="64" r="54" fill="none" stroke-width="13"/><circle class="val" cx="64" cy="64" r="54" fill="none" stroke-width="13"/></svg>
-            <span class="num">90%</span>
-          </div>
-          <p class="donut-txt">Domine as <b>500 palavras essenciais</b> e você entende <b>9 em cada 10 frases</b> de qualquer conversa real.</p>
-        </div>
-      </div>
-      <div class="mcard">
-        <p class="mk">descoberta 03 · repetição</p>
-        <h3>Aula informa. Treino grava.</h3>
-        <div class="reps">
-          <div class="rep">
-            <div class="stackv"><i></i></div>
-            <p class="rn">1x</p><p class="rl">aula tradicional</p><p class="res">você esquece</p>
-          </div>
-          <div class="rep hot">
-            <div class="stackv"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-            <p class="rn">30–40x</p><p class="rl">treino concentrado</p><p class="res">vira automático</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ SÉRIES ═══ -->
-<section class="series-sec">
-  <div class="wrap center">
-    <p class="eyebrow">material de treino</p>
-    <h2>As séries que você ama,<br>preparadas cena a cena</h2>
-  </div>
-  <div class="marquee" aria-label="Séries disponíveis">
-    <div class="mq-card"><img src="/thumb-friends.jpg" alt="Friends" loading="lazy"><span class="cap">Friends<small>todas as temporadas</small></span></div>
-    <div class="mq-card"><img src="/thumb-himym.jpg" alt="How I Met Your Mother" loading="lazy"><span class="cap">How I Met Your Mother<small>todas as temporadas</small></span></div>
-    <div class="mq-card"><img src="/thumb-tahm.jpg" alt="Two and a Half Men" loading="lazy"><span class="cap">Two and a Half Men<small>todas as temporadas</small></span></div>
-    <div class="mq-card ted"><b>TED</b><span class="cap">TED Talks<small>discursos selecionados</small></span></div>
-    <div class="mq-card"><img src="/thumb-friends.jpg" alt="" aria-hidden="true" loading="lazy"><span class="cap">Friends<small>todas as temporadas</small></span></div>
-    <div class="mq-card"><img src="/thumb-himym.jpg" alt="" aria-hidden="true" loading="lazy"><span class="cap">How I Met Your Mother<small>todas as temporadas</small></span></div>
-    <div class="mq-card"><img src="/thumb-tahm.jpg" alt="" aria-hidden="true" loading="lazy"><span class="cap">Two and a Half Men<small>todas as temporadas</small></span></div>
-    <div class="mq-card ted" aria-hidden="true"><b>TED</b><span class="cap">TED Talks<small>discursos selecionados</small></span></div>
-  </div>
-</section>
-
-<!-- ═══ OFERTA ═══ -->
+<!-- OFERTA -->
 <section class="offer-sec" id="oferta">
-  <div class="wrap center">
-    <p class="eyebrow">sua inscrição</p>
-    <h2 style="color:#fff">Tudo que chega no seu acesso</h2>
+  <div class="wrap center offer-head">
+    <p class="eyebrow">sua inscrição está aberta</p>
+    <h2>Tudo que chega no seu acesso</h2>
     <p class="sub">Um ano de treino completo — pelo preço de duas aulas particulares.</p>
 
     <div class="paywall">
-      <div class="pw-ribbon">turma de fundação · vagas limitadas</div>
+      <div class="pw-ribbon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>turma de fundação · vagas limitadas</div>
       <div class="pw-body">
         <p class="pw-title">Fluency Route — Acesso Anual</p>
         <p class="pw-sub">app completo + Manu + todos os bônus</p>
@@ -564,8 +407,154 @@ footer{border-top:1px solid var(--line);padding:34px 20px 48px;text-align:center
   </div>
 </section>
 
-<!-- ═══ COMPARAÇÃO ═══ -->
-<section>
+<!-- FONES -->
+<section class="noise">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow">o que você acabou de ver na aula</p>
+      <h2>Os 3 treinos, de perto</h2>
+      <p class="sub">Não é curso pra assistir. É treino pra fazer — todos os dias, no seu celular.</p>
+    </div>
+    <div class="phones">
+      <div class="ph-col">
+        <div class="phone"><div class="screen">
+          <span class="notch"></span>
+          <div class="ph-head"><span>friends · s01e01</span><span class="st">treino de ouvido</span></div>
+          <div class="sc-scene">
+            <img src="/thumb-friends.jpg" alt="Cena de Friends" loading="lazy">
+            <span class="ep">TRECHO 0:42–0:54</span>
+            <span class="playbtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0C1A18"><path d="M8 5v14l11-7z"/></svg></span>
+          </div>
+          <div class="karaoke">
+            <p class="en"><span>There's</span> <span>nothing</span> <span>to</span> <span>tell!</span> <span>He's</span> <span>just…</span></p>
+            <p class="pt">Não tem nada pra contar! Ele é só…</p>
+          </div>
+          <div class="sc-ctrl"><span class="pill on">LOOP A–B</span><span class="pill">0.8x</span><span class="pill">REPETIÇÃO 12/30</span></div>
+          <div class="sc-loop"><i></i></div>
+        </div></div>
+        <div class="ph-label">
+          <span class="n">TREINO 01</span>
+          <h3>Ouvido</h3>
+          <p>Um minuto de cena no repeat, com script na tela — até o embolado virar palavra.</p>
+        </div>
+      </div>
+      <div class="ph-col">
+        <div class="phone"><div class="screen">
+          <span class="notch"></span>
+          <div class="ph-head"><span>shadowing</span><span class="st">sua gravação</span></div>
+          <div class="sh-body">
+            <p class="sh-phrase"><span class="g">There's</span> <span class="g">nothing</span> <span class="y">to</span> <span class="g">tell!</span></p>
+            <div class="ring-zone">
+              <div class="ring">
+                <svg width="92" height="92" viewBox="0 0 92 92"><circle class="track" cx="46" cy="46" r="38.1" fill="none" stroke-width="9"/><circle class="val" cx="46" cy="46" r="38.1" fill="none" stroke-width="9"/></svg>
+                <span class="num">87<small>nota</small></span>
+              </div>
+              <p class="sh-note">Quase lá — o <b>“to”</b> escapou do som real. Ouve o nativo e grava de novo.</p>
+            </div>
+            <div class="sh-waves">
+              <div class="row"><span class="who">nativo</span><span class="wv"><i style="height:30%"></i><i style="height:75%"></i><i style="height:55%"></i><i style="height:95%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:35%"></i><i style="height:65%"></i><i style="height:90%"></i><i style="height:40%"></i><i style="height:70%"></i><i style="height:30%"></i></span></div>
+              <div class="row"><span class="who">você</span><span class="wv you"><i style="height:28%"></i><i style="height:70%"></i><i style="height:50%"></i><i style="height:88%"></i><i style="height:38%"></i><i style="height:85%"></i><i style="height:60%"></i><i style="height:58%"></i><i style="height:84%"></i><i style="height:36%"></i><i style="height:66%"></i><i style="height:28%"></i></span></div>
+            </div>
+          </div>
+        </div></div>
+        <div class="ph-label">
+          <span class="n">TREINO 02</span>
+          <h3>Fala</h3>
+          <p>Você grava por cima do nativo e recebe nota palavra por palavra. Medição, não achismo.</p>
+        </div>
+      </div>
+      <div class="ph-col">
+        <div class="phone"><div class="screen manu-screen">
+          <span class="notch"></span>
+          <div class="ph-head"><span>manu</span><span class="st">conversação por voz</span></div>
+          <div class="orb-zone">
+            <div class="orb"><span class="halo"></span><span class="core"></span><span class="glass"></span></div>
+            <span class="manu-status"><span class="eq2"><i></i><i></i><i></i><i></i></span>manu está te ouvindo</span>
+          </div>
+          <div class="manu-chat">
+            <div class="mbub you"><span class="tag">você · voz</span>“I go to the beach yesterday…”</div>
+            <div class="mbub manu"><span class="tag">manu</span>Adorei! Só um ajuste: ontem já passou — <u>I went</u> to the beach. Fala comigo de novo?<span class="fixchip"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>correção em tempo real</span></div>
+          </div>
+        </div></div>
+        <div class="ph-label">
+          <span class="n">TREINO 03</span>
+          <h3>Conversação</h3>
+          <p>A Manu conversa com você por voz, no seu nível, e corrige na hora. Sem plateia, sem hora marcada.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MECANISMO -->
+<section class="mech">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow">por que funciona</p>
+      <h2>A gente mediu o inglês de verdade</h2>
+      <p class="sub">Passamos <b>703 episódios</b> — 1,88 milhão de palavras de diálogo real — por um computador. O resultado mudou o jeito de treinar.</p>
+    </div>
+    <div class="mech-grid">
+      <div class="mcard tall">
+        <p class="mk">descoberta 01 · o penhasco</p>
+        <h3>Pouquíssimas palavras carregam o idioma inteiro</h3>
+        <p class="mp">Quantas vezes cada palavra aparece em 703 episódios:</p>
+        <div class="cliff">
+          <div class="bar"><span class="count">71.849x</span><i style="height:78%"></i><span class="lbl">palavra #1</span></div>
+          <div class="bar"><span class="count">410x</span><i style="height:14%"></i><span class="lbl">palavra #501</span></div>
+          <div class="bar"><span class="count">55x</span><i style="height:5%"></i><span class="lbl">palavra #2001</span></div>
+        </div>
+        <p class="cliff-cap">Isso não é uma escadinha — é um penhasco. Por isso o treino inteiro foca onde o idioma realmente acontece.</p>
+      </div>
+      <div class="mcard">
+        <p class="mk">descoberta 02 · fluência essencial</p>
+        <h3>500 palavras = 90% das conversas</h3>
+        <div class="donut-zone">
+          <div class="donut">
+            <svg width="128" height="128" viewBox="0 0 128 128"><circle class="track" cx="64" cy="64" r="54" fill="none" stroke-width="13"/><circle class="val" cx="64" cy="64" r="54" fill="none" stroke-width="13"/></svg>
+            <span class="num">90%</span>
+          </div>
+          <p class="donut-txt">Domine as <b>500 palavras essenciais</b> e você entende <b>9 em cada 10 frases</b> de qualquer conversa real.</p>
+        </div>
+      </div>
+      <div class="mcard">
+        <p class="mk">descoberta 03 · repetição</p>
+        <h3>Aula informa. Treino grava.</h3>
+        <div class="reps">
+          <div class="rep">
+            <div class="stackv"><i></i></div>
+            <p class="rn">1x</p><p class="rl">aula tradicional</p><p class="res">você esquece</p>
+          </div>
+          <div class="rep hot">
+            <div class="stackv"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <p class="rn">30–40x</p><p class="rl">treino concentrado</p><p class="res">vira automático</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SÉRIES -->
+<section class="series-sec">
+  <div class="wrap center">
+    <p class="eyebrow">material de treino</p>
+    <h2>As séries que você ama,<br>preparadas cena a cena</h2>
+  </div>
+  <div class="marquee" aria-label="Séries disponíveis">
+    <div class="mq-card"><img src="/thumb-friends.jpg" alt="Friends" loading="lazy"><span class="cap">Friends<small>todas as temporadas</small></span></div>
+    <div class="mq-card"><img src="/thumb-himym.jpg" alt="How I Met Your Mother" loading="lazy"><span class="cap">How I Met Your Mother<small>todas as temporadas</small></span></div>
+    <div class="mq-card"><img src="/thumb-tahm.jpg" alt="Two and a Half Men" loading="lazy"><span class="cap">Two and a Half Men<small>todas as temporadas</small></span></div>
+    <div class="mq-card ted"><b>TED</b><span class="cap">TED Talks<small>discursos selecionados</small></span></div>
+    <div class="mq-card"><img src="/thumb-friends.jpg" alt="" aria-hidden="true" loading="lazy"><span class="cap">Friends<small>todas as temporadas</small></span></div>
+    <div class="mq-card"><img src="/thumb-himym.jpg" alt="" aria-hidden="true" loading="lazy"><span class="cap">How I Met Your Mother<small>todas as temporadas</small></span></div>
+    <div class="mq-card"><img src="/thumb-tahm.jpg" alt="" aria-hidden="true" loading="lazy"><span class="cap">Two and a Half Men<small>todas as temporadas</small></span></div>
+    <div class="mq-card ted" aria-hidden="true"><b>TED</b><span class="cap">TED Talks<small>discursos selecionados</small></span></div>
+  </div>
+</section>
+
+<!-- COMPARAÇÃO -->
+<section style="padding-top:0">
   <div class="wrap">
     <div class="center">
       <p class="eyebrow">compare</p>
@@ -588,7 +577,7 @@ footer{border-top:1px solid var(--line);padding:34px 20px 48px;text-align:center
   </div>
 </section>
 
-<!-- ═══ GARANTIA ═══ -->
+<!-- GARANTIA -->
 <section class="g-sec">
   <div class="wrap">
     <div class="center">
@@ -612,7 +601,7 @@ footer{border-top:1px solid var(--line);padding:34px 20px 48px;text-align:center
   </div>
 </section>
 
-<!-- ═══ FAQ ═══ -->
+<!-- FAQ -->
 <section>
   <div class="narrow">
     <div class="center">
@@ -632,7 +621,7 @@ footer{border-top:1px solid var(--line);padding:34px 20px 48px;text-align:center
   </div>
 </section>
 
-<!-- ═══ CTA FINAL ═══ -->
+<!-- CTA FINAL -->
 <section class="final">
   <div class="narrow">
     <p class="eyebrow">sua vez</p>
@@ -650,7 +639,9 @@ footer{border-top:1px solid var(--line);padding:34px 20px 48px;text-align:center
   este site não é afiliado ao Facebook ou a qualquer entidade do Facebook
 </footer>
 
-<!-- sticky CTA mobile -->
+</div><!-- /#site -->
+
+<!-- sticky CTA mobile (só pós-reveal) -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
   <div class="p">R$99/mês<small>plano anual · 12x</small></div>
   <a class="cta-btn" href="https://pay.kiwify.com.br/6Fftr2I">DESTRAVAR AGORA</a>
@@ -705,17 +696,18 @@ var UTM_KEYS=['utm_source','utm_medium','utm_campaign','utm_term','utm_content',
 a.addEventListener('click',function(){try{var cur=new URL(a.href);var sck=cur.searchParams.get('sck');if(sck){var fb=getFb();var pp=qp();beacon('/api/checkout-session',{session_id:stitchSid()+'-click-'+Date.now().toString(36),fbc:fb.fbc,fbp:fb.fbp,fbclid:pp.get('fbclid')||undefined,client_ip_address:cachedIp||undefined,client_user_agent:navigator.userAgent,sck:sck,utm_source:pp.get('utm_source')||undefined,utm_medium:pp.get('utm_medium')||undefined,utm_campaign:pp.get('utm_campaign')||undefined,utm_content:pp.get('utm_content')||undefined,utm_term:pp.get('utm_term')||undefined})}}catch(e){}
 saveCheckoutSession(stitchSid());try{frTrack('checkout_click')}catch(e){}trackDual('InitiateCheckout')})})})();
 
-// reveal da oferta — DORMENTE: pra ativar o delay de 21min, adicione class="esconder"
-// nas seções de preço (#oferta e .final) e o código abaixo revela no tempo certo (?reveal=1 pré-visualiza)
+// ── REVEAL: página fechada → site abre aos 21min (?reveal=1 pré-visualiza; ?reveal=0 refecha) ──
 (function(){var delaySeconds=1260;var key='fluency_vsl3_revealed';
-function show(){document.querySelectorAll('.esconder').forEach(function(el){el.classList.remove('esconder')})}
-function doReveal(){show();try{localStorage.setItem(key,'1')}catch(e){}}
-var preview=qp().get('reveal')==='1';var already=false;try{already=localStorage.getItem(key)==='1'}catch(e){}
-if(preview)show();else if(already)doReveal();else setTimeout(doReveal,delaySeconds*1000)})();
+function doReveal(persist){document.body.classList.remove('closed');try{frTrack('reveal')}catch(e){}if(persist){try{localStorage.setItem(key,'1')}catch(e){}}}
+var p=qp();
+if(p.get('reveal')==='0'){try{localStorage.removeItem(key)}catch(e){}}
+else if(p.get('reveal')==='1'){doReveal(false)}
+else{var already=false;try{already=localStorage.getItem(key)==='1'}catch(e){}
+if(already)doReveal(true);else setTimeout(function(){doReveal(true)},delaySeconds*1000)}})();
 
-// sticky CTA mobile — aparece depois da seção da oferta
+// sticky CTA mobile — só pós-reveal, depois de passar a oferta
 (function(){var bar=document.getElementById('stickyCta');var ofertaEl=document.getElementById('oferta');if(!bar||!ofertaEl)return;
-window.addEventListener('scroll',function(){var passed=window.scrollY>(ofertaEl.offsetTop+ofertaEl.offsetHeight-200);bar.classList.toggle('on',passed);bar.setAttribute('aria-hidden',passed?'false':'true')},{passive:true})})();
+window.addEventListener('scroll',function(){if(document.body.classList.contains('closed'))return;var passed=window.scrollY>(ofertaEl.offsetTop+ofertaEl.offsetHeight-260);bar.classList.toggle('on',passed);bar.setAttribute('aria-hidden',passed?'false':'true')},{passive:true})})();
 
 // scroll depth + time on page
 (function(){var fired={};window.addEventListener('scroll',function(){var pct=Math.round(window.scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100);[25,50,75,100].forEach(function(t){if(pct>=t&&!fired[t]){fired[t]=1;trackDual('ScrollDepth_'+t)}})},{passive:true});

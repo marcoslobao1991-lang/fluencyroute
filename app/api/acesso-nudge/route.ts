@@ -17,9 +17,9 @@ const APP_URL = process.env.APP_URL || "https://app.fluencyroute.com.br";
 const FROM = "Rota da Fluência <contato@acesso.fluencyroute.com.br>";
 
 const ASSUNTOS = [
-  "Seu acesso ao Rota da Fluência está aqui (login e senha novos)",
-  "Você ainda não entrou — sua senha nova está nesse e-mail",
-  "Último lembrete: seu acesso ao Rota da Fluência",
+  "Sua teacher MANU está te esperando (login e senha novos aqui)",
+  "A MANU perguntou por você 💜 — senha nova nesse e-mail",
+  "Último lembrete: seu acesso (e sua teacher) continuam aqui",
 ];
 
 function novaSenha() {
@@ -44,7 +44,9 @@ function emailHtml(nome: string, email: string, senha: string, n: number) {
       <p style="color:#fff;font-size:15px;margin:0 0 6px"><b>E-mail:</b> ${email}</p>
       <p style="color:#fff;font-size:15px;margin:0"><b>Senha:</b> ${senha}</p>
     </div>
-    <a href="${APP_URL}" style="display:inline-block;margin:6px 0 8px;background:#0B6E68;color:#fff;font-weight:900;font-size:16px;padding:16px 28px;border-radius:12px;text-decoration:none">ENTRAR NA PLATAFORMA ▶</a>
+    <p style="font-size:15px;color:#3D4A49;line-height:1.65;margin:4px 0 14px">Lá dentro a <b style="color:#7C5CFF">MANU</b> — sua teacher particular de IA — conversa com você, te escuta falar inglês <b>sem julgamento</b> e monta seu caminho. Começa por ela: é 1 minuto pra sentir a diferença.</p>
+    <a href="${APP_URL}" style="display:inline-block;margin:6px 0 8px;background:#0B6E68;color:#fff;font-weight:900;font-size:16px;padding:16px 28px;border-radius:12px;text-decoration:none">ENTRAR E FALAR COM A MANU ▶</a>
+    <p style="font-size:13px;color:#8a6d1f;background:#FFF7DF;border:1px solid #F0DFA8;border-radius:10px;padding:10px 14px;line-height:1.6;margin-top:14px">⚠️ O curso <b>não fica na Kiwify</b> — lá é só o pagamento. Sua área de aluno é <b>app.fluencyroute.com.br</b> (o botão acima).</p>
     <p style="font-size:14px;color:#3D4A49;line-height:1.6;margin-top:14px">Prefere entrar <b>sem senha</b>? Acesse <a href="https://fluencyroute.com.br/acesso" style="color:#0B6E68;font-weight:700">fluencyroute.com.br/acesso</a>, digite este e-mail e você entra na hora.</p>
     <p style="font-size:13px;color:#7a8a88;line-height:1.6;margin-top:10px">Qualquer dificuldade, responde este e-mail que a gente resolve com você.</p>
     <p style="font-size:11px;color:#9aa;margin-top:28px">Fluency Route · você recebeu porque sua compra foi aprovada e o acesso ainda não foi utilizado.</p>

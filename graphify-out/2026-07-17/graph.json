@@ -1,0 +1,2500 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "content.tsx",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "app_fluency_secrets_content",
+      "community": 6,
+      "norm_label": "content.tsx"
+    },
+    {
+      "label": "Chapter",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "app_fluency_secrets_content_chapter",
+      "community": 6,
+      "norm_label": "chapter"
+    },
+    {
+      "label": "Secret()",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "app_fluency_secrets_content_secret",
+      "community": 6,
+      "norm_label": "secret()"
+    },
+    {
+      "label": "Note()",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "app_fluency_secrets_content_note",
+      "community": 6,
+      "norm_label": "note()"
+    },
+    {
+      "label": "TranslationTax()",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L32",
+      "_origin": "ast",
+      "id": "app_fluency_secrets_content_translationtax",
+      "community": 6,
+      "norm_label": "translationtax()"
+    },
+    {
+      "label": "LearnVsTrain()",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L48",
+      "_origin": "ast",
+      "id": "app_fluency_secrets_content_learnvstrain",
+      "community": 6,
+      "norm_label": "learnvstrain()"
+    },
+    {
+      "label": "AvailabilityGap()",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L61",
+      "_origin": "ast",
+      "id": "app_fluency_secrets_content_availabilitygap",
+      "community": 6,
+      "norm_label": "availabilitygap()"
+    },
+    {
+      "label": "NoveltyTreadmill()",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L77",
+      "_origin": "ast",
+      "id": "app_fluency_secrets_content_noveltytreadmill",
+      "community": 6,
+      "norm_label": "noveltytreadmill()"
+    },
+    {
+      "label": "PerceptionLayers()",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L92",
+      "_origin": "ast",
+      "id": "app_fluency_secrets_content_perceptionlayers",
+      "community": 6,
+      "norm_label": "perceptionlayers()"
+    },
+    {
+      "label": "EssentialFilter()",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L105",
+      "_origin": "ast",
+      "id": "app_fluency_secrets_content_essentialfilter",
+      "community": 6,
+      "norm_label": "essentialfilter()"
+    },
+    {
+      "label": "MasteryContrast()",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L119",
+      "_origin": "ast",
+      "id": "app_fluency_secrets_content_masterycontrast",
+      "community": 6,
+      "norm_label": "masterycontrast()"
+    },
+    {
+      "label": "RepetitionDirections()",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L131",
+      "_origin": "ast",
+      "id": "app_fluency_secrets_content_repetitiondirections",
+      "community": 6,
+      "norm_label": "repetitiondirections()"
+    },
+    {
+      "label": "MasteryThreshold()",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L143",
+      "_origin": "ast",
+      "id": "app_fluency_secrets_content_masterythreshold",
+      "community": 6,
+      "norm_label": "masterythreshold()"
+    },
+    {
+      "label": "ExperimentCard()",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L158",
+      "_origin": "ast",
+      "id": "app_fluency_secrets_content_experimentcard",
+      "community": 6,
+      "norm_label": "experimentcard()"
+    },
+    {
+      "label": "TransferLadder()",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L178",
+      "_origin": "ast",
+      "id": "app_fluency_secrets_content_transferladder",
+      "community": 6,
+      "norm_label": "transferladder()"
+    },
+    {
+      "label": "chapters",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L193",
+      "_origin": "ast",
+      "id": "app_fluency_secrets_content_chapters",
+      "community": 6,
+      "norm_label": "chapters"
+    },
+    {
+      "label": "audit-fluency-editorial.mjs",
+      "file_type": "code",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "scripts_audit_fluency_editorial",
+      "community": 3,
+      "norm_label": "audit-fluency-editorial.mjs"
+    },
+    {
+      "label": "requireCondition()",
+      "file_type": "code",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "scripts_audit_fluency_editorial_requirecondition",
+      "community": 3,
+      "norm_label": "requirecondition()"
+    },
+    {
+      "label": "chapterIds",
+      "file_type": "code",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "scripts_audit_fluency_editorial_chapterids",
+      "community": 3,
+      "norm_label": "chapterids"
+    },
+    {
+      "label": "expectedChapterIds",
+      "file_type": "code",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "scripts_audit_fluency_editorial_expectedchapterids",
+      "community": 3,
+      "norm_label": "expectedchapterids"
+    },
+    {
+      "label": "readingMinutes",
+      "file_type": "code",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L35",
+      "_origin": "ast",
+      "id": "scripts_audit_fluency_editorial_readingminutes",
+      "community": 3,
+      "norm_label": "readingminutes"
+    },
+    {
+      "label": "renderedCopy",
+      "file_type": "code",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L39",
+      "_origin": "ast",
+      "id": "scripts_audit_fluency_editorial_renderedcopy",
+      "community": 3,
+      "norm_label": "renderedcopy"
+    },
+    {
+      "label": "paragraphs",
+      "file_type": "code",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L47",
+      "_origin": "ast",
+      "id": "scripts_audit_fluency_editorial_paragraphs",
+      "community": 3,
+      "norm_label": "paragraphs"
+    },
+    {
+      "label": "longestParagraph",
+      "file_type": "code",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L56",
+      "_origin": "ast",
+      "id": "scripts_audit_fluency_editorial_longestparagraph",
+      "community": 3,
+      "norm_label": "longestparagraph"
+    },
+    {
+      "label": "forbiddenPitchSignals",
+      "file_type": "code",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L60",
+      "_origin": "ast",
+      "id": "scripts_audit_fluency_editorial_forbiddenpitchsignals",
+      "community": 3,
+      "norm_label": "forbiddenpitchsignals"
+    },
+    {
+      "label": "lowerSource",
+      "file_type": "code",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L68",
+      "_origin": "ast",
+      "id": "scripts_audit_fluency_editorial_lowersource",
+      "community": 3,
+      "norm_label": "lowersource"
+    },
+    {
+      "label": "foundPitchSignals",
+      "file_type": "code",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L69",
+      "_origin": "ast",
+      "id": "scripts_audit_fluency_editorial_foundpitchsignals",
+      "community": 3,
+      "norm_label": "foundpitchsignals"
+    },
+    {
+      "label": "requiredMechanisms",
+      "file_type": "code",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L73",
+      "_origin": "ast",
+      "id": "scripts_audit_fluency_editorial_requiredmechanisms",
+      "community": 3,
+      "norm_label": "requiredmechanisms"
+    },
+    {
+      "label": "missingMechanisms",
+      "file_type": "code",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L81",
+      "_origin": "ast",
+      "id": "scripts_audit_fluency_editorial_missingmechanisms",
+      "community": 3,
+      "norm_label": "missingmechanisms"
+    },
+    {
+      "label": "requiredContrasts",
+      "file_type": "code",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L84",
+      "_origin": "ast",
+      "id": "scripts_audit_fluency_editorial_requiredcontrasts",
+      "community": 3,
+      "norm_label": "requiredcontrasts"
+    },
+    {
+      "label": "missingContrasts",
+      "file_type": "code",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L92",
+      "_origin": "ast",
+      "id": "scripts_audit_fluency_editorial_missingcontrasts",
+      "community": 3,
+      "norm_label": "missingcontrasts"
+    },
+    {
+      "label": "qa-fluency-secrets.mjs",
+      "file_type": "code",
+      "source_file": "scripts/qa-fluency-secrets.mjs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "scripts_qa_fluency_secrets",
+      "community": 10,
+      "norm_label": "qa-fluency-secrets.mjs"
+    },
+    {
+      "label": "mobile",
+      "file_type": "code",
+      "source_file": "scripts/qa-fluency-secrets.mjs",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "scripts_qa_fluency_secrets_mobile",
+      "community": 10,
+      "norm_label": "mobile"
+    },
+    {
+      "label": "chrome",
+      "file_type": "code",
+      "source_file": "scripts/qa-fluency-secrets.mjs",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "scripts_qa_fluency_secrets_chrome",
+      "community": 10,
+      "norm_label": "chrome"
+    },
+    {
+      "label": "delay()",
+      "file_type": "code",
+      "source_file": "scripts/qa-fluency-secrets.mjs",
+      "source_location": "L27",
+      "_origin": "ast",
+      "id": "scripts_qa_fluency_secrets_delay",
+      "community": 10,
+      "norm_label": "delay()"
+    },
+    {
+      "label": "getTarget()",
+      "file_type": "code",
+      "source_file": "scripts/qa-fluency-secrets.mjs",
+      "source_location": "L29",
+      "_origin": "ast",
+      "id": "scripts_qa_fluency_secrets_gettarget",
+      "community": 10,
+      "norm_label": "gettarget()"
+    },
+    {
+      "label": "socket",
+      "file_type": "code",
+      "source_file": "scripts/qa-fluency-secrets.mjs",
+      "source_location": "L45",
+      "_origin": "ast",
+      "id": "scripts_qa_fluency_secrets_socket",
+      "community": 10,
+      "norm_label": "socket"
+    },
+    {
+      "label": "pending",
+      "file_type": "code",
+      "source_file": "scripts/qa-fluency-secrets.mjs",
+      "source_location": "L52",
+      "_origin": "ast",
+      "id": "scripts_qa_fluency_secrets_pending",
+      "community": 10,
+      "norm_label": "pending"
+    },
+    {
+      "label": "command()",
+      "file_type": "code",
+      "source_file": "scripts/qa-fluency-secrets.mjs",
+      "source_location": "L60",
+      "_origin": "ast",
+      "id": "scripts_qa_fluency_secrets_command",
+      "community": 10,
+      "norm_label": "command()"
+    },
+    {
+      "label": "evaluate()",
+      "file_type": "code",
+      "source_file": "scripts/qa-fluency-secrets.mjs",
+      "source_location": "L67",
+      "_origin": "ast",
+      "id": "scripts_qa_fluency_secrets_evaluate",
+      "community": 10,
+      "norm_label": "evaluate()"
+    },
+    {
+      "label": "fluency-secrets-briefing.md",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "fluency-secrets-briefing.md",
+      "id": "docs_fluency_secrets_briefing"
+    },
+    {
+      "label": "Briefing-mestre \u2014 Fluency Secrets",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "briefing-mestre \u2014 fluency secrets",
+      "id": "docs_fluency_secrets_briefing_briefing_mestre_fluency_secrets"
+    },
+    {
+      "label": "1. Produto",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "1. produto",
+      "id": "docs_fluency_secrets_briefing_1_produto"
+    },
+    {
+      "label": "2. Fun\u00e7\u00e3o no funil",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L12",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "2. funcao no funil",
+      "id": "docs_fluency_secrets_briefing_2_fun\u00e7\u00e3o_no_funil"
+    },
+    {
+      "label": "3. Big Domino",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L27",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "3. big domino",
+      "id": "docs_fluency_secrets_briefing_3_big_domino"
+    },
+    {
+      "label": "4. Inimigo e novo diagn\u00f3stico",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L35",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "4. inimigo e novo diagnostico",
+      "id": "docs_fluency_secrets_briefing_4_inimigo_e_novo_diagn\u00f3stico"
+    },
+    {
+      "label": "5. Frame persuasivo",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L44",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "5. frame persuasivo",
+      "id": "docs_fluency_secrets_briefing_5_frame_persuasivo"
+    },
+    {
+      "label": "6. Hist\u00f3ria de origem",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L69",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "6. historia de origem",
+      "id": "docs_fluency_secrets_briefing_6_hist\u00f3ria_de_origem"
+    },
+    {
+      "label": "7. Pol\u00edtica editorial contra \u201cpitch disfar\u00e7ado\u201d",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L83",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "7. politica editorial contra \u201cpitch disfarcado\u201d",
+      "id": "docs_fluency_secrets_briefing_7_pol\u00edtica_editorial_contra_pitch_disfar\u00e7ado"
+    },
+    {
+      "label": "8. Voz",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L99",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "8. voz",
+      "id": "docs_fluency_secrets_briefing_8_voz"
+    },
+    {
+      "label": "9. Estrutura do manuscrito",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L113",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "9. estrutura do manuscrito",
+      "id": "docs_fluency_secrets_briefing_9_estrutura_do_manuscrito"
+    },
+    {
+      "label": "Pr\u00f3logo \u2014 O pendrive quase vazio",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L115",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "prologo \u2014 o pendrive quase vazio",
+      "id": "docs_fluency_secrets_briefing_pr\u00f3logo_o_pendrive_quase_vazio"
+    },
+    {
+      "label": "Parte I \u2014 O diagn\u00f3stico que muda tudo",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L119",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "parte i \u2014 o diagnostico que muda tudo",
+      "id": "docs_fluency_secrets_briefing_parte_i_o_diagn\u00f3stico_que_muda_tudo"
+    },
+    {
+      "label": "Parte II \u2014 Como o ingl\u00eas entra no autom\u00e1tico",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L126",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "parte ii \u2014 como o ingles entra no automatico",
+      "id": "docs_fluency_secrets_briefing_parte_ii_como_o_ingl\u00eas_entra_no_autom\u00e1tico"
+    },
+    {
+      "label": "Parte III \u2014 A vantagem sem gra\u00e7a",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L132",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "parte iii \u2014 a vantagem sem graca",
+      "id": "docs_fluency_secrets_briefing_parte_iii_a_vantagem_sem_gra\u00e7a"
+    },
+    {
+      "label": "Parte IV \u2014 A prova",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L139",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "parte iv \u2014 a prova",
+      "id": "docs_fluency_secrets_briefing_parte_iv_a_prova"
+    },
+    {
+      "label": "Parte V \u2014 A expans\u00e3o",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L144",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "parte v \u2014 a expansao",
+      "id": "docs_fluency_secrets_briefing_parte_v_a_expans\u00e3o"
+    },
+    {
+      "label": "Ep\u00edlogo \u2014 O ingl\u00eas que fica",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L148",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "epilogo \u2014 o ingles que fica",
+      "id": "docs_fluency_secrets_briefing_ep\u00edlogo_o_ingl\u00eas_que_fica"
+    },
+    {
+      "label": "Notas e fontes",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L152",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "notas e fontes",
+      "id": "docs_fluency_secrets_briefing_notas_e_fontes"
+    },
+    {
+      "label": "10. Frame de cap\u00edtulo",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L156",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "10. frame de capitulo",
+      "id": "docs_fluency_secrets_briefing_10_frame_de_cap\u00edtulo"
+    },
+    {
+      "label": "11. Sistema visual",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L168",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "11. sistema visual",
+      "id": "docs_fluency_secrets_briefing_11_sistema_visual"
+    },
+    {
+      "label": "12. Experi\u00eancia do leitor",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L187",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "12. experiencia do leitor",
+      "id": "docs_fluency_secrets_briefing_12_experi\u00eancia_do_leitor"
+    },
+    {
+      "label": "13. Crit\u00e9rio de sucesso",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L201",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "13. criterio de sucesso",
+      "id": "docs_fluency_secrets_briefing_13_crit\u00e9rio_de_sucesso"
+    },
+    {
+      "label": "fluency-secrets-rewrite-blueprint.md",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "fluency-secrets-rewrite-blueprint.md",
+      "id": "docs_fluency_secrets_rewrite_blueprint"
+    },
+    {
+      "label": "Fluency Secrets \u2014 blueprint da reescrita definitiva",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "fluency secrets \u2014 blueprint da reescrita definitiva",
+      "id": "docs_fluency_secrets_rewrite_blueprint_fluency_secrets_blueprint_da_reescrita_definitiva"
+    },
+    {
+      "label": "As tr\u00eas fontes e o que cada uma entrega",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "as tres fontes e o que cada uma entrega",
+      "id": "docs_fluency_secrets_rewrite_blueprint_as_tr\u00eas_fontes_e_o_que_cada_uma_entrega"
+    },
+    {
+      "label": "Copy original \u2014 `Downloads/COPY INGLES`",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L5",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "copy original \u2014 `downloads/copy ingles`",
+      "id": "docs_fluency_secrets_rewrite_blueprint_copy_original_downloads_copy_ingles"
+    },
+    {
+      "label": "Transcript campe\u00e3o",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L22",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "transcript campeao",
+      "id": "docs_fluency_secrets_rewrite_blueprint_transcript_campe\u00e3o"
+    },
+    {
+      "label": "Manuscrito atual",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L36",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "manuscrito atual",
+      "id": "docs_fluency_secrets_rewrite_blueprint_manuscrito_atual"
+    },
+    {
+      "label": "Nova tese central",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L48",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "nova tese central",
+      "id": "docs_fluency_secrets_rewrite_blueprint_nova_tese_central"
+    },
+    {
+      "label": "Arquitetura de cren\u00e7as",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L56",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "arquitetura de crencas",
+      "id": "docs_fluency_secrets_rewrite_blueprint_arquitetura_de_cren\u00e7as"
+    },
+    {
+      "label": "Estrutura proposta",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L71",
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "estrutura proposta",
+      "id": "docs_fluency_secrets_rewrite_blueprint_estrutura_proposta"
+    },
+    {
+      "label": "Pr\u00f3logo \u2014 O pendrive quase vazio",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L73",
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "prologo \u2014 o pendrive quase vazio",
+      "id": "docs_fluency_secrets_rewrite_blueprint_pr\u00f3logo_o_pendrive_quase_vazio"
+    },
+    {
+      "label": "Parte I \u2014 O diagn\u00f3stico que muda tudo",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L77",
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "parte i \u2014 o diagnostico que muda tudo",
+      "id": "docs_fluency_secrets_rewrite_blueprint_parte_i_o_diagn\u00f3stico_que_muda_tudo"
+    },
+    {
+      "label": "Parte II \u2014 Como o ingl\u00eas entra no autom\u00e1tico",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L84",
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "parte ii \u2014 como o ingles entra no automatico",
+      "id": "docs_fluency_secrets_rewrite_blueprint_parte_ii_como_o_ingl\u00eas_entra_no_autom\u00e1tico"
+    },
+    {
+      "label": "Parte III \u2014 A vantagem sem gra\u00e7a",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L90",
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "parte iii \u2014 a vantagem sem graca",
+      "id": "docs_fluency_secrets_rewrite_blueprint_parte_iii_a_vantagem_sem_gra\u00e7a"
+    },
+    {
+      "label": "Parte IV \u2014 A prova",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L97",
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "parte iv \u2014 a prova",
+      "id": "docs_fluency_secrets_rewrite_blueprint_parte_iv_a_prova"
+    },
+    {
+      "label": "Parte V \u2014 A expans\u00e3o",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L102",
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "parte v \u2014 a expansao",
+      "id": "docs_fluency_secrets_rewrite_blueprint_parte_v_a_expans\u00e3o"
+    },
+    {
+      "label": "Ep\u00edlogo \u2014 O ingl\u00eas que fica",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L106",
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "epilogo \u2014 o ingles que fica",
+      "id": "docs_fluency_secrets_rewrite_blueprint_ep\u00edlogo_o_ingl\u00eas_que_fica"
+    },
+    {
+      "label": "Regras de punch",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L110",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "regras de punch",
+      "id": "docs_fluency_secrets_rewrite_blueprint_regras_de_punch"
+    },
+    {
+      "label": "Pol\u00edtica factual",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L122",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "politica factual",
+      "id": "docs_fluency_secrets_rewrite_blueprint_pol\u00edtica_factual"
+    },
+    {
+      "label": "Fontes de sustenta\u00e7\u00e3o",
+      "file_type": "document",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L131",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "fontes de sustentacao",
+      "id": "docs_fluency_secrets_rewrite_blueprint_fontes_de_sustenta\u00e7\u00e3o"
+    },
+    {
+      "label": "Reader.tsx",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/Reader.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "reader.tsx",
+      "id": "app_fluency_secrets_reader"
+    },
+    {
+      "label": "ReaderState",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/Reader.tsx",
+      "source_location": "L15",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "readerstate",
+      "id": "app_fluency_secrets_reader_readerstate"
+    },
+    {
+      "label": "initialState",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/Reader.tsx",
+      "source_location": "L23",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "initialstate",
+      "id": "app_fluency_secrets_reader_initialstate"
+    },
+    {
+      "label": "Icon()",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/Reader.tsx",
+      "source_location": "L31",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "icon()",
+      "id": "app_fluency_secrets_reader_icon"
+    },
+    {
+      "label": "Reader()",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/Reader.tsx",
+      "source_location": "L55",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "reader()",
+      "id": "app_fluency_secrets_reader_reader"
+    },
+    {
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/page.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "page.tsx",
+      "id": "app_fluency_secrets_page"
+    },
+    {
+      "label": "metadata",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/page.tsx",
+      "source_location": "L4",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "metadata",
+      "id": "app_fluency_secrets_page_metadata"
+    },
+    {
+      "label": "FluencySecretsPage()",
+      "file_type": "code",
+      "source_file": "app/fluency-secrets/page.tsx",
+      "source_location": "L11",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "fluencysecretspage()",
+      "id": "app_fluency_secrets_page_fluencysecretspage"
+    },
+    {
+      "label": "RotaFluenciaPage.tsx",
+      "file_type": "code",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "rotafluenciapage.tsx",
+      "id": "app_vsl_rotafluenciapage"
+    },
+    {
+      "label": "frTrack",
+      "file_type": "code",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L12",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "frtrack",
+      "id": "app_vsl_rotafluenciapage_frtrack"
+    },
+    {
+      "label": "UTM_KEYS",
+      "file_type": "code",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L18",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "utm_keys",
+      "id": "app_vsl_rotafluenciapage_utm_keys"
+    },
+    {
+      "label": "getUtmsFromUrl()",
+      "file_type": "code",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L20",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "getutmsfromurl()",
+      "id": "app_vsl_rotafluenciapage_getutmsfromurl"
+    },
+    {
+      "label": "buildCheckoutUrl()",
+      "file_type": "code",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L31",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "buildcheckouturl()",
+      "id": "app_vsl_rotafluenciapage_buildcheckouturl"
+    },
+    {
+      "label": "getExternalId()",
+      "file_type": "code",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L38",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "getexternalid()",
+      "id": "app_vsl_rotafluenciapage_getexternalid"
+    },
+    {
+      "label": "trackDual()",
+      "file_type": "code",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L47",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "trackdual()",
+      "id": "app_vsl_rotafluenciapage_trackdual"
+    },
+    {
+      "label": "useScrollDepth()",
+      "file_type": "code",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L83",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "usescrolldepth()",
+      "id": "app_vsl_rotafluenciapage_usescrolldepth"
+    },
+    {
+      "label": "useTimeOnPage()",
+      "file_type": "code",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L103",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "usetimeonpage()",
+      "id": "app_vsl_rotafluenciapage_usetimeonpage"
+    },
+    {
+      "label": "VocabCoverage",
+      "file_type": "code",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L122",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "vocabcoverage",
+      "id": "app_vsl_rotafluenciapage_vocabcoverage"
+    },
+    {
+      "label": "PHASES",
+      "file_type": "code",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L128",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "phases",
+      "id": "app_vsl_rotafluenciapage_phases"
+    },
+    {
+      "label": "SERIES",
+      "file_type": "code",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L155",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "series",
+      "id": "app_vsl_rotafluenciapage_series"
+    },
+    {
+      "label": "SERIES_LOOP",
+      "file_type": "code",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L161",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "series_loop",
+      "id": "app_vsl_rotafluenciapage_series_loop"
+    },
+    {
+      "label": "FAQ",
+      "file_type": "code",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L163",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "faq",
+      "id": "app_vsl_rotafluenciapage_faq"
+    },
+    {
+      "label": "RotaFluenciaPage()",
+      "file_type": "code",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L210",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "rotafluenciapage()",
+      "id": "app_vsl_rotafluenciapage_rotafluenciapage"
+    },
+    {
+      "label": "getOrCreateSessionId()",
+      "file_type": "code",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L785",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "getorcreatesessionid()",
+      "id": "app_vsl_rotafluenciapage_getorcreatesessionid"
+    },
+    {
+      "label": "saveCheckoutSession()",
+      "file_type": "code",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L798",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "savecheckoutsession()",
+      "id": "app_vsl_rotafluenciapage_savecheckoutsession"
+    },
+    {
+      "label": "Btn()",
+      "file_type": "code",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L839",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "btn()",
+      "id": "app_vsl_rotafluenciapage_btn"
+    },
+    {
+      "label": "PriceBlock()",
+      "file_type": "code",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L911",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "priceblock()",
+      "id": "app_vsl_rotafluenciapage_priceblock"
+    },
+    {
+      "label": "RepetitionGraph()",
+      "file_type": "code",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L942",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "repetitiongraph()",
+      "id": "app_vsl_rotafluenciapage_repetitiongraph"
+    },
+    {
+      "label": "UsageComparisonRota()",
+      "file_type": "code",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L1046",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "usagecomparisonrota()",
+      "id": "app_vsl_rotafluenciapage_usagecomparisonrota"
+    },
+    {
+      "label": "IMPORTANT: Vturb player injects `?sck=XXX` into any outgoing checkout",
+      "file_type": "rationale",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L833",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "important: vturb player injects `?sck=xxx` into any outgoing checkout",
+      "id": "app_vsl_rotafluenciapage_rationale_833"
+    },
+    {
+      "label": "next.config.ts",
+      "file_type": "code",
+      "source_file": "next.config.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "next.config.ts",
+      "id": "next_config"
+    },
+    {
+      "label": "nextConfig",
+      "file_type": "code",
+      "source_file": "next.config.ts",
+      "source_location": "L3",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "nextconfig",
+      "id": "next_config_nextconfig"
+    },
+    {
+      "label": "build-vsl-static.js",
+      "file_type": "code",
+      "source_file": "scripts/build-vsl-static.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "build-vsl-static.js",
+      "id": "scripts_build_vsl_static"
+    },
+    {
+      "label": "fs",
+      "file_type": "code",
+      "source_file": "scripts/build-vsl-static.js",
+      "source_location": "L5",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "fs",
+      "id": "scripts_build_vsl_static_fs"
+    },
+    {
+      "label": "https",
+      "file_type": "code",
+      "source_file": "scripts/build-vsl-static.js",
+      "source_location": "L6",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "https",
+      "id": "scripts_build_vsl_static_https"
+    },
+    {
+      "label": "get()",
+      "file_type": "code",
+      "source_file": "scripts/build-vsl-static.js",
+      "source_location": "L12",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "get()",
+      "id": "scripts_build_vsl_static_get"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "scripts/build-vsl-static.js",
+      "source_location": "L22",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "main()",
+      "id": "scripts_build_vsl_static_main"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "app_fluency_secrets_content",
+      "target": "app_fluency_secrets_content_availabilitygap",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "app_fluency_secrets_content",
+      "target": "app_fluency_secrets_content_chapter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L193",
+      "weight": 1.0,
+      "source": "app_fluency_secrets_content",
+      "target": "app_fluency_secrets_content_chapters",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L105",
+      "weight": 1.0,
+      "source": "app_fluency_secrets_content",
+      "target": "app_fluency_secrets_content_essentialfilter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L158",
+      "weight": 1.0,
+      "source": "app_fluency_secrets_content",
+      "target": "app_fluency_secrets_content_experimentcard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L48",
+      "weight": 1.0,
+      "source": "app_fluency_secrets_content",
+      "target": "app_fluency_secrets_content_learnvstrain",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L119",
+      "weight": 1.0,
+      "source": "app_fluency_secrets_content",
+      "target": "app_fluency_secrets_content_masterycontrast",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L143",
+      "weight": 1.0,
+      "source": "app_fluency_secrets_content",
+      "target": "app_fluency_secrets_content_masterythreshold",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "app_fluency_secrets_content",
+      "target": "app_fluency_secrets_content_note",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L77",
+      "weight": 1.0,
+      "source": "app_fluency_secrets_content",
+      "target": "app_fluency_secrets_content_noveltytreadmill",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L92",
+      "weight": 1.0,
+      "source": "app_fluency_secrets_content",
+      "target": "app_fluency_secrets_content_perceptionlayers",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L131",
+      "weight": 1.0,
+      "source": "app_fluency_secrets_content",
+      "target": "app_fluency_secrets_content_repetitiondirections",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "app_fluency_secrets_content",
+      "target": "app_fluency_secrets_content_secret",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L178",
+      "weight": 1.0,
+      "source": "app_fluency_secrets_content",
+      "target": "app_fluency_secrets_content_transferladder",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/fluency-secrets/content.tsx",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "app_fluency_secrets_content",
+      "target": "app_fluency_secrets_content_translationtax",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "scripts_audit_fluency_editorial",
+      "target": "scripts_audit_fluency_editorial_chapterids",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "scripts_audit_fluency_editorial",
+      "target": "scripts_audit_fluency_editorial_expectedchapterids",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "scripts_audit_fluency_editorial",
+      "target": "scripts_audit_fluency_editorial_forbiddenpitchsignals",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L69",
+      "weight": 1.0,
+      "source": "scripts_audit_fluency_editorial",
+      "target": "scripts_audit_fluency_editorial_foundpitchsignals",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L56",
+      "weight": 1.0,
+      "source": "scripts_audit_fluency_editorial",
+      "target": "scripts_audit_fluency_editorial_longestparagraph",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L68",
+      "weight": 1.0,
+      "source": "scripts_audit_fluency_editorial",
+      "target": "scripts_audit_fluency_editorial_lowersource",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L92",
+      "weight": 1.0,
+      "source": "scripts_audit_fluency_editorial",
+      "target": "scripts_audit_fluency_editorial_missingcontrasts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L81",
+      "weight": 1.0,
+      "source": "scripts_audit_fluency_editorial",
+      "target": "scripts_audit_fluency_editorial_missingmechanisms",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L47",
+      "weight": 1.0,
+      "source": "scripts_audit_fluency_editorial",
+      "target": "scripts_audit_fluency_editorial_paragraphs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "scripts_audit_fluency_editorial",
+      "target": "scripts_audit_fluency_editorial_readingminutes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "scripts_audit_fluency_editorial",
+      "target": "scripts_audit_fluency_editorial_renderedcopy",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "scripts_audit_fluency_editorial",
+      "target": "scripts_audit_fluency_editorial_requirecondition",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L84",
+      "weight": 1.0,
+      "source": "scripts_audit_fluency_editorial",
+      "target": "scripts_audit_fluency_editorial_requiredcontrasts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/audit-fluency-editorial.mjs",
+      "source_location": "L73",
+      "weight": 1.0,
+      "source": "scripts_audit_fluency_editorial",
+      "target": "scripts_audit_fluency_editorial_requiredmechanisms",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/qa-fluency-secrets.mjs",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "scripts_qa_fluency_secrets",
+      "target": "scripts_qa_fluency_secrets_chrome",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/qa-fluency-secrets.mjs",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "scripts_qa_fluency_secrets",
+      "target": "scripts_qa_fluency_secrets_command",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/qa-fluency-secrets.mjs",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "scripts_qa_fluency_secrets",
+      "target": "scripts_qa_fluency_secrets_delay",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/qa-fluency-secrets.mjs",
+      "source_location": "L67",
+      "weight": 1.0,
+      "source": "scripts_qa_fluency_secrets",
+      "target": "scripts_qa_fluency_secrets_evaluate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/qa-fluency-secrets.mjs",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "scripts_qa_fluency_secrets",
+      "target": "scripts_qa_fluency_secrets_gettarget",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/qa-fluency-secrets.mjs",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "scripts_qa_fluency_secrets",
+      "target": "scripts_qa_fluency_secrets_mobile",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/qa-fluency-secrets.mjs",
+      "source_location": "L52",
+      "weight": 1.0,
+      "source": "scripts_qa_fluency_secrets",
+      "target": "scripts_qa_fluency_secrets_pending",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/qa-fluency-secrets.mjs",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "scripts_qa_fluency_secrets",
+      "target": "scripts_qa_fluency_secrets_socket",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/qa-fluency-secrets.mjs",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "scripts_qa_fluency_secrets_gettarget",
+      "target": "scripts_qa_fluency_secrets_delay",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/qa-fluency-secrets.mjs",
+      "source_location": "L68",
+      "weight": 1.0,
+      "source": "scripts_qa_fluency_secrets_evaluate",
+      "target": "scripts_qa_fluency_secrets_command",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_briefing",
+      "target": "docs_fluency_secrets_briefing_briefing_mestre_fluency_secrets"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L156",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_briefing_briefing_mestre_fluency_secrets",
+      "target": "docs_fluency_secrets_briefing_10_frame_de_cap\u00edtulo"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L168",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_briefing_briefing_mestre_fluency_secrets",
+      "target": "docs_fluency_secrets_briefing_11_sistema_visual"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L187",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_briefing_briefing_mestre_fluency_secrets",
+      "target": "docs_fluency_secrets_briefing_12_experi\u00eancia_do_leitor"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L201",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_briefing_briefing_mestre_fluency_secrets",
+      "target": "docs_fluency_secrets_briefing_13_crit\u00e9rio_de_sucesso"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_briefing_briefing_mestre_fluency_secrets",
+      "target": "docs_fluency_secrets_briefing_1_produto"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_briefing_briefing_mestre_fluency_secrets",
+      "target": "docs_fluency_secrets_briefing_2_fun\u00e7\u00e3o_no_funil"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L27",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_briefing_briefing_mestre_fluency_secrets",
+      "target": "docs_fluency_secrets_briefing_3_big_domino"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L35",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_briefing_briefing_mestre_fluency_secrets",
+      "target": "docs_fluency_secrets_briefing_4_inimigo_e_novo_diagn\u00f3stico"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L44",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_briefing_briefing_mestre_fluency_secrets",
+      "target": "docs_fluency_secrets_briefing_5_frame_persuasivo"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L69",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_briefing_briefing_mestre_fluency_secrets",
+      "target": "docs_fluency_secrets_briefing_6_hist\u00f3ria_de_origem"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L83",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_briefing_briefing_mestre_fluency_secrets",
+      "target": "docs_fluency_secrets_briefing_7_pol\u00edtica_editorial_contra_pitch_disfar\u00e7ado"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L99",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_briefing_briefing_mestre_fluency_secrets",
+      "target": "docs_fluency_secrets_briefing_8_voz"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L113",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_briefing_briefing_mestre_fluency_secrets",
+      "target": "docs_fluency_secrets_briefing_9_estrutura_do_manuscrito"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L148",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_briefing_9_estrutura_do_manuscrito",
+      "target": "docs_fluency_secrets_briefing_ep\u00edlogo_o_ingl\u00eas_que_fica"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L152",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_briefing_9_estrutura_do_manuscrito",
+      "target": "docs_fluency_secrets_briefing_notas_e_fontes"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L119",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_briefing_9_estrutura_do_manuscrito",
+      "target": "docs_fluency_secrets_briefing_parte_i_o_diagn\u00f3stico_que_muda_tudo"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L126",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_briefing_9_estrutura_do_manuscrito",
+      "target": "docs_fluency_secrets_briefing_parte_ii_como_o_ingl\u00eas_entra_no_autom\u00e1tico"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L132",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_briefing_9_estrutura_do_manuscrito",
+      "target": "docs_fluency_secrets_briefing_parte_iii_a_vantagem_sem_gra\u00e7a"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L139",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_briefing_9_estrutura_do_manuscrito",
+      "target": "docs_fluency_secrets_briefing_parte_iv_a_prova"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L144",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_briefing_9_estrutura_do_manuscrito",
+      "target": "docs_fluency_secrets_briefing_parte_v_a_expans\u00e3o"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-briefing.md",
+      "source_location": "L115",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_briefing_9_estrutura_do_manuscrito",
+      "target": "docs_fluency_secrets_briefing_pr\u00f3logo_o_pendrive_quase_vazio"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_rewrite_blueprint",
+      "target": "docs_fluency_secrets_rewrite_blueprint_fluency_secrets_blueprint_da_reescrita_definitiva"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L56",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_rewrite_blueprint_fluency_secrets_blueprint_da_reescrita_definitiva",
+      "target": "docs_fluency_secrets_rewrite_blueprint_arquitetura_de_cren\u00e7as"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_rewrite_blueprint_fluency_secrets_blueprint_da_reescrita_definitiva",
+      "target": "docs_fluency_secrets_rewrite_blueprint_as_tr\u00eas_fontes_e_o_que_cada_uma_entrega"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L71",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_rewrite_blueprint_fluency_secrets_blueprint_da_reescrita_definitiva",
+      "target": "docs_fluency_secrets_rewrite_blueprint_estrutura_proposta"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L131",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_rewrite_blueprint_fluency_secrets_blueprint_da_reescrita_definitiva",
+      "target": "docs_fluency_secrets_rewrite_blueprint_fontes_de_sustenta\u00e7\u00e3o"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L48",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_rewrite_blueprint_fluency_secrets_blueprint_da_reescrita_definitiva",
+      "target": "docs_fluency_secrets_rewrite_blueprint_nova_tese_central"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L122",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_rewrite_blueprint_fluency_secrets_blueprint_da_reescrita_definitiva",
+      "target": "docs_fluency_secrets_rewrite_blueprint_pol\u00edtica_factual"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L110",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_rewrite_blueprint_fluency_secrets_blueprint_da_reescrita_definitiva",
+      "target": "docs_fluency_secrets_rewrite_blueprint_regras_de_punch"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_rewrite_blueprint_as_tr\u00eas_fontes_e_o_que_cada_uma_entrega",
+      "target": "docs_fluency_secrets_rewrite_blueprint_copy_original_downloads_copy_ingles"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L36",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_rewrite_blueprint_as_tr\u00eas_fontes_e_o_que_cada_uma_entrega",
+      "target": "docs_fluency_secrets_rewrite_blueprint_manuscrito_atual"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L22",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_rewrite_blueprint_as_tr\u00eas_fontes_e_o_que_cada_uma_entrega",
+      "target": "docs_fluency_secrets_rewrite_blueprint_transcript_campe\u00e3o"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L106",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_rewrite_blueprint_estrutura_proposta",
+      "target": "docs_fluency_secrets_rewrite_blueprint_ep\u00edlogo_o_ingl\u00eas_que_fica"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L77",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_rewrite_blueprint_estrutura_proposta",
+      "target": "docs_fluency_secrets_rewrite_blueprint_parte_i_o_diagn\u00f3stico_que_muda_tudo"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L84",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_rewrite_blueprint_estrutura_proposta",
+      "target": "docs_fluency_secrets_rewrite_blueprint_parte_ii_como_o_ingl\u00eas_entra_no_autom\u00e1tico"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L90",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_rewrite_blueprint_estrutura_proposta",
+      "target": "docs_fluency_secrets_rewrite_blueprint_parte_iii_a_vantagem_sem_gra\u00e7a"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L97",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_rewrite_blueprint_estrutura_proposta",
+      "target": "docs_fluency_secrets_rewrite_blueprint_parte_iv_a_prova"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L102",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_rewrite_blueprint_estrutura_proposta",
+      "target": "docs_fluency_secrets_rewrite_blueprint_parte_v_a_expans\u00e3o"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/fluency-secrets-rewrite-blueprint.md",
+      "source_location": "L73",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_fluency_secrets_rewrite_blueprint_estrutura_proposta",
+      "target": "docs_fluency_secrets_rewrite_blueprint_pr\u00f3logo_o_pendrive_quase_vazio"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/fluency-secrets/page.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_fluency_secrets_page",
+      "target": "app_fluency_secrets_reader"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/fluency-secrets/Reader.tsx",
+      "source_location": "L31",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_fluency_secrets_reader",
+      "target": "app_fluency_secrets_reader_icon"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/fluency-secrets/Reader.tsx",
+      "source_location": "L23",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_fluency_secrets_reader",
+      "target": "app_fluency_secrets_reader_initialstate"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/fluency-secrets/Reader.tsx",
+      "source_location": "L55",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_fluency_secrets_reader",
+      "target": "app_fluency_secrets_reader_reader"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/fluency-secrets/Reader.tsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_fluency_secrets_reader",
+      "target": "app_fluency_secrets_reader_readerstate"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/fluency-secrets/page.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_fluency_secrets_page",
+      "target": "app_fluency_secrets_page_fluencysecretspage"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/fluency-secrets/page.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_fluency_secrets_page",
+      "target": "app_fluency_secrets_page_metadata"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L839",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_btn"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L31",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_buildcheckouturl"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L163",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_faq"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_frtrack"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L38",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_getexternalid"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L785",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_getorcreatesessionid"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L20",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_getutmsfromurl"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L128",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_phases"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L911",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_priceblock"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L942",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_repetitiongraph"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L210",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_rotafluenciapage"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L798",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_savecheckoutsession"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L155",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_series"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L161",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_series_loop"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L47",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_trackdual"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L1046",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_usagecomparisonrota"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L83",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_usescrolldepth"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L103",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_usetimeonpage"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L18",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_utm_keys"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L122",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_vocabcoverage"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L833",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage_rationale_833",
+      "target": "app_vsl_rotafluenciapage"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L890",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage_btn",
+      "target": "app_vsl_rotafluenciapage_frtrack"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L268",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_frtrack"
+    },
+    {
+      "relation": "references",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "app_vsl_rotafluenciapage_getutmsfromurl",
+      "target": "app_vsl_rotafluenciapage_utm_keys"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L228",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_getutmsfromurl"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L843",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage_btn",
+      "target": "app_vsl_rotafluenciapage_buildcheckouturl"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L52",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage_trackdual",
+      "target": "app_vsl_rotafluenciapage_getexternalid"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L891",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage_btn",
+      "target": "app_vsl_rotafluenciapage_trackdual"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L266",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_trackdual"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L94",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage_usescrolldepth",
+      "target": "app_vsl_rotafluenciapage_trackdual"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L113",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage_usetimeonpage",
+      "target": "app_vsl_rotafluenciapage_trackdual"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L221",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_usescrolldepth"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L222",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_usetimeonpage"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L239",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage_rotafluenciapage",
+      "target": "app_vsl_rotafluenciapage_getorcreatesessionid"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L842",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage_btn",
+      "target": "app_vsl_rotafluenciapage_getorcreatesessionid"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/vsl/RotaFluenciaPage.tsx",
+      "source_location": "L889",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_vsl_rotafluenciapage_btn",
+      "target": "app_vsl_rotafluenciapage_savecheckoutsession"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "next.config.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "next_config",
+      "target": "next_config_nextconfig"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/build-vsl-static.js",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_build_vsl_static",
+      "target": "scripts_build_vsl_static_fs"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/build-vsl-static.js",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_build_vsl_static",
+      "target": "scripts_build_vsl_static_get"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/build-vsl-static.js",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_build_vsl_static",
+      "target": "scripts_build_vsl_static_https"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/build-vsl-static.js",
+      "source_location": "L22",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_build_vsl_static",
+      "target": "scripts_build_vsl_static_main"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/build-vsl-static.js",
+      "source_location": "L28",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_build_vsl_static_main",
+      "target": "scripts_build_vsl_static_get"
+    }
+  ],
+  "hyperedges": [],
+  "built_at_commit": "e30633f08679000be8114096969899c4d825d679"
+}
