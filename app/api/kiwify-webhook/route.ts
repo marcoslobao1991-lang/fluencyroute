@@ -609,20 +609,32 @@ Investigar: Meta Events Manager → Diagnóstico`
       ]).catch(e => console.error(`[WhatsApp] Falha aluno ${phone}:`, e.message))
     }
 
-    // ═══ 5. WHATSAPP — Avisa Marcos ═══
-    const marcosMsg = `💰 Nova venda Kiwify!
-
-👤 ${name}
-📧 ${email}
-📱 ${phone || 'sem telefone'}
-💵 R$${valueReais.toFixed(2)}
-📦 ${productName}
-🆔 ${orderId}
-${isNew ? '🆕 Conta criada' : '♻️ Conta existente'}`
-
-    await sendWhatsApp(MARCOS_PHONE, marcosMsg).catch(e =>
-      console.error(`[WhatsApp] Falha Marcos:`, e.message)
-    )
+    // ═══ 5. AVISA MARCOS — e-mail com WhatsApp de 1 CLIQUE ═══
+    // Ponte até a Cloud API: o e-mail traz um botão wa.me com a mensagem de
+    // acesso PRONTA (nome, e-mail, senha). Marcos toca, confere e envia do
+    // próprio celular — conversa manual, zero risco de ban.
+    if (RESEND_API_KEY) {
+      const msgAluno = `Oi ${firstName}! Aqui é o Marcos, do Rota da Fluência 😊\n\nSua compra foi aprovada — obrigado pela confiança!\n\nSeu curso mora aqui (salva esse link!):\n👉 app.fluencyroute.com.br\n\nE-mail: ${email}\nSenha: ${password || 'a que você já usa (ou entre sem senha: fluencyroute.com.br/acesso)'}\n\nLá dentro a MANU, sua teacher particular de IA, já está te esperando — entra e diz oi pra ela! Qualquer coisa me chama aqui. 💜`
+      const foneAluno = phone ? (phone.startsWith('55') ? phone : `55${phone}`) : ''
+      const linkZap = foneAluno ? `https://wa.me/${foneAluno}?text=${encodeURIComponent(msgAluno)}` : ''
+      await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          from: 'Rota da Fluência <contato@acesso.fluencyroute.com.br>',
+          to: 'marcoslobao1991@gmail.com',
+          subject: `💰 Venda R$${valueReais.toFixed(2)} — ${name}${foneAluno ? ' · WhatsApp em 1 clique' : ''}`,
+          html: `<div style="font-family:sans-serif;max-width:480px">
+            <h2 style="margin:0 0 12px">💰 Nova venda Kiwify</h2>
+            <p style="margin:0 0 16px;line-height:1.7">👤 <b>${name}</b><br>📧 ${email}<br>📱 ${phone || 'sem telefone'}<br>💵 R$${valueReais.toFixed(2)} · ${productName}<br>${isNew ? '🆕 Conta criada' : '♻️ Conta existente'} · 🆔 ${orderId}</p>
+            ${linkZap ? `<a href="${linkZap}" style="display:block;text-align:center;background:#25D366;color:#fff;font-weight:800;font-size:16px;padding:16px;border-radius:12px;text-decoration:none">📱 Mandar o acesso no WhatsApp (mensagem pronta)</a>
+            <p style="color:#888;font-size:12px;margin-top:10px">Abre a conversa com a mensagem de boas-vindas preenchida — só conferir e enviar.</p>` : '<p style="color:#888">Comprador sem telefone — o e-mail de acesso já foi enviado.</p>'}
+          </div>`,
+        }),
+      }).catch(e => console.error('[Venda] alerta email falhou:', e.message))
+    }
+    // (quando a Cloud API ligar, o aviso também vai por template no zap)
+    await sendWhatsApp(MARCOS_PHONE, `💰 Venda: ${name} · R$${valueReais.toFixed(2)}`).catch(() => {})
 
     return NextResponse.json({ ok: true, meta: metaRes, isNew })
   } catch (e: any) {
