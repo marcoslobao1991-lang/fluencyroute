@@ -70,12 +70,42 @@
 > sem senha). Se depois disso você ainda quiser o reembolso, eu processo
 > na hora, sem perguntar nada. Justo?
 
-## Onde plugar quando a Cloud API chegar
+## ✅ CÓDIGO JÁ LIGADO (31/07) — só faltam as envs
 
-- `app/api/kiwify-webhook/route.ts` → função `sendWhatsApp()` (linha ~190):
-  trocar o fetch da Z-API pelo endpoint da Cloud API
-  (`graph.facebook.com/v21.0/{phone_id}/messages`, template `acesso_d0`).
-- `app/api/acesso-nudge/route.ts` → adicionar envio WhatsApp ao lado do
-  e-mail (mesma régua D+1/D+3/D+7; templates `acesso_d1/d3/d7`).
-- Templates de UTILIDADE (não marketing) na revisão da Meta: os textos acima
-  já estão no tom aprovável (transacional, com opt-out implícito).
+O webhook já fala Cloud API sozinho. Quando o número novo existir:
+
+1. Colar na Vercel (produção): `WA_CLOUD_TOKEN` (token permanente do system
+   user) e `WA_CLOUD_PHONE_ID` (Phone number ID do painel do WhatsApp).
+2. Registrar o template `acesso_d0` (categoria UTILIDADE, idioma pt_BR):
+
+   > Oi {{1}}! Sua compra na Rota da Fluência foi confirmada ✅
+   >
+   > Seu curso mora aqui (salva esse link!):
+   > app.fluencyroute.com.br
+   >
+   > E-mail: {{2}}
+   > Senha: {{3}}
+   >
+   > Lá dentro a MANU, sua teacher particular de IA, já está te esperando —
+   > começa por ela! Qualquer dúvida, é só responder essa mensagem. 💜
+
+3. Depois: templates `acesso_d1/d3/d7` (textos acima) + plugar no
+   `acesso-nudge` (a régua de e-mail já roda; WhatsApp entra ao lado).
+
+## Setup do número novo (~40 min, uma vez)
+
+1. Chip novo pré-pago (nunca usado no WhatsApp) OU número virtual que receba SMS.
+2. business.facebook.com → criar **Portfólio Empresarial NOVO** (não usar o
+   emprestado — decisão de 29/07, protege a conta de anúncios).
+3. developers.facebook.com → Criar app (tipo Business) → adicionar produto
+   **WhatsApp** → vincular o portfólio novo.
+4. WhatsApp → API Setup → **Add phone number** → verificar por SMS.
+5. Business Settings → Users → **System User** → criar, dar acesso ao app +
+   ao WhatsApp account → **Generate token** (permanente, escopo
+   whatsapp_business_messaging) → esse é o `WA_CLOUD_TOKEN`.
+6. Publicar o app (modo Live: só exige URL de política de privacidade —
+   fluencyroute.com.br/privacidade serve).
+7. Criar o template `acesso_d0` acima → aprovação de utilidade costuma sair
+   em minutos/horas.
+8. Colar as 2 envs na Vercel → redeploy → primeiro teste com uma compra.
+   Sem verificação de empresa: 250 conversas/dia (sobra pro volume atual).

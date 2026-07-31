@@ -198,12 +198,40 @@ async function sendWelcomeEmail(email: string, name: string, password: string | 
   }).catch(e => console.error('[Kiwify] Email failed:', e.message))
 }
 
+/* ── WhatsApp: Cloud API OFICIAL (Meta) ──────────────────────────────
+   Z-API desativada de vez (baniu o número pessoal em 28/07).
+   Liga sozinho quando WA_CLOUD_TOKEN + WA_CLOUD_PHONE_ID existirem na
+   Vercel (número novo dedicado, portfólio empresarial próprio).
+   Regra da Meta: mensagem iniciada pela empresa exige TEMPLATE aprovado;
+   texto livre só dentro da janela de 24h após o cliente mandar msg. */
+const WA_TOKEN = process.env.WA_CLOUD_TOKEN || ''
+const WA_PHONE_ID = process.env.WA_CLOUD_PHONE_ID || ''
+const waPronto = () => !!(WA_TOKEN && WA_PHONE_ID)
+
 async function sendWhatsApp(phone: string, message: string) {
-  const formatted = phone.startsWith('55') ? phone : `55${phone}`
-  await fetch(`${ZAPI_BASE}/send-text`, {
+  if (!waPronto()) { console.log('[WA] transporte desligado — aguardando Cloud API'); return }
+  const to = phone.startsWith('55') ? phone : `55${phone}`
+  await fetch(`https://graph.facebook.com/v21.0/${WA_PHONE_ID}/messages`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Client-Token': ZAPI_CLIENT_TOKEN },
-    body: JSON.stringify({ phone: formatted, message }),
+    headers: { 'Authorization': `Bearer ${WA_TOKEN}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ messaging_product: 'whatsapp', to, type: 'text', text: { body: message } }),
+  })
+}
+
+/* template de utilidade (ex.: acesso_d0 com {{1}}=nome {{2}}=email {{3}}=senha) */
+async function sendWhatsAppTemplate(phone: string, template: string, params: string[]) {
+  if (!waPronto()) { console.log(`[WA] template ${template} não enviado — Cloud API off`); return }
+  const to = phone.startsWith('55') ? phone : `55${phone}`
+  await fetch(`https://graph.facebook.com/v21.0/${WA_PHONE_ID}/messages`, {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${WA_TOKEN}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      messaging_product: 'whatsapp', to, type: 'template',
+      template: {
+        name: template, language: { code: 'pt_BR' },
+        components: [{ type: 'body', parameters: params.map(t => ({ type: 'text', text: t })) }],
+      },
+    }),
   })
 }
 
@@ -570,39 +598,15 @@ Investigar: Meta Events Manager → Diagnóstico`
     // ═══ 3. EMAIL DE BOAS-VINDAS ═══
     await sendWelcomeEmail(email, name, password, isNew)
 
-    // ═══ 4. WHATSAPP — Mensagem pro aluno com senha ═══
+    // ═══ 4. WHATSAPP — acesso do aluno (template acesso_d0, Cloud API) ═══
+    // Mensagem antiga mandava o aluno "esperar o acesso da Kiwify" — era
+    // parte da confusão. O template novo aponta SÓ pra plataforma + MANU.
     if (phone) {
-      const welcomeMsg = isNew
-        ? `🎉 *Bem-vindo à Rota da Fluência, ${firstName}!*
-
-Sua compra foi confirmada! Você já vai receber o acesso da plataforma Kiwify no seu e-mail (${email}).
-
-Mas temos uma novidade: estamos com uma *plataforma nova* que além das séries também tem *aulas em música*! 🎵
-
-Você já pode acessar por aqui:
-
-👉 https://app.fluencyroute.com.br
-
-🔑 *Seus dados de acesso:*
-📧 E-mail: ${email}
-🔒 Senha: ${password}
-
-Qualquer dúvida é só responder essa mensagem! 💬`
-        : `Oi, ${firstName}! Seu pagamento foi confirmado! 🎉
-
-Você já vai receber o acesso da Kiwify no seu e-mail.
-
-Mas lembra que temos a *plataforma nova* com séries + *aulas em música*! 🎵
-
-👉 Acesse: https://app.fluencyroute.com.br
-Use o mesmo login de antes.
-
-Qualquer dúvida é só responder essa mensagem! 💬`
-
-      await sendWhatsApp(phone, welcomeMsg).catch(e =>
-        console.error(`[WhatsApp] Falha aluno ${phone}:`, e.message)
-      )
-      console.log(`[WhatsApp] Welcome enviado pra ${phone}`)
+      await sendWhatsAppTemplate(phone, 'acesso_d0', [
+        firstName,
+        email,
+        password || 'a que você já usa (ou entre sem senha: fluencyroute.com.br/acesso)',
+      ]).catch(e => console.error(`[WhatsApp] Falha aluno ${phone}:`, e.message))
     }
 
     // ═══ 5. WHATSAPP — Avisa Marcos ═══
