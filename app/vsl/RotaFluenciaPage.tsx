@@ -8,6 +8,7 @@ import { createTracker } from '../lib/funnel-track'
 import '../vsl2/vsl.css'
 import { C, FONT } from '../vsl2/design'
 import { Fade, Glass, Label, S, Grad, useInView } from '../vsl2/primitives'
+import VslPlayer from './VslPlayer'
 
 const frTrack = createTracker({ funnel: 'ingles', page: 'vsl' })
 
@@ -207,7 +208,7 @@ const FAQ = [
   },
 ]
 
-export default function RotaFluenciaPage({ alwaysOpen = false, vsl2 = false }: { alwaysOpen?: boolean; vsl2?: boolean }) {
+export default function RotaFluenciaPage({ alwaysOpen = false, vsl2 = false, selfHosted = false }: { alwaysOpen?: boolean; vsl2?: boolean; selfHosted?: boolean }) {
   // ── modo VSL2 (pós-captura do lead magnet): headline + R$49 + checkout próprio ──
   const PR = vsl2 ? 'R$49' : 'R$29'
   const CO = vsl2 ? 'https://pay.kiwify.com.br/jTO3lIy' : 'https://pay.kiwify.com.br/DlmRal3'
@@ -267,19 +268,20 @@ export default function RotaFluenciaPage({ alwaysOpen = false, vsl2 = false }: {
     // log interno (funnel_events) — fecha o funil ingles bridge→vsl no stats.html
     try { frTrack('pageview') } catch {}
 
-    // Vturb SDK
-    if (!document.querySelector('script[src*="smartplayer-wc"]')) {
-      const s = document.createElement('script')
-      s.type = 'text/javascript'
-      s.src = 'https://scripts.converteai.net/lib/js/smartplayer-wc/v4/sdk.js'
-      s.async = true
-      document.head.appendChild(s)
-    }
+    // Vturb SDK + iframe — só quando NÃO é o player próprio (selfHosted)
+    if (!selfHosted) {
+      if (!document.querySelector('script[src*="smartplayer-wc"]')) {
+        const s = document.createElement('script')
+        s.type = 'text/javascript'
+        s.src = 'https://scripts.converteai.net/lib/js/smartplayer-wc/v4/sdk.js'
+        s.async = true
+        document.head.appendChild(s)
+      }
 
-    // Load iframe src
-    const ifr = document.getElementById('ifr_67d1c8ba61d59aeb47caf87d') as HTMLIFrameElement
-    if (ifr && ifr.src === 'about:blank') {
-      ifr.src = 'https://scripts.converteai.net/a2b1bd19-973f-4fda-ada9-47d42bffa2ad/players/67d1c8ba61d59aeb47caf87d/v4/embed.html' + (location.search || '?') + '&vl=' + encodeURIComponent(location.href)
+      const ifr = document.getElementById('ifr_67d1c8ba61d59aeb47caf87d') as HTMLIFrameElement
+      if (ifr && ifr.src === 'about:blank') {
+        ifr.src = 'https://scripts.converteai.net/a2b1bd19-973f-4fda-ada9-47d42bffa2ad/players/67d1c8ba61d59aeb47caf87d/v4/embed.html' + (location.search || '?') + '&vl=' + encodeURIComponent(location.href)
+      }
     }
 
     // Reveal .esconder after delay (21 min = 1260s)
@@ -313,7 +315,7 @@ export default function RotaFluenciaPage({ alwaysOpen = false, vsl2 = false }: {
       window.removeEventListener('scroll', fn)
       window.removeEventListener('message', handleVturbMessage)
     }
-  }, [alwaysOpen])
+  }, [alwaysOpen, selfHosted])
 
   const cardW = 240
   const gap = 14
@@ -348,14 +350,18 @@ export default function RotaFluenciaPage({ alwaysOpen = false, vsl2 = false }: {
         <Fade delay={0.15}>
           <div id="ifr_67d1c8ba61d59aeb47caf87d_wrapper" style={{ maxWidth: 400, margin: '0 auto', borderRadius: 12, overflow: 'hidden', border: `1px solid ${C.border}` }}>
             <div style={{ position: 'relative', paddingTop: '177.78%', background: C.bg2 }} id="ifr_67d1c8ba61d59aeb47caf87d_aspect">
-              <iframe
-                frameBorder={0}
-                allowFullScreen
-                src="about:blank"
-                id="ifr_67d1c8ba61d59aeb47caf87d"
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-                referrerPolicy="origin"
-              />
+              {selfHosted ? (
+                <VslPlayer />
+              ) : (
+                <iframe
+                  frameBorder={0}
+                  allowFullScreen
+                  src="about:blank"
+                  id="ifr_67d1c8ba61d59aeb47caf87d"
+                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                  referrerPolicy="origin"
+                />
+              )}
             </div>
           </div>
           <p style={{
@@ -375,7 +381,7 @@ export default function RotaFluenciaPage({ alwaysOpen = false, vsl2 = false }: {
       {/* ═══ CTA 1 — PRICING ═══ */}
       <S narrow>
         <Fade>
-          <div style={{ textAlign: 'center', marginTop: 16 }}>
+          <div id="cta-pricing" style={{ textAlign: 'center', marginTop: 16 }}>
             <Label center>JUNTE-SE À NOVA TURMA</Label>
             <p style={{ fontSize: 18, fontWeight: 700, color: C.t1, marginBottom: 4 }}>
               Rota da Fluência Essencial
