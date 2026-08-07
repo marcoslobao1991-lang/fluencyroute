@@ -34,10 +34,20 @@ const STORAGE_KEY = 'vsl_pos_67d1c87c'
 
 type Overlay = 'none' | 'unmute' | 'resume' | 'paused'
 
-export default function VslPlayer({ onVideoTime }: { onVideoTime?: (t: number) => void }) {
+// Failover: se o streaming da VPS falhar, recarrega o embed VTurb original.
+// Rede de segurança enquanto a assinatura do vturb existir — depois do
+// cancelamento o fallback vira um player quebrado igual ao erro que o
+// motivou, então não piora nada.
+const VTURB_EMBED = 'https://scripts.converteai.net/a2b1bd19-973f-4fda-ada9-47d42bffa2ad/players/67d1c8ba61d59aeb47caf87d/v4/embed.html'
+const VTURB_SDK = 'https://scripts.converteai.net/lib/js/smartplayer-wc/v4/sdk.js'
+
+export default function VslPlayer({ onVideoTime, onFallback }: { onVideoTime?: (t: number) => void; onFallback?: () => void }) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [fallback, setFallback] = useState(false)
   const onVideoTimeRef = useRef(onVideoTime)
   onVideoTimeRef.current = onVideoTime
+  const onFallbackRef = useRef(onFallback)
+  onFallbackRef.current = onFallback
   const [overlay, setOverlay] = useState<Overlay>('none')
   const [fakeProgress, setFakeProgress] = useState(0)
   // interagiu = já deu unmute ou escolheu no resume → passa a salvar posição
@@ -49,6 +59,23 @@ export default function VslPlayer({ onVideoTime }: { onVideoTime?: (t: number) =
     if (!video) return
     let hls: { destroy: () => void } | null = null
     let cancelled = false
+    let sawMetadata = false
+
+    const triggerFallback = () => {
+      if (cancelled) return
+      cancelled = true
+      try { onFallbackRef.current?.() } catch {}
+      if (!document.querySelector(`script[src="${VTURB_SDK}"]`)) {
+        const s = document.createElement('script')
+        s.src = VTURB_SDK
+        s.async = true
+        document.head.appendChild(s)
+      }
+      setFallback(true)
+    }
+
+    // guarda: 15s sem sequer os metadados (manifest tem 458 bytes) = VPS fora
+    const guard = setTimeout(() => { if (!sawMetadata) triggerFallback() }, 15000)
 
     const savedPos = (() => {
       try {
@@ -78,17 +105,26 @@ export default function VslPlayer({ onVideoTime }: { onVideoTime?: (t: number) =
     const canNative = video.canPlayType('application/vnd.apple.mpegurl')
     if (canNative) {
       video.src = HLS_URL
-      video.addEventListener('loadedmetadata', startPlayback, { once: true })
+      video.addEventListener('loadedmetadata', () => { sawMetadata = true; startPlayback() }, { once: true })
+      video.addEventListener('error', triggerFallback, { once: true })
       video.load()
     } else {
       import('hls.js').then(({ default: Hls }) => {
-        if (cancelled || !Hls.isSupported()) return
+        if (cancelled) return
+        if (!Hls.isSupported()) { triggerFallback(); return }
         const h = new Hls({ maxBufferLength: 30 })
         hls = h
         h.loadSource(HLS_URL)
         h.attachMedia(video)
-        h.on(Hls.Events.MANIFEST_PARSED, startPlayback)
-      })
+        h.on(Hls.Events.MANIFEST_PARSED, () => { sawMetadata = true; startPlayback() })
+        let fatals = 0
+        h.on(Hls.Events.ERROR, (_evt: unknown, data: { fatal?: boolean }) => {
+          if (!data?.fatal) return
+          fatals += 1
+          if (fatals === 1 && sawMetadata) { try { h.startLoad() } catch { triggerFallback() } }
+          else triggerFallback()
+        })
+      }).catch(triggerFallback)
     }
 
     // fakeBar + scrollToAction + persistência da posição
@@ -113,6 +149,7 @@ export default function VslPlayer({ onVideoTime }: { onVideoTime?: (t: number) =
 
     return () => {
       cancelled = true
+      clearTimeout(guard)
       video.removeEventListener('timeupdate', onTime)
       if (hls) hls.destroy()
     }
@@ -152,6 +189,19 @@ export default function VslPlayer({ onVideoTime }: { onVideoTime?: (t: number) =
 
   const savedPosNow = () => {
     try { return parseFloat(localStorage.getItem(STORAGE_KEY) || '0') || 0 } catch { return 0 }
+  }
+
+  if (fallback) {
+    return (
+      <iframe
+        frameBorder={0}
+        allowFullScreen
+        src={VTURB_EMBED + (typeof location !== 'undefined' ? (location.search || '?') + '&vl=' + encodeURIComponent(location.href) : '')}
+        id="ifr_67d1c8ba61d59aeb47caf87d"
+        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+        referrerPolicy="origin"
+      />
+    )
   }
 
   return (

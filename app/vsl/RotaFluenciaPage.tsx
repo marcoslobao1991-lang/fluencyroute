@@ -219,6 +219,8 @@ export default function RotaFluenciaPage({ alwaysOpen = false, vsl2 = false, sel
   const [utms, setUtms] = useState<Record<string, string>>({})
   // selfHosted: recebe o currentTime do VslPlayer pra revelar por tempo de vídeo
   const videoRevealRef = useRef<((t: number) => void) | null>(null)
+  // selfHosted: se o player cair pro fallback vturb, rearma o reveal por relógio
+  const playerFallbackRef = useRef<(() => void) | null>(null)
 
   // Advanced tracking hooks
   useScrollDepth()
@@ -318,10 +320,16 @@ export default function RotaFluenciaPage({ alwaysOpen = false, vsl2 = false, sel
           if (t > 0 && revealTimer) { clearTimeout(revealTimer); revealTimer = null }
           if (t >= delaySeconds) doReveal()
         }
+        playerFallbackRef.current = () => {
+          if (!revealTimer && localStorage.getItem(storageKey) !== '1') {
+            revealTimer = setTimeout(doReveal, delaySeconds * 1000)
+          }
+        }
       }
       return () => {
         if (revealTimer) clearTimeout(revealTimer)
         videoRevealRef.current = null
+        playerFallbackRef.current = null
       }
     }
 
@@ -368,7 +376,13 @@ export default function RotaFluenciaPage({ alwaysOpen = false, vsl2 = false, sel
           <div id="ifr_67d1c8ba61d59aeb47caf87d_wrapper" style={{ maxWidth: 400, margin: '0 auto', borderRadius: 12, overflow: 'hidden', border: `1px solid ${C.border}` }}>
             <div style={{ position: 'relative', paddingTop: '177.78%', background: C.bg2 }} id="ifr_67d1c8ba61d59aeb47caf87d_aspect">
               {selfHosted ? (
-                <VslPlayer onVideoTime={t => videoRevealRef.current?.(t)} />
+                <VslPlayer
+                  onVideoTime={t => videoRevealRef.current?.(t)}
+                  onFallback={() => {
+                    try { frTrack('player_fallback_vturb') } catch {}
+                    playerFallbackRef.current?.()
+                  }}
+                />
               ) : (
                 <iframe
                   frameBorder={0}
