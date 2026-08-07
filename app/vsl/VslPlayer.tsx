@@ -112,7 +112,9 @@ export default function VslPlayer({ onVideoTime, onFallback }: { onVideoTime?: (
       import('hls.js').then(({ default: Hls }) => {
         if (cancelled) return
         if (!Hls.isSupported()) { triggerFallback(); return }
-        const h = new Hls({ maxBufferLength: 30 })
+        // buffer limitado: ~60s à frente no máximo — sem isso o hls.js baixa o
+        // vídeo inteiro (dezenas de MB) mesmo pra quem sai nos primeiros segundos
+        const h = new Hls({ maxBufferLength: 30, maxMaxBufferLength: 60, maxBufferSize: 12 * 1000 * 1000, backBufferLength: 30 })
         hls = h
         h.loadSource(HLS_URL)
         h.attachMedia(video)
