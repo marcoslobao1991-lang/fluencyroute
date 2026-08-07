@@ -34,8 +34,10 @@ const STORAGE_KEY = 'vsl_pos_67d1c87c'
 
 type Overlay = 'none' | 'unmute' | 'resume' | 'paused'
 
-export default function VslPlayer() {
+export default function VslPlayer({ onVideoTime }: { onVideoTime?: (t: number) => void }) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const onVideoTimeRef = useRef(onVideoTime)
+  onVideoTimeRef.current = onVideoTime
   const [overlay, setOverlay] = useState<Overlay>('none')
   const [fakeProgress, setFakeProgress] = useState(0)
   // interagiu = já deu unmute ou escolheu no resume → passa a salvar posição
@@ -94,6 +96,7 @@ export default function VslPlayer() {
     const onTime = () => {
       const d = video.duration
       if (d > 0) setFakeProgress(Math.pow(video.currentTime / d, 1 / FAKEBAR_ALPHA))
+      onVideoTimeRef.current?.(video.currentTime)
       if (interactedRef.current) {
         const now = Date.now()
         if (now - lastSave >= SAVE_STEP_MS) {

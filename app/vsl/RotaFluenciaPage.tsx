@@ -217,6 +217,8 @@ export default function RotaFluenciaPage({ alwaysOpen = false, vsl2 = false, sel
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [seriesPaused, setSeriesPaused] = useState(false)
   const [utms, setUtms] = useState<Record<string, string>>({})
+  // selfHosted: recebe o currentTime do VslPlayer pra revelar por tempo de vídeo
+  const videoRevealRef = useRef<((t: number) => void) | null>(null)
 
   // Advanced tracking hooks
   useScrollDepth()
@@ -304,8 +306,23 @@ export default function RotaFluenciaPage({ alwaysOpen = false, vsl2 = false, sel
     } else if (alreadyRevealed) {
       doReveal()
     } else {
-      const revealTimer = setTimeout(doReveal, delaySeconds * 1000)
-      return () => clearTimeout(revealTimer)
+      // Timer de relógio (comportamento clássico). No modo selfHosted ele vira
+      // só um fallback: assim que o vídeo emite o primeiro timeupdate, o timer
+      // é cancelado e o reveal passa a contar por TEMPO DE VÍDEO ASSISTIDO —
+      // sincroniza com o resume (voltou aos 19min → abre 2min de vídeo depois;
+      // pausou → a contagem pausa junto). Se o vídeo nunca tocar (erro de rede),
+      // o relógio segue valendo e a oferta abre como sempre abriu.
+      let revealTimer: ReturnType<typeof setTimeout> | null = setTimeout(doReveal, delaySeconds * 1000)
+      if (selfHosted) {
+        videoRevealRef.current = (t: number) => {
+          if (t > 0 && revealTimer) { clearTimeout(revealTimer); revealTimer = null }
+          if (t >= delaySeconds) doReveal()
+        }
+      }
+      return () => {
+        if (revealTimer) clearTimeout(revealTimer)
+        videoRevealRef.current = null
+      }
     }
 
     // Sticky CTA on scroll
@@ -351,7 +368,7 @@ export default function RotaFluenciaPage({ alwaysOpen = false, vsl2 = false, sel
           <div id="ifr_67d1c8ba61d59aeb47caf87d_wrapper" style={{ maxWidth: 400, margin: '0 auto', borderRadius: 12, overflow: 'hidden', border: `1px solid ${C.border}` }}>
             <div style={{ position: 'relative', paddingTop: '177.78%', background: C.bg2 }} id="ifr_67d1c8ba61d59aeb47caf87d_aspect">
               {selfHosted ? (
-                <VslPlayer />
+                <VslPlayer onVideoTime={t => videoRevealRef.current?.(t)} />
               ) : (
                 <iframe
                   frameBorder={0}
