@@ -41,13 +41,18 @@ type Overlay = 'none' | 'unmute' | 'resume' | 'paused'
 const VTURB_EMBED = 'https://scripts.converteai.net/a2b1bd19-973f-4fda-ada9-47d42bffa2ad/players/67d1c8ba61d59aeb47caf87d/v4/embed.html'
 const VTURB_SDK = 'https://scripts.converteai.net/lib/js/smartplayer-wc/v4/sdk.js'
 
-export default function VslPlayer({ onVideoTime, onFallback }: { onVideoTime?: (t: number) => void; onFallback?: () => void }) {
+export default function VslPlayer({ onVideoTime, onFallback, onPlayerEvent }: { onVideoTime?: (t: number) => void; onFallback?: () => void; onPlayerEvent?: (event: string, detail?: string) => void }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [fallback, setFallback] = useState(false)
   const onVideoTimeRef = useRef(onVideoTime)
   onVideoTimeRef.current = onVideoTime
   const onFallbackRef = useRef(onFallback)
   onFallbackRef.current = onFallback
+  const onPlayerEventRef = useRef(onPlayerEvent)
+  onPlayerEventRef.current = onPlayerEvent
+  // minuto de vídeo já reportado (analytics de retenção) — só após interação
+  const lastMinRef = useRef(0)
+  const emit = (ev: string, detail?: string) => { try { onPlayerEventRef.current?.(ev, detail) } catch {} }
   const [overlay, setOverlay] = useState<Overlay>('none')
   const [fakeProgress, setFakeProgress] = useState(0)
   // interagiu = já deu unmute ou escolheu no resume → passa a salvar posição
@@ -89,6 +94,7 @@ export default function VslPlayer({ onVideoTime, onFallback }: { onVideoTime?: (
       if (savedPos > 0) {
         // já assistiu antes: vídeo parado no poster + overlay de resume
         setOverlay('resume')
+        emit('video_resume_shown')
         return
       }
       // smartAutoPlay: tenta tocar mudo; overlay convida pro som
@@ -136,6 +142,10 @@ export default function VslPlayer({ onVideoTime, onFallback }: { onVideoTime?: (
       if (d > 0) setFakeProgress(Math.pow(video.currentTime / d, 1 / FAKEBAR_ALPHA))
       onVideoTimeRef.current?.(video.currentTime)
       if (interactedRef.current) {
+        const m = Math.floor(video.currentTime / 60)
+        if (m > lastMinRef.current) { lastMinRef.current = m; emit('video_minute', String(m)) }
+      }
+      if (interactedRef.current) {
         const now = Date.now()
         if (now - lastSave >= SAVE_STEP_MS) {
           lastSave = now
@@ -161,6 +171,8 @@ export default function VslPlayer({ onVideoTime, onFallback }: { onVideoTime?: (
     const video = videoRef.current
     if (!video) return
     interactedRef.current = true
+    lastMinRef.current = 0
+    emit('video_play', 'start')
     video.currentTime = 0
     video.muted = false
     video.play().catch(() => {})
@@ -171,6 +183,8 @@ export default function VslPlayer({ onVideoTime, onFallback }: { onVideoTime?: (
     const video = videoRef.current
     if (!video) return
     interactedRef.current = true
+    lastMinRef.current = Math.floor(pos / 60)
+    emit('video_play', 'resume@' + Math.round(pos))
     video.currentTime = pos
     video.muted = false
     video.play().catch(() => {})

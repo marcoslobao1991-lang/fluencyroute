@@ -382,6 +382,7 @@ export default function RotaFluenciaPage({ alwaysOpen = false, vsl2 = false, sel
                     try { frTrack('player_fallback_vturb') } catch {}
                     playerFallbackRef.current?.()
                   }}
+                  onPlayerEvent={(ev, detail) => { try { frTrack(ev, detail) } catch {} }}
                 />
               ) : (
                 <iframe
