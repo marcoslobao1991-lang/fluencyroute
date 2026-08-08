@@ -14,6 +14,7 @@
 // mesmo pedido deduplicam no Meta (não conta dobrado).
 // ═══════════════════════════════════════════════════════════════
 
+import crypto from 'crypto'
 import { sendServerEvent, fbcFromFbclid } from '../../lib/meta-capi-es.js'
 
 const HOTTOK = process.env.HOTMART_HOTTOK || ''
@@ -54,23 +55,79 @@ async function lookupStitch(field, val) {
 }
 
 // ── Entrega do app por e-mail (público fala inglês) ──
-function deliveryHtml(name) {
+// Com token, o botão entra JÁ LOGADO e o progresso passa a ser salvo na conta do
+// aluno desde a primeira sessão. Sem token (falha na criação da conta), o link
+// normal continua valendo — o app funciona offline, só sem sincronizar.
+function deliveryHtml(name, token) {
   const hi = name ? `Hey ${String(name).split(' ')[0]},` : 'Hey there,'
+  const link = token ? `${APP_URL}?k=${token}` : APP_URL
   return `<!doctype html><html><body style="margin:0;background:#0C1219;font-family:-apple-system,'Segoe UI',sans-serif;color:#E9EEF6">
   <div style="max-width:480px;margin:0 auto;padding:32px 24px">
     <p style="font-weight:900;letter-spacing:3px;font-size:12px;color:#8A98AD">FLUENCY <span style="color:#F4B740">ROUTE</span></p>
     <h1 style="font-size:26px;font-weight:900;line-height:1.25;margin:20px 0 8px">🎉 ${hi} your access to Essential Spanish Fluency is ready.</h1>
     <p style="font-size:16px;color:#BCC7D8;line-height:1.6">Your training app is live. It walks you through the 4 phases — Auditory Perception, Conversational, Shadowing, and Simulated Immersion — with spaced repetition that wires Spanish into your subconscious. Best on your phone with headphones.</p>
-    <a href="${APP_URL}" style="display:inline-block;margin:24px 0;background:#F4B740;color:#2A1C00;font-weight:900;font-size:16px;padding:16px 30px;border-radius:12px;text-decoration:none">OPEN MY SPANISH APP ▶</a>
+    <a href="${link}" style="display:inline-block;margin:24px 0;background:#F4B740;color:#2A1C00;font-weight:900;font-size:16px;padding:16px 30px;border-radius:12px;text-decoration:none">OPEN MY SPANISH APP ▶</a>
     <p style="font-size:14px;color:#8A98AD;line-height:1.6">Do a session every day — even 10 minutes keeps your streak alive and your progress compounding. Any questions, just reply to this email.</p>
+    ${token ? `<p style="font-size:13px;color:#8A98AD;line-height:1.6;background:#141C26;border-radius:10px;padding:14px 16px;margin-top:20px"><b style="color:#E9EEF6">Keep this email.</b> The button above is your personal link — open it on your phone, your laptop, wherever. Your streak, your words and your talks follow you to every device automatically.</p>` : ''}
     <p style="font-size:14px;color:#BCC7D8;margin-top:24px">— Fluency Route</p>
     <p style="font-size:11px;color:#5A6572;margin-top:28px">You received this because you purchased Essential Spanish Fluency. Lifetime access — bookmark the link above.</p>
   </div></body></html>`
 }
 
+/**
+ * Prepara o login de um toque do aluno: cria a conta (já confirmada) e devolve um
+ * token durável pro link do e-mail. Sem isso o aluno teria que inventar uma senha
+ * pra salvar o progresso — e quem não salva perde tudo ao trocar de aparelho.
+ * Falhar aqui NÃO pode travar a entrega: o app funciona sem conta.
+ */
+async function prepararAcesso(email) {
+  if (!SUPA_SERVICE_KEY || !email) return null
+  const admin = {
+    apikey: SUPA_SERVICE_KEY,
+    Authorization: `Bearer ${SUPA_SERVICE_KEY}`,
+    'Content-Type': 'application/json',
+  }
+  try {
+    // token já emitido pra esse e-mail? reusa (recompra não gera link novo)
+    const jaTem = await fetch(
+      `${SUPA_URL}/rest/v1/spanish_access?select=token&email=eq.${encodeURIComponent(email)}&limit=1`,
+      { headers: admin }
+    ).then((r) => r.json()).catch(() => [])
+    if (Array.isArray(jaTem) && jaTem[0]?.token) return jaTem[0].token
+
+    let userId = null
+    const cr = await fetch(`${SUPA_URL}/auth/v1/admin/users`, {
+      method: 'POST',
+      headers: admin,
+      body: JSON.stringify({ email, email_confirm: true, user_metadata: { app: 'spanish' } }),
+    })
+    if (cr.ok) userId = (await cr.json().catch(() => ({})))?.id
+    if (!userId) {
+      const busca = await fetch(
+        `${SUPA_URL}/auth/v1/admin/users?filter=${encodeURIComponent(email)}`,
+        { headers: admin }
+      ).then((r) => r.json()).catch(() => ({}))
+      userId = busca?.users?.find((u) => (u.email || '').toLowerCase() === email)?.id || null
+    }
+    if (!userId) return null
+
+    const token = crypto.randomBytes(24).toString('hex')
+    const ins = await fetch(`${SUPA_URL}/rest/v1/spanish_access`, {
+      method: 'POST',
+      headers: { ...admin, Prefer: 'return=minimal' },
+      body: JSON.stringify({ token, user_id: userId, email }),
+    })
+    return ins.ok ? token : null
+  } catch (e) {
+    console.error('[HOTMART-WEBHOOK] prepararAcesso:', e?.message)
+    return null
+  }
+}
+
 async function sendDelivery(email, name) {
   if (!RESEND_KEY || !email) return
   if (/@(example\.com|hotmart\.com(\.br)?)$/i.test(email)) return
+  const token = await prepararAcesso(String(email).trim().toLowerCase())
   try {
     const r = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -79,7 +136,7 @@ async function sendDelivery(email, name) {
         from: 'Fluency Route <access@acesso.fluencyroute.com.br>',
         to: [email],
         subject: '🎉 Your Essential Spanish Fluency app is ready',
-        html: deliveryHtml(name),
+        html: deliveryHtml(name, token),
       }),
     })
     if (!r.ok) console.error('[HOTMART-WEBHOOK] resend:', r.status, await r.text())

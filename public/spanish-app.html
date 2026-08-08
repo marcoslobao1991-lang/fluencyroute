@@ -257,6 +257,12 @@
   .syncwho{font-size:13px;color:var(--dim);margin-bottom:12px;word-break:break-all;}
   .syncout{display:block;width:100%;margin-top:9px;background:none;border:0;color:var(--dim);font:inherit;font-size:12.5px;text-decoration:underline;cursor:pointer;}
   @media(min-width:560px){.syncwrap{align-items:center;}}
+  .syncnag{margin:0 0 16px;padding:15px 16px;border-radius:14px;border:1px solid var(--accent);background:color-mix(in srgb,var(--accent) 8%,var(--card));}
+  .sn-t{font-size:14px;font-weight:800;margin-bottom:4px;}
+  .sn-p{font-size:12.5px;line-height:1.55;color:var(--dim);}
+  .sn-row{display:flex;gap:8px;align-items:center;margin-top:11px;}
+  .sn-go{flex:1;padding:10px 14px;border-radius:10px;border:0;background:var(--accent);color:#0C1219;font:inherit;font-size:13px;font-weight:800;cursor:pointer;}
+  .sn-x{padding:10px 12px;border-radius:10px;border:0;background:none;color:var(--dim);font:inherit;font-size:12.5px;cursor:pointer;}
   /* pronunciation diagnostic (ELSA-style) */
   .pron{margin-top:18px;display:none;} .pron.show{display:block;animation:rise .3s ease;}
   .pron-top{display:flex;align-items:center;gap:16px;}
@@ -917,6 +923,7 @@ function renderHome(){
     <div class="mastery"><div class="mring"><svg viewBox="0 0 80 80"><circle class="mb" cx="40" cy="40" r="34"/><circle class="mf" cx="40" cy="40" r="34" style="stroke-dashoffset:${off}"/></svg><b>${pct}%</b></div>
       <div class="mtxt"><b>${words}</b><span>of ${META} essential<br>words started</span></div></div>
   </div>`;
+  h+=syncNagHtml();
   if(jIdx<steps.length){ const s=steps[jIdx];
     h+=`<button class="jhero" id="jgo"><div class="k">Continue your journey · ${s.phase}</div><h2>${s.icon} ${s.title}</h2><p>${s.desc}</p><span class="startbtn">Continue ${SVG.arw}</span></button>`;
   } else {
@@ -927,6 +934,7 @@ function renderHome(){
     h+=`<button class="jstep ${state}" data-i="${i}"><div class="jnode">${i<jIdx?'✓':s.icon}</div><div class="jmid"><div class="jn">${s.phase}</div><div class="jt">${s.title}</div></div><span class="jarw">${SVG.arw}</span></button>`; });
   h+=`</div><div class="k sec-k">Practice freely${dueN?` · <span class="reviewlink" id="rev">review ${dueN} due</span>`:''}</div><div class="modes" id="modes"></div>`;
   $("homeBody").innerHTML=h;
+  bindSyncNag();
   $("jgo").onclick=()=>{ if(jIdx<steps.length)openStep(steps[jIdx],jIdx); else openMode("today"); };
   document.querySelectorAll(".jstep").forEach(el=>el.onclick=()=>{const i=+el.dataset.i;openStep(steps[i],i);});
   const rv=$("rev"); if(rv)rv.onclick=(e)=>{e.stopPropagation();openMode("review");};
@@ -1365,13 +1373,55 @@ async function syncSubmit(){
   $("syncGo").disabled=false;
 }
 
+
+/** Link de um toque: .../spanish-app.html?k=<token> entra sem o aluno digitar nada.
+    Vem do e-mail de entrega da Hotmart. O token sai da URL depois de usado pra não
+    ficar exposto no histórico/compartilhamento. */
+async function syncFromLink(){
+  let k=null;
+  try{ k=new URL(location.href).searchParams.get("k"); }catch(e){}
+  if(!k)return false;
+  const limpa=()=>{ try{ const u=new URL(location.href); u.searchParams.delete("k"); history.replaceState(null,"",u.pathname+(u.search||"")+u.hash); }catch(e){} };
+  if(SESS){ limpa(); return false; }
+  try{
+    const r=await fetch("/api/spanish-signin",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({k})});
+    const j=await r.json().catch(()=>({}));
+    if(!r.ok||!j.access_token){ limpa(); return false; }
+    sessSave({access_token:j.access_token,refresh_token:j.refresh_token,email:j.email,user_id:j.user_id});
+    limpa();
+    const how=await syncAfterLogin();
+    if(how==="pulled")renderHome();
+    return true;
+  }catch(e){ limpa(); return false; }
+}
+
+/** Convite pra salvar o progresso, pra quem já comprou antes disso existir e não
+    faz ideia de que a opção apareceu. Só aparece quando já há progresso pra perder,
+    e volta a cada 4 dias se o aluno dispensar (não some pra sempre). */
+function syncNagHtml(){
+  if(SESS)return "";
+  const temProgresso=(ST.days>=1)||Object.keys(ST.srs||{}).length>=4;
+  if(!temProgresso)return "";
+  const hoje=dayNum(Date.now());
+  if(ST.syncNag&&hoje-ST.syncNag<4)return "";
+  return `<div class="syncnag" id="syncNag">
+    <div class="sn-t">Your progress lives only in this browser</div>
+    <div class="sn-p">Change phone, clear your cache or open this from another app and your streak starts over. Save it to your email — takes 10 seconds.</div>
+    <div class="sn-row"><button class="sn-go" id="snGo">Save my progress</button><button class="sn-x" id="snX">Not now</button></div>
+  </div>`;
+}
+function bindSyncNag(){
+  const g=$("snGo"); if(g)g.onclick=()=>syncOpen();
+  const x=$("snX"); if(x)x.onclick=()=>{ ST.syncNag=dayNum(Date.now()); save(); const n=$("syncNag"); if(n)n.remove(); };
+}
+
 $("syncBtn").onclick=()=>syncOpen();
 $("syncClose").onclick=()=>syncClose();
 $("syncSheet").onclick=(e)=>{ if(e.target===$("syncSheet"))syncClose(); };
 $("syncGo").onclick=()=>syncSubmit();
 $("syncNow").onclick=async()=>{ syncMsg("Syncing…"); const ok=await syncPush(); syncMsg(ok?"Saved.":"Could not reach the server.",ok?"ok":"err"); };
 $("syncOut").onclick=()=>{ sessSave(null); syncRender(); syncMsg("Signed out of this device. Your progress stays here.","ok"); };
-if(SESS){ syncAfterLogin().then(how=>{ if(how==="pulled")renderHome(); }).catch(()=>{}); }
+syncFromLink().then(usou=>{ if(!usou&&SESS){ syncAfterLogin().then(how=>{ if(how==="pulled")renderHome(); }).catch(()=>{}); } });
 
 $("theme").onclick=()=>{const cur=document.documentElement.getAttribute("data-theme");const dark=cur?cur==="dark":true;const nx=dark?"light":"dark";document.documentElement.setAttribute("data-theme",nx);try{localStorage.setItem("esf4_theme",nx);}catch(e){}};
 $("lvlChip").onclick=()=>{ST.level=beginner()?"intermediate":"beginner";save();renderHome();};
