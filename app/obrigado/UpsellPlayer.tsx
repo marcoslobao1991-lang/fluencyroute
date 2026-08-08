@@ -51,7 +51,7 @@ export default function UpsellPlayer() {
     <div style={{ position: 'relative', paddingTop: '177.78%', background: '#06060a' }}>
       <VslPlayer
         media="vsl-upsell"
-        posterFile="poster.jpg"
+        posterFile="cover.jpg"
         storageKey="vsl_pos_upsell_68239596"
         vturbPlayerId="68239596d7a895bbe506340f"
         fakeBarColor="#e9d8a6"
