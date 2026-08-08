@@ -37,6 +37,24 @@ export async function POST(req: NextRequest) {
     body.Commissions?.charge_amount ?? body.charge_amount ?? body.Order?.charge_amount ?? 0
   )
 
+  // ⚠️ TRAVA DE PRODUTO — o webhook na Kiwify ficou com escopo amplo (pega TODOS
+  // os produtos), então chegam aqui vendas de Inglês Funcional, Tabuada etc. Sem
+  // esta trava elas entravam como venda do Português e inflavam o stats: em
+  // 07-08/08/2026, 10 de 13 "vendas do PT" eram de outros produtos.
+  // A trava FICA mesmo depois de corrigir o escopo no painel — defesa em profundidade.
+  const productName = String(
+    body.Product?.product_name || body.Product?.name || body.product_name || ''
+  )
+  const ehPortugues = /portugu/i.test(productName) || (!productName && valueCents === 9700)
+  if (!ehPortugues) {
+    return NextResponse.json({
+      ok: true,
+      skipped: 'outro_produto',
+      product: productName.slice(0, 60),
+      value_cents: valueCents,
+    })
+  }
+
   const headers = {
     apikey: key,
     Authorization: `Bearer ${key}`,
