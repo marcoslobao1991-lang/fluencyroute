@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
 import PurchaseTrigger from './PurchaseTrigger'
+import UpsellPlayer from './UpsellPlayer'
 
 export const metadata: Metadata = {
   title: 'Acompanhamento Premium · Rota da Fluência',
@@ -76,13 +77,6 @@ const styles = `
 `
 
 const upsellHtml = `
-<section class="hero">
-  <div class="player-wrap">
-    <vturb-smartplayer id="vid-68239596d7a895bbe506340f" style="display:block;margin:0 auto;width:100%;max-width:400px;"></vturb-smartplayer>
-  </div>
-  <p class="player-hint">Assista com som ativado</p>
-</section>
-
 <main class="reveal esconder">
 
   <div style="text-align:center">
@@ -183,6 +177,7 @@ export default function ObrigadoPage() {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: styles }} />
+      <link rel="preconnect" href="https://media.srv1198551.hstgr.cloud" crossOrigin="" />
       <link rel="preconnect" href="https://scripts.converteai.net" crossOrigin="" />
       <link rel="preconnect" href="https://snippets.kiwify.com" crossOrigin="" />
       <link rel="preconnect" href="https://app.kiwify.com.br" crossOrigin="" />
@@ -192,38 +187,20 @@ export default function ObrigadoPage() {
 
       <PurchaseTrigger />
 
-      <div className="upsell-root" dangerouslySetInnerHTML={{ __html: upsellHtml }} />
+      <div className="upsell-root">
+        <section className="hero">
+          <div className="player-wrap">
+            <UpsellPlayer />
+          </div>
+          <p className="player-hint">Assista com som ativado</p>
+        </section>
 
-      {/* Vturb loader */}
-      <Script id="vturb-loader" strategy="afterInteractive">{`
-        (function(){
-          var s=document.createElement("script");
-          s.src="https://scripts.converteai.net/a2b1bd19-973f-4fda-ada9-47d42bffa2ad/players/68239596d7a895bbe506340f/v4/player.js";
-          s.async=true;
-          document.head.appendChild(s);
-        })();
-      `}</Script>
+        {/* O reveal aos 6:07 é feito pelo UpsellPlayer (tempo de vídeo + rede de relógio) */}
+        <div dangerouslySetInnerHTML={{ __html: upsellHtml }} />
+      </div>
 
       {/* Kiwify 1-click upsell snippet */}
       <Script src="https://snippets.kiwify.com/upsell/upsell.min.js" strategy="afterInteractive" />
-
-      {/* Delay reveal — sincroniza com 'vai aparecer um botão aqui embaixo' (6:07 / 367s) */}
-      <Script id="vturb-delay" strategy="afterInteractive">{`
-        (function(){
-          var DELAY = 367;
-          var bound = false;
-          function bind(){
-            var p = document.querySelector("vturb-smartplayer");
-            if(!p || typeof p.addEventListener !== "function"){ setTimeout(bind, 120); return; }
-            if(bound) return;
-            bound = true;
-            p.addEventListener("player:ready", function(){
-              try { p.displayHiddenElements(DELAY, [".esconder"], { persist: true }); } catch(e){}
-            });
-          }
-          bind();
-        })();
-      `}</Script>
     </>
   )
 }

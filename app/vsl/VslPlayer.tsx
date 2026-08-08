@@ -20,17 +20,21 @@
 
 import { useEffect, useRef, useState } from 'react'
 
-const MEDIA_BASE = 'https://media.srv1198551.hstgr.cloud/vsl-ingles'
-const HLS_URL = `${MEDIA_BASE}/main.m3u8`
-const POSTER_URL = `${MEDIA_BASE}/thumbnail.jpg`
+const MEDIA_ROOT = 'https://media.srv1198551.hstgr.cloud'
 
 const FAKEBAR_ALPHA = 2
-const FAKEBAR_COLOR = '#00dfff'
 const FAKEBAR_HEIGHT = 10
 const RESUME_MIN_SECONDS = 30       // só oferece "continuar" se passou disso
 const SAVE_STEP_MS = 5000           // step: 5 do config vturb
-const SCROLL_TO_ACTION_AT = 1470    // 24:30 — rola até o CTA
-const STORAGE_KEY = 'vsl_pos_67d1c87c'
+
+// defaults = VSL do inglês (o que já estava no ar). Outras páginas passam props.
+const D_MEDIA = 'vsl-ingles'
+const D_POSTER = 'thumbnail.jpg'
+const D_STORAGE_KEY = 'vsl_pos_67d1c87c'
+const D_SCROLL_AT = 1470            // 24:30 — rola até o CTA
+const D_SCROLL_TARGET = 'cta-pricing'
+const D_VTURB_PLAYER = '67d1c8ba61d59aeb47caf87d'
+const D_FAKEBAR_COLOR = '#00dfff'
 
 type Overlay = 'none' | 'unmute' | 'resume' | 'paused'
 
@@ -38,10 +42,34 @@ type Overlay = 'none' | 'unmute' | 'resume' | 'paused'
 // Rede de segurança enquanto a assinatura do vturb existir — depois do
 // cancelamento o fallback vira um player quebrado igual ao erro que o
 // motivou, então não piora nada.
-const VTURB_EMBED = 'https://scripts.converteai.net/a2b1bd19-973f-4fda-ada9-47d42bffa2ad/players/67d1c8ba61d59aeb47caf87d/v4/embed.html'
+const VTURB_ACCOUNT = 'a2b1bd19-973f-4fda-ada9-47d42bffa2ad'
 const VTURB_SDK = 'https://scripts.converteai.net/lib/js/smartplayer-wc/v4/sdk.js'
 
-export default function VslPlayer({ onVideoTime, onFallback, onPlayerEvent }: { onVideoTime?: (t: number) => void; onFallback?: () => void; onPlayerEvent?: (event: string, detail?: string) => void }) {
+export default function VslPlayer({
+  onVideoTime, onFallback, onPlayerEvent,
+  media = D_MEDIA,
+  posterFile = D_POSTER,
+  storageKey = D_STORAGE_KEY,
+  scrollToActionAt = D_SCROLL_AT,
+  scrollTargetId = D_SCROLL_TARGET,
+  vturbPlayerId = D_VTURB_PLAYER,
+  fakeBarColor = D_FAKEBAR_COLOR,
+}: {
+  onVideoTime?: (t: number) => void
+  onFallback?: () => void
+  onPlayerEvent?: (event: string, detail?: string) => void
+  media?: string
+  posterFile?: string
+  storageKey?: string
+  scrollToActionAt?: number
+  scrollTargetId?: string
+  vturbPlayerId?: string
+  fakeBarColor?: string
+}) {
+  const MEDIA_BASE = `${MEDIA_ROOT}/${media}`
+  const HLS_URL = `${MEDIA_BASE}/main.m3u8`
+  const POSTER_URL = `${MEDIA_BASE}/${posterFile}`
+  const VTURB_EMBED = `https://scripts.converteai.net/${VTURB_ACCOUNT}/players/${vturbPlayerId}/v4/embed.html`
   const videoRef = useRef<HTMLVideoElement>(null)
   const [fallback, setFallback] = useState(false)
   const onVideoTimeRef = useRef(onVideoTime)
@@ -84,7 +112,7 @@ export default function VslPlayer({ onVideoTime, onFallback, onPlayerEvent }: { 
 
     const savedPos = (() => {
       try {
-        const v = parseFloat(localStorage.getItem(STORAGE_KEY) || '0')
+        const v = parseFloat(localStorage.getItem(storageKey) || '0')
         return isFinite(v) && v >= RESUME_MIN_SECONDS ? v : 0
       } catch { return 0 }
     })()
@@ -149,11 +177,11 @@ export default function VslPlayer({ onVideoTime, onFallback, onPlayerEvent }: { 
         const now = Date.now()
         if (now - lastSave >= SAVE_STEP_MS) {
           lastSave = now
-          try { localStorage.setItem(STORAGE_KEY, String(video.currentTime)) } catch {}
+          try { localStorage.setItem(storageKey, String(video.currentTime)) } catch {}
         }
-        if (!scrolledRef.current && video.currentTime >= SCROLL_TO_ACTION_AT) {
+        if (scrollToActionAt > 0 && !scrolledRef.current && video.currentTime >= scrollToActionAt) {
           scrolledRef.current = true
-          document.getElementById('cta-pricing')?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+          document.getElementById(scrollTargetId)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
         }
       }
     }
@@ -165,7 +193,8 @@ export default function VslPlayer({ onVideoTime, onFallback, onPlayerEvent }: { 
       video.removeEventListener('timeupdate', onTime)
       if (hls) hls.destroy()
     }
-  }, [])
+    // props são constantes por página (nenhuma muda em runtime)
+  }, [HLS_URL, storageKey, scrollToActionAt, scrollTargetId, VTURB_EMBED])
 
   const unmuteFromStart = () => {
     const video = videoRef.current
@@ -204,7 +233,7 @@ export default function VslPlayer({ onVideoTime, onFallback, onPlayerEvent }: { 
   }
 
   const savedPosNow = () => {
-    try { return parseFloat(localStorage.getItem(STORAGE_KEY) || '0') || 0 } catch { return 0 }
+    try { return parseFloat(localStorage.getItem(storageKey) || '0') || 0 } catch { return 0 }
   }
 
   if (fallback) {
@@ -213,7 +242,7 @@ export default function VslPlayer({ onVideoTime, onFallback, onPlayerEvent }: { 
         frameBorder={0}
         allowFullScreen
         src={VTURB_EMBED + (typeof location !== 'undefined' ? (location.search || '?') + '&vl=' + encodeURIComponent(location.href) : '')}
-        id="ifr_67d1c8ba61d59aeb47caf87d"
+        id={`ifr_${vturbPlayerId}`}
         style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
         referrerPolicy="origin"
       />
@@ -233,7 +262,7 @@ export default function VslPlayer({ onVideoTime, onFallback, onPlayerEvent }: { 
 
       {/* fakeBar — progresso acelerado, idêntico ao vturb */}
       <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: FAKEBAR_HEIGHT, background: 'rgba(255,255,255,0.15)' }}>
-        <div style={{ width: `${Math.min(fakeProgress * 100, 100)}%`, height: '100%', background: FAKEBAR_COLOR, transition: 'width 0.3s linear' }} />
+        <div style={{ width: `${Math.min(fakeProgress * 100, 100)}%`, height: '100%', background: fakeBarColor, transition: 'width 0.3s linear' }} />
       </div>
 
       {/* overlay "Clique para ouvir" — smartAutoPlay */}
