@@ -4,5 +4,7 @@ import RotaFluenciaPage from './RotaFluenciaPage'
 // O componente vive em ./RotaFluenciaPage.tsx e é compartilhado com /aberta,
 // então as duas rotas são sempre idênticas — só muda o delay.
 export default function VslPage() {
-  return <RotaFluenciaPage />
+  // selfHosted (08/08/2026): player próprio validado no piloto /vsl2-aberta —
+  // Marcos autorizou ligar nas oficiais. Failover automático pro vturb embutido.
+  return <RotaFluenciaPage selfHosted />
 }

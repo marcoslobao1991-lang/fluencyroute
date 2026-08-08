@@ -11,5 +11,6 @@ import RotaFluenciaPage from '../vsl/RotaFluenciaPage'
 // ═══════════════════════════════════════════════════════════════
 export default function Vsl2Page() {
   // sem alwaysOpen: a /vsl2 usa o MESMO delay de reveal da /vsl (oferta escondida até o timer)
-  return <RotaFluenciaPage vsl2 />
+  // selfHosted (08/08/2026): player próprio, validado no piloto /vsl2-aberta
+  return <RotaFluenciaPage vsl2 selfHosted />
 }

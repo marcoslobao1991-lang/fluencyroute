@@ -10,5 +10,6 @@ export const metadata: Metadata = {
 }
 
 export default function VslAbertaPage() {
-  return <RotaFluenciaPage alwaysOpen />
+  // selfHosted (08/08/2026): player próprio, validado no piloto /vsl2-aberta
+  return <RotaFluenciaPage alwaysOpen selfHosted />
 }
