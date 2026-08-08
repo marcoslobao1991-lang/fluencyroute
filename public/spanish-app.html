@@ -239,6 +239,24 @@
   .ep-step{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--ink-soft);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 13px;}
   .ep-step .n{width:25px;height:25px;flex:none;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:800;font-size:13px;}
   .ep-link{display:block;text-align:center;margin-top:13px;color:var(--accent);font-weight:700;font-size:13px;text-decoration:none;}
+  .tedlib-k{margin:22px 0 9px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--dim);}
+  .tedlib{display:flex;flex-direction:column;gap:8px;}
+  .tedchip{display:block;width:100%;text-align:left;padding:11px 13px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--fg);font:inherit;font-size:13.5px;font-weight:700;cursor:pointer;}
+  .tedchip i{display:block;margin-top:2px;font-style:normal;font-size:11.5px;font-weight:600;color:var(--dim);}
+  .tedchip.on{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset;}
+  /* salvar progresso */
+  .syncwrap{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.55);display:flex;align-items:flex-end;justify-content:center;padding:16px;}
+  .syncwrap[hidden]{display:none;}
+  .syncbox{position:relative;width:100%;max-width:420px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 20px 20px;}
+  .syncx{position:absolute;top:8px;right:12px;background:none;border:0;color:var(--dim);font-size:26px;line-height:1;cursor:pointer;}
+  .synck{font-size:16px;font-weight:800;margin-bottom:6px;}
+  .syncp{font-size:13px;line-height:1.55;color:var(--dim);margin:0 0 14px;}
+  .syncin{width:100%;padding:12px 13px;margin-bottom:9px;border-radius:11px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:inherit;font-size:14px;}
+  .syncmsg{margin-top:10px;font-size:12.5px;line-height:1.5;min-height:18px;}
+  .syncmsg.err{color:#e5484d;} .syncmsg.ok{color:var(--accent);}
+  .syncwho{font-size:13px;color:var(--dim);margin-bottom:12px;word-break:break-all;}
+  .syncout{display:block;width:100%;margin-top:9px;background:none;border:0;color:var(--dim);font:inherit;font-size:12.5px;text-decoration:underline;cursor:pointer;}
+  @media(min-width:560px){.syncwrap{align-items:center;}}
   /* pronunciation diagnostic (ELSA-style) */
   .pron{margin-top:18px;display:none;} .pron.show{display:block;animation:rise .3s ease;}
   .pron-top{display:flex;align-items:center;gap:16px;}
@@ -314,8 +332,30 @@
   <div class="topbar"><div class="topbar-in">
     <div class="brand"><div class="mk">á</div><div><b>Essential Spanish</b><span class="k">Training Studio</span></div></div>
     <button class="lvl-chip" id="lvlChip">Beginner</button>
+    <button class="iconbtn" id="syncBtn" aria-label="Save my progress" title="Save my progress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></button>
     <button class="iconbtn" id="theme" aria-label="Toggle theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg></button>
   </div></div>
+
+  <!-- Salvar progresso na nuvem: sem isso o aluno perde tudo ao trocar de aparelho,
+       porque o estado vive só no localStorage deste navegador. -->
+  <div class="syncwrap" id="syncSheet" hidden>
+    <div class="syncbox">
+      <button class="syncx" id="syncClose" aria-label="Close">×</button>
+      <div class="synck" id="syncK">Save my progress</div>
+      <p class="syncp" id="syncP">Your streak, your words and your talks live only in this browser. Add an email and they follow you to any device.</p>
+      <div id="syncForm">
+        <input class="syncin" id="syncEmail" type="email" autocomplete="email" placeholder="you@email.com" />
+        <input class="syncin" id="syncPass" type="password" autocomplete="current-password" placeholder="Password (6+ characters)" />
+        <button class="btn solid" id="syncGo">Save my progress</button>
+        <div class="syncmsg" id="syncMsg"></div>
+      </div>
+      <div id="syncOn" hidden>
+        <div class="syncwho" id="syncWho"></div>
+        <button class="btn" id="syncNow">Sync now</button>
+        <button class="syncout" id="syncOut">Sign out of this device</button>
+      </div>
+    </div>
+  </div>
   <div class="wrap">
     <div id="homeBody"></div>
   </div>
@@ -662,10 +702,21 @@ const SCENES=[
   {a:"Por fin renuncié y empecé a trabajar por mi cuenta.",b:"¡No me digas! Cuéntame más de eso, ¿cómo va?",s:"Cuéntame más de"}
 ];
 
-const TED={/*__TED_START__*/
-  title:"El enigma de la motivación",speaker:"Paula Carazo Austro (Spain)",lengthMin:7,watchUrl:"https://www.ted.com/talks/paula_carazo_austro_el_enigma_de_la_motivacion?language=es",embedUrl:"https://www.youtube.com/embed/KofVoozWwD0?rel=0&modestbranding=1&cc_lang_pref=es&cc_load_policy=1",videoId:"KofVoozWwD0",intro:"From Spain — A young student's TEDx talk on how attitude and clear goals are the keys to finding motivation in everyday life.",
-  sentences:[{"es":"El rompecabezas de la motivación.","en":"The puzzle of motivation.","start":10.4,"end":13},{"es":"Cuando hablo de motivación no me queda otra que hablar de actitud.","en":"When I talk about motivation, I have no choice but to talk about attitude.","start":77.8,"end":81.5},{"es":"En su momento no lo supe, pero ahora sí.","en":"At the time I didn't know it, but now I do.","start":92,"end":94.6},{"es":"Porque es de valientes querer ser feliz.","en":"Because wanting to be happy takes courage.","start":103.4,"end":105.3},{"es":"Al ver este vídeo entendí que todo depende de mí.","en":"Watching this video, I understood that everything depends on me.","start":123.7,"end":126.9},{"es":"Que tú mismo eres el pintor de tu vida.","en":"That you yourself are the painter of your own life.","start":126.9,"end":128.9},{"es":"No hay nada peor que eso.","en":"There is nothing worse than that.","start":260.1,"end":261.3},{"es":"¿Dónde está la magia ahí?","en":"Where is the magic in that?","start":233.8,"end":235.3},{"es":"Les muestra su afecto y su cariño en palabras.","en":"She shows them her affection and her love in words.","start":224.1,"end":226.4},{"es":"Nos considero a los seres humanos similares a las plantas.","en":"I consider us human beings to be similar to plants.","start":215,"end":218.1},{"es":"Se mueren por dentro.","en":"They die inside.","start":259,"end":260.1},{"es":"Personas vacías son personas tristes.","en":"Empty people are sad people.","start":261.3,"end":264.1},{"es":"Necesitamos unos objetivos para poder tener unas aspiraciones.","en":"We need goals in order to have aspirations.","start":329.9,"end":332.8},{"es":"Unas aspiraciones tienen unas motivaciones.","en":"Aspirations carry motivations.","start":332.8,"end":334.9},{"es":"Todo es por no tener unos objetivos claros y fijos.","en":"It's all from not having clear and firm goals.","start":305.2,"end":307.9},{"es":"Porque sin los objetivos no tenemos esta dirección, esta guía.","en":"Because without goals we don't have this direction, this guidance.","start":307.9,"end":311.7},{"es":"Realmente nuestra vida ya no tiene sentido, ya no cobra sentido.","en":"Our life really no longer makes sense, it no longer has meaning.","start":311.7,"end":315.6},{"es":"Yo digo que están echando de su vida a perder.","en":"I say that they are throwing their lives away.","start":299.8,"end":301.9},{"es":"Es la suma de actitudes y aptitudes.","en":"It is the sum of attitudes and aptitudes.","start":372.8,"end":375.4}]
-/*__TED_END__*/};
+const TEDS=[/*__TED_START__*/
+{id:"motivacion",title:"El enigma de la motivación",speaker:"Paula Carazo Austro (Spain)",lengthMin:7,watchUrl:"https://www.ted.com/talks/paula_carazo_austro_el_enigma_de_la_motivacion?language=es",embedUrl:"https://www.youtube.com/embed/KofVoozWwD0?rel=0&modestbranding=1&cc_lang_pref=es&cc_load_policy=1",videoId:"KofVoozWwD0",intro:"From Spain — A young student's TEDx talk on how attitude and clear goals are the keys to finding motivation in everyday life.",
+  sentences:[{"es":"El rompecabezas de la motivación.","en":"The puzzle of motivation.","start":10.4,"end":13},{"es":"Cuando hablo de motivación no me queda otra que hablar de actitud.","en":"When I talk about motivation, I have no choice but to talk about attitude.","start":77.8,"end":81.5},{"es":"En su momento no lo supe, pero ahora sí.","en":"At the time I didn't know it, but now I do.","start":92,"end":94.6},{"es":"Porque es de valientes querer ser feliz.","en":"Because wanting to be happy takes courage.","start":103.4,"end":105.3},{"es":"Al ver este vídeo entendí que todo depende de mí.","en":"Watching this video, I understood that everything depends on me.","start":123.7,"end":126.9},{"es":"Que tú mismo eres el pintor de tu vida.","en":"That you yourself are the painter of your own life.","start":126.9,"end":128.9},{"es":"No hay nada peor que eso.","en":"There is nothing worse than that.","start":260.1,"end":261.3},{"es":"¿Dónde está la magia ahí?","en":"Where is the magic in that?","start":233.8,"end":235.3},{"es":"Les muestra su afecto y su cariño en palabras.","en":"She shows them her affection and her love in words.","start":224.1,"end":226.4},{"es":"Nos considero a los seres humanos similares a las plantas.","en":"I consider us human beings to be similar to plants.","start":215,"end":218.1},{"es":"Se mueren por dentro.","en":"They die inside.","start":259,"end":260.1},{"es":"Personas vacías son personas tristes.","en":"Empty people are sad people.","start":261.3,"end":264.1},{"es":"Necesitamos unos objetivos para poder tener unas aspiraciones.","en":"We need goals in order to have aspirations.","start":329.9,"end":332.8},{"es":"Unas aspiraciones tienen unas motivaciones.","en":"Aspirations carry motivations.","start":332.8,"end":334.9},{"es":"Todo es por no tener unos objetivos claros y fijos.","en":"It's all from not having clear and firm goals.","start":305.2,"end":307.9},{"es":"Porque sin los objetivos no tenemos esta dirección, esta guía.","en":"Because without goals we don't have this direction, this guidance.","start":307.9,"end":311.7},{"es":"Realmente nuestra vida ya no tiene sentido, ya no cobra sentido.","en":"Our life really no longer makes sense, it no longer has meaning.","start":311.7,"end":315.6},{"es":"Yo digo que están echando de su vida a perder.","en":"I say that they are throwing their lives away.","start":299.8,"end":301.9},{"es":"Es la suma de actitudes y aptitudes.","en":"It is the sum of attitudes and aptitudes.","start":372.8,"end":375.4}]},
+
+  {id:"historias",title:"El poder de las historias",speaker:"Eduardo Sáenz de Cabezón (Spain)",lengthMin:8,watchUrl:"https://www.youtube.com/watch?v=mWFqtxI4NKM",embedUrl:"https://www.youtube.com/embed/mWFqtxI4NKM?rel=0&modestbranding=1&cc_lang_pref=es&cc_load_policy=1",videoId:"mWFqtxI4NKM",intro:"A mathematician tells the story of Évariste Galois — and why humans have been telling each other stories for thousands of years. Clear, theatrical Spanish from Spain.",
+  sentences:[{"es":"Así que Évariste Galois pasó la última noche de su vida escribiendo.","en":"So Évariste Galois spent the last night of his life writing.","start":43.6,"end":48.2},{"es":"Jacobi, uno de los más grandes. Gauss, probablemente el más grande.","en":"Jacobi, one of the greatest. Gauss, probably the greatest.","start":69.9,"end":74.5},{"es":"Galois resolvió un problema de siglos y le dio una solución perfecta.","en":"Galois solved a centuries-old problem and gave it a perfect solution.","start":127,"end":131},{"es":"Y abrió caminos nuevos a las matemáticas.","en":"And he opened up new paths for mathematics.","start":133.1,"end":135.2},{"es":"Acompañaríamos a ese muchacho asustado en la última noche de su vida.","en":"We would keep that frightened young man company on the last night of his life.","start":170,"end":173.3},{"es":"Porque está dentro de nuestro ser.","en":"Because it is inside our very being.","start":268.3,"end":270.8},{"es":"Los humanos llevamos milenios contándonos historias.","en":"We humans have been telling each other stories for millennia.","start":294.6,"end":297.2},{"es":"A veces eran los sacerdotes los que contaban las historias del pueblo.","en":"Sometimes it was the priests who told the stories of the people.","start":306.2,"end":309.6},{"es":"El contenido de las historias es siempre el mismo: ¿quiénes somos?","en":"The content of the stories is always the same: who are we?","start":321.5,"end":326.7},{"es":"¿Cómo es el mundo en el que estamos?","en":"What is the world we live in like?","start":327.3,"end":329.2},{"es":"La comunidad no se construye sólo con las leyes y las costumbres.","en":"A community is not built with laws and customs alone.","start":338.8,"end":341.9}]},
+
+  {id:"30segundos",title:"Conocer a alguien en 30 segundos",speaker:"Micaela Amore (Argentina)",lengthMin:5,watchUrl:"https://www.youtube.com/watch?v=i5ui_DrtcpU",embedUrl:"https://www.youtube.com/embed/i5ui_DrtcpU?rel=0&modestbranding=1&cc_lang_pref=es&cc_load_policy=1",videoId:"i5ui_DrtcpU",intro:"From Argentina — a short, fast, very modern talk: can you really get to know a stranger from their social media in 30 seconds? Great for training the Río de la Plata accent.",
+  sentences:[{"es":"Y, así como soy yo, me sentí desafiada y le propuse probarlo.","en":"And, being the way I am, I felt challenged and suggested we try it.","start":24.2,"end":28.6},{"es":"Imagínense mi ilusión cuando aceptó.","en":"Imagine my excitement when he agreed.","start":39.8,"end":42.9},{"es":"Puse el cronómetro y fui directo a Instagram.","en":"I started the timer and went straight to Instagram.","start":43.3,"end":46.2},{"es":"Escribí una letra al azar y entré en el primer perfil que apareció.","en":"I typed a random letter and opened the first profile that came up.","start":46.5,"end":49.8},{"es":"Arranqué a ver todo lo que esa persona había publicado hasta la fecha.","en":"I started looking at everything that person had posted so far.","start":51.4,"end":54.7},{"es":"Así que supuse que era una persona muy amiguera.","en":"So I assumed she was a very friendly, social person.","start":67.4,"end":70.3},{"es":"Entre sus publicaciones había algunas piezas de arte de Van Gogh.","en":"Among her posts there were some works of art by Van Gogh.","start":71.4,"end":74.4},{"es":"Para cuando llegué a estas 10 cosas, habían pasado 28 segundos.","en":"By the time I got to these 10 things, 28 seconds had gone by.","start":105.5,"end":109.6},{"es":"No podía creer que pudiera conocer a una persona así.","en":"I couldn't believe I could get to know a person that way.","start":112.4,"end":115.5},{"es":"Es verdad que en las redes uno elige lo que quiere mostrar.","en":"It's true that on social media you choose what you want to show.","start":117.9,"end":121.4},{"es":"Que no porque esté ahí significa que es algo 100 % real.","en":"Just because it's there doesn't mean it's 100% real.","start":122,"end":125.5},{"es":"Todo lo que conocí de esta chica podría haberme llevado meses.","en":"Everything I learned about this girl could have taken me months.","start":141.5,"end":145.9}]},
+
+  {id:"pensamiento",title:"Sin pensamiento crítico no eres nadie",speaker:"Pablo Pérez-Paetow (Spain)",lengthMin:11,watchUrl:"https://www.youtube.com/watch?v=WxC4RfTiOsM",embedUrl:"https://www.youtube.com/embed/WxC4RfTiOsM?rel=0&modestbranding=1&cc_lang_pref=es&cc_load_policy=1",videoId:"WxC4RfTiOsM",intro:"A teenager argues that critical thinking should be the base of education. Slow, deliberate Spanish — one of the easiest talks here to follow.",
+  sentences:[{"es":"¿Vemos simplemente un niño pequeño?","en":"Do we simply see a small child?","start":13.4,"end":15.9},{"es":"¿O vemos a Don Quijote y Sancho?","en":"Or do we see Don Quixote and Sancho?","start":31,"end":33.8},{"es":"Aquí dentro se encuentra nuestro verdadero yo, nuestro verdadero profesor.","en":"In here is our true self, our true teacher.","start":79.6,"end":84},{"es":"Se llama pensamiento crítico o al menos, así lo llamo yo.","en":"It's called critical thinking, or at least that's what I call it.","start":129.6,"end":133.3},{"es":"Si uno no piensa críticamente cuando piensa, uno no está pensando.","en":"If you don't think critically when you think, you are not thinking.","start":185.4,"end":190.4},{"es":"Pensar críticamente es pensar en tercera persona, es ser imparcial.","en":"To think critically is to think in the third person, it is to be impartial.","start":206.4,"end":211.3},{"es":"Lo complicado no es el fin, sino el camino.","en":"The hard part is not the destination, but the road.","start":264.3,"end":267.5},{"es":"Pensar no es opinar, pensar no es juzgar, pensar es analizar.","en":"Thinking is not giving opinions, thinking is not judging, thinking is analyzing.","start":274,"end":278.7},{"es":"¿Crees que el pensamiento crítico debe ser importante en la educación?","en":"Do you think critical thinking should be important in education?","start":322.9,"end":326.7},{"es":"El pensamiento crítico debe conformar la base de la educación.","en":"Critical thinking must form the foundation of education.","start":537.6,"end":540.7},{"es":"¿Qué es lo que te diferencia de una máquina?","en":"What is it that makes you different from a machine?","start":545,"end":547.7},{"es":"Actúa según tú quieras actuar y no como otros quieran que actúes.","en":"Act the way you want to act, not the way others want you to act.","start":553.9,"end":557.3}]}
+/*__TED_END__*/];
+// TED = a palestra atual do aluno. Resolvida depois que ST carrega (ver setTed).
+let TED=TEDS[0];
 
 /* ═══ HELPERS ═══ */
 const $=id=>document.getElementById(id);
@@ -789,11 +840,33 @@ function bindAB(box,myUrl,model){ box.querySelectorAll(".abtn").forEach(b=>b.onc
 /* ═══ STATE / LOG ═══ */
 let ST=loadJSON("esf4",{level:"beginner",onboarded:false,days:0,lastDay:0,heard:0,shadowed:0,clarSum:0,clarN:0,srs:{},found:{}});
 ["srs","found"].forEach(k=>{if(!ST[k])ST[k]={};}); if(ST.journeyIdx==null)ST.journeyIdx=0;
-function save(){try{localStorage.setItem("esf4",JSON.stringify(ST));}catch(e){}}
+function save(){try{localStorage.setItem("esf4",JSON.stringify(ST));}catch(e){} try{if(typeof syncSoon==="function")syncSoon();}catch(e){}}
 const DAY=86400000,dayNum=ts=>Math.floor((ts-new Date().getTimezoneOffset()*60000)/DAY);
 function markTrained(){const t=dayNum(Date.now());if(ST.lastDay!==t){ST.days=(ST.lastDay===t-1)?ST.days+1:1;ST.lastDay=t;}}
 function srsBump(id,ok){const s=ST.srs[id]||{n:0,due:0};if(ok){s.n=Math.min(6,s.n+1);s.due=Date.now()+[0,1,3,7,14,30,60][s.n]*DAY;}else{s.n=Math.max(0,s.n-1);s.due=Date.now()+0.4*DAY;}ST.srs[id]=s;}
 function clarAvg(){return ST.clarN?Math.round(ST.clarSum/ST.clarN):0;}
+
+/* ═══ BIBLIOTECA DE TED TALKS ═══
+   Antes existia UMA palestra só e o aluno via o mesmo vídeo pra sempre (reclamação
+   real de aluno em 06/08/2026). Agora são várias: TED aponta pra atual (ST.tedIdx),
+   o aluno pode trocar na mão e o app avança sozinho quando ele já treinou todas as
+   frases da palestra atual. Os ids do SRS são por palestra pra não colidir. */
+function setTed(i){
+  const n=TEDS.length; ST.tedIdx=((i%n)+n)%n; TED=TEDS[ST.tedIdx]; save();
+}
+function tedSentId(talk,i){ return "ted:"+talk.id+":"+i; }
+function tedSeen(talk){ let n=0; talk.sentences.forEach((s,i)=>{ if(ST.srs[tedSentId(talk,i)])n++; }); return n; }
+function tedDone(talk){ return tedSeen(talk)>=talk.sentences.length; }
+/** Se a palestra atual já foi toda treinada, pula pra próxima ainda não concluída. */
+function tedAdvance(){
+  if(TEDS.length<2||!tedDone(TED))return false;
+  for(let k=1;k<=TEDS.length;k++){
+    const i=(ST.tedIdx+k)%TEDS.length;
+    if(!tedDone(TEDS[i])){ setTed(i); return true; }
+  }
+  return false;
+}
+setTed(ST.tedIdx||0);
 
 /* ═══ CONTENT POOLS BY LEVEL ═══ */
 function beginner(){return ST.level==="beginner";}
@@ -816,6 +889,11 @@ const MODES=[
   {key:"immersion",icon:"🌊",t:"Immersion",s:"Whole dialogues, no subtitles",meta:"Flow"}
 ];
 function greet(){const h=new Date().getHours();return h<12?"Buenos días":h<19?"Buenas tardes":"Buenas noches";}
+/* "Learned" = já acertou a palavra pelo menos uma vez. Antes exigia n>=4, e como o
+   SRS espaça as revisões em 0-1-3-7 dias, a 1ª palavra só podia contar no DIA 11 —
+   o aluno estudava a semana toda e via 0. Mastered (n>=4) continua existindo pra
+   quem quiser medir retenção de verdade. */
+function learnedWords(){ let n=0; VOCAB.forEach(w=>{const s=ST.srs["v:"+w.es]; if(s&&s.n>=1)n++;}); return n; }
 function masteredWords(){ let n=0; VOCAB.forEach(w=>{const s=ST.srs["v:"+w.es]; if(s&&s.n>=4)n++;}); return n; }
 function dueCount(){ const now=Date.now(); let n=0; for(const k in ST.srs){ if(ST.srs[k].due&&ST.srs[k].due<=now)n++; } return n; }
 function journeySteps(){ const base=[
@@ -828,13 +906,16 @@ function journeySteps(){ const base=[
 function openStep(st,i){ pendingStep=i; openMode(st.mode); }
 function renderHome(){
   $("lvlChip").textContent=beginner()?"Beginner":"Intermediate";
-  const words=masteredWords(), pct=Math.min(100,Math.round(words/500*100)), off=(213.6*(1-Math.min(1,words/500))).toFixed(1);
+  // o anel media sobre 500 palavras, mas o app só tem VOCAB.length (200): nem o aluno
+  // perfeito passava de 40% do anel. Agora a meta é o vocabulário que existe de fato.
+  const META=VOCAB.length||1;
+  const words=learnedWords(), pct=Math.min(100,Math.round(words/META*100)), off=(213.6*(1-Math.min(1,words/META))).toFixed(1);
   const steps=journeySteps(), jIdx=Math.min(ST.journeyIdx||0,steps.length), dueN=dueCount();
   let h=`<div class="hero2">
     <div class="hero2-l"><div class="k">${greet()}</div><h1 class="hero2-h">${ST.days>0?`Day <em>${ST.days}</em>`:`¡Empecemos!`}</h1>
       <div class="minis"><span>🔥 ${ST.days}</span><span>🎙️ ${ST.shadowed}</span><span>✦ ${clarAvg()}%</span></div></div>
     <div class="mastery"><div class="mring"><svg viewBox="0 0 80 80"><circle class="mb" cx="40" cy="40" r="34"/><circle class="mf" cx="40" cy="40" r="34" style="stroke-dashoffset:${off}"/></svg><b>${pct}%</b></div>
-      <div class="mtxt"><b>${words}</b><span>of 500 essential<br>words on autopilot</span></div></div>
+      <div class="mtxt"><b>${words}</b><span>of ${META} essential<br>words started</span></div></div>
   </div>`;
   if(jIdx<steps.length){ const s=steps[jIdx];
     h+=`<button class="jhero" id="jgo"><div class="k">Continue your journey · ${s.phase}</div><h2>${s.icon} ${s.title}</h2><p>${s.desc}</p><span class="startbtn">Continue ${SVG.arw}</span></button>`;
@@ -851,7 +932,7 @@ function renderHome(){
   const rv=$("rev"); if(rv)rv.onclick=(e)=>{e.stopPropagation();openMode("review");};
   const m=$("modes");
   if(TED&&TED.embedUrl&&TED.sentences&&TED.sentences.length){ const tel=document.createElement("button");tel.className="mode feat";
-    tel.innerHTML=`<div class="ic">🎤</div><div class="mid"><div class="mt">${TED.title}</div><div class="ms">Real TED talk · native</div><div class="meta">Watch · drill · spaced</div></div><div class="arw">${SVG.arw}</div>`;
+    tel.innerHTML=`<div class="ic">🎤</div><div class="mid"><div class="mt">${TED.title}</div><div class="ms">${TED.speaker} · talk ${ST.tedIdx+1} of ${TEDS.length}</div><div class="meta">${tedSeen(TED)}/${TED.sentences.length} lines trained · tap to switch talk</div></div><div class="arw">${SVG.arw}</div>`;
     tel.onclick=()=>openMode("ted");m.appendChild(tel); }
   MODES.forEach(md=>{const el=document.createElement("button");el.className="mode"+(md.beg?" beg":"");
     el.innerHTML=`<div class="ic">${md.icon}</div><div class="mid"><div class="mt">${md.t}</div><div class="ms">${md.s}</div></div><div class="arw">${SVG.arw}</div>`;
@@ -939,10 +1020,12 @@ function buildImmersion(){
   return pick(scenePool(),x=>"d:"+x.b,beginner()?4:6).map(sc=>({t:"immerse",sc,id:"d:"+sc.b}));
 }
 function buildTED(){
+  tedAdvance(); // terminou a palestra atual? já entra na próxima
   const cards=[{t:"tedwatch"}];
-  const sents=TED.sentences.map((s,i)=>({s,i}));
-  const chosen=pick(sents,x=>"ted:"+x.i,beginner()?4:6);
-  chosen.forEach((o,k)=>cards.push({t:"teddrill",s:o.s,id:"ted:"+o.i,n:k+1,total:chosen.length}));
+  const talk=TED;
+  const sents=talk.sentences.map((s,i)=>({s,i}));
+  const chosen=pick(sents,x=>tedSentId(talk,x.i),beginner()?4:6);
+  chosen.forEach((o,k)=>cards.push({t:"teddrill",s:o.s,id:tedSentId(talk,o.i),n:k+1,total:chosen.length}));
   cards.push({t:"tedreview"});
   return cards;
 }
@@ -1063,7 +1146,11 @@ CARD.convo=(c,st)=>{
   }
 };
 CARD.tedwatch=(c,st)=>{
-  st.innerHTML=`<div class="ep-k">Episode 01 · TED</div>
+  const chips=TEDS.map((t,i)=>{
+    const done=tedDone(t), atual=i===ST.tedIdx;
+    return `<button class="tedchip${atual?" on":""}" data-ted="${i}">${done?"✓ ":""}${t.title}<i>${t.speaker.replace(/ *\(.*\)/,"")} · ${t.lengthMin} min</i></button>`;
+  }).join("");
+  st.innerHTML=`<div class="ep-k">Talk ${ST.tedIdx+1} of ${TEDS.length} · TED</div>
     <div class="ep-title">${TED.title}</div>
     <div class="ep-meta">${TED.speaker} · ${TED.lengthMin} min · real native Spanish</div>
     ${TED.embedUrl?`<div class="ep-video"><iframe src="${TED.embedUrl}" title="TED talk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>`:""}
@@ -1073,9 +1160,14 @@ CARD.tedwatch=(c,st)=>{
       <div class="ep-step"><span class="n">2</span> Train its key lines: listen, then shadow out loud.</div>
       <div class="ep-step"><span class="n">3</span> The lines come back over the next days until they stick.</div>
     </div>
-    <a class="ep-link" href="${TED.watchUrl}" target="_blank" rel="noopener">Open on TED ↗</a>
+    <a class="ep-link" href="${TED.watchUrl}" target="_blank" rel="noopener">Open on YouTube ↗</a>
+    <div class="tedlib-k">Every talk, whenever you want it</div>
+    <div class="tedlib">${chips}</div>
     <div class="spacer"></div>
     <button class="btn solid" id="tedGo">Start the training</button>`;
+  st.querySelectorAll(".tedchip").forEach(b=>b.onclick=()=>{
+    stopAudio(); ytStop(); setTed(+b.dataset.ted); openMode("ted");
+  });
   $("tedGo").onclick=()=>{ stopAudio(); next(); };
 };
 CARD.teddrill=(c,st)=>{
@@ -1177,6 +1269,110 @@ function finish(){
 }
 
 /* ═══ theme / level / onboarding / boot ═══ */
+/* ═══ SALVAR PROGRESSO NA NUVEM ═══
+   O estado do app vive no localStorage deste navegador. Quem abre pelo webview do
+   Gmail, troca de aparelho ou limpa o cache perdia TUDO (reclamação real de aluno).
+   Com uma conta o estado sobe pra tabela spanish_progress (RLS: cada um só vê a
+   própria linha) e volta em qualquer aparelho. Continua 100% opcional: sem login o
+   app funciona exatamente como antes, offline inclusive. */
+const SB="https://petrtewismhpzidcmmwb.supabase.co";
+const SB_ANON="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBldHJ0ZXdpc21ocHppZGNtbXdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4MDg3NDYsImV4cCI6MjA4OTM4NDc0Nn0.CTGC11dPKawf3tFWrEu9jXgxn2oPmPMXQS9bFcN4o10";
+let SESS=null;
+try{ SESS=JSON.parse(localStorage.getItem("esf4_sess")||"null"); }catch(e){}
+function sessSave(s){ SESS=s; try{ s?localStorage.setItem("esf4_sess",JSON.stringify(s)):localStorage.removeItem("esf4_sess"); }catch(e){} }
+
+async function sbAuth(path,body){
+  const r=await fetch(SB+"/auth/v1/"+path,{method:"POST",headers:{apikey:SB_ANON,"Content-Type":"application/json"},body:JSON.stringify(body)});
+  const j=await r.json().catch(()=>({})); return {ok:r.ok,status:r.status,j};
+}
+/** Renova o access_token quando expira (dura ~1h). */
+async function sbRefresh(){
+  if(!SESS||!SESS.refresh_token)return false;
+  const {ok,j}=await sbAuth("token?grant_type=refresh_token",{refresh_token:SESS.refresh_token});
+  if(!ok||!j.access_token){ sessSave(null); return false; }
+  sessSave({access_token:j.access_token,refresh_token:j.refresh_token,email:(j.user&&j.user.email)||SESS.email,user_id:(j.user&&j.user.id)||SESS.user_id});
+  return true;
+}
+async function sbRest(path,opts,retry){
+  if(!SESS)return null;
+  const o=opts||{};
+  const r=await fetch(SB+"/rest/v1/"+path,{...o,headers:{apikey:SB_ANON,Authorization:"Bearer "+SESS.access_token,"Content-Type":"application/json",...(o.headers||{})}});
+  if(r.status===401&&!retry&&await sbRefresh())return sbRest(path,opts,true);
+  return r;
+}
+/** Quem tem mais itens no SRS venceu — proxy simples e honesto de "mais progresso". */
+function progressoSize(s){ return s&&s.srs?Object.keys(s.srs).length:-1; }
+async function syncPull(){
+  const r=await sbRest("spanish_progress?select=state&user_id=eq."+SESS.user_id);
+  if(!r||!r.ok)return null;
+  const rows=await r.json().catch(()=>[]);
+  return (rows[0]&&rows[0].state)||null;
+}
+async function syncPush(){
+  if(!SESS)return false;
+  const r=await sbRest("spanish_progress",{method:"POST",headers:{Prefer:"resolution=merge-duplicates"},
+    body:JSON.stringify({user_id:SESS.user_id,state:ST,updated_at:new Date().toISOString()})});
+  return !!(r&&r.ok);
+}
+let pushT=null;
+function syncSoon(){ if(!SESS)return; clearTimeout(pushT); pushT=setTimeout(()=>{syncPush();},2500); }
+
+/** No login: se a nuvem tem mais progresso que este aparelho, adota a nuvem. */
+async function syncAfterLogin(){
+  const remoto=await syncPull();
+  if(remoto&&progressoSize(remoto)>progressoSize(ST)){
+    ST=Object.assign(ST,remoto); ["srs","found"].forEach(k=>{if(!ST[k])ST[k]={};});
+    save(); setTed(ST.tedIdx||0); return "pulled";
+  }
+  await syncPush(); return "pushed";
+}
+
+/* ---- UI ---- */
+function syncOpen(){ const s=$("syncSheet"); s.hidden=false; syncRender(); }
+function syncClose(){ $("syncSheet").hidden=true; }
+function syncMsg(t,cls){ const e=$("syncMsg"); e.textContent=t||""; e.className="syncmsg"+(cls?" "+cls:""); }
+function syncRender(){
+  const on=!!SESS;
+  $("syncForm").hidden=on; $("syncOn").hidden=!on;
+  $("syncK").textContent=on?"Progress is being saved":"Save my progress";
+  $("syncP").textContent=on
+    ?"Sign in with the same email on any device and your streak, words and talks come with you."
+    :"Your streak, your words and your talks live only in this browser. Add an email and they follow you to any device.";
+  if(on)$("syncWho").textContent="Signed in as "+(SESS.email||"");
+}
+async function syncSubmit(){
+  const email=($("syncEmail").value||"").trim().toLowerCase();
+  const pass=$("syncPass").value||"";
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ syncMsg("Please type a valid email.","err"); return; }
+  if(pass.length<6){ syncMsg("Password needs at least 6 characters.","err"); return; }
+  $("syncGo").disabled=true; syncMsg("Working…");
+  try{
+    // tenta entrar; se não existir conta, cria (já confirmada) e entra
+    let {ok,j}=await sbAuth("token?grant_type=password",{email,password:pass});
+    if(!ok){
+      const cr=await fetch("/api/spanish-account",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email,password:pass})});
+      const cj=await cr.json().catch(()=>({}));
+      if(!cr.ok){ syncMsg(cj.error==="weak_password"?"Password needs at least 6 characters.":"Could not save. Try again in a minute.","err"); $("syncGo").disabled=false; return; }
+      if(cj.exists){ syncMsg("That email already has a password saved — check it and try again.","err"); $("syncGo").disabled=false; return; }
+      ({ok,j}=await sbAuth("token?grant_type=password",{email,password:pass}));
+      if(!ok){ syncMsg("Account created — try signing in again.","err"); $("syncGo").disabled=false; return; }
+    }
+    sessSave({access_token:j.access_token,refresh_token:j.refresh_token,email:(j.user&&j.user.email)||email,user_id:j.user&&j.user.id});
+    const how=await syncAfterLogin();
+    syncMsg(how==="pulled"?"Progress restored from your account.":"Progress saved. It will follow you now.","ok");
+    syncRender(); if(how==="pulled")renderHome();
+  }catch(e){ syncMsg("Network error. Try again.","err"); }
+  $("syncGo").disabled=false;
+}
+
+$("syncBtn").onclick=()=>syncOpen();
+$("syncClose").onclick=()=>syncClose();
+$("syncSheet").onclick=(e)=>{ if(e.target===$("syncSheet"))syncClose(); };
+$("syncGo").onclick=()=>syncSubmit();
+$("syncNow").onclick=async()=>{ syncMsg("Syncing…"); const ok=await syncPush(); syncMsg(ok?"Saved.":"Could not reach the server.",ok?"ok":"err"); };
+$("syncOut").onclick=()=>{ sessSave(null); syncRender(); syncMsg("Signed out of this device. Your progress stays here.","ok"); };
+if(SESS){ syncAfterLogin().then(how=>{ if(how==="pulled")renderHome(); }).catch(()=>{}); }
+
 $("theme").onclick=()=>{const cur=document.documentElement.getAttribute("data-theme");const dark=cur?cur==="dark":true;const nx=dark?"light":"dark";document.documentElement.setAttribute("data-theme",nx);try{localStorage.setItem("esf4_theme",nx);}catch(e){}};
 $("lvlChip").onclick=()=>{ST.level=beginner()?"intermediate":"beginner";save();renderHome();};
 $("levels").querySelectorAll(".lvl").forEach(l=>l.onclick=()=>{$("levels").querySelectorAll(".lvl").forEach(x=>x.classList.remove("sel"));l.classList.add("sel");ST.level=l.dataset.l;});
