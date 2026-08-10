@@ -22,6 +22,8 @@ const nextConfig: NextConfig = {
         { source: '/vsl3', destination: '/vsl3.html' },
         // mesma cirurgia da bridge na versão Spanish/USA — estática (48KB vs ~728KB de chunks)
         { source: '/spanish/bridge', destination: '/spanish-bridge.html' },
+        // funil LATAM ES como subpasta (padrão /spanish): bridge estática portada
+        { source: '/es/bridge', destination: '/es-bridge.html' },
       ],
       afterFiles: [
         { source: '/manu', destination: '/manu.html' },
