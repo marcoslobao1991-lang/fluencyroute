@@ -1,10 +1,12 @@
 'use client'
 
-import React, { useEffect, useState, Suspense, memo } from 'react'
+import React, { useEffect, useRef, useState, Suspense } from 'react'
 import '../vsl2/vsl.css'
 import { C, FONT } from '../vsl2/design'
 import { Fade, Glass, Label, S, Grad, useInView } from '../vsl2/primitives'
 import { genEventId, getFbCookies, getClientIp, getUserAgent } from '../lib/pixel'
+import { createTracker } from '../lib/funnel-track'
+import VslPlayer from '../vsl/VslPlayer'
 
 // ═══════════════════════════════════════════════════════════════
 // ESSENTIAL SPANISH FLUENCY — SALES PAGE (clone of RotaFluenciaPage, EN copy)
@@ -167,36 +169,35 @@ const FAQ = [
   },
 ]
 
-// Player Vturb ISOLADO e memoizado: monta o web component uma vez e carrega o
-// script; não re-renderiza no scroll/sticky → o vídeo não some.
-const VTURB_SRC = 'https://scripts.converteai.net/a2b1bd19-973f-4fda-ada9-47d42bffa2ad/players/6a6013fbc99e7e122a46664a/v4/player.js'
-const VturbPlayer = memo(function VturbPlayer() {
-  useEffect(() => {
-    if (!document.querySelector(`script[src="${VTURB_SRC}"]`)) {
-      const s = document.createElement('script')
-      s.src = VTURB_SRC
-      s.async = true
-      document.head.appendChild(s)
-    }
-  }, [])
-  return (
-    <div
-      style={{ maxWidth: 400, margin: '0 auto', borderRadius: 12, overflow: 'hidden', border: `1px solid ${C.border}`, background: C.bg2 }}
-      dangerouslySetInnerHTML={{ __html: '<vturb-smartplayer id="vid-6a6013fbc99e7e122a46664a" style="display:block;margin:0 auto;width:100%;max-width:400px;"><div class="vturb-player-placeholder" style="position:relative;width:100%;padding:178.14814814814815% 0 0;z-index:0;background-color:black;"></div></vturb-smartplayer>' }}
-    />
-  )
-})
+// Player PRÓPRIO (mirror HLS na VPS) com failover pro embed vturb original.
+// Config replicada do smartplayer real 6a6013fbc99e7e122a46664a: fakeBar
+// #01eeffad alpha 2, sem scrollToAction (scrollToActionIn: 0), textos do
+// resume em INGLÊS com botão #4e87a6, unmute "Click to listen".
+const VTURB_PLAYER_ID = '6a6013fbc99e7e122a46664a'
+const REVEAL_AT = 1050              // 17:30 do VÍDEO — mesma marca do displayHiddenElements
+const REVEAL_KEY = 'es_reveal_6a6013cb'
+
+// Log interno (funnel_events) — retenção do vídeo no stats, funil spanish
+const frTrack = createTracker({ funnel: 'spanish', page: 'vsl' })
 
 export default function SpanishSalesPage() {
   const [sticky, setSticky] = useState(false)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [seriesPaused, setSeriesPaused] = useState(false)
   const [showRest, setShowRest] = useState(false)
+  const [revealed, setRevealed] = useState(false)
+  // recebe o currentTime do VslPlayer pra revelar por tempo de vídeo assistido
+  const videoRevealRef = useRef<((t: number) => void) | null>(null)
+  // se o player cair pro fallback vturb, rearma o reveal por relógio
+  const playerFallbackRef = useRef<(() => void) | null>(null)
 
   useEffect(() => {
     // Sticky CTA
     const fn = () => setSticky(window.scrollY > 600)
     window.addEventListener('scroll', fn)
+
+    // log interno (funnel_events) — abre o funil spanish no stats
+    try { frTrack('pageview') } catch {}
 
     // Cart stitching: salva fbc/fbp/ip/ua desta sessão pro webhook do Hotmart
     // recuperar no Purchase (EMQ alto). A chave (stitchSid) vai no sck do checkout.
@@ -243,31 +244,45 @@ export default function SpanishSalesPage() {
     const restTimer = setTimeout(() => setShowRest(true), 1400)
 
     // VSL FECHADA: a oferta (.esconder) só aparece aos 17:30 (1050s) do VÍDEO,
-    // sincronizada com o pitch via displayHiddenElements do Vturb (tempo assistido,
-    // não relógio de página). Vídeo tem 21:16, então dispara com folga.
+    // como no vturb (displayHiddenElements por tempo assistido). O reveal conta
+    // pelo currentTime do VslPlayer (pausa pausa junto, resume continua de onde
+    // parou); relógio só como rede de segurança se o vídeo nunca tocar, e no
+    // failover vturb (iframe, sem acesso ao tempo) rearma por relógio.
     const isPreview = new URLSearchParams(location.search).get('reveal') === '1'
-    let revealBound = false
-    const bindReveal = () => {
-      const pl = document.querySelector('vturb-smartplayer') as any
-      if (!pl || typeof pl.addEventListener !== 'function') { setTimeout(bindReveal, 150); return }
-      if (revealBound) return
-      revealBound = true
-      pl.addEventListener('player:ready', () => {
-        try { pl.displayHiddenElements(1050, ['.esconder'], { persist: true }) } catch {}
-      })
+    const doReveal = () => {
+      setRevealed(true)
+      try { localStorage.setItem(REVEAL_KEY, '1') } catch {}
     }
+    let revealTimer: ReturnType<typeof setTimeout> | null = null
+    const alreadyRevealed = (() => { try { return localStorage.getItem(REVEAL_KEY) === '1' } catch { return false } })()
     if (isPreview) {
       // ?reveal=1 → mostra tudo de cara (revisão), sem esperar o vídeo
       setShowRest(true)
-      setTimeout(() => document.querySelectorAll('.esconder').forEach(el => el.classList.remove('esconder')), 400)
+      setRevealed(true)
+    } else if (alreadyRevealed) {
+      doReveal()
     } else {
-      bindReveal()
+      revealTimer = setTimeout(doReveal, REVEAL_AT * 1000)
+      videoRevealRef.current = (t: number) => {
+        if (t > 0 && revealTimer) { clearTimeout(revealTimer); revealTimer = null }
+        if (t >= REVEAL_AT) doReveal()
+      }
+      playerFallbackRef.current = () => {
+        try {
+          if (!revealTimer && localStorage.getItem(REVEAL_KEY) !== '1') {
+            revealTimer = setTimeout(doReveal, REVEAL_AT * 1000)
+          }
+        } catch {}
+      }
     }
 
     return () => {
       window.removeEventListener('scroll', fn)
       clearTimeout(restTimer)
       if (iv) clearInterval(iv)
+      if (revealTimer) clearTimeout(revealTimer)
+      videoRevealRef.current = null
+      playerFallbackRef.current = null
     }
   }, [])
 
@@ -283,7 +298,29 @@ export default function SpanishSalesPage() {
 
       {/* ═══ HERO — VIDEO (placeholder) ═══ */}
       <section style={{ maxWidth: 600, margin: '0 auto', padding: '40px 20px 0' }}>
-        <VturbPlayer />
+        <div style={{ maxWidth: 400, margin: '0 auto', borderRadius: 12, overflow: 'hidden', border: `1px solid ${C.border}`, background: C.bg2 }}>
+          <div style={{ position: 'relative', paddingTop: '178.148%', background: '#000' }}>
+            <VslPlayer
+              media="vsl-spanish"
+              posterFile="poster.jpg"
+              storageKey="vsl_pos_6a6013cb"
+              scrollToActionAt={0}
+              vturbPlayerId={VTURB_PLAYER_ID}
+              fakeBarColor="#01eeffad"
+              unmuteLabel="Click to listen"
+              resumeTitle="You already started watching"
+              resumeContinueLabel="Keep watching"
+              resumeRestartLabel="Start from beginning"
+              resumeButtonColor="#4e87a6"
+              onVideoTime={t => videoRevealRef.current?.(t)}
+              onFallback={() => {
+                try { frTrack('player_fallback_vturb') } catch {}
+                playerFallbackRef.current?.()
+              }}
+              onPlayerEvent={(ev, detail) => { try { frTrack(ev, detail) } catch {} }}
+            />
+          </div>
+        </div>
         <p style={{
           textAlign: 'center', marginTop: 16, fontSize: 11,
           letterSpacing: 3, textTransform: 'uppercase', fontWeight: 600, color: C.t4,
@@ -292,7 +329,7 @@ export default function SpanishSalesPage() {
         </p>
       </section>
 
-      <div className="esconder">
+      <div className={revealed ? undefined : 'esconder'}>
       {showRest && (<>
 
       {/* ═══ CTA 1 — PRICING ═══ */}
@@ -684,7 +721,7 @@ export default function SpanishSalesPage() {
       </div>{/* end .esconder */}
 
       {/* ═══ STICKY CTA (escondido até o reveal do vídeo) ═══ */}
-      <div className={`esconder sticky-cta ${sticky ? 'show' : ''}`}>
+      <div className={`${revealed ? '' : 'esconder '}sticky-cta ${sticky ? 'show' : ''}`}>
         <Btn compact text={`GET STARTED · ${PAY} one-time`} />
       </div>
 

@@ -54,6 +54,11 @@ export default function VslPlayer({
   scrollTargetId = D_SCROLL_TARGET,
   vturbPlayerId = D_VTURB_PLAYER,
   fakeBarColor = D_FAKEBAR_COLOR,
+  unmuteLabel = 'Clique para ouvir',
+  resumeTitle = 'Você já começou a assistir esse vídeo',
+  resumeContinueLabel = 'Continuar assistindo?',
+  resumeRestartLabel = 'Assistir do início?',
+  resumeButtonColor = '#E77E11',
 }: {
   onVideoTime?: (t: number) => void
   onFallback?: () => void
@@ -65,6 +70,11 @@ export default function VslPlayer({
   scrollTargetId?: string
   vturbPlayerId?: string
   fakeBarColor?: string
+  unmuteLabel?: string
+  resumeTitle?: string
+  resumeContinueLabel?: string
+  resumeRestartLabel?: string
+  resumeButtonColor?: string
 }) {
   const MEDIA_BASE = `${MEDIA_ROOT}/${media}`
   const HLS_URL = `${MEDIA_BASE}/main.m3u8`
@@ -285,7 +295,7 @@ export default function VslPlayer({
               <path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" />
             </svg>
             <span style={{ color: '#fff', fontSize: 'clamp(18px, 5vw, 26px)', fontWeight: 700, lineHeight: 1.2 }}>
-              Clique para ouvir
+              {unmuteLabel}
             </span>
           </span>
         </button>
@@ -299,16 +309,16 @@ export default function VslPlayer({
           background: 'rgba(0,0,0,0.7)', padding: 24,
         }}>
           <p style={{ color: '#fff', fontSize: 'clamp(15px, 4vw, 19px)', fontWeight: 600, textAlign: 'center', margin: 0 }}>
-            Você já começou a assistir esse vídeo
+            {resumeTitle}
           </p>
           <button
             onClick={() => resumeAt(savedPosNow())}
             style={{
-              background: '#E77E11', color: '#FFFFFF', border: 'none', borderRadius: 10,
+              background: resumeButtonColor, color: '#FFFFFF', border: 'none', borderRadius: 10,
               padding: '14px 28px', fontSize: 16, fontWeight: 700, cursor: 'pointer', width: '78%', maxWidth: 300,
             }}
           >
-            Continuar assistindo?
+            {resumeContinueLabel}
           </button>
           <button
             onClick={unmuteFromStart}
@@ -318,7 +328,7 @@ export default function VslPlayer({
               width: '78%', maxWidth: 300,
             }}
           >
-            Assistir do início?
+            {resumeRestartLabel}
           </button>
         </div>
       )}
