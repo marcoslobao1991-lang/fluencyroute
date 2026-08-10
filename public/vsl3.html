@@ -318,8 +318,12 @@ footer{border-top:1px solid var(--line);padding:34px 20px 48px;text-align:center
     <span class="kick">aula gratuita</span>
     <h1>Por que 10 anos de escola não destravam o seu inglês — <em>e o que destrava</em>.</h1>
     <div class="player-frame">
-      <div class="player">
-        <iframe frameborder="0" allowfullscreen id="ifr_67d1c8ba61d59aeb47caf87d" src="about:blank" referrerpolicy="origin" title="Aula Fluency Route"></iframe>
+      <div class="player" id="fr-player">
+        <video id="fr-video" playsinline preload="auto" poster="https://media.srv1198551.hstgr.cloud/vsl-ingles/thumbnail.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;cursor:pointer"></video>
+        <div style="position:absolute;bottom:0;left:0;right:0;height:10px;background:rgba(255,255,255,.15)"><div id="fr-bar" style="width:0%;height:100%;background:#00dfff;transition:width .3s linear"></div></div>
+        <button id="fr-unmute" type="button" aria-label="Ativar o som do vídeo" style="position:absolute;inset:0;width:100%;height:100%;display:none;flex-direction:column;align-items:center;justify-content:center;background:transparent;border:0;cursor:pointer;padding:0"><span style="display:flex;flex-direction:column;align-items:center;gap:14px;background:rgba(0,0,0,.75);border-radius:18px;padding:26px 36px;width:auto;max-width:78%"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z" fill="#fff"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg><span style="color:#fff;font-size:clamp(16px,4vw,22px);font-weight:700;line-height:1.2">Clique para ouvir</span></span></button>
+        <div id="fr-resume" style="position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:rgba(0,0,0,.7);padding:22px"><p style="color:#fff;font-size:clamp(14px,4vw,18px);font-weight:600;text-align:center;margin:0">Você já começou a assistir esse vídeo</p><button id="fr-continue" type="button" style="background:#E77E11;color:#fff;border:0;border-radius:10px;padding:13px 26px;font-size:15px;font-weight:700;cursor:pointer;width:78%;max-width:290px">Continuar assistindo?</button><button id="fr-restart" type="button" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5);border-radius:10px;padding:11px 26px;font-size:14px;cursor:pointer;width:78%;max-width:290px">Assistir do início?</button></div>
+        <button id="fr-paused" type="button" aria-label="Continuar o vídeo" style="position:absolute;inset:0;width:100%;height:100%;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.4);border:0;cursor:pointer;padding:0"><span style="width:88px;height:88px;border-radius:50%;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center"><svg width="40" height="40" viewBox="0 0 24 24" fill="#fff" aria-hidden="true" style="margin-left:5px"><path d="M8 5v14l11-7z"/></svg></span></button>
       </div>
     </div>
     <span class="sound"><span class="eqs"><i></i><i></i><i></i></span>assista com o som ativado</span>
@@ -681,10 +685,57 @@ setTimeout(function(){var s=document.createElement('script');s.async=true;s.src=
 trackDual('ViewContent');
 try{frTrack('pageview')}catch(e){}
 
-// Vturb — mesmo vídeo da /vsl atual (trocar o id quando a VSL nova estiver gravada)
-(function(){if(!document.querySelector('script[src*="smartplayer-wc"]')){var s=document.createElement('script');s.type='text/javascript';s.src='https://scripts.converteai.net/lib/js/smartplayer-wc/v4/sdk.js';s.async=true;document.head.appendChild(s)}
+// Player próprio — mesmo vídeo/mirror da /vsl (vsl-ingles), resume compartilhado
+// via vsl_pos_67d1c87c. Failover automático pro embed vturb se o streaming falhar.
+(function(){var BASE='https://media.srv1198551.hstgr.cloud/vsl-ingles';
+var DELAY=1260,SCROLL_AT=1470,RESUME_MIN=30,STEP=5000,ALPHA=2,K_POS='vsl_pos_67d1c87c';
+var video=document.getElementById('fr-video'),bar=document.getElementById('fr-bar');
+var ovU=document.getElementById('fr-unmute'),ovR=document.getElementById('fr-resume'),ovP=document.getElementById('fr-paused');
+var interacted=false,lastSave=0,dead=false,lastMin=0,scrolled=false;
+function track(ev,detail){try{frTrack(ev,detail)}catch(e){}}
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+function show(el,on){el.style.display=on?'flex':'none'}
+function fallback(){if(dead)return;dead=true;track('player_fallback_vturb');
+if(window.__frArmClockReveal)window.__frArmClockReveal(Math.max(0,DELAY-(video.currentTime||0)));
+var host=document.getElementById('fr-player');
+host.innerHTML='<iframe frameborder="0" allowfullscreen id="ifr_67d1c8ba61d59aeb47caf87d" style="position:absolute;inset:0;width:100%;height:100%;border:0" referrerpolicy="origin"></iframe>';
+if(!document.querySelector('script[src*="smartplayer-wc"]')){var s=document.createElement('script');s.type='text/javascript';s.src='https://scripts.converteai.net/lib/js/smartplayer-wc/v4/sdk.js';s.async=true;document.head.appendChild(s)}
 var ifr=document.getElementById('ifr_67d1c8ba61d59aeb47caf87d');
-if(ifr)ifr.src='https://scripts.converteai.net/a2b1bd19-973f-4fda-ada9-47d42bffa2ad/players/67d1c8ba61d59aeb47caf87d/v4/embed.html'+(location.search||'?')+'&vl='+encodeURIComponent(location.href)})();
+if(ifr)ifr.src='https://scripts.converteai.net/a2b1bd19-973f-4fda-ada9-47d42bffa2ad/players/67d1c8ba61d59aeb47caf87d/v4/embed.html'+(location.search||'?')+'&vl='+encodeURIComponent(location.href)}
+function startPlayback(){if(dead)return;var pos=parseFloat(ls(K_POS)||'0')||0;
+if(pos>=RESUME_MIN){show(ovR,true);track('video_resume_shown');return}
+video.muted=true;var pr=video.play();show(ovU,true);if(pr&&pr.catch)pr.catch(function(){})}
+function playFrom(t){interacted=true;lastMin=Math.floor(t/60);track('video_play',t===0?'start':'resume@'+Math.round(t));
+show(ovU,false);show(ovR,false);show(ovP,false);video.currentTime=t;video.muted=false;
+var pr=video.play();if(pr&&pr.catch)pr.catch(function(){})}
+ovU.addEventListener('click',function(){playFrom(0)});
+document.getElementById('fr-restart').addEventListener('click',function(){playFrom(0)});
+document.getElementById('fr-continue').addEventListener('click',function(){playFrom(parseFloat(ls(K_POS)||'0')||0)});
+ovP.addEventListener('click',function(){show(ovP,false);var pr=video.play();if(pr&&pr.catch)pr.catch(function(){})});
+video.addEventListener('click',function(){if(ovU.style.display==='flex'||ovR.style.display==='flex')return;
+if(video.paused){show(ovP,false);var pr=video.play();if(pr&&pr.catch)pr.catch(function(){})}else{video.pause();show(ovP,true)}});
+video.addEventListener('timeupdate',function(){var d=video.duration,t=video.currentTime;
+if(d>0)bar.style.width=Math.min(100,Math.pow(t/d,1/ALPHA)*100)+'%';
+if(t>=DELAY&&window.__frDoReveal)window.__frDoReveal();
+if(t>=SCROLL_AT&&!scrolled){scrolled=true;try{var c=document.querySelector('a.cta-btn');if(c)c.scrollIntoView({behavior:'smooth',block:'center'})}catch(e){}}
+if(interacted){var m=Math.floor(t/60);if(m>lastMin){lastMin=m;track('video_minute',String(m))}
+if(Date.now()-lastSave>=STEP){lastSave=Date.now();ls(K_POS,String(t))}}});
+var sawMeta=false;
+setTimeout(function(){if(!sawMeta)fallback()},15000);
+video.addEventListener('loadedmetadata',function(){sawMeta=true},{once:true});
+if(video.canPlayType('application/vnd.apple.mpegurl')){
+video.addEventListener('error',fallback,{once:true});
+video.addEventListener('loadedmetadata',startPlayback,{once:true});
+video.src=BASE+'/main.m3u8';video.load();
+}else{var hs=document.createElement('script');hs.src='https://media.srv1198551.hstgr.cloud/lib/hls.min.js';hs.onerror=fallback;
+hs.onload=function(){if(dead)return;if(!window.Hls||!window.Hls.isSupported()){fallback();return}
+var h=new window.Hls({maxBufferLength:30,maxMaxBufferLength:60,maxBufferSize:12*1000*1000,backBufferLength:30});
+h.loadSource(BASE+'/main.m3u8');h.attachMedia(video);
+h.on(window.Hls.Events.MANIFEST_PARSED,function(){sawMeta=true;startPlayback()});
+var fatals=0;
+h.on(window.Hls.Events.ERROR,function(_e,data){if(!data||!data.fatal)return;fatals++;
+if(fatals===1&&sawMeta){try{h.startLoad()}catch(e){fallback()}}else fallback()})};
+document.head.appendChild(hs)}})();
 
 window.addEventListener('message',function(event){try{if(!event.data||event.data.mime!=='smartplayer/message-text-v4')return;if(event.data.type!=='UpdateUrlParams')return;var sck=event.data.sck||(event.data.data&&event.data.data.sck);if(!sck)return;var fb=getFb();var p=qp();beacon('/api/checkout-session',{session_id:stitchSid()+'-sck-'+Date.now().toString(36),fbc:fb.fbc,fbp:fb.fbp,fbclid:p.get('fbclid')||undefined,client_ip_address:cachedIp||undefined,client_user_agent:navigator.userAgent,sck:sck,utm_source:p.get('utm_source')||undefined,utm_medium:p.get('utm_medium')||undefined,utm_campaign:p.get('utm_campaign')||undefined,utm_content:p.get('utm_content')||undefined,utm_term:p.get('utm_term')||undefined})}catch(e){}});
 
@@ -696,14 +747,20 @@ var UTM_KEYS=['utm_source','utm_medium','utm_campaign','utm_term','utm_content',
 a.addEventListener('click',function(){try{var cur=new URL(a.href);var sck=cur.searchParams.get('sck');if(sck){var fb=getFb();var pp=qp();beacon('/api/checkout-session',{session_id:stitchSid()+'-click-'+Date.now().toString(36),fbc:fb.fbc,fbp:fb.fbp,fbclid:pp.get('fbclid')||undefined,client_ip_address:cachedIp||undefined,client_user_agent:navigator.userAgent,sck:sck,utm_source:pp.get('utm_source')||undefined,utm_medium:pp.get('utm_medium')||undefined,utm_campaign:pp.get('utm_campaign')||undefined,utm_content:pp.get('utm_content')||undefined,utm_term:pp.get('utm_term')||undefined})}}catch(e){}
 saveCheckoutSession(stitchSid());try{frTrack('checkout_click')}catch(e){}trackDual('InitiateCheckout')})})})();
 
-// ── REVEAL: página fechada → site abre aos 21min (?reveal=1 pré-visualiza; ?reveal=0 refecha) ──
+// ── REVEAL: página fechada → abre aos 21min DE VÍDEO (player próprio conta por
+// currentTime; relógio vira rede — só dispara se o vídeo não andou 60s — e o
+// failover rearma com o tempo restante). ?reveal=1 pré-visualiza; ?reveal=0 refecha.
 (function(){var delaySeconds=1260;var key='fluency_vsl3_revealed';
 function doReveal(persist){document.body.classList.remove('closed');try{frTrack('reveal')}catch(e){}if(persist){try{localStorage.setItem(key,'1')}catch(e){}}}
+window.__frDoReveal=function(){doReveal(true)};
+var armed=false;
+window.__frArmClockReveal=function(secs){if(armed)return;armed=true;setTimeout(function(){doReveal(true)},(secs==null?delaySeconds:secs)*1000)};
 var p=qp();
 if(p.get('reveal')==='0'){try{localStorage.removeItem(key)}catch(e){}}
 else if(p.get('reveal')==='1'){doReveal(false)}
 else{var already=false;try{already=localStorage.getItem(key)==='1'}catch(e){}
-if(already)doReveal(true);else setTimeout(function(){doReveal(true)},delaySeconds*1000)}})();
+if(already)doReveal(true);
+else setTimeout(function(){try{var v=document.getElementById('fr-video');if(v&&v.currentTime>60)return}catch(e){}doReveal(true)},delaySeconds*1000)}})();
 
 // sticky CTA mobile — só pós-reveal, depois de passar a oferta
 (function(){var bar=document.getElementById('stickyCta');var ofertaEl=document.getElementById('oferta');if(!bar||!ofertaEl)return;

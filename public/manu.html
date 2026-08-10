@@ -427,11 +427,66 @@
   </div>
   <div class="player rv" style="transition-delay:.16s">
     <div class="tag"><i></i> com som</div>
-    <vturb-smartplayer id="vid-6a368cb2a01c983820397b7b" style="display:block;width:100%;height:100%"></vturb-smartplayer>
-    <script type="text/javascript">
-      var s=document.createElement("script");
-      s.src="https://scripts.converteai.net/a2b1bd19-973f-4fda-ada9-47d42bffa2ad/players/6a368cb2a01c983820397b7b/v4/player.js";
-      s.async=!0;document.head.appendChild(s);
+    <!-- Player próprio (mirror vsl-manu na VPS) — config do vturb 6a368cb2:
+         fakeBar #C53C80 alpha 2, resume #C53C80, smartAutoPlay,
+         reveal .esconder aos 10s DE VÍDEO (persist). Failover pro embed. -->
+    <div id="mn-player" style="position:absolute;inset:0">
+      <video id="mn-video" playsinline preload="auto" poster="https://media.srv1198551.hstgr.cloud/vsl-manu/poster.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;cursor:pointer"></video>
+      <div style="position:absolute;bottom:0;left:0;right:0;height:10px;background:rgba(255,255,255,.15)"><div id="mn-bar" style="width:0%;height:100%;background:#C53C80;transition:width .3s linear"></div></div>
+      <button id="mn-unmute" type="button" aria-label="Ativar o som do vídeo" style="position:absolute;inset:0;width:100%;height:100%;display:none;flex-direction:column;align-items:center;justify-content:center;background:transparent;border:0;cursor:pointer;padding:0"><span style="display:flex;flex-direction:column;align-items:center;gap:14px;background:rgba(0,0,0,.75);border-radius:18px;padding:30px 38px;width:78%"><svg width="70" height="70" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z" fill="#fff"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg><span style="color:#fff;font-size:clamp(16px,4.5vw,22px);font-weight:700;line-height:1.2">Clique para ouvir</span></span></button>
+      <div id="mn-resume" style="position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:rgba(0,0,0,.7);padding:22px"><p style="color:#fff;font-size:clamp(14px,4vw,17px);font-weight:600;text-align:center;margin:0">Você já começou a assistir esse vídeo</p><button id="mn-continue" type="button" style="background:#C53C80;color:#fff;border:0;border-radius:10px;padding:13px 26px;font-size:15px;font-weight:700;cursor:pointer;width:78%;max-width:290px">Continuar assistindo?</button><button id="mn-restart" type="button" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5);border-radius:10px;padding:11px 26px;font-size:14px;cursor:pointer;width:78%;max-width:290px">Assistir do início?</button></div>
+      <button id="mn-paused" type="button" aria-label="Continuar o vídeo" style="position:absolute;inset:0;width:100%;height:100%;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.4);border:0;cursor:pointer;padding:0"><span style="width:80px;height:80px;border-radius:50%;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center"><svg width="36" height="36" viewBox="0 0 24 24" fill="#fff" aria-hidden="true" style="margin-left:5px"><path d="M8 5v14l11-7z"/></svg></span></button>
+    </div>
+    <script>
+    (function(){var BASE='https://media.srv1198551.hstgr.cloud/vsl-manu';
+    var DELAY=10,RESUME_MIN=30,STEP=5000,ALPHA=2,K_POS='mn_vsl_pos',K_REV='mn_vsl_revealed';
+    var video=document.getElementById('mn-video'),bar=document.getElementById('mn-bar');
+    var ovU=document.getElementById('mn-unmute'),ovR=document.getElementById('mn-resume'),ovP=document.getElementById('mn-paused');
+    var interacted=false,revealed=false,lastSave=0,dead=false;
+    function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+    function show(el,on){el.style.display=on?'flex':'none'}
+    function reveal(){if(revealed)return;revealed=true;ls(K_REV,'1');
+    document.querySelectorAll('.esconder').forEach(function(el){el.classList.remove('esconder')})}
+    if(ls(K_REV)==='1')reveal();
+    function fallback(){if(dead)return;dead=true;
+    var host=document.getElementById('mn-player');
+    host.innerHTML='<vturb-smartplayer id="vid-6a368cb2a01c983820397b7b" style="display:block;width:100%;height:100%"></vturb-smartplayer>';
+    var s=document.createElement('script');
+    s.src='https://scripts.converteai.net/a2b1bd19-973f-4fda-ada9-47d42bffa2ad/players/6a368cb2a01c983820397b7b/v4/player.js';
+    s.async=true;document.head.appendChild(s);
+    var p=host.querySelector('vturb-smartplayer');
+    p.addEventListener('player:ready',function(){p.displayHiddenElements(DELAY,['.esconder'],{persist:true})})}
+    function startPlayback(){if(dead)return;var pos=parseFloat(ls(K_POS)||'0')||0;
+    if(pos>=RESUME_MIN){show(ovR,true);return}
+    video.muted=true;var pr=video.play();show(ovU,true);if(pr&&pr.catch)pr.catch(function(){})}
+    function playFrom(t){interacted=true;show(ovU,false);show(ovR,false);show(ovP,false);
+    video.currentTime=t;video.muted=false;var pr=video.play();if(pr&&pr.catch)pr.catch(function(){})}
+    ovU.addEventListener('click',function(){playFrom(0)});
+    document.getElementById('mn-restart').addEventListener('click',function(){playFrom(0)});
+    document.getElementById('mn-continue').addEventListener('click',function(){playFrom(parseFloat(ls(K_POS)||'0')||0)});
+    ovP.addEventListener('click',function(){show(ovP,false);var pr=video.play();if(pr&&pr.catch)pr.catch(function(){})});
+    video.addEventListener('click',function(){if(ovU.style.display==='flex'||ovR.style.display==='flex')return;
+    if(video.paused){show(ovP,false);var pr=video.play();if(pr&&pr.catch)pr.catch(function(){})}else{video.pause();show(ovP,true)}});
+    video.addEventListener('timeupdate',function(){var d=video.duration,t=video.currentTime;
+    if(d>0)bar.style.width=Math.min(100,Math.pow(t/d,1/ALPHA)*100)+'%';
+    if(t>=DELAY)reveal();
+    if(interacted&&Date.now()-lastSave>=STEP){lastSave=Date.now();ls(K_POS,String(t))}});
+    var sawMeta=false;
+    setTimeout(function(){if(!sawMeta)fallback()},15000);
+    video.addEventListener('loadedmetadata',function(){sawMeta=true},{once:true});
+    if(video.canPlayType('application/vnd.apple.mpegurl')){
+    video.addEventListener('error',fallback,{once:true});
+    video.addEventListener('loadedmetadata',startPlayback,{once:true});
+    video.src=BASE+'/main.m3u8';video.load();
+    }else{var hs=document.createElement('script');hs.src='https://media.srv1198551.hstgr.cloud/lib/hls.min.js';hs.onerror=fallback;
+    hs.onload=function(){if(dead)return;if(!window.Hls||!window.Hls.isSupported()){fallback();return}
+    var h=new window.Hls({maxBufferLength:30,maxMaxBufferLength:60,maxBufferSize:12*1000*1000,backBufferLength:30});
+    h.loadSource(BASE+'/main.m3u8');h.attachMedia(video);
+    h.on(window.Hls.Events.MANIFEST_PARSED,function(){sawMeta=true;startPlayback()});
+    var fatals=0;
+    h.on(window.Hls.Events.ERROR,function(_e,data){if(!data||!data.fatal)return;fatals++;
+    if(fatals===1&&sawMeta){try{h.startLoad()}catch(e){fallback()}}else fallback()})};
+    document.head.appendChild(hs)}})();
     </script>
   </div>
   <p class="watch-hint rv" style="transition-delay:.22s">▶ aperta o play e assista com som · <b>+12 mil alunos</b> já destravando</p>
@@ -740,12 +795,8 @@
   const onScroll=()=>{if(window.scrollY>window.innerHeight*.72)nav.classList.add('show');else nav.classList.remove('show');};
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 
-  // delay VTurb — revela os elementos .esconder X segundos após o player pronto
-  var delaySeconds = 10;
-  var vplayer = document.querySelector("vturb-smartplayer");
-  vplayer.addEventListener("player:ready", function() {
-    vplayer.displayHiddenElements(delaySeconds, [".esconder"], { persist: true });
-  });
+  // reveal dos .esconder: agora é o player próprio que revela (10s de vídeo,
+  // persist em mn_vsl_revealed) — e o failover vturb rebinda o displayHiddenElements.
 </script>
 
 <!-- ATRIBUIÇÃO (stitch s1/fbclid/utm) + PERSONALIZAÇÃO (handoff da Manu) -->
