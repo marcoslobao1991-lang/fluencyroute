@@ -602,7 +602,15 @@ Investigar: Meta Events Manager → Diagnóstico`
     }
 
     // ═══ 3. EMAIL DE BOAS-VINDAS ═══
-    await sendWelcomeEmail(email, name, password, isNew)
+    // 24/08/2026 DESLIGADO (decisão do Marcos): o único e-mail de acesso é o da
+    // própria Kiwify. O app (bônus) se entra pelo módulo BÔNUS → /acesso, sem
+    // senha. Dois e-mails de acesso = ambiguidade = reembolso. Religa com
+    // SEND_WELCOME_EMAIL=1 na Vercel.
+    if (process.env.SEND_WELCOME_EMAIL === '1') {
+      await sendWelcomeEmail(email, name, password, isNew)
+    } else {
+      console.log(`[Kiwify] welcome e-mail SKIPPED (desligado 24/08) — ${email}`)
+    }
 
     // ═══ 4. WHATSAPP — acesso do aluno (template acesso_d0, Cloud API) ═══
     // Mensagem antiga mandava o aluno "esperar o acesso da Kiwify" — era

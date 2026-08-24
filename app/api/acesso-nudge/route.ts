@@ -63,6 +63,12 @@ export async function GET(request: Request) {
   }
   const testEmail = (url.searchParams.get("test") || "").toLowerCase().trim();
 
+  // 24/08/2026 DESLIGADO (decisão do Marcos): acesso principal é a área da Kiwify;
+  // "nunca logou no app" deixou de ser sinal de problema. Religa com NUDGE_ENABLED=1.
+  if (process.env.NUDGE_ENABLED !== "1" && !testEmail) {
+    return NextResponse.json({ ok: true, skipped: "nudge desligado 24/08/2026" });
+  }
+
   const SK = process.env.SUPABASE_SERVICE_KEY!;
   const RESEND = process.env.RESEND_API_KEY!;
   const H = { apikey: SK, Authorization: `Bearer ${SK}`, "Content-Type": "application/json" };
