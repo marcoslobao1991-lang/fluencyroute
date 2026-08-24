@@ -39,7 +39,7 @@
 
 > {nome}, rapidinho: teu acesso continua aqui quietinho te esperando 😄
 >
-> Detalhe importante: o curso NÃO fica na Kiwify (lá é só o pagamento).
+> ATUALIZADO 24/08/2026: o curso fica na ÁREA DE MEMBROS DA KIWIFY (comece pelo módulo COMECE AQUI). O app (Manu: Listening + Shadowing) é BÔNUS de nível intermediário.
 > Tua área de aluno é essa:
 >
 > 👉 fluencyroute.com.br/acesso — entra só com o e-mail, sem senha.

@@ -30,26 +30,26 @@ function emailHtml(nome: string, email: string, senha: string, n: number) {
   const oi = nome ? nome.split(" ")[0] + ", s" : "S";
   const intro =
     n === 0
-      ? `${oi}ua compra está confirmada e o seu acesso está pronto — mas notamos que você ainda não entrou na plataforma. Pra facilitar, geramos uma <b>senha nova</b>:`
+      ? `${oi}ua compra está confirmada. O curso fica na <b>área de membros da Kiwify</b> (login com este e-mail): comece pelo módulo COMECE AQUI e a aula inaugural. Abaixo, os dados do seu <b>bônus</b>, o app de treino:`
       : n === 1
-        ? `${oi}eu acesso continua te esperando. Geramos uma senha nova pra você entrar agora, sem procurar e-mail antigo:`
-        : `${oi}esse é o último lembrete automático — seu acesso está liberado e é seu. Senha nova abaixo:`;
+        ? `${oi}eguindo? Na área do curso a ordem é Fase Zero → Fase 1 → Treinos Concentrados. Quando bater a primeira meta, o app de treino (bônus) te espera com estes dados:`
+        : `${oi}esse é o último lembrete automático. Seu curso está na área da Kiwify e o bônus (app de treino) é seu, com os dados abaixo:`;
   return `<!doctype html><html><body style="margin:0;background:#FAFAF6;font-family:-apple-system,'Segoe UI',sans-serif;color:#15201E">
   <div style="max-width:480px;margin:0 auto;padding:32px 24px">
     <p style="font-weight:900;letter-spacing:3px;font-size:12px">FLUENCY <span style="color:#12B5AC">ROUTE</span></p>
-    <h1 style="font-size:24px;font-weight:900;letter-spacing:-1px;line-height:1.25;margin:18px 0 10px">Seu acesso está pronto. Falta só entrar.</h1>
+    <h1 style="font-size:24px;font-weight:900;letter-spacing:-1px;line-height:1.25;margin:18px 0 10px">Seu curso está te esperando.</h1>
     <p style="font-size:16px;color:#3D4A49;line-height:1.65">${intro}</p>
     <div style="background:#0F2B28;border-radius:12px;padding:18px 20px;margin:18px 0">
-      <p style="color:#9fd8d3;font-size:12px;letter-spacing:1px;margin:0 0 8px">SEUS DADOS DE ACESSO</p>
+      <p style="color:#9fd8d3;font-size:12px;letter-spacing:1px;margin:0 0 8px">BÔNUS · APP DE TREINO (app.fluencyroute.com.br)</p>
       <p style="color:#fff;font-size:15px;margin:0 0 6px"><b>E-mail:</b> ${email}</p>
       <p style="color:#fff;font-size:15px;margin:0"><b>Senha:</b> ${senha}</p>
     </div>
-    <p style="font-size:15px;color:#3D4A49;line-height:1.65;margin:4px 0 14px">Lá dentro a <b style="color:#7C5CFF">MANU</b> — sua teacher particular de IA — conversa com você, te escuta falar inglês <b>sem julgamento</b> e monta seu caminho. Começa por ela: é 1 minuto pra sentir a diferença.</p>
-    <a href="${APP_URL}" style="display:inline-block;margin:6px 0 8px;background:#0B6E68;color:#fff;font-weight:900;font-size:16px;padding:16px 28px;border-radius:12px;text-decoration:none">ENTRAR E FALAR COM A MANU ▶</a>
-    <p style="font-size:13px;color:#8a6d1f;background:#FFF7DF;border:1px solid #F0DFA8;border-radius:10px;padding:10px 14px;line-height:1.6;margin-top:14px">⚠️ O curso <b>não fica na Kiwify</b> — lá é só o pagamento. Sua área de aluno é <b>app.fluencyroute.com.br</b> (o botão acima).</p>
-    <p style="font-size:14px;color:#3D4A49;line-height:1.6;margin-top:14px">Prefere entrar <b>sem senha</b>? Acesse <a href="https://fluencyroute.com.br/acesso" style="color:#0B6E68;font-weight:700">fluencyroute.com.br/acesso</a>, digite este e-mail e você entra na hora.</p>
+    <p style="font-size:15px;color:#3D4A49;line-height:1.65;margin:4px 0 14px">No app, a <b style="color:#7C5CFF">MANU</b> treina seu <b>ouvido</b> e sua <b>fala</b> com cenas reais de série (Listening e Shadowing). É nível intermediário: entra quando o curso te mandar.</p>
+    <a href="https://dashboard.kiwify.com.br/course/a9510c15-b1f7-49a5-9004-ecfbe5561311" style="display:inline-block;margin:6px 8px 8px 0;background:#0B6E68;color:#fff;font-weight:900;font-size:16px;padding:16px 28px;border-radius:12px;text-decoration:none">ENTRAR NA ÁREA DO CURSO ▶</a>
+    <a href="${APP_URL}" style="display:inline-block;margin:6px 0 8px;background:#7C5CFF;color:#fff;font-weight:900;font-size:16px;padding:16px 28px;border-radius:12px;text-decoration:none">ABRIR O APP (BÔNUS)</a>
+        <p style="font-size:14px;color:#3D4A49;line-height:1.6;margin-top:14px">Prefere entrar <b>sem senha</b>? Acesse <a href="https://fluencyroute.com.br/acesso" style="color:#0B6E68;font-weight:700">fluencyroute.com.br/acesso</a>, digite este e-mail e você entra na hora.</p>
     <p style="font-size:13px;color:#7a8a88;line-height:1.6;margin-top:10px">Qualquer dificuldade, responde este e-mail que a gente resolve com você.</p>
-    <p style="font-size:11px;color:#9aa;margin-top:28px">Fluency Route · você recebeu porque sua compra foi aprovada e o acesso ainda não foi utilizado.</p>
+    <p style="font-size:11px;color:#9aa;margin-top:28px">Fluency Route · você recebeu porque sua compra foi aprovada e o app de treino (bônus) ainda não foi aberto.</p>
   </div></body></html>`;
 }
 

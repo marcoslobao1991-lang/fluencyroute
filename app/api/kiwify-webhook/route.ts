@@ -11,6 +11,7 @@ const SUPA_URL = 'https://petrtewismhpzidcmmwb.supabase.co'
 const SUPA_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY!
 const RESEND_API_KEY = process.env.RESEND_API_KEY
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://app.fluencyroute.com.br'
+const KIWIFY_COURSE_URL = 'https://dashboard.kiwify.com.br/course/a9510c15-b1f7-49a5-9004-ecfbe5561311'
 
 // ── Z-API WhatsApp ──
 const ZAPI_BASE = `https://api.z-api.io/instances/${process.env.ZAPI_INSTANCE_ID}/token/${process.env.ZAPI_TOKEN}`
@@ -154,36 +155,41 @@ async function createSubscription(userId: string, orderId: string) {
 async function sendWelcomeEmail(email: string, name: string, password: string | null, isNew: boolean) {
   if (!RESEND_API_KEY) return
   const firstName = (name || '').split(' ')[0] || 'aluno'
+  // 24/08/2026: INVERSÃO. O curso volta a ser entregue na área de membros da
+  // Kiwify (7% de reembolso histórico vs 11-20% com o app na frente). O app
+  // (Manu: Listening + Shadowing) vira BÔNUS de nível intermediário.
   const html = `
     <div style="font-family:'Inter',sans-serif;max-width:520px;margin:0 auto;background:#0A0A0A;border-radius:16px;overflow:hidden">
       <div style="padding:36px 32px 28px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06)">
-        <h1 style="color:#fff;font-size:23px;margin:0">Bem-vindo ao <span style="color:#4ECDC4">Rota da Fluência</span></h1>
-        <p style="color:rgba(255,255,255,0.55);font-size:14px;margin-top:8px">${firstName}, sua teacher já está te esperando 👇</p>
+        <h1 style="color:#fff;font-size:23px;margin:0">Bem-vindo ao <span style="color:#4ECDC4">Fluency Route</span></h1>
+        <p style="color:rgba(255,255,255,0.55);font-size:14px;margin-top:8px">${firstName}, seu acesso está liberado. Comece pela aula inaugural 👇</p>
       </div>
       <div style="padding:28px 32px 32px">
         <p style="color:rgba(255,255,255,0.75);font-size:14px;line-height:1.7;margin:0 0 18px">
-          É só seguir os <strong style="color:#fff">3 passos</strong> (leva 1 minuto):
+          O caminho é simples e tem <strong style="color:#fff">ordem</strong>. Faça assim:
         </p>
         <table style="width:100%;border-collapse:collapse;margin:0 0 22px">
           <tr><td style="vertical-align:top;padding:0 12px 14px 0;color:#4ECDC4;font-weight:800;font-size:16px">1.</td>
-            <td style="padding-bottom:14px;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.6">Toque no botão verde abaixo — <b>é aqui que o curso mora</b> (salva nos favoritos!)</td></tr>
+            <td style="padding-bottom:14px;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.6">Entre na <b>área do curso</b> (botão verde). É onde estão as aulas do Marcos, na ordem certa: comece pelo módulo <b>COMECE AQUI</b> e assista a aula inaugural.</td></tr>
           <tr><td style="vertical-align:top;padding:0 12px 14px 0;color:#4ECDC4;font-weight:800;font-size:16px">2.</td>
-            <td style="padding-bottom:14px;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.6">Entre com os dados logo abaixo do botão</td></tr>
-          <tr><td style="vertical-align:top;padding:0 12px 0 0;color:#4ECDC4;font-weight:800;font-size:16px">3.</td>
-            <td style="color:rgba(255,255,255,0.85);font-size:14px;line-height:1.6">Diga oi pra <b style="color:#A78BFA">MANU, sua teacher particular de IA</b> — ela conversa com você, te escuta falar e monta seu caminho. É por ela que você começa 💜</td></tr>
+            <td style="padding-bottom:14px;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.6">Siga a sequência: Fase Zero, Fase 1 e os Treinos Concentrados. Uma aula por dia já resolve.</td></tr>
+          <tr><td style="vertical-align:top;padding:0 12px 0 0;color:#A78BFA;font-weight:800;font-size:16px">+</td>
+            <td style="color:rgba(255,255,255,0.85);font-size:14px;line-height:1.6"><b style="color:#A78BFA">Bônus: o app de treino com a MANU</b> (Listening e Shadowing com cenas de série). É nível intermediário: use quando bater a primeira meta do curso. Os dados estão abaixo, guarde.</td></tr>
         </table>
-        <a href="${APP_URL}" style="display:block;text-align:center;padding:17px;background:#4ECDC4;color:#000;font-weight:800;font-size:15px;border-radius:10px;text-decoration:none;margin-bottom:18px">ENTRAR E FALAR COM A MANU →</a>
+        <a href="${KIWIFY_COURSE_URL}" style="display:block;text-align:center;padding:17px;background:#4ECDC4;color:#000;font-weight:800;font-size:15px;border-radius:10px;text-decoration:none;margin-bottom:12px">ENTRAR NA ÁREA DO CURSO →</a>
+        <p style="color:rgba(255,255,255,0.45);font-size:12px;line-height:1.6;text-align:center;margin:0 0 22px">Lá o login é com este mesmo e-mail (a Kiwify também te mandou um e-mail de acesso).</p>
         ${isNew && password ? `
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:18px 20px;margin-bottom:18px">
-          <p style="color:rgba(255,255,255,0.4);font-size:11px;text-transform:uppercase;letter-spacing:1px;margin:0 0 10px">Seus dados de acesso</p>
+        <div style="background:rgba(167,139,250,0.06);border:1px solid rgba(167,139,250,0.25);border-radius:12px;padding:18px 20px;margin-bottom:18px">
+          <p style="color:rgba(255,255,255,0.4);font-size:11px;text-transform:uppercase;letter-spacing:1px;margin:0 0 10px">Bônus · app de treino (app.fluencyroute.com.br)</p>
           <p style="color:#fff;font-size:14px;margin:0 0 6px"><strong>E-mail:</strong> ${email}</p>
-          <p style="color:#fff;font-size:14px;margin:0"><strong>Senha:</strong> <code style="background:rgba(78,205,196,0.1);color:#4ECDC4;padding:2px 8px;border-radius:4px;font-size:16px;letter-spacing:1px">${password}</code></p>
+          <p style="color:#fff;font-size:14px;margin:0"><strong>Senha:</strong> <code style="background:rgba(167,139,250,0.12);color:#A78BFA;padding:2px 8px;border-radius:4px;font-size:16px;letter-spacing:1px">${password}</code></p>
         </div>
-        ` : ''}
-        <div style="background:rgba(255,193,7,0.08);border:1px solid rgba(255,193,7,0.25);border-radius:10px;padding:12px 16px;margin-bottom:18px">
-          <p style="color:#FFD666;font-size:12.5px;line-height:1.6;margin:0">⚠️ <b>Atenção:</b> o curso <b>não fica na Kiwify</b> (lá é só o pagamento). Sua área de aluno é <b>app.fluencyroute.com.br</b> — o botão verde acima.</p>
+        ` : `
+        <div style="background:rgba(167,139,250,0.06);border:1px solid rgba(167,139,250,0.25);border-radius:12px;padding:14px 20px;margin-bottom:18px">
+          <p style="color:rgba(255,255,255,0.7);font-size:13px;line-height:1.6;margin:0">Bônus · app de treino: <b>app.fluencyroute.com.br</b>, com o mesmo login de sempre.</p>
         </div>
-        <p style="color:rgba(255,255,255,0.45);font-size:12.5px;line-height:1.6;text-align:center;margin:0">Perdeu a senha? Entre <b>sem senha</b> em <a href="https://fluencyroute.com.br/acesso" style="color:#4ECDC4">fluencyroute.com.br/acesso</a><br>Qualquer dúvida, responda este e-mail.</p>
+        `}
+        <p style="color:rgba(255,255,255,0.45);font-size:12.5px;line-height:1.6;text-align:center;margin:0">Perdeu a senha do app? Entre <b>sem senha</b> em <a href="https://fluencyroute.com.br/acesso" style="color:#4ECDC4">fluencyroute.com.br/acesso</a><br>Qualquer dúvida, responda este e-mail.</p>
       </div>
     </div>`
   await fetch('https://api.resend.com/emails', {
@@ -192,7 +198,7 @@ async function sendWelcomeEmail(email: string, name: string, password: string | 
     body: JSON.stringify({
       from: 'Rota da Fluência <contato@acesso.fluencyroute.com.br>',
       to: email,
-      subject: isNew ? 'Seu acesso chegou — a MANU está te esperando 💜' : 'Pagamento confirmado — Rota da Fluência',
+      subject: isNew ? 'Seu acesso chegou: comece pela aula inaugural' : 'Pagamento confirmado: Fluency Route',
       html,
     }),
   }).catch(e => console.error('[Kiwify] Email failed:', e.message))
