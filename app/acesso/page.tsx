@@ -4,20 +4,19 @@
 // Linkada no curso antigo (área de membros Kiwify) e nos e-mails de acesso.
 // A pessoa digita o e-mail da compra → recebe magic link por e-mail (1 clique, sem senha).
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function AcessoPage() {
   const [email, setEmail] = useState('');
   const [estado, setEstado] = useState<'inicio' | 'enviando' | 'enviado' | 'nao_achou' | 'erro'>('inicio');
 
-  async function enviar(e: React.FormEvent) {
-    e.preventDefault();
+  async function entrar(mail: string) {
     setEstado('enviando');
     try {
       const r = await fetch('/api/acesso-magico', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email: mail }),
       });
       const j = await r.json();
       if (j.ok && j.link) {
@@ -29,6 +28,22 @@ export default function AcessoPage() {
       setEstado('erro');
     }
   }
+
+  async function enviar(e: React.FormEvent) {
+    e.preventDefault();
+    await entrar(email);
+  }
+
+  // link do e-mail de backup: /acesso?email=...&auto=1 entra sozinho
+  useEffect(() => {
+    try {
+      const q = new URLSearchParams(window.location.search);
+      const m = (q.get('email') || '').trim().toLowerCase();
+      if (m) setEmail(m);
+      if (m && q.get('auto') === '1') entrar(m);
+    } catch {}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <main style={{ minHeight: '100vh', background: '#FAFAF6', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24, fontFamily: "-apple-system,'Segoe UI',sans-serif", color: '#15201E' }}>
