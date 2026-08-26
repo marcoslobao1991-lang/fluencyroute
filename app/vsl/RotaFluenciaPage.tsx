@@ -208,10 +208,13 @@ const FAQ = [
   },
 ]
 
-export default function RotaFluenciaPage({ alwaysOpen = false, vsl2 = false, selfHosted = false }: { alwaysOpen?: boolean; vsl2?: boolean; selfHosted?: boolean }) {
-  // ── modo VSL2 (pós-captura do lead magnet): headline + R$49 + checkout próprio ──
-  const PR = vsl2 ? 'R$49' : 'R$29'
-  const CO = vsl2 ? 'https://pay.kiwify.com.br/jTO3lIy' : 'https://pay.kiwify.com.br/DlmRal3'
+export default function RotaFluenciaPage({ alwaysOpen = false, vsl2 = false, selfHosted = false, ofertaVsl = false }: { alwaysOpen?: boolean; vsl2?: boolean; selfHosted?: boolean; ofertaVsl?: boolean }) {
+  // ── modo VSL2 (pós-captura do lead magnet): headline própria + R$49 + checkout próprio ──
+  // ofertaVsl (26/08/2026): mantém a headline da VSL2 mas usa a oferta da /vsl
+  // (R$29/mês + DlmRal3). Serve pra /vsl2 sem mexer na /vsl2-aberta, que segue R$49.
+  const ofertaPadrao = !vsl2 || ofertaVsl
+  const PR = ofertaPadrao ? 'R$29' : 'R$49'
+  const CO = ofertaPadrao ? 'https://pay.kiwify.com.br/DlmRal3' : 'https://pay.kiwify.com.br/jTO3lIy'
   const [sticky, setSticky] = useState(false)
   const [revealed, setRevealed] = useState(false)
   const [openFaq, setOpenFaq] = useState<number | null>(null)

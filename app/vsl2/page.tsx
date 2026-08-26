@@ -4,13 +4,13 @@ import RotaFluenciaPage from '../vsl/RotaFluenciaPage'
 // VSL2 — thank-you pós-captura do lead magnet (Loop de Repetição).
 // É a MESMA VSL da /vsl (RotaFluenciaPage), com:
 //   • headline "🔓 Seu treino já tá a caminho do seu e-mail"
-//   • preço R$49/mês (a /vsl fica R$29)
-//   • checkout jTO3lIy (a /vsl usa DlmRal3)
+//   • preço R$29/mês e checkout DlmRal3 — MESMA oferta da /vsl (mudado 26/08/2026,
+//     antes era R$49 + jTO3lIy; a /vsl2-aberta segue com a oferta antiga)
 //   • alwaysOpen: tráfego morno pós-captura não espera o timer de reveal
 // Tudo via prop vsl2 — a /vsl e /aberta continuam idênticas.
 // ═══════════════════════════════════════════════════════════════
 export default function Vsl2Page() {
   // sem alwaysOpen: a /vsl2 usa o MESMO delay de reveal da /vsl (oferta escondida até o timer)
   // selfHosted (08/08/2026): player próprio, validado no piloto /vsl2-aberta
-  return <RotaFluenciaPage vsl2 selfHosted />
+  return <RotaFluenciaPage vsl2 selfHosted ofertaVsl />
 }
