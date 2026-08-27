@@ -433,16 +433,29 @@ export async function POST(req: NextRequest) {
     console.log(`[Kiwify trace] stitch_row=${JSON.stringify({ fbc: !!stitched.fbc, fbp: !!stitched.fbp, ip: !!stitched.ip, ua: !!stitched.ua, fbclid: !!stitched.fbclid, sck: !!stitched.sck })}`)
     console.log(`[Kiwify trace] kiwify_params=${JSON.stringify(trackingParams).slice(0,500)}`)
 
-    // ═══ 1b. GOOGLE OFFLINE CONVERSIONS — persiste click IDs no pedido ═══
-    // A sessão costurada pode carregar gclid/gbraid/wbraid (salvos no clique do
-    // CTA). Gravar no pedido é o que permite o /api/google-conversions exportar
-    // a compra pro Google Ads com valor real. Fire-and-forget: falha aqui
-    // (ex: colunas ainda não migradas) não pode afetar CAPI/email.
-    const googleIds: Record<string, string> = {}
+    // ═══ 1b. ATRIBUIÇÃO — persiste UTMs, sck e click IDs do Google no pedido ═══
+    // A sessão costurada carrega o utm_content com o ad_id do Meta, porque o
+    // url_tags dos criativos é utm_content={{ad.name}}|{{ad.id}}. Gravar isso no
+    // pedido é o que liga a venda REAL da Kiwify ao anúncio que a gerou — sem
+    // isso a venda fica no banco órfã (era o caso das 481 primeiras, medido em
+    // 26/08/2026: zero orders com utm_content). Também é o que permite o
+    // /api/google-conversions exportar a compra pro Google Ads com valor real.
+    // Fonte preferida é a sessão costurada (é quem tem os IDs); o que a Kiwify
+    // repassa entra só como fallback.
+    // Fire-and-forget: falha aqui (ex: coluna não migrada) não pode afetar
+    // CAPI/email — PostgREST rejeita a row inteira se receber coluna desconhecida.
+    const attribution: Record<string, string> = {}
     for (const k of ['gclid', 'gbraid', 'wbraid']) {
-      if (stitched[k]) googleIds[k] = stitched[k]
+      if (stitched[k]) attribution[k] = stitched[k]
     }
-    if (Object.keys(googleIds).length > 0) {
+    for (const k of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term']) {
+      const v = stitched[k] || trackingParams[k]
+      if (v) attribution[k] = String(v).slice(0, 500)
+    }
+    const sckForOrder = stitched.sck || sckFromWebhook
+    if (sckForOrder) attribution.vturb_sck = String(sckForOrder).slice(0, 200)
+
+    if (Object.keys(attribution).length > 0) {
       fetch(`${SUPA_URL}/rest/v1/orders?pagarme_order_id=eq.${encodeURIComponent(orderId)}`, {
         method: 'PATCH',
         headers: {
@@ -451,10 +464,11 @@ export async function POST(req: NextRequest) {
           'Content-Type': 'application/json',
           Prefer: 'return=minimal',
         },
-        body: JSON.stringify(googleIds),
+        body: JSON.stringify(attribution),
       }).then(r => {
-        if (!r.ok) console.warn(`[Kiwify] google click id patch failed HTTP ${r.status} — rode a migração das colunas gclid`)
-      }).catch(e => console.warn('[Kiwify] google click id patch failed:', e?.message))
+        if (!r.ok) console.warn(`[Kiwify] attribution patch failed HTTP ${r.status} — confira as colunas: ${Object.keys(attribution).join(',')}`)
+        else console.log(`[Kiwify trace] attribution gravada: ${Object.keys(attribution).join(',')} | order=${orderId}`)
+      }).catch(e => console.warn('[Kiwify] attribution patch failed:', e?.message))
     }
 
     // ═══ 1b. META CAPI — Purchase (fully enriched) ═══
