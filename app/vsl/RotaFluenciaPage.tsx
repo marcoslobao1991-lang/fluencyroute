@@ -319,13 +319,19 @@ export default function RotaFluenciaPage({ alwaysOpen = false, vsl2 = false, sel
       // o relógio segue valendo e a oferta abre como sempre abriu.
       let revealTimer: ReturnType<typeof setTimeout> | null = setTimeout(doReveal, delaySeconds * 1000)
       if (selfHosted) {
+        let lastVideoTime = 0
         videoRevealRef.current = (t: number) => {
           if (t > 0 && revealTimer) { clearTimeout(revealTimer); revealTimer = null }
+          if (t > lastVideoTime) lastVideoTime = t
           if (t >= delaySeconds) doReveal()
         }
+        // Fallback no meio do vídeo: o embed vturb não devolve currentTime, então o
+        // relógio assume — mas só pelo tempo que FALTA (antes reiniciava os 21 min
+        // inteiros pra quem já tinha assistido 15).
         playerFallbackRef.current = () => {
           if (!revealTimer && localStorage.getItem(storageKey) !== '1') {
-            revealTimer = setTimeout(doReveal, delaySeconds * 1000)
+            const falta = Math.max(0, delaySeconds - lastVideoTime)
+            revealTimer = setTimeout(doReveal, falta * 1000)
           }
         }
       }

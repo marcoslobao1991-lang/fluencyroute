@@ -311,14 +311,18 @@ export default function RutaFluidezPage() {
       doReveal()
     } else {
       revealTimer = setTimeout(doReveal, delaySeconds * 1000)
+      let lastVideoTime = 0
       videoRevealRef.current = (t: number) => {
         if (t > 0 && revealTimer) { clearTimeout(revealTimer); revealTimer = null }
+        if (t > lastVideoTime) lastVideoTime = t
         if (t >= delaySeconds) doReveal()
       }
+      // fallback no meio do vídeo: relógio só pelo tempo que falta
       playerFallbackRef.current = () => {
         try {
           if (!revealTimer && localStorage.getItem(storageKey) !== '1') {
-            revealTimer = setTimeout(doReveal, delaySeconds * 1000)
+            const falta = Math.max(0, delaySeconds - lastVideoTime)
+            revealTimer = setTimeout(doReveal, falta * 1000)
           }
         } catch {}
       }

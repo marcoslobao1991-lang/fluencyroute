@@ -263,14 +263,18 @@ export default function SpanishSalesPage() {
       doReveal()
     } else {
       revealTimer = setTimeout(doReveal, REVEAL_AT * 1000)
+      let lastVideoTime = 0
       videoRevealRef.current = (t: number) => {
         if (t > 0 && revealTimer) { clearTimeout(revealTimer); revealTimer = null }
+        if (t > lastVideoTime) lastVideoTime = t
         if (t >= REVEAL_AT) doReveal()
       }
+      // fallback no meio do vídeo: relógio só pelo tempo que falta
       playerFallbackRef.current = () => {
         try {
           if (!revealTimer && localStorage.getItem(REVEAL_KEY) !== '1') {
-            revealTimer = setTimeout(doReveal, REVEAL_AT * 1000)
+            const falta = Math.max(0, REVEAL_AT - lastVideoTime)
+            revealTimer = setTimeout(doReveal, falta * 1000)
           }
         } catch {}
       }
