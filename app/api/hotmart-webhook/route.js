@@ -10,8 +10,10 @@
 //   4. Purchase CAPI (meta-capi-es hasheia) com eventId es-purchase-<transaction>.
 //   5. Entrega: e-mail com o link do app pro comprador (só front, não upsell).
 //
-// Dedup: eventId determinístico por transação → APPROVED+COMPLETE e retries do
-// mesmo pedido deduplicam no Meta (não conta dobrado).
+// Dedup: eventId determinístico por transação → retries do mesmo pedido
+// deduplicam no Meta. Só PURCHASE_APPROVED dispara Purchase: a janela de dedup
+// do Meta é 48h e o PURCHASE_COMPLETE da Hotmart chega quando a GARANTIA expira
+// (~7+ dias depois) — mesmo com event_id igual ele contava como venda nova.
 // ═══════════════════════════════════════════════════════════════
 
 import crypto from 'crypto'
@@ -23,7 +25,7 @@ const APP_URL = 'https://fluencyroute.com.br/spanish-app.html'
 const SUPA_URL = 'https://petrtewismhpzidcmmwb.supabase.co'
 const SUPA_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY || ''
 
-const PURCHASE_EVENTS = new Set(['PURCHASE_APPROVED', 'PURCHASE_COMPLETE'])
+const PURCHASE_EVENTS = new Set(['PURCHASE_APPROVED'])
 
 function pick(obj, ...paths) {
   for (const path of paths) {
