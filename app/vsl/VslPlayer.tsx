@@ -117,8 +117,11 @@ export default function VslPlayer({
       setFallback(true)
     }
 
-    // guarda: 15s sem sequer os metadados (manifest tem 458 bytes) = VPS fora
-    const guard = setTimeout(() => { if (!sawMetadata) triggerFallback() }, 15000)
+    // guarda: 30s sem metadados DEPOIS que o player tem o que precisa (hls.js carregado
+    // ou src atribuído) = VPS fora. Antes eram 15s contados desde a montagem, antes do
+    // download do hls.js: em 4G fraco estourava com tudo funcionando e mandava pro vturb.
+    let guard: ReturnType<typeof setTimeout> | null = null
+    const armGuard = () => { guard = setTimeout(() => { if (!sawMetadata) triggerFallback() }, 30000) }
 
     const savedPos = (() => {
       try {
@@ -146,16 +149,22 @@ export default function VslPlayer({
       }
     }
 
-    const canNative = video.canPlayType('application/vnd.apple.mpegurl')
+    // HLS nativo só onde é confiável (iOS / Safari). O WebView do Android responde
+    // "maybe" no canPlayType e depois dispara error ou nunca chega em loadedmetadata.
+    const ua = navigator.userAgent || ''
+    const nativeOk = /iP(hone|ad|od)/.test(ua) || (/Safari\//.test(ua) && !/Chrome|CriOS|FxiOS|Android|Edg\//.test(ua))
+    const canNative = nativeOk && video.canPlayType('application/vnd.apple.mpegurl')
     if (canNative) {
       video.src = HLS_URL
       video.addEventListener('loadedmetadata', () => { sawMetadata = true; startPlayback() }, { once: true })
       video.addEventListener('error', triggerFallback, { once: true })
       video.load()
+      armGuard()
     } else {
       import('hls.js').then(({ default: Hls }) => {
         if (cancelled) return
         if (!Hls.isSupported()) { triggerFallback(); return }
+        armGuard()
         // buffer limitado: ~60s à frente no máximo — sem isso o hls.js baixa o
         // vídeo inteiro (dezenas de MB) mesmo pra quem sai nos primeiros segundos
         const h = new Hls({ maxBufferLength: 30, maxMaxBufferLength: 60, maxBufferSize: 12 * 1000 * 1000, backBufferLength: 30 })
@@ -199,7 +208,7 @@ export default function VslPlayer({
 
     return () => {
       cancelled = true
-      clearTimeout(guard)
+      if (guard) clearTimeout(guard)
       video.removeEventListener('timeupdate', onTime)
       if (hls) hls.destroy()
     }
