@@ -84,13 +84,21 @@ var interacted=false,lastSave=0,dead=false,lastMin=0,scrolled=false;
 function track(ev,detail){try{frTrack(ev,detail)}catch(e){}}
 function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
 function show(el,on){el.style.display=on?'flex':'none'}
-function fallback(){if(dead)return;dead=true;track('player_fallback_vturb');
+// Sem player reserva: quando o vídeo falha, o próprio player tenta de novo (até 3x, guardando
+// a posição), na 3ª tentativa troca pro MP4 progressivo (fallback.mp4) e, se não der, mostra "Toque para continuar" (toque do usuário destrava iOS/WebView).
+var ovE=document.createElement('button');ovE.type='button';ovE.id='fr-stuck';ovE.setAttribute('aria-label','Continuar o vídeo');
+ovE.style.cssText='position:absolute;inset:0;width:100%;height:100%;display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:rgba(0,0,0,.7);border:0;cursor:pointer;padding:0';
+ovE.innerHTML='<span style="width:88px;height:88px;border-radius:50%;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center"><svg width="40" height="40" viewBox="0 0 24 24" fill="#fff" aria-hidden="true" style="margin-left:6px"><path d="M8 5v14l11-7z"/></svg></span><span style="color:#fff;font-size:clamp(15px,4.4vw,20px);font-weight:700;line-height:1.2">Toque para continuar</span>';
+video.parentNode.appendChild(ovE);
+var h=null,mode='',guard=null,sawMeta=false,tries=0,stuck=false,MAX_TRIES=3;
+// lastT = último ponto realmente assistido; resumeT/resumeUntil = alvo da retomada (ignora o 0:00 do recarregamento)
+var lastT=0,resumeT=0,resumeUntil=0;
+function showStuck(why){if(stuck)return;stuck=true;if(guard)clearTimeout(guard);track('player_travou',why);
 if(window.__frArmClockReveal)window.__frArmClockReveal(Math.max(0,DELAY-(video.currentTime||0)));
-var host=document.getElementById('fr-player');
-host.innerHTML='<div style="position:relative;padding-top:177.78%;background:#06060a"><iframe frameborder="0" allowfullscreen id="ifr_67d1c8ba61d59aeb47caf87d" style="position:absolute;top:0;left:0;width:100%;height:100%" referrerpolicy="origin"></iframe></div>';
-if(!document.querySelector('script[src*="smartplayer-wc"]')){var s=document.createElement('script');s.type='text/javascript';s.src='https://scripts.converteai.net/lib/js/smartplayer-wc/v4/sdk.js';s.async=true;document.head.appendChild(s)}
-var ifr=document.getElementById('ifr_67d1c8ba61d59aeb47caf87d');
-if(ifr)ifr.src='https://scripts.converteai.net/a2b1bd19-973f-4fda-ada9-47d42bffa2ad/players/67d1c8ba61d59aeb47caf87d/v4/embed.html'+(location.search||'?')+'&vl='+encodeURIComponent(location.href)}
+show(ovU,false);show(ovR,false);show(ovP,false);show(ovE,true)}
+function recover(why){if(dead||stuck)return;tries++;if(tries>MAX_TRIES){showStuck(why);return}
+track('player_retry',why+'#'+tries);var t=lastT||video.currentTime||0;if(guard)clearTimeout(guard);
+setTimeout(function(){if(!stuck)init(t)},1200*tries)}
 function startPlayback(){if(dead)return;var pos=parseFloat(ls(K_POS)||'0')||0;
 if(pos>=RESUME_MIN){show(ovR,true);track('video_resume_shown');return}
 video.muted=true;var pr=video.play();show(ovU,true);if(pr&&pr.catch)pr.catch(function(){})}
@@ -104,27 +112,51 @@ ovP.addEventListener('click',function(){show(ovP,false);var pr=video.play();if(p
 video.addEventListener('click',function(){if(ovU.style.display==='flex'||ovR.style.display==='flex')return;
 if(video.paused){show(ovP,false);var pr=video.play();if(pr&&pr.catch)pr.catch(function(){})}else{video.pause();show(ovP,true)}});
 video.addEventListener('timeupdate',function(){var d=video.duration,t=video.currentTime;
+if(resumeT){if(t<resumeT-2&&Date.now()<resumeUntil)return;resumeT=0}
+lastT=t;
 if(d>0)bar.style.width=Math.min(100,Math.pow(t/d,1/ALPHA)*100)+'%';
 if(t>=DELAY&&window.__frDoReveal)window.__frDoReveal();
 if(t>=SCROLL_AT&&!scrolled){scrolled=true;try{var c=document.querySelector('a.cta-btn');if(c)c.scrollIntoView({behavior:'smooth',block:'center'})}catch(e){}}
 if(interacted){var m=Math.floor(t/60);if(m>lastMin){lastMin=m;track('video_minute',String(m))}
 if(Date.now()-lastSave>=STEP){lastSave=Date.now();ls(K_POS,String(t))}}});
-var sawMeta=false;
-setTimeout(function(){if(!sawMeta)fallback()},15000);
-video.addEventListener('loadedmetadata',function(){sawMeta=true},{once:true});
-if(video.canPlayType('application/vnd.apple.mpegurl')){
-video.addEventListener('error',fallback,{once:true});
-video.addEventListener('loadedmetadata',startPlayback,{once:true});
-video.src=BASE+'/main.m3u8';video.load();
-}else{var hs=document.createElement('script');hs.src='https://media.srv1198551.hstgr.cloud/lib/hls.min.js';hs.onerror=fallback;
-hs.onload=function(){if(dead)return;if(!window.Hls||!window.Hls.isSupported()){fallback();return}
-var h=new window.Hls({maxBufferLength:30,maxMaxBufferLength:60,maxBufferSize:12*1000*1000,backBufferLength:30});
-h.loadSource(BASE+'/main.m3u8');h.attachMedia(video);
-h.on(window.Hls.Events.MANIFEST_PARSED,function(){sawMeta=true;startPlayback()});
-var fatals=0;
-h.on(window.Hls.Events.ERROR,function(_e,data){if(!data||!data.fatal)return;fatals++;
-if(fatals===1&&sawMeta){try{h.startLoad()}catch(e){fallback()}}else fallback()})};
-document.head.appendChild(hs)}})();
+function armGuard(){if(guard)clearTimeout(guard);guard=setTimeout(function(){if(!sawMeta)recover('timeout_'+mode)},30000)}
+// volta de uma falha: retoma do ponto em que estava, com som se a pessoa já tinha dado play
+function resumeAfter(t){if(t>0){try{video.currentTime=t}catch(e){}}
+if(interacted){video.muted=false;var pr=video.play();if(pr&&pr.catch)pr.catch(function(){showStuck('play_bloqueado')})}
+else startPlayback()}
+function loadHls(cb){if(window.Hls){cb(true);return}var n=0;
+(function go(){var s=document.createElement('script');s.src='https://media.srv1198551.hstgr.cloud/lib/hls.min.js'+(n?'?r='+n:'');
+s.onload=function(){cb(!!window.Hls)};s.onerror=function(){if(n++<1)setTimeout(go,1500);else cb(false)};document.head.appendChild(s)})()}
+// HLS nativo só em iOS/Safari: Chrome e WebView do Android dizem que tocam m3u8 e falham.
+var UA=navigator.userAgent||'';
+var NATIVE_OK=/iP(hone|ad|od)/.test(UA)||(/Safari\//.test(UA)&&!/Chrome|CriOS|FxiOS|Android|Edg\//.test(UA));
+video.addEventListener('loadedmetadata',function(){sawMeta=true});
+video.addEventListener('error',function(){if(mode==='nativo'||mode==='mp4')recover(mode+'_erro_'+((video.error&&video.error.code)||0))});
+// MP4 progressivo (fallback.mp4 na VPS): toca em qualquer navegador sem hls.js nem MSE. Entra na 3ª tentativa ou sem suporte.
+function initMp4(t,first){mode='mp4';track('player_mp4',String(Math.round(t||0)));video.src=BASE+'/fallback.mp4';video.load();armGuard();
+if(first)startPlayback();else video.addEventListener('loadedmetadata',function(){resumeAfter(t)},{once:true})}
+function initNative(t,first){mode='nativo';video.src=BASE+'/main.m3u8';video.load();armGuard();
+if(first)startPlayback();else video.addEventListener('loadedmetadata',function(){resumeAfter(t)},{once:true})}
+function init(t){var first=t==null;sawMeta=false;if(t>0){resumeT=t;resumeUntil=Date.now()+20000}
+if(h){try{h.destroy()}catch(e){}h=null}
+if(tries>=2){initMp4(t,first);return}
+if(NATIVE_OK&&video.canPlayType('application/vnd.apple.mpegurl')){initNative(t,first);return}
+loadHls(function(ok){if(stuck)return;
+if(!ok){recover('hlsjs_nao_baixou');return}
+if(!window.Hls.isSupported()){if(video.canPlayType('application/vnd.apple.mpegurl'))initNative(t,first);else initMp4(t,first);return}
+mode='hlsjs';var H=window.Hls,net=0,med=0;
+h=new H({maxBufferLength:30,maxMaxBufferLength:60,maxBufferSize:12*1000*1000,backBufferLength:30,startPosition:first?-1:t});
+h.loadSource(BASE+'/main.m3u8');h.attachMedia(video);armGuard();
+h.on(H.Events.MANIFEST_PARSED,function(){sawMeta=true;if(first)startPlayback();else resumeAfter(0)});
+h.on(H.Events.FRAG_LOADED,function(){net=0;tries=0});
+h.on(H.Events.ERROR,function(_e,data){if(!data||!data.fatal||stuck)return;var cur=h;
+if(data.type===H.ErrorTypes.NETWORK_ERROR&&sawMeta&&net<2){net++;setTimeout(function(){if(h===cur&&!stuck){try{cur.startLoad()}catch(e){recover('rede_'+data.details)}}},1000*net);return}
+if(data.type===H.ErrorTypes.MEDIA_ERROR&&med<2){med++;try{cur.recoverMediaError();return}catch(e){}}
+recover((data.type===H.ErrorTypes.NETWORK_ERROR?'rede_':data.type===H.ErrorTypes.MEDIA_ERROR?'midia_':'outro_')+data.details)})})}
+ovE.addEventListener('click',function(){var t=lastT||video.currentTime||parseFloat(ls(K_POS)||'0')||0;
+stuck=false;tries=0;show(ovE,false);if(!interacted){interacted=true;lastMin=Math.floor(t/60);track('video_play',t<1?'start':'resume@'+Math.round(t))}
+init(t)});
+init(null)})();
 
 // ── sck do Vturb via postMessage → stitch row ──
 window.addEventListener('message',function(event){try{if(!event.data||event.data.mime!=='smartplayer/message-text-v4')return;if(event.data.type!=='UpdateUrlParams')return;var sck=event.data.sck||(event.data.data&&event.data.data.sck);if(!sck)return;var fb=getFb();var p=qp();beacon('/api/checkout-session',{session_id:stitchSid()+'-sck-'+Date.now().toString(36),fbc:fb.fbc,fbp:fb.fbp,fbclid:p.get('fbclid')||undefined,client_ip_address:cachedIp||undefined,client_user_agent:navigator.userAgent,sck:sck,utm_source:p.get('utm_source')||undefined,utm_medium:p.get('utm_medium')||undefined,utm_campaign:p.get('utm_campaign')||undefined,utm_content:p.get('utm_content')||undefined,utm_term:p.get('utm_term')||undefined}) }catch(e){}});
