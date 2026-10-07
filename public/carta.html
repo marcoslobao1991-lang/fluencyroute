@@ -198,6 +198,36 @@ button.chip.off{background:var(--red-soft);border-color:var(--red);color:var(--r
 .brain .lab.cool{color:var(--accent)}
 .brain .st{font-size:14px;color:var(--dim);margin:0;line-height:1.4}
 
+/* mockups das duas camadas */
+.layer{margin:28px 0 32px;border-radius:8px;overflow:hidden;border:1px solid var(--border);background:var(--bg2)}
+.layer-h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid var(--border-light);background:var(--bg3)}
+.layer-h .tag{font-family:var(--font-mono);font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;padding:3px 8px;border-radius:2px;color:#fff}
+.layer.rasa .layer-h .tag{background:var(--heat)}
+.layer.auto .layer-h .tag{background:var(--accent)}
+.layer-h .nm{font-size:clamp(17px,3.8vw,20px);font-weight:800;letter-spacing:-.02em}
+.layer-h .sp{font-family:var(--font-mono);font-size:10.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-left:auto}
+.layer-b{padding:8px 18px}
+.layer-b .row{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px dashed var(--border-light)}
+.layer-b .row:last-child{border-bottom:0}
+.layer-b .ic{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--bg3)}
+.layer.rasa .layer-b .ic{color:var(--heat)}
+.layer.auto .layer-b .ic{color:var(--accent);background:var(--accent-soft)}
+.layer-b .ic svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.layer-b .w{font-size:clamp(14.5px,3.2vw,16px);color:var(--dim);line-height:1.4}
+.layer-b .w b{color:var(--text)}
+.layer-f{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 18px;border-top:1px solid var(--border-light);font-size:14px;color:var(--muted)}
+.layer-f b{color:var(--text)}
+.layer-f .t{margin-left:auto;font-family:var(--font-mono);font-size:10.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--heat)}
+.layer-f .t.ok{color:var(--accent)}
+
+/* cartão de citação */
+.cite{margin:28px 0 32px;padding:22px 24px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);border-top:4px solid var(--accent)}
+.cite-q{font-size:clamp(17px,3.8vw,20px);font-weight:600;line-height:1.35;letter-spacing:-.015em;margin:0 0 16px}
+.cite-m{display:flex;flex-direction:column;gap:3px}
+.cite-m .who{font-weight:800;font-size:15px}
+.cite-m .where{font-size:13px;color:var(--dim)}
+.cite-m .what{font-family:var(--font-mono);font-size:10.5px;font-weight:600;letter-spacing:.5px;color:var(--muted);line-height:1.5;margin-top:4px}
+
 /* iceberg */
 .ice{position:relative;margin-top:8px;border-radius:6px;overflow:hidden;border:1px solid var(--border-light)}
 .ice svg{width:100%;height:auto;display:block}
@@ -544,30 +574,20 @@ button.chip.off{background:var(--red-soft);border-color:var(--red);color:var(--r
 
     <h2>O seu cérebro tem dois lugares pra guardar o que você aprende</h2>
 
-    <figure>
-      <figcaption>As duas camadas</figcaption>
-      <div class="ice">
-        <svg viewBox="0 0 600 340" aria-hidden="true">
-          <rect x="0" y="0" width="600" height="150" fill="var(--bg2)"/>
-          <rect x="0" y="150" width="600" height="190" fill="var(--water)"/>
-          <rect x="0" y="230" width="600" height="110" fill="var(--water-deep)" opacity=".6"/>
-          <line x1="0" y1="150" x2="600" y2="150" stroke="var(--accent)" stroke-width="2" stroke-dasharray="6 6"/>
-          <polygon points="250,150 300,70 350,150" fill="var(--bg3)" stroke="var(--text)" stroke-width="2.2" stroke-linejoin="round"/>
-          <polygon points="150,150 300,150 450,150 410,320 300,338 190,320" fill="var(--bg3)" stroke="var(--text)" stroke-width="2.2" stroke-linejoin="round" opacity=".92"/>
-          <text x="300" y="52" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800" letter-spacing="3" fill="var(--heat)">CONSCIENTE</text>
-          <text x="300" y="120" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="13" font-weight="700" fill="var(--text)">regra · lista · tradução</text>
-          <text x="300" y="215" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800" letter-spacing="3" fill="var(--accent)">SUBCONSCIENTE</text>
-          <text x="300" y="248" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="14" font-weight="700" fill="var(--text)">dirigir · bicicleta · falar português</text>
-          <text x="300" y="282" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="14" font-weight="800" fill="var(--accent)">É aqui que mora a fluência</text>
-          <text x="14" y="142" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" letter-spacing="2" fill="var(--muted)">ESFORÇO</text>
-          <text x="14" y="172" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" letter-spacing="2" fill="var(--muted)">AUTOMÁTICO</text>
-        </svg>
-      </div>
-    </figure>
-
     <p>O primeiro é o <b>consciente</b>.</p>
     <p><b>A camada rasa.</b></p>
     <p>É pra lá que vai tudo que alguém te explica. Regra, lista, tradução.</p>
+
+    <div class="layer rasa">
+      <div class="layer-h"><span class="tag">Camada 1</span><span class="nm">Consciente</span><span class="sp">rasa · lenta · analítica</span></div>
+      <div class="layer-b">
+        <div class="row"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 4h12l4 4v12H4z"/><path d="M8 12h8M8 16h8M8 8h4"/></svg></span><span class="w"><b>Regra.</b> Past simple: verbo + ed</span></div>
+        <div class="row"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span><span class="w"><b>Lista.</b> apple, table, keys, house...</span></div>
+        <div class="row"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 12h10M10 7l5 5-5 5"/><path d="M17 5h3v14h-3"/></svg></span><span class="w"><b>Tradução.</b> apple = maçã</span></div>
+      </div>
+      <div class="layer-f"><span>Pra usar:</span><b>parar, pensar, traduzir</b><span class="t">lento</span></div>
+    </div>
+
     <p><b>Aprender ali é moleza.</b></p>
     <p><b>Difícil é usar</b>, porque tudo que está nessa camada você precisa parar pra pensar.</p>
     <p><i>Quer ver?</i></p>
@@ -580,6 +600,17 @@ button.chip.off{background:var(--red-soft);border-color:var(--red);color:var(--r
     <p>E as duas moram em lugares diferentes da sua cabeça.</p>
     <p>O segundo lugar é o <b>subconsciente</b>.</p>
     <p>É onde está <b>tudo que você faz sem pensar</b>. Dirigir. Andar de bicicleta. Falar português.</p>
+
+    <div class="layer auto">
+      <div class="layer-h"><span class="tag">Camada 2</span><span class="nm">Subconsciente</span><span class="sp">automática · rápida · sem esforço</span></div>
+      <div class="layer-b">
+        <div class="row"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="6" cy="17" r="3.5"/><circle cx="18" cy="17" r="3.5"/><path d="M6 17l4-8h5l3 8M10 9l-1.5-3H6M14 9l4 8"/></svg></span><span class="w"><b>Andar de bicicleta.</b> Você não pensa no equilíbrio.</span></div>
+        <div class="row"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/><path d="M12 3v6.5M4.2 15.5l5.7-2.2M19.8 15.5l-5.7-2.2"/></svg></span><span class="w"><b>Dirigir.</b> A mão troca a marcha sozinha.</span></div>
+        <div class="row"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg></span><span class="w"><b>Falar português.</b> A frase vem pronta.</span></div>
+      </div>
+      <div class="layer-f"><span>Pra usar:</span><b>vem sozinho</b><span class="t ok">instantâneo</span></div>
+    </div>
+
     <p>Você não monta uma frase em português antes de falar.</p>
     <p><b>Ela vem.</b></p>
     <p><i>Quer sentir isso em inglês, agora?</i></p>
@@ -597,6 +628,16 @@ button.chip.off{background:var(--red-soft);border-color:var(--red);color:var(--r
 
     <p>Um linguista chamado Stephen Krashen, da Universidade do Sul da Califórnia, bate nessa tecla há mais de quarenta anos.</p>
     <p>Pra ele, <b>aprender um idioma é consciente, adquirir é subconsciente, e só o segundo dá fluência</b>.</p>
+
+    <div class="cite">
+      <div class="cite-q">"Aprender" é consciente. "Adquirir" é subconsciente. Só a aquisição produz fluência.</div>
+      <div class="cite-m">
+        <span class="who">Stephen Krashen</span>
+        <span class="where">Linguista · Universidade do Sul da Califórnia</span>
+        <span class="what">Hipótese da aquisição e aprendizagem · Principles and Practice in Second Language Acquisition, 1982</span>
+      </div>
+    </div>
+
     <p>É uma teoria, e não uma lei da física.</p>
     <p>Só que ela bate com os exames. E bate com o que eu vi acontecer com milhares de alunos.</p>
 
