@@ -350,6 +350,65 @@ figure .sub{font-size:15px;color:var(--dim);margin:0 0 28px;font-weight:500}
 .ps p.gap{margin-bottom:26px}
 .ps .tag{font-family:var(--font-mono);font-size:.85em;letter-spacing:1.5px;color:var(--text);font-weight:800}
 .foot{margin-top:56px;padding-top:16px;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:11px;color:var(--muted);line-height:1.6;letter-spacing:.3px}
+
+/* Eye relief — apresentação apenas; texto e quatro etapas preservados. */
+main{max-width:704px;padding-inline:28px}
+.hdr-in{max-width:704px;padding-inline:28px}
+h1{line-height:1.12}
+.deck{line-height:1.62;max-width:54ch}
+.body{font-size:20px;line-height:1.72;letter-spacing:0}
+.body>p{margin-bottom:20px;text-wrap:pretty}
+.body>p.tight{margin-bottom:10px}
+.body b,.deck b,.bul b{font-weight:700}
+.body u{text-decoration-thickness:2px;text-underline-offset:5px;text-decoration-color:rgba(15,118,110,.42)}
+.body>h2{margin:56px 0 24px;line-height:1.26}
+.body>.rule{margin:56px 0 24px}
+.body>.rule+h2{margin-top:0}
+.body>.pq{margin:32px 0;padding:25px 28px;line-height:1.5;font-weight:500;letter-spacing:-.015em}
+.body>.pq.lg{padding:28px;font-weight:600;line-height:1.4}
+.pq b{font-weight:700}
+.body>figure{margin:40px 0;padding:32px 28px}
+figure h3{line-height:1.28}
+figure .sub{line-height:1.6;margin-bottom:24px}
+.src{font-size:12px;line-height:1.65;letter-spacing:0}
+.bul{gap:14px}
+.bul li,.body .bul li{line-height:1.6}
+.bul li::before{width:8px;height:8px;top:.6em}
+.hero h3{line-height:1.2}
+.hero .s{line-height:1.65}
+.hero .k,.callout .start{color:#74c9bd}
+.step p,.fase p,.gift p,.g p{line-height:1.65}
+.gifts,.steps{gap:18px}
+.ps{line-height:1.75}
+@media(max-width:600px){
+  main{padding:104px 22px 72px}
+  .hdr-in{padding-inline:22px}
+  .eyebrow{font-size:11px;line-height:1.7;letter-spacing:2.5px;margin-bottom:20px}
+  .body{font-size:18px;line-height:1.72}
+  .body>p{margin-bottom:18px}
+  .body p.lead{font-size:19px;line-height:1.65}
+  .deck{font-size:18px;margin-bottom:26px}
+  .bul li,.body .bul li{font-size:18px}
+  .body>h2{font-size:25px;margin:44px 0 20px}
+  .body>.rule{margin:44px 0 22px}
+  .body>.pq{margin:28px 0;padding:22px 20px;font-size:20px}
+  .body>.pq.lg{padding:24px 20px;font-size:24px}
+  .body>figure{margin:34px 0;padding:26px 20px}
+  .layer-h .sp{line-height:1.6}
+  .layer-b .w{line-height:1.55}
+  .step p,.fase p,.gift p,.g p{font-size:15px}
+  .step,.gift,.g{padding:20px 18px}
+  .callout{padding:34px 22px 30px}
+  .callout .k{line-height:1.65;letter-spacing:2px;margin-bottom:20px}
+  .callout .bridge{line-height:1.65}
+  .btn{padding:20px 18px;line-height:1.45;letter-spacing:.02em}
+}
+@media(max-width:360px){
+  main,.hdr-in{padding-inline:18px}
+  .rule{gap:10px}
+  .rule .t{letter-spacing:1.5px;font-size:11px}
+}
+
 </style>
 
 <header class="hdr">
@@ -366,8 +425,8 @@ figure .sub{font-size:15px;color:var(--dim);margin:0 0 28px;font-weight:500}
 <!-- ================= PÁGINA 1 ================= -->
 <section class="page" id="p1">
   <p class="eyebrow">Só para quem já estudou inglês e ainda trava</p>
-  <h1>Isso é sem graça,<br>mas me deixou <span class="ac">fluente em inglês</span>.</h1>
-  <p class="deck">E não fluentinho. Fluente de <b>vender por telefone pra americano pão-duro</b>, de casa, pra uma empresa dos Estados Unidos. <b>Sem nunca ter saído do Brasil.</b></p>
+  <h1>Eu fiquei fluente em inglês do jeito mais <span class="ac">sem graça</span> que você pode imaginar.</h1>
+  <p class="deck">E não fluentinho. Eu cheguei a trabalhar como <b>vendedor home office pra uma empresa nos Estados Unidos</b>, onde o meu trabalho era <b>convencer americano pão-duro a comprar</b>.</p>
   <ul class="bul">
     <li>Nesta carta eu te mostro <b>como isso funciona</b>, e por que é a melhor forma de destravar o inglês em definitivo.</li>
     <li>Por que você <b>sabe tanto inglês e usa tão pouco</b>.</li>
@@ -405,7 +464,7 @@ figure .sub{font-size:15px;color:var(--dim);margin:0 0 28px;font-weight:500}
     <p><b>Nos Estados Unidos.</b></p>
     <p>E largaram as aulas porque perceberam que isso aqui funcionava melhor do que qualquer aula. <u>Inclusive aula dentro dos Estados Unidos.</u></p>
 
-    <h2>Aviso: isso aqui é sem graça</h2>
+    <h2>Esse é o jeito sem graça de aprender inglês</h2>
     <p>Então nesta carta <b>não vai ter truque de inglês</b>. Nem "aprenda se divertindo". Nem "aprenda dormindo".</p>
     <p>Ela é pro tipo de pessoa que já entendeu que esse tipo de promessa é <b>balela da internet</b>.</p>
     <p>E que está a fim de fazer o que precisa ser feito pra ficar fluente.</p>
@@ -424,7 +483,7 @@ figure .sub{font-size:15px;color:var(--dim);margin:0 0 28px;font-weight:500}
     <p>Eu fiz um dos vídeos mais polêmicos sobre fluência da internet quando revelei parte do que você vai ler aqui. O nome dele é justamente <i>"Isso é sem graça, mas me deixou fluente"</i>.</p>
     <p>Hoje a Fluency Route tem alunos no mundo inteiro. E acompanha, dia após dia, gente que estava travada e hoje <b>vive o inglês de verdade</b>.</p>
 
-    <h2>O mercado inteiro te vende o contrário disso</h2>
+    <h2>É todo mundo competindo pra te mostrar o jeito mais vagabundo de ficar fluente</h2>
     <p>Se você já tentou aprender inglês, tenho certeza de que viu como o mercado está.</p>
     <p>Todo mundo competindo pra te mostrar <b>o jeito mais vagabundo e sem esforço</b> de ficar fluente.</p>
     <p><i>"Aprenda se divertindo." "Aprenda dormindo." "Fluente em três meses."</i> Aí vem outro e fala oito semanas.</p>
@@ -449,8 +508,8 @@ figure .sub{font-size:15px;color:var(--dim);margin:0 0 28px;font-weight:500}
 <!-- ================= PÁGINA 2 ================= -->
 <section class="page" id="p2">
   <p class="eyebrow">A primeira pedrada</p>
-  <h1>O seu inglês está na <span class="ac">camada errada</span> do cérebro.</h1>
-  <p class="deck">O cérebro tem duas camadas de aprendizado. Toda dica, curso e promessa fácil enche a primeira. <b>A fluência mora na segunda.</b></p>
+  <h1>O nosso cérebro tem, na verdade, <span class="ac">duas camadas</span> de aprendizado.</h1>
+  <p class="deck">Isso serve pra qualquer coisa que você for aprender.</p>
 
   <div class="body">
     <p>O nosso cérebro tem, na verdade, <b>duas camadas de aprendizado</b>.</p>
@@ -503,7 +562,7 @@ figure .sub{font-size:15px;color:var(--dim);margin:0 0 28px;font-weight:500}
 
     <div class="rule"><span class="num">II</span><span class="line"></span><span class="t">A camada 2</span></div>
 
-    <h2>Onde o inglês fica natural e você não traduz mais</h2>
+    <h2>Onde o inglês fica natural e você não precisa mais traduzir mentalmente</h2>
     <p>Agora eu quero falar da <b>camada 2</b> do seu cérebro.</p>
     <p>Onde as coisas acontecem de forma automática.</p>
     <p>Onde o inglês fica natural e <b>você não precisa mais traduzir mentalmente</b>.</p>
@@ -568,8 +627,8 @@ figure .sub{font-size:15px;color:var(--dim);margin:0 0 28px;font-weight:500}
 <!-- ================= PÁGINA 3 ================= -->
 <section class="page" id="p3">
   <p class="eyebrow">A segunda pedrada</p>
-  <h1>Inglês não é matéria.<br><span class="ac">É habilidade.</span></h1>
-  <p class="deck">E habilidade se treina. Aqui está <b>o que treinar, e como</b>, pra entender o seu primeiro episódio de série sem legenda.</p>
+  <h1>O inglês é uma <span class="ac">habilidade</span>. E, como toda habilidade, precisa ser treinado.</h1>
+  <p class="deck">Por isso tem gente que pode passar o resto da vida <b>estudando inglês e nunca vai ficar fluente</b>.</p>
 
   <div class="body">
     <p>A maioria das pessoas pensa que o inglês precisa ser tratado igual a uma <b>matéria de escola</b>. Tipo história, geografia.</p>
@@ -596,7 +655,7 @@ figure .sub{font-size:15px;color:var(--dim);margin:0 0 28px;font-weight:500}
 
     <div class="rule"><span class="num">I</span><span class="line"></span><span class="t">Treinar o quê</span></div>
 
-    <h2>Treinar o quê, então? Escuta e fala.</h2>
+    <h2>E treinar o quê, então?</h2>
     <p>Começando pelos <b>treinos de escuta</b>.</p>
     <p>Sabe aquele embolado quando você escuta alguma coisa em inglês? Aquele que faz parecer <b>impossível entender um americano</b>, de tão rápido que ele parece falar?</p>
     <p>Isso acontece justamente porque a sua <b>percepção de ouvido</b> ainda foi muito pouco treinada.</p>
@@ -733,7 +792,7 @@ figure .sub{font-size:15px;color:var(--dim);margin:0 0 28px;font-weight:500}
     <p>Isso acontece justamente por causa da fluência essencial. A cada novo episódio, ele já está <b>cheio de palavras, expressões e blocos de conversa que você treinou no anterior</b>.</p>
     <p>E aí você começa a sentir uma evolução muito abrupta na sua fluência.</p>
 
-    <h2>Série e discurso. Os dois.</h2>
+    <h2>Só que tem outra coisa que você também precisa treinar: os discursos</h2>
     <p>Até aqui eu falei de episódios de série. Os conversacionais.</p>
     <p>Eles são muito importantes porque é neles que você treina o ouvido pra perceber <b>as emendas de palavra, as expressões mais usadas e o ritmo real de uma conversa</b>.</p>
     <p>Só que tem outra coisa que você também precisa treinar: os <b>discursos</b>.</p>
@@ -746,7 +805,7 @@ figure .sub{font-size:15px;color:var(--dim);margin:0 0 28px;font-weight:500}
 
     <div class="rule"><span class="num">IV</span><span class="line"></span><span class="t">Como foi comigo</span></div>
 
-    <h2>Foi exatamente assim que eu fiquei fluente</h2>
+    <h2>Foi exatamente assim que eu fiquei fluente em inglês</h2>
     <p>No começo, meu inglês começou a melhorar porque eu comecei a pesquisar conteúdo sobre a minha área. Melhorou só de eu estudar pro meu trabalho. Só que estudando em inglês.</p>
     <p>Foi aí que eu tive a primeira sacada: <b>o inglês se aprendia, na verdade, com treino</b>.</p>
     <p>Só que a minha área era vendas. E de tanto ver os americanos falando quanto ganhavam lá, eu fiquei com vontade de trabalhar lá também.</p>
@@ -784,8 +843,8 @@ figure .sub{font-size:15px;color:var(--dim);margin:0 0 28px;font-weight:500}
 <!-- ================= PÁGINA 4 ================= -->
 <section class="page" id="p4">
   <p class="eyebrow">O que você recebe</p>
-  <h1>O seu treino, pronto, <span class="ac">dia por dia</span>.</h1>
-  <p class="deck"><i>"Tá, mas o que eu posso esperar do treinamento?"</i> Tudo que está aqui embaixo, por <b>12 vezes de 49 reais</b>, com 7 e 90 dias de garantia.</p>
+  <h1>Esse é o seu plano de voo até a <span class="ac">fluência essencial</span>.</h1>
+  <p class="deck">Uma <b>meta clara, real e sólida</b>, que além de virar o jogo no seu inglês de uma vez por todas, <b>te faz sentir a sua evolução a cada dia</b>.</p>
 
   <div class="hero">
     <p class="k">Fluency Route</p>
@@ -826,7 +885,7 @@ figure .sub{font-size:15px;color:var(--dim);margin:0 0 28px;font-weight:500}
     <p class="lead">Acabou o <i>"eu acho que melhorei"</i>. <u>Agora é número.</u></p>
 
     <div class="rule"><span class="num">II</span><span class="line"></span><span class="t">As fases</span></div>
-    <h2>As três fases até a fluência essencial</h2>
+    <h2>As fases que você recebe entrando agora</h2>
     <div class="fases">
       <div class="fase"><p class="k">Fase 1</p><h4>Treinos de ouvido</h4><p>Você destrava o listening com discursos e cenas conversacionais. O seu ouvido vai ser lapidado até você parar de sentir que o americano fala rápido demais ou embolado.</p></div>
       <div class="fase"><p class="k">Fase 2</p><h4>Treinos de fala</h4><p>A hora de destravar a boca com os blocos conversacionais e o shadowing. Pra soltar frases inteiras sem pensar palavra por palavra.</p></div>
