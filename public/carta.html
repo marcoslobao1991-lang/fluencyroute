@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>E se você já soubesse · Fluency Route</title>
+<title>Isso é sem graça · Fluency Route</title>
 <meta name="description" content="E se você já soubesse mais inglês do que o suficiente pra ser fluente? Uma carta aberta de Marcos Lobão, head da Fluency Route, pra quem já estudou inglês e ainda trava.">
-<meta property="og:title" content="E se você já soubesse">
+<meta property="og:title" content="Isso é sem graça">
 <meta property="og:description" content="Pra quem já estudou inglês e ainda trava quando alguém fala. Não é vocabulário. Não é idade. Não é falta de esforço.">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://fluencyroute.com.br/carta-img/brain-segundo.jpg">
@@ -46,15 +46,16 @@ fbq('init','938768337634102');
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900;1,9..40,400;1,9..40,500;1,9..40,600&family=JetBrains+Mono:wght@500;600;700;800&display=swap">
 <style>
-/* Layout: advertorial editorial light da /bridge, coluna de 720px, 4 páginas por clique, header fixo com progresso.
-   Caminho duplo de leitura: <b> = esqueleto pra quem só passa o olho; <u> = a frase-chave de cada bloco; <i> = voz interna. */
+/* Layout: advertorial editorial light da /bridge, coluna de 720px, 4 páginas por clique.
+   Texto: copy da VSL que vendeu (COPY INGLES / transcrição), lead e oferta reforçadas.
+   Caminho duplo de leitura: <b> esqueleto, <u> frase-chave (1 por bloco), <i> voz interna. */
 :root{
   --bg:#fafaf7;--bg2:#ffffff;--bg3:#f3f1ec;
   --text:#1c1b1a;--dim:rgba(28,27,26,.72);--muted:rgba(28,27,26,.58);--faint:rgba(28,27,26,.42);
   --border:rgba(0,0,0,.10);--border-light:rgba(0,0,0,.05);--border-strong:rgba(0,0,0,.18);
   --accent:#0F766E;--accent-deep:#134E4A;--accent-soft:rgba(15,118,110,.08);--accent-line:rgba(15,118,110,.55);
   --red:#9F1239;--red-soft:rgba(159,18,57,.08);--dark:#1c1b1a;--dark-text:#ffffff;--dark-dim:rgba(255,255,255,.72);--dark-faint:rgba(255,255,255,.4);
-  --heat:#E8590C;--water:#DCEFF5;--water-deep:#BFE0EA;
+  --heat:#E8590C;
   --font-body:"DM Sans",-apple-system,BlinkMacSystemFont,"Inter",sans-serif;
   --font-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
 }
@@ -64,7 +65,7 @@ fbq('init','938768337634102');
     --text:#ecebe7;--dim:rgba(236,235,231,.74);--muted:rgba(236,235,231,.58);--faint:rgba(236,235,231,.4);
     --border:rgba(255,255,255,.12);--border-light:rgba(255,255,255,.06);--border-strong:rgba(255,255,255,.22);
     --accent:#2DB3A6;--accent-deep:#5ED0C4;--accent-soft:rgba(45,179,166,.12);--accent-line:rgba(45,179,166,.7);
-    --red:#F07191;--red-soft:rgba(240,113,145,.12);--dark:#0b0d0c;--heat:#FF7A2F;--water:#17333b;--water-deep:#1f4652;
+    --red:#F07191;--red-soft:rgba(240,113,145,.12);--dark:#0b0d0c;--heat:#FF7A2F;
     color-scheme:dark;
   }
 }
@@ -73,14 +74,14 @@ fbq('init','938768337634102');
   --text:#ecebe7;--dim:rgba(236,235,231,.74);--muted:rgba(236,235,231,.58);--faint:rgba(236,235,231,.4);
   --border:rgba(255,255,255,.12);--border-light:rgba(255,255,255,.06);--border-strong:rgba(255,255,255,.22);
   --accent:#2DB3A6;--accent-deep:#5ED0C4;--accent-soft:rgba(45,179,166,.12);--accent-line:rgba(45,179,166,.7);
-  --red:#F07191;--red-soft:rgba(240,113,145,.12);--dark:#0b0d0c;--heat:#FF7A2F;--water:#17333b;--water-deep:#1f4652;
+  --red:#F07191;--red-soft:rgba(240,113,145,.12);--dark:#0b0d0c;--heat:#FF7A2F;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-body);font-weight:400;letter-spacing:-.005em;line-height:1.55}
 a{color:var(--accent)}
-a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 img{max-width:100%;display:block}
 
 b{font-weight:800;color:var(--text)}
@@ -94,15 +95,6 @@ i{font-style:italic}
 .readm{font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
 
 main{max-width:720px;margin:0 auto;padding:112px 24px 96px}
-
-/* bullets estilo carta */
-.bul{list-style:none;padding:0;margin:0 0 32px;display:flex;flex-direction:column;gap:10px}
-.bul li{position:relative;padding-left:26px;font-size:clamp(17px,3.8vw,21px);color:var(--dim);line-height:1.45;letter-spacing:-.01em}
-.bul li::before{content:"";position:absolute;left:0;top:.55em;width:11px;height:11px;border-radius:2px;background:var(--accent)}
-.bul li b{color:var(--text)}
-.body .bul li{font-size:clamp(17px,3.6vw,19px);line-height:1.5}
-.ps .bul{margin:0 0 26px}
-.ps .bul li{font-size:inherit}
 .page{display:none}
 .page.on{display:block;animation:fade .32s ease-out}
 @keyframes fade{from{opacity:.001;transform:translateY(6px)}to{opacity:1;transform:none}}
@@ -111,8 +103,16 @@ main{max-width:720px;margin:0 auto;padding:112px 24px 96px}
 .eyebrow{font-family:var(--font-mono);font-size:12px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:var(--accent);margin:0 0 24px}
 h1{font-size:clamp(34px,7.5vw,58px);font-weight:800;line-height:1.04;letter-spacing:-.04em;margin:0 0 28px;color:var(--text);text-wrap:balance}
 h1 .ac{color:var(--accent)}
-.deck{font-size:clamp(17px,3.8vw,22px);color:var(--dim);margin:0 0 32px;line-height:1.5;letter-spacing:-.01em;text-wrap:pretty}
+.deck{font-size:clamp(17px,3.8vw,22px);color:var(--dim);margin:0 0 28px;line-height:1.5;letter-spacing:-.01em;text-wrap:pretty}
 .deck b{color:var(--text)}
+
+.bul{list-style:none;padding:0;margin:0 0 32px;display:flex;flex-direction:column;gap:10px}
+.bul li{position:relative;padding-left:26px;font-size:clamp(17px,3.8vw,21px);color:var(--dim);line-height:1.45;letter-spacing:-.01em}
+.bul li::before{content:"";position:absolute;left:0;top:.55em;width:11px;height:11px;border-radius:2px;background:var(--accent)}
+.bul li b{color:var(--text)}
+.body .bul li{font-size:clamp(17px,3.6vw,19px);line-height:1.5}
+.ps .bul{margin:0 0 26px}
+.ps .bul li{font-size:inherit}
 
 .scrollhint{display:flex;align-items:center;gap:12px;margin:0 0 32px;color:var(--muted)}
 .scrollhint span{font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase}
@@ -152,41 +152,11 @@ figure h3{font-size:clamp(22px,4.5vw,28px);font-weight:800;color:var(--text);mar
 figure .sub{font-size:15px;color:var(--dim);margin:0 0 28px;font-weight:500}
 .src{font-family:var(--font-mono);font-size:11.5px;font-weight:600;letter-spacing:.5px;color:var(--muted);margin:22px 0 0;line-height:1.5}
 .note{font-size:14px;color:var(--muted);font-style:italic;margin:16px 0 0;line-height:1.5}
-
-/* teste ao vivo (frases) */
-.live{margin:28px 0 32px;padding:26px 24px;border:1px solid var(--border);border-radius:8px;background:var(--bg2)}
-.live .k{font-family:var(--font-mono);font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin:0 0 14px}
-.live .ln{font-size:clamp(24px,6vw,34px);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin:0 0 6px}
-.live .ln.hard{color:var(--red);margin-top:18px}
-.live .r{font-size:15px;color:var(--dim);margin:8px 0 0;line-height:1.5;font-weight:500}
-.live .r b{color:var(--text)}
-
-/* barras de Oxford + chips clicáveis */
-.bars{display:flex;flex-direction:column;gap:14px}
-.bar{display:grid;grid-template-columns:minmax(78px,auto) 1fr minmax(52px,auto);gap:14px;align-items:center}
-.bar .k{font-family:var(--font-mono);font-size:clamp(13px,2.8vw,15px);font-weight:800;color:var(--text);font-variant-numeric:tabular-nums;text-align:right}
-.bar .k small{display:block;font-weight:600;color:var(--muted);font-size:10px;letter-spacing:1.5px;text-transform:uppercase}
-.bar .track{height:30px;background:var(--bg3);border-radius:3px;overflow:hidden;min-width:0}
-.bar .fill{height:100%;background:var(--accent);border-radius:3px}
-.bar .v{font-family:var(--font-mono);font-size:clamp(15px,3.4vw,19px);font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
+.biglabel{font-family:var(--font-mono);font-size:clamp(13px,2.8vw,16px);font-weight:700;letter-spacing:3px;color:var(--muted);text-transform:uppercase;text-align:center;margin:0 0 10px}
+.big{font-size:clamp(56px,14vw,88px);font-weight:900;color:var(--accent);letter-spacing:-.05em;line-height:1;margin:0 0 12px;text-align:center;font-variant-numeric:tabular-nums}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
 .chip{font-family:var(--font-mono);font-size:clamp(14px,3vw,17px);font-weight:700;padding:8px 14px;background:var(--bg3);border:1px solid var(--border-strong);border-radius:4px;color:var(--text)}
-button.chip{cursor:pointer;font:inherit;font-family:var(--font-mono);font-weight:700;transition:background .15s,color .15s}
-button.chip.off{background:var(--red-soft);border-color:var(--red);color:var(--red);text-decoration:line-through}
-.counter{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-top:22px;padding-top:18px;border-top:1px solid var(--border)}
-.counter .n{font-size:clamp(40px,10vw,60px);font-weight:900;letter-spacing:-.05em;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
-.counter .t{font-size:15px;color:var(--dim);font-weight:600;line-height:1.4}
-.biglabel{font-family:var(--font-mono);font-size:clamp(13px,2.8vw,16px);font-weight:700;letter-spacing:3px;color:var(--muted);text-transform:uppercase;text-align:center;margin:0 0 10px}
-.hint{font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:22px 0 0}
-
-/* freio de mão */
-.brake{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;margin-top:8px}
-@media (max-width:480px){.brake{grid-template-columns:1fr;gap:10px}}
-.brake .cell{padding:18px 16px;border-radius:6px;background:var(--bg3);border:1px solid var(--border-light);text-align:center}
-.brake .cell .k{font-family:var(--font-mono);font-size:10.5px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
-.brake .cell .v{font-size:clamp(18px,4vw,22px);font-weight:800;letter-spacing:-.02em;margin:0;line-height:1.2}
-.brake .cell.red .v{color:var(--red)}
-.brake .eq{font-family:var(--font-mono);font-size:22px;font-weight:800;color:var(--muted);text-align:center}
+.chip small{display:block;font-size:10px;font-weight:600;letter-spacing:1px;color:var(--muted);margin-top:2px}
 
 /* cérebros */
 .brains{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px}
@@ -198,7 +168,7 @@ button.chip.off{background:var(--red-soft);border-color:var(--red);color:var(--r
 .brain .lab.cool{color:var(--accent)}
 .brain .st{font-size:14px;color:var(--dim);margin:0;line-height:1.4}
 
-/* mockups das duas camadas */
+/* mockups das camadas */
 .layer{margin:28px 0 32px;border-radius:8px;overflow:hidden;border:1px solid var(--border);background:var(--bg2)}
 .layer-h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid var(--border-light);background:var(--bg3)}
 .layer-h .tag{font-family:var(--font-mono);font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;padding:3px 8px;border-radius:2px;color:#fff}
@@ -220,52 +190,17 @@ button.chip.off{background:var(--red-soft);border-color:var(--red);color:var(--r
 .layer-f .t{margin-left:auto;font-family:var(--font-mono);font-size:10.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--heat)}
 .layer-f .t.ok{color:var(--accent)}
 
-/* cartão de citação */
-.cite{margin:28px 0 32px;padding:22px 24px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);border-top:4px solid var(--accent)}
-.cite-q{font-size:clamp(17px,3.8vw,20px);font-weight:600;line-height:1.35;letter-spacing:-.015em;margin:0 0 16px}
-.cite-m{display:flex;flex-direction:column;gap:3px}
-.cite-m .who{font-weight:800;font-size:15px}
-.cite-m .where{font-size:13px;color:var(--dim)}
-.cite-m .what{font-family:var(--font-mono);font-size:10.5px;font-weight:600;letter-spacing:.5px;color:var(--muted);line-height:1.5;margin-top:4px}
-
-/* iceberg */
-.ice{position:relative;margin-top:8px;border-radius:6px;overflow:hidden;border:1px solid var(--border-light)}
-.ice svg{width:100%;height:auto;display:block}
-.ice-leg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
-@media (max-width:480px){.ice-leg{grid-template-columns:1fr}}
-.ice-leg div{padding:14px 16px;border-radius:6px;background:var(--bg3);border:1px solid var(--border-light)}
-.ice-leg .k{font-family:var(--font-mono);font-size:10.5px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;margin:0 0 6px}
-.ice-leg p{margin:0;font-size:14px;color:var(--dim);line-height:1.45}
-
-/* amarra apple-maçã */
-.amarra{display:flex;flex-direction:column;gap:10px;margin-top:8px}
-.amarra .row{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}
-.amarra .w{font-family:var(--font-mono);font-size:clamp(15px,3.4vw,19px);font-weight:800;padding:12px 10px;text-align:center;border-radius:6px;background:var(--bg3);border:1px solid var(--border-strong)}
-.amarra .w.pt{color:var(--red);border-color:var(--red)}
-.amarra .chain{font-family:var(--font-mono);font-size:12px;font-weight:800;letter-spacing:1px;color:var(--muted);text-align:center;white-space:nowrap}
-
-/* esteira */
-.loop{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;align-items:stretch;margin-top:6px}
-@media (max-width:560px){.loop{grid-template-columns:1fr 1fr}}
-.loop .st{position:relative;padding:16px 12px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;text-align:center;font-weight:700;font-size:clamp(13px,2.8vw,15px);line-height:1.3}
-.loop .st .i{display:block;font-family:var(--font-mono);font-size:10px;font-weight:700;letter-spacing:2px;color:var(--muted);margin-bottom:6px}
-.loop .st.bad{border-color:var(--red);color:var(--red)}
-.loopback{font-family:var(--font-mono);font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);text-align:center;margin:16px 0 0}
-
-/* desculpas */
-.exc{display:flex;flex-direction:column;gap:12px;margin-top:6px}
-.exc .row{display:flex;align-items:flex-start;gap:14px;padding:16px 18px;border:1px solid var(--border-light);border-radius:6px;background:var(--bg3)}
-.exc .row .q{font-size:clamp(17px,3.6vw,20px);font-weight:800;text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:3px;color:var(--dim);margin:0 0 4px}
-.exc .row .a{font-size:15px;color:var(--dim);margin:0;line-height:1.45}
-.exc .row .x{font-family:var(--font-mono);font-size:12px;font-weight:800;color:var(--red);letter-spacing:2px;padding-top:4px;flex-shrink:0}
-
-/* carro */
-.car{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:center;margin-top:8px}
-@media (max-width:560px){.car{grid-template-columns:1fr}}
-.car svg{width:100%;height:auto;display:block}
-.car .txt .k{font-family:var(--font-mono);font-size:10.5px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
-.car .txt p{margin:0 0 10px;font-size:15px;color:var(--dim);line-height:1.5}
-.car .txt p b{color:var(--text)}
+/* tartaruga × foguete */
+.race{display:flex;flex-direction:column;gap:14px;margin-top:8px}
+.race .lane{display:grid;grid-template-columns:minmax(96px,30%) 1fr;gap:14px;align-items:center}
+.race .who{font-family:var(--font-mono);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+.race .who small{display:block;font-weight:600;letter-spacing:1px;color:var(--muted);font-size:10px;margin-top:3px;text-transform:none}
+.race .track{height:34px;background:var(--bg3);border-radius:4px;overflow:hidden;position:relative;min-width:0}
+.race .fill{height:100%;border-radius:4px;display:flex;align-items:center;justify-content:flex-end;padding-right:10px;font-family:var(--font-mono);font-size:12px;font-weight:800;color:#fff;white-space:nowrap}
+.race .lane.slow .fill{background:var(--heat);min-width:70px}
+.race .lane.fast .fill{background:var(--accent)}
+.race .lane.slow .who{color:var(--heat)}
+.race .lane.fast .who{color:var(--accent)}
 
 /* variedade × repetição */
 .vs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
@@ -280,28 +215,6 @@ button.chip.off{background:var(--red-soft);border-color:var(--red);color:var(--r
 .vs .col.win .grid span{background:var(--accent);border-color:var(--accent);color:#fff}
 .vs .res{font-family:var(--font-mono);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;text-align:center;padding:9px 8px;border-radius:4px;background:var(--bg2);color:var(--dim);margin:0}
 .vs .col.win .res{background:var(--accent);color:#fff}
-
-/* condições do estudo Wright */
-.cond{display:flex;flex-direction:column;gap:12px}
-.cond .row{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:16px 18px;border:1px solid var(--border-light);border-radius:6px}
-.cond .row.win{background:var(--accent-soft);border-color:var(--accent)}
-.cond .row .c{font-weight:600;font-size:clamp(15px,3.3vw,17px);line-height:1.4;min-width:0}
-.cond .row .c small{display:block;font-family:var(--font-mono);font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
-.cond .row .r{font-family:var(--font-mono);font-size:clamp(12px,2.6vw,14px);font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);white-space:nowrap}
-.cond .row.win .r{color:var(--accent)}
-
-/* os dois alunos */
-.alunos{display:flex;flex-direction:column;gap:14px;margin-top:8px}
-.aluno{padding:16px 18px;border-radius:6px;border:1px solid var(--border-light);background:var(--bg3)}
-.aluno.win{background:var(--accent-soft);border-color:var(--accent)}
-.aluno .k{font-family:var(--font-mono);font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;margin:0 0 6px;color:var(--muted)}
-.aluno.win .k{color:var(--accent)}
-.aluno .w{font-weight:700;font-size:clamp(15px,3.3vw,17px);margin:0 0 12px;line-height:1.35}
-.aluno .track{height:12px;border-radius:6px;background:var(--bg2);overflow:hidden;border:1px solid var(--border-light)}
-.aluno .fill{height:100%;border-radius:6px;background:var(--red)}
-.aluno.win .fill{background:var(--accent)}
-.aluno .r{font-family:var(--font-mono);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin:10px 0 0;color:var(--red)}
-.aluno.win .r{color:var(--accent)}
 
 /* celulares */
 .phone{border-radius:26px;border:5px solid var(--text);background:#000;overflow:hidden;aspect-ratio:9/19.5;max-width:100%}
@@ -349,10 +262,6 @@ button.chip.off{background:var(--red-soft);border-color:var(--red);color:var(--r
 .after{font-size:13px;color:var(--dark-faint);margin:16px 0 0}
 .back{display:block;text-align:center;margin:20px 0 0;font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none}
 
-.need{list-style:none;padding:0;margin:0 0 24px;display:flex;flex-direction:column;gap:10px}
-.need li{display:flex;gap:14px;align-items:flex-start;padding:14px 18px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;font-weight:600;font-size:clamp(15px,3.3vw,17px);line-height:1.4}
-.need li .n{font-family:var(--font-mono);font-size:12px;font-weight:800;color:var(--accent);letter-spacing:2px;padding-top:4px;flex-shrink:0}
-
 /* passos do produto com tela */
 .steps{display:flex;flex-direction:column;gap:14px;margin:8px 0 24px}
 .step{display:grid;grid-template-columns:1fr 128px;gap:18px;align-items:center;padding:20px 20px;background:var(--bg2);border:1px solid var(--border);border-radius:8px}
@@ -369,6 +278,14 @@ button.chip.off{background:var(--red-soft);border-color:var(--red);color:var(--r
 .series{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 0}
 .series img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:6px;border:1px solid var(--border)}
 .series p{margin:6px 0 0;font-family:var(--font-mono);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-align:center}
+
+/* fases */
+.fases{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:8px 0 24px}
+@media (max-width:560px){.fases{grid-template-columns:1fr}}
+.fase{padding:18px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:8px}
+.fase .k{font-family:var(--font-mono);font-size:10.5px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin:0 0 6px}
+.fase h4{margin:0 0 8px;font-size:clamp(16px,3.5vw,18px);font-weight:800;letter-spacing:-.02em;line-height:1.2}
+.fase p{margin:0;font-size:14px;color:var(--dim);line-height:1.5}
 
 .proof{margin:40px 0;padding:24px;border:2px dashed var(--border-strong);border-radius:8px;background:var(--bg3)}
 .proof .k{font-family:var(--font-mono);font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
@@ -446,16 +363,15 @@ button.chip.off{background:var(--red-soft);border-color:var(--red);color:var(--r
 
 <main>
 
-<!-- ================= PÁGINA 1 · LEAD ================= -->
+<!-- ================= PÁGINA 1 ================= -->
 <section class="page" id="p1">
-  <p class="eyebrow">Só para quem já estudou inglês</p>
-  <h1>E se você já soubesse <span class="ac">mais inglês</span> do que o suficiente pra ser fluente?</h1>
-  <p class="deck">Um vendedor brasileiro que <b>nunca saiu do país</b>, e mesmo assim foi contratado por uma empresa americana pra vender por telefone, mostra por que o seu inglês trava.</p>
+  <p class="eyebrow">Só para quem já estudou inglês e ainda trava</p>
+  <h1>Eu fiquei fluente em inglês do jeito mais <span class="ac">sem graça</span> que você pode imaginar.</h1>
+  <p class="deck">E não fluentinho. Fluente de <b>trabalhar como vendedor, de casa, pra uma empresa dos Estados Unidos</b>, convencendo americano pão-duro a comprar. <b>Sem nunca ter saído do Brasil.</b></p>
   <ul class="bul">
-    <li><b>Não é vocabulário.</b></li>
-    <li><b>Não é idade.</b></li>
-    <li><b>Não é falta de esforço.</b></li>
-    <li>E a saída <b>cabe num fone de ouvido</b>.</li>
+    <li>Nesta carta eu te mostro <b>como isso funciona</b>, e por que é a melhor forma de destravar o inglês em definitivo.</li>
+    <li>Por que você <b>sabe tanto inglês e usa tão pouco</b>.</li>
+    <li>E a primeira meta real: <b>um episódio inteiro de série, sem legenda</b>, rindo das piadas.</li>
   </ul>
 
   <div class="scrollhint"><span>Continue lendo</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
@@ -472,55 +388,56 @@ button.chip.off{background:var(--red-soft);border-color:var(--red);color:var(--r
 
   <div class="body">
     <p>Caro amigo,</p>
-    <p>Se você <b>estudou inglês por pelo menos um ano e ainda trava</b> quando alguém fala com você, leia esta carta até o fim.</p>
-    <p>Ela foi escrita pra você.</p>
-    <p>E eu vou direto ao ponto.</p>
-    <div class="pq lg">O seu problema <u>não é falta de inglês</u>.</div>
-    <p><i>Eu sei. Parece conversa de vendedor.</i></p>
-    <p>Eu fui vendedor a vida inteira, então sei reconhecer uma.</p>
-    <p>Por isso eu não vou te pedir pra acreditar em mim.</p>
-    <p><b>Vou te pedir pra fazer uma conta.</b></p>
+    <p>Depois de ter tentado um monte de coisa e ter ficado travado em todas elas, <b>esse foi o único jeito que funcionou pra mim</b> e me deixou fluente.</p>
+    <p>E nesta carta eu vou te mostrar como isso funciona.</p>
+    <p>E por que essa é <u>a melhor forma de destravar o inglês em definitivo</u>.</p>
+    <p>Pra você entender, imagina o seguinte.</p>
+    <div class="pq">Você assistindo um episódio de série em inglês, <b>sem legenda</b>. Rindo de todas as piadas. Entendendo tudo. Se envolvendo na história.</div>
+    <p>Essa vai ser exatamente <b>a primeira coisa que eu vou te mostrar como fazer</b>.</p>
+    <p>Uma meta real e sólida, que te coloca rumo à fluência.</p>
+    <p><i>Porque pensa comigo.</i></p>
+    <p>Depois de entender o seu primeiro episódio, o que você acha que acontece na hora que você fizer a mesma coisa pro segundo?</p>
+    <p><b>Fica muito mais fácil.</b></p>
+    <p>Só que muito, muito mais fácil mesmo.</p>
+    <p>E a cada novo episódio e discurso em que você aplicar o que eu vou te mostrar aqui, você vai literalmente <b>sentir, e conseguir medir</b>, o seu nível de fluência ficando cada vez maior.</p>
+    <p>Não é à toa que eu tenho alunos que faziam aula presencial.</p>
+    <p><i>Sabe onde?</i></p>
+    <p><b>Nos Estados Unidos.</b></p>
+    <p>E largaram as aulas porque perceberam que isso aqui funcionava melhor do que qualquer aula. <u>Inclusive aula dentro dos Estados Unidos.</u></p>
 
-    <figure>
-      <figcaption>A conta</figcaption>
-      <h3>Quais palavras mais se repetem em inglês?</h3>
-      <p class="sub">A equipe dos dicionários Oxford juntou mais de 2 bilhões de palavras de textos reais e fez essa pergunta.</p>
-      <div class="bars">
-        <div class="bar"><span class="k">10<small>palavras</small></span><div class="track"><div class="fill" style="width:25%"></div></div><span class="v">25%</span></div>
-        <div class="bar"><span class="k">100<small>palavras</small></span><div class="track"><div class="fill" style="width:50%"></div></div><span class="v">50%</span></div>
-        <div class="bar"><span class="k">1.000<small>palavras</small></span><div class="track"><div class="fill" style="width:75%"></div></div><span class="v">75%</span></div>
-      </div>
-      <p class="biglabel" style="margin-top:32px">de tudo que se escreve e se fala</p>
-      <p class="sub" style="text-align:center;margin:0"><b>Dez palavras. 25% de tudo.</b> E aqui estão elas, pra você conferir com os seus próprios olhos:</p>
-      <div class="chips"><span class="chip">the</span><span class="chip">be</span><span class="chip">to</span><span class="chip">of</span><span class="chip">and</span><span class="chip">a</span><span class="chip">in</span><span class="chip">that</span><span class="chip">have</span><span class="chip">I</span></div>
-      <p class="src">Fonte: Oxford English Corpus, Oxford University Press.</p>
-    </figure>
+    <h2>Aviso: isso aqui é sem graça</h2>
+    <p>Então nesta carta <b>não vai ter truque de inglês</b>. Nem "aprenda se divertindo". Nem "aprenda dormindo".</p>
+    <p>Ela é pro tipo de pessoa que já entendeu que esse tipo de promessa é <b>balela da internet</b>.</p>
+    <p>E que está a fim de fazer o que precisa ser feito pra ficar fluente.</p>
+    <p>Se esse é você, <b>você está mais do que convidado a seguir comigo</b>.</p>
+    <p>E antes de seguir, uma pergunta pra você guardar:</p>
+    <div class="pq lg">E se você já soubesse <u>mais inglês do que o suficiente</u> pra ser fluente?</div>
+    <p><i>Parece provocação. Não é.</i></p>
+    <p>Daqui a duas páginas eu te mostro a conta.</p>
+    <p>Hoje você vai entender o que é a fluência em inglês de verdade. E <b>como ficar fluente em definitivo</b>: pra trabalhar numa multinacional, passar em qualquer entrevista, assistir série e filme, e até arrumar um emprego fora.</p>
+    <p>Tudo isso no menor tempo possível, usando um método que <b>já estava na sua cara há muito tempo</b>.</p>
+    <p>Só que ninguém tinha te mostrado.</p>
+    <p>E pra você entender isso, nada melhor do que eu te contar como funcionou pra mim.</p>
+    <p>Muito prazer, meu nome é <b>Marcos Lobão</b>, e hoje eu sou completamente viciado em inglês.</p>
+    <p>Eu moro no Brasil, nunca nem sequer viajei pra fora, e mesmo assim <b>trabalhei como vendedor pra uma empresa dos Estados Unidos</b>, de casa.</p>
+    <p>Hoje sou head da Fluency Route, a primeira escola do Brasil focada na <b>fluência essencial</b> do inglês. Que é quando você é fluente no inglês que é falado mais de 90% do tempo nas conversas e nos discursos.</p>
+    <p>Eu fiz um dos vídeos mais polêmicos sobre fluência da internet quando revelei parte do que você vai ler aqui. O nome dele é justamente <i>"Isso é sem graça, mas me deixou fluente"</i>.</p>
+    <p>Hoje a Fluency Route tem alunos no mundo inteiro. E acompanha, dia após dia, gente que estava travada e hoje <b>vive o inglês de verdade</b>.</p>
 
-    <p class="lead"><i>Quantas você não conhece?</i></p>
-    <p>Nenhuma, né?</p>
-    <p>Então me explica uma coisa.</p>
-    <p>Se 25% de tudo que um americano escreve e fala é feito de <b>dez palavras que você aprendeu na escola</b>...</p>
-    <p class="lead"><u>Por que você trava?</u></p>
-    <p>Essa pergunta tem resposta.</p>
-    <p>E a resposta é o motivo desta carta.</p>
-
-    <h2>Você tentou resolver do jeito errado. Eu também.</h2>
-    <p>Você trava, conclui que falta inglês e <b>vai estudar mais</b>.</p>
-    <p>Cursinho. Aplicativo. Série com legenda. Mais um professor.</p>
-    <p><b>E continua travando.</b></p>
-    <p><i>Sabe por quê?</i></p>
-    <div class="pq">Porque estudar mais inglês pra resolver a trava é como colocar mais gasolina num carro que está com o <b>freio de mão puxado</b>.</div>
-    <p><u>O problema nunca foi a quantidade de gasolina.</u></p>
-    <p><i>Então o que é?</i></p>
-    <p class="lead">A explicação está numa <b>imagem de dois cérebros</b>.</p>
-    <p>Eu vou te mostrar essa imagem agora.</p>
-    <p><i>Só aviso que ela vai contra tudo que te falaram sobre o seu inglês.</i></p>
+    <h2>O mercado inteiro te vende o contrário disso</h2>
+    <p>Se você já tentou aprender inglês, tenho certeza de que viu como o mercado está.</p>
+    <p>Todo mundo competindo pra te mostrar <b>o jeito mais vagabundo e sem esforço</b> de ficar fluente.</p>
+    <p><i>"Aprenda se divertindo." "Aprenda dormindo." "Fluente em três meses."</i> Aí vem outro e fala oito semanas.</p>
+    <p>Isso existe por uma razão muito simples: tem gente que ainda acredita nesse tipo de balela.</p>
+    <p>Só que a parte interessante de verdade é <u>por que isso continua sendo falado</u>.</p>
+    <p>A resposta é a primeira pedrada desta carta.</p>
+    <p>E ela está na próxima página.</p>
   </div>
 
   <aside class="callout">
     <p class="k">Página 2 de 4</p>
-    <p class="bridge">A imagem dos dois cérebros está na próxima página:</p>
-    <a class="btn" href="#p2">Ver a imagem dos dois cérebros <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    <p class="bridge">A primeira pedrada está na próxima página:</p>
+    <a class="btn" href="#p2">Ver a primeira pedrada <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     <div class="arrows">
       <span style="transform:rotate(-22deg)"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>
       <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>
@@ -529,77 +446,69 @@ button.chip.off{background:var(--red-soft);border-color:var(--red);color:var(--r
   </aside>
 </section>
 
-<!-- ================= PÁGINA 2 · MECANISMO DO PROBLEMA ================= -->
+<!-- ================= PÁGINA 2 ================= -->
 <section class="page" id="p2">
-  <p class="eyebrow">A imagem que eu prometi</p>
-  <h1>Um destes cérebros pensa em inglês. O outro estudou por anos e ainda traduz. <span class="ac">Adivinha qual trabalha mais.</span></h1>
-
-  <figure>
-    <figcaption>Os dois cérebros</figcaption>
-    <div class="brains">
-      <div class="brain">
-        <img src="/carta-img/brain-segundo.jpg" alt="Exame de imagem: cérebro de adultos processando o segundo idioma, com muitas áreas acesas, principalmente na parte da frente">
-        <p class="lab hot">Quase todo aceso</p>
-        <p class="st">Processando o idioma que<br>aprendeu depois de adulto.</p>
-      </div>
-      <div class="brain">
-        <img src="/carta-img/brain-nativo.jpg" alt="Exame de imagem: os mesmos adultos processando o idioma nativo, com poucas áreas acesas">
-        <p class="lab cool">Quase apagado</p>
-        <p class="st">As mesmas pessoas,<br>no idioma em que pensam.</p>
-      </div>
-    </div>
-    <p class="src">Fonte: Cargnelutti, Tomasino e Fabbro (2019), Frontiers in Human Neuroscience, 13:154, Figura 3 (painéis D e B). Licença CC BY.</p>
-  </figure>
+  <p class="eyebrow">A primeira pedrada</p>
+  <h1>O seu cérebro tem duas camadas de aprendizado. <span class="ac">E o seu inglês está inteiro na errada.</span></h1>
 
   <div class="body">
-    <p>Olha bem pra essa imagem.</p>
-    <p>São dois cérebros.</p>
-    <p>Um é de alguém que <b>pensa em inglês</b>. O outro é de alguém que <b>estudou por anos e ainda traduz</b> tudo na cabeça.</p>
-    <p><i>Agora chuta. Qual dos dois está trabalhando mais?</i></p>
-    <p>Se você chutou o fluente, errou.</p>
-    <p>Não fica chateado, porque quase todo mundo erra.</p>
-    <p class="lead"><u>O que está pegando fogo aí é o cérebro de quem trava.</u></p>
-
-    <h2>De onde vem isso</h2>
-    <p>Em 2011, três pesquisadores americanos, Sebastian, Laird e Kiran, juntaram os resultados de <b>vários estudos de imagem</b> feitos com pessoas que falam dois idiomas.</p>
-    <p>O padrão era sempre o mesmo.</p>
-    <p><b>Menos fluência, mais atividade na parte da frente do cérebro.</b> Que é a parte do esforço e do raciocínio.</p>
-    <p><b>Mais fluência, menos atividade ali.</b></p>
-    <p class="dim">Em português claro:</p>
-    <div class="pq">Quem trava não está se esforçando de menos. Está se esforçando <b>demais</b>.</div>
-    <p class="src" style="margin:-16px 0 32px">Fonte: Sebastian, Laird e Kiran (2011), meta-análise de estudos de neuroimagem com bilíngues.</p>
-    <p>Agora presta atenção, porque <b>é aqui que tudo se encaixa</b>.</p>
-
-    <div class="rule"><span class="num">II</span><span class="line"></span><span class="t">As duas camadas</span></div>
-
-    <h2>O seu cérebro tem dois lugares pra guardar o que você aprende</h2>
-
-    <p>O primeiro é o <b>consciente</b>.</p>
-    <p><b>A camada rasa.</b></p>
-    <p>É pra lá que vai tudo que alguém te explica. Regra, lista, tradução.</p>
+    <p>O nosso cérebro tem, na verdade, <b>duas camadas de aprendizado</b>.</p>
+    <p>E isso vale pra qualquer coisa que você for aprender.</p>
+    <p>A primeira é a camada superficial e rasa.</p>
+    <p><b>O chamado consciente.</b></p>
 
     <div class="layer rasa">
-      <div class="layer-h"><span class="tag">Camada 1</span><span class="nm">Consciente</span><span class="sp">rasa · lenta · analítica</span></div>
+      <div class="layer-h"><span class="tag">Camada 1</span><span class="nm">Consciente</span><span class="sp">superficial · rasa · lenta</span></div>
       <div class="layer-b">
         <div class="row"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 4h12l4 4v12H4z"/><path d="M8 12h8M8 16h8M8 8h4"/></svg></span><span class="w"><b>Regra.</b> Past simple: verbo + ed</span></div>
-        <div class="row"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span><span class="w"><b>Lista.</b> apple, table, keys, house...</span></div>
+        <div class="row"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span><span class="w"><b>Dica solta.</b> "3 frases pra usar no aeroporto"</span></div>
         <div class="row"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 12h10M10 7l5 5-5 5"/><path d="M17 5h3v14h-3"/></svg></span><span class="w"><b>Tradução.</b> apple = maçã</span></div>
       </div>
       <div class="layer-f"><span>Pra usar:</span><b>parar, pensar, traduzir</b><span class="t">lento</span></div>
     </div>
 
-    <p><b>Aprender ali é moleza.</b></p>
-    <p><b>Difícil é usar</b>, porque tudo que está nessa camada você precisa parar pra pensar.</p>
-    <p><i>Quer ver?</i></p>
+    <p>E o que acontece é que todas essas promessas de inglês rápido e fácil, se divertindo ou dormindo, ou qualquer tipo de dica solta de inglês, <b>estão sempre operando no nível 1 do aprendizado</b>.</p>
+    <p>Nessa camada superficial.</p>
+    <p>O interessante é que <b>colocar informação nessa camada é relativamente simples</b>.</p>
+    <p>A prova são os vídeos que você assiste ensinando uma palavra nova ou alguma frase.</p>
+    <p>Na hora, você entende certinho o que foi falado.</p>
+    <p><i>Parece até legal, né? Parece que você está aprendendo inglês.</i></p>
+    <p><b>Só que não.</b></p>
+    <p>Como aquilo está só nessa camada rasa, <u>você não consegue usar</u>. Você não tem velocidade nem fluência pra usar a frase que acabou de aprender.</p>
+    <p>E pra você entender isso direito, eu gosto de usar um exemplo um pouco mais dramático.</p>
     <p>Imagina que você assistisse agora a um <b>tutorial completo de como pousar um avião</b>.</p>
-    <p>O piloto explica cada botão. Você entende tudo.</p>
-    <p><i>Você pousaria um avião?</i></p>
-    <p>Nem eu.</p>
-    <p>E você podia assistir cem tutoriais que continuaria sem coragem.</p>
-    <p><u>Saber como se faz é uma coisa. Conseguir fazer é outra.</u></p>
-    <p>E as duas moram em lugares diferentes da sua cabeça.</p>
-    <p>O segundo lugar é o <b>subconsciente</b>.</p>
-    <p>É onde está <b>tudo que você faz sem pensar</b>. Dirigir. Andar de bicicleta. Falar português.</p>
+    <p>O piloto te mostra exatamente tudo que precisa ser feito. E você de fato entende e aprende aquilo.</p>
+    <p><i>Agora: você teria coragem de pousar o avião?</i></p>
+    <p><b>Claro que não.</b></p>
+    <p>Porque esse conhecimento está na camada rasa do seu cérebro.</p>
+
+    <figure>
+      <figcaption>Exame de imagem</figcaption>
+      <h3>No idioma que a pessoa ainda traduz, o cérebro trabalha muito mais</h3>
+      <div class="brains">
+        <div class="brain">
+          <img src="/carta-img/brain-segundo.jpg" alt="Exame de imagem: cérebro de adultos processando o segundo idioma, com muitas áreas acesas, principalmente na parte da frente">
+          <p class="lab hot">Quase todo aceso</p>
+          <p class="st">Processando o idioma que<br>aprendeu depois de adulto.</p>
+        </div>
+        <div class="brain">
+          <img src="/carta-img/brain-nativo.jpg" alt="Exame de imagem: os mesmos adultos processando o idioma nativo, com poucas áreas acesas">
+          <p class="lab cool">Quase apagado</p>
+          <p class="st">As mesmas pessoas,<br>no idioma em que pensam.</p>
+        </div>
+      </div>
+      <p class="src">Fonte: Cargnelutti, Tomasino e Fabbro (2019), Frontiers in Human Neuroscience, 13:154, Figura 3 (painéis D e B). Licença CC BY.</p>
+    </figure>
+
+    <div class="rule"><span class="num">II</span><span class="line"></span><span class="t">A camada 2</span></div>
+
+    <h2>Onde o inglês fica natural e você não traduz mais</h2>
+    <p>Agora eu quero falar da <b>camada 2</b> do seu cérebro.</p>
+    <p>Onde as coisas acontecem de forma automática.</p>
+    <p>Onde o inglês fica natural e <b>você não precisa mais traduzir mentalmente</b>.</p>
+    <p>Eu sei que tem gente que não consegue nem conceber a ideia de que a nossa mente é capaz de pensar em inglês tão rápido, a ponto de entender uma conversa e falar sem antes traduzir pro português.</p>
+    <p><u>Só que eu posso te garantir que ela é.</u></p>
+    <p>A camada 2. <b>O chamado subconsciente.</b></p>
 
     <div class="layer auto">
       <div class="layer-h"><span class="tag">Camada 2</span><span class="nm">Subconsciente</span><span class="sp">automática · rápida · sem esforço</span></div>
@@ -611,122 +520,41 @@ button.chip.off{background:var(--red-soft);border-color:var(--red);color:var(--r
       <div class="layer-f"><span>Pra usar:</span><b>vem sozinho</b><span class="t ok">instantâneo</span></div>
     </div>
 
-    <p>Você não monta uma frase em português antes de falar.</p>
-    <p><b>Ela vem.</b></p>
-    <p><i>Quer sentir isso em inglês, agora?</i></p>
-    <p class="tight">Leia:</p>
-
-    <div class="live">
-      <p class="k">Teste de dez segundos</p>
-      <p class="ln">Thank you.</p>
-      <p class="ln">I love you.</p>
-      <p class="ln">Oh my God.</p>
-      <p class="r"><b>Veio.</b> Nenhuma passou pelo português. Isso é a camada automática.</p>
-      <p class="ln hard">Where did you put my keys?</p>
-      <p class="r"><b>Parou.</b> Meio segundo, mas parou. Você conhece cada uma dessas palavras. Só que essa frase está na camada rasa.</p>
-    </div>
-
-    <p>Um linguista chamado Stephen Krashen, da Universidade do Sul da Califórnia, bate nessa tecla há mais de quarenta anos.</p>
-    <p>Pra ele, <b>aprender um idioma é consciente, adquirir é subconsciente, e só o segundo dá fluência</b>.</p>
-
-    <div class="cite">
-      <div class="cite-q">"Aprender" é consciente. "Adquirir" é subconsciente. Só a aquisição produz fluência.</div>
-      <div class="cite-m">
-        <span class="who">Stephen Krashen</span>
-        <span class="where">Linguista · Universidade do Sul da Califórnia</span>
-        <span class="what">Hipótese da aquisição e aprendizagem · Principles and Practice in Second Language Acquisition, 1982</span>
-      </div>
-    </div>
-
-    <p>É uma teoria, e não uma lei da física.</p>
-    <p>Só que ela bate com os exames. E bate com o que eu vi acontecer com milhares de alunos.</p>
-
-    <h2>Agora junta as peças comigo</h2>
-    <p><b>Você conhece as palavras.</b> A conta de Oxford já mostrou.</p>
-    <p>Só que elas estão <b>todas na camada rasa</b>.</p>
-    <p>A que exige esforço. A que aparece acesa na imagem.</p>
-    <p>É por isso que você entende quando lê devagar e <b>se perde quando alguém fala rápido</b>.</p>
-    <p>É por isso que você traduz.</p>
-    <p>E é por isso que, <b>quanto mais força você faz na hora, pior fica</b>.</p>
-    <div class="pq lg">O seu inglês não sumiu.<br>Ele está guardado <u>no lugar errado</u>.</div>
-    <p>O que deixa uma pergunta no ar.</p>
-    <p>Uma que, em todos esses anos de curso, ninguém te respondeu.</p>
-    <p class="lead"><i>Quem colocou ele lá?</i></p>
-
-    <div class="rule"><span class="num">III</span><span class="line"></span><span class="t">A esteira</span></div>
-
-    <h2>Todo mundo quer te ensinar inglês. E é exatamente esse o problema.</h2>
-    <p>Pega o seu celular agora.</p>
-    <p>Em cinco minutos você acha <b>duzentos jeitos de aprender inglês</b>.</p>
-    <p>Cursinho, aplicativo, professor particular, canal de dica, método do poliglota que fala onze línguas.</p>
-    <p>Parecem duzentas coisas diferentes.</p>
-    <p><b>São uma só.</b></p>
-    <p><b>Todos eles te ensinam.</b> Explicam, mostram, traduzem, corrigem.</p>
-    <p>E tudo que é ensinado tem <b>um endereço só</b> dentro da sua cabeça.</p>
-    <p class="lead"><u>A camada rasa.</u></p>
-    <p>Agora olha a armadilha em que você caiu.</p>
-    <p><i>Eu caí também.</i></p>
+    <p>Há muito tempo se sabe que o subconsciente é muito mais rápido que o consciente.</p>
+    <p>Só que hoje já tem estudos que calcularam essa velocidade.</p>
+    <p>E o resultado foi que o subconsciente é <b>mais de 30 mil vezes mais rápido</b> que o consciente.</p>
 
     <figure>
-      <figcaption>A esteira</figcaption>
-      <h3>Quanto mais dedicado você é, mais rápido ela gira</h3>
-      <p class="sub">O mesmo ciclo, por anos.</p>
-      <div class="loop">
-        <div class="st bad"><span class="i">1</span>Você trava</div>
-        <div class="st"><span class="i">2</span>Conclui que falta inglês</div>
-        <div class="st"><span class="i">3</span>Vai estudar mais</div>
-        <div class="st"><span class="i">4</span>Mais inglês na camada rasa</div>
-      </div>
-      <p class="loopback">e volta pro 1</p>
-    </figure>
-
-    <p>Você trava. Conclui que falta inglês. Vai estudar mais.</p>
-    <p>O estudo põe mais inglês na camada rasa.</p>
-    <p>Você continua travando. Conclui que falta mais ainda. Volta a estudar.</p>
-    <p><b>É uma esteira.</b></p>
-    <p>E quanto mais dedicado você é, mais rápido ela gira.</p>
-    <p>Ninguém fez isso por mal. Foi só o jeito que todo mundo aprendeu a ensinar.</p>
-    <p><i>Apple, maçã. Table, mesa.</i></p>
-    <p>Palavra de um lado, tradução do outro, por anos.</p>
-    <p>Até <b>cada palavra em inglês que você conhece ficar amarrada numa palavra em português</b>.</p>
-    <p><u>Depois ainda perguntam por que você traduz.</u></p>
-
-    <h2>As três desculpas que te deram</h2>
-    <p>Em algum momento, alguém te deu uma destas três explicações.</p>
-    <p>Pode ter sido um professor.</p>
-    <p><i>Pode ter sido você mesmo, às duas da manhã.</i></p>
-
-    <figure>
-      <figcaption>As três desculpas</figcaption>
-      <div class="exc">
-        <div class="row"><span class="x">1</span><div><p class="q">"Falta vocabulário."</p><p class="a">Você fez a conta. Dez palavras são 25% de tudo. Cem são 50%. E você conhece quase todas desde a escola. Próxima.</p></div></div>
-        <div class="row"><span class="x">2</span><div><p class="q">"Falta esforço."</p><p class="a">Você viu os dois cérebros. Quem trava se esforça MAIS do que quem é fluente. Próxima.</p></div></div>
-        <div class="row"><span class="x">3</span><div><p class="q">"Você passou da idade."</p><p class="a">Essa é a mais cruel. E a mais errada.</p></div></div>
+      <figcaption>A corrida</figcaption>
+      <h3>Tartaruga × foguete</h3>
+      <p class="sub">Diferente da corrida famosa da tartaruga com o coelho, aqui não tem como o outro lado cochilar.</p>
+      <div class="race">
+        <div class="lane slow"><div class="who">Consciente<small>a tartaruga</small></div><div class="track"><div class="fill" style="width:7%">1x</div></div></div>
+        <div class="lane fast"><div class="who">Subconsciente<small>o foguete</small></div><div class="track"><div class="fill" style="width:100%">30.000x mais rápido</div></div></div>
       </div>
     </figure>
 
-    <p>Em 1998, a neurocientista Daniela Perani e a equipe dela, em Milão, examinaram <b>adultos que tinham aprendido um segundo idioma depois dos dez anos</b> e ficado fluentes.</p>
-    <p>Compararam com gente que aprendeu ainda criança.</p>
-    <p>Com o mesmo nível de fluência, <b>o cérebro dos dois grupos trabalhava de um jeito muito parecido</b>.</p>
-    <p>A idade pesa? Pesa um pouco.</p>
-    <p><u>Bem menos do que te contaram.</u></p>
-    <p class="src" style="margin:-8px 0 32px">Fonte: Perani e colaboradores, revista Brain, 1998.</p>
-    <p class="lead"><b>As três caíram.</b></p>
-    <p>Sobrou uma explicação só.</p>
-    <p>E ela não tem nada a ver com a sua cabeça, com a sua idade ou com a sua força de vontade.</p>
-    <div class="pq">Você estava usando <b>método de iniciante</b> num inglês que não é mais de iniciante.</div>
-    <p><b>Aula é pra quem não sabe nada.</b></p>
-    <p><b>Você sabe.</b></p>
-    <p>O que te falta não é mais uma explicação.</p>
-    <p>É <u>fazer o que você já aprendeu funcionar no automático</u>.</p>
-    <p>Eu fiquei preso nessa esteira por anos.</p>
-    <p>E saí dela <b>por acidente</b>, numa época em que eu já nem estava mais tentando ficar fluente.</p>
+    <p>Pra colocar isso em perspectiva: pensa numa corrida em que o consciente é uma <b>tartaruga</b>.</p>
+    <p>Só que, diferente da corrida famosa da tartaruga com o coelho, aqui o subconsciente é um <b>foguete</b> batendo 30 mil quilômetros por hora pra sair de órbita.</p>
+    <p>E eu te falo isso porque a primeira coisa que você precisa ter em mente é esta:</p>
+    <p>Não adianta tentar usar o consciente, que tem a velocidade de uma tartaruga, e ser fluente em inglês.</p>
+    <p><i>Isso é mais ou menos igual a querer ir pra Lua montado numa tartaruga.</i></p>
+    <div class="pq lg">Se você quer fluência, você precisa <u>colocar o inglês no subconsciente</u>.</div>
+    <p>Por isso, essa é a grande pergunta:</p>
+    <p class="lead"><b>Como colocar o inglês no subconsciente?</b></p>
+    <p>E é agora que a gente começa a conversar.</p>
+    <p>Eu te falei que não ia segurar nada e ia falar toda a verdade da fluência aqui pra você.</p>
+    <p>Então, pra começar a falar de como colocar o inglês no subconsciente, a gente pode pensar em <b>tudo o que você já colocou lá</b>. E no que você fez pra isso.</p>
+    <p>E pra falar disso, é só pensar em uma palavra.</p>
+    <p class="lead"><u>Habilidades.</u></p>
+    <p>Essa é a segunda pedrada.</p>
+    <p>E ela está na próxima página.</p>
   </div>
 
   <aside class="callout">
     <p class="k">Página 3 de 4</p>
-    <p class="bridge">O acidente que me tirou da esteira está na próxima página:</p>
-    <a class="btn" href="#p3">O que aconteceu dentro do carro <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    <p class="bridge">A segunda pedrada, e o que fazer com ela, está na próxima página:</p>
+    <a class="btn" href="#p3">Ver a segunda pedrada <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     <div class="arrows">
       <span style="transform:rotate(-22deg)"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>
       <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>
@@ -736,50 +564,109 @@ button.chip.off{background:var(--red-soft);border-color:var(--red);color:var(--r
   <a class="back" href="#p1">Voltar</a>
 </section>
 
-<!-- ================= PÁGINA 3 · MECANISMO DA SOLUÇÃO ================= -->
+<!-- ================= PÁGINA 3 ================= -->
 <section class="page" id="p3">
-  <p class="eyebrow">A história</p>
-  <h1>O que eu fiz <span class="ac">por acidente</span> dentro de um carro</h1>
+  <p class="eyebrow">A segunda pedrada</p>
+  <h1>Inglês não é matéria. <span class="ac">É habilidade.</span> E habilidade se treina.</h1>
 
   <div class="body">
-    <p>Eu era vendedor.</p>
-    <p>E tinha botado na cabeça que queria <b>trabalhar pra uma empresa americana, daqui do Brasil</b>.</p>
-    <p>Só tinha um problema.</p>
-    <p class="lead"><b>Eu ia ter que ligar pra americano.</b></p>
-    <p>E não era qualquer americano.</p>
-    <p>Era aquele <b>cliente pão-duro</b>, que não sabe quem você é, não pediu a sua ligação e está só esperando um motivo pra <b>desligar na sua cara</b>.</p>
-    <p>Com um inglês que para três segundos pra montar cada frase, eu ia dar esse motivo antes do <i>"good morning"</i>.</p>
-    <p>Fiz o que todo mundo faz.</p>
-    <p><b>Mais curso. Mais apostila. Mais vídeo.</b></p>
-    <p><b>Nada.</b></p>
-    <p>Aí eu <b>parei de tentar ficar fluente</b> e resolvi fazer uma coisa bem menor.</p>
-    <p>Vendedor tem frase pronta. A frase que apresenta o produto. A frase que fecha o negócio.</p>
-    <p>Eu pensei: <i>fluente eu não vou ficar, mas nessas frases eu vou ficar bom.</i></p>
-    <p>Então olha o que eu fiz.</p>
-    <p>Peguei um curso de vendas americano, joguei os áudios no celular e passei a <b>ouvir as mesmas frases dentro do carro</b>.</p>
-    <div class="pq lg">De novo. E de novo. <b>E de novo.</b></div>
-    <p><b>Sem caderno. Sem sentar pra estudar.</b></p>
-    <p>Só ouvindo e repetindo enquanto dirigia.</p>
-    <p>E aí aconteceu uma coisa que eu não esperava.</p>
-    <p><b>As frases ficaram nítidas.</b></p>
-    <p>Depois, as mesmas palavras começaram a aparecer nítidas em filme, em música, em conversa que não tinha nada a ver com vendas.</p>
-    <p><u>O meu inglês deu um salto que anos de curso não tinham dado.</u></p>
-    <p>Pouco tempo depois eu passei na entrevista.</p>
-    <p><b>Vendedor de uma empresa americana, de casa, sem nunca ter saído do país.</b></p>
-    <p>É história real.</p>
-    <p>E eu levei anos pra entender por que funcionou.</p>
+    <p>A maioria das pessoas pensa que o inglês precisa ser tratado igual a uma <b>matéria de escola</b>. Tipo história, geografia.</p>
+    <p>Quando, na verdade, quem é fluente de verdade sabe muito bem que o inglês é uma <b>habilidade</b>.</p>
+    <p>E pensa nas habilidades mais comuns, desde as mais simples. Como <b>andar de bicicleta</b>.</p>
+    <p>Pode parecer fácil hoje. Só que o único motivo de você conseguir se equilibrar numa bicicleta é o seu subconsciente.</p>
+    <p>É ele que faz o equilíbrio ficar automático. Você nem percebe o que está fazendo pra não cair.</p>
+    <p>Outro exemplo muito bom é <b>dirigir</b>.</p>
+    <p>No começo a pessoa fica toda nervosa, não sabe direito o que está fazendo. Depois dirige sem pensar em nada. Tudo no automático.</p>
+    <p>Ou um exemplo ainda mais extremo: os <b>instrumentos musicais</b>.</p>
+    <p>Um músico experiente está tocando, e todo mundo fica admirando como ele é bom.</p>
+    <p><i>Só que ele mesmo está pensando em como vai pagar os boletos. Ou se lembrou de fechar a porta antes de sair de casa.</i></p>
+    <p>Pra ele, aquilo é simples. Ele toca sem pensar no que está fazendo. É praticamente como se os dedos se movessem sozinhos.</p>
+    <p><b>Essa é a pura velocidade do foguete em ação.</b></p>
+    <p>E no inglês acontece exatamente a mesma coisa.</p>
+    <p>Pra ficar fluente, você precisa <u>tirar da cabeça a ideia de tratar o inglês como matéria</u>.</p>
+    <p>Se você prestou atenção, provavelmente já tem alguma dessas habilidades. Ou com certeza já viu alguém que tem.</p>
+    <p><i>E como essas habilidades foram adquiridas?</i></p>
+    <p class="lead"><b>Com treino.</b></p>
+    <p>O inglês é uma habilidade e, como toda habilidade, <b>precisa ser treinado</b>.</p>
+    <p>Por isso tem gente que pode passar o resto da vida estudando inglês e nunca vai ficar fluente.</p>
+    <p>Seria o equivalente a <b>ler todos os livros sobre como tocar violão</b> sem nunca encostar um dedo nele.</p>
+    <p>Essa pessoa não tem a menor chance.</p>
 
-    <div class="rule"><span class="num">I</span><span class="line"></span><span class="t">As três coisas</span></div>
+    <div class="rule"><span class="num">I</span><span class="line"></span><span class="t">Treinar o quê</span></div>
 
-    <h2>As três coisas que eu fiz sem saber</h2>
-    <p><b>Um. Eu treinei em vez de estudar.</b></p>
-    <p>Inglês não é matéria, igual história e geografia.</p>
-    <p><b>É habilidade</b>, igual dirigir ou tocar violão.</p>
-    <p>E ninguém aprendeu a dirigir lendo o manual do carro.</p>
-    <p><b>Dois. Eu repeti pouco em vez de ouvir muito.</b></p>
-    <p>Três temporadas de série sem legenda são três temporadas de coisa nova passando uma vez só.</p>
-    <p>Eu fiz o contrário.</p>
-    <p><b>Peguei um pedaço pequeno e rodei até ficar nítido.</b></p>
+    <h2>Treinar o quê, então? Escuta e fala.</h2>
+    <p>Começando pelos <b>treinos de escuta</b>.</p>
+    <p>Sabe aquele embolado quando você escuta alguma coisa em inglês? Aquele que faz parecer <b>impossível entender um americano</b>, de tão rápido que ele parece falar?</p>
+    <p>Isso acontece justamente porque a sua <b>percepção de ouvido</b> ainda foi muito pouco treinada.</p>
+    <p>Às vezes, quando eu falo isso, os alunos não entendem de primeira. Por isso eu gosto de comparar com o <b>músico iniciante</b>.</p>
+    <p>Se você der um violão desafinado pra quem está aprendendo, ele nem vai perceber. O ouvido dele ainda não sabe o que é afinado e desafinado.</p>
+    <p>Agora faz a mesma coisa com um músico experiente. Uma nota um pouquinho desafinada perto dele, e <b>ele sente até arrepio</b>, de tão nítido que aquilo é.</p>
+    <p>No inglês acontece exatamente a mesma coisa.</p>
+    <p>No começo o som parece embolado, emendado, rápido demais.</p>
+    <p>Só que, quando você <b>treina o ouvido</b>, começa a perceber os sons e as palavras. E a velocidade que hoje parece rápida demais, <u>você percebe que na verdade é normal</u>.</p>
+    <p>Isso vai ficar mais claro quando eu falar de <b>como</b> você vai treinar o ouvido. E tem tudo a ver com entender seus primeiros episódios de série 100% em inglês.</p>
+    <p>Depois a gente tem os <b>treinos de fala</b>.</p>
+    <p>Numa conversa em inglês, as palavras não são pensadas uma a uma.</p>
+    <p>Elas são usadas dentro de <b>blocos</b>. E esses blocos se repetem o tempo inteiro. No português também, inclusive.</p>
+    <p>Você treina esses blocos até internalizar e ficar automático.</p>
+    <p>Então, até aqui: inglês é habilidade, habilidade se treina, e você treina a percepção do ouvido e a sua fala.</p>
+    <p><i>E o que, de fato, você vai treinar em inglês?</i></p>
+
+    <div class="rule"><span class="num">II</span><span class="line"></span><span class="t">A conta</span></div>
+
+    <h2>A fluência essencial</h2>
+    <p>Tem um linguista muito famoso no meio da aquisição de idiomas, o <b>Paul Nation</b>.</p>
+    <p>Ele fez um estudo e demonstrou que existem <b>500 palavras que são usadas mais de 90% do tempo</b> no dia a dia real de quem fala inglês.</p>
+    <p>Ou seja: se você for fluente nessas 500 palavras, <u>consegue conversar em inglês pelo resto da vida</u>.</p>
+    <p>E dá uma olhada nisso aqui.</p>
+
+    <figure>
+      <figcaption>A calculadora de palavras</figcaption>
+      <h3>Uma temporada inteira de Friends, palavra por palavra</h3>
+      <p class="sub">A calculadora conta quantas vezes cada palavra aparece. Esses são os números de uma temporada inteira.</p>
+      <p class="biglabel">Palavras diferentes por episódio</p>
+      <p class="big" style="color:var(--text)">~800</p>
+      <p class="biglabel" style="margin-top:28px">Aparecem mais de 100 vezes num único episódio</p>
+      <div class="chips" style="justify-content:center"><span class="chip">you</span><span class="chip">that</span><span class="chip">me</span><span class="chip">I</span><span class="chip">who</span><span class="chip">what</span><span class="chip">how</span></div>
+      <p class="biglabel" style="margin-top:32px">E segundo Paul Nation</p>
+      <p class="big">500</p>
+      <p class="biglabel">palavras = mais de 90% do que se fala</p>
+      <p class="src">Fontes: contagem da Fluency Route sobre uma temporada de Friends; Paul Nation, pesquisador de vocabulário em segunda língua.</p>
+    </figure>
+
+    <p>Numa temporada inteira, são usadas cerca de <b>800 palavras diferentes por episódio</b>.</p>
+    <p>E tem palavras como you, that, me, I, who, what, how que chegam a aparecer <b>mais de 100 vezes num único episódio</b>.</p>
+    <p>Analisando isso, eu te pergunto:</p>
+    <p>Se com 500 palavras você pode conversar em inglês pra sempre, e em episódios conversacionais de séries americanas não são usadas mais do que 800 palavras por episódio...</p>
+    <p class="lead"><i>Por que você vai se sobrecarregar com um monte de coisa que não vai usar?</i></p>
+    <p><b>Isso não faz sentido.</b></p>
+    <p>Mas é exatamente o que o método tradicional faz com as pessoas. Cada semana um assunto novo, com palavras novas, sendo que o aluno não é fluente nem nas que viu nos primeiros dias de aula.</p>
+    <p>E agora olha de novo pra essas palavras.</p>
+    <p class="lead">You. That. Me. What. How.</p>
+    <p><b>Você conhece todas.</b></p>
+    <p>Foi por isso que eu te perguntei, lá na primeira página, se você já não sabia mais inglês do que o suficiente.</p>
+    <p><u>Boa parte do essencial já está na sua cabeça. Na camada errada.</u></p>
+    <p>Só que aqui a gente vai fazer diferente, e fazer um uso inteligente do seu tempo.</p>
+    <p>É aqui que entra a <b>fluência essencial</b>: treinar muito o inglês, até de fato internalizar no subconsciente. Só que focando toda a sua energia, no início dos treinos, no essencial do inglês. Aquele que já te coloca num nível de entender séries e filmes, se comunicar, viajar e fazer o que quiser com o idioma.</p>
+
+    <div class="rule"><span class="num">III</span><span class="line"></span><span class="t">Como fazer</span></div>
+
+    <h2>Agora eu vou te mostrar o que fazer com isso</h2>
+    <p>Eu não vou parar por aqui. Na verdade, estou começando agora.</p>
+    <p>Tudo o que a gente viu até aqui foi pra te dar clareza de como a fluência funciona.</p>
+    <p>Até aqui: a fluência está no subconsciente. Pra colocar o inglês nessa camada, a gente precisa treinar. E a gente treina escuta e fala, dentro do essencial do inglês usado nas conversas reais.</p>
+    <p>E tudo isso é feito através de <b>repetição</b>.</p>
+    <p>Pra falar de repetição, mais uma vez, é só pensar em tudo o que você já praticou na vida. Pode ser qualquer coisa.</p>
+    <p><u>Tudo o que você deixou no modo automático teve repetição.</u> Porque é assim que o nosso cérebro funciona. A gente precisa repetir pra internalizar.</p>
+    <p>E existem basicamente <b>dois tipos de repetição</b> que você precisa fazer pra ficar fluente.</p>
+    <p>A primeira é a <b>repetição continuada</b>: quando você repete várias vezes a mesma coisa, na mesma hora, pra aquilo ficar cada vez mais nítido.</p>
+    <p>Os músicos sabem muito bem o que é isso. Quando vão aprender um solo novo, ficam repetindo a mesma coisa até ir melhorando, um pouquinho a cada vez.</p>
+    <p>A segunda é a <b>repetição espaçada</b>: quando você revê o seu treino depois de alguns dias. Essa serve pra guardar a informação na memória de longo prazo.</p>
+    <p>E lembra que, no começo desta carta, eu falei que você ia entender o seu primeiro episódio de série?</p>
+    <p><b>É agora que as coisas começam a fazer sentido.</b></p>
+    <p>Tem muita gente que já tem a ideia de que precisa treinar o ouvido. E aí começa a escutar tudo em inglês. Assiste <b>três temporadas inteiras</b> de uma série.</p>
+    <p>Não quer dizer que isso seja ruim.</p>
+    <p>Só que existe um jeito muito melhor: <b>fazer exatamente o oposto</b>.</p>
 
     <figure>
       <figcaption>Variedade × repetição</figcaption>
@@ -793,91 +680,96 @@ button.chip.off{background:var(--red-soft);border-color:var(--red);color:var(--r
         </div>
         <div class="col win">
           <p class="k">Repetição</p>
-          <p class="s">1 pedaço pequeno · rodado até ficar nítido</p>
+          <p class="s">1 minuto · rodado até masterizar</p>
           <div class="grid"><span style="opacity:.3">a</span><span style="opacity:.4">a</span><span style="opacity:.5">a</span><span style="opacity:.6">a</span><span style="opacity:.7">a</span><span style="opacity:.8">a</span><span style="opacity:.9">a</span><span>a</span></div>
-          <p class="res">Vira reflexo</p>
+          <p class="res">Vira automático</p>
         </div>
       </div>
     </figure>
 
-    <p>Hoje eu chamo isso de <b>loop de repetição</b>.</p>
-    <p>E o tamanho que funciona melhor é <u>um minuto</u>.</p>
+    <p>E pra isso eu quero te apresentar o conceito dos <b>treinos concentrados</b>. Também válido pra qualquer habilidade.</p>
+    <p>Pra entender, pensa no seguinte.</p>
 
     <aside class="callout">
-      <p class="k">O loop de repetição</p>
+      <p class="k">Treino concentrado</p>
       <div class="funnel">
-        <p class="strike">100% do idioma</p>
+        <p class="strike">O idioma inglês inteiro</p>
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
         <p class="mid">1 episódio de série</p>
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-        <div class="hero2"><p class="h">1 minuto</p><p class="s">rodado até ficar nítido</p></div>
+        <div class="hero2"><p class="h">1 minuto</p><p class="s">treinado até masterizar</p></div>
       </div>
       <p class="start">Você começa aqui</p>
     </aside>
 
-    <figure style="margin-top:28px">
+    <p style="margin-top:36px">Se a gente pega o idioma inglês inteiro, é muita coisa pra digerir.</p>
+    <p>Aí a gente reduz pra um único episódio de série. O primeiro que você vai fazer. Ainda é muito.</p>
+    <p>Aí reduz pra <b>apenas um minuto</b> desse episódio. E você começa a treinar dali.</p>
+    <p>Ou seja: em vez de ficar escutando um monte de coisa aleatória, que você ainda não conectou e da qual quase nada entende, você faz um <b>treino concentrado de um único minuto</b>. Até aquele minuto estar masterizado e você conseguir entender.</p>
+    <p>E quando eu falo treino, tem gente que pensa que precisa ficar escrevendo ou falando o tempo todo.</p>
+    <p>No treino do ouvido, <b>só de você escutar o mesmo minuto várias vezes já é um treino</b>.</p>
+    <p>E como essa informação precisa entrar no subconsciente, e não no consciente, <u>dá pra treinar o ouvido fazendo outra coisa</u>.</p>
+
+    <figure>
       <figcaption>Um minuto de cena real</figcaption>
-      <h3>É assim que o minuto aparece no fone</h3>
-      <p class="sub">Uma cena de série, curta, com a frase em inglês e em português. Você repete até o ouvido ficar nítido e marca se entendeu.</p>
+      <h3>É assim que o minuto aparece pra você</h3>
+      <p class="sub">Uma cena curta, com a frase em inglês e em português. Você repete até o ouvido ficar nítido e marca se entendeu.</p>
       <div class="phones">
         <div><div class="phone"><img src="/carta-img/feat-series.jpg" alt="Tela do app: cena de Friends com a frase em inglês e em português e os botões repetir, entendi, não entendi"></div><p class="cap">Treino de ouvido</p><p class="cap2">Assiste sem legenda e tenta entender.</p></div>
         <div><div class="phone"><img src="/carta-img/feat-shadowing.jpg" alt="Tela do app: cena de Two and a Half Men com o botão de microfone para imitar a frase"></div><p class="cap">Treino de fala</p><p class="cap2">Segura o microfone e imita o jeitão.</p></div>
       </div>
     </figure>
 
-    <p><b>Um minuto. Não uma hora.</b></p>
-    <p><b>Três. Eu fiz isso enquanto fazia outra coisa.</b></p>
-    <p>Essa era a parte que eu menos entendia.</p>
-    <p>Até cair na minha mão um <b>estudo de 2010 da Universidade Northwestern</b>, nos Estados Unidos, publicado no Journal of Neuroscience.</p>
-    <p>A equipe da pesquisadora Beverly Wright estava treinando pessoas pra distinguir sons parecidos.</p>
-    <p>E viu três coisas.</p>
+    <p>Quando eu mesmo comecei a fazer treino concentrado, <b>o meu inglês deu um salto gigante</b>.</p>
+    <p>Eu falava mais ou menos. Só que queria trabalhar nos Estados Unidos, e sabia que não podia ter um inglês meia-boca pra isso.</p>
+    <p>E foi fazendo exatamente isso que a minha pronúncia e o meu próprio listening melhoraram demais.</p>
+    <p>O que você precisa fazer, então? Pegar esse episódio de série e treinar o ouvido repetidamente, trecho a trecho, até entender 100% dele.</p>
+    <p>E quem sabe muito bem de treino concentrado, de novo, são os músicos. Eles não treinam dezenas de músicas ao mesmo tempo. Treinam <b>trechos</b>. Tudo dividido em pedaços menores, até ficar automático.</p>
+    <p>Aqui na Fluency Route, quando os alunos fazem isso, <b>eles literalmente começam a dar risada</b> ao ver que estão entendendo o primeiro episódio 100% em inglês.</p>
+    <p>Por isso, dentro do nosso treinamento, essa é uma das primeiras metas.</p>
+    <p>Porque depois que você entende o primeiro episódio, o segundo fica muito, mas muito mais fácil. O terceiro, nem se fala.</p>
+    <p>Isso acontece justamente por causa da fluência essencial. A cada novo episódio, ele já está <b>cheio de palavras, expressões e blocos de conversa que você treinou no anterior</b>.</p>
+    <p>E aí você começa a sentir uma evolução muito abrupta na sua fluência.</p>
 
-    <figure>
-      <figcaption>O estudo da Northwestern</figcaption>
-      <h3>Três jeitos de treinar o ouvido. Só um funcionou.</h3>
-      <p class="sub">Pessoas treinando pra distinguir sons parecidos.</p>
-      <div class="cond">
-        <div class="row"><div class="c"><small>Condição 1</small>Só ficar ouvindo os sons</div><span class="r">Não ensinou nada</span></div>
-        <div class="row"><div class="c"><small>Condição 2</small>Um treino curto, sozinho</div><span class="r">Também não</span></div>
-        <div class="row win"><div class="c"><small>Condição 3</small>Treino curto, seguido dos mesmos sons ao fundo enquanto a pessoa fazia outra tarefa</div><span class="r">Aprendizado forte</span></div>
-      </div>
-      <p class="src">Fonte: Wright e colaboradores, Journal of Neuroscience, 2010.</p>
-    </figure>
+    <h2>Série e discurso. Os dois.</h2>
+    <p>Até aqui eu falei de episódios de série. Os conversacionais.</p>
+    <p>Eles são muito importantes porque é neles que você treina o ouvido pra perceber <b>as emendas de palavra, as expressões mais usadas e o ritmo real de uma conversa</b>.</p>
+    <p>Só que tem outra coisa que você também precisa treinar: os <b>discursos</b>.</p>
+    <p>Pensa comigo. Num discurso, a pessoa sustenta uma ideia e explica o ponto de vista dela com vários argumentos, um atrás do outro.</p>
+    <p>Você também precisa ser bom nisso.</p>
+    <p>Pensa numa <b>entrevista de emprego no exterior</b>: você precisa discursar sobre por que eles deveriam te contratar. Ou numa conversa que toma outro rumo, e você vai explicar um ponto de vista seu.</p>
+    <p>Por isso, aqui na Fluency Route, os discursos são tratados com prioridade.</p>
+    <p>Enquanto nos métodos tradicionais você aprende conversa de aeroporto e de restaurante, aqui a gente já treina <u>o inglês pesado, que é o que quem quer ficar fluente realmente precisa</u>.</p>
+    <p>Discursos e conversacionais. Todos dentro de uma sequência de treinos concentrados.</p>
 
-    <p>O estudo era sobre som, e não sobre aula de inglês.</p>
-    <p>Só que <b>som é exatamente o que o seu ouvido precisa aprender</b>.</p>
-    <div class="pq">Então a receita é esta. <b>Um treino curtinho.</b> E depois <u>o mesmo áudio no fone, enquanto você dirige, treina na academia ou lava a louça</u>.</div>
-    <p>Os meus alunos apelidaram isso de <b>truque do foninho</b>.</p>
-    <p>De truque não tem nada, você acabou de ver o estudo.</p>
-    <p>Mas o nome pegou, e eu deixei.</p>
+    <div class="rule"><span class="num">IV</span><span class="line"></span><span class="t">Como foi comigo</span></div>
 
-    <div class="rule"><span class="num">II</span><span class="line"></span><span class="t">O detalhe</span></div>
-
-    <h2>O detalhe que derruba quem tenta sozinho</h2>
-    <p>Quando eu comecei a ensinar isso, uma coisa me tirava o sono.</p>
-    <p><b>Dois alunos, o mesmo inglês travado, o mesmo loop.</b></p>
-    <p>Um destravava rápido. O outro largava.</p>
-    <p>Demorei pra enxergar o motivo.</p>
-    <p>O primeiro estava treinando <b>um inglês que ele já conhecia</b>.</p>
-    <p>O segundo estava tentando <b>aprender palavra nova e treinar ao mesmo tempo</b>.</p>
-    <p>Pesado demais.</p>
-    <div class="pq">O loop só funciona de verdade com o inglês que <u>você já tem</u>.</div>
-    <p>E é aí que mora o problema.</p>
-    <p>Porque pra montar o seu, <b>você teria que saber</b>:</p>
-    <ul class="need">
-      <li><span class="n">01</span>Qual inglês você já conhece, palavra por palavra</li>
-      <li><span class="n">02</span>Que minuto pegar, de que cena, em que ordem</li>
-      <li><span class="n">03</span>Quantas vezes repetir</li>
-      <li><span class="n">04</span>Em que dia voltar em cada um, antes de esquecer</li>
-    </ul>
-    <p>Por muito tempo eu não tive como fazer isso pra cada aluno.</p>
-    <p class="lead"><u>Hoje eu tenho.</u></p>
+    <h2>Foi exatamente assim que eu fiquei fluente</h2>
+    <p>No começo, meu inglês começou a melhorar porque eu comecei a pesquisar conteúdo sobre a minha área. Melhorou só de eu estudar pro meu trabalho. Só que estudando em inglês.</p>
+    <p>Foi aí que eu tive a primeira sacada: <b>o inglês se aprendia, na verdade, com treino</b>.</p>
+    <p>Só que a minha área era vendas. E de tanto ver os americanos falando quanto ganhavam lá, eu fiquei com vontade de trabalhar lá também.</p>
+    <p>Só que meu inglês não era nem de perto suficiente.</p>
+    <p>E, querendo ou não, foi nesse contexto que eu entendi o que eram os treinos concentrados.</p>
+    <p>Você reparou como eu cito exemplo de músico com muita facilidade? Eu faço isso porque <b>a minha família é de músicos</b>, e eu também toco um pouquinho. Então eu já sabia muito bem disso.</p>
+    <p>Quando decidi melhorar o inglês ao nível de conseguir um emprego de vendedor nos Estados Unidos, eu sabia que ele tinha que ser perfeito.</p>
+    <p>Hoje, quando escuto gente dizendo que um inglês "comunicável" já está bom, pra mim aquilo não era verdade.</p>
+    <p><i>Imagina ligar pra um americano pão-duro, que não sabe quem você é, não quer falar com você, e você com um inglês comunicável.</i></p>
+    <p><b>Ele desliga na sua cara.</b></p>
+    <p>Só que eu persisti nesses treinos e meu inglês foi ficando de fato muito bom. Até o ponto em que eu atingi a minha meta e <b>consegui o emprego</b>. Trabalhando home office, daqui do Brasil mesmo.</p>
+    <p>E hoje eu tenho até orgulho disso, porque <u>sou uma pessoa que ficou fluente sem sequer ter saído do país</u>.</p>
+    <p>Depois eu passei isso pra minha irmã. Hoje ela trabalha numa multinacional, no RH, justamente <b>entrevistando pessoas pra ver o nível de inglês delas</b> em vagas que exigem fluência.</p>
+    <p>E não só isso: hoje a Fluency Route conta com centenas de alunos no mundo inteiro, destravando o inglês e de fato internalizando o idioma no subconsciente.</p>
+    <p>Olha o que esse aluno me mandou depois de começar os treinos concentrados.</p>
+    <p>E detalhe: <b>ele mora nos Estados Unidos</b> e estava fazendo aula presencial lá.</p>
+    <div class="proof"><p class="k">Prova</p><p>Áudio ou mensagem do aluno que mora nos Estados Unidos. Ele e a esposa largaram a escola presencial pra seguir os treinos.</p></div>
+    <p>E esse é só um exemplo, porque eu me divirto com o tipo de mensagem que os alunos me mandam quando começam a sentir a evolução.</p>
+    <p class="lead"><b>E isso pode acontecer com você também.</b></p>
   </div>
 
   <aside class="callout">
     <p class="k">Página 4 de 4</p>
-    <p class="bridge">O treino montado pro seu inglês está na próxima página:</p>
-    <a class="btn" href="#p4">Ver como isso ficou pronto pra você <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    <p class="bridge">O que você pode esperar do treinamento está na próxima página:</p>
+    <a class="btn" href="#p4">Ver o treinamento <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     <div class="arrows">
       <span style="transform:rotate(-22deg)"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>
       <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>
@@ -887,123 +779,156 @@ button.chip.off{background:var(--red-soft);border-color:var(--red);color:var(--r
   <a class="back" href="#p2">Voltar</a>
 </section>
 
-<!-- ================= PÁGINA 4 · OFERTA ================= -->
+<!-- ================= PÁGINA 4 ================= -->
 <section class="page" id="p4">
   <p class="eyebrow">O que você recebe</p>
-  <h1>Aqui está o que eu montei <span class="ac">pra você</span></h1>
+  <h1>"Tá, mas o que eu posso esperar <span class="ac">do treinamento</span> da Fluency Route?"</h1>
 
   <div class="hero">
     <p class="k">Fluency Route</p>
-    <h3>O seu treino de foninho, pronto, dia por dia.</h3>
-    <p class="s">A inteligência artificial mede quanto inglês você já tem e monta um treino só seu, em cima dele. Você dá o play e vai viver.</p>
-    <div class="chips"><span class="chip">Nivelamento em 10 min</span><span class="chip">6 habilidades mapeadas</span><span class="chip">Loop do dia no fone</span></div>
+    <h3>Os seus treinos concentrados, prontos, dia por dia.</h3>
+    <p class="s">A inteligência artificial mede quanto inglês você já tem e monta o treino em cima dele. Você coloca o fone e vai viver.</p>
+    <div class="chips"><span class="chip">Nivelamento em 10 min</span><span class="chip">6 habilidades mapeadas</span><span class="chip">Treino do dia no fone</span></div>
     <div class="shot"><img src="/carta-img/m-dashboard.png" alt="Tela inicial do app da Fluency Route: meta diária com três loops, Fluency Score e botão para começar o diagnóstico"></div>
   </div>
 
   <div class="body">
-    <p>Quem resolveu o meu problema foi a <b>inteligência artificial</b>.</p>
-    <p>Ela faz as duas coisas que eu não conseguia fazer na mão.</p>
-    <p><b>Mede quanto inglês você já tem.</b></p>
-    <p><b>E monta um treino só seu, em cima dele.</b></p>
-    <p>E como a gente já tinha milhares de alunos, deu pra testar isso <b>com gente de verdade</b>, e não em laboratório.</p>
-    <p class="lead">O resultado se chama <b>Fluency Route</b>.</p>
+    <p>Primeiro, aqui você tem uma <b>meta clara, real e sólida</b>. Que, além de virar o jogo no seu inglês de uma vez por todas, te faz sentir a sua evolução a cada dia.</p>
+    <p>Por isso, logo no início da jornada, a gente quer que você atinja o nível de <u>entender os seus primeiros episódios e discursos 100% em inglês, sem legenda</u>.</p>
+    <p>Depois disso, o seu ouvido e a sua fala nunca mais vão ser os mesmos.</p>
+    <p>E hoje tem uma coisa que a primeira versão da Fluency Route não tinha.</p>
+    <p>Quem resolveu o maior problema do método foi a <b>inteligência artificial</b>.</p>
+    <p>Ela faz as duas coisas que eu não conseguia fazer na mão pra cada aluno.</p>
     <ul class="bul">
-      <li><b>Não é curso.</b> Não tem aula pra assistir.</li>
-      <li><b>Não é aplicativo de joguinho.</b> Não te ensina palavra solta.</li>
+      <li><b>Mede quanto inglês você já tem.</b></li>
+      <li><b>E monta os seus treinos concentrados em cima dele.</b> Só com o inglês que você já conhece, no começo.</li>
     </ul>
-    <div class="pq">É o seu treino de foninho, pronto, dia por dia. <u>Você dá o play e vai viver.</u></div>
+    <p>Porque o treino concentrado funciona de verdade com o inglês que você já tem. Quem tenta com palavra nova e treino ao mesmo tempo acha pesado e larga.</p>
 
     <div class="rule"><span class="num">I</span><span class="line"></span><span class="t">Primeiros dias</span></div>
     <h2>O que acontece nos seus primeiros dias</h2>
 
     <div class="steps">
-      <div class="step"><div><p class="k">Dia 1</p><h4>Você faz o nivelamento</h4><p>Ele testa o seu ouvido, a sua leitura, a sua escrita e a sua fala no microfone, e te entrega <b>o mapa do seu inglês</b>.</p><p>Prepare-se pra um susto. Quase todo mundo descobre que <b>conhece bem mais do que imaginava</b>. Só que tudo na camada rasa.</p></div><div class="phone"><img src="/carta-img/m-dashboard.png" alt="Tela do app com o Fluency Score e o botão Comece seu diagnóstico"></div></div>
-      <div class="step noimg"><div><p class="k">Em seguida</p><h4>A tutora de IA monta o seu plano starter</h4><p>São os seus primeiros loops, feitos <b>só com o inglês que você já conhece</b>.</p><p>Zero palavra nova.</p></div></div>
-      <div class="step"><div><p class="k">Mesmo dia</p><h4>Você liga o modo foninho</h4><p>O loop do dia toca <b>com a tela do celular apagada</b>.</p><p>Você vai dirigir, treinar ou lavar a louça.</p></div><div class="screen-off"><svg viewBox="0 0 80 30" aria-hidden="true"><g fill="none" stroke="#2DB3A6" stroke-width="2" stroke-linecap="round"><path d="M4 15v0M10 10v10M16 6v18M22 11v8M28 4v22M34 12v6M40 8v14M46 13v4M52 5v20M58 10v10M64 7v16M70 12v6M76 15v0"/></g></svg><small>tela apagada</small></div></div>
-      <div class="step noimg"><div><p class="k">Primeiros loops</p><h4>Uma frase passa pela sua cabeça sem tradução</h4><p>Acontece nos primeiros loops, e você vai saber na hora.</p><p>Daí em diante não sou mais eu dizendo que funciona. <b>É você sentindo.</b></p></div></div>
-      <div class="step"><div><p class="k">Depois</p><h4>Você treina ouvido, e depois fala</h4><p>Cenas de série e discursos cortados em minutos.</p><p>Depois os blocos de conversa que mais se repetem, com a IA te mostrando <b>a sua pronúncia palavra por palavra</b>.</p></div><div class="phone"><img src="/carta-img/feat-shadowing.jpg" alt="Tela do app com o botão de microfone para imitar a frase da cena"></div></div>
-      <div class="step noimg"><div><p class="k">Meta</p><h4>Você entra na imersão</h4><p>Entendeu o primeiro episódio sem legenda?</p><p>Abre a biblioteca com <b>Friends, Two and a Half Men, How I Met Your Mother e discursos inteiros</b>, com a repetição espaçada já embutida.</p>
+      <div class="step"><div><p class="k">Dia 1</p><h4>Você faz o nivelamento</h4><p>Ele testa o seu ouvido, a sua leitura, a sua escrita e a sua fala no microfone, e te entrega <b>o mapa do seu inglês</b>.</p><p>Quase todo mundo descobre que <b>conhece bem mais do que imaginava</b>. Só que tudo na camada rasa.</p></div><div class="phone"><img src="/carta-img/m-dashboard.png" alt="Tela do app com o Fluency Score e o botão Comece seu diagnóstico"></div></div>
+      <div class="step noimg"><div><p class="k">Em seguida</p><h4>A tutora de IA monta o seu plano starter</h4><p>Os seus primeiros treinos concentrados, feitos <b>só com o inglês que você já conhece</b>.</p><p>Zero palavra nova.</p></div></div>
+      <div class="step"><div><p class="k">Mesmo dia</p><h4>Você liga o modo fone</h4><p>O treino do dia toca <b>com a tela do celular apagada</b>.</p><p>Você vai dirigir, treinar na academia ou lavar a louça.</p></div><div class="screen-off"><svg viewBox="0 0 80 30" aria-hidden="true"><g fill="none" stroke="#2DB3A6" stroke-width="2" stroke-linecap="round"><path d="M4 15v0M10 10v10M16 6v18M22 11v8M28 4v22M34 12v6M40 8v14M46 13v4M52 5v20M58 10v10M64 7v16M70 12v6M76 15v0"/></g></svg><small>tela apagada</small></div></div>
+      <div class="step noimg"><div><p class="k">Primeiros treinos</p><h4>Uma frase passa pela sua cabeça sem tradução</h4><p>Acontece nos primeiros treinos, e você vai saber na hora.</p><p>Daí em diante não sou mais eu dizendo que funciona. <b>É você sentindo.</b></p></div></div>
+      <div class="step"><div><p class="k">Depois</p><h4>Ouvido, e depois fala</h4><p>Cenas de série e discursos cortados em minutos.</p><p>Depois os blocos de conversa que mais se repetem, e o shadowing, com a IA te mostrando <b>a sua pronúncia palavra por palavra</b>.</p></div><div class="phone"><img src="/carta-img/feat-shadowing.jpg" alt="Tela do app com o botão de microfone para imitar a frase da cena"></div></div>
+      <div class="step noimg"><div><p class="k">Meta</p><h4>O primeiro episódio inteiro, sem legenda</h4><p>Quando você bate essa meta, abre a imersão: <b>Friends, Two and a Half Men, How I Met Your Mother e discursos inteiros</b>, com a repetição espaçada já embutida.</p>
         <div class="series"><div><img src="/carta-img/thumb-friends.jpg" alt="Friends"><p>Friends</p></div><div><img src="/carta-img/thumb-tahm.jpg" alt="Two and a Half Men"><p>Two and a Half Men</p></div><div><img src="/carta-img/thumb-himym.jpg" alt="How I Met Your Mother"><p>How I Met Your Mother</p></div></div>
       </div></div>
     </div>
 
     <p>E quando bater a dúvida se está funcionando, <b>você refaz o nivelamento e compara com o primeiro</b>.</p>
-    <p class="lead">Acabou o <i>"eu acho que melhorei"</i>.</p>
-    <p class="lead"><u>Agora é número.</u></p>
+    <p class="lead">Acabou o <i>"eu acho que melhorei"</i>. <u>Agora é número.</u></p>
 
-    <h2>Quer uma prova?</h2>
-    <p>Um aluno meu <b>mora nos Estados Unidos</b>.</p>
-    <p>Fazia aula presencial lá, cercado de americano.</p>
-    <p>Olha o que ele me mandou depois de começar os treinos.</p>
-    <div class="proof"><p class="k">Prova</p><p>Áudio ou mensagem do aluno que mora nos Estados Unidos. Ele e a esposa largaram a escola presencial pra seguir os treinos.</p></div>
+    <div class="rule"><span class="num">II</span><span class="line"></span><span class="t">As fases</span></div>
+    <h2>As três fases até a fluência essencial</h2>
+    <div class="fases">
+      <div class="fase"><p class="k">Fase 1</p><h4>Treinos de ouvido</h4><p>Você destrava o listening com discursos e cenas conversacionais. O seu ouvido vai ser lapidado até você parar de sentir que o americano fala rápido demais ou embolado.</p></div>
+      <div class="fase"><p class="k">Fase 2</p><h4>Treinos de fala</h4><p>A hora de destravar a boca com os blocos conversacionais e o shadowing. Pra soltar frases inteiras sem pensar palavra por palavra.</p></div>
+      <div class="fase"><p class="k">Fase 3</p><h4>A rota para a imersão</h4><p>Depois de lapidar o ouvido e a fala, você expande pro que realmente gosta: filmes, séries, podcasts, tudo sem legenda, treinando no seu dia a dia.</p></div>
+    </div>
+    <p>Tudo isso dentro do app da Fluency Route: temporadas completas, trechos conversacionais, discursos inteiros, blocos essenciais, scripts em inglês e português, materiais de repetição continuada e espaçada, e aulas complementares.</p>
+    <p>Tudo organizado, passo a passo, <b>sem distração e sem firula</b>.</p>
+    <p>Esse é o seu plano de voo até a fluência essencial.</p>
+    <p>E a partir do momento em que você destravar e cruzar essa linha, <u>você entra num ciclo de evolução que não para mais</u>.</p>
 
-    <div class="rule"><span class="num">II</span><span class="line"></span><span class="t">Cinco presentes</span></div>
-    <h2>E você ainda leva cinco presentes</h2>
+    <div class="rule"><span class="num">III</span><span class="line"></span><span class="t">Cinco presentes</span></div>
+    <h2>E ainda, pra deixar essa jornada completa</h2>
+    <p>Você vai levar alguns bônus que simplesmente <b>não deveriam nem ser bônus</b>.</p>
+    <p>Porque aqui na Fluency Route a gente não quer que você só entenda inglês. A gente quer ver você <b>vivendo</b> o inglês.</p>
+    <p>E sabe por quê? Porque depois que você atravessa a primeira fase da fluência essencial, depois que entende seus primeiros episódios sem legenda, a próxima coisa que nasce dentro de você é simples:</p>
+    <p class="lead"><b>A vontade absurda de conversar.</b></p>
+    <p>E é aí que o jogo muda.</p>
     <div class="gifts">
       <div class="gift wide"><div><p class="n">01</p><h4>IA de Pronúncia</h4><p>Pra você <b>parar de ter vergonha de como soa</b>.</p><p>Ela conhece os sons que o brasileiro mais erra, te ouve e te corrige na hora, sem ninguém olhando.</p></div><div class="thumb"><img src="/carta-img/feat-pron.jpg" alt="Tela do app com os sons do inglês que o brasileiro mais erra: TH, R e L, vogais"></div></div>
       <div class="gift"><div class="ico"><svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></div><div><p class="n">02</p><h4>Listening Lab</h4><p>Pro dia em que você quiser <b>puxar o ouvido</b>.</p><p>Fala emendada, da velocidade normal até a toda colada.</p></div></div>
-      <div class="gift"><div class="manu"><img src="/carta-img/manoella.png" alt="A Manu, tutora de conversa por voz"><div><p class="n">03</p><h4>A Manu</h4></div></div><p>Uma IA que <b>conversa com você em tempo real</b>, com emoção, em inglês, e em português se você travar.</p><p>Pra você ter com quem praticar às onze da noite, de pijama.</p></div>
-      <div class="gift wide"><div><p class="n">04</p><h4>Essential Musics</h4><p>Os <b>blocos essenciais do inglês em música</b>, pra grudar na cabeça igual refrão.</p></div><div class="thumb"><img src="/carta-img/feat-cantado.jpg" alt="Tela do app com o player de cena e a letra em inglês e português"></div></div>
+      <div class="gift"><div class="manu"><img src="/carta-img/manoella.png" alt="A Manu, tutora de conversa por voz"><div><p class="n">03</p><h4>A Manu</h4></div></div><p>Uma IA que <b>conversa com você em tempo real</b>, com emoção, em inglês, e em português se você travar.</p><p>Pra você ter com quem praticar quando a vontade de conversar bater.</p></div>
+      <div class="gift wide"><div><p class="n">04</p><h4>Essential Songs</h4><p>Os <b>blocos essenciais do inglês em música</b>, pra grudar na cabeça igual refrão.</p></div><div class="thumb"><img src="/carta-img/feat-cantado.jpg" alt="Tela do app com o player de cena e a letra em inglês e português"></div></div>
       <div class="gift wide"><div><p class="n">05</p><h4>Tutora de IA 24 horas</h4><p>Ela sabe o seu nível, o que você já treinou e o que vem depois.</p><p><b>Travou, pergunta.</b></p></div><div class="thumb"><img src="/carta-img/feat-manu.jpg" alt="Tela do app com a conversa por voz com a tutora"></div></div>
     </div>
 
-    <div class="rule"><span class="num">III</span><span class="line"></span><span class="t">O preço</span></div>
-    <h2>Agora o preço. E eu vou abrir a conta.</h2>
-    <p><b>Cursinho cobra de 500 a 800 reais por mês.</b></p>
-    <p>Dá de <b>6 a 9 mil reais por ano</b>.</p>
-    <p>Pra te manter anos colocando mais inglês na camada rasa.</p>
-    <p>A Fluency Route roda em cima de inteligência artificial paga em dólar.</p>
-    <p>Pela conta do custo, ela teria que sair por <b>200 reais por mês</b>. São 2.400 no ano.</p>
+    <div class="rule"><span class="num">IV</span><span class="line"></span><span class="t">O preço</span></div>
+    <h2>Agora deixa eu te contar uma coisa</h2>
+    <p>Quando você entende a lógica por trás do que eu te mostrei, fica fácil perceber <b>por que tanta gente continua travada no inglês por anos</b>.</p>
+    <p>É só olhar ao redor.</p>
+    <ul class="bul">
+      <li><b>Cursos tradicionais que cobram 500, 800 reais por mês</b> e seguram você lá por anos, decorando regra que não serve pra nada na vida real.</li>
+      <li><b>Aula presencial que parece nunca sair do lugar</b>, onde você vê conteúdo novo toda semana e não domina nem o básico do primeiro mês.</li>
+      <li>Ou pior: <b>gente que já gastou 10, 15 mil reais</b> em curso e viagem e ainda trava na hora de pedir um café.</li>
+    </ul>
+    <p>Não é falta de esforço.</p>
+    <p class="lead"><u>É falta do método certo.</u></p>
+    <p>E a verdade é que a gente poderia muito bem seguir pelo mesmo caminho. Cobrar <b>dois, três mil reais</b> por um método que realmente funciona e leva você à fluência essencial em tempo recorde.</p>
+    <p>Um resultado sólido, que você sente no ouvido e na boca.</p>
+    <p>E eu te garanto: ainda assim valeria cada centavo.</p>
 
     <figure>
       <figcaption>A conta aberta</figcaption>
       <h3>Um ano de cada caminho</h3>
       <div class="conta">
-        <div class="row"><div class="l">Cursinho<small>500 a 800 por mês</small></div><div class="track"><div class="fill" style="width:100%">R$ 6.000 a 9.000</div></div></div>
-        <div class="row mid"><div class="l">O que a conta do custo diz<small>200 por mês</small></div><div class="track"><div class="fill" style="width:27%">R$ 2.400</div></div></div>
+        <div class="row"><div class="l">Cursinho<small>500 a 800 por mês</small></div><div class="track"><div class="fill" style="width:100%">R$ 6.000 a 9.600</div></div></div>
+        <div class="row mid"><div class="l">O que a gente poderia cobrar<small>e ainda valeria</small></div><div class="track"><div class="fill" style="width:31%">R$ 3.000</div></div></div>
         <div class="row win"><div class="l">O que você paga<small>12 vezes de 49</small></div><div class="track"><div class="fill" style="width:9%;min-width:84px">R$ 588</div></div></div>
       </div>
     </figure>
 
-    <p class="lead"><u>Você não vai pagar isso.</u></p>
-    <p>Nem perto.</p>
-    <p>A gente bancou a construção inteira do próprio bolso.</p>
-    <p>E antes de montar um lançamento grande pra vender pelo valor cheio, eu decidi abrir <b>200 vagas num valor que só cobre o custo do desenvolvimento</b>.</p>
+    <p>Só que desde o primeiro dia da Fluency Route o nosso compromisso foi outro.</p>
+    <p>A missão sempre foi levar esse conhecimento pro maior número de pessoas. E fazer com que <b>qualquer pessoa realmente disposta a treinar</b> pudesse viver essa transformação.</p>
+    <p>Então, em vez de 3 mil ou 1.500 reais, a gente decidiu fazer totalmente diferente.</p>
 
     <div class="price">
-      <p class="k">200 vagas · plano anual</p>
-      <p class="was">R$ 2.400 por ano</p>
+      <p class="k">Treinamento completo · plano anual</p>
+      <p class="was">R$ 3.000</p>
       <p class="now"><small>12x</small> R$49</p>
       <p class="pl">no plano anual</p>
-      <p class="cmp"><b>Menos do que uma aula particular por mês.</b><br>Menos do que uma pizza no fim de semana.</p>
+      <p class="cmp"><b>Menos do que um livro didático.</b><br>Menos do que um jantar qualquer no fim de semana.</p>
       <a class="btn" href="https://pay.kiwify.com.br/jTO3lIy" target="_blank" rel="noopener">Quero fazer o meu nivelamento <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       <p class="after">Pagamento pela Kiwify. O acesso chega no seu e-mail em segundos.</p>
     </div>
 
-    <div class="rule"><span class="num">IV</span><span class="line"></span><span class="t">Garantias</span></div>
-    <h2>E o risco é todo meu</h2>
-    <div class="shield"><img src="/carta-img/shield-guarantee.png" alt="Escudo da garantia"></div>
-    <p style="text-align:center"><b>Você tem duas garantias.</b></p>
-    <div class="guar">
-      <div class="g"><p class="d">7 <small>dias</small></p><p class="t">Sem condição nenhuma</p><p>Entre. Faça o nivelamento. Receba o plano. Rode os primeiros loops.</p><p>Não gostou, por qualquer motivo?</p><p>Peça o dinheiro de volta e você recebe <b>100%</b>, sem formulário e sem ter que se explicar pra ninguém.</p></div>
-      <div class="g"><p class="d">90 <small>dias</small></p><p class="t">Pra quem aplicar</p><p>Faça o nivelamento, siga o plano da tutora, faça os loops do dia e as revisões que o app mostra.</p><p>Se em 90 dias:</p><ul><li>o americano ainda parecer rápido e embolado,</li><li>você não tiver começado a entender episódio de série sem legenda nem os seus primeiros discursos,</li><li>os blocos de conversa não estiverem saindo inteiros,</li><li>e o seu nivelamento não estiver acima do primeiro,</li></ul><p>me chame que <b>eu devolvo tudo</b>.</p></div>
-    </div>
-    <p>Eu não vou te prometer fluência em 90 dias.</p>
-    <p><i>Desconfie de quem promete.</i></p>
-    <div class="pq">O que eu prometo é mais simples. Ou o seu inglês começa a funcionar no automático, <u>ou você não paga um centavo</u>.</div>
+    <p style="margin-top:28px">Só que com um detalhe.</p>
+    <p>Com 49 reais por mês, <b>você não está comprando um curso</b>.</p>
+    <p>Você está recebendo todos os treinos concentrados de que precisa pra atingir as suas metas com o inglês. E contratando a gente como o seu <b>personal English trainer</b>, dentro de um método que vai com você até a fluência essencial acontecer.</p>
+    <p>Tudo seguindo as fases naturais da sua evolução.</p>
 
-    <h2>Aqui está exatamente o que fazer agora</h2>
-    <p><b>Clique no botão abaixo.</b></p>
-    <p>Você vai pra página da Kiwify, uma das maiores plataformas de produto digital do Brasil.</p>
-    <p>Preencha os seus dados.</p>
-    <p><b>Em segundos o acesso chega no seu e-mail.</b></p>
-    <p>Daqui a dez minutos você pode estar fazendo o seu nivelamento e <u>descobrindo quanto inglês você tem guardado aí</u>.</p>
+    <div class="rule"><span class="num">V</span><span class="line"></span><span class="t">Garantias</span></div>
+    <h2>Uma coisa que pouca gente tem coragem de oferecer</h2>
+    <div class="shield"><img src="/carta-img/shield-guarantee.png" alt="Escudo da garantia"></div>
+    <p style="text-align:center">Aqui na Fluency Route, a nossa missão é que você saia do platô, destrave de vez e sinta o inglês inteiro no automático. Por isso você tem <b>duas garantias</b> que deixam o seu risco simplesmente em zero.</p>
+    <div class="guar">
+      <div class="g"><p class="d">7 <small>dias</small></p><p class="t">Incondicional</p><p>Você entra hoje, conhece os treinos concentrados, faz o nivelamento, acessa o aplicativo, inicia seus treinos. Mexe em tudo.</p><p>E se em até 7 dias você sentir que não é pra você. Que não curtiu o meu jeito de ensinar. Que não acredita que vai funcionar. Ou que preferia mesmo gastar esse dinheiro com pizza.</p><p>É só pedir o reembolso e <b>100% do dinheiro volta</b>. Sem perguntas, sem formulário chato, sem precisar explicar nada pra ninguém.</p></div>
+      <div class="g"><p class="d">90 <small>dias</small></p><p class="t">Aplicação real</p><p>Pra quem quer entrar pra jogar o jogo, a gente vai além.</p><p>Se você seguir os treinos concentrados, colocar em prática o passo a passo e treinar o ouvido e a fala com consistência, e mesmo assim, em até 90 dias, não sentir que:</p><ul><li>a sua percepção de ouvido melhorou estrondosamente;</li><li>você começou a entender episódios de série sem legenda;</li><li>já consegue entender seus primeiros discursos completos;</li><li>e a sua fala está começando a fluir de forma muito mais natural,</li></ul><p>é só me chamar que <b>a gente devolve todo o seu investimento</b>.</p></div>
+    </div>
+    <p>Porque não faz sentido nenhum você continuar numa coisa que não entrega resultado real.</p>
+    <div class="pq">Aqui, ou você destrava e sente de fato a evolução na fluência, <u>ou a gente assume o risco no seu lugar</u>.</div>
+
+    <div class="rule"><span class="num">VI</span><span class="line"></span><span class="t">A decisão</span></div>
+    <h2>E agora você já entendeu tudo</h2>
+    <p>Quando eu mudei o foco pra treinar (treinar o ouvido, treinar a fala, treinar o essencial), <b>tudo mudou pra mim</b>.</p>
+    <p>E hoje, todos os dias, eu vejo alunos da Fluency Route em todos os lugares do mundo passando pelo mesmo caminho.</p>
+    <ul class="bul">
+      <li>Você entendeu que <b>a fluência real está no seu subconsciente</b>, e que o consciente nunca vai ter velocidade pra processar o inglês no nível de que você precisa.</li>
+      <li>Você viu que, pra levar o inglês pro subconsciente, só existe um caminho: <b>treino</b>.</li>
+      <li>Viu que existem dois tipos de treino: <b>os de ouvido</b>, pra parar de sofrer com o inglês embolado e rápido demais, e <b>os de fala</b>, pra se expressar no automático, sem travar e sem traduzir.</li>
+      <li>Viu que tudo isso é feito em cima da <b>fluência essencial</b>. Nada de abraçar o dicionário inteiro. As 500, 700 palavras mais usadas do inglês real, e conversar sobre qualquer coisa com naturalidade.</li>
+      <li>E viu que hoje uma IA <b>mede quanto desse inglês você já tem</b> e monta os treinos concentrados em cima dele. Com séries, discursos e repetição continuada e espaçada, exatamente do jeito que eu e meus alunos fizemos pra destravar de vez.</li>
+    </ul>
+    <p>E hoje você tem a chance de virar essa chave também.</p>
+    <p class="lead"><b>Agora a decisão é sua.</b></p>
+    <p>Você pode fechar esta carta e seguir do jeito que está. Pegando mais uma dica solta aqui, outra ali. Fazendo mais um curso, comprando mais uma apostila. E ficando mais um ano rodando em círculo.</p>
+    <p>Ou você pode entrar pra Fluency Route e <u>começar hoje mesmo a treinar o inglês do jeito certo</u>.</p>
+    <p>Está tudo pronto pra você.</p>
+    <p>Está tudo esperando por você.</p>
+    <p>Só falta clicar no botão aqui embaixo e garantir a sua vaga.</p>
+    <p>E aí, sim, a próxima história de transformação que eu vou contar por aqui pode ser a sua.</p>
   </div>
 
   <aside class="callout">
-    <p class="k">200 vagas · 12x R$49 · 7 e 90 dias de garantia</p>
+    <p class="k">12x R$49 · 7 e 90 dias de garantia</p>
     <p class="bridge">O seu nivelamento começa aqui:</p>
-    <a class="btn" href="https://pay.kiwify.com.br/jTO3lIy" target="_blank" rel="noopener">Quero fazer o meu nivelamento <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    <a class="btn" href="https://pay.kiwify.com.br/jTO3lIy" target="_blank" rel="noopener">Garantir a minha vaga <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     <div class="arrows">
       <span style="transform:rotate(-22deg)"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>
       <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>
@@ -1021,19 +946,15 @@ button.chip.off{background:var(--red-soft);border-color:var(--red);color:var(--r
     <p><span class="tag">P.S.</span> Pulou direto pro final? Tudo bem, eu também faço isso.</p>
     <p><b>A carta cabe em três frases.</b></p>
     <ul class="bul">
-      <li>As dez palavras mais usadas do inglês são 25% de tudo que se fala, e você já conhece as dez.</li>
-      <li>O que te trava não é falta de inglês, é <b>a camada do cérebro onde ele ficou</b>.</li>
-      <li>E o que resolve é <b>um treino curto seguido de um fone de ouvido</b>, enquanto você faz outra coisa.</li>
+      <li>Inglês é habilidade, e habilidade mora no subconsciente. Estudar coloca o inglês na camada errada.</li>
+      <li>O que leva ele pra camada certa é <b>treino concentrado com repetição</b>: um minuto de cena real, no fone, até ficar nítido.</li>
+      <li>E 500 palavras carregam mais de 90% do que se fala. <b>Você já conhece quase todas.</b></li>
     </ul>
-    <p><span class="tag">P.P.S.</span> Sobre as 200 vagas. Quando elas fecharem, a plataforma passa a custar os <b>200 reais por mês</b>.</p>
-    <p>Não vou colocar cronômetro falso nesta página.</p>
-    <p class="gap"><i>Só não fique bravo comigo se você voltar depois e o valor for outro.</i></p>
-    <p><span class="tag">P.P.P.S.</span> Lembre que você tem <b>7 dias pra mexer em tudo e pedir o dinheiro de volta</b> sem dar explicação.</p>
-    <p>O risco é meu, e não seu.</p>
+    <p class="gap"><span class="tag">P.P.S.</span> Lembre que você tem <b>7 dias pra mexer em tudo e pedir o dinheiro de volta</b> sem dar explicação. E 90 dias pra aplicar e sentir o resultado. O risco é meu, e não seu.</p>
   </div>
 
   <a class="back" href="#p3">Voltar</a>
-  <div class="foot">Fluency Route · Fontes citadas: Oxford English Corpus; Sebastian, Laird e Kiran (2011); Perani e colaboradores (Brain, 1998); Wright e colaboradores (Journal of Neuroscience, 2010). Imagem dos dois cérebros: Cargnelutti, Tomasino e Fabbro (2019), Frontiers in Human Neuroscience, Figura 3, licença CC BY, recortada. Pagamento processado pela Kiwify.</div>
+  <div class="foot">Fluency Route · Imagem dos dois cérebros: Cargnelutti, Tomasino e Fabbro (2019), Frontiers in Human Neuroscience, Figura 3, licença CC BY, recortada. Pagamento processado pela Kiwify.</div>
 </section>
 
 </main>

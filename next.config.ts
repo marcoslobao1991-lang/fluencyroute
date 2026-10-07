@@ -17,6 +17,8 @@ const nextConfig: NextConfig = {
         { source: '/bridge2', destination: '/bridge.html' },
         // sales letter escrita em 4 páginas por clique (fonte: ~/fluency-sales-letter/bridge-letter.html)
         { source: '/carta', destination: '/carta.html' },
+        // versão anterior da carta (texto do doc "E se você já soubesse"), guardada pra comparação
+        { source: '/carta-doc', destination: '/carta-doc.html' },
         // mesma cirurgia da bridge: vence a rota app/vsl — estática self-contained
         // (103KB total vs 15KB HTML + 673KB de chunks React). /vsl2 segue React.
         { source: '/vsl', destination: '/vsl.html' },
