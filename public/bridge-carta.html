@@ -1497,10 +1497,9 @@ figure .sub{line-height:1.6;margin-bottom:24px}
 </script>
 <script>
 (function(){
-if(window.__frNoTrack){return;}
 var EVENT_URL="/api/funnel-event";
 function sid(){try{var k="fr_bridge_sid",s=localStorage.getItem(k);if(!s){s=(crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2));localStorage.setItem(k,s)}return s}catch(e){return Date.now().toString(36)+Math.random().toString(36).slice(2)}}
-function track(ev,detail){try{var p=new URLSearchParams(location.search),row={funnel:"ingles",page:"bridge",variant:"carta",event:ev,detail:detail||null,session_id:sid(),path:(location.pathname+location.search).slice(0,500),referrer:document.referrer||null,user_agent:(navigator.userAgent||"").slice(0,500),utm_source:p.get("utm_source"),utm_medium:p.get("utm_medium"),utm_campaign:p.get("utm_campaign"),utm_content:p.get("utm_content"),utm_term:p.get("utm_term"),fbclid:p.get("fbclid")};fetch(EVENT_URL,{method:"POST",keepalive:true,headers:{"Content-Type":"application/json"},body:JSON.stringify(row)}).catch(function(){})}catch(e){}}
+function track(ev,detail){if(window.__frNoTrack)return;try{var p=new URLSearchParams(location.search),row={funnel:"ingles",page:"bridge",variant:"carta",event:ev,detail:detail||null,session_id:sid(),path:(location.pathname+location.search).slice(0,500),referrer:document.referrer||null,user_agent:(navigator.userAgent||"").slice(0,500),utm_source:p.get("utm_source"),utm_medium:p.get("utm_medium"),utm_campaign:p.get("utm_campaign"),utm_content:p.get("utm_content"),utm_term:p.get("utm_term"),fbclid:p.get("fbclid")};fetch(EVENT_URL,{method:"POST",keepalive:true,headers:{"Content-Type":"application/json"},body:JSON.stringify(row)}).catch(function(){})}catch(e){}}
 var q=location.search;
 document.querySelectorAll('a[href^="/vsl"]').forEach(function(a){if(q){var h=a.getAttribute('href');a.setAttribute('href', h + (h.indexOf('?')>-1?'&':'?') + q.slice(1));}a.addEventListener("click",function(){track("cta_click","bridge_carta")})});
 track("pageview");
