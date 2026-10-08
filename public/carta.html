@@ -2112,10 +2112,10 @@ figure .sub{line-height:1.6;margin-bottom:24px}
 
   /* ---------------- visualizador ---------------- */
   function view() {
-    var F = { days: 7, device: 'all', utm: null, mode: 'reach' }, DATA = null, LEIT = null;
+    var F = { days: 7, device: 'all', utm: null, mode: 'reach' }, DATA = null, LEIT = null, CURVA = null, SEL = -1;
     try { var sv = JSON.parse(localStorage.getItem('chm_view') || '{}'); for (var k in sv) F[k] = sv[k]; } catch (e) {}
     document.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('a[href*="kiwify"]'); if (a) { e.preventDefault(); } }, true);
-    var mq = qs.match(/[?&]m=(reach|dwell|clicks|leit)/); if (mq) F.mode = mq[1];
+    var mq = qs.match(/[?&]m=(reach|dwell|clicks|leit|curva)/); if (mq) F.mode = mq[1];
 
     var css = document.createElement('style');
     css.textContent = '#hm-l{position:absolute;left:0;top:0;width:100%;pointer-events:none;z-index:50}' +
@@ -2154,7 +2154,7 @@ figure .sub{line-height:1.6;margin-bottom:24px}
       })).then(function (rs) {
         var d = { pages: {}, utms: [] };
         rs.forEach(function (r, i) { var id = pages[i].id; if (r && r.pages && r.pages[id]) d.pages[id] = r.pages[id]; (r && r.utms || []).forEach(function (u) { if (d.utms.indexOf(u) < 0) d.utms.push(u); }); });
-        DATA = d; draw(); loadLeit();
+        DATA = d; draw(); loadLeit(); loadCurva();
       })
         .catch(function () { P.innerHTML = '<b>Mapa de calor</b> · erro ao carregar'; });
     }
@@ -2164,6 +2164,50 @@ figure .sub{line-height:1.6;margin-bottom:24px}
     function loadLeit() {
       fetch(SB + 'rpc/fr_carta_leitores', { method: 'POST', headers: headers(), body: JSON.stringify({ p_slug: SLUG, p_days: F.days, p_device: F.device, p_utm: F.utm, p_qa: /[?&]hm=qa/.test(qs) }) })
         .then(function (r) { return r.json(); }).then(function (j) { LEIT = j; if (F.mode === 'leit') draw(); }).catch(function () {});
+    }
+    /* ----- curva de retenção (estilo Crazy Egg), separando quem LEU de quem só ROLOU -----
+       Bloco lido = a pessoa ficou com ele na tela pelo menos o tempo de passar o olho no texto dele
+       (~200 ms por palavra = leitura dinâmica, mínimo 1,5 s, máximo 10 s). Quem desce rolando passa < 1 s em cada bloco.
+       "Chegou aqui" = o scroll passou por este ponto. "Leram" = % dos leitores que pararam pra ler este trecho (média de 5 blocos). */
+    var ORD = [], GI = {}; // ordem global dos blocos na carta inteira
+    pages.forEach(function (sec) { GI[sec.id] = ORD.length; B[sec.id].forEach(function (el, i) { ORD.push({ pg: sec.id, i: i, el: el, thr: Math.max(1500, Math.min(10000, ((el.textContent.match(/\S+/g) || []).length) * 200)) }); }); });
+    function loadCurva() {
+      fetch(SB + 'rpc/fr_carta_sessoes', { method: 'POST', headers: headers(), body: JSON.stringify({ p_slug: SLUG, p_vers: pages.map(function (s) { return VERS[s.id]; }), p_days: F.days, p_device: F.device, p_utm: F.utm, p_qa: /[?&]hm=qa/.test(qs) }) })
+        .then(function (r) { return r.json(); }).then(function (rows) { CURVA = curva(Array.isArray(rows) ? rows : []); if (F.mode === 'curva' || F.mode === 'leit') draw(); }).catch(function () {});
+    }
+    function curva(rows) {
+      var S = {}, G = ORD.length;
+      rows.forEach(function (r) { var sid = r[0], pg = r[1], s = S[sid] || (S[sid] = { seen: -1, read: -1, ck: false, pg: {} }); if (GI[pg] === undefined) return;
+        var base = GI[pg], d = r[3] || [], nr = 0, nv = 0;
+        if (r[2] >= 0) s.seen = Math.max(s.seen, base + Math.min(r[2], B[pg].length - 1));
+        for (var i = 0; i < B[pg].length; i++) { var o = ORD[base + i]; if (i <= r[2]) nv++; if ((d[i] || 0) >= o.thr) { nr++; s.read = Math.max(s.read, base + i); } }
+        s.pg[pg] = [nr, nv]; if (r[4]) s.ck = true; });
+      var ids = Object.keys(S), N = ids.length, viu = [], lendo = [], ck = 0;
+      for (var g = 0; g < G; g++) { viu[g] = 0; lendo[g] = 0; }
+      ids.forEach(function (k) { var s = S[k]; if (s.ck) ck++; for (var g = 0; g <= s.seen && g < G; g++) viu[g]++; });
+      rows.forEach(function (r) { var base = GI[r[1]]; if (base === undefined) return; var d = r[3] || []; for (var i = 0; i < B[r[1]].length; i++) if ((d[i] || 0) >= ORD[base + i].thr) lendo[base + i]++; });
+      // suaviza (média de 5 blocos dentro da mesma página), sem passar da curva de quem chegou
+      var lis = lendo.map(function (_, g) { var pg = ORD[g].pg, t = 0, c = 0; for (var k = g - 2; k <= g + 2; k++) if (ORD[k] && ORD[k].pg === pg) { t += lendo[k]; c++; } return Math.min(viu[g], t / c); });
+      return { N: N, viu: viu, lendo: lis, ck: ck, S: S };
+    }
+    function grafico() {
+      var C = CURVA; if (!C) return '<div class="hm-r">carregando curva…</div>';
+      if (!C.N) return '<div class="hm-r" style="color:#f5c26b">Ainda sem leitores nesta versão da carta e neste filtro.</div>';
+      var G = ORD.length, W = 600, H = 150, X = function (g) { return (g / Math.max(1, G - 1) * W).toFixed(1); }, Y = function (v) { return (8 + (1 - v / C.N) * (H - 8)).toFixed(1); };
+      var line = function (a) { return a.map(function (v, g) { return (g ? 'L' : 'M') + X(g) + ' ' + Y(v); }).join(''); };
+      var svg = '<svg viewBox="0 0 ' + W + ' ' + (H + 18) + '" preserveAspectRatio="none" style="width:100%;height:170px;display:block;margin-top:8px;cursor:crosshair" data-curva="1">';
+      [0.25, 0.5, 0.75].forEach(function (p) { svg += '<line x1="0" x2="' + W + '" y1="' + Y(C.N * p) + '" y2="' + Y(C.N * p) + '" stroke="#2a2a2a" stroke-width="1"/>'; });
+      pages.forEach(function (sec, k) { var x = X(GI[sec.id]); if (k) svg += '<line x1="' + x + '" x2="' + x + '" y1="0" y2="' + H + '" stroke="#555" stroke-dasharray="4 4" stroke-width="1"/>'; svg += '<text x="' + (+x + 4) + '" y="' + (H + 14) + '" fill="#888" font-size="12" font-family="system-ui">Pág. ' + (k + 1) + '</text>'; });
+      svg += '<path d="' + line(C.viu) + 'L' + W + ' ' + H + 'L0 ' + H + 'Z" fill="rgba(160,160,160,.18)"/><path d="' + line(C.viu) + '" fill="none" stroke="#9a9a9a" stroke-width="2" vector-effect="non-scaling-stroke"/>';
+      svg += '<path d="' + line(C.lendo) + 'L' + W + ' ' + H + 'L0 ' + H + 'Z" fill="rgba(45,179,166,.30)"/><path d="' + line(C.lendo) + '" fill="none" stroke="#2DB3A6" stroke-width="2.5" vector-effect="non-scaling-stroke"/>';
+      if (SEL >= 0) svg += '<line x1="' + X(SEL) + '" x2="' + X(SEL) + '" y1="0" y2="' + H + '" stroke="#fff" stroke-width="1.5" vector-effect="non-scaling-stroke"/>';
+      svg += '</svg>';
+      var pc = function (v) { return Math.round(v / C.N * 100) + '%'; }, info;
+      if (SEL >= 0) { var o = ORD[SEL], tx = (o.el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 70).replace(/</g, '');
+        info = 'Pág. ' + (pages.map(function (s) { return s.id; }).indexOf(o.pg) + 1) + ' · <b>' + pc(C.viu[SEL]) + '</b> chegaram aqui · <b style="color:#2DB3A6">' + pc(C.lendo[SEL]) + '</b> leram este trecho<br><span style="color:#888">“' + (tx || 'imagem') + '…”</span>'; }
+      else info = 'Toque no gráfico pra ver o ponto e ir até ele na carta.';
+      return svg + '<div class="hm-r" style="font-size:11.5px;color:#aaa;justify-content:space-between"><span><span style="color:#9a9a9a">━</span> chegou até aqui (rolou) &nbsp;<span style="color:#2DB3A6">━</span> leram este trecho</span><span>' + C.N + ' leitores · checkout <b>' + C.ck + '</b> (' + pc(C.ck) + ')</span></div>' +
+        '<div class="hm-r" style="font-size:12px;min-height:32px">' + info + '</div>';
     }
     function dur(ms) { var s = Math.round((ms || 0) / 1000); return s < 60 ? s + 's' : Math.floor(s / 60) + 'min' + (s % 60 ? ' ' + (s % 60) + 's' : ''); }
     function leitores() {
@@ -2180,10 +2224,12 @@ figure .sub{line-height:1.6;margin-bottom:24px}
           ids.map(function (id, i) {
             var p = (l.p || {})[id]; if (!p) return '<span style="opacity:.35">Pág. ' + (i + 1) + '<br>não abriu</span>';
             var viu = p[2] ? Math.min(1, p[1] / p[2]) : 0, need = (WORDS[id] || 1) * 300 * viu, lido = need ? Math.min(1, p[0] / need) : 0;
+            // com o tempo por bloco (versão atual da página): fração dos blocos vistos em que a pessoa parou pra ler
+            var bp = CURVA && CURVA.S[l.sid] && CURVA.S[l.sid].pg[id]; if (bp && bp[1]) lido = bp[0] / bp[1];
             return '<span title="viu ' + Math.round(viu * 100) + '% da página · tempo ' + Math.round(lido * 100) + '% do necessário pra ler o que viu">Pág. ' + (i + 1) + '<br><b style="color:#fff">' + dur(p[0]) + '</b> · ' + Math.round(viu * 100) + '%<i><b style="width:' + Math.round(lido * 100) + '%;background:' + (lido >= 0.6 ? '#2DB3A6' : lido >= 0.3 ? '#e0a020' : '#d04040') + '"></b></i></span>';
           }).join('') + '</div></div>';
       });
-      return h + '</div><div class="hm-r" style="font-size:11px;color:#888">Por página: tempo · quanto da página a pessoa viu. A barrinha compara o tempo com o necessário pra ler o que viu: verde leu, amarelo leu por cima, vermelho só rolou.</div>';
+      return h + '</div><div class="hm-r" style="font-size:11px;color:#888">Por página: tempo · quanto da página a pessoa viu. A barrinha mostra em quantos dos blocos vistos a pessoa parou pra ler: verde leu, amarelo leu por cima, vermelho só rolou.</div>';
     }
 
     function draw() {
@@ -2194,21 +2240,22 @@ figure .sub{line-height:1.6;margin-bottom:24px}
       if (pd && pd.sessions && F.mode !== 'leit') {
         var bl = B[pg], n = pd.sessions, reach = pd.reach || [], dwell = pd.dwell || [];
         var dmax = 1; dwell.forEach(function (v, i) { var g = top0(bl[i]); if (g.h) dmax = Math.max(dmax, v / Math.max(g.h, 120)); });
-        var lastLab = null;
+        var lastLab = null, CV = F.mode === 'curva' && CURVA && CURVA.N ? CURVA : null, RM = F.mode === 'reach' || F.mode === 'curva';
+        if (CV) { n = CV.N; reach = bl.map(function (_, i) { return CV.lendo[GI[pg] + i] || 0; }); }
         bl.forEach(function (el, i) {
           var g = top0(el); if (!g.h) return;
           var nb = bl[i + 1] ? top0(bl[i + 1]) : null, hh = nb && nb.h ? Math.max(g.h, nb.t - g.t) : g.h;
           var rp = (reach[i] || 0) / n;
           if (F.mode !== 'clicks') {
-            var t = F.mode === 'reach' ? rp : (dwell[i] || 0) / Math.max(g.h, 120) / dmax;
+            var t = RM ? rp : (dwell[i] || 0) / Math.max(g.h, 120) / dmax;
             var d = document.createElement('div'); d.className = 'hm-b'; d.style.top = g.t + 'px'; d.style.height = hh + 'px'; d.style.background = rgba(heat(t), 0.32); L.appendChild(d);
-            var lab = F.mode === 'reach' ? Math.round(rp * 100) + '%' : ((dwell[i] || 0) / 1000).toFixed(1).replace('.', ',') + ' s';
-            if (!(lab === lastLab && F.mode === 'reach')) { lastLab = lab;
+            var lab = RM ? (CV ? 'leram ' : '') + Math.round(rp * 100) + '%' : ((dwell[i] || 0) / 1000).toFixed(1).replace('.', ',') + ' s';
+            if (!(lab === lastLab && RM)) { lastLab = lab;
             var pl = document.createElement('div'); pl.className = 'hm-pill'; pl.style.top = (g.t + 2) + 'px'; pl.style.background = rgba(heat(t).map(function (c) { return Math.round(c * 0.7); }), 0.95); pl.textContent = lab; L.appendChild(pl); }
           }
           if (F.mode === 'reach' && i > 0) {
             var drop = ((reach[i - 1] || 0) - (reach[i] || 0)) / n;
-            if (drop >= 0.03) { var dr = document.createElement('div'); dr.className = 'hm-drop'; dr.style.top = g.t + 'px'; dr.innerHTML = '<span>−' + Math.round(drop * 100) + '% saíram aqui</span>'; L.appendChild(dr); }
+            if (drop >= 0.03) { var dr = document.createElement('div'); dr.className = 'hm-drop'; dr.style.top = g.t + 'px'; dr.innerHTML = '<span>−' + Math.round(drop * 100) + '% ' + (CV ? 'pararam de ler aqui' : 'saíram aqui') + '</span>'; L.appendChild(dr); }
           }
         });
         if (F.mode === 'clicks') (pd.clicks || []).forEach(function (c) {
@@ -2221,7 +2268,7 @@ figure .sub{line-height:1.6;margin-bottom:24px}
     }
 
     function panel(pg, pd, base) {
-      var ps = ['p1', 'p2', 'p3', 'p4'], all = DATA.pages || {}, n1 = (base && base.sessions) || 0, ck = 0;
+      var ps = pages.map(function (s) { return s.id; }), all = DATA.pages || {}, n1 = (base && base.sessions) || 0, ck = 0;
       ps.forEach(function (p) { ck += (all[p] && all[p].checkouts) || 0; });
       var min = P.classList.contains('min');
       var f = ps.map(function (p, i) { var n = (all[p] && all[p].sessions) || 0; return '<a href="#' + p + '" class="' + (p === pg ? 'on' : '') + '">Pág. ' + (i + 1) + '<small>' + n + (i && n1 ? ' · ' + Math.round(n / n1 * 100) + '%' : '') + '</small></a>'; }).join('') +
@@ -2231,16 +2278,23 @@ figure .sub{line-height:1.6;margin-bottom:24px}
       var opts = '<option value="">Todos os anúncios</option>' + (DATA.utms || []).map(function (u) { return '<option' + (u === F.utm ? ' selected' : '') + '>' + String(u).replace(/</g, '') + '</option>'; }).join('');
       P.innerHTML = '<div class="hm-t"><span><b>Mapa de calor</b> · ' + ((pd && pd.sessions) || 0) + ' leitores nesta página' + (pd && pd.avg_ms ? ' · ' + Math.round(pd.avg_ms / 1000) + ' s em média' : '') + '</span><button data-a="min">' + (min ? 'abrir' : 'fechar') + '</button></div>' +
         '<div class="hm-x"><div class="hm-f">' + f + '</div>' +
-        '<div class="hm-r"><button data-m="reach" class="' + (F.mode === 'reach' ? 'on' : '') + '">Retenção</button><button data-m="dwell" class="' + (F.mode === 'dwell' ? 'on' : '') + '">Atenção</button><button data-m="clicks" class="' + (F.mode === 'clicks' ? 'on' : '') + '">Cliques</button><button data-m="leit" class="' + (F.mode === 'leit' ? 'on' : '') + '">Leitores</button>' +
+        '<div class="hm-r"><button data-m="reach" class="' + (F.mode === 'reach' ? 'on' : '') + '">Retenção</button><button data-m="dwell" class="' + (F.mode === 'dwell' ? 'on' : '') + '">Atenção</button><button data-m="clicks" class="' + (F.mode === 'clicks' ? 'on' : '') + '">Cliques</button><button data-m="curva" class="' + (F.mode === 'curva' ? 'on' : '') + '">Curva</button><button data-m="leit" class="' + (F.mode === 'leit' ? 'on' : '') + '">Leitores</button>' +
         '<select data-s="days">' + [1, 7, 30, 90].map(function (d) { return '<option value="' + d + '"' + (d === F.days ? ' selected' : '') + '>' + (d === 1 ? 'Hoje' : d + ' dias') + '</option>'; }).join('') + '</select>' +
         '<select data-s="device"><option value="all">Todos</option><option value="mobile"' + (F.device === 'mobile' ? ' selected' : '') + '>Celular</option><option value="desktop"' + (F.device === 'desktop' ? ' selected' : '') + '>Computador</option></select>' +
         '<select data-s="utm">' + opts + '</select></div>' +
-        (F.mode === 'leit' ? leitores() : '<div class="hm-r" style="font-size:11.5px;color:#aaa">' + leg + '</div>') +
-        (!(pd && pd.sessions) && F.mode !== 'leit' ? '<div class="hm-r" style="color:#f5c26b">Ainda sem leitores nesta versão da carta e neste filtro.</div>' : '') + '</div>';
+        (F.mode === 'leit' ? leitores() : F.mode === 'curva' ? grafico() : '<div class="hm-r" style="font-size:11.5px;color:#aaa">' + leg + '</div>') +
+        (!(pd && pd.sessions) && F.mode !== 'leit' && F.mode !== 'curva' ? '<div class="hm-r" style="color:#f5c26b">Ainda sem leitores nesta versão da carta e neste filtro.</div>' : '') + '</div>';
       if (min) P.classList.add('min');
     }
 
     P.addEventListener('click', function (e) {
+      var sv = e.target.closest && e.target.closest('svg[data-curva]');
+      if (sv && ORD.length) {
+        var r = sv.getBoundingClientRect(); SEL = Math.max(0, Math.min(ORD.length - 1, Math.round((e.clientX - r.left) / r.width * (ORD.length - 1))));
+        var o = ORD[SEL]; if (cur() !== o.pg) { location.hash = o.pg; }
+        setTimeout(function () { var y = o.el.getBoundingClientRect().top + scrollY - 90; scrollTo(0, Math.max(0, y)); draw(); }, cur() !== o.pg ? 120 : 0);
+        return;
+      }
       var b = e.target.closest('button'); if (!b) return;
       if (b.dataset.a === 'min') { P.classList.toggle('min'); draw(); return; }
       if (b.dataset.m) { F.mode = b.dataset.m; save(); draw(); }

@@ -36,7 +36,7 @@ select jsonb_build_object(
     (select count(*) from ok where total_ms >= 60000 and total_ms < 180000),
     (select count(*) from ok where total_ms >= 180000 and total_ms < 600000),
     (select count(*) from ok where total_ms >= 600000)),
-  'list', coalesce((select jsonb_agg(jsonb_build_object('ini', ini, 'fim', fim, 'mobile', mobile, 'utm', utm, 'ms', total_ms, 'ck', checkout, 'p', pages) order by checkout desc, ini desc)
+  'list', coalesce((select jsonb_agg(jsonb_build_object('sid', sid, 'ini', ini, 'fim', fim, 'mobile', mobile, 'utm', utm, 'ms', total_ms, 'ck', checkout, 'p', pages) order by checkout desc, ini desc)
      from (select * from ok order by checkout desc, ini desc limit 300) z), '[]'::jsonb)
 );
 $$;
