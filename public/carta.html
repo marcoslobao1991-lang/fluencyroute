@@ -10,7 +10,7 @@
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://fluencyroute.com.br/carta-img/brain-segundo.jpg">
 <link rel="icon" href="/icon-192.png">
-<script>window.__frNoTrack=/[?&](fr_no_track|hm|hm_qa)=/.test(location.search);if(window.__frNoTrack){window.fbq=function(){};}</script><script>
+<script>(function(){var t=/[?&](hm|hm_qa)=/.test(location.search);try{var f=new URLSearchParams(location.search).get("fr_no_track");if(f==="1")localStorage.setItem("fr_no_track","1");else if(f==="0")localStorage.removeItem("fr_no_track");if(localStorage.getItem("fr_no_track")==="1")t=true}catch(e){if(/[?&]fr_no_track=1/.test(location.search))t=true}window.__frNoTrack=t;if(t){window.fbq=function(){};}})();</script><script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
 fbq('init','938768337634102');
 (function(){
@@ -2032,7 +2032,7 @@ figure .sub{line-height:1.6;margin-bottom:24px}
   var qs = location.search;
   var VIEW = /[?&]hm=/.test(qs);
   var QA = /[?&]hm_qa=/.test(qs); // teste: grava com sid qa_ (fora dos números reais), pixel mudo
-  var NOTRACK = VIEW || /[?&]fr_no_track=/.test(qs) || navigator.webdriver;
+  var NOTRACK = VIEW || window.__frNoTrack || /[?&]fr_no_track=1/.test(qs) || navigator.webdriver;
 
   var pages = [].slice.call(document.querySelectorAll('section.page'));
   function blocksOf(sec) {
