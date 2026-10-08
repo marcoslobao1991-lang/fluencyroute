@@ -2112,7 +2112,7 @@ figure .sub{line-height:1.6;margin-bottom:24px}
 
   /* ---------------- visualizador ---------------- */
   function view() {
-    var F = { days: 7, device: 'all', utm: null, mode: 'reach' }, DATA = null, LEIT = null, CURVA = null, SEL = -1;
+    var F = { days: 7, device: 'all', utm: null, mode: 'reach', ads: true }, DATA = null, LEIT = null, CURVA = null, SEL = -1;
     try { var sv = JSON.parse(localStorage.getItem('chm_view') || '{}'); for (var k in sv) F[k] = sv[k]; } catch (e) {}
     document.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('a[href*="kiwify"]'); if (a) { e.preventDefault(); } }, true);
     var mq = qs.match(/[?&]m=(reach|dwell|clicks|leit|curva)/); if (mq) F.mode = mq[1];
@@ -2150,7 +2150,7 @@ figure .sub{line-height:1.6;margin-bottom:24px}
     function load() {
       P.innerHTML = '<div class="hm-t"><b>Mapa de calor</b><span>carregando…</span></div>';
       Promise.all(pages.map(function (sec) {
-        return fetch(SB + 'rpc/fr_carta_heatmap', { method: 'POST', headers: headers(), body: JSON.stringify({ p_slug: SLUG, p_ver: VERS[sec.id], p_days: F.days, p_device: F.device, p_utm: F.utm, p_qa: /[?&]hm=qa/.test(qs) }) }).then(function (r) { return r.json(); });
+        return fetch(SB + 'rpc/fr_carta_heatmap', { method: 'POST', headers: headers(), body: JSON.stringify({ p_slug: SLUG, p_ver: VERS[sec.id], p_days: F.days, p_device: F.device, p_utm: F.utm, p_qa: /[?&]hm=qa/.test(qs), p_ads: F.ads !== false }) }).then(function (r) { return r.json(); });
       })).then(function (rs) {
         var d = { pages: {}, utms: [] };
         rs.forEach(function (r, i) { var id = pages[i].id; if (r && r.pages && r.pages[id]) d.pages[id] = r.pages[id]; (r && r.utms || []).forEach(function (u) { if (d.utms.indexOf(u) < 0) d.utms.push(u); }); });
@@ -2162,7 +2162,7 @@ figure .sub{line-height:1.6;margin-bottom:24px}
     // palavras por página → tempo de leitura esperado (~200 palavras/min no celular = 300 ms por palavra)
     var WORDS = {}; pages.forEach(function (sec) { WORDS[sec.id] = (sec.textContent.match(/\S+/g) || []).length; });
     function loadLeit() {
-      fetch(SB + 'rpc/fr_carta_leitores', { method: 'POST', headers: headers(), body: JSON.stringify({ p_slug: SLUG, p_days: F.days, p_device: F.device, p_utm: F.utm, p_qa: /[?&]hm=qa/.test(qs) }) })
+      fetch(SB + 'rpc/fr_carta_leitores', { method: 'POST', headers: headers(), body: JSON.stringify({ p_slug: SLUG, p_days: F.days, p_device: F.device, p_utm: F.utm, p_qa: /[?&]hm=qa/.test(qs), p_ads: F.ads !== false }) })
         .then(function (r) { return r.json(); }).then(function (j) { LEIT = j; if (F.mode === 'leit') draw(); }).catch(function () {});
     }
     /* ----- curva de retenção (estilo Crazy Egg), separando quem LEU de quem só ROLOU -----
@@ -2172,7 +2172,7 @@ figure .sub{line-height:1.6;margin-bottom:24px}
     var ORD = [], GI = {}; // ordem global dos blocos na carta inteira
     pages.forEach(function (sec) { GI[sec.id] = ORD.length; B[sec.id].forEach(function (el, i) { ORD.push({ pg: sec.id, i: i, el: el, thr: Math.max(1500, Math.min(10000, ((el.textContent.match(/\S+/g) || []).length) * 200)) }); }); });
     function loadCurva() {
-      fetch(SB + 'rpc/fr_carta_sessoes', { method: 'POST', headers: headers(), body: JSON.stringify({ p_slug: SLUG, p_vers: pages.map(function (s) { return VERS[s.id]; }), p_days: F.days, p_device: F.device, p_utm: F.utm, p_qa: /[?&]hm=qa/.test(qs) }) })
+      fetch(SB + 'rpc/fr_carta_sessoes', { method: 'POST', headers: headers(), body: JSON.stringify({ p_slug: SLUG, p_vers: pages.map(function (s) { return VERS[s.id]; }), p_days: F.days, p_device: F.device, p_utm: F.utm, p_qa: /[?&]hm=qa/.test(qs), p_ads: F.ads !== false }) })
         .then(function (r) { return r.json(); }).then(function (rows) { CURVA = curva(Array.isArray(rows) ? rows : []); if (F.mode === 'curva' || F.mode === 'leit') draw(); }).catch(function () {});
     }
     function curva(rows) {
@@ -2281,7 +2281,8 @@ figure .sub{line-height:1.6;margin-bottom:24px}
         '<div class="hm-r"><button data-m="reach" class="' + (F.mode === 'reach' ? 'on' : '') + '">Retenção</button><button data-m="dwell" class="' + (F.mode === 'dwell' ? 'on' : '') + '">Atenção</button><button data-m="clicks" class="' + (F.mode === 'clicks' ? 'on' : '') + '">Cliques</button><button data-m="curva" class="' + (F.mode === 'curva' ? 'on' : '') + '">Curva</button><button data-m="leit" class="' + (F.mode === 'leit' ? 'on' : '') + '">Leitores</button>' +
         '<select data-s="days">' + [1, 7, 30, 90].map(function (d) { return '<option value="' + d + '"' + (d === F.days ? ' selected' : '') + '>' + (d === 1 ? 'Hoje' : d + ' dias') + '</option>'; }).join('') + '</select>' +
         '<select data-s="device"><option value="all">Todos</option><option value="mobile"' + (F.device === 'mobile' ? ' selected' : '') + '>Celular</option><option value="desktop"' + (F.device === 'desktop' ? ' selected' : '') + '>Computador</option></select>' +
-        '<select data-s="utm">' + opts + '</select></div>' +
+        '<select data-s="utm">' + opts + '</select>' +
+        '<select data-s="ads"><option value="1">Só tráfego de anúncio</option><option value="0"' + (F.ads === false ? ' selected' : '') + '>Tudo (inclui nós e teste)</option></select></div>' +
         (F.mode === 'leit' ? leitores() : F.mode === 'curva' ? grafico() : '<div class="hm-r" style="font-size:11.5px;color:#aaa">' + leg + '</div>') +
         (!(pd && pd.sessions) && F.mode !== 'leit' && F.mode !== 'curva' ? '<div class="hm-r" style="color:#f5c26b">Ainda sem leitores nesta versão da carta e neste filtro.</div>' : '') + '</div>';
       if (min) P.classList.add('min');
@@ -2301,7 +2302,7 @@ figure .sub{line-height:1.6;margin-bottom:24px}
     });
     P.addEventListener('change', function (e) {
       var s = e.target.dataset.s; if (!s) return;
-      F[s] = s === 'days' ? +e.target.value : (e.target.value || null); if (s === 'device' && !F.device) F.device = 'all';
+      F[s] = s === 'days' ? +e.target.value : s === 'ads' ? e.target.value === '1' : (e.target.value || null); if (s === 'device' && !F.device) F.device = 'all';
       save(); load();
     });
     var rt; function later() { clearTimeout(rt); rt = setTimeout(draw, 150); }
