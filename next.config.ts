@@ -15,8 +15,10 @@ const nextConfig: NextConfig = {
       beforeFiles: [
         { source: '/bridge', destination: '/bridge.html' },
         { source: '/bridge2', destination: '/bridge.html' },
-        // sales letter escrita em 4 páginas por clique (fonte: ~/fluency-sales-letter/bridge-letter.html)
+        // sales letter em 4 páginas por clique (fonte: ~/fluency-sales-letter/sales-letter-v4.html), 12x R$29 DlmRal3
         { source: '/carta', destination: '/carta.html' },
+        // versão anterior (texto da VSL colado, bridge-letter.html), guardada
+        { source: '/carta-vsl', destination: '/carta-vsl.html' },
         // versão anterior da carta (texto do doc "E se você já soubesse"), guardada pra comparação
         { source: '/carta-doc', destination: '/carta-doc.html' },
         // mesma cirurgia da bridge: vence a rota app/vsl — estática self-contained
