@@ -2231,5 +2231,47 @@ figure .sub{line-height:1.6;margin-bottom:24px}
 })();
 
 </script>
+<script>
+/* Checkout da carta = mesmo rastreio da /vsl (public/vsl.html):
+   link da Kiwify com UTMs + sck + s1 (sessão), stitch em /api/checkout-session no clique
+   (o webhook da Kiwify acha a sessão pelo s1/sck e manda a Purchase pra Meta com fbc/fbp),
+   InitiateCheckout dual (pixel + CAPI, mesmo eventID) e funnel_events pageview/checkout_click.
+   Modo teste (?fr_no_track=1, ?hm=, ?hm_qa=) não grava nada. Página = carta. */
+(function () {
+  var VALUE = 289.00;
+  var CONTENT = { content_name: 'Rota da Fluência Essencial', currency: 'BRL', value: VALUE, content_ids: ['fluency-annual'], content_type: 'product' };
+  var SUPA_URL = 'https://petrtewismhpzidcmmwb.supabase.co/rest/v1/funnel_events';
+  var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBldHJ0ZXdpc21ocHppZGNtbXdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4MDg3NDYsImV4cCI6MjA4OTM4NDc0Nn0.CTGC11dPKawf3tFWrEu9jXgxn2oPmPMXQS9bFcN4o10';
+  var PAGE = 'carta';
+  var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'sck'];
+  function qp() { try { return new URLSearchParams(location.search) } catch (e) { return new URLSearchParams() } }
+  var TEST = window.__frNoTrack || /[?&](fr_no_track|hm|hm_qa)=/.test(location.search);
+  function uuid() { try { if (crypto.randomUUID) return crypto.randomUUID() } catch (e) { } return 'x' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10) }
+  function genEventId() { return Date.now() + '-' + Math.random().toString(36).slice(2, 10) }
+  function getCookie(n) { var m = document.cookie.match(new RegExp('(?:^|;\\s*)' + n + '=([^;]+)')); return m ? decodeURIComponent(m[1]) : '' }
+  function getFb() { var fbc = getCookie('_fbc'), fbp = getCookie('_fbp'); if (!fbc) { var id = qp().get('fbclid'); if (id) fbc = 'fb.1.' + Date.now() + '.' + id } return { fbc: fbc || undefined, fbp: fbp || undefined } }
+  var cachedIp = null;
+  function getIp(cb) { if (cachedIp) return cb(cachedIp); fetch('https://api.ipify.org?format=json').then(function (r) { return r.json() }).then(function (d) { cachedIp = d.ip; cb(cachedIp) }).catch(function () { cb(null) }) }
+  function beacon(url, payload) { var body = JSON.stringify(payload); try { var b = new Blob([body], { type: 'application/json' }); if (navigator.sendBeacon && navigator.sendBeacon(url, b)) return } catch (e) { } fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body, keepalive: true }).catch(function () { }) }
+  function getExtId() { var v = getCookie('_fluency_uid'); if (!v) { v = uuid(); document.cookie = '_fluency_uid=' + encodeURIComponent(v) + '; path=/; domain=.fluencyroute.com.br; max-age=' + (60 * 60 * 24 * 365 * 2) + '; SameSite=Lax' } return v }
+  function funnelSid() { try { var k = 'fr_sid', u = qp().get('fr_sid'); if (u) { localStorage.setItem(k, u); return u } var v = localStorage.getItem(k); if (!v) { v = uuid(); localStorage.setItem(k, v) } return v } catch (e) { return uuid() } }
+  function stitchSid() { try { var e = sessionStorage.getItem('fr_sid'); if (e) return e; var n = Date.now().toString(36) + Math.random().toString(36).slice(2, 12); sessionStorage.setItem('fr_sid', n); return n } catch (e) { return Date.now().toString(36) + Math.random().toString(36).slice(2, 12) } }
+  function frTrack(event, detail) { if (TEST) return; var p = qp(); var row = { funnel: 'ingles', page: PAGE, event: event, variant: null, detail: detail == null ? null : String(detail).slice(0, 200), session_id: funnelSid(), utm_source: p.get('utm_source'), utm_medium: p.get('utm_medium'), utm_campaign: p.get('utm_campaign'), utm_content: p.get('utm_content'), utm_term: p.get('utm_term'), fbclid: p.get('fbclid'), referrer: document.referrer || null, path: (location.pathname + location.search).slice(0, 500), user_agent: (navigator.userAgent || '').slice(0, 500) }; fetch(SUPA_URL, { method: 'POST', keepalive: true, headers: { 'apikey': ANON, 'Authorization': 'Bearer ' + ANON, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' }, body: JSON.stringify(row) }).catch(function () { }) }
+  function trackDual(event) { if (TEST) return; var eid = genEventId(); var fb = getFb(); if (window.fbq) fbq('track', event, CONTENT, { eventID: eid }); getIp(function (ip) { beacon('/api/track', { event: event, eventId: eid, fbc: fb.fbc, fbp: fb.fbp, external_id: getExtId(), client_ip_address: ip || undefined, client_user_agent: navigator.userAgent, value: VALUE, currency: 'BRL', content_name: CONTENT.content_name, content_ids: CONTENT.content_ids, content_type: 'product' }) }) }
+  function saveCheckoutSession(sid) { if (!sid || TEST) return; var fb = getFb(); var p = qp(); beacon('/api/checkout-session', { session_id: sid, fbc: fb.fbc, fbp: fb.fbp, fbclid: p.get('fbclid') || undefined, client_ip_address: cachedIp || undefined, client_user_agent: navigator.userAgent, utm_source: p.get('utm_source') || undefined, utm_medium: p.get('utm_medium') || undefined, utm_campaign: p.get('utm_campaign') || undefined, utm_content: p.get('utm_content') || undefined, utm_term: p.get('utm_term') || undefined, sck: p.get('sck') || undefined }) }
+
+  if (!TEST) { getIp(function () { }); frTrack('pageview'); saveCheckoutSession(stitchSid()); }
+  var p = qp(), sid = stitchSid();
+  document.querySelectorAll('a[href*="pay.kiwify.com.br"]').forEach(function (a) {
+    try { var u = new URL(a.getAttribute('href')); UTM_KEYS.forEach(function (k) { var v = p.get(k); if (v) u.searchParams.set(k, v) }); u.searchParams.set('s1', sid); a.href = u.toString(); a.setAttribute('data-ck', '1') } catch (e) { }
+    a.addEventListener('click', function () {
+      if (TEST) return;
+      try { var cur = new URL(a.href); var sck = cur.searchParams.get('sck'); if (sck) { var fb = getFb(); var pp = qp(); beacon('/api/checkout-session', { session_id: stitchSid() + '-click-' + Date.now().toString(36), fbc: fb.fbc, fbp: fb.fbp, fbclid: pp.get('fbclid') || undefined, client_ip_address: cachedIp || undefined, client_user_agent: navigator.userAgent, sck: sck, utm_source: pp.get('utm_source') || undefined, utm_medium: pp.get('utm_medium') || undefined, utm_campaign: pp.get('utm_campaign') || undefined, utm_content: pp.get('utm_content') || undefined, utm_term: pp.get('utm_term') || undefined }) } } catch (e) { }
+      saveCheckoutSession(stitchSid()); try { frTrack('checkout_click', (location.hash || '#p1').slice(1)) } catch (e) { } trackDual('InitiateCheckout');
+    });
+  });
+})();
+
+</script>
 </body>
 </html>
