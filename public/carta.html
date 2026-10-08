@@ -2102,9 +2102,9 @@ figure .sub{line-height:1.6;margin-bottom:24px}
     var css = document.createElement('style');
     css.textContent = '#hm-l{position:absolute;left:0;top:0;width:100%;pointer-events:none;z-index:50}' +
       '.hm-b{position:absolute;left:0;width:100%;mix-blend-mode:multiply}' +
-      '.hm-pill{position:absolute;left:6px;font:800 11px/1 ui-monospace,Menlo,monospace;color:#fff;padding:4px 6px;border-radius:5px;box-shadow:0 2px 6px rgba(0,0,0,.25);white-space:nowrap}' +
+      '.hm-pill{position:absolute;right:4px;opacity:.92;font:800 11px/1 ui-monospace,Menlo,monospace;color:#fff;padding:4px 6px;border-radius:5px;box-shadow:0 2px 6px rgba(0,0,0,.25);white-space:nowrap}' +
       '.hm-drop{position:absolute;left:0;width:100%;border-top:2px dashed #d00;}' +
-      '.hm-drop span{position:absolute;right:6px;top:-11px;font:800 11px/1 ui-monospace,Menlo,monospace;background:#d00;color:#fff;padding:4px 6px;border-radius:5px}' +
+      '.hm-drop span{position:absolute;left:4px;top:-11px;font:800 11px/1 ui-monospace,Menlo,monospace;background:#d00;color:#fff;padding:4px 6px;border-radius:5px}' +
       '.hm-dot{position:absolute;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:rgba(255,120,0,.45);box-shadow:0 0 10px 4px rgba(255,90,0,.35)}' +
       '.hm-dot.l{background:rgba(0,110,255,.5);box-shadow:0 0 10px 4px rgba(0,110,255,.35)}.hm-dot.c{background:rgba(220,0,40,.75);box-shadow:0 0 12px 5px rgba(220,0,40,.45)}' +
       '#hm-p{position:fixed;left:8px;right:8px;bottom:8px;z-index:99;max-width:640px;margin:0 auto;background:#111;color:#eee;border-radius:14px;padding:12px 12px 10px;font:500 12.5px/1.35 system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.45)}' +
@@ -2143,6 +2143,7 @@ figure .sub{line-height:1.6;margin-bottom:24px}
       if (pd && pd.sessions) {
         var bl = B[pg], n = pd.sessions, reach = pd.reach || [], dwell = pd.dwell || [];
         var dmax = 1; dwell.forEach(function (v, i) { var g = top0(bl[i]); if (g.h) dmax = Math.max(dmax, v / Math.max(g.h, 120)); });
+        var lastLab = null;
         bl.forEach(function (el, i) {
           var g = top0(el); if (!g.h) return;
           var nb = bl[i + 1] ? top0(bl[i + 1]) : null, hh = nb && nb.h ? Math.max(g.h, nb.t - g.t) : g.h;
@@ -2151,7 +2152,8 @@ figure .sub{line-height:1.6;margin-bottom:24px}
             var t = F.mode === 'reach' ? rp : (dwell[i] || 0) / Math.max(g.h, 120) / dmax;
             var d = document.createElement('div'); d.className = 'hm-b'; d.style.top = g.t + 'px'; d.style.height = hh + 'px'; d.style.background = rgba(heat(t), 0.32); L.appendChild(d);
             var lab = F.mode === 'reach' ? Math.round(rp * 100) + '%' : ((dwell[i] || 0) / 1000).toFixed(1).replace('.', ',') + ' s';
-            var pl = document.createElement('div'); pl.className = 'hm-pill'; pl.style.top = (g.t + 2) + 'px'; pl.style.background = rgba(heat(t).map(function (c) { return Math.round(c * 0.7); }), 0.95); pl.textContent = lab; L.appendChild(pl);
+            if (!(lab === lastLab && F.mode === 'reach')) { lastLab = lab;
+            var pl = document.createElement('div'); pl.className = 'hm-pill'; pl.style.top = (g.t + 2) + 'px'; pl.style.background = rgba(heat(t).map(function (c) { return Math.round(c * 0.7); }), 0.95); pl.textContent = lab; L.appendChild(pl); }
           }
           if (F.mode === 'reach' && i > 0) {
             var drop = ((reach[i - 1] || 0) - (reach[i] || 0)) / n;
