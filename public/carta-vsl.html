@@ -10,7 +10,7 @@
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://fluencyroute.com.br/carta-img/brain-segundo.jpg">
 <link rel="icon" href="/icon-192.png">
-<script>
+<script>window.__frNoTrack=/[?&](fr_no_track|hm|hm_qa)=/.test(location.search);if(window.__frNoTrack){window.fbq=function(){};}</script><script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
 fbq('init','938768337634102');
 (function(){
@@ -25,6 +25,7 @@ fbq('init','938768337634102');
     }
   }catch(e){}
   fbq('track','PageView',{},{eventID:eid});
+  if(window.__frNoTrack)return;
   try{
     var cs=document.cookie.split('; ');
     var fbc=(cs.find(function(c){return c.indexOf('_fbc=')===0})||'').split('=')[1];
@@ -1546,6 +1547,206 @@ figure .sub{line-height:1.6;margin-bottom:24px}
     if(a){ev('CartaCheckoutClick',{pagina:(location.hash||'#p1').replace('#','')});}
   });
 })();
+</script>
+<script>
+/* Mapa de calor da carta: rastreador (visitante) + visualizador (?hm=1).
+   Embutido pelo build-site.mjs, que troca o slug e a chave anon pelos valores reais.
+   Bloco = cada filho direto de section.page; dentro de .body, cada filho do .body.
+   Versão = hash da estrutura de blocos: mudou a estrutura, os dados recomeçam. */
+(function () {
+  var SLUG = 'carta-vsl';
+  var SB = 'https://petrtewismhpzidcmmwb.supabase.co/rest/v1/';
+  var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBldHJ0ZXdpc21ocHppZGNtbXdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4MDg3NDYsImV4cCI6MjA4OTM4NDc0Nn0.CTGC11dPKawf3tFWrEu9jXgxn2oPmPMXQS9bFcN4o10';
+  var qs = location.search;
+  var VIEW = /[?&]hm=/.test(qs);
+  var QA = /[?&]hm_qa=/.test(qs); // teste: grava com sid qa_ (fora dos números reais), pixel mudo
+  var NOTRACK = VIEW || /[?&]fr_no_track=/.test(qs) || navigator.webdriver;
+
+  var pages = [].slice.call(document.querySelectorAll('section.page'));
+  function blocksOf(sec) {
+    var out = [];
+    [].forEach.call(sec.children, function (c) {
+      if (c.tagName === 'SCRIPT' || c.tagName === 'STYLE') return;
+      if (c.classList.contains('body')) [].forEach.call(c.children, function (d) { if (d.tagName !== 'SCRIPT') out.push(d); });
+      else out.push(c);
+    });
+    return out;
+  }
+  var B = {}; pages.forEach(function (s) { B[s.id] = blocksOf(s); });
+  var sig = pages.map(function (s) { return s.id + ':' + B[s.id].map(function (e) { return e.tagName[0] + (e.className || '').split(' ')[0]; }).join(','); }).join('|');
+  var h = 5381; for (var i = 0; i < sig.length; i++) h = ((h << 5) + h + sig.charCodeAt(i)) >>> 0;
+  var VER = h.toString(36);
+  function cur() { var s = document.querySelector('section.page.on'); return s ? s.id : null; }
+  function headers() { return { apikey: ANON, Authorization: 'Bearer ' + ANON, 'Content-Type': 'application/json' }; }
+
+  if (!VIEW && (QA || !NOTRACK)) track();
+  if (VIEW) view();
+
+  /* ---------------- rastreador ---------------- */
+  function track() {
+    var sid; try { if (QA) sessionStorage.removeItem('chm_sid'); sid = sessionStorage.getItem('chm_sid'); if (!sid) { sid = Date.now().toString(36) + Math.random().toString(36).slice(2, 10); sessionStorage.setItem('chm_sid', sid); } if (QA && sid.indexOf('qa_')) sid = 'qa_' + sid; } catch (e) { sid = Date.now().toString(36) + Math.random().toString(36).slice(2, 10); }
+    var p = new URLSearchParams(qs);
+    var mobile = matchMedia('(pointer:coarse)').matches || innerWidth < 760;
+    var S = {};
+    function st(pg) { if (!S[pg]) S[pg] = { reached: -1, dwell: B[pg].map(function () { return 0; }), clicks: [], active: 0, checkout: false, dirty: false }; return S[pg]; }
+    var last = Date.now(), lastPage = cur();
+    ['scroll', 'touchstart', 'pointerdown', 'keydown', 'wheel'].forEach(function (ev) { addEventListener(ev, function () { last = Date.now(); }, { passive: true, capture: true }); });
+    var mm = 0; addEventListener('mousemove', function () { var n = Date.now(); if (n - mm > 1000) { mm = n; last = n; } }, { passive: true });
+
+    function flush(pg) {
+      var s = pg && S[pg]; if (!s || !s.dirty) return;
+      if (s.active < 1000 && !s.checkout) return;
+      s.dirty = false;
+      var row = { slug: SLUG, ver: VER, page: pg, sid: sid, n_blocks: B[pg].length, reached: s.reached, active_ms: s.active,
+        dwell: s.dwell.map(Math.round), clicks: s.clicks, checkout: s.checkout, mobile: mobile, vw: innerWidth,
+        utm_source: p.get('utm_source'), utm_campaign: p.get('utm_campaign'), utm_content: p.get('utm_content') };
+      var hd = headers(); hd.Prefer = 'return=minimal';
+      try { fetch(SB + 'carta_hm', { method: 'POST', keepalive: true, headers: hd, body: JSON.stringify(row) }).catch(function () {}); } catch (e) {}
+    }
+    function flushAll() { for (var k in S) flush(k); }
+
+    setInterval(function () {
+      var pg = cur(); if (!pg) return;
+      if (pg !== lastPage) { flush(lastPage); lastPage = pg; last = Date.now(); }
+      if (document.visibilityState !== 'visible' || Date.now() - last > 30000) return;
+      var s = st(pg), vh = innerHeight, bl = B[pg];
+      s.active += 500; s.dirty = true;
+      for (var i = 0; i < bl.length; i++) {
+        var r = bl[i].getBoundingClientRect(); if (!r.height) continue;
+        if (r.top < vh * 0.9 && i > s.reached) s.reached = i;
+        if (r.bottom > vh * 0.15 && r.top < vh * 0.85) s.dwell[i] += 500;
+      }
+    }, 500);
+    setInterval(flushAll, 30000);
+    document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') flushAll(); });
+    addEventListener('pagehide', flushAll);
+
+    document.addEventListener('click', function (e) {
+      var pg = cur(); if (!pg) return;
+      var s = st(pg), bl = B[pg], el = e.target, idx = -1;
+      while (el && el !== document.body) { idx = bl.indexOf(el); if (idx >= 0) break; el = el.parentElement; }
+      if (idx < 0) return;
+      var r = bl[idx].getBoundingClientRect();
+      var a = e.target.closest && e.target.closest('a');
+      var ck = !!(a && /kiwify/.test(a.href));
+      if (s.clicks.length < 60) s.clicks.push([idx, +((e.clientX - r.left) / r.width).toFixed(3), +((e.clientY - r.top) / r.height).toFixed(3), a ? (ck ? 2 : 1) : 0]);
+      s.dirty = true;
+      if (ck) { s.checkout = true; flush(pg); }
+    }, true);
+  }
+
+  /* ---------------- visualizador ---------------- */
+  function view() {
+    var F = { days: 7, device: 'all', utm: null, mode: 'reach' }, DATA = null;
+    try { var sv = JSON.parse(localStorage.getItem('chm_view') || '{}'); for (var k in sv) F[k] = sv[k]; } catch (e) {}
+    document.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('a[href*="kiwify"]'); if (a) { e.preventDefault(); } }, true);
+
+    var css = document.createElement('style');
+    css.textContent = '#hm-l{position:absolute;left:0;top:0;width:100%;pointer-events:none;z-index:50}' +
+      '.hm-b{position:absolute;left:0;width:100%;mix-blend-mode:multiply}' +
+      '.hm-pill{position:absolute;left:6px;font:800 11px/1 ui-monospace,Menlo,monospace;color:#fff;padding:4px 6px;border-radius:5px;box-shadow:0 2px 6px rgba(0,0,0,.25);white-space:nowrap}' +
+      '.hm-drop{position:absolute;left:0;width:100%;border-top:2px dashed #d00;}' +
+      '.hm-drop span{position:absolute;right:6px;top:-11px;font:800 11px/1 ui-monospace,Menlo,monospace;background:#d00;color:#fff;padding:4px 6px;border-radius:5px}' +
+      '.hm-dot{position:absolute;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:rgba(255,120,0,.45);box-shadow:0 0 10px 4px rgba(255,90,0,.35)}' +
+      '.hm-dot.l{background:rgba(0,110,255,.5);box-shadow:0 0 10px 4px rgba(0,110,255,.35)}.hm-dot.c{background:rgba(220,0,40,.75);box-shadow:0 0 12px 5px rgba(220,0,40,.45)}' +
+      '#hm-p{position:fixed;left:8px;right:8px;bottom:8px;z-index:99;max-width:640px;margin:0 auto;background:#111;color:#eee;border-radius:14px;padding:12px 12px 10px;font:500 12.5px/1.35 system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.45)}' +
+      '#hm-p.min .hm-x{display:none}#hm-p b{color:#fff}' +
+      '#hm-p .hm-r{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px}' +
+      '#hm-p button,#hm-p select{font:700 12px system-ui;border:0;border-radius:7px;padding:6px 9px;background:#2a2a2a;color:#ddd;cursor:pointer}' +
+      '#hm-p button.on{background:#0F766E;color:#fff}' +
+      '#hm-p .hm-f{display:flex;gap:4px;margin-top:8px}#hm-p .hm-f a{flex:1;text-decoration:none;color:#ddd;background:#1d1d1d;border-radius:8px;padding:6px 4px;text-align:center}' +
+      '#hm-p .hm-f a.on{outline:2px solid #2DB3A6}#hm-p .hm-f a small{display:block;color:#888;font-size:10.5px}' +
+      '#hm-p .hm-t{display:flex;justify-content:space-between;align-items:center;gap:8px}#hm-p .hm-lg{height:8px;flex:1;border-radius:4px;margin:0 6px}';
+    document.head.appendChild(css);
+    var L = document.createElement('div'); L.id = 'hm-l'; document.body.appendChild(L);
+    var P = document.createElement('div'); P.id = 'hm-p'; document.body.appendChild(P);
+
+    function heat(t) { // 0 = frio (azul) · 1 = quente (vermelho)
+      t = Math.max(0, Math.min(1, t));
+      var stops = [[0, [40, 90, 255]], [0.35, [0, 200, 120]], [0.65, [255, 220, 0]], [1, [255, 40, 20]]];
+      for (var i = 1; i < stops.length; i++) if (t <= stops[i][0]) { var a = stops[i - 1], b = stops[i], u = (t - a[0]) / (b[0] - a[0]); return [0, 1, 2].map(function (j) { return Math.round(a[1][j] + (b[1][j] - a[1][j]) * u); }); }
+      return stops[3][1];
+    }
+    function rgba(c, a) { return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a + ')'; }
+    function save() { try { localStorage.setItem('chm_view', JSON.stringify(F)); } catch (e) {} }
+
+    function load() {
+      P.innerHTML = '<div class="hm-t"><b>Mapa de calor</b><span>carregando…</span></div>';
+      fetch(SB + 'rpc/fr_carta_heatmap', { method: 'POST', headers: headers(), body: JSON.stringify({ p_slug: SLUG, p_ver: VER, p_days: F.days, p_device: F.device, p_utm: F.utm, p_qa: /[?&]hm=qa/.test(qs) }) })
+        .then(function (r) { return r.json(); }).then(function (d) { DATA = d; draw(); })
+        .catch(function () { P.innerHTML = '<b>Mapa de calor</b> · erro ao carregar'; });
+    }
+
+    function draw() {
+      var pg = cur(); L.innerHTML = ''; if (!DATA || !pg) return;
+      var pd = (DATA.pages || {})[pg], base = (DATA.pages || {}).p1;
+      var sy = scrollY, top0 = function (el) { var r = el.getBoundingClientRect(); return { t: r.top + sy, h: r.height, l: r.left, w: r.width }; };
+      var docH = document.documentElement.scrollHeight; L.style.height = docH + 'px';
+      if (pd && pd.sessions) {
+        var bl = B[pg], n = pd.sessions, reach = pd.reach || [], dwell = pd.dwell || [];
+        var dmax = 1; dwell.forEach(function (v, i) { var g = top0(bl[i]); if (g.h) dmax = Math.max(dmax, v / Math.max(g.h, 120)); });
+        bl.forEach(function (el, i) {
+          var g = top0(el); if (!g.h) return;
+          var nb = bl[i + 1] ? top0(bl[i + 1]) : null, hh = nb && nb.h ? Math.max(g.h, nb.t - g.t) : g.h;
+          var rp = (reach[i] || 0) / n;
+          if (F.mode !== 'clicks') {
+            var t = F.mode === 'reach' ? rp : (dwell[i] || 0) / Math.max(g.h, 120) / dmax;
+            var d = document.createElement('div'); d.className = 'hm-b'; d.style.top = g.t + 'px'; d.style.height = hh + 'px'; d.style.background = rgba(heat(t), 0.32); L.appendChild(d);
+            var lab = F.mode === 'reach' ? Math.round(rp * 100) + '%' : ((dwell[i] || 0) / 1000).toFixed(1).replace('.', ',') + ' s';
+            var pl = document.createElement('div'); pl.className = 'hm-pill'; pl.style.top = (g.t + 2) + 'px'; pl.style.background = rgba(heat(t).map(function (c) { return Math.round(c * 0.7); }), 0.95); pl.textContent = lab; L.appendChild(pl);
+          }
+          if (F.mode === 'reach' && i > 0) {
+            var drop = ((reach[i - 1] || 0) - (reach[i] || 0)) / n;
+            if (drop >= 0.03) { var dr = document.createElement('div'); dr.className = 'hm-drop'; dr.style.top = g.t + 'px'; dr.innerHTML = '<span>−' + Math.round(drop * 100) + '% saíram aqui</span>'; L.appendChild(dr); }
+          }
+        });
+        if (F.mode === 'clicks') (pd.clicks || []).forEach(function (c) {
+          var el = bl[c[0]]; if (!el) return; var g = top0(el); if (!g.h) return;
+          var d = document.createElement('div'); d.className = 'hm-dot' + (c[3] === 2 ? ' c' : c[3] === 1 ? ' l' : '');
+          d.style.left = (g.l + c[1] * g.w) + 'px'; d.style.top = (g.t + c[2] * g.h) + 'px'; L.appendChild(d);
+        });
+      }
+      panel(pg, pd, base);
+    }
+
+    function panel(pg, pd, base) {
+      var ps = ['p1', 'p2', 'p3', 'p4'], all = DATA.pages || {}, n1 = (base && base.sessions) || 0, ck = 0;
+      ps.forEach(function (p) { ck += (all[p] && all[p].checkouts) || 0; });
+      var min = P.classList.contains('min');
+      var f = ps.map(function (p, i) { var n = (all[p] && all[p].sessions) || 0; return '<a href="#' + p + '" class="' + (p === pg ? 'on' : '') + '">Pág. ' + (i + 1) + '<small>' + n + (i && n1 ? ' · ' + Math.round(n / n1 * 100) + '%' : '') + '</small></a>'; }).join('') +
+        '<a><span>Checkout</span><small>' + ck + (n1 ? ' · ' + (ck / n1 * 100).toFixed(1).replace('.', ',') + '%' : '') + '</small></a>';
+      var leg = F.mode === 'clicks' ? '<span style="color:#ff9a5a">● clique</span> <span style="color:#5aa0ff">● link</span> <span style="color:#ff4060">● checkout</span>'
+        : (F.mode === 'reach' ? 'poucos viram' : 'leitura rápida') + '<span class="hm-lg" style="background:linear-gradient(90deg,rgb(40,90,255),rgb(0,200,120),rgb(255,220,0),rgb(255,40,20))"></span>' + (F.mode === 'reach' ? 'todos viram' : 'mais tempo');
+      var opts = '<option value="">Todos os anúncios</option>' + (DATA.utms || []).map(function (u) { return '<option' + (u === F.utm ? ' selected' : '') + '>' + String(u).replace(/</g, '') + '</option>'; }).join('');
+      P.innerHTML = '<div class="hm-t"><span><b>Mapa de calor</b> · ' + ((pd && pd.sessions) || 0) + ' leitores nesta página' + (pd && pd.avg_ms ? ' · ' + Math.round(pd.avg_ms / 1000) + ' s em média' : '') + '</span><button data-a="min">' + (min ? 'abrir' : 'fechar') + '</button></div>' +
+        '<div class="hm-x"><div class="hm-f">' + f + '</div>' +
+        '<div class="hm-r"><button data-m="reach" class="' + (F.mode === 'reach' ? 'on' : '') + '">Retenção</button><button data-m="dwell" class="' + (F.mode === 'dwell' ? 'on' : '') + '">Atenção</button><button data-m="clicks" class="' + (F.mode === 'clicks' ? 'on' : '') + '">Cliques</button>' +
+        '<select data-s="days">' + [1, 7, 30, 90].map(function (d) { return '<option value="' + d + '"' + (d === F.days ? ' selected' : '') + '>' + (d === 1 ? 'Hoje' : d + ' dias') + '</option>'; }).join('') + '</select>' +
+        '<select data-s="device"><option value="all">Todos</option><option value="mobile"' + (F.device === 'mobile' ? ' selected' : '') + '>Celular</option><option value="desktop"' + (F.device === 'desktop' ? ' selected' : '') + '>Computador</option></select>' +
+        '<select data-s="utm">' + opts + '</select></div>' +
+        '<div class="hm-r" style="font-size:11.5px;color:#aaa">' + leg + '</div>' +
+        (!(pd && pd.sessions) ? '<div class="hm-r" style="color:#f5c26b">Ainda sem leitores nesta versão da carta e neste filtro.</div>' : '') + '</div>';
+      if (min) P.classList.add('min');
+    }
+
+    P.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      if (b.dataset.a === 'min') { P.classList.toggle('min'); draw(); return; }
+      if (b.dataset.m) { F.mode = b.dataset.m; save(); draw(); }
+    });
+    P.addEventListener('change', function (e) {
+      var s = e.target.dataset.s; if (!s) return;
+      F[s] = s === 'days' ? +e.target.value : (e.target.value || null); if (s === 'device' && !F.device) F.device = 'all';
+      save(); load();
+    });
+    var rt; function later() { clearTimeout(rt); rt = setTimeout(draw, 150); }
+    addEventListener('resize', later); addEventListener('hashchange', function () { setTimeout(draw, 60); });
+    addEventListener('load', later);
+    [].forEach.call(document.images, function (im) { if (!im.complete) im.addEventListener('load', later); });
+    load();
+  }
+})();
+
 </script>
 </body>
 </html>
