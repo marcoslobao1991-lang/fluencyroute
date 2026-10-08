@@ -1640,6 +1640,7 @@ figure .sub{line-height:1.6;margin-bottom:24px}
     var F = { days: 7, device: 'all', utm: null, mode: 'reach' }, DATA = null;
     try { var sv = JSON.parse(localStorage.getItem('chm_view') || '{}'); for (var k in sv) F[k] = sv[k]; } catch (e) {}
     document.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('a[href*="kiwify"]'); if (a) { e.preventDefault(); } }, true);
+    var mq = qs.match(/[?&]m=(reach|dwell|clicks)/); if (mq) F.mode = mq[1];
 
     var css = document.createElement('style');
     css.textContent = '#hm-l{position:absolute;left:0;top:0;width:100%;pointer-events:none;z-index:50}' +
@@ -1654,7 +1655,7 @@ figure .sub{line-height:1.6;margin-bottom:24px}
       '#hm-p .hm-r{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px}' +
       '#hm-p button,#hm-p select{font:700 12px system-ui;border:0;border-radius:7px;padding:6px 9px;background:#2a2a2a;color:#ddd;cursor:pointer}' +
       '#hm-p button.on{background:#0F766E;color:#fff}' +
-      '#hm-p .hm-f{display:flex;gap:4px;margin-top:8px}#hm-p .hm-f a{flex:1;text-decoration:none;color:#ddd;background:#1d1d1d;border-radius:8px;padding:6px 4px;text-align:center}' +
+      '#hm-p .hm-f{display:flex;gap:4px;margin-top:8px}#hm-p .hm-f a{flex:1;min-width:0;text-decoration:none;color:#ddd;background:#1d1d1d;border-radius:8px;padding:6px 4px;text-align:center}' +
       '#hm-p .hm-f a.on{outline:2px solid #2DB3A6}#hm-p .hm-f a small{display:block;color:#888;font-size:10.5px}' +
       '#hm-p .hm-t{display:flex;justify-content:space-between;align-items:center;gap:8px}#hm-p .hm-lg{height:8px;flex:1;border-radius:4px;margin:0 6px}';
     document.head.appendChild(css);
