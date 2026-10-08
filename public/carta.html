@@ -2073,7 +2073,7 @@ figure .sub{line-height:1.6;margin-bottom:24px}
       if (s.active < 1000 && !s.checkout) return;
       s.dirty = false;
       var row = { slug: SLUG, ver: VERS[pg], page: pg, sid: sid, n_blocks: B[pg].length, reached: s.reached, active_ms: s.active,
-        dwell: s.dwell.map(Math.round), clicks: s.clicks, checkout: s.checkout, mobile: mobile, vw: innerWidth,
+        dwell: s.dwell.map(Math.round), clicks: s.clicks, checkout: s.checkout, mobile: mobile, vw: innerWidth, vh: innerHeight,
         utm_source: p.get('utm_source'), utm_campaign: p.get('utm_campaign'), utm_content: p.get('utm_content') };
       var hd = headers(); hd.Prefer = 'return=minimal';
       try { fetch(SB + 'carta_hm', { method: 'POST', keepalive: true, headers: hd, body: JSON.stringify(row) }).catch(function () {}); } catch (e) {}
@@ -2112,10 +2112,13 @@ figure .sub{line-height:1.6;margin-bottom:24px}
 
   /* ---------------- visualizador ---------------- */
   function view() {
-    var F = { days: 7, device: 'all', utm: null, mode: 'reach', ads: true }, DATA = null, LEIT = null, CURVA = null, SEL = -1;
+    var F = { days: 7, device: 'all', utm: null, mode: 'scroll', ads: true }, DATA = null, LEIT = null, CURVA = null, SEL = -1;
     try { var sv = JSON.parse(localStorage.getItem('chm_view') || '{}'); for (var k in sv) F[k] = sv[k]; } catch (e) {}
     document.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('a[href*="kiwify"]'); if (a) { e.preventDefault(); } }, true);
-    var mq = qs.match(/[?&]m=(reach|dwell|clicks|leit|curva)/); if (mq) F.mode = mq[1];
+    if (F.mode === 'reach' || F.mode === 'dwell') F.mode = 'scroll'; // Retenção + Atenção viraram o Scrollmap
+    var mq = qs.match(/[?&]m=(scroll|clicks|leit|curva)/); if (mq) F.mode = mq[1];
+    var MK = -1; // marcador móvel do scrollmap (y na página); ?mk=600 abre já marcado (pra conferir)
+    var mkq = qs.match(/[?&]mk=(\d+)/); if (mkq) MK = +mkq[1];
 
     var css = document.createElement('style');
     css.textContent = '#hm-l{position:absolute;left:0;top:0;width:100%;pointer-events:none;z-index:50}' +
@@ -2237,6 +2240,32 @@ figure .sub{line-height:1.6;margin-bottom:24px}
       var pd = (DATA.pages || {})[pg], base = (DATA.pages || {}).p1;
       var sy = scrollY, top0 = function (el) { var r = el.getBoundingClientRect(); return { t: r.top + sy, h: r.height, l: r.left, w: r.width }; };
       var docH = document.documentElement.scrollHeight; L.style.height = docH + 'px';
+      /* ----- SCROLLMAP (cópia do Crazy Egg) -----
+         Uma faixa de cor contínua de cima a baixo da página. Cor = quanto tempo, em média por leitor,
+         aquele trecho ficou PARADO na tela: quente (vermelho/branco) = pararam pra ler, frio (azul) = passaram
+         rolando ou nem chegaram. Marcador móvel: % que chegou até ali + segundos de tela ali. Linha da dobra média. */
+      if (F.mode === 'scroll' && pd && pd.sessions) {
+        var sb = B[pg], sn = pd.sessions, sr = pd.reach || [], sd = pd.dwell || [], band = innerHeight * 0.7, pts = [], vmax = 0;
+        sb.forEach(function (el, i) { var g = top0(el); if (!g.h) return;
+          var per = (sd[i] || 0) * (sr[i] || 0) / sn;            // segundos de tela por leitor (todos os leitores)
+          var v = per * band / (g.h + band);                       // por faixa de altura (bloco alto não ganha só por ser alto)
+          pts.push({ t: g.t, h: g.h, mid: g.t + g.h / 2, v: v, per: per, rp: (sr[i] || 0) / sn }); vmax = Math.max(vmax, v); });
+        if (pts.length) {
+          var CE = [[0, [30, 60, 255]], [0.25, [0, 190, 255]], [0.45, [0, 210, 90]], [0.65, [255, 230, 0]], [0.85, [255, 40, 0]], [1, [255, 235, 235]]];
+          var ce = function (t) { t = Math.max(0, Math.min(1, t)); for (var k = 1; k < CE.length; k++) if (t <= CE[k][0]) { var a = CE[k - 1], b = CE[k], u = (t - a[0]) / (b[0] - a[0]); return [0, 1, 2].map(function (j) { return Math.round(a[1][j] + (b[1][j] - a[1][j]) * u); }); } return CE[CE.length - 1][1]; };
+          var y0 = pts[0].t, y1 = pts[pts.length - 1].t + pts[pts.length - 1].h;
+          var stops = pts.map(function (p) { return rgba(ce(Math.pow(vmax ? p.v / vmax : 0, 0.6)), 0.55) + ' ' + Math.round(p.mid - y0) + 'px'; });
+          var fx = document.createElement('div'); fx.style.cssText = 'position:absolute;left:0;width:100%;top:' + y0 + 'px;height:' + (y1 - y0) + 'px;background:linear-gradient(to bottom,' + stops.join(',') + ')'; L.appendChild(fx);
+          if (pd.fold) { var fl = document.createElement('div'); fl.className = 'hm-drop'; fl.style.top = pd.fold + 'px'; fl.style.borderTopColor = '#000'; fl.innerHTML = '<span style="background:#000">Dobra média · ' + pd.fold + 'px</span>'; L.appendChild(fl); }
+          if (MK >= 0) {
+            var pk = pts[0]; pts.forEach(function (p) { if (p.t <= MK) pk = p; });
+            var mk = document.createElement('div'); mk.style.cssText = 'position:absolute;left:0;width:100%;top:' + MK + 'px;border-top:2px solid #111';
+            mk.innerHTML = '<span style="position:absolute;right:6px;top:-30px;background:#111;color:#fff;font:700 12px/1.25 system-ui;padding:5px 8px;border-radius:6px;white-space:nowrap"><b style="font-size:14px;color:#fff">' + Math.round(pk.rp * 100) + '%</b> chegaram até aqui · <b style="color:#fff">' + (pk.per / 1000).toFixed(1).replace('.', ',') + ' s</b> de tela por leitor</span>';
+            L.appendChild(mk);
+          }
+        }
+        panel(pg, pd, base); return;
+      }
       if (pd && pd.sessions && F.mode !== 'leit') {
         var bl = B[pg], n = pd.sessions, reach = pd.reach || [], dwell = pd.dwell || [];
         var dmax = 1; dwell.forEach(function (v, i) { var g = top0(bl[i]); if (g.h) dmax = Math.max(dmax, v / Math.max(g.h, 120)); });
@@ -2273,12 +2302,13 @@ figure .sub{line-height:1.6;margin-bottom:24px}
       var min = P.classList.contains('min');
       var f = ps.map(function (p, i) { var n = (all[p] && all[p].sessions) || 0; return '<a href="#' + p + '" class="' + (p === pg ? 'on' : '') + '">Pág. ' + (i + 1) + '<small>' + n + (i && n1 ? ' · ' + Math.round(n / n1 * 100) + '%' : '') + '</small></a>'; }).join('') +
         '<a><span>Checkout</span><small>' + ck + (n1 ? ' · ' + (ck / n1 * 100).toFixed(1).replace('.', ',') + '%' : '') + '</small></a>';
-      var leg = F.mode === 'clicks' ? '<span style="color:#ff9a5a">● clique</span> <span style="color:#5aa0ff">● link</span> <span style="color:#ff4060">● checkout</span>'
+      var leg = F.mode === 'scroll' ? 'passaram rolando<span class="hm-lg" style="background:linear-gradient(90deg,rgb(30,60,255),rgb(0,190,255),rgb(0,210,90),rgb(255,230,0),rgb(255,40,0),rgb(255,235,235))"></span>pararam pra ler</div><div class="hm-r" style="font-size:11.5px;color:#aaa">' + (('ontouchstart' in window) ? 'Toque' : 'Passe o mouse') + ' na carta: mostra quantos chegaram até ali e quanto tempo ficaram com aquele trecho na tela.'
+        : F.mode === 'clicks' ? '<span style="color:#ff9a5a">● clique</span> <span style="color:#5aa0ff">● link</span> <span style="color:#ff4060">● checkout</span>'
         : (F.mode === 'reach' ? 'poucos viram' : 'leitura rápida') + '<span class="hm-lg" style="background:linear-gradient(90deg,rgb(40,90,255),rgb(0,200,120),rgb(255,220,0),rgb(255,40,20))"></span>' + (F.mode === 'reach' ? 'todos viram' : 'mais tempo');
       var opts = '<option value="">Todos os anúncios</option>' + (DATA.utms || []).map(function (u) { return '<option' + (u === F.utm ? ' selected' : '') + '>' + String(u).replace(/</g, '') + '</option>'; }).join('');
       P.innerHTML = '<div class="hm-t"><span><b>Mapa de calor</b> · ' + ((pd && pd.sessions) || 0) + ' leitores nesta página' + (pd && pd.avg_ms ? ' · ' + Math.round(pd.avg_ms / 1000) + ' s em média' : '') + '</span><button data-a="min">' + (min ? 'abrir' : 'fechar') + '</button></div>' +
         '<div class="hm-x"><div class="hm-f">' + f + '</div>' +
-        '<div class="hm-r"><button data-m="reach" class="' + (F.mode === 'reach' ? 'on' : '') + '">Retenção</button><button data-m="dwell" class="' + (F.mode === 'dwell' ? 'on' : '') + '">Atenção</button><button data-m="clicks" class="' + (F.mode === 'clicks' ? 'on' : '') + '">Cliques</button><button data-m="curva" class="' + (F.mode === 'curva' ? 'on' : '') + '">Curva</button><button data-m="leit" class="' + (F.mode === 'leit' ? 'on' : '') + '">Leitores</button>' +
+        '<div class="hm-r"><button data-m="scroll" class="' + (F.mode === 'scroll' ? 'on' : '') + '">Scrollmap</button><button data-m="clicks" class="' + (F.mode === 'clicks' ? 'on' : '') + '">Cliques</button><button data-m="curva" class="' + (F.mode === 'curva' ? 'on' : '') + '">Curva</button><button data-m="leit" class="' + (F.mode === 'leit' ? 'on' : '') + '">Leitores</button>' +
         '<select data-s="days">' + [1, 7, 30, 90].map(function (d) { return '<option value="' + d + '"' + (d === F.days ? ' selected' : '') + '>' + (d === 1 ? 'Hoje' : d + ' dias') + '</option>'; }).join('') + '</select>' +
         '<select data-s="device"><option value="all">Todos</option><option value="mobile"' + (F.device === 'mobile' ? ' selected' : '') + '>Celular</option><option value="desktop"' + (F.device === 'desktop' ? ' selected' : '') + '>Computador</option></select>' +
         '<select data-s="utm">' + opts + '</select>' +
@@ -2305,6 +2335,10 @@ figure .sub{line-height:1.6;margin-bottom:24px}
       F[s] = s === 'days' ? +e.target.value : s === 'ads' ? e.target.value === '1' : (e.target.value || null); if (s === 'device' && !F.device) F.device = 'all';
       save(); load();
     });
+    function marca(y) { if (F.mode !== 'scroll') return; MK = y; clearTimeout(rt); rt = setTimeout(draw, 16); }
+    document.addEventListener('mousemove', function (e) { if (!P.contains(e.target)) marca(e.pageY); });
+    document.addEventListener('click', function (e) { if (!P.contains(e.target)) marca(e.pageY); });
+    addEventListener('hashchange', function () { MK = -1; });
     var rt; function later() { clearTimeout(rt); rt = setTimeout(draw, 150); }
     addEventListener('resize', later); addEventListener('hashchange', function () { setTimeout(draw, 60); });
     addEventListener('load', later);
