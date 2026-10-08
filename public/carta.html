@@ -2103,7 +2103,8 @@ figure .sub{line-height:1.6;margin-bottom:24px}
       if (idx < 0) return;
       var r = bl[idx].getBoundingClientRect();
       var a = e.target.closest && e.target.closest('a');
-      var ck = !!(a && /kiwify/.test(a.href));
+      // checkout = link da Kiwify ou botão de compra que redireciona por código (VidroZap: .cta-assinar)
+      var ck = !!(a && /kiwify/.test(a.href)) || !!(e.target.closest && e.target.closest('.cta-assinar,[data-checkout]'));
       if (s.clicks.length < 60) s.clicks.push([idx, +((e.clientX - r.left) / r.width).toFixed(3), +((e.clientY - r.top) / r.height).toFixed(3), a ? (ck ? 2 : 1) : 0]);
       s.dirty = true;
       if (ck) { s.checkout = true; flush(pg); }
@@ -2254,7 +2255,10 @@ figure .sub{line-height:1.6;margin-bottom:24px}
           var CE = [[0, [30, 60, 255]], [0.25, [0, 190, 255]], [0.45, [0, 210, 90]], [0.65, [255, 230, 0]], [0.85, [255, 40, 0]], [1, [255, 235, 235]]];
           var ce = function (t) { t = Math.max(0, Math.min(1, t)); for (var k = 1; k < CE.length; k++) if (t <= CE[k][0]) { var a = CE[k - 1], b = CE[k], u = (t - a[0]) / (b[0] - a[0]); return [0, 1, 2].map(function (j) { return Math.round(a[1][j] + (b[1][j] - a[1][j]) * u); }); } return CE[CE.length - 1][1]; };
           var y0 = pts[0].t, y1 = pts[pts.length - 1].t + pts[pts.length - 1].h;
-          var stops = pts.map(function (p) { return rgba(ce(Math.pow(vmax ? p.v / vmax : 0, 0.6)), 0.55) + ' ' + Math.round(p.mid - y0) + 'px'; });
+          // ?abs=8 → escala FIXA em segundos de tela por leitor (8 s = vermelho), igual pra todas as páginas;
+          // sem abs, escala relativa à própria página (como o Crazy Egg)
+          var absq = qs.match(/[?&]abs=(\d+)/), ABS = absq ? +absq[1] * 1000 : 0;
+          var stops = pts.map(function (p) { var t = ABS ? Math.min(1, p.per / ABS) : Math.pow(vmax ? p.v / vmax : 0, 0.6); return rgba(ce(t), 0.55) + ' ' + Math.round(p.mid - y0) + 'px'; });
           var fx = document.createElement('div'); fx.style.cssText = 'position:absolute;left:0;width:100%;top:' + y0 + 'px;height:' + (y1 - y0) + 'px;background:linear-gradient(to bottom,' + stops.join(',') + ')'; L.appendChild(fx);
           if (pd.fold) { var fl = document.createElement('div'); fl.className = 'hm-drop'; fl.style.top = pd.fold + 'px'; fl.style.borderTopColor = '#000'; fl.innerHTML = '<span style="background:#000">Dobra média · ' + pd.fold + 'px</span>'; L.appendChild(fl); }
           if (MK >= 0) {
