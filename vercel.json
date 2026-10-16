@@ -7,6 +7,10 @@
     {
       "path": "/api/acesso-nudge",
       "schedule": "30 13 * * *"
+    },
+    {
+      "path": "/api/video-watch",
+      "schedule": "*/5 * * * *"
     }
   ]
 }

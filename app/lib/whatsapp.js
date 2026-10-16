@@ -50,6 +50,11 @@ export async function notifySale({ name, email, phone, method, installments, amo
   return sendText(MARCOS_PHONE, msg);
 }
 
+/** Alerta operacional pro Marcos (vigia do vídeo etc.) */
+export async function sendAlert(message) {
+  return sendText(MARCOS_PHONE, message);
+}
+
 /** Send welcome message to new student */
 export async function sendWelcome({ name, email, password, phone }) {
   if (!phone) return;
