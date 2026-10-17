@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f9fafb">
+<meta name="robots" content="noindex, nofollow">
+<title>Quiz de 1 minuto — Fluency Route</title>
+<meta name="description" content="Responda 4 perguntas e experimente o Loop de Repetição em ação.">
+<style>
+/* Molde: quiz "Método APA" (inlead) — fundo #f9fafb, tema #020617, título #0f172a, texto #6b7280, Inter, rounded-2xl, elementos 56px, barra de progresso flat, layout centralizado */
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{background:#f9fafb;color:#6b7280;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+header{position:sticky;top:0;background:#f9fafb;z-index:5;padding-top:env(safe-area-inset-top)}
+.hdr{height:48px;display:flex;align-items:center;justify-content:center;position:relative}
+.hdr .back{position:absolute;left:12px;top:0;height:48px;width:40px;display:flex;align-items:center;justify-content:center;background:none;border:0;color:#0f172a;cursor:pointer;visibility:hidden}
+.hdr .back svg{width:22px;height:22px}
+.hdr .logo{display:flex;align-items:center;gap:7px;color:#0f172a;font-weight:600;font-size:16px;letter-spacing:-.01em}
+.hdr .logo img{width:26px;height:26px}
+.bar{height:3px;background:#e5e7eb;margin:0 12px;border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#020617;transition:width .35s ease}
+main{flex:1;display:flex;flex-direction:column;width:100%;max-width:420px;margin:0 auto;padding:20px 16px 28px}
+.step{display:none;flex:1;flex-direction:column;animation:fade .25s ease}
+.step.on{display:flex}
+.step.center{justify-content:center;padding-bottom:12vh}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h1,h2{color:#0f172a;font-weight:700;letter-spacing:-.02em;line-height:1.2;text-align:center}
+h1{font-size:27px;margin-bottom:12px}
+h2{font-size:26px;margin-bottom:10px}
+p{text-align:center;color:#6b7280;font-size:16px}
+p.sub{margin-bottom:12px}
+p.hint{font-style:italic;color:#6b7280;margin-bottom:22px}
+p.blue{color:#2563eb;font-weight:600;margin-top:4px}
+.big{font-size:40px;line-height:1.1;color:#0f172a;font-weight:800;text-align:center;letter-spacing:-.03em}
+.sp{height:32px}.sp1{height:16px}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;height:56px;border-radius:16px;background:#020617;color:#fff;font:inherit;font-weight:600;font-size:17px;border:0;cursor:pointer;transition:transform .1s,opacity .2s}
+.btn:active{transform:scale(.985)}
+.btn[disabled]{opacity:.35;cursor:default}
+.btn.go{position:relative;padding:0 56px 0 24px;justify-content:flex-start;max-width:270px;margin:0 auto}
+.btn.go .arr{position:absolute;right:14px;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;border:1.5px solid rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center}
+.btn.go .arr svg{width:14px;height:14px}
+.opts{display:flex;flex-direction:column;gap:12px}
+.opt{display:flex;align-items:center;gap:12px;min-height:72px;padding:14px 16px;border-radius:16px;background:#fff;border:1px solid #e5e7eb;box-shadow:0 1px 2px rgba(15,23,42,.04);color:#0f172a;font:inherit;font-size:16px;line-height:1.35;text-align:left;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.opt .em{font-size:26px;width:32px;text-align:center;flex:none}
+.opt .ck{width:26px;height:26px;border-radius:7px;border:1.5px solid #d1d5db;background:#fff;flex:none;display:flex;align-items:center;justify-content:center}
+.opt .ck svg{width:16px;height:16px;opacity:0}
+.opt.sel{background:#020617;border-color:#020617;color:#fff}
+.opt.sel .ck{background:#fff;border-color:#fff}
+.opt.sel .ck svg{opacity:1}
+.img{display:block;width:100%;border-radius:16px;margin:0 auto}
+.quote{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:14px 16px;color:#0f172a;font-size:15px;line-height:1.45;margin-bottom:10px;text-align:left}
+.quote small{display:block;color:#6b7280;font-size:13px;margin-top:6px}
+.load{margin:16px 0 26px}
+.load .row{display:flex;justify-content:space-between;color:#0f172a;font-weight:600;font-size:15px;margin-bottom:8px}
+.load .trk{height:10px;border-radius:6px;background:#e5e7eb;overflow:hidden}
+.load .trk i{display:block;height:100%;width:0;background:#020617;border-radius:6px;transition:width .2s linear}
+.warn{background:#fff7ed;border:1px solid #fed7aa;border-radius:16px;padding:12px 14px;color:#9a3412;font-size:15px;text-align:center}
+footer{text-align:center;font-size:12px;color:#9ca3af;padding:14px 16px calc(16px + env(safe-area-inset-bottom))}
+.actions{margin-top:auto;padding-top:28px}
+</style>
+</head>
+<body>
+<header>
+  <div class="hdr">
+    <button class="back" id="back" aria-label="Voltar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <div class="logo"><img src="/carta-img/logo.png" alt=""><span>Fluency<b style="font-weight:800">Route</b></span></div>
+  </div>
+  <div class="bar"><i id="bar"></i></div>
+</header>
+
+<main>
+  <!-- 1 Promessa -->
+  <section class="step center" data-step="1" data-name="promessa">
+    <h1>Entenda o inglês falado em tempo recorde</h1>
+    <p class="sub">Preparamos uma experiência personalizada para você. Experimente o Loop de Repetição.</p>
+    <p class="blue">Quiz de 1 minuto</p>
+    <div class="sp"></div>
+    <button class="btn" data-next>Continuar</button>
+  </section>
+
+  <!-- 2 Prova social -->
+  <section class="step center" data-step="2" data-name="prova">
+    <div class="big">+ 700 brasileiros</div>
+    <p class="sub" style="margin-top:8px">entraram na Fluency Route nos últimos 12 meses para destravar o ouvido em inglês.</p>
+    <img class="img" src="/carta-img/cena-friends.jpg" alt="Cena de série usada no treino">
+    <div class="sp1"></div>
+    <p class="sub">O que a gente mais ouve de quem chega:</p>
+    <div class="quote">“eu até entendo algumas palavras, porém não entendo a frase toda, aí quando vou ver a frase, sei a tradução, mas no áudio como estava rápido não compreendi”<small>comentário real, YouTube</small></div>
+    <div class="quote">“entendo 80% do que falam quando tem legenda, mas quando é só listening, entendo só palavras soltas ou absolutamente nada”<small>comentário real, YouTube</small></div>
+    <div class="sp1"></div>
+    <button class="btn" data-next>Continuar</button>
+  </section>
+
+  <!-- 3 Objetivo -->
+  <section class="step" data-step="3" data-name="objetivo">
+    <h2>Qual é o seu principal objetivo com o inglês?</h2>
+    <p class="hint">(Escolha a opção que mais representa você)</p>
+    <div class="opts" data-multi="objetivo">
+      <button class="opt"><span class="em">🌎</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Viajar e me comunicar com segurança</span></button>
+      <button class="opt"><span class="em">💼</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Crescer na carreira ou conseguir um emprego melhor</span></button>
+      <button class="opt"><span class="em">🎓</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Passar em provas, intercâmbio ou certificações</span></button>
+      <button class="opt"><span class="em">📺</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Entender séries, filmes e vídeos sem legenda</span></button>
+      <button class="opt"><span class="em">🗣️</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Falar com mais confiança no dia a dia</span></button>
+      <button class="opt"><span class="em">🧠</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Desenvolver meu cérebro e me sentir mais inteligente</span></button>
+    </div>
+    <div class="actions"><button class="btn go" data-next disabled>Continuar<span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></button></div>
+  </section>
+
+  <!-- 4 Ajudar -->
+  <section class="step center" data-step="4" data-name="ajudar">
+    <h2>Legal, sabemos como te ajudar.</h2>
+    <p class="sub">Nos dê 21 dias e você vai entender o primeiro episódio de uma série sem legenda 💪</p>
+    <img class="img" src="/carta-img/app-cena.jpg" alt="Treino com cena de série">
+    <div class="sp"></div>
+    <button class="btn" data-next>Continuar</button>
+  </section>
+
+  <!-- 5 Assuntos -->
+  <section class="step" data-step="5" data-name="series">
+    <h2>E o que você mais gostaria de entender sem legenda?</h2>
+    <p class="hint">(Escolha todos que te interessam)</p>
+    <div class="opts" data-multi="series">
+      <button class="opt"><span class="em">☕</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Friends, How I Met Your Mother, The Office</span></button>
+      <button class="opt"><span class="em">🦸</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Filmes de ação, Marvel e Disney</span></button>
+      <button class="opt"><span class="em">🔎</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Séries de suspense, crime e drama</span></button>
+      <button class="opt"><span class="em">🎙️</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Entrevistas, podcasts e palestras</span></button>
+      <button class="opt"><span class="em">📱</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Vídeos no YouTube, TikTok e Instagram</span></button>
+      <button class="opt"><span class="em">🎵</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Músicas e clipes</span></button>
+      <button class="opt"><span class="em">🎮</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Jogos, lives e streamers</span></button>
+      <button class="opt"><span class="em">📰</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Notícias e documentários</span></button>
+      <button class="opt"><span class="em">💬</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Conversas reais com nativos</span></button>
+      <button class="opt"><span class="em">💼</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Reuniões e conteúdo do meu trabalho</span></button>
+      <button class="opt"><span class="em">🧒</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Desenhos e animações</span></button>
+      <button class="opt"><span class="em">✨</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Curiosidades no geral</span></button>
+    </div>
+    <div class="actions"><button class="btn go" data-next disabled>Continuar<span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></button></div>
+  </section>
+
+  <!-- 6 Curiosidade -->
+  <section class="step center" data-step="6" data-name="curiosidade">
+    <h2>As 100 palavras mais comuns do inglês cobrem cerca de metade de tudo que é falado</h2>
+    <p class="sub">É o que mostra a pesquisa de Paul Nation, da Universidade de Victoria. E você já conhece quase todas elas.</p>
+    <p class="sub">É por isso que o Loop de Repetição treina primeiro o inglês que você já sabe, até o seu ouvido reconhecer ele na velocidade real das séries e das conversas ❤️</p>
+    <div class="sp"></div>
+    <button class="btn" data-next>Continuar</button>
+  </section>
+
+  <!-- 7 Impedimentos -->
+  <section class="step" data-step="7" data-name="impedimentos">
+    <h2>O que mais te impede de entender e falar inglês com confiança hoje?</h2>
+    <p class="hint">(Escolha todas que se aplicam)</p>
+    <div class="opts" data-multi="impedimentos">
+      <button class="opt"><span class="em">👂</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Entendo lendo, mas não entendo ouvindo</span></button>
+      <button class="opt"><span class="em">😳</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Tenho vergonha ou medo de errar</span></button>
+      <button class="opt"><span class="em">🔁</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Penso em português e me enrolo tentando traduzir</span></button>
+      <button class="opt"><span class="em">🧠</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Já estudei, mas esqueço tudo com facilidade</span></button>
+      <button class="opt"><span class="em">🧑‍🏫</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Entendo o professor, mas não entendo o nativo</span></button>
+      <button class="opt"><span class="em">🤝</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Estudo, mas nunca tenho com quem praticar</span></button>
+      <button class="opt"><span class="em">⏰</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Minha rotina é corrida, não consigo manter o ritmo</span></button>
+      <button class="opt"><span class="em">🚪</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Já tentei vários métodos e sempre acabo desistindo</span></button>
+      <button class="opt"><span class="em">🧭</span><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Não sei nem por onde começar</span></button>
+    </div>
+    <div class="actions"><button class="btn go" data-next disabled>Continuar<span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></button></div>
+  </section>
+
+  <!-- 8 Loading -->
+  <section class="step center" data-step="8" data-name="loading">
+    <div class="load"><div class="row"><span>Carregando...</span><span id="pct">0%</span></div><div class="trk"><i id="ld"></i></div></div>
+    <h2>👏 Obrigado por responder todas as perguntas.</h2>
+    <p class="sub">Já estamos preparando algo especial para você!</p>
+  </section>
+
+  <!-- 9 Experimento -->
+  <section class="step center" data-step="9" data-name="experimento">
+    <h2>Posso te mostrar como tudo se encaixa agora?</h2>
+    <p class="sub">👉 A gente preparou um vídeo com um experimento prático, para você experimentar o Loop de Repetição em ação.</p>
+    <p class="sub">✅ Depois, te mostramos por que ele funciona e te apresentamos um plano prático para aplicar todos os dias, usando só o seu celular e um fone de ouvido.</p>
+    <p class="sub" style="color:#0f172a;font-weight:600;margin-top:6px">Topa fazer esse experimento?</p>
+    <div class="sp"></div>
+    <button class="btn" data-next>SIM, TOPO!</button>
+  </section>
+
+  <!-- 10 Assistir até o final -->
+  <section class="step center" data-step="10" data-name="aviso">
+    <h2>Perfeito, mas antes, um aviso:</h2>
+    <p class="sub">deixamos um presente especial para quem assistir até o final. 🎁</p>
+    <p class="sub">Ao terminar o vídeo ainda hoje, você desbloqueia um convite especial com bônus exclusivos e uma garantia para testar sem risco.</p>
+    <div class="sp1"></div>
+    <div class="warn">⚠️ Mas atenção: esse presente só é liberado depois do vídeo, então assista até o fim</div>
+    <div class="sp"></div>
+    <button class="btn" id="cta">🎬 ASSISTIR VÍDEO AGORA</button>
+  </section>
+</main>
+<footer>© 2026 Fluency Route</footer>
+
+<script>
+(function(){
+'use strict';
+var PIXEL='938768337634102';
+var TOTAL=10;
+var SUPA_URL='https://petrtewismhpzidcmmwb.supabase.co/rest/v1/funnel_events';
+var ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBldHJ0ZXdpc21ocHppZGNtbXdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4MDg3NDYsImV4cCI6MjA4OTM4NDc0Nn0.CTGC11dPKawf3tFWrEu9jXgxn2oPmPMXQS9bFcN4o10';
+
+// ── helpers (mesmos da /vsl) ──
+function qp(){try{return new URLSearchParams(location.search)}catch(e){return new URLSearchParams()}}
+function uuid(){try{if(crypto.randomUUID)return crypto.randomUUID()}catch(e){}return 'x'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10)}
+function genEventId(){return Date.now()+'-'+Math.random().toString(36).slice(2,10)}
+function getCookie(n){var m=document.cookie.match(new RegExp('(?:^|;\\s*)'+n+'=([^;]+)'));return m?decodeURIComponent(m[1]):''}
+function getFb(){var fbc=getCookie('_fbc'),fbp=getCookie('_fbp');if(!fbc){var id=qp().get('fbclid');if(id)fbc='fb.1.'+Date.now()+'.'+id}return{fbc:fbc||undefined,fbp:fbp||undefined}}
+function beacon(url,payload){var body=JSON.stringify(payload);try{var b=new Blob([body],{type:'application/json'});if(navigator.sendBeacon&&navigator.sendBeacon(url,b))return}catch(e){}fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:body,keepalive:true}).catch(function(){})}
+function getExtId(){var v=getCookie('_fluency_uid');if(!v){v=uuid();document.cookie='_fluency_uid='+encodeURIComponent(v)+'; path=/; domain=.fluencyroute.com.br; max-age='+(60*60*24*365*2)+'; SameSite=Lax'}return v}
+function funnelSid(){try{var k='fr_sid',u=qp().get('fr_sid');if(u){localStorage.setItem(k,u);return u}var v=localStorage.getItem(k);if(!v){v=uuid();localStorage.setItem(k,v)}return v}catch(e){return uuid()}}
+function noTrack(){try{var f=qp().get('fr_no_track');if(f==='1')localStorage.setItem('fr_no_track','1');else if(f==='0')localStorage.removeItem('fr_no_track');return localStorage.getItem('fr_no_track')==='1'}catch(e){return false}}
+function frTrack(event,detail){if(noTrack())return;var p=qp();var row={funnel:'ingles',page:'quiz',event:event,variant:'poli',detail:detail==null?null:String(detail).slice(0,200),session_id:funnelSid(),utm_source:p.get('utm_source'),utm_medium:p.get('utm_medium'),utm_campaign:p.get('utm_campaign'),utm_content:p.get('utm_content'),utm_term:p.get('utm_term'),fbclid:p.get('fbclid'),referrer:document.referrer||null,path:(location.pathname+location.search).slice(0,500),user_agent:(navigator.userAgent||'').slice(0,500)};fetch(SUPA_URL,{method:'POST',keepalive:true,headers:{'apikey':ANON,'Authorization':'Bearer '+ANON,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(row)}).catch(function(){})}
+
+// ── Meta Pixel + PageView dual (mesmo eventID no browser e no /api/track) ──
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init',PIXEL);
+(function(){var eid=genEventId();var ext=getExtId();fbq('track','PageView',{},{eventID:eid});var fb=getFb();beacon('/api/track',{event:'PageView',eventId:eid,fbc:fb.fbc,fbp:fb.fbp,external_id:ext})})();
+try{if(document.visibilityState==='hidden'){document.addEventListener('visibilitychange',function f(){if(document.visibilityState==='visible'){document.removeEventListener('visibilitychange',f);frTrack('pageview','prefetch_depois')}})}else frTrack('pageview')}catch(e){}
+
+// ── estado ──
+var steps=[].slice.call(document.querySelectorAll('.step'));
+var cur=0;var answers={objetivo:[],series:[],impedimentos:[]};var ldTimer=null;
+var bar=document.getElementById('bar'),back=document.getElementById('back');
+function name(i){return steps[i].getAttribute('data-name')}
+function show(i,dir){
+  if(i<0||i>=steps.length)return;
+  steps[cur].classList.remove('on');cur=i;steps[cur].classList.add('on');
+  window.scrollTo(0,0);
+  bar.style.width=Math.round(((cur+1)/TOTAL)*100)+'%';
+  back.style.visibility=(cur>0&&name(cur)!=='loading')?'visible':'hidden';
+  if(dir!=='back')frTrack('step_'+(cur+1),name(cur));
+  if(name(cur)==='loading')loading();
+}
+function loading(){
+  var el=document.getElementById('ld'),pct=document.getElementById('pct'),t0=Date.now(),D=4000;
+  clearInterval(ldTimer);
+  ldTimer=setInterval(function(){var p=Math.min(1,(Date.now()-t0)/D);el.style.width=(p*100)+'%';pct.textContent=Math.round(p*100)+'%';if(p>=1){clearInterval(ldTimer);setTimeout(function(){show(cur+1)},250)}},100);
+}
+document.querySelectorAll('[data-next]').forEach(function(b){b.addEventListener('click',function(){
+  var sec=b.closest('.step');var m=sec.querySelector('[data-multi]');
+  if(m){var k=m.getAttribute('data-multi');if(!answers[k].length)return;frTrack('answer_'+k,answers[k].join('|'))}
+  show(cur+1);
+})});
+document.querySelectorAll('[data-multi]').forEach(function(grp){
+  var k=grp.getAttribute('data-multi');var opts=[].slice.call(grp.querySelectorAll('.opt'));var btn=grp.closest('.step').querySelector('[data-next]');
+  opts.forEach(function(o,idx){o.addEventListener('click',function(){
+    o.classList.toggle('sel');
+    answers[k]=opts.map(function(x,i){return x.classList.contains('sel')?i+1:0}).filter(Boolean);
+    btn.disabled=!answers[k].length;
+  })});
+});
+back.addEventListener('click',function(){var i=cur-1;if(name(i)==='loading')i--;show(i,'back')});
+
+// ── CTA → VSL (preserva UTMs/fbclid, leva as respostas e o session_id) ──
+document.getElementById('cta').addEventListener('click',function(){
+  frTrack('cta_click','vsl');
+  var p=qp();p.set('fr_sid',funnelSid());p.set('qz','poli');
+  p.set('qo',answers.objetivo.join('.'));p.set('qs',answers.series.join('.'));p.set('qi',answers.impedimentos.join('.'));
+  var u='/vsl?'+p.toString();
+  setTimeout(function(){location.href=u},120);
+});
+show(0);
+})();
+</script>
+</body>
+</html>

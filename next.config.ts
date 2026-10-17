@@ -17,6 +17,10 @@ const nextConfig: NextConfig = {
         { source: '/bridge2', destination: '/bridge.html' },
         // sales letter em 4 páginas por clique (fonte: ~/fluency-sales-letter/sales-letter-v4.html), 12x R$29 DlmRal3
         { source: '/carta', destination: '/carta.html' },
+        // quiz-bridge modelado no quiz "Método APA" da Teacher Poli (inlead), 10 etapas → /vsl com respostas na query
+        { source: '/quiz-ingles', destination: '/quiz-ingles.html' },
+        // versão paralela para comparação, preserva a /carta atual
+        { source: '/carta-paralela', destination: '/carta-paralela.html' },
         // versão anterior (texto da VSL colado, bridge-letter.html), guardada
         { source: '/carta-vsl', destination: '/carta-vsl.html' },
         // versão anterior da carta (texto do doc "E se você já soubesse"), guardada pra comparação
