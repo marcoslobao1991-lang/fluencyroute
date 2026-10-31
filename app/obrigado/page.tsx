@@ -71,7 +71,7 @@ const styles = `
   .upsell-root .kiwify-mount{margin:30px auto 0}
   .upsell-root .kiwify-mount button{font-family:'Inter',sans-serif !important;font-weight:600 !important;font-size:16px !important;letter-spacing:0.01em !important;padding:18px 32px !important;border-radius:12px !important;width:100%;max-width:480px;background-color:#2ECC70 !important;border:1px solid #2ECC70 !important;cursor:pointer;transition:transform .2s,filter .2s}
   .upsell-root .kiwify-mount button:hover{transform:translateY(-1px);filter:brightness(1.05)}
-  .upsell-root .kiwify-mount #kiwify-upsell-cancel-trigger-pZFRkJJ{font-family:'Inter',sans-serif !important;font-size:13px !important;color:rgba(255,255,255,0.35) !important;text-decoration:underline;margin-top:18px !important}
+  .upsell-root .kiwify-mount #kiwify-upsell-cancel-trigger-R5VpKmL{font-family:'Inter',sans-serif !important;font-size:13px !important;color:rgba(255,255,255,0.35) !important;text-decoration:underline;margin-top:18px !important}
 
   .upsell-root .upsell-footer{margin-top:80px;text-align:center;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:500;color:rgba(255,255,255,0.18)}
 `
@@ -156,14 +156,14 @@ const upsellHtml = `
       </div>
       <div class="price-final">
         <div class="label">Hoje, à vista, somente nesta página</div>
-        <div class="value"><sup>R$</sup>479</div>
+        <div class="value"><sup>R$</sup>186</div>
       </div>
       <p class="price-note">ou parcelado no checkout · acesso anual completo</p>
 
       <div class="kiwify-mount">
-        <div style="text-align:center" id="kiwify-upsell-pZFRkJJ" data-upsell-url="" data-downsell-url="">
-          <button id="kiwify-upsell-trigger-pZFRkJJ" style="background-color:#2ECC70;padding:12px 16px;cursor:pointer;color:#FFFFFF;font-weight:600;border-radius:4px;border:1px solid #2ECC70;font-size:20px;">Sim, eu aceito essa oferta especial!</button>
-          <div id="kiwify-upsell-cancel-trigger-pZFRkJJ" style="margin-top:1rem;cursor:pointer;font-size:16px;text-decoration:underline;font-family:sans-serif;">Não, eu gostaria de recusar essa oferta</div>
+        <div style="text-align:center" id="kiwify-upsell-R5VpKmL" data-upsell-url="" data-downsell-url="">
+          <button id="kiwify-upsell-trigger-R5VpKmL" style="background-color:#2ECC70;padding:12px 16px;cursor:pointer;color:#FFFFFF;font-weight:600;border-radius:4px;border:1px solid #2ECC70;font-size:20px;">Sim, eu aceito essa oferta especial!</button>
+          <div id="kiwify-upsell-cancel-trigger-R5VpKmL" style="margin-top:1rem;cursor:pointer;font-size:16px;text-decoration:underline;font-family:sans-serif;">Não, eu gostaria de recusar essa oferta</div>
         </div>
       </div>
     </div>
