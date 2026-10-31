@@ -144,11 +144,11 @@ const upsellHtml = `
   <section class="section">
     <div class="section-label">o investimento</div>
     <h2 class="section-title">Por que somente agora — e somente aqui.</h2>
-    <p class="section-lead">O valor cheio do Acompanhamento Premium é R$99/mês (~R$1.188/ano). Comparando com aula presencial, que cobra no mínimo R$250/mês e não chega nem perto de forçar fluência do jeito que a gente faz.</p>
+    <p class="section-lead">O valor cheio do Acompanhamento Premium é R$1.188/ano. Comparando com aula presencial, que cobra no mínimo R$250/mês e não chega nem perto de forçar fluência do jeito que a gente faz.</p>
     <div class="offer">
       <div class="anchor">
         <div class="anchor-row">Escola presencial · mínimo <s>R$250/mês</s></div>
-        <div class="anchor-row">Premium valor cheio · <s>R$99/mês (R$1.188/ano)</s></div>
+        <div class="anchor-row">Premium valor cheio · <s>R$1.188/ano</s></div>
       </div>
       <div class="price-flow">
         <div class="pf-row">100% do que você investiu na Rota</div>
