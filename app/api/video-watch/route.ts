@@ -17,8 +17,8 @@ const SUPA = "https://petrtewismhpzidcmmwb.supabase.co";
 const REALERT_MIN = 60;
 
 const TARGETS = [
-  { key: "r2", label: "R2 (video.fluencyroute.com.br)", base: "https://video.fluencyroute.com.br/vsl-ingles" },
-  { key: "vps", label: "VPS (media.srv1198551)", base: "https://media.srv1198551.hstgr.cloud/vsl-ingles" },
+  { key: "r2", label: "R2 (video.fluencyroute.com.br)", base: "https://video.fluencyroute.com.br/vsl-ingles-fk1" },
+  { key: "vps", label: "VPS (media.srv1198551)", base: "https://media.srv1198551.hstgr.cloud/vsl-ingles-fk1" },
 ];
 
 async function fetchT(url: string, ms: number) {
