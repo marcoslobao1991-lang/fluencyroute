@@ -98,7 +98,7 @@ var ovE=document.createElement('button');ovE.type='button';ovE.id='fr-stuck';ovE
 ovE.style.cssText='position:absolute;inset:0;width:100%;height:100%;display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:rgba(0,0,0,.7);border:0;cursor:pointer;padding:0';
 ovE.innerHTML='<span style="width:88px;height:88px;border-radius:50%;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center"><svg width="40" height="40" viewBox="0 0 24 24" fill="#fff" aria-hidden="true" style="margin-left:6px"><path d="M8 5v14l11-7z"/></svg></span><span style="color:#fff;font-size:clamp(15px,4.4vw,20px);font-weight:700;line-height:1.2">Toque para continuar</span>';
 video.parentNode.appendChild(ovE);
-var h=null,mode='',guard=null,sawMeta=false,tries=0,stuck=false,MAX_TRIES=3;
+var h=null,mode='',guard=null,sawMeta=false,tries=0,stuck=false,MAX_TRIES=3,blocked=false;
 // lastT = último ponto realmente assistido; resumeT/resumeUntil = alvo da retomada (ignora o 0:00 do recarregamento)
 var lastT=0,resumeT=0,resumeUntil=0;
 function showStuck(why){if(stuck)return;stuck=true;if(guard)clearTimeout(guard);track('player_travou',why);
@@ -109,11 +109,14 @@ track('player_retry',why+'#'+tries);var t=lastT||video.currentTime||0;if(guard)c
 if(tries===1||tries===3)swapOrigin();
 setTimeout(function(){if(!stuck)init(t)},400*tries)}
 function startPlayback(){if(dead)return;var pos=parseFloat(ls(K_POS)||'0')||0;
-if(pos>=RESUME_MIN){show(ovR,true);track('video_resume_shown');return}
-video.muted=true;var pr=video.play();show(ovU,true);if(pr&&pr.catch)pr.catch(function(){})}
-function playFrom(t){interacted=true;lastMin=Math.floor(t/60);track('video_play',t===0?'start':'resume@'+Math.round(t));
+if(pos>=RESUME_MIN){show(ovR,true);track('video_resume_shown');if(!interacted){blocked=true;if(guard)clearTimeout(guard)}return}
+video.muted=true;var pr=video.play();show(ovU,true);
+// autoplay bloqueado (iOS pouca bateria / WebView do IG) NÃO é falha de rede: o iOS só baixa o vídeo depois do toque.
+// Para a escada de retry e espera o "Clique para ouvir" (o toque destrava e carrega).
+if(pr&&pr.then)pr.then(function(){track('autoplay_ok')},function(err){if(interacted)return;blocked=true;if(guard)clearTimeout(guard);track('autoplay_bloqueado',(err&&err.name)||'')})}
+function playFrom(t){interacted=true;blocked=false;lastMin=Math.floor(t/60);track('video_play',t===0?'start':'resume@'+Math.round(t));
 show(ovU,false);show(ovR,false);show(ovP,false);video.currentTime=t;video.muted=false;
-var pr=video.play();if(pr&&pr.catch)pr.catch(function(){})}
+var pr=video.play();if(pr&&pr.catch)pr.catch(function(){});if(!sawMeta)armGuard()}
 ovU.addEventListener('click',function(){playFrom(0)});
 document.getElementById('fr-restart').addEventListener('click',function(){playFrom(0)});
 document.getElementById('fr-continue').addEventListener('click',function(){playFrom(parseFloat(ls(K_POS)||'0')||0)});
@@ -128,7 +131,11 @@ if(t>=DELAY&&window.__frDoReveal)window.__frDoReveal();
 if(t>=SCROLL_AT&&!scrolled){scrolled=true;try{var c=document.querySelector('a.cta-btn');if(c)c.scrollIntoView({behavior:'smooth',block:'center'})}catch(e){}}
 if(interacted){var m=Math.floor(t/60);if(m>lastMin){lastMin=m;track('video_minute',String(m))}
 if(Date.now()-lastSave>=STEP){lastSave=Date.now();ls(K_POS,String(t))}}});
-function armGuard(){if(guard)clearTimeout(guard);guard=setTimeout(function(){if(!sawMeta)recover('timeout_'+mode)},6000)}
+// guarda só corre com a aba visível e sem autoplay bloqueado esperando o toque
+function armGuard(){if(guard)clearTimeout(guard);guard=null;if(document.visibilityState==='hidden'||(blocked&&!interacted))return;
+guard=setTimeout(function(){if(!sawMeta&&!(blocked&&!interacted)&&document.visibilityState!=='hidden')recover('timeout_'+mode)},6000)}
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'){if(guard)clearTimeout(guard);guard=null}
+else if(mode&&!sawMeta&&!stuck)armGuard()});
 // volta de uma falha: retoma do ponto em que estava, com som se a pessoa já tinha dado play
 function resumeAfter(t){if(t>0){try{video.currentTime=t}catch(e){}}
 if(interacted){video.muted=false;var pr=video.play();if(pr&&pr.catch)pr.catch(function(){showStuck('play_bloqueado')})}
@@ -166,7 +173,9 @@ ovE.addEventListener('click',function(){var t=lastT||video.currentTime||parseFlo
 stuck=false;tries=0;show(ovE,false);if(!interacted){interacted=true;lastMin=Math.floor(t/60);track('video_play',t<1?'start':'resume@'+Math.round(t))}
 init(t)});
 // pré-voo: se o manifesto do R2 não responder em 2,5 s, já começa pela VPS (sem gastar um degrau da escada)
-(function(){var done=false,ctl=(typeof AbortController==='function')?new AbortController():null;
+// Página pré-carregada escondida pelo Instagram: só começa quando ficar visível (antes queimava a escada inteira no escuro).
+(function boot(){if(document.visibilityState==='hidden'){document.addEventListener('visibilitychange',function f(){if(document.visibilityState==='visible'){document.removeEventListener('visibilitychange',f);boot()}});return}
+var done=false,ctl=(typeof AbortController==='function')?new AbortController():null;
 function go(swap){if(done)return;done=true;if(swap)swapOrigin();init(null)}
 var to=setTimeout(function(){if(ctl)try{ctl.abort()}catch(e){}go(true)},2500);
 try{fetch(BASE+'/main.m3u8',{cache:'no-store',signal:ctl?ctl.signal:undefined}).then(function(r){clearTimeout(to);go(!r.ok)}).catch(function(){clearTimeout(to);go(true)})}catch(e){clearTimeout(to);go(false)}})()})();
