@@ -83,7 +83,7 @@ try{if(document.visibilityState==='hidden'){document.addEventListener('visibilit
 (function(){var ORIGINS=['https://video.fluencyroute.com.br/'+VSLS[VSLV].dir,'https://media.srv1198551.hstgr.cloud/'+VSLS[VSLV].dir],LIBS=['https://video.fluencyroute.com.br/lib/hls.min.js','https://media.srv1198551.hstgr.cloud/lib/hls.min.js'],oi=0,BASE=ORIGINS[0];
 function swapOrigin(){oi=(oi+1)%ORIGINS.length;BASE=ORIGINS[oi];track('player_origin',oi===0?'r2':'vps')}
 var DELAY=VSLS[VSLV].delay,SCROLL_AT=VSLS[VSLV].scroll,RESUME_MIN=30,STEP=5000,ALPHA=2,K_POS='vsl_pos_'+VSLV;
-var video=document.getElementById('fr-video');try{video.poster='https://media.srv1198551.hstgr.cloud/'+VSLS[VSLV].dir+'/thumbnail.jpg'}catch(e){}track('vsl_variant',VSLV);var bar=document.getElementById('fr-bar');
+var video=document.getElementById('fr-video');try{video.poster='https://media.srv1198551.hstgr.cloud/'+VSLS[VSLV].dir+'/thumbnail.jpg'}catch(e){}track('vsl_variant',VSLV);var RATE=Math.min(2,Math.max(0.5,parseFloat(qp().get('vel'))||1));if(RATE!==1){var setR=function(){try{video.preservesPitch=true;video.defaultPlaybackRate=RATE;if(video.playbackRate!==RATE)video.playbackRate=RATE}catch(e){}};setR();['loadedmetadata','play','ratechange'].forEach(function(ev){video.addEventListener(ev,setR)})}var bar=document.getElementById('fr-bar');
 var ovU=document.getElementById('fr-unmute'),ovR=document.getElementById('fr-resume'),ovP=document.getElementById('fr-paused');
 var interacted=false,lastSave=0,dead=false,lastMin=0,scrolled=false;
 function track(ev,detail){try{frTrack(ev,detail)}catch(e){}}
