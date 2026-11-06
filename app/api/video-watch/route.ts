@@ -19,6 +19,8 @@ const REALERT_MIN = 60;
 const TARGETS = [
   { key: "r2", label: "R2 (video.fluencyroute.com.br)", base: "https://video.fluencyroute.com.br/vsl-ingles-fk1" },
   { key: "vps", label: "VPS (media.srv1198551)", base: "https://media.srv1198551.hstgr.cloud/vsl-ingles-fk1" },
+  { key: "r2-fk2", label: "R2 v2B (video.fluencyroute.com.br/vsl-ingles-fk2)", base: "https://video.fluencyroute.com.br/vsl-ingles-fk2" },
+  { key: "vps-fk2", label: "VPS v2B (media.srv1198551/vsl-ingles-fk2)", base: "https://media.srv1198551.hstgr.cloud/vsl-ingles-fk2" },
 ];
 
 async function fetchT(url: string, ms: number) {
