@@ -63,8 +63,8 @@ var VTAG='vsl_'+VSLV+(RATE!==1?'_x'+Math.round(RATE*100):'');
 function frTrack(event,detail){if(noTrack())return;var p=qp();var row={funnel:'ingles',page:'vsl',event:event,variant:VTAG,detail:detail==null?null:String(detail).slice(0,200),session_id:funnelSid(),utm_source:p.get('utm_source'),utm_medium:p.get('utm_medium'),utm_campaign:p.get('utm_campaign'),utm_content:p.get('utm_content'),utm_term:p.get('utm_term'),fbclid:p.get('fbclid'),referrer:document.referrer||null,path:(location.pathname+location.search).slice(0,500),user_agent:(navigator.userAgent||'').slice(0,500)};fetch(SUPA_URL,{method:'POST',keepalive:true,headers:{'apikey':ANON,'Authorization':'Bearer '+ANON,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(row)}).catch(function(){})}
 
 // ── SKIN "post de Instagram" (07/11, prévia): ?skin=ig. Tira a cara de VSL do player; conteúdo e oferta iguais ──
-// 07/11: post (skin ig) SORTEADO 50/50 por visitante, independente do vídeo; fixo em localStorage fr_skin ('ig'|'off'). ?skin=ig / ?skin=0 força
-var SKIN=(function(){try{var K='fr_skin',q=qp().get('skin');if(q==='ig')localStorage.setItem(K,'ig');else if(q==='0'||q==='off')localStorage.setItem(K,'off');var v=localStorage.getItem(K);if(v!=='ig'&&v!=='off'){v=Math.random()<0.5?'ig':'off';localStorage.setItem(K,v)}return v==='ig'?'ig':''}catch(e){return ''}})();
+// 07/11 (decisão do Marcos): post (skin ig) FULL pra 100% das visitas, sem sorteio. Só ?skin=0 mostra o player antigo (prévia, não fica salvo).
+var SKIN=(function(){try{var q=qp().get('skin');try{localStorage.removeItem('fr_skin')}catch(e){}return (q==='0'||q==='off')?'':'ig'}catch(e){return 'ig'}})();
 if(SKIN)VTAG+='_'+SKIN;
 if(SKIN==='ig')(function(){try{
 var pl=document.getElementById('fr-player'),hl=document.getElementById('fr-hl'),un=document.getElementById('fr-unmute'),bar=document.getElementById('fr-bar');
