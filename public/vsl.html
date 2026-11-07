@@ -154,9 +154,9 @@ fetch('/yt-comentarios.json').then(function(r){return r.json()}).then(function(L
 var pos=0,mais=null;cmTit.textContent='Comentários do YouTube · '+L.length;
 function lote(n){var fim=Math.min(L.length,pos+n);for(;pos<fim;pos++)lista.appendChild(linha(L[pos]));
 if(pos>=L.length){if(mais)mais.remove();return}
-if(!mais){mais=el('button','background:none;border:0;padding:0 0 10px;color:#737373;font:500 13px '+FF+';cursor:pointer');mais.type='button';mais.onclick=function(){lote(10)};cm.appendChild(mais)}
+if(!mais){mais=el('button','background:none;border:0;padding:0 0 10px;color:#737373;font:500 13px '+FF+';cursor:pointer');mais.type='button';mais.onclick=function(){try{frTrack('com_ver_mais',String(pos))}catch(e){}lote(10)};cm.appendChild(mais)}
 mais.textContent='Ver mais comentários ('+(L.length-pos)+')'}
-lote(5)}).catch(function(){});
+lote(5);try{if('IntersectionObserver' in window){var MAR=[1,5,10,20,40,80,160,320],feitos={},vi=false;var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;if(e.target===cmTit){if(!vi){vi=true;try{frTrack('com_visto')}catch(x){}}io.unobserve(cmTit);return}var i=+e.target.getAttribute('data-ci');io.unobserve(e.target);MAR.forEach(function(m){if(i>=m&&!feitos[m]){feitos[m]=1;try{frTrack('com_lido',String(m))}catch(x){}}})})},{threshold:0.6});io.observe(cmTit);var obs=function(){[].forEach.call(lista.children,function(r,i){if(!r.hasAttribute('data-ci')){r.setAttribute('data-ci',i+1);if(MAR.indexOf(i+1)>=0)io.observe(r)}})};obs();new MutationObserver(obs).observe(lista,{childList:true})}}catch(e){}}).catch(function(){});
 }catch(e){}})();
 
 // dual: pixel browser + CAPI server com mesmo eventID
