@@ -94,6 +94,12 @@ foot.innerHTML='<div style="display:flex;align-items:center;gap:16px;padding:4px
 +'<svg width="24" height="24" viewBox="0 0 24 24" '+I+' style="margin-left:auto"><path d="M19 21l-7-6.3L5 21V3h14z"/></svg></div>'
 +'<p style="font-size:14px;line-height:1.4;margin:0"><b style="font-weight:600">fluencyroute</b> Método da repetição pra entender séries e filmes em inglês sem legenda</p>';
 pl.appendChild(foot);
+// comentários REAIS do vídeo "This is NOT FUNNY but it made me FLUENT IN ENGLISH" (YouTube LeSeXm9XeZk, 455 comentários em 07/11), texto verbatim
+var YC=[["Davii_pp","Deem um Oscar a esse senhor! Eu aprendo assim e funciona!",16,"#e85d75"],["menezesmartins2362","Meu Deus do CÉU, tanto tempo tentando aprender inglês e a coisa não era como me ensinaram, essa é a maneira mais eficaz que já ouvi, agora eu irei aprender de verdade",4,"#4f8cc9"],["Jessicabc05","Ser fluente é exatamente isso que ele falou, perfeito o vídeo! Obrigada =)",27,"#9b6bd6"]];
+var cm=document.createElement("div");cm.style.cssText="padding:12px 12px 4px;font-family:"+F+";color:#000";
+var hc="<p style=\"font-size:13px;color:#737373;margin:0 0 10px\">Comentários do vídeo no YouTube · 455 comentários</p>";
+YC.forEach(function(c){hc+="<div style=\"display:flex;gap:10px;margin-bottom:12px\"><span style=\"width:28px;height:28px;border-radius:50%;background:"+c[3]+";color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none\">"+c[0].charAt(0).toUpperCase()+"</span><div style=\"min-width:0;flex:1\"><p style=\"font-size:13px;line-height:1.4;margin:0\"><b style=\"font-weight:600\">@"+c[0]+"</b> "+c[1]+"</p><p style=\"font-size:12px;color:#737373;margin:3px 0 0\">"+c[2]+" curtidas</p></div></div>"});
+cm.innerHTML=hc;pl.appendChild(cm);
 }catch(e){}})();
 
 // dual: pixel browser + CAPI server com mesmo eventID
