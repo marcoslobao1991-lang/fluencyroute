@@ -62,6 +62,40 @@ var RATE=(function(){var q=parseFloat(qp().get('vel'));return Math.min(2,Math.ma
 var VTAG='vsl_'+VSLV+(RATE!==1?'_x'+Math.round(RATE*100):'');
 function frTrack(event,detail){if(noTrack())return;var p=qp();var row={funnel:'ingles',page:'vsl',event:event,variant:VTAG,detail:detail==null?null:String(detail).slice(0,200),session_id:funnelSid(),utm_source:p.get('utm_source'),utm_medium:p.get('utm_medium'),utm_campaign:p.get('utm_campaign'),utm_content:p.get('utm_content'),utm_term:p.get('utm_term'),fbclid:p.get('fbclid'),referrer:document.referrer||null,path:(location.pathname+location.search).slice(0,500),user_agent:(navigator.userAgent||'').slice(0,500)};fetch(SUPA_URL,{method:'POST',keepalive:true,headers:{'apikey':ANON,'Authorization':'Bearer '+ANON,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(row)}).catch(function(){})}
 
+// ── SKIN "post de Instagram" (07/11, prévia): ?skin=ig. Tira a cara de VSL do player; conteúdo e oferta iguais ──
+var SKIN=(function(){try{var q=qp().get('skin');if(q==='ig'||q==='0'){if(q==='ig')localStorage.setItem('fr_skin','ig');else localStorage.removeItem('fr_skin')}return localStorage.getItem('fr_skin')==='ig'?'ig':''}catch(e){return ''}})();
+if(SKIN)VTAG+='_'+SKIN;
+if(SKIN==='ig')(function(){try{
+var pl=document.getElementById('fr-player'),hl=document.getElementById('fr-hl'),un=document.getElementById('fr-unmute'),bar=document.getElementById('fr-bar');
+if(!pl||!un)return;
+var sec=pl.closest('section');if(sec)sec.style.padding='0 0 18px';
+if(hl)hl.style.display='none';
+var tip=pl.nextElementSibling;if(tip&&tip.tagName==='P')tip.style.display='none';
+var F='-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif';
+pl.style.cssText='max-width:470px;margin:0 auto;overflow:hidden;background:#fff;font-family:'+F;
+var head=document.createElement('div');
+head.style.cssText='display:flex;align-items:center;gap:10px;padding:10px 12px;font-family:'+F;
+head.innerHTML='<span style="width:34px;height:34px;border-radius:50%;padding:2px;background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5);flex:none"><img src="/logo.png" alt="" style="width:100%;height:100%;border-radius:50%;border:2px solid #fff;background:#fff;object-fit:cover;display:block"></span>'
++'<span style="display:flex;flex-direction:column;line-height:1.2;min-width:0"><b style="font-size:14px;font-weight:600;color:#000">fluencyroute</b><span style="font-size:12px;color:#737373">Áudio original</span></span>'
++'<span style="margin-left:auto;font-size:14px;font-weight:600;color:#0095f6">Seguir</span>'
++'<svg width="22" height="22" viewBox="0 0 24 24" fill="#000" aria-hidden="true" style="margin-left:14px"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>';
+pl.insertBefore(head,pl.firstChild);
+// moldura do vídeo: sem pílula, sem círculo pulsando, sem "clique para ouvir"; só o ícone de mudo no canto, igual Reels
+var I='stroke="#000" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round"';
+un.style.background='transparent';
+un.innerHTML='<span style="position:absolute;right:12px;bottom:16px;width:30px;height:30px;border-radius:50%;background:rgba(38,38,38,.82);display:flex;align-items:center;justify-content:center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z" fill="#fff"/><path d="m16 9 5 6m0-6-5 6" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg></span>';
+if(bar){bar.style.background='#fff';var tr=bar.parentNode;tr.style.height='3px';tr.style.background='rgba(255,255,255,.3)'}
+var foot=document.createElement('div');
+foot.style.cssText='padding:8px 12px 0;font-family:'+F+';color:#000';
+foot.innerHTML='<div style="display:flex;align-items:center;gap:16px;padding:4px 0 8px">'
++'<svg width="24" height="24" viewBox="0 0 24 24" '+I+'><path d="M16.8 3.5c-2 0-3.6 1.1-4.8 2.8C10.8 4.6 9.2 3.5 7.2 3.5 4.3 3.5 2 5.9 2 8.9c0 5.6 8.2 10.8 10 11.6 1.8-.8 10-6 10-11.6 0-3-2.3-5.4-5.2-5.4z"/></svg>'
++'<svg width="24" height="24" viewBox="0 0 24 24" '+I+'><path d="M20.7 16.4A9.5 9.5 0 1 0 17 20.3L21.5 21.5z"/></svg>'
++'<svg width="24" height="24" viewBox="0 0 24 24" '+I+'><path d="M22 3 9.2 10.1M22 3l-7 18-5.8-10.9L2 6.4z"/></svg>'
++'<svg width="24" height="24" viewBox="0 0 24 24" '+I+' style="margin-left:auto"><path d="M19 21l-7-6.3L5 21V3h14z"/></svg></div>'
++'<p style="font-size:14px;line-height:1.4;margin:0"><b style="font-weight:600">fluencyroute</b> Método da repetição pra entender séries e filmes em inglês sem legenda</p>';
+pl.appendChild(foot);
+}catch(e){}})();
+
 // dual: pixel browser + CAPI server com mesmo eventID
 function trackDual(event){var eid=genEventId();var fb=getFb();if(window.fbq)fbq('track',event,CONTENT,{eventID:eid});getIp(function(ip){beacon('/api/track',{event:event,eventId:eid,fbc:fb.fbc,fbp:fb.fbp,external_id:getExtId(),client_ip_address:ip||undefined,client_user_agent:navigator.userAgent,value:VALUE,currency:'BRL',content_name:CONTENT.content_name,content_ids:CONTENT.content_ids,content_type:'product'})})}
 
