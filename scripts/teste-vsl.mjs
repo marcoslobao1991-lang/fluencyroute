@@ -43,7 +43,7 @@ for (const v of Object.keys(S).sort()) {
   const ss = Object.values(S[v]), n = ss.length, fk = v.match(/fk\d/)[0];
   const play = ss.filter(x => x.play).length, ic = ss.filter(x => x.ic).length;
   const reach = m => ss.filter(x => x.min >= m).length;
-  const vend = orders.filter(o => o.vturb_sck.startsWith(v + '_'));
+  const vend = orders.filter(o => o.vturb_sck.slice(0, o.vturb_sck.lastIndexOf('_')) === v);
   const rec = vend.reduce((a, o) => a + (o.amount_cents || 0), 0) / 100;
   console.log(`== ${v}  (${n} sessões)`);
   console.log(`  clicou no play      ${play}  (${pct(play, n)})`);
@@ -51,4 +51,11 @@ for (const v of Object.keys(S).sort()) {
   console.log(`  IC (checkout_click) ${ic}  (${pct(ic, n)})`);
   console.log(`  vendas              ${vend.length}  (${pct(vend.length, n)})  R$${rec.toFixed(2)}\n`);
 }
+// resumo do sorteio do player: post (_ig) × player atual, somando fk1 e fk2
+const grupo = { post: [], atual: [] };
+for (const v of Object.keys(S)) for (const x of Object.values(S[v])) grupo[/_ig$/.test(v) ? 'post' : 'atual'].push(x);
+const vendG = g => orders.filter(o => { const vv = o.vturb_sck.slice(0, o.vturb_sck.lastIndexOf('_')); return g === 'post' ? /_ig$/.test(vv) : !/_ig$/.test(vv) }).filter(o => Object.keys(S).includes(o.vturb_sck.slice(0, o.vturb_sck.lastIndexOf('_'))));
+console.log('== PLAYER: post × atual (fk1 + fk2)');
+for (const g of ['atual', 'post']) { const ss = grupo[g], n = ss.length, play = ss.filter(x => x.play).length, ic = ss.filter(x => x.ic).length, v5 = ss.filter(x => x.min >= 5).length, vd = vendG(g); console.log(`  ${g.padEnd(6)} ${String(n).padStart(4)} sessões · play ${pct(play, n)} · min 5 ${pct(v5, play)} de quem deu play · IC ${pct(ic, n)} · vendas ${vd.length}`) }
+console.log('');
 console.log('Gasto por ad: painel / Meta (campanha ' + CAMP + '). Venda por ad: utm_content dos orders.');

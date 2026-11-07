@@ -63,7 +63,8 @@ var VTAG='vsl_'+VSLV+(RATE!==1?'_x'+Math.round(RATE*100):'');
 function frTrack(event,detail){if(noTrack())return;var p=qp();var row={funnel:'ingles',page:'vsl',event:event,variant:VTAG,detail:detail==null?null:String(detail).slice(0,200),session_id:funnelSid(),utm_source:p.get('utm_source'),utm_medium:p.get('utm_medium'),utm_campaign:p.get('utm_campaign'),utm_content:p.get('utm_content'),utm_term:p.get('utm_term'),fbclid:p.get('fbclid'),referrer:document.referrer||null,path:(location.pathname+location.search).slice(0,500),user_agent:(navigator.userAgent||'').slice(0,500)};fetch(SUPA_URL,{method:'POST',keepalive:true,headers:{'apikey':ANON,'Authorization':'Bearer '+ANON,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(row)}).catch(function(){})}
 
 // ── SKIN "post de Instagram" (07/11, prévia): ?skin=ig. Tira a cara de VSL do player; conteúdo e oferta iguais ──
-var SKIN=(function(){try{var q=qp().get('skin');if(q==='ig'||q==='0'){if(q==='ig')localStorage.setItem('fr_skin','ig');else localStorage.removeItem('fr_skin')}return localStorage.getItem('fr_skin')==='ig'?'ig':''}catch(e){return ''}})();
+// 07/11: post (skin ig) SORTEADO 50/50 por visitante, independente do vídeo; fixo em localStorage fr_skin ('ig'|'off'). ?skin=ig / ?skin=0 força
+var SKIN=(function(){try{var K='fr_skin',q=qp().get('skin');if(q==='ig')localStorage.setItem(K,'ig');else if(q==='0'||q==='off')localStorage.setItem(K,'off');var v=localStorage.getItem(K);if(v!=='ig'&&v!=='off'){v=Math.random()<0.5?'ig':'off';localStorage.setItem(K,v)}return v==='ig'?'ig':''}catch(e){return ''}})();
 if(SKIN)VTAG+='_'+SKIN;
 if(SKIN==='ig')(function(){try{
 var pl=document.getElementById('fr-player'),hl=document.getElementById('fr-hl'),un=document.getElementById('fr-unmute'),bar=document.getElementById('fr-bar');
@@ -76,30 +77,85 @@ pl.style.cssText='max-width:470px;margin:0 auto;overflow:hidden;background:#fff;
 var head=document.createElement('div');
 head.style.cssText='display:flex;align-items:center;gap:10px;padding:10px 12px;font-family:'+F;
 head.innerHTML='<img src="/ig-fluencyroute.jpg" alt="" style="width:32px;height:32px;border-radius:50%;object-fit:cover;flex:none;display:block;box-shadow:0 0 0 1px rgba(0,0,0,.08)">'
-+'<span style="display:flex;flex-direction:column;line-height:1.2;min-width:0"><b style="font-size:14px;font-weight:600;color:#000">fluencyroute</b><span style="font-size:12px;color:#737373">Áudio original</span></span>'
-+'<span style="margin-left:auto;font-size:14px;font-weight:600;color:#0095f6">Seguir</span>'
-+'<svg width="22" height="22" viewBox="0 0 24 24" fill="#000" aria-hidden="true" style="margin-left:14px"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>';
++'<b style="font-size:14px;font-weight:600;color:#000">fluencyroute</b>';
 pl.insertBefore(head,pl.firstChild);
 // moldura do vídeo: sem pílula, sem círculo pulsando, sem "clique para ouvir"; só o ícone de mudo no canto, igual Reels
 var I='stroke="#000" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round"';
 un.style.background='transparent';
-un.innerHTML='<style>@keyframes frIgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}</style><span style="position:absolute;right:10px;bottom:16px;display:flex;align-items:center;gap:7px;background:rgba(0,0,0,.72);color:#fff;font:600 13px/1 '+F.replace(/"/g,"")+';padding:8px 12px 8px 10px;border-radius:999px;opacity:0;animation:frIgIn .4s ease-out 1.5s forwards"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z" fill="#fff"/><path d="m16 9 5 6m0-6-5 6" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>Toque para ativar o som</span>';
+un.innerHTML='<style>@keyframes frIgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}@keyframes frLk{from{opacity:0;transform:translate(-50%,-50%) scale(.9)}to{opacity:1;transform:translate(-50%,-50%)}}</style><span style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:12px;opacity:0;animation:frLk .45s ease-out .4s forwards"><span style="width:74px;height:74px;border-radius:50%;background:rgba(0,0,0,.55);border:2px solid rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.2" fill="#fff"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="15.2" r="1.5" fill="#111"/></svg></span><span style="color:#fff;font:700 16px/1.2 '+F.replace(/"/g,'')+';text-shadow:0 1px 6px rgba(0,0,0,.6);white-space:nowrap">Conteúdo bloqueado</span></span><span style="position:absolute;right:10px;bottom:16px;display:flex;align-items:center;gap:7px;background:rgba(0,0,0,.72);color:#fff;font:600 13px/1 '+F.replace(/"/g,'')+';padding:8px 12px 8px 10px;border-radius:999px;opacity:0;animation:frIgIn .4s ease-out 1.5s forwards"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.2" fill="#fff"/><path d="M8 10.5V7.5a4 4 0 0 1 7.6-1.7" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>Toque para desbloquear</span>';
+var vd=document.getElementById('fr-video');if(vd){vd.parentNode.style.overflow='hidden';vd.style.transition='filter .35s ease,transform .35s ease';vd.style.filter='blur(16px)';vd.style.transform='scale(1.12)';
+var desembaca=function(){if(!vd.muted){vd.style.filter='none';vd.style.transform='none'}};vd.addEventListener('volumechange',desembaca);vd.addEventListener('playing',desembaca)}
 if(bar){bar.style.background='#fff';var tr=bar.parentNode;tr.style.height='3px';tr.style.background='rgba(255,255,255,.3)'}
 var foot=document.createElement('div');
 foot.style.cssText='padding:8px 12px 0;font-family:'+F+';color:#000';
-foot.innerHTML='<div style="display:flex;align-items:center;gap:16px;padding:4px 0 8px">'
-+'<svg width="24" height="24" viewBox="0 0 24 24" '+I+'><path d="M16.8 3.5c-2 0-3.6 1.1-4.8 2.8C10.8 4.6 9.2 3.5 7.2 3.5 4.3 3.5 2 5.9 2 8.9c0 5.6 8.2 10.8 10 11.6 1.8-.8 10-6 10-11.6 0-3-2.3-5.4-5.2-5.4z"/></svg>'
-+'<svg width="24" height="24" viewBox="0 0 24 24" '+I+'><path d="M20.7 16.4A9.5 9.5 0 1 0 17 20.3L21.5 21.5z"/></svg>'
-+'<svg width="24" height="24" viewBox="0 0 24 24" '+I+'><path d="M22 3 9.2 10.1M22 3l-7 18-5.8-10.9L2 6.4z"/></svg>'
-+'<svg width="24" height="24" viewBox="0 0 24 24" '+I+' style="margin-left:auto"><path d="M19 21l-7-6.3L5 21V3h14z"/></svg></div>'
+foot.innerHTML=''
 +'<p style="font-size:14px;line-height:1.4;margin:0"><b style="font-weight:600">fluencyroute</b> Método da repetição pra entender séries e filmes em inglês sem legenda</p>';
 pl.appendChild(foot);
-// comentários REAIS do vídeo "This is NOT FUNNY but it made me FLUENT IN ENGLISH" (YouTube LeSeXm9XeZk, 455 comentários em 07/11), texto verbatim
-var YC=[["Davii_pp","Deem um Oscar a esse senhor! Eu aprendo assim e funciona!",16,"#e85d75"],["menezesmartins2362","Meu Deus do CÉU, tanto tempo tentando aprender inglês e a coisa não era como me ensinaram, essa é a maneira mais eficaz que já ouvi, agora eu irei aprender de verdade",4,"#4f8cc9"],["Jessicabc05","Ser fluente é exatamente isso que ele falou, perfeito o vídeo! Obrigada =)",27,"#9b6bd6"]];
-var cm=document.createElement("div");cm.style.cssText="padding:12px 12px 4px;font-family:"+F+";color:#000";
-var hc="<p style=\"font-size:13px;color:#737373;margin:0 0 10px\">Comentários do vídeo no YouTube · 455 comentários</p>";
-YC.forEach(function(c){hc+="<div style=\"display:flex;gap:10px;margin-bottom:12px\"><span style=\"width:28px;height:28px;border-radius:50%;background:"+c[3]+";color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none\">"+c[0].charAt(0).toUpperCase()+"</span><div style=\"min-width:0;flex:1\"><p style=\"font-size:13px;line-height:1.4;margin:0\"><b style=\"font-weight:600\">@"+c[0]+"</b> "+c[1]+"</p><p style=\"font-size:12px;color:#737373;margin:3px 0 0\">"+c[2]+" curtidas</p></div></div>"});
-cm.innerHTML=hc;pl.appendChild(cm);
+// comentários REAIS do vídeo "This is NOT FUNNY but it made me FLUENT IN ENGLISH" (YouTube LeSeXm9XeZk, 455 em 07/11):
+// todos por curtida, só negativos/concorrente/ruído fora (402). Arquivo: /yt-comentarios.json [autor, texto, curtidas]
+// Curtir e comentar FUNCIONAM: gravam em vsl_interacoes (só insert pelo anon). Comentário da pessoa aparece só pra ela até a gente aprovar.
+var SUPA_INT='https://petrtewismhpzidcmmwb.supabase.co/rest/v1/vsl_interacoes';
+function salva(tipo,o){if(noTrack())return;try{var p=qp();o=o||{};o.tipo=tipo;o.session_id=funnelSid();o.variant=VTAG;o.utm_content=p.get('utm_content');o.user_agent=(navigator.userAgent||'').slice(0,400);
+fetch(SUPA_INT,{method:'POST',headers:{apikey:ANON,Authorization:'Bearer '+ANON,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(o),keepalive:true}).catch(function(){})}catch(e){}}
+function lsj(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||'null');localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
+function el(t,css,txt){var e=document.createElement(t);if(css)e.style.cssText=css;if(txt!=null)e.textContent=txt;return e}
+var FF=F.replace(/"/g,'');
+var CORES=['#e85d75','#4f8cc9','#9b6bd6','#f08a3c','#2bb3a3','#d6a21e','#6c7a89','#c2569b'];
+function heart(on){return '<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.8 3.5c-2 0-3.6 1.1-4.8 2.8C10.8 4.6 9.2 3.5 7.2 3.5 4.3 3.5 2 5.9 2 8.9c0 5.6 8.2 10.8 10 11.6 1.8-.8 10-6 10-11.6 0-3-2.3-5.4-5.2-5.4z" fill="'+(on?'#ed4956':'none')+'" stroke="'+(on?'#ed4956':'#000')+'" stroke-width="1.9" stroke-linejoin="round"/></svg>'}
+var BTN='display:inline-flex;align-items:center;gap:6px;background:#f2f2f2;border:0;border-radius:999px;padding:8px 14px;font:600 14px '+FF+';color:#000;cursor:pointer';
+// ── curtir e comentar o vídeo (botões com texto, não ícone de app) ──
+var acoes=el('div','display:flex;gap:8px;padding:4px 0 10px');
+var bLike=el('button',BTN);bLike.type='button';
+function joinha(on){return '<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10v11H3V10h4zm0 0 4.2-7.3c.3-.5 1-.7 1.5-.4 1 .5 1.5 1.6 1.2 2.7L13 9.5h6.2c1.3 0 2.3 1.2 2 2.5l-1.6 7.2c-.2.9-1 1.5-2 1.5H7" fill="'+(on?'#000':'none')+'" stroke="#000" stroke-width="1.8" stroke-linejoin="round"/></svg>'}
+function pintaLike(){var on=!!lsj('fr_post_like');bLike.innerHTML=joinha(on)+'7,1 mil';bLike.setAttribute('aria-pressed',on?'true':'false');bLike.setAttribute('aria-label',on?'Descurtir':'Curtir')}
+pintaLike();bLike.onclick=function(){var on=!lsj('fr_post_like');lsj('fr_post_like',on);pintaLike();salva(on?'like_post':'unlike_post',{alvo:'post'});try{frTrack(on?'post_like':'post_unlike')}catch(e){}};
+var bCom=el('button',BTN,'Comentar');bCom.type='button';
+acoes.appendChild(bLike);acoes.appendChild(bCom);foot.insertBefore(acoes,foot.firstChild);foot.insertBefore(el('p','font-size:13px;color:#737373;margin:0 0 8px','420.612 visualizações'),foot.firstChild);
+// ── seção de comentários ──
+var cm=el('div','max-width:470px;margin:8px auto 48px;padding:18px 14px 6px;background:#fff;border-radius:14px;font-family:'+FF+';color:#000');
+var cmTit=el('p','font-size:13px;color:#737373;margin:8px 0 12px;padding-top:14px;border-top:1px solid #efefef','Comentários do YouTube');
+var form=el('form','display:flex;flex-direction:column;gap:8px;margin:0 0 16px');
+var CAMPO='font:16px '+FF+';padding:10px 12px;border:1px solid #dbdbdb;border-radius:10px;outline:none;width:100%;box-sizing:border-box';
+var txt=el('textarea',CAMPO+';resize:none;min-height:44px');txt.placeholder='Adicione um comentário...';txt.maxLength=1500;txt.rows=1;
+var nomeIn=el('input',CAMPO+';display:none');nomeIn.placeholder='@ do Instagram';nomeIn.maxLength=60;nomeIn.autocomplete='username';nomeIn.autocapitalize='none';nomeIn.spellcheck=false;
+var enviar=el('button',BTN+';align-self:flex-end;background:#0095f6;color:#fff;opacity:.45','Publicar');enviar.type='submit';
+form.appendChild(txt);form.appendChild(nomeIn);form.appendChild(enviar);enviar.style.display='none';cm.appendChild(form);
+var box=el('div');cm.appendChild(box);var cmWrap=el('div','padding:0 12px');cmWrap.appendChild(cm);pl.parentNode.insertBefore(cmWrap,pl.nextSibling);cm.style.margin='8px auto 24px';var rod=document.querySelector('footer');var esc=rod&&rod.closest('.esconder');var desce=function(){if(cmWrap.parentNode!==rod.parentNode){rod.parentNode.insertBefore(cmWrap,rod);cm.style.margin='8px auto 48px'}};if(esc){if(!esc.classList.contains('esconder'))desce();else{var mo=new MutationObserver(function(){if(!esc.classList.contains('esconder')){mo.disconnect();desce()}});mo.observe(esc,{attributes:true,attributeFilter:['class']})}}
+function pronto(){var ok=txt.value.trim().length>1&&(!!lsj('fr_com_nome')||nomeIn.value.replace(/[@\s]/g,'').length>0);enviar.style.opacity=ok?'1':'.45';return ok}
+txt.addEventListener('input',pronto);nomeIn.addEventListener('input',pronto);
+txt.addEventListener('focus',function(){enviar.style.display='';if(!lsj('fr_com_nome'))nomeIn.style.display=''});
+bCom.onclick=function(){cm.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(function(){try{txt.focus({preventScroll:true})}catch(e){txt.focus()}},350)};
+var curtidos=lsj('fr_com_likes')||{};
+function linha(c,meu){var h=0;for(var i=0;i<c[0].length;i++)h=(h*31+c[0].charCodeAt(i))|0;
+var row=el('div','display:flex;gap:10px;margin-bottom:14px');
+row.appendChild(el('span','width:30px;height:30px;border-radius:50%;background:'+(meu?'#262626':CORES[Math.abs(h)%CORES.length])+';color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none',c[0].charAt(0).toUpperCase()));
+var col=el('div','min-width:0;flex:1');
+var p=el('p','font-size:13px;line-height:1.4;margin:0;white-space:pre-line;overflow-wrap:anywhere');
+p.appendChild(el('b','font-weight:600;margin-right:5px','@'+c[0]));
+var longo=c[1].length>170;p.appendChild(document.createTextNode(longo?c[1].slice(0,150).replace(/\s+\S*$/,'')+'... ':c[1]));
+if(longo){var m=el('span','color:#737373;cursor:pointer','mais');m.onclick=function(){p.lastChild.remove();p.lastChild.textContent=c[1]};p.appendChild(m)}
+col.appendChild(p);
+var meta=el('div','display:flex;gap:14px;font-size:12px;color:#737373;margin-top:4px;font-weight:600');
+if(meu){meta.appendChild(el('span','','agora · só você vê até ser aprovado'))}
+else{var k=c[0]+'|'+c[1].slice(0,40);var n=el('span');var cur=el('button','background:none;border:0;padding:0;font:inherit;cursor:pointer');cur.type='button';
+var pinta=function(){var on=!!curtidos[k],t=c[2]+(on?1:0);n.textContent=t>0?t+(t===1?' curtida':' curtidas'):'';n.style.display=t>0?'':'none';cur.textContent=on?'Curtido':'Curtir';cur.style.color=on?'#ed4956':'#737373'};
+pinta();cur.onclick=function(){var on=!curtidos[k];if(on)curtidos[k]=1;else delete curtidos[k];lsj('fr_com_likes',curtidos);pinta();salva(on?'like_comentario':'unlike_comentario',{alvo:('@'+c[0]).slice(0,120)})};
+meta.appendChild(n);meta.appendChild(cur)}
+col.appendChild(meta);row.appendChild(col);return row}
+var meus=lsj('fr_com_meus')||[];meus.forEach(function(c){box.appendChild(linha(c,true))});
+box.appendChild(cmTit);var lista=el('div');box.appendChild(lista);
+form.addEventListener('submit',function(e){e.preventDefault();if(!pronto())return;
+var nome=lsj('fr_com_nome')||nomeIn.value.trim().replace(/^https?:\/\/(www\.)?instagram\.com\//i,'').replace(/[\/?#].*$/,'').replace(/^@+/,'').replace(/\s+/g,'').toLowerCase().replace(/[^a-z0-9._]/g,'').slice(0,30);if(!nome){nomeIn.focus();return}lsj('fr_com_nome',nome);nomeIn.style.display='none';
+var t=txt.value.trim().slice(0,1500);var c=[nome,t,0];meus.unshift(c);lsj('fr_com_meus',meus);
+box.insertBefore(linha(c,true),box.firstChild);salva('comentario',{nome:nome,texto:t});try{frTrack('comentario')}catch(e){}
+txt.value='';pronto();txt.blur()});
+fetch('/yt-comentarios.json').then(function(r){return r.json()}).then(function(L){
+var pos=0,mais=null;cmTit.textContent='Comentários do YouTube · '+L.length;
+function lote(n){var fim=Math.min(L.length,pos+n);for(;pos<fim;pos++)lista.appendChild(linha(L[pos]));
+if(pos>=L.length){if(mais)mais.remove();return}
+if(!mais){mais=el('button','background:none;border:0;padding:0 0 10px;color:#737373;font:500 13px '+FF+';cursor:pointer');mais.type='button';mais.onclick=function(){lote(10)};cm.appendChild(mais)}
+mais.textContent='Ver mais comentários ('+(L.length-pos)+')'}
+lote(5)}).catch(function(){});
 }catch(e){}})();
 
 // dual: pixel browser + CAPI server com mesmo eventID
