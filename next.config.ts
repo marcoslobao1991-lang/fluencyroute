@@ -15,6 +15,8 @@ const nextConfig: NextConfig = {
       beforeFiles: [
         { source: '/bridge', destination: '/bridge.html' },
         { source: '/bridge2', destination: '/bridge.html' },
+        // 10/11: bridge antiga (09c62a7) só pros afiliados convidados; ?vsl=fk2 leva pra VSL com lead
+        { source: '/bridge-af', destination: '/bridge-af.html' },
         // sales letter em 4 páginas por clique (fonte: ~/fluency-sales-letter/sales-letter-v4.html), 12x R$29 DlmRal3
         { source: '/carta', destination: '/carta.html' },
         // quiz-bridge modelado no quiz "Método APA" da Teacher Poli (inlead), 10 etapas → /vsl com respostas na query
