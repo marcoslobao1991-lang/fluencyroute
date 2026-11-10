@@ -56,7 +56,7 @@ function getExtId(){var v=getCookie('_fluency_uid');if(!v){v=uuid();document.coo
 function funnelSid(){try{var k='fr_sid',u=qp().get('fr_sid');if(u){localStorage.setItem(k,u);return u}var v=localStorage.getItem(k);if(!v){v=uuid();localStorage.setItem(k,v)}return v}catch(e){return uuid()}}
 function noTrack(){try{var f=qp().get('fr_no_track');if(f==='1')localStorage.setItem('fr_no_track','1');else if(f==='0')localStorage.removeItem('fr_no_track');return localStorage.getItem('fr_no_track')==='1'}catch(e){return false}}
 // ── TESTE A/B DE VSL (05/11): sorteio fixo por visitante; ?vsl=fk2 força uma versão ──
-var VSLS={fk1:{dir:'vsl-ingles-fk1',delay:1184,scroll:1394,rate:1.1},fk2:{dir:'vsl-ingles-fk2',delay:1239,scroll:1449,rate:1.1}};
+var VSLS={fk1:{dir:'vsl-ingles-fk1',delay:1184,scroll:1394,rate:1.1},fk2:{dir:'vsl-ingles-fk2',delay:1239,scroll:1449,rate:1.1},lead:{dir:'vsl-ingles',delay:1260,scroll:1470,rate:1.1}}; /* lead (10/11): VSL de sempre com a lead antiga 'fiquei fluente do jeito mais sem graça', ?vsl=lead (páginas dos afiliados) */
 /* 07/11: SORTEIO DESLIGADO a pedido do Marcos. Vencedor = fk1 (sem lead) pra todo mundo. ?vsl=fk2 só pra conferir (não grava). Pra religar o teste: voltar o sorteio do commit anterior. */
 var VSLV=(function(){try{var q=qp().get('vsl');if(q&&VSLS[q])return q}catch(e){}return 'fk1'})();
 // velocidade (06/11: 1,1x nas 2 versões; ?vel= sobrepõe). VTAG = versão+velocidade, vai no variant e no sck
