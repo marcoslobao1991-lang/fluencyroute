@@ -36,7 +36,9 @@ const D_SCROLL_TARGET = 'cta-pricing'
 const D_VTURB_PLAYER = '67d1c8ba61d59aeb47caf87d'
 const D_FAKEBAR_COLOR = '#00dfff'
 
-type Overlay = 'none' | 'unmute' | 'resume' | 'paused'
+const IG_FONT = '-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif'
+
+type Overlay ='none' | 'unmute' | 'resume' | 'paused'
 
 // Failover: se o streaming da VPS falhar, recarrega o embed VTurb original.
 // Rede de segurança enquanto a assinatura do vturb existir — depois do
@@ -59,7 +61,18 @@ export default function VslPlayer({
   resumeContinueLabel = 'Continuar assistindo?',
   resumeRestartLabel = 'Assistir do início?',
   resumeButtonColor = '#E77E11',
+  skin,
+  rate = 1,
+  lockLabel = 'Conteúdo bloqueado',
+  unlockLabel = 'Toque para desbloquear',
 }: {
+  // 'post' = cara de post de Instagram (igual a /vsl BR 07/11): vídeo mudo desfocado,
+  // cadeado no centro + pílula "toque para desbloquear", barra fina branca
+  skin?: 'post'
+  // velocidade do vídeo (1 = original). O tempo do vídeo (currentTime/reveal) não muda, só o relógio.
+  rate?: number
+  lockLabel?: string
+  unlockLabel?: string
   onVideoTime?: (t: number) => void
   onFallback?: () => void
   onPlayerEvent?: (event: string, detail?: string) => void
@@ -96,6 +109,9 @@ export default function VslPlayer({
   // interagiu = já deu unmute ou escolheu no resume → passa a salvar posição
   const interactedRef = useRef(false)
   const scrolledRef = useRef(false)
+  // skin post: desfoque sai quando o som liga (unmute ou resume)
+  const [unlocked, setUnlocked] = useState(false)
+  const post = skin === 'post'
 
   useEffect(() => {
     const video = videoRef.current
@@ -206,14 +222,23 @@ export default function VslPlayer({
     }
     video.addEventListener('timeupdate', onTime)
 
+    // velocidade: o browser pode resetar o playbackRate ao trocar de fonte/rendition
+    const aplicaRate = () => { if (rate !== 1 && video.playbackRate !== rate) video.playbackRate = rate }
+    video.defaultPlaybackRate = rate
+    aplicaRate()
+    video.addEventListener('play', aplicaRate)
+    video.addEventListener('loadedmetadata', aplicaRate)
+
     return () => {
       cancelled = true
       if (guard) clearTimeout(guard)
       video.removeEventListener('timeupdate', onTime)
+      video.removeEventListener('play', aplicaRate)
+      video.removeEventListener('loadedmetadata', aplicaRate)
       if (hls) hls.destroy()
     }
     // props são constantes por página (nenhuma muda em runtime)
-  }, [HLS_URL, storageKey, scrollToActionAt, scrollTargetId, VTURB_EMBED])
+  }, [HLS_URL, storageKey, scrollToActionAt, scrollTargetId, VTURB_EMBED, rate])
 
   const unmuteFromStart = () => {
     const video = videoRef.current
@@ -225,6 +250,7 @@ export default function VslPlayer({
     video.muted = false
     video.play().catch(() => {})
     setOverlay('none')
+    setUnlocked(true)
   }
 
   const resumeAt = (pos: number) => {
@@ -237,6 +263,7 @@ export default function VslPlayer({
     video.muted = false
     video.play().catch(() => {})
     setOverlay('none')
+    setUnlocked(true)
   }
 
   const togglePause = () => {
@@ -269,23 +296,71 @@ export default function VslPlayer({
   }
 
   return (
-    <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: '#000' }}>
+    <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: '#000', overflow: 'hidden' }}>
       <video
         ref={videoRef}
         poster={POSTER_URL}
         playsInline
         preload="auto"
         onClick={togglePause}
-        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', cursor: 'pointer' }}
+        style={{
+          width: '100%', height: '100%', objectFit: 'cover', display: 'block', cursor: 'pointer',
+          ...(post ? {
+            transition: 'filter .35s ease, transform .35s ease',
+            filter: unlocked ? 'none' : 'blur(16px)',
+            transform: unlocked ? 'none' : 'scale(1.12)',
+          } : null),
+        }}
       />
 
-      {/* fakeBar — progresso acelerado, idêntico ao vturb */}
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: FAKEBAR_HEIGHT, background: 'rgba(255,255,255,0.15)' }}>
-        <div style={{ width: `${Math.min(fakeProgress * 100, 100)}%`, height: '100%', background: fakeBarColor, transition: 'width 0.3s linear' }} />
+      {/* fakeBar — progresso acelerado, idêntico ao vturb (skin post: fina e branca) */}
+      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: post ? 3 : FAKEBAR_HEIGHT, background: post ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.15)' }}>
+        <div style={{ width: `${Math.min(fakeProgress * 100, 100)}%`, height: '100%', background: post ? '#fff' : fakeBarColor, transition: 'width 0.3s linear' }} />
       </div>
 
+      {/* skin post: cadeado no centro + pílula no canto, sem "clique para ouvir" */}
+      {overlay === 'unmute' && post && (
+        <button
+          onClick={unmuteFromStart}
+          aria-label={unlockLabel}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', background: 'transparent', border: 'none', cursor: 'pointer', padding: 0 }}
+        >
+          <style>{'@keyframes frIgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}@keyframes frLk{from{opacity:0;transform:translate(-50%,-50%) scale(.9)}to{opacity:1;transform:translate(-50%,-50%)}}'}</style>
+          <span style={{
+            position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)',
+            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12,
+            opacity: 0, animation: 'frLk .45s ease-out .4s forwards',
+          }}>
+            <span style={{
+              width: 74, height: 74, borderRadius: '50%', background: 'rgba(0,0,0,.55)',
+              border: '2px solid rgba(255,255,255,.85)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="4.5" y="10.5" width="15" height="10.5" rx="2.2" fill="#fff" />
+                <path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" />
+                <circle cx="12" cy="15.2" r="1.5" fill="#111" />
+              </svg>
+            </span>
+            <span style={{ color: '#fff', font: `700 16px/1.2 ${IG_FONT}`, textShadow: '0 1px 6px rgba(0,0,0,.6)', whiteSpace: 'nowrap' }}>
+              {lockLabel}
+            </span>
+          </span>
+          <span style={{
+            position: 'absolute', right: 10, bottom: 16, display: 'flex', alignItems: 'center', gap: 7,
+            background: 'rgba(0,0,0,.72)', color: '#fff', font: `600 13px/1 ${IG_FONT}`,
+            padding: '8px 12px 8px 10px', borderRadius: 999, opacity: 0, animation: 'frIgIn .4s ease-out 1.5s forwards',
+          }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="4.5" y="10.5" width="15" height="10.5" rx="2.2" fill="#fff" />
+              <path d="M8 10.5V7.5a4 4 0 0 1 7.6-1.7" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" />
+            </svg>
+            {unlockLabel}
+          </span>
+        </button>
+      )}
+
       {/* overlay "Clique para ouvir" — smartAutoPlay */}
-      {overlay === 'unmute' && (
+      {overlay === 'unmute' && !post && (
         <button
           onClick={unmuteFromStart}
           aria-label="Ativar o som do vídeo"

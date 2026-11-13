@@ -7,6 +7,7 @@ import { Fade, Glass, Label, S, Grad, useInView } from '../vsl2/primitives'
 import { genEventId, getFbCookies, getClientIp, getUserAgent } from '../lib/pixel'
 import { createTracker } from '../lib/funnel-track'
 import VslPlayer from '../vsl/VslPlayer'
+import PostCard, { Comentarios } from './PostCard'
 
 // ═══════════════════════════════════════════════════════════════
 // ESSENTIAL SPANISH FLUENCY — SALES PAGE (clone of RotaFluenciaPage, EN copy)
@@ -174,11 +175,28 @@ const FAQ = [
 // #01eeffad alpha 2, sem scrollToAction (scrollToActionIn: 0), textos do
 // resume em INGLÊS com botão #4e87a6, unmute "Click to listen".
 const VTURB_PLAYER_ID = '6a6013fbc99e7e122a46664a'
-const REVEAL_AT = 1050              // 17:30 do VÍDEO — mesma marca do displayHiddenElements
-const REVEAL_KEY = 'es_reveal_6a6013cb'
+// 12/11/2026: VSL SEM LEAD (molde fk1 do inglês) — HLS vsl-spanish-fk1, 20:30.
+// Rollback = media 'vsl-spanish' + REVEAL_AT 1050 + chaves antigas (es_reveal_6a6013cb / vsl_pos_6a6013cb).
+// Oferta original aos 1050 s caiu pra 1005 s (corte em ~/my-video/work/spanish-sem-lead/MAPA.md).
+const MEDIA = 'vsl-spanish-fk1'
+const REVEAL_AT = 1005
+const REVEAL_KEY = 'es_reveal_fk1'
+const POS_KEY = 'vsl_pos_es_fk1'
+
+// Skin "post de Instagram" igual à /vsl BR (07/11). ?skin=0 mostra o player antigo (prévia, não salva).
+const SKIN_POST = (() => {
+  if (typeof window === 'undefined') return true
+  try { const q = new URLSearchParams(location.search).get('skin'); return !(q === '0' || q === 'off') } catch { return true }
+})()
+// velocidade (12/11, igual à BR: 1,1x; ?vel= sobrepõe pra prévia). Vai na tag (variant).
+const RATE = (() => {
+  if (typeof window === 'undefined') return 1.1
+  try { const q = parseFloat(new URLSearchParams(location.search).get('vel') || ''); return Math.min(2, Math.max(0.5, q || 1.1)) } catch { return 1.1 }
+})()
+const VTAG = 'vsl_fk1' + (RATE !== 1 ? '_x' + Math.round(RATE * 100) : '') + (SKIN_POST ? '_ig' : '')
 
 // Log interno (funnel_events) — retenção do vídeo no stats, funil spanish
-const frTrack = createTracker({ funnel: 'spanish', page: 'vsl' })
+const frTrack = createTracker({ funnel: 'spanish', page: 'vsl', variant: VTAG })
 
 export default function SpanishSalesPage() {
   const [sticky, setSticky] = useState(false)
@@ -300,14 +318,49 @@ export default function SpanishSalesPage() {
       fontFamily: FONT.body, fontWeight: 300, minHeight: '100vh', letterSpacing: '-0.01em',
     }}>
 
-      {/* ═══ HERO — VIDEO (placeholder) ═══ */}
+      {/* ═══ HERO — VIDEO ═══ */}
+      {SKIN_POST ? (
+        <section style={{ background: '#fff', margin: 0, padding: '0 0 18px' }}>
+          <PostCard
+            caption="The repetition method to understand Spanish shows and movies without subtitles"
+            variant={'es_' + VTAG}
+            track={(ev, d) => frTrack(ev, d)}
+            player={
+              <VslPlayer
+                skin="post"
+                lockLabel="Content locked"
+                unlockLabel="Tap to unlock"
+                media={MEDIA}
+                rate={RATE}
+                posterFile="poster.jpg"
+                storageKey={POS_KEY}
+                scrollToActionAt={0}
+                vturbPlayerId={VTURB_PLAYER_ID}
+                resumeTitle="You already started watching"
+                resumeContinueLabel="Keep watching"
+                resumeRestartLabel="Start from beginning"
+                resumeButtonColor="#4e87a6"
+                onVideoTime={t => videoRevealRef.current?.(t)}
+                onFallback={() => {
+                  try { frTrack('player_fallback_vturb') } catch {}
+                  playerFallbackRef.current?.()
+                }}
+                onPlayerEvent={(ev, detail) => { try { frTrack(ev, detail) } catch {} }}
+              />
+            }
+          />
+          {/* comentários ficam sob o vídeo até a oferta abrir; aí descem pro fim da página */}
+          {!revealed && <Comentarios variant={'es_' + VTAG} track={(ev, d) => frTrack(ev, d)} />}
+        </section>
+      ) : (
       <section style={{ maxWidth: 600, margin: '0 auto', padding: '40px 20px 0' }}>
         <div style={{ maxWidth: 400, margin: '0 auto', borderRadius: 12, overflow: 'hidden', border: `1px solid ${C.border}`, background: C.bg2 }}>
           <div style={{ position: 'relative', paddingTop: '178.148%', background: '#000' }}>
             <VslPlayer
-              media="vsl-spanish"
+              media={MEDIA}
+                rate={RATE}
               posterFile="poster.jpg"
-              storageKey="vsl_pos_6a6013cb"
+              storageKey={POS_KEY}
               scrollToActionAt={0}
               vturbPlayerId={VTURB_PLAYER_ID}
               fakeBarColor="#01eeffad"
@@ -332,6 +385,7 @@ export default function SpanishSalesPage() {
           Watch with sound on
         </p>
       </section>
+      )}
 
       <div className={revealed ? undefined : 'esconder'}>
       {showRest && (<>
@@ -714,6 +768,8 @@ export default function SpanishSalesPage() {
       </S>
 
       {/* ═══ FOOTER ═══ */}
+      {SKIN_POST && revealed && <Comentarios fim variant={'es_' + VTAG} track={(ev, d) => frTrack(ev, d)} />}
+
       <footer style={{ textAlign: 'center', padding: '48px 24px 36px', borderTop: `1px solid ${C.border}` }}>
         <p style={{ fontSize: 14, fontWeight: 800, letterSpacing: '-0.02em' }}>
           <span style={{ color: C.t3 }}>fluency</span><span style={{ color: C.teal }}>route</span>
