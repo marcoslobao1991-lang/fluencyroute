@@ -29,10 +29,11 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;backgr
 <body>
 <main>
 <h1>VSL da aula do YouTube</h1>
-<p>Página só de conferência, fora do funil. As duas versões estão a 1,14× na aula e 1× na oferta. Sem legenda.</p>
+<p>Página só de conferência, fora do funil. Todas a 1,14× na aula e 1× na oferta, sem legenda. Full = só sem os trechos de YouTube, nenhuma pausa cortada, com a digitação do docs.</p>
 <div class="abas" role="group" aria-label="Versão">
 <button type="button" data-v="cortada" aria-pressed="true">Cortada<small>39:47</small></button>
 <button type="button" data-v="integral" aria-pressed="false">Integral<small>45:33</small></button>
+<button type="button" data-v="full" aria-pressed="false">Full<small>52:21</small></button>
 </div>
 <div class="quadro"><video id="v" controls playsinline preload="metadata"></video></div>
 <div class="linha" role="group" aria-label="Velocidade do player"><span>Velocidade do player</span>
@@ -59,7 +60,7 @@ v.addEventListener('error',function(){aviso.style.display='block'});
 v.addEventListener('timeupdate',function(){if(atual&&Math.floor(v.currentTime)%5===0)gravar('vslyt_pos_'+atual,String(v.currentTime))});
 [].forEach.call(document.querySelectorAll('.abas button'),function(b){b.addEventListener('click',function(){trocar(b.getAttribute('data-v'))})});
 [].forEach.call(document.querySelectorAll('.linha button'),function(b){b.addEventListener('click',function(){v.playbackRate=parseFloat(b.getAttribute('data-r'));marcar('.linha button','data-r',b.getAttribute('data-r'))})});
-trocar(ler('vslyt_versao')==='integral'?'integral':'cortada');
+var ini=ler('vslyt_versao');trocar(ini==='integral'||ini==='full'?ini:'cortada');
 })();
 </script>
 </body>
