@@ -34,6 +34,8 @@ const nextConfig: NextConfig = {
         { source: '/vsl3', destination: '/vsl3.html' },
         // 14/11: página paralela pro afiliado, sem lead (fk1), checkout jTO3lIy 12x R$49 — não toca a /vsl
         { source: '/vsl49', destination: '/vsl49.html' },
+        // 14/11: paralela do afiliado, sem lead (fk1), cupom -R$100 → checkout NTZlmFP R$383 (12x R$39,61); expira → jTO3lIy
+        { source: '/vsl39', destination: '/vsl39.html' },
         // mesma cirurgia da bridge na versão Spanish/USA — estática (48KB vs ~728KB de chunks)
         { source: '/spanish/bridge', destination: '/spanish-bridge.html' },
         // funil LATAM ES como subpasta (padrão /spanish): bridge estática portada
