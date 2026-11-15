@@ -38,6 +38,8 @@ const nextConfig: NextConfig = {
         { source: '/vsl39', destination: '/vsl39.html' },
         // 14/11: página EXCLUSIVA de conferência da VSL da aula do YouTube (cortada × integral), fora do funil, sem pixel, noindex
         { source: '/vsl-yt', destination: '/vsl-yt.html' },
+        // 14/11: duplicata da /vsl49 com a AULA DO YOUTUBE full (com digitação) + oferta, 52:21, pra testar tráfego (variant vsl_aula_ig)
+        { source: '/vsl-aula', destination: '/vsl-aula.html' },
         // mesma cirurgia da bridge na versão Spanish/USA — estática (48KB vs ~728KB de chunks)
         { source: '/spanish/bridge', destination: '/spanish-bridge.html' },
         // funil LATAM ES como subpasta (padrão /spanish): bridge estática portada
