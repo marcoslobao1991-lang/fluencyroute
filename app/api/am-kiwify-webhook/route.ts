@@ -9,14 +9,15 @@
 //  2. reembolso / chargeback → `orders.status` = refunded | chargedback + refunded_at
 //     (a área de membros vai ler isso pra tirar o acesso).
 //
-// NÃO cria usuário, NÃO manda CAPI: o Purchase no Meta sai do pixel 1854241865596807
-// configurado no próprio checkout da Kiwify (mandar CAPI daqui duplicaria a compra).
+// NÃO cria usuário. O Purchase no Meta sai SÓ daqui (CAPI, pixel 1854241865596807):
+// o pixel foi tirado do checkout da Kiwify de propósito, senão a compra contava 2x.
 //
 // Configurar na Kiwify: Apps > Webhooks > produto "Sociedade Antimarketing",
 // eventos compra aprovada + reembolso + chargeback, URL:
 //   https://fluencyroute.com.br/api/am-kiwify-webhook?token=2fbd378a2e870898627dc6a55321ef58
 
 import { NextRequest, NextResponse } from 'next/server'
+import { createHash } from 'crypto'
 
 const SUPA_URL = 'https://petrtewismhpzidcmmwb.supabase.co'
 const TOKEN = '2fbd378a2e870898627dc6a55321ef58'
@@ -113,5 +114,60 @@ export async function POST(req: NextRequest) {
     }),
   }).catch(() => null)
 
-  return NextResponse.json({ ok: true })
+  // ── Meta CAPI Purchase (rastreio avançado): casa com o clique do site pelo sck
+  // (checkout_sessions gravado no clique = fbc, fbp, IP, aparelho, UTMs) e manda o
+  // comprador com hash. event_id = order_id (retry da Kiwify não duplica no Meta).
+  let capi: any = null
+  try {
+    const sck = String(tp.sck || '')
+    let cs: Record<string, any> | null = null
+    if (sck) {
+      const r = await fetch(
+        `${SUPA_URL}/rest/v1/checkout_sessions?or=(sck.eq.${encodeURIComponent(sck)},session_id.eq.${encodeURIComponent(sck)})&select=*&order=created_at.desc&limit=1`,
+        { headers }
+      )
+      const rows = await r.json().catch(() => [])
+      cs = Array.isArray(rows) && rows[0] ? rows[0] : null
+    }
+    const nome = String(c.full_name || '').trim().split(/\s+/)
+    const tel = String(c.mobile || c.phone || '').replace(/\D/g, '')
+    const ud: Record<string, any> = { country: [hash('br')], external_id: [hash(orderId)] }
+    if (c.email) ud.em = [hash(c.email)]
+    if (tel) ud.ph = [hash(tel.startsWith('55') ? tel : '55' + tel)]
+    if (nome[0]) ud.fn = [hash(nome[0])]
+    if (nome.length > 1) ud.ln = [hash(nome[nome.length - 1])]
+    if (cs?.fbc) ud.fbc = cs.fbc
+    if (cs?.fbp) ud.fbp = cs.fbp
+    if (cs?.ip) ud.client_ip_address = cs.ip
+    if (cs?.ua) ud.client_user_agent = cs.ua
+    const ev = {
+      event_name: 'Purchase',
+      event_time: Math.floor(Date.now() / 1000),
+      event_id: `am_${orderId}`,
+      action_source: 'website',
+      event_source_url: 'https://sociedadeantimarketing.vercel.app/',
+      user_data: ud,
+      custom_data: { value: valueCents / 100, currency: 'BRL', content_name: PRODUTO, order_id: orderId },
+    }
+    const r = await fetch(`https://graph.facebook.com/v21.0/${PIXEL_ID}/events?access_token=${process.env.META_CAPI_TOKEN}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ data: [ev] }),
+    })
+    capi = await r.json().catch(() => null)
+    await fetch(`${SUPA_URL}/rest/v1/orders?pagarme_order_id=eq.${encodeURIComponent(orderId)}`, {
+      method: 'PATCH',
+      headers: { ...headers, Prefer: 'return=minimal' },
+      body: JSON.stringify({ meta_event_id: ev.event_id, meta_fbc: cs?.fbc || null, meta_fbp: cs?.fbp || null }),
+    }).catch(() => null)
+  } catch (e: any) {
+    capi = { error: e?.message }
+  }
+
+  return NextResponse.json({ ok: true, capi })
+}
+
+const PIXEL_ID = '1854241865596807' // SOCIEDADE ANTIMARKETING (BM Escola de Piano)
+function hash(v: string) {
+  return createHash('sha256').update(String(v).toLowerCase().trim()).digest('hex')
 }
