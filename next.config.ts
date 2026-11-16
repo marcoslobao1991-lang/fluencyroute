@@ -29,6 +29,9 @@ const nextConfig: NextConfig = {
         { source: '/carta-doc', destination: '/carta-doc.html' },
         // mesma cirurgia da bridge: vence a rota app/vsl — estática self-contained
         // (103KB total vs 15KB HTML + 673KB de chunks React). /vsl2 segue React.
+        // 15/11: todo o tráfego NOSSO da /vsl vai pro REMAKE (vsl-aula.html, oferta R$29 cupom) sem mexer nos links dos ads.
+        // Afiliado (?af=) e páginas com ?vsl= continuam na /vsl de sempre. Desfazer = apagar esta linha.
+        { source: '/vsl', missing: [{ type: 'query', key: 'af' }, { type: 'query', key: 'vsl' }], destination: '/vsl-aula.html' },
         { source: '/vsl', destination: '/vsl.html' },
         // oferta R$99/mês anual (checkout 6Fftr2I) — página nova, não toca a /vsl
         { source: '/vsl3', destination: '/vsl3.html' },
