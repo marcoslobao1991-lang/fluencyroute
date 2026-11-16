@@ -12,7 +12,7 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "Fluency Route — Aprenda Inglês com Música",
+    default: "Fluency Route",
     template: "%s | Fluency Route",
   },
   description: "Aprenda inglês de verdade ouvindo música. Método científico baseado em repetição musical que hackeia seu cérebro pra adquirir inglês naturalmente.",
