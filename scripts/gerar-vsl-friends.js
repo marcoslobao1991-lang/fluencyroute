@@ -51,6 +51,9 @@ troca('Rota da Fluência Essencial</p><div style="height:20px"></div>', 'Rota da
   '<span class="ofx-et ofx-et2"><b>Sua tutora</b> sabe o seu nível</span></div>' /* 17/11 Marcos: tira a etiqueta "Friends 24 episódios" */);
 troca('<p style="font-size: 13px; color: rgba(255, 255, 255, 0.22); margin-top: 4px;"><span class="fr-parc">', '<p style="font-size: 14px; color: rgba(255, 255, 255, 0.62); margin-top: 6px;"><span class="fr-parc">');
 
+// 1c) 17/11 Marcos: "tira aquela paradinha de fluencyroute no topo... deixa a vsl ocupando a tela cheia": sem a barra foto+nome do post
+troca("pl.insertBefore(head,pl.firstChild);", "/* 17/11: sem a barra fluencyroute no topo (Marcos) */");
+
 // 2) seções novas entre a oferta e o CTA final
 const ini = s.lastIndexOf('<div class="sep"', s.indexOf("METODOLOGIA"));
 const fim = s.lastIndexOf('<div class="sep"', s.indexOf("Comece sua jornada"));
