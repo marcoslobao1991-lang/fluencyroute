@@ -38,6 +38,10 @@ troca("h.on(H.Events.MANIFEST_PARSED,function(){sawMeta=true;", "h.on(H.Events.M
 // 17/11: a capa do player vinha da VSL antiga (remake) até o JS trocar; agora já nasce com a capa de Friends
 troca('poster="https://video.fluencyroute.com.br/vsl-ingles-remake/thumbnail.jpg"', 'poster="https://video.fluencyroute.com.br/vsl-ingles-friends/thumbnail.jpg"');
 troca("var key='aula_revealed';", "var key='friends_revealed';");
+// 17/11: a /friends não mandava video_reveal, e o painel nunca marcava "viu a oferta". Agora manda quando a oferta abre pelo vídeo
+// (não manda pra quem já tinha visto antes e só voltou: doReveal(true)).
+troca("function doReveal(){show();try{localStorage.setItem(key,'1')}catch(e){}}", "function doReveal(ja){show();if(!ja){try{track('video_reveal','friends')}catch(e){}}try{localStorage.setItem(key,'1')}catch(e){}}");
+troca("else if(already)doReveal();", "else if(already)doReveal(true);");
 troca("</b> Método da repetição pra entender séries e filmes em inglês sem legenda</p>", "</b> O truque simples pra aprender inglês com Friends</p>");
 troca("<title>Fluency Route</title>", "<title>Fluency Route: inglês com Friends</title>");
 const hl0 = s.indexOf('<p id="fr-hl"'), hl1 = s.indexOf("</p>", hl0) + 4;
@@ -296,6 +300,52 @@ const faq = sec(`<p class="fx-tag">PERGUNTAS</p><div class="fx-faq">
 </div>`);
 
 const js = `<script>
+// 17/11 Marcos: tela "TOQUE PARA CONTINUAR" escondendo a VSL (vídeo segue rodando borrado e mudo por trás). O toque é o mesmo
+// botão de antes (#fr-unmute): liga o som, tira o borrado e começa a VSL do início. Troca só o que aparece por cima.
+(function(){try{var un=document.getElementById('fr-unmute');if(!un)return;
+// ?modo=auto (padrão) | capa | cadeado. AUTO = "autoplay inteligente" do VTurb: a VSL roda NÍTIDA e muda (legenda queimada visível),
+// selo "Seu vídeo já começou · Toque para ouvir", e o 1º toque em QUALQUER lugar da página liga o som e volta pro começo.
+var MODO=(new URLSearchParams(location.search).get('modo')||'cadeado') /* padrão = o que está no ar; ?modo=teste|auto|capa pra ver as novas */;
+if(MODO==='cadeado')return;
+// TESTE DE OUVIDO (17/11, Marcos: "sua sugestão pra pegar mais play tá muito simples"): o play vira uma pergunta.
+// Cena real de Friends rodando sem legenda + "Você entende o que ela falou?" com 2 respostas. Qualquer resposta é o toque
+// que o navegador exige: a VSL (escondida, rodando muda por trás) começa do zero COM SOM. A resposta vai pro painel (teste_ouvido).
+if(MODO==='teste'){var vt=document.getElementById('fr-video');
+un.style.background='transparent';un.style.cursor='default';
+un.innerHTML='<style>@keyframes ttIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}.tt-b{flex:1;border:0;border-radius:16px;padding:16px 10px;font:800 17px/1 Inter,-apple-system,sans-serif;cursor:pointer;transition:transform .1s}.tt-b:active{transform:scale(.96)}</style>'
++'<span style="position:absolute;inset:0;background:#07080b"></span>'
++'<span style="position:absolute;inset:0;padding:0 18px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:14px;font-family:Inter,-apple-system,sans-serif;color:#fff;text-align:center;animation:ttIn .45s ease-out both">'
++'<span style="font:800 12px/1 JetBrains Mono,monospace;letter-spacing:3px;color:#4ECDC4">TESTE DE 3 SEGUNDOS</span>'
++'<span style="position:relative;width:100%;border-radius:16px;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.12),0 20px 50px rgba(0,0,0,.5);aspect-ratio:16/9;background:#000"><video src="/app/c1.mp4" poster="/app/c1.jpg" muted autoplay loop playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video><span style="position:absolute;left:10px;top:10px;padding:5px 9px;border-radius:8px;background:rgba(0,0,0,.6);font:700 11px/1 JetBrains Mono,monospace;letter-spacing:1px">FRIENDS · SEM LEGENDA</span></span>'
++'<span style="font-size:clamp(24px,7vw,30px);font-weight:900;letter-spacing:-.02em;line-height:1.12">Você entende o que<br>ela falou?</span>'
++'<span style="display:flex;gap:10px;width:100%;margin-top:4px"><button type="button" class="tt-b" data-r="entendi" style="background:#4ECDC4;color:#03201d">Entendi</button><button type="button" class="tt-b" data-r="nao" style="background:#fff;color:#111">Não entendi</button></span>'
++'<span style="font-size:13px;opacity:.6">Responde pra continuar</span></span>';
+var resp=function(e){var b=e.target.closest&&e.target.closest('.tt-b');try{track('teste_ouvido',b?b.getAttribute('data-r'):'fora')}catch(x){}};
+un.addEventListener('click',resp,true);
+document.addEventListener('click',function h(e){try{if(!vt||!vt.muted){document.removeEventListener('click',h,true);return}var t=e.target;if(t&&t.closest&&t.closest('a,input,textarea,select,label,#fr-unmute,form'))return;document.removeEventListener('click',h,true);un.click()}catch(x){}},true);
+return}
+if(MODO==='auto'){var vd=document.getElementById('fr-video');if(vd){vd.style.filter='none';vd.style.transform='none'}
+un.style.background='transparent';
+un.innerHTML='<style>@keyframes atOnda{0%,100%{opacity:.25}50%{opacity:1}}@keyframes atIn{from{opacity:0;transform:translate(-50%,-44%) scale(.94)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}@keyframes atPulso{0%{box-shadow:0 0 0 0 rgba(78,205,196,.6)}70%{box-shadow:0 0 0 18px rgba(78,205,196,0)}100%{box-shadow:0 0 0 0 rgba(78,205,196,0)}}</style>'
++'<span style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:10px;padding:20px 26px 18px;border-radius:22px;background:rgba(8,10,14,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 18px 50px rgba(0,0,0,.45);font-family:Inter,-apple-system,sans-serif;color:#fff;text-align:center;opacity:0;animation:atIn .45s ease-out .15s forwards">'
++'<span style="width:62px;height:62px;border-radius:50%;background:#4ECDC4;display:flex;align-items:center;justify-content:center;animation:atPulso 1.8s infinite"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#03201d" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z" fill="#03201d"/><path d="M15.5 9.5a3.5 3.5 0 0 1 0 5" style="animation:atOnda 1.2s infinite"/><path d="M18.5 7a7 7 0 0 1 0 10" style="animation:atOnda 1.2s .3s infinite"/></svg></span>'
++'<span style="font-size:19px;font-weight:800;letter-spacing:-.01em;line-height:1.15">Seu vídeo já começou</span>'
++'<span style="font-size:15px;font-weight:600;opacity:.88">Toque para ouvir</span></span>';
+// o 1º toque em qualquer lugar (não em link/botão/campo) vale como o toque no vídeo. Arrastar pra rolar não dispara "click".
+document.addEventListener('click',function h(e){try{if(!vd||!vd.muted){document.removeEventListener('click',h,true);return}var t=e.target;if(t&&t.closest&&t.closest('a,button,input,textarea,select,label,#fr-unmute,form'))return;document.removeEventListener('click',h,true);un.click()}catch(x){}},true);
+return}
+un.innerHTML='<style>@keyframes gtIn{from{opacity:0;transform:translate(-50%,-46%)}to{opacity:1;transform:translate(-50%,-50%)}}@keyframes gtPulso{0%{box-shadow:0 0 0 0 rgba(255,255,255,.55)}70%{box-shadow:0 0 0 16px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}</style>'
+// capa de Friends por cima: a VSL roda escondida atrás (Marcos: "thumb de friends e deixar a vsl escondida no fundo")
++'<span style="position:absolute;inset:0;display:grid;grid-template-rows:1fr 1fr 1fr;gap:3px;background:#000"><img src="/app/fr/e01-1.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block"><img src="/app/fr/e01-6.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block"><video src="/app/c6.mp4" poster="/app/c6.jpg" muted autoplay loop playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;display:block"></video></span>'
++'<span style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,.72) 35%,rgba(0,0,0,.72) 70%,rgba(0,0,0,.4) 100%)"></span>'
++'<span style="position:absolute;left:50%;top:50%;width:86%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;font-family:Inter,-apple-system,sans-serif;color:#fff;opacity:0;animation:gtIn .5s ease-out .2s forwards;text-shadow:0 2px 14px rgba(0,0,0,.65)">'
++'<span style="width:64px;height:64px;border-radius:50%;background:#4ECDC4;display:flex;align-items:center;justify-content:center;margin-bottom:6px;box-shadow:0 10px 30px rgba(0,0,0,.4)"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#03201d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="2.8" y="14" width="4.4" height="7" rx="1.8" fill="#03201d"/><rect x="16.8" y="14" width="4.4" height="7" rx="1.8" fill="#03201d"/></svg></span>'
++'<span style="font-size:clamp(30px,9vw,40px);font-weight:900;letter-spacing:-.02em;line-height:1">O TRUQUE SIMPLES</span>'
++'<span style="font-size:clamp(18px,5.4vw,23px);font-weight:700;line-height:1.2">pra aprender inglês com <span style="color:#4ECDC4">FRIENDS</span></span>'
++'<span style="font-size:clamp(14px,4.2vw,17px);font-weight:500;line-height:1.35;opacity:.9;max-width:300px">enquanto faz outras coisas, só com 1&nbsp;fone de ouvido</span>'
++'<span style="margin-top:14px;display:inline-flex;align-items:center;gap:10px;background:#fff;color:#111;font-size:17px;font-weight:800;padding:14px 24px 14px 18px;border-radius:999px;animation:gtPulso 2s infinite;text-shadow:none"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="#111"/></svg>Toque para continuar</span>'
++'</span>';
+}catch(e){}})();
 (function(){
 var io=('IntersectionObserver' in window)?new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var el=e.target;el.classList.add('on');io.unobserve(el);anima(el)})},{threshold:.25}):null;
 function conta(el){var ate=parseFloat(el.getAttribute('data-ate')),dec=+(el.getAttribute('data-dec')||0),t0=null,D=1600;
