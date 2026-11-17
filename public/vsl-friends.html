@@ -488,7 +488,7 @@ var NATIVE_OK=/iP(hone|ad|od)/.test(UA)||(/Safari\//.test(UA)&&!/Chrome|CriOS|Fx
 video.addEventListener('loadedmetadata',function(){sawMeta=true});
 video.addEventListener('error',function(){if(mode==='nativo'||mode==='mp4')recover(mode+'_erro_'+((video.error&&video.error.code)||0))});
 // MP4 progressivo (fallback.mp4 na VPS): toca em qualquer navegador sem hls.js nem MSE. Entra na 3ª tentativa ou sem suporte.
-function initMp4(t,first){mode='mp4';track('player_mp4',String(Math.round(t||0)));video.src=BASE+'/fallback.mp4';video.load();armGuard();
+function initMp4(t,first){mode='mp4';track('player_mp4',String(Math.round(t||0)));video.src=BASE+'/fallback.mp4?v=3';video.load();armGuard();
 if(first)startPlayback();else video.addEventListener('loadedmetadata',function(){resumeAfter(t)},{once:true})}
 function initNative(t,first){mode='nativo';video.src=BASE+'/main.m3u8';video.load();armGuard();
 if(first)startPlayback();else video.addEventListener('loadedmetadata',function(){resumeAfter(t)},{once:true})}
