@@ -30,6 +30,8 @@ const nextConfig: NextConfig = {
         // mesma cirurgia da bridge: vence a rota app/vsl — estática self-contained
         // (103KB total vs 15KB HTML + 673KB de chunks React). /vsl2 segue React.
         { source: '/vsl', destination: '/vsl.html' },
+        // 17/11: site novo da VSL de Friends (gerado por scripts/gerar-vsl-friends.js), R$19/mês, checkout ESzq5JN (R$193). Não toca a /vsl
+        { source: '/friends', destination: '/vsl-friends.html' },
         // oferta R$99/mês anual (checkout 6Fftr2I) — página nova, não toca a /vsl
         { source: '/vsl3', destination: '/vsl3.html' },
         // 14/11: página paralela pro afiliado, sem lead (fk1), checkout jTO3lIy 12x R$49 — não toca a /vsl
