@@ -31,7 +31,12 @@ troca("var desce=function(){if(cmWrap.parentNode!==rod.parentNode){rod.parentNod
 // 1) player e textos do topo
 troca("var VSLS={rmk:", "var VSLS={friends:{dir:'vsl-ingles-friends',delay:745,scroll:955,rate:1},rmk:");
 troca("return 'rmk'})();", "return 'friends'})(); /* 17/11: site novo da VSL de Friends */");
-troca("h=new H({maxBufferLength:30,", "h=new H({startLevel:0,capLevelToPlayerSize:true,maxBufferLength:30,");
+troca("h=new H({maxBufferLength:30,", "var CELM=matchMedia('(max-width:820px)').matches;h=new H({startLevel:0,capLevelToPlayerSize:!CELM,maxBufferLength:30,");
+// 17/11 (Marcos: "demora tanto pra dar play"): no celular o capLevelToPlayerSize (tela densidade 3) liberava o 1080p (1,6 MB a cada 4 s).
+// Celular fica travado em <=720p; no PC segue pelo tamanho do player.
+troca("h.on(H.Events.MANIFEST_PARSED,function(){sawMeta=true;", "h.on(H.Events.MANIFEST_PARSED,function(){try{if(CELM){var cap=-1;h.levels.forEach(function(l,i){if((l.height||0)<=1280&&(cap<0||l.height>h.levels[cap].height))cap=i});if(cap>=0)h.autoLevelCapping=cap}}catch(e){}sawMeta=true;");
+// 17/11: a capa do player vinha da VSL antiga (remake) até o JS trocar; agora já nasce com a capa de Friends
+troca('poster="https://video.fluencyroute.com.br/vsl-ingles-remake/thumbnail.jpg"', 'poster="https://video.fluencyroute.com.br/vsl-ingles-friends/thumbnail.jpg"');
 troca("var key='aula_revealed';", "var key='friends_revealed';");
 troca("</b> Método da repetição pra entender séries e filmes em inglês sem legenda</p>", "</b> O truque simples pra aprender inglês com Friends</p>");
 troca("<title>Fluency Route</title>", "<title>Fluency Route: inglês com Friends</title>");
