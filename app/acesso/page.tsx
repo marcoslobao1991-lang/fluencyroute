@@ -54,7 +54,7 @@ export default function AcessoPage() {
           Entrar no app de treino
         </h1>
         <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: 1.5, color: '#7C5CFF', margin: '0 0 14px' }}>
-          BÔNUS DO CURSO · MANU · LISTENING E SHADOWING
+          CENAS DE SÉRIE · LISTENING E SHADOWING
         </p>
 
         {estado === 'enviado' ? (
@@ -71,8 +71,8 @@ export default function AcessoPage() {
         ) : (
           <>
             <p style={{ fontSize: 16, color: '#3D4A49', lineHeight: 1.65 }}>
-              Aqui você treina o <b>ouvido</b> e a <b>fala</b> com cenas reais de série, com a Manu conduzindo.
-              É o bônus do curso, de nível intermediário: o lugar certo pra quem já bateu a primeira meta.
+              Aqui você treina o <b>ouvido</b> e a <b>fala</b> com cenas reais de série, como Friends.
+              Pode começar hoje, em qualquer nível.
             </p>
             <p style={{ fontSize: 16, color: '#3D4A49', lineHeight: 1.65 }}>
               Digite o e-mail que você usou na compra e <b>você entra na hora</b>. Sem senha, sem abrir e-mail.
