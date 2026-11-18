@@ -428,7 +428,7 @@ var DELAY=VSLS[VSLV].delay,SCROLL_AT=VSLS[VSLV].scroll,RESUME_MIN=30,STEP=5000,A
 var video=document.getElementById('fr-video');try{video.poster='https://video.fluencyroute.com.br/'+VSLS[VSLV].dir+'/thumbnail.jpg'}catch(e){}track('vsl_variant',VTAG);if(RATE!==1){var setR=function(){try{video.preservesPitch=true;video.defaultPlaybackRate=RATE;if(video.playbackRate!==RATE)video.playbackRate=RATE}catch(e){}};setR();['loadedmetadata','play','ratechange'].forEach(function(ev){video.addEventListener(ev,setR)})}var bar=document.getElementById('fr-bar');
 var ovU=document.getElementById('fr-unmute'),ovR=document.getElementById('fr-resume'),ovP=document.getElementById('fr-paused');
 var interacted=false,lastSave=0,dead=false,lastMin=0,scrolled=false;
-function track(ev,detail){try{frTrack(ev,detail)}catch(e){}}
+window.track=track;function track(ev,detail){try{frTrack(ev,detail)}catch(e){}}
 function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
 function show(el,on){el.style.display=on?'flex':'none'}
 // Escada curta (cada degrau espera no máximo 6 s pelo 1º metadado): 1ª falha troca de origem (R2 ↔ VPS) no mesmo modo,

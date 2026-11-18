@@ -435,6 +435,9 @@ s = s.slice(0, ini) + css + DEMO.css + resultado + rota + prova + social + metod
 s = s.replace("</body>", js + DEMO.js + "</body>");
 // presell: esconde a página desde o 1º byte (antes do CSS/JS do resto) pra ninguém ver a VSL por baixo enquanto carrega
 s = s.replace("<head>", "<head><script>try{if((new URLSearchParams(location.search).get('modo')||'quiz')==='quiz')document.documentElement.className+=' ps-on'}catch(e){}</script><style>html.ps-on,html.ps-on body{background:#FAFAF6!important}html.ps-on body>*:not(#fr-presell){visibility:hidden!important}</style><link rel=\"preload\" as=\"image\" href=\"/app/demo-real-cena.jpg\">");
+// 18/11: o track() da página vive dentro de outro escopo; os scripts daqui (presell, cena_som, audio_aluno) chamavam e falhavam em silêncio
+if (s.split("function track(ev,detail){").length !== 2) { console.error("track() não encontrado 1x"); process.exit(1); }
+s = s.replace("function track(ev,detail){", "window.track=track;function track(ev,detail){");
 s = PRECO(s);
 if (/DlmRal3|R$289|VALUE=289/.test(s)) { console.error("sobrou preço antigo"); process.exit(1); }
 fs.writeFileSync(path.join(PUB, "vsl-friends.html"), s);
