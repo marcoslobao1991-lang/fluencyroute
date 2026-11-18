@@ -306,6 +306,7 @@ const js = `<script>
 // ?modo=quiz | auto | capa | teste | cadeado (padrão = cadeado, o que está no ar). AUTO = "autoplay inteligente" do VTurb: a VSL roda NÍTIDA e muda (legenda queimada visível),
 // selo "Seu vídeo já começou · Toque para ouvir", e o 1º toque em QUALQUER lugar da página liga o som e volta pro começo.
 var MODO=(new URLSearchParams(location.search).get('modo')||'quiz') /* 18/11: padrão = PRESELL (quiz); ?modo=cadeado volta o anterior */;
+try{window.track&&window.track('play_modo',MODO==='quiz'?'presell':MODO)}catch(e){}
 if(MODO==='cadeado')return;
 // TESTE DE OUVIDO (17/11, Marcos: "sua sugestão pra pegar mais play tá muito simples"): o play vira uma pergunta.
 // Cena real de Friends rodando sem legenda + "Você entende o que ela falou?" com 2 respostas. Qualquer resposta é o toque
@@ -438,11 +439,6 @@ s = s.replace("<head>", "<head><script>try{if((new URLSearchParams(location.sear
 // 18/11: o track() da página vive dentro de outro escopo; os scripts daqui (presell, cena_som, audio_aluno) chamavam e falhavam em silêncio
 if (s.split("function track(ev,detail){").length !== 2) { console.error("track() não encontrado 1x"); process.exit(1); }
 s = s.replace("function track(ev,detail){", "window.track=track;function track(ev,detail){");
-// 18/11: com a PRESELL ativa (classe ps-on posta no <head>), a etiqueta da versão vira vsl_friends_presell: no painel ela aparece
-// como versão própria ("VSL de Friends · presell"), separada do cadeado. Vale pro variant de todos os eventos e pro sck do checkout.
-{ const d = "var VTAG=(qp().get('af')?'af_':'')+'vsl_'+VSLV+(RATE!==1?'_x'+Math.round(RATE*100):'');";
-  if (s.split(d).length !== 2) { console.error("VTAG não encontrado 1x"); process.exit(1); }
-  s = s.replace(d, d + "try{if(document.documentElement.classList.contains('ps-on'))VTAG=VTAG.replace('vsl_friends','vsl_friends_presell')}catch(e){}"); }
 s = PRECO(s);
 if (/DlmRal3|R$289|VALUE=289/.test(s)) { console.error("sobrou preço antigo"); process.exit(1); }
 fs.writeFileSync(path.join(PUB, "vsl-friends.html"), s);
