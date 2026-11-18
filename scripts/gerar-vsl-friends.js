@@ -42,11 +42,11 @@ troca("var key='aula_revealed';", "var key='friends_revealed';");
 // (não manda pra quem já tinha visto antes e só voltou: doReveal(true)).
 troca("function doReveal(){show();try{localStorage.setItem(key,'1')}catch(e){}}", "function doReveal(ja){show();if(!ja){try{track('video_reveal','friends')}catch(e){}}try{localStorage.setItem(key,'1')}catch(e){}}");
 troca("else if(already)doReveal();", "else if(already)doReveal(true);");
-troca("</b> Método da repetição pra entender séries e filmes em inglês sem legenda</p>", "</b> O truque simples pra aprender inglês com Friends</p>");
+troca("</b> Método da repetição pra entender séries e filmes em inglês sem legenda</p>", "</b> Truque simples pra aprender inglês com Friends</p>");
 troca("<title>Fluency Route</title>", "<title>Fluency Route: inglês com Friends</title>");
 const hl0 = s.indexOf('<p id="fr-hl"'), hl1 = s.indexOf("</p>", hl0) + 4;
 if (hl0 < 0) { console.error("sem fr-hl"); process.exit(1); }
-s = s.slice(0, hl0) + '<p id="fr-hl" style="max-width:420px;margin:0 auto 12px;text-align:center;font-family:Inter,-apple-system,sans-serif;font-size:15px;line-height:1.4;font-weight:500;color:#555"><strong style="font-weight:800;color:#111;letter-spacing:.03em">O TRUQUE SIMPLES</strong><br><span style="white-space:nowrap;font-size:clamp(12px,3.6vw,16px)">pra aprender inglês com <span style="color:#111;font-weight:800;background:linear-gradient(transparent 62%,#bff9ff 62%)">FRIENDS</span></span></p>' + s.slice(hl1);
+s = s.slice(0, hl0) + '<p id="fr-hl" style="max-width:420px;margin:0 auto 12px;text-align:center;font-family:Inter,-apple-system,sans-serif;font-size:15px;line-height:1.4;font-weight:500;color:#555"><strong style="font-weight:800;color:#111;letter-spacing:.03em">TRUQUE SIMPLES</strong><br><span style="white-space:nowrap;font-size:clamp(12px,3.6vw,16px)">pra aprender inglês com <span style="color:#111;font-weight:800;background:linear-gradient(transparent 62%,#bff9ff 62%)">FRIENDS</span></span></p>' + s.slice(hl1);
 
 // 1b) CARD DE OFERTA DO TOPO (Marcos 17/11: "tá tão básico"): o produto aparece (celular com a cena real do app + 2 etiquetas
 //     reais do app), o parcelamento sai do cinza 22% ilegível. Preço e checkout NÃO mudam.
@@ -303,9 +303,9 @@ const js = `<script>
 // 17/11 Marcos: tela "TOQUE PARA CONTINUAR" escondendo a VSL (vídeo segue rodando borrado e mudo por trás). O toque é o mesmo
 // botão de antes (#fr-unmute): liga o som, tira o borrado e começa a VSL do início. Troca só o que aparece por cima.
 (function(){try{var un=document.getElementById('fr-unmute');if(!un)return;
-// ?modo=auto (padrão) | capa | cadeado. AUTO = "autoplay inteligente" do VTurb: a VSL roda NÍTIDA e muda (legenda queimada visível),
+// ?modo=quiz | auto | capa | teste | cadeado (padrão = cadeado, o que está no ar). AUTO = "autoplay inteligente" do VTurb: a VSL roda NÍTIDA e muda (legenda queimada visível),
 // selo "Seu vídeo já começou · Toque para ouvir", e o 1º toque em QUALQUER lugar da página liga o som e volta pro começo.
-var MODO=(new URLSearchParams(location.search).get('modo')||'cadeado') /* padrão = o que está no ar; ?modo=teste|auto|capa pra ver as novas */;
+var MODO=(new URLSearchParams(location.search).get('modo')||'quiz') /* 18/11: padrão = PRESELL (quiz); ?modo=cadeado volta o anterior */;
 if(MODO==='cadeado')return;
 // TESTE DE OUVIDO (17/11, Marcos: "sua sugestão pra pegar mais play tá muito simples"): o play vira uma pergunta.
 // Cena real de Friends rodando sem legenda + "Você entende o que ela falou?" com 2 respostas. Qualquer resposta é o toque
@@ -334,13 +334,58 @@ un.innerHTML='<style>@keyframes atOnda{0%,100%{opacity:.25}50%{opacity:1}}@keyfr
 // o 1º toque em qualquer lugar (não em link/botão/campo) vale como o toque no vídeo. Arrastar pra rolar não dispara "click".
 document.addEventListener('click',function h(e){try{if(!vd||!vd.muted){document.removeEventListener('click',h,true);return}var t=e.target;if(t&&t.closest&&t.closest('a,button,input,textarea,select,label,#fr-unmute,form'))return;document.removeEventListener('click',h,true);un.click()}catch(x){}},true);
 return}
+if(MODO==='quiz'){
+var ps=document.createElement('div');ps.id='fr-presell';
+ps.setAttribute('style','position:fixed;inset:0;z-index:2147483000;background:#FAFAF6;color:#111;overflow:auto;-webkit-overflow-scrolling:touch;font-family:Inter,-apple-system,sans-serif');
+ps.innerHTML='<style>'
++'@keyframes psIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}'
++'@keyframes psPulso{0%{box-shadow:0 0 0 0 rgba(18,181,172,.55)}70%{box-shadow:0 0 0 18px rgba(18,181,172,0)}100%{box-shadow:0 0 0 0 rgba(18,181,172,0)}}'
++'@keyframes psSeta{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}'
++'@keyframes psBoia{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-8px) rotate(-4deg)}}'
++'@keyframes psChip{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}'
++'@keyframes psCarimbo{from{opacity:0;transform:rotate(-3deg) scale(1.25)}to{opacity:1;transform:rotate(-3deg) scale(1)}}'
++'#fr-presell .ps-bt{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;border:0;border-radius:18px;background:#12B5AC;color:#fff;font:900 17px/1 Inter,-apple-system,sans-serif;letter-spacing:.01em;white-space:nowrap;padding:22px 16px;cursor:pointer;animation:psPulso 1.8s infinite;transition:transform .1s}'
++'#fr-presell .ps-bt:active{transform:scale(.97)}#fr-presell .ps-bt svg{animation:psSeta 1s ease-in-out infinite}'
++'#fr-presell .ps-chip{position:absolute;display:flex;align-items:center;gap:7px;background:#fff;border-radius:999px;padding:9px 13px 9px 10px;font:800 13px/1 Inter,-apple-system,sans-serif;color:#111;box-shadow:0 10px 26px rgba(0,0,0,.12),0 0 0 1px rgba(0,0,0,.04);white-space:nowrap;animation:psChip 3s ease-in-out infinite}'
++'#fr-presell .ps-chip i{width:22px;height:22px;border-radius:50%;background:#e3f7f5;display:flex;align-items:center;justify-content:center}'
++'</style>'
++'<div style="min-height:100%;max-width:440px;margin:0 auto;padding:24px 22px 26px;box-sizing:border-box;display:flex;flex-direction:column;animation:psIn .45s ease-out both">'
+// topo de quiz: marca + barra de progresso
++'<div style="display:flex;align-items:center;justify-content:space-between;font:800 11px/1 JetBrains Mono,monospace;letter-spacing:2.5px;color:#0B6E68"><span>FLUENCY ROUTE</span><span style="color:#9a9a92">PASSO 1 DE 2</span></div>'
++'<div style="height:6px;border-radius:9px;background:#e6e5df;margin-top:12px;overflow:hidden"><div style="width:50%;height:100%;border-radius:9px;background:#12B5AC"></div></div>'
+// HEADLINE: TRUQUE em preto, SIMPLES num carimbo verde-água inclinado
++'<div style="margin-top:26px;text-align:center;line-height:1">'
++'<div style="display:flex;align-items:center;justify-content:center;gap:10px;font-size:clamp(34px,10.2vw,42px);font-weight:900;letter-spacing:-.04em;line-height:1"><span>Truque</span><span style="display:inline-block;padding:3px 12px 6px;background:#12B5AC;color:#fff;border-radius:11px;box-shadow:0 8px 20px rgba(18,181,172,.35);transform:rotate(-3deg);animation:psCarimbo .5s .25s cubic-bezier(.2,1.6,.4,1) both">Simples</span></div>'
+// SUBHEADLINE: FRIENDS numa pílula escura + linha com fone
++'<div style="margin-top:18px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;font-size:clamp(18px,5.4vw,22px);font-weight:800;letter-spacing:-.01em">pra aprender inglês com <span style="display:inline-block;background:#111;color:#fff;border-radius:9px;padding:6px 11px 5px;font-weight:900;letter-spacing:.14em;font-size:.86em">FRIENDS</span></div>'
++'<div style="margin-top:10px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:clamp(15px,4.4vw,17px);font-weight:500;font-style:italic;color:#666"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#12B5AC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="2.8" y="14" width="4.4" height="7" rx="1.8" fill="#12B5AC"/><rect x="16.8" y="14" width="4.4" height="7" rx="1.8" fill="#12B5AC"/></svg>enquanto faz outras coisas do seu dia</div>'
++'</div>'
+// DEMO-APP: celular com a gravação real do app rodando muda + 2 etiquetas
++'<div style="position:relative;margin:26px auto 0;width:186px;flex:none">'
++'<div style="position:absolute;inset:-30px -60px;background:radial-gradient(closest-side,rgba(18,181,172,.20),rgba(18,181,172,0));pointer-events:none"></div>'
++'<div style="position:relative;width:186px;aspect-ratio:540/1168;padding:7px;border-radius:30px;background:linear-gradient(160deg,#2e2e35,#0d0d10);box-shadow:0 26px 50px rgba(0,0,0,.28),0 0 0 2px rgba(255,255,255,.5);animation:psBoia 4s ease-in-out infinite;box-sizing:content-box">'
++'<div style="position:relative;width:100%;height:100%;border-radius:24px;overflow:hidden;background:#fff"><video src="/app/demo-real.mp4?v=2" poster="/app/demo-real-cena.jpg" muted autoplay playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;display:block;background:#fff url(/app/demo-real-cena.jpg) center/cover"></video></div>'
++'<div style="position:absolute;top:13px;left:50%;transform:translateX(-50%);width:56px;height:15px;border-radius:99px;background:#000"></div></div>'
++'<div class="ps-chip" style="left:-70px;top:22%"><i><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0B6E68" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg></i>repete a cena</div>'
++'<div class="ps-chip" style="right:-72px;top:58%;animation-delay:1.2s"><i><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0B6E68" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/></svg></i>treino de fala</div>'
++'</div>'
+// botão
++'<div style="margin-top:auto;padding-top:28px"><button type="button" class="ps-bt">TOQUE PARA CONTINUAR<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>'
++'</div>';
+document.body.appendChild(ps);try{var dv0=ps.querySelector('video');if(dv0){var A=6.5,B=16.5;dv0.loop=false;var vai=function(){try{dv0.currentTime=A;dv0.play()}catch(x){}};dv0.addEventListener('loadedmetadata',vai);dv0.addEventListener('timeupdate',function(){if(dv0.currentTime>B||dv0.currentTime<A-0.5)vai()});dv0.addEventListener('ended',vai);if(dv0.readyState>0)vai()}}catch(x){}var ov=document.documentElement.style.overflow;document.documentElement.style.overflow='hidden';
+ps.style.cursor='pointer';var foi=false;ps.addEventListener('click',function(e){if(foi)return;foi=true;try{track('presell_play',e.target.closest&&e.target.closest('.ps-bt')?'botao':'tela')}catch(x){}
+un.click();
+try{var dv=ps.querySelector('video');if(dv){dv.pause();dv.removeAttribute('src');dv.load()}}catch(x){}
+document.documentElement.style.overflow=ov;document.documentElement.classList.remove('ps-on');ps.remove();
+try{window.scrollTo(0,0)}catch(x){}});
+return}
 un.innerHTML='<style>@keyframes gtIn{from{opacity:0;transform:translate(-50%,-46%)}to{opacity:1;transform:translate(-50%,-50%)}}@keyframes gtPulso{0%{box-shadow:0 0 0 0 rgba(255,255,255,.55)}70%{box-shadow:0 0 0 16px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}</style>'
 // capa de Friends por cima: a VSL roda escondida atrás (Marcos: "thumb de friends e deixar a vsl escondida no fundo")
 +'<span style="position:absolute;inset:0;display:grid;grid-template-rows:1fr 1fr 1fr;gap:3px;background:#000"><img src="/app/fr/e01-1.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block"><img src="/app/fr/e01-6.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block"><video src="/app/c6.mp4" poster="/app/c6.jpg" muted autoplay loop playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;display:block"></video></span>'
 +'<span style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,.72) 35%,rgba(0,0,0,.72) 70%,rgba(0,0,0,.4) 100%)"></span>'
 +'<span style="position:absolute;left:50%;top:50%;width:86%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;font-family:Inter,-apple-system,sans-serif;color:#fff;opacity:0;animation:gtIn .5s ease-out .2s forwards;text-shadow:0 2px 14px rgba(0,0,0,.65)">'
 +'<span style="width:64px;height:64px;border-radius:50%;background:#4ECDC4;display:flex;align-items:center;justify-content:center;margin-bottom:6px;box-shadow:0 10px 30px rgba(0,0,0,.4)"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#03201d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="2.8" y="14" width="4.4" height="7" rx="1.8" fill="#03201d"/><rect x="16.8" y="14" width="4.4" height="7" rx="1.8" fill="#03201d"/></svg></span>'
-+'<span style="font-size:clamp(30px,9vw,40px);font-weight:900;letter-spacing:-.02em;line-height:1">O TRUQUE SIMPLES</span>'
++'<span style="font-size:clamp(30px,9vw,40px);font-weight:900;letter-spacing:-.02em;line-height:1">TRUQUE SIMPLES</span>'
 +'<span style="font-size:clamp(18px,5.4vw,23px);font-weight:700;line-height:1.2">pra aprender inglês com <span style="color:#4ECDC4">FRIENDS</span></span>'
 +'<span style="font-size:clamp(14px,4.2vw,17px);font-weight:500;line-height:1.35;opacity:.9;max-width:300px">enquanto faz outras coisas, só com 1&nbsp;fone de ouvido</span>'
 +'<span style="margin-top:14px;display:inline-flex;align-items:center;gap:10px;background:#fff;color:#111;font-size:17px;font-weight:800;padding:14px 24px 14px 18px;border-radius:999px;animation:gtPulso 2s infinite;text-shadow:none"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="#111"/></svg>Toque para continuar</span>'
@@ -388,6 +433,8 @@ const PRECO = (x) => { const n = x.split('DlmRal3').length - 1; if (n < 1) { con
 s = s.slice(0, ini) + css + DEMO.css + resultado + rota + prova + social + metodo + fases + garantia + faq + s.slice(fim);
 // o script das animações vai no fim do body (depois de tudo existir)
 s = s.replace("</body>", js + DEMO.js + "</body>");
+// presell: esconde a página desde o 1º byte (antes do CSS/JS do resto) pra ninguém ver a VSL por baixo enquanto carrega
+s = s.replace("<head>", "<head><script>try{if((new URLSearchParams(location.search).get('modo')||'quiz')==='quiz')document.documentElement.className+=' ps-on'}catch(e){}</script><style>html.ps-on,html.ps-on body{background:#FAFAF6!important}html.ps-on body>*:not(#fr-presell){visibility:hidden!important}</style><link rel=\"preload\" as=\"image\" href=\"/app/demo-real-cena.jpg\">");
 s = PRECO(s);
 if (/DlmRal3|R$289|VALUE=289/.test(s)) { console.error("sobrou preço antigo"); process.exit(1); }
 fs.writeFileSync(path.join(PUB, "vsl-friends.html"), s);
