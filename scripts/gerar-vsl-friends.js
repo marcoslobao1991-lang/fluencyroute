@@ -438,6 +438,11 @@ s = s.replace("<head>", "<head><script>try{if((new URLSearchParams(location.sear
 // 18/11: o track() da página vive dentro de outro escopo; os scripts daqui (presell, cena_som, audio_aluno) chamavam e falhavam em silêncio
 if (s.split("function track(ev,detail){").length !== 2) { console.error("track() não encontrado 1x"); process.exit(1); }
 s = s.replace("function track(ev,detail){", "window.track=track;function track(ev,detail){");
+// 18/11: com a PRESELL ativa (classe ps-on posta no <head>), a etiqueta da versão vira vsl_friends_presell: no painel ela aparece
+// como versão própria ("VSL de Friends · presell"), separada do cadeado. Vale pro variant de todos os eventos e pro sck do checkout.
+{ const d = "var VTAG=(qp().get('af')?'af_':'')+'vsl_'+VSLV+(RATE!==1?'_x'+Math.round(RATE*100):'');";
+  if (s.split(d).length !== 2) { console.error("VTAG não encontrado 1x"); process.exit(1); }
+  s = s.replace(d, d + "try{if(document.documentElement.classList.contains('ps-on'))VTAG=VTAG.replace('vsl_friends','vsl_friends_presell')}catch(e){}"); }
 s = PRECO(s);
 if (/DlmRal3|R$289|VALUE=289/.test(s)) { console.error("sobrou preço antigo"); process.exit(1); }
 fs.writeFileSync(path.join(PUB, "vsl-friends.html"), s);
