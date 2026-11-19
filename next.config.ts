@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
       { source: '/aula-vsl', destination: '/vsl2', permanent: true },
       { source: '/rota-fluencia', destination: '/vsl', permanent: true },
       { source: '/rota-fluencia/checkout', destination: '/subscribe', permanent: true },
+      // 19/11: Marcos subiu a SCALE do Spanish apontando pra bridge e quer mandar direto pra VSL sem mexer nos anúncios.
+      // Redirect temporário (307) leva a query (utm/fbclid) junto. Pra voltar a bridge: apagar esta linha (o rewrite pro .html continua lá).
+      { source: '/spanish/bridge', destination: '/spanish', permanent: false },
     ]
   },
   async rewrites() {
