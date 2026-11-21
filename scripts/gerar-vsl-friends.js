@@ -427,10 +427,9 @@ document.querySelector('.fx-onda').addEventListener('click',function(e){var r=th
 })();
 </script>`;
 
-// PREÇO (Marcos 17/11: "altera para 19 mensais e pega o link de menos de 200 na kiwify"): só NESTA página.
-// Checkout ESzq5JN = Inglês Funcional R$193 (12x R$19,96). A /vsl continua R$29 + DlmRal3 (regra 1 do AGENTS.md).
-const PRECO = (x) => { const n = x.split('DlmRal3').length - 1; if (n < 1) { console.error('sem DlmRal3'); process.exit(1); }
-  return x.split('DlmRal3').join('ESzq5JN').split('class="fr-v">R$29<').join('class="fr-v">R$19<').split('12x no cartão ou R$289 no Pix').join('12x no cartão ou R$193 no Pix').split('var VALUE=289.00;').join('var VALUE=193.00;'); };
+// PREÇO (Marcos 21/11: "sobe o preço do inglês para o link de 289 e coloca 29 no site da friends... pra ver se converte igual"):
+// volta pro mesmo da /vsl: De R$497, hoje R$29/mês, 12x ou R$289 no Pix, checkout DlmRal3. Até 21/11 era R$19/mês + ESzq5JN (R$193).
+const PRECO = (x) => { if (x.split('DlmRal3').length < 2) { console.error('sem DlmRal3'); process.exit(1); } return x; };
 s = s.slice(0, ini) + css + DEMO.css + resultado + rota + prova + social + metodo + fases + garantia + faq + s.slice(fim);
 // o script das animações vai no fim do body (depois de tudo existir)
 s = s.replace("</body>", js + DEMO.js + "</body>");
@@ -440,6 +439,6 @@ s = s.replace("<head>", "<head><script>try{if((new URLSearchParams(location.sear
 if (s.split("function track(ev,detail){").length !== 2) { console.error("track() não encontrado 1x"); process.exit(1); }
 s = s.replace("function track(ev,detail){", "window.track=track;function track(ev,detail){");
 s = PRECO(s);
-if (/DlmRal3|R$289|VALUE=289/.test(s)) { console.error("sobrou preço antigo"); process.exit(1); }
+if (/ESzq5JN|R$193|class="fr-v">R$19</.test(s)) { console.error("sobrou preço de R$193"); process.exit(1); }
 fs.writeFileSync(path.join(PUB, "vsl-friends.html"), s);
 console.log("ok · vsl-friends.html", (s.length / 1024).toFixed(0), "KB");
