@@ -91,8 +91,8 @@ export default function NetflixPresell({ track, posKey, revealKey }: { track: (e
           <div className="ps-chip" style={{ right: -78, top: '58%', animationDelay: '1.2s' }}><i><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={RX} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z" /><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3" /></svg></i>speech training</div>
         </div>
 
-        {/* botão */}
-        <div style={{ marginTop: 'auto', paddingTop: 28 }}>
+        {/* botão: logo abaixo do celular, NÃO colado no fundo (no fundo a barra do navegador/Instagram esconde em alguns aparelhos) */}
+        <div style={{ marginTop: 30, paddingBottom: 'calc(28px + env(safe-area-inset-bottom, 0px))' }}>
           <button type="button" className="ps-bt">TAP TO CONTINUE
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
           </button>
