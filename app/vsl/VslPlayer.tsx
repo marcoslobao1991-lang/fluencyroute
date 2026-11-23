@@ -65,7 +65,11 @@ export default function VslPlayer({
   rate = 1,
   lockLabel = 'Conteúdo bloqueado',
   unlockLabel = 'Toque para desbloquear',
+  mp4Fallback = 'fallback.mp4',
 }: {
+  // plano B (o vturb foi cancelado em 11/2026): se o HLS falhar, toca este MP4 da mesma pasta de mídia.
+  // Padrão 'fallback.mp4'. Se o MP4 também falhar, fica o poster e a página é avisada por onFallback.
+  mp4Fallback?: string
   // 'post' = cara de post de Instagram (igual a /vsl BR 07/11): vídeo mudo desfocado,
   // cadeado no centro + pílula "toque para desbloquear", barra fina branca
   skin?: 'post'
@@ -120,7 +124,26 @@ export default function VslPlayer({
     let cancelled = false
     let sawMetadata = false
 
+    let tentouMp4 = false
     const triggerFallback = () => {
+      if (mp4Fallback) {
+        // sem vturb: troca o HLS pelo MP4 direto, uma vez só. Se o MP4 também falhar, fica o poster.
+        if (cancelled || tentouMp4) return
+        tentouMp4 = true
+        try { emit('player_fallback_mp4') } catch {}
+        try { hls?.destroy() } catch {}
+        hls = null
+        const estava = video.currentTime
+        // MP4 também falhou (pasta sem fallback.mp4 ou VPS fora): avisa a página, que abre a oferta pelo relógio
+        video.addEventListener('error', () => { if (!cancelled) { try { onFallbackRef.current?.() } catch {} } }, { once: true })
+        video.src = MEDIA_BASE + '/' + mp4Fallback
+        video.load()
+        video.addEventListener('loadedmetadata', () => {
+          sawMetadata = true
+          if (estava > 1) { try { video.currentTime = estava } catch {} ; video.play().catch(() => {}) } else startPlayback()
+        }, { once: true })
+        return
+      }
       if (cancelled) return
       cancelled = true
       try { onFallbackRef.current?.() } catch {}
