@@ -40,7 +40,7 @@ troca('poster="https://video.fluencyroute.com.br/vsl-ingles-remake/thumbnail.jpg
 troca("var key='aula_revealed';", "var key='friends_revealed';");
 // 17/11: a /friends não mandava video_reveal, e o painel nunca marcava "viu a oferta". Agora manda quando a oferta abre pelo vídeo
 // (não manda pra quem já tinha visto antes e só voltou: doReveal(true)).
-troca("function doReveal(){show();try{localStorage.setItem(key,'1')}catch(e){}}", "function doReveal(ja){show();if(!ja){try{track('video_reveal','friends')}catch(e){}}try{localStorage.setItem(key,'1')}catch(e){}}");
+troca("function doReveal(){show();try{localStorage.setItem(key,'1')}catch(e){}}", "function doReveal(ja){show();if(!ja&&!window.__frRv){window.__frRv=1;try{track('video_reveal','friends')}catch(e){}}try{localStorage.setItem(key,'1')}catch(e){}}");
 troca("else if(already)doReveal();", "else if(already)doReveal(true);");
 troca("</b> Método da repetição pra entender séries e filmes em inglês sem legenda</p>", "</b> Truque simples pra aprender inglês com Friends</p>");
 troca("<title>Fluency Route</title>", "<title>Fluency Route: inglês com Friends</title>");

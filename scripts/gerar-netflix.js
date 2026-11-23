@@ -51,6 +51,9 @@ troca("<span style={{ color: C.t3 }}>fluency</span><span style={{ color: C.teal 
 // sem vturb: o plano B do player é o MP4 direto da mesma pasta
 s = s.split('vturbPlayerId={VTURB_PLAYER_ID}').join('mp4Fallback="fallback.mp4"')
 s = s.split("frTrack('player_fallback_vturb')").join("frTrack('player_fallback_mp4')")
+// play em forma de PRESELL (igual à /friends): cobre a página até o toque
+troca("import NetflixOferta from './Oferta'", "import NetflixOferta from './Oferta'\nimport NetflixPresell from './Presell'")
+troca("{/* ═══ HERO — VIDEO ═══ */}", "<NetflixPresell track={(ev, d) => { try { frTrack(ev, d) } catch {} }} posKey={POS_KEY} revealKey={REVEAL_KEY} />\n      {/* ═══ HERO — VIDEO ═══ */}")
 s = '// GERADO por scripts/gerar-netflix.js a partir de app/spanish/SpanishSalesPage.tsx. Editar lá (ou no gerador) e rodar de novo.\n' + s.replace("'use client'\n", '')
 s = "'use client'\n" + s
 fs.mkdirSync('app/netflix', { recursive: true })

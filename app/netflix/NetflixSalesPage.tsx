@@ -11,6 +11,7 @@ import { createTracker } from '../lib/funnel-track'
 import VslPlayer from '../vsl/VslPlayer'
 import PostCard, { Comentarios } from '../spanish/PostCard'
 import NetflixOferta from './Oferta'
+import NetflixPresell from './Presell'
 
 // ═══════════════════════════════════════════════════════════════
 // ESSENTIAL SPANISH FLUENCY — SALES PAGE (clone of RotaFluenciaPage, EN copy)
@@ -341,6 +342,7 @@ export default function NetflixSalesPage({ preco = '197' }: { preco?: string }) 
       fontFamily: FONT.body, fontWeight: 300, minHeight: '100vh', letterSpacing: '-0.01em',
     }}>
 
+      <NetflixPresell track={(ev, d) => { try { frTrack(ev, d) } catch {} }} posKey={POS_KEY} revealKey={REVEAL_KEY} />
       {/* ═══ HERO — VIDEO ═══ */}
       {SKIN_POST ? (
         <section style={{ background: '#fff', margin: 0, padding: '0 0 18px' }}>

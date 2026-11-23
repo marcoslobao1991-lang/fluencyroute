@@ -275,6 +275,15 @@ export default function VslPlayer({
     setOverlay('none')
     setUnlocked(true)
   }
+  // start externo (presell da /netflix): window.dispatchEvent(new Event('vsl:start')) dentro de um toque
+  // = mesmo caminho do toque no cadeado (do início, com som). Sem ouvinte de fora, nada muda.
+  const startRef = useRef(unmuteFromStart)
+  startRef.current = unmuteFromStart
+  useEffect(() => {
+    const h = () => { try { startRef.current() } catch {} }
+    window.addEventListener('vsl:start', h)
+    return () => window.removeEventListener('vsl:start', h)
+  }, [])
 
   const resumeAt = (pos: number) => {
     const video = videoRef.current

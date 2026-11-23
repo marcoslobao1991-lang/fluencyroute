@@ -538,7 +538,7 @@ saveCheckoutSession(stitchSid());try{frTrack('checkout_click')}catch(e){}trackDu
 // verdade (autoplay bloqueado etc.) ou no failover pro vturb.
 (function(){var delaySeconds=Math.round(VSLS[VSLV].delay/RATE);var key='friends_revealed';
 function show(){document.querySelectorAll('.esconder').forEach(function(el){el.classList.remove('esconder')})}
-function doReveal(ja){show();if(!ja){try{track('video_reveal','friends')}catch(e){}}try{localStorage.setItem(key,'1')}catch(e){}}
+function doReveal(ja){show();if(!ja&&!window.__frRv){window.__frRv=1;try{track('video_reveal','friends')}catch(e){}}try{localStorage.setItem(key,'1')}catch(e){}}
 window.__frDoReveal=doReveal;
 var armed=false;
 window.__frArmClockReveal=function(secs){if(armed)return;armed=true;setTimeout(doReveal,(secs==null?delaySeconds:secs)*1000)};
