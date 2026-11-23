@@ -1,24 +1,29 @@
 'use client'
 
-import { useEffect, type CSSProperties } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { getFbCookies, getClientIp, getUserAgent, genEventId } from '../../lib/pixel'
-import { C, FONT } from '../../vsl2/design'
-import { useInView } from '../../vsl2/primitives'
 
 // ═══════════════════════════════════════════════════════════════
-// /spanish/obrigado — UPSELL (OTO) pós-compra. Template validado, sem vídeo.
-// Oferta: "Fluency Fast-Track" ($127 one-time, ancora $497). Gráfico animado
-// "sozinho vs. com o fast-track". Botões aceitar/recusar = widget Hotmart.
+// /spanish/obrigado — UPSELL (OTO) pós-compra do espanhol (/trick, /netflix, /spanish).
+// 23/11/2026: visual refeito na identidade da VSL nova (roxo + branco, mono, grade fina, miras, régua), MESMA copy e
+// mesma oferta. Botões aceitar/recusar = widget Hotmart (funil "SPANISH MENTORSHIP", produto Premium Coaching).
 // Purchase é server-side (webhook). Aqui só ViewContent (retarget).
-// ⚠️ O PREÇO exibido tem que BATER com a oferta de upsell no painel Hotmart.
+// ⚠️ O PREÇO exibido tem que BATER com a oferta de upsell no painel Hotmart (ewtgb4zl, US$ 127).
 // ═══════════════════════════════════════════════════════════════
 const PIXEL_ID = '690970750622464'
 const OFFER = 'Fluency Fast-Track'
 const PRICE = '$127'           // = preço da oferta de upsell no Hotmart
 const FROM = '$497'            // âncora
 const VALUE = '$1,994'         // soma do stack
-const FRONT = '$197'           // o que a pessoa acabou de pagar
+const FRONT = '$97'            // o que a pessoa acabou de pagar (23/11: site cobra 97)
 const PRICE_NUM = 127
+
+const RX = '#6D3FF2'
+const RX2 = '#9D7BFF'
+const INK = '#14111F'
+const CORAL = '#FF5C7A'
+const MONO = "'JetBrains Mono', ui-monospace, monospace"
+const SANS = "'Inter', -apple-system, sans-serif"
 
 function getExternalId(): string {
   try {
@@ -49,47 +54,70 @@ async function trackEs(event: string, extra?: Record<string, unknown>, determini
 }
 
 const STACK = [
-  { i: '🔓', t: 'Everything unlocked', v: '$997', d: 'Every series, every real-content episode — now and every one we add. The full native-content library, not the starter set.' },
-  { i: '🗺️', t: 'Your 90-Day Speaking Plan', v: '$297', d: 'The exact day-by-day path from “drilling” to actually talking. No guessing what to do next — just open it and train.' },
-  { i: '🎧', t: 'Pronunciation feedback', v: '$400', d: 'Send your recordings, get your accent fixed by a specialist. The small corrections you literally cannot hear on your own.' },
-  { i: '👥', t: 'Private accountability group', v: '$300', d: 'A small, closed room of serious learners + weekly challenges. When someone’s watching, you show up — and showing up is 90% of it.' },
-  { i: '♾️', t: 'Lifetime updates', v: 'priceless', d: 'Everything we ever build lands in your account automatically. You pay once, today, and never again.' },
+  { n: '01', t: 'Everything unlocked', v: '$997', d: 'Every series, every real-content episode, now and every one we add. The full native-content library, not the starter set.' },
+  { n: '02', t: 'Your 90-Day Speaking Plan', v: '$297', d: 'The exact day-by-day path from drilling to actually talking. No guessing what to do next: just open it and train.' },
+  { n: '03', t: 'Pronunciation feedback', v: '$400', d: 'Send your recordings, get your accent fixed by a specialist. The small corrections you literally cannot hear on your own.' },
+  { n: '04', t: 'Private accountability group', v: '$300', d: 'A small, closed room of serious learners plus weekly challenges. When someone is watching, you show up, and showing up is 90% of it.' },
+  { n: '05', t: 'Lifetime updates', v: 'priceless', d: 'Everything we ever build lands in your account automatically. You pay once, today, and never again.' },
 ]
 
 const FAQ = [
-  { q: 'Why add this if I have the app?', a: 'The app is the method. The Fast-Track is the reason you finish it — the full content, a clear plan, and someone checking your progress. That’s the gap between “bought a course” and “speaks Spanish.”' },
-  { q: 'Total beginner — is it for me?', a: 'Especially. Beginners get the most from a clear plan and early feedback, because bad habits are cheap to fix now and expensive later.' },
-  { q: 'What if it’s not for me?', a: '7-day guarantee. Try it. If it’s not moving you, email us within 7 days for a full refund — every cent, no questions.' },
+  { q: 'Why add this if I have the app?', a: 'The app is the method. The Fast-Track is the reason you finish it: the full content, a clear plan, and someone checking your progress. That is the gap between "bought a course" and "speaks Spanish".' },
+  { q: 'Total beginner, is it for me?', a: 'Especially. Beginners get the most from a clear plan and early feedback, because bad habits are cheap to fix now and expensive later.' },
+  { q: 'What if it is not for me?', a: '7-day guarantee. Try it. If it is not moving you, email us within 7 days for a full refund, every cent, no questions.' },
 ]
 
-// ── Gráfico animado: sozinho (desiste) vs. com o Fast-Track (fluente) ──
+function useVisto<T extends HTMLElement>() {
+  const ref = useRef<T>(null)
+  const [v, setV] = useState(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el || typeof IntersectionObserver === 'undefined') { setV(true); return }
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setV(true); io.disconnect() } }, { threshold: 0, rootMargin: '0px 0px -12% 0px' })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+  return { ref, v }
+}
+
+function Bloco({ tom, children, id }: { tom: 'claro' | 'noite' | 'roxo'; children: React.ReactNode; id?: string }) {
+  const { ref, v } = useVisto<HTMLElement>()
+  return (
+    <section id={id} ref={ref} className={`up-b up-${tom}${v ? ' up-on' : ''}`}>
+      <div className="up-in">{children}</div>
+    </section>
+  )
+}
+const Rot = ({ children }: { children: React.ReactNode }) => <p className="up-rot">{children}</p>
+const Mira = () => <><b className="up-m tl" /><b className="up-m tr" /><b className="up-m bl" /><b className="up-m br" /></>
+function Regua() {
+  return (
+    <div className="up-regua" aria-hidden>
+      {Array.from({ length: 29 }, (_, i) => <i key={i} className={i % 7 === 0 ? 'g' : ''} style={{ left: `${(i / 28) * 100}%` }} />)}
+    </div>
+  )
+}
+
+// ── Gráfico: sozinho (desiste) vs. com o Fast-Track (fala) ──
 function GapChart() {
-  const { ref, v } = useInView(0.3)
+  const { ref, v } = useVisto<HTMLDivElement>()
   const alone = 'M40 250 C120 250 150 150 195 150 C245 150 265 238 320 246'
   const coach = 'M40 250 C170 250 250 120 460 66'
   return (
-    <div ref={ref} style={{ background: C.bg3, border: `1px solid ${C.border}`, borderRadius: 16, padding: '22px 16px 14px', margin: '8px 0 4px' }}>
+    <div ref={ref} className="up-chart">
+      <Mira />
       <svg viewBox="0 0 500 300" style={{ width: '100%', height: 'auto', display: 'block' }}>
-        <defs>
-          <linearGradient id="ot-teal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor={C.teal} /><stop offset="1" stopColor={C.purple} /></linearGradient>
-        </defs>
-        <line x1="40" y1="250" x2="470" y2="250" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
-        {/* alone */}
-        <path d={alone} fill="none" stroke={C.red} strokeWidth="3.5" strokeLinecap="round"
-          strokeDasharray="600" strokeDashoffset={v ? 0 : 600}
-          style={{ transition: 'stroke-dashoffset 1.6s cubic-bezier(.16,1,.3,1) .2s', opacity: 0.85 }} />
-        <circle cx="320" cy="246" r="5" fill={C.red} opacity={v ? 1 : 0} style={{ transition: 'opacity .4s 1.6s' }} />
-        <text x="330" y="242" fill={C.red} style={{ fontFamily: FONT.mono, fontSize: 16, fontWeight: 800, opacity: v ? 1 : 0, transition: 'opacity .5s 1.7s' }}>you quit</text>
-        {/* coach */}
-        <path d={coach} fill="none" stroke="url(#ot-teal)" strokeWidth="4.5" strokeLinecap="round"
-          strokeDasharray="620" strokeDashoffset={v ? 0 : 620}
-          style={{ transition: 'stroke-dashoffset 2s cubic-bezier(.16,1,.3,1) .5s' }} />
-        <circle cx="460" cy="66" r="6" fill={C.teal} opacity={v ? 1 : 0} style={{ transition: 'opacity .4s 2.2s' }} />
-        <text x="452" y="50" textAnchor="end" fill={C.teal} style={{ fontFamily: FONT.mono, fontSize: 17, fontWeight: 800, opacity: v ? 1 : 0, transition: 'opacity .5s 2.3s' }}>you SPEAK</text>
-        {/* labels */}
-        <text x="46" y="278" fill={C.t2} style={{ fontFamily: FONT.mono, fontSize: 13, letterSpacing: '1px' }}>ALONE</text>
-        <text x="200" y="278" fill={C.teal} style={{ fontFamily: FONT.mono, fontSize: 13, letterSpacing: '1px', opacity: v ? 1 : 0, transition: 'opacity .6s 2s' }}>WITH THE FAST-TRACK</text>
-        <text x="470" y="278" textAnchor="end" fill={C.t3} style={{ fontFamily: FONT.mono, fontSize: 12 }}>90 days →</text>
+        {Array.from({ length: 6 }, (_, i) => <line key={i} x1="40" x2="470" y1={70 + i * 36} y2={70 + i * 36} stroke="rgba(20,17,31,.06)" />)}
+        <line x1="40" y1="250" x2="470" y2="250" stroke="rgba(20,17,31,.25)" strokeWidth="1.5" />
+        <path d={alone} fill="none" stroke={CORAL} strokeWidth="4" strokeLinecap="round" strokeDasharray="600" strokeDashoffset={v ? 0 : 600} style={{ transition: 'stroke-dashoffset 1.6s cubic-bezier(.16,1,.3,1) .2s' }} />
+        <circle cx="320" cy="246" r="6" fill={CORAL} opacity={v ? 1 : 0} style={{ transition: 'opacity .4s 1.6s' }} />
+        <text x="332" y="240" fill={CORAL} style={{ fontFamily: MONO, fontSize: 17, fontWeight: 700, opacity: v ? 1 : 0, transition: 'opacity .5s 1.7s' }}>YOU QUIT</text>
+        <path d={coach} fill="none" stroke={RX} strokeWidth="5" strokeLinecap="round" strokeDasharray="620" strokeDashoffset={v ? 0 : 620} style={{ transition: 'stroke-dashoffset 2s cubic-bezier(.16,1,.3,1) .5s' }} />
+        <circle cx="460" cy="66" r="7" fill={RX} opacity={v ? 1 : 0} style={{ transition: 'opacity .4s 2.2s' }} />
+        <text x="450" y="48" textAnchor="end" fill={RX} style={{ fontFamily: MONO, fontSize: 18, fontWeight: 700, opacity: v ? 1 : 0, transition: 'opacity .5s 2.3s' }}>YOU SPEAK</text>
+        <text x="46" y="280" fill="rgba(20,17,31,.55)" style={{ fontFamily: MONO, fontSize: 13, letterSpacing: '1.5px' }}>ALONE</text>
+        <text x="196" y="280" fill={RX} style={{ fontFamily: MONO, fontSize: 13, letterSpacing: '1.5px', opacity: v ? 1 : 0, transition: 'opacity .6s 2s' }}>WITH THE FAST-TRACK</text>
+        <text x="470" y="280" textAnchor="end" fill="rgba(20,17,31,.4)" style={{ fontFamily: MONO, fontSize: 12 }}>90 DAYS</text>
       </svg>
     </div>
   )
@@ -113,114 +141,139 @@ export default function ThankYou() {
     return () => { if (iv) clearInterval(iv) }
   }, [])
 
-  const eyebrow = (txt: string, color = C.teal) => (
-    <p style={{ fontFamily: FONT.mono, fontSize: 11, letterSpacing: 3, textTransform: 'uppercase', color, marginBottom: 12 }}>{txt}</p>
-  )
   const toOffer = () => document.getElementById('offer')?.scrollIntoView({ behavior: 'smooth' })
-  const ctaStyle: CSSProperties = {
-    appearance: 'none', border: 'none', cursor: 'pointer', width: '100%',
-    background: C.gradText, color: '#04120f', fontWeight: 800, fontSize: 17,
-    padding: '17px 20px', borderRadius: 14, letterSpacing: '-0.01em',
-    boxShadow: `0 10px 30px ${C.teal}33`,
-  }
 
   return (
-    <div style={{ background: C.bg, color: C.white, fontFamily: FONT.body, fontWeight: 300, minHeight: '100vh', letterSpacing: '-0.01em' }}>
-      {/* URGENCY */}
-      <div style={{
-        background: 'linear-gradient(135deg,#ff3d6e,#ff8a3d)', color: '#fff', textAlign: 'center',
-        padding: '11px 16px', fontSize: 13, fontWeight: 800, letterSpacing: 0.3, position: 'sticky', top: 0, zIndex: 50,
-      }}>
-        ⚠️ WAIT — your order isn’t finished. This upgrade is shown once.
-      </div>
+    <div className="up" style={{ fontFamily: SANS, minHeight: '100vh', background: '#FBFAFF' }}>
+      {/* aviso fixo */}
+      <div className="up-aviso"><span className="up-ponto" />WAIT: your order isn&apos;t finished. This upgrade is shown once.</div>
 
-      <main style={{ maxWidth: 640, margin: '0 auto', padding: '34px 20px 90px' }}>
-        {eyebrow('✓ Order confirmed · add this before you go')}
-        <h1 style={{ fontSize: 'clamp(30px, 7vw, 46px)', fontWeight: 800, lineHeight: 1.06, letterSpacing: '-0.035em', color: C.t1, marginBottom: 16 }}>
-          Alone, most people <span style={{ color: C.red }}>quit</span>.<br />With this, you <span style={{ color: C.teal }}>speak</span>.
-        </h1>
-        <p style={{ fontSize: 17, lineHeight: 1.6, color: C.t2, marginBottom: 20 }}>
-          You have the method. The one thing that decides whether it works is what happens over the next 90 days — and doing it alone is where almost everyone falls off. So here’s your one-time chance to add the <strong style={{ color: C.t1, fontWeight: 700 }}>Fast-Track</strong>: everything unlocked, a day-by-day plan, and real feedback. It’s already on your order — one tap adds it.
-        </p>
-
+      {/* 1. GANCHO + GRÁFICO */}
+      <Bloco tom="claro">
+        <Rot>Order confirmed · add this before you go</Rot>
+        <h1 className="up-h1">Alone, most people <span style={{ color: CORAL }}>quit</span>.<br />With this, you <em>speak</em>.</h1>
+        <p className="up-p">You have the method. The one thing that decides whether it works is what happens over the next 90 days, and doing it alone is where almost everyone falls off. So here is your one-time chance to add the <strong>Fast-Track</strong>: everything unlocked, a day-by-day plan, and real feedback. It is already on your order. One tap adds it.</p>
         <GapChart />
-        <p style={{ fontSize: 13, color: C.t3, textAlign: 'center', margin: '10px 0 4px', lineHeight: 1.5 }}>
-          Same method. The difference is the plan, the feedback, and someone keeping you on track.
-        </p>
+        <p className="up-nota">Same method. The difference is the plan, the feedback, and someone keeping you on track.</p>
+        <button className="up-cta" onClick={toOffer}>Add the Fast-Track · {PRICE}</button>
+      </Bloco>
 
-        <div style={{ marginTop: 26, marginBottom: 6 }}>
-          <button onClick={toOffer} style={ctaStyle}>Add the Fast-Track — {PRICE} ↓</button>
-        </div>
-
-        <div style={{ height: 1, background: C.border, margin: '40px 0 30px' }} />
-        {eyebrow('Everything you unlock today')}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 11 }}>
-          {STACK.map((it, i) => (
-            <div key={i} style={{ display: 'flex', gap: 14, padding: '17px 18px', background: C.bg3, border: `1px solid ${C.border}`, borderRadius: 13 }}>
-              <div style={{ flexShrink: 0, width: 42, height: 42, borderRadius: 11, background: `${C.teal}12`, border: `1px solid ${C.teal}2e`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 21 }}>{it.i}</div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'baseline' }}>
-                  <h3 style={{ fontSize: 16.5, fontWeight: 700, color: C.t1 }}>{it.t}</h3>
-                  <span style={{ fontFamily: FONT.mono, fontSize: 13, color: C.teal, whiteSpace: 'nowrap' }}>{it.v}</span>
-                </div>
-                <p style={{ fontSize: 14, lineHeight: 1.55, color: C.t2, marginTop: 4 }}>{it.d}</p>
-              </div>
+      {/* 2. O QUE DESTRAVA */}
+      <Bloco tom="noite">
+        <Rot>Everything you unlock today</Rot>
+        <h2 className="up-h2">5 things that make you <em>finish</em></h2>
+        <div className="up-stack">
+          {STACK.map((it) => (
+            <div key={it.n} className="up-item">
+              <Mira />
+              <div className="up-item-top"><span className="up-n">{it.n}</span><h3>{it.t}</h3><b>{it.v}</b></div>
+              <p>{it.d}</p>
             </div>
           ))}
         </div>
-        <p style={{ textAlign: 'right', fontSize: 15, color: C.t2, marginTop: 14 }}>
-          Total value: <strong style={{ color: C.t1, fontWeight: 800 }}>{VALUE}</strong>
-        </p>
+        <div className="up-total"><span>TOTAL VALUE</span><b>{VALUE}</b></div>
+      </Bloco>
 
-        {/* OFFER */}
-        <div id="offer" style={{
-          marginTop: 26, padding: 'clamp(28px, 6vw, 40px) clamp(20px, 5vw, 30px)',
-          border: `1.5px solid ${C.teal}55`, borderRadius: 20,
-          background: `radial-gradient(120% 130% at 100% 0%, ${C.teal}14, transparent 55%), ${C.bg3}`, textAlign: 'center',
-        }}>
-          {eyebrow(OFFER + ' · one-time only')}
-          <p style={{ fontSize: 15, color: C.t2 }}>
-            Worth <span style={{ textDecoration: 'line-through', color: C.red }}>{VALUE}</span> · normally <span style={{ textDecoration: 'line-through', color: C.red }}>{FROM}</span>
-          </p>
-          <p style={{ fontSize: 13.5, color: C.t2, marginTop: 7, lineHeight: 1.5 }}>
-            You just invested {FRONT}. Today — <strong style={{ color: C.t1 }}>for less than that</strong>, only on this page:
-          </p>
-          <p style={{
-            fontSize: 'clamp(52px, 15vw, 76px)', fontWeight: 900, fontFamily: FONT.mono, letterSpacing: '-0.04em',
-            background: C.gradText, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', lineHeight: 1, margin: '6px 0 2px',
-          }}>{PRICE}</p>
-          <p style={{ fontSize: 12, color: C.t3 }}>one-time · one tap · never shown again</p>
-
-          {/* Botões reais (aceitar/recusar) — widget Hotmart */}
-          <div id="hotmart-sales-funnel" style={{ marginTop: 22, minHeight: 60 }} />
-
-          <p style={{ fontSize: 13, color: C.t3, marginTop: 16, lineHeight: 1.55 }}>
-            🔒 <strong style={{ color: C.t2, fontWeight: 700 }}>7-day guarantee.</strong> Try it. If it’s not moving you, email us within 7 days — full refund, no questions.
-          </p>
-          <p style={{ fontSize: 12.5, color: C.t3, marginTop: 12, fontStyle: 'italic', lineHeight: 1.55 }}>
-            Decline and you go it alone — the red line above. This price never comes back.
-          </p>
+      {/* 3. OFERTA + BOTÕES REAIS DA HOTMART */}
+      <Bloco tom="roxo" id="offer">
+        <Rot>{OFFER} · one-time only</Rot>
+        {/* a conta (Marcos 23/11): a mentoria custa 497; comprador ganha 50% e desconta o que já investiu; e só nesta página fecha em 127 */}
+        <div className="up-conta">
+          <div><span>Premium Coaching, normally</span><b>{FROM}</b></div>
+          <div><span>Your 50% buyer discount</span><b className="menos">−$248.50</b></div>
+          <div><span>Minus the {FRONT} you just invested</span><b className="menos">−{FRONT}</b></div>
+          <div className="sub"><span>Your price</span><b><s>$151.50</s></b></div>
         </div>
+        <p className="up-front">Only on this page, today:</p>
+        <div className="up-num">{PRICE}</div>
+        <Regua />
+        <p className="up-unico">one-time · one tap · never shown again</p>
+        <div id="hotmart-sales-funnel" className="up-widget" />
+        <div className="up-gar"><span>7-DAY GUARANTEE</span>Try it. If it is not moving you, email us within 7 days: full refund, no questions.</div>
+        <p className="up-recusa">Decline and you go it alone, the coral line above. This price never comes back.</p>
+      </Bloco>
 
-        <div style={{ height: 1, background: C.border, margin: '38px 0 26px' }} />
-        {eyebrow('Quick questions')}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-          {FAQ.map((f, i) => (
-            <div key={i}>
-              <h3 style={{ fontSize: 15, fontWeight: 700, color: C.t1, marginBottom: 5 }}>{f.q}</h3>
-              <p style={{ fontSize: 14, lineHeight: 1.6, color: C.t2 }}>{f.a}</p>
-            </div>
+      {/* 4. PERGUNTAS */}
+      <Bloco tom="claro">
+        <Rot>Quick questions</Rot>
+        <div className="up-faq">
+          {FAQ.map((f) => (
+            <details key={f.q}><summary>{f.q}<i /></summary><p>{f.a}</p></details>
           ))}
         </div>
+        <button className="up-cta" onClick={toOffer}>Add the Fast-Track for {PRICE}</button>
+        <p className="up-rodape"><b>fluency</b><span>route</span> · All rights reserved</p>
+      </Bloco>
 
-        <div style={{ marginTop: 34 }}>
-          <button onClick={toOffer} style={ctaStyle}>Add the Fast-Track for {PRICE} ↑</button>
-        </div>
-
-        <p style={{ textAlign: 'center', fontSize: 10, color: C.t4, marginTop: 34 }}>
-          <span style={{ color: C.t3, fontWeight: 800 }}>fluency</span><span style={{ color: C.teal, fontWeight: 800 }}>route</span> · All rights reserved
-        </p>
-      </main>
+      <style>{`
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&display=swap");
+.up{color:${INK};letter-spacing:-.01em}
+.up-aviso{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:center;gap:10px;background:${INK};color:#fff;font:700 13px/1.3 ${SANS};padding:11px 16px;text-align:center}
+.up-ponto{width:8px;height:8px;border-radius:50%;background:${CORAL};box-shadow:0 0 0 0 rgba(255,92,122,.7);animation:upPulso 1.6s infinite;flex:none}
+@keyframes upPulso{70%{box-shadow:0 0 0 8px rgba(255,92,122,0)}100%{box-shadow:0 0 0 0 rgba(255,92,122,0)}}
+.up-b{position:relative;padding:54px 22px;overflow:hidden}
+.up-in{position:relative;max-width:540px;margin:0 auto;text-align:center;opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.7,.2,1)}
+.up-on .up-in{opacity:1;transform:none}
+.up-claro{background:#FBFAFF;color:${INK};--tx:${INK};--tx2:rgba(20,17,31,.64);--ac:${RX};--fio:rgba(20,17,31,.12);--pn:#fff;--gr:rgba(109,63,242,.07)}
+.up-noite{background:linear-gradient(180deg,#0D0B14,#08070D);color:#fff;--tx:#fff;--tx2:rgba(255,255,255,.64);--ac:${RX2};--fio:rgba(255,255,255,.14);--pn:rgba(255,255,255,.04);--gr:rgba(255,255,255,.035)}
+.up-roxo{background:linear-gradient(180deg,#2B1670,#150A3A);color:#fff;--tx:#fff;--tx2:rgba(255,255,255,.72);--ac:#C9B6FF;--fio:rgba(255,255,255,.2);--pn:rgba(255,255,255,.06);--gr:rgba(255,255,255,.045)}
+.up-b::before{content:'';position:absolute;inset:0;background-image:linear-gradient(var(--gr) 1px,transparent 1px),linear-gradient(90deg,var(--gr) 1px,transparent 1px);background-size:44px 44px;pointer-events:none}
+.up-b::after{content:'';position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--ac),transparent);transform:translateX(-100%);pointer-events:none}
+.up-on::after{animation:upVarre 1s ease-out forwards}
+@keyframes upVarre{to{transform:translateX(100%)}}
+.up-rot{font-family:${MONO};font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--tx2);margin:0 0 14px}
+.up-h1{font-size:clamp(32px,8.6vw,46px);line-height:1.04;font-weight:800;letter-spacing:-.04em;color:var(--tx);margin:0 0 18px}
+.up-h2{font-size:clamp(28px,7.6vw,38px);line-height:1.05;font-weight:800;letter-spacing:-.04em;color:var(--tx);margin:0 0 26px}
+.up-h1 em,.up-h2 em{font-style:normal;color:var(--ac)}
+.up-p{font-size:17px;line-height:1.6;color:var(--tx2);margin:0 0 22px;text-align:left}
+.up-p strong{color:var(--tx);font-weight:800}
+.up-m{position:absolute;width:14px;height:14px;border:2px solid var(--ac);pointer-events:none}
+.up-m.tl{left:8px;top:8px;border-right:0;border-bottom:0}.up-m.tr{right:8px;top:8px;border-left:0;border-bottom:0}
+.up-m.bl{left:8px;bottom:8px;border-right:0;border-top:0}.up-m.br{right:8px;bottom:8px;border-left:0;border-top:0}
+.up-chart{position:relative;background:#fff;border:1.5px solid var(--fio);border-radius:14px;padding:22px 14px 12px;box-shadow:0 22px 50px -36px rgba(20,17,31,.55)}
+.up-nota{font-size:14px;color:var(--tx2);margin:12px 0 22px;line-height:1.5}
+.up-cta{appearance:none;border:1px solid rgba(255,255,255,.28);cursor:pointer;width:100%;background:${RX};color:#fff;font:800 17px/1 ${SANS};padding:20px;border-radius:12px;box-shadow:0 18px 44px -14px rgba(109,63,242,.85);letter-spacing:-.01em}
+.up-cta:active{transform:scale(.98)}
+.up-stack{display:grid;gap:12px;text-align:left}
+.up-item{position:relative;padding:20px 20px 18px;background:var(--pn);border:1.5px solid var(--fio);border-radius:12px}
+.up-item-top{display:flex;align-items:baseline;gap:12px}
+.up-n{font-family:${MONO};font-size:13px;font-weight:700;color:var(--ac)}
+.up-item h3{flex:1;font-size:19px;font-weight:800;letter-spacing:-.03em;margin:0;color:var(--tx)}
+.up-item b{font-family:${MONO};font-size:13px;font-weight:700;color:var(--ac);white-space:nowrap}
+.up-item p{font-size:15px;line-height:1.5;color:var(--tx2);margin:8px 0 0}
+.up-total{display:flex;justify-content:space-between;align-items:baseline;margin-top:16px;padding:16px 4px 0;border-top:1.5px solid var(--fio)}
+.up-total span{font-family:${MONO};font-size:12px;letter-spacing:2px;color:var(--tx2)}
+.up-total b{font-size:30px;font-weight:900;letter-spacing:-.04em;color:#fff}
+.up-de{font-size:16px;color:var(--tx2);margin:0 0 6px}
+.up-de s{color:#fff;opacity:.7;text-decoration-thickness:2.5px;text-decoration-color:${CORAL}}
+.up-conta{margin:4px auto 18px;max-width:420px;text-align:left;border:1.5px solid var(--fio);border-radius:12px;background:var(--pn);padding:6px 16px}
+.up-conta div{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:11px 0;border-bottom:1px dashed var(--fio);font-size:15px;color:var(--tx2)}
+.up-conta div:last-child{border-bottom:0}
+.up-conta b{font-family:${MONO};font-size:16px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap}
+.up-conta b.menos{color:#C9B6FF}
+.up-conta .sub span{color:#fff;font-weight:700}
+.up-conta s{text-decoration-thickness:2.5px;text-decoration-color:#FF5C7A;opacity:.8}
+.up-front{font-size:15px;color:#fff;margin:0 0 6px;font-weight:600}
+.up-num{font-size:clamp(66px,20vw,92px);line-height:.95;font-weight:900;letter-spacing:-.05em;color:#fff;font-variant-numeric:tabular-nums}
+.up-regua{position:relative;width:min(220px,60%);height:16px;margin:12px auto 0;border-top:2px solid rgba(255,255,255,.55)}
+.up-regua i{position:absolute;top:0;width:2px;height:7px;background:rgba(255,255,255,.5)}
+.up-regua i.g{height:13px;background:#C9B6FF}
+.up-unico{font-family:${MONO};font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--tx2);margin:12px 0 0}
+.up-widget{margin:24px auto 0;min-height:60px;max-width:440px;background:#fff;border-radius:12px;padding:6px}
+.up-gar{margin-top:20px;text-align:left;font-size:14.5px;line-height:1.5;color:var(--tx2);padding:13px 15px;border-left:3px solid #C9B6FF;background:rgba(255,255,255,.06);border-radius:0 8px 8px 0}
+.up-gar span{display:block;font-family:${MONO};font-size:11px;font-weight:700;letter-spacing:2px;color:#C9B6FF;margin-bottom:4px}
+.up-recusa{font-size:13px;color:var(--tx2);margin:16px 0 0;font-style:italic;line-height:1.5}
+.up-faq{text-align:left;display:grid;gap:10px;margin-bottom:26px}
+.up-faq details{background:var(--pn);border:1.5px solid var(--fio);border-radius:10px;padding:0 18px}
+.up-faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:18px 0;font-size:17px;font-weight:700;color:var(--tx)}
+.up-faq summary::-webkit-details-marker{display:none}
+.up-faq summary i{flex:none;width:10px;height:10px;border-right:2.5px solid ${RX};border-bottom:2.5px solid ${RX};transform:rotate(45deg);margin-top:-4px;transition:transform .2s}
+.up-faq details[open] summary i{transform:rotate(-135deg);margin-top:4px}
+.up-faq details p{margin:0;padding:0 0 18px;font-size:16px;line-height:1.5;color:var(--tx2)}
+.up-rodape{font-size:11px;color:var(--tx2);margin:30px 0 0}
+.up-rodape b{font-weight:800}.up-rodape span{color:${RX};font-weight:800}
+@media (prefers-reduced-motion:reduce){.up-in{opacity:1;transform:none;transition:none}.up-on::after{animation:none}}
+      `}</style>
     </div>
   )
 }
