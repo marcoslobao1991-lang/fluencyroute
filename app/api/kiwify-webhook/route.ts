@@ -130,6 +130,20 @@ function fbcFromFbclid(fbclid: string | null, createdAtMs?: number) {
 }
 
 async function createSubscription(userId: string, orderId: string) {
+  // 23/11/2026: quem já tem o ACESSO VITALÍCIO (upsell, /api/kiwify-vitalicio) não
+  // recebe linha anual nova — o app lê a subscription mais recente e a anual
+  // passaria por cima da vitalícia.
+  try {
+    const r = await fetch(
+      `${SUPA_URL}/rest/v1/subscriptions?user_id=eq.${userId}&plan=eq.lifetime&status=eq.active&select=id&limit=1`,
+      { headers: { apikey: SUPA_SERVICE_KEY, Authorization: `Bearer ${SUPA_SERVICE_KEY}` } }
+    )
+    const rows = await r.json()
+    if (Array.isArray(rows) && rows.length > 0) {
+      console.log(`[Kiwify] user ${userId} já é vitalício — não cria anual (order ${orderId})`)
+      return
+    }
+  } catch {}
   const now = new Date()
   const expiresAt = new Date(now)
   expiresAt.setFullYear(expiresAt.getFullYear() + 1)
