@@ -231,6 +231,28 @@ export async function POST(request) {
 
     // ── entrega: só no primeiro approved e só do produto principal (não do upsell/coaching) ──
     const isUpsell = /coaching|upsell|mentor/i.test(String(productName))
+
+    // ── stats (23/11): a venda entra no funil 'spanish' do painel, ligada à visita pelo stitch (sck → session_id)
+    // e com a origem do anúncio. Antes o webhook só mandava pra Meta e o painel nunca via venda de espanhol.
+    // value em USD (moeda da oferta). Upsell entra como item ':coaching' (não conta como venda nova). Dedup pelo detail.
+    if (event === 'PURCHASE_APPROVED' && transaction) {
+      try {
+        const detail = `hotmart:${transaction}${isUpsell ? ':coaching' : ''}`
+        const H = { apikey: SUPA_SERVICE_KEY, Authorization: `Bearer ${SUPA_SERVICE_KEY}`, 'Content-Type': 'application/json' }
+        const ja = await fetch(`${SUPA_URL}/rest/v1/funnel_events?event=eq.purchase&detail=eq.${encodeURIComponent(detail)}&select=id&limit=1`, { headers: H }).then((r) => r.json()).catch(() => [])
+        if (!Array.isArray(ja) || ja.length === 0) {
+          await fetch(`${SUPA_URL}/rest/v1/funnel_events`, {
+            method: 'POST', headers: { ...H, Prefer: 'return=minimal' },
+            body: JSON.stringify({
+              funnel: 'spanish', page: 'obrigado', event: 'purchase', detail, value: value ?? null,
+              session_id: stitched.session_id || null,
+              utm_source: stitched.utm_source || null, utm_medium: stitched.utm_medium || null, utm_campaign: stitched.utm_campaign || null,
+              utm_content: stitched.utm_content || null, utm_term: stitched.utm_term || null, fbclid: effectiveFbclid || null,
+            }),
+          })
+        }
+      } catch (e) { console.error('[HOTMART-WEBHOOK] stats', e?.message) }
+    }
     if (event === 'PURCHASE_APPROVED' && !isUpsell) {
       await sendDelivery(email, name)
     }
