@@ -59,7 +59,8 @@ s = '// GERADO por scripts/gerar-netflix.js a partir de app/spanish/SpanishSales
 s = "'use client'\n" + s
 fs.mkdirSync('app/netflix', { recursive: true })
 fs.writeFileSync('app/netflix/NetflixSalesPage.tsx', s)
-for (const [dir, p] of [['netflix', '197'], ['netflix97', '97'], ['netflix297', '297']]) {
+// 23/11: /trick = MESMA página da /netflix, com endereço sem a marca Netflix (anúncios reprovados por Spam com o link /netflix)
+for (const [dir, p] of [['netflix', '197'], ['trick', '197'], ['netflix97', '97'], ['netflix297', '297']]) {
   fs.mkdirSync('app/' + dir, { recursive: true })
   fs.writeFileSync(`app/${dir}/page.tsx`, `import NetflixSalesPage from '${dir === 'netflix' ? './' : '../netflix/'}NetflixSalesPage'
 
