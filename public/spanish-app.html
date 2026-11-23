@@ -389,6 +389,7 @@
   </div>
 </div></div>
 
+<script src="/spanish-series.js?v=2"></script>
 <script>
 "use strict";
 try{var _th=localStorage.getItem("esf4_theme");if(_th)document.documentElement.setAttribute("data-theme",_th);}catch(e){}
@@ -812,9 +813,9 @@ async function pronRecord(maxMs){ const stream=await pronEnsure(); if(!stream)re
 async function pronGetToken(){ const now=Date.now(); if(PRON.tok&&now-PRON.tokTs<540000)return PRON.tok;
   try{ const r=await fetch("/api/pron-token"); const d=await r.json(); if(!d||d.error)return null; PRON.tok={token:d.token,region:d.region}; PRON.tokTs=now; return PRON.tok; }catch(e){ return null; } }
 function b64utf8(s){ try{ const b=new TextEncoder().encode(s); let bin="";for(let i=0;i<b.length;i++)bin+=String.fromCharCode(b[i]); return btoa(bin); }catch(e){ return btoa(unescape(encodeURIComponent(s))); } }
-async function pronAssess(wav,ref){ const tok=await pronGetToken(); if(!tok)return null;
+async function pronAssess(wav,ref,lang){ const tok=await pronGetToken(); if(!tok)return null;
   const cfg={ReferenceText:ref,GradingSystem:"HundredMark",Granularity:"Phoneme",Dimension:"Comprehensive",EnableMiscue:false,EnableProsodyAssessment:true};
-  try{ const res=await fetch("https://"+tok.region+".stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1?language=es-MX",{method:"POST",headers:{Authorization:"Bearer "+tok.token,"Content-Type":"audio/wav; codecs=audio/pcm; samplerate=16000","Pronunciation-Assessment":b64utf8(JSON.stringify(cfg)),Accept:"application/json"},body:wav});
+  try{ const res=await fetch("https://"+tok.region+".stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1?language="+(lang||"es-MX"),{method:"POST",headers:{Authorization:"Bearer "+tok.token,"Content-Type":"audio/wav; codecs=audio/pcm; samplerate=16000","Pronunciation-Assessment":b64utf8(JSON.stringify(cfg)),Accept:"application/json"},body:wav});
     if(!res.ok)return null; const data=await res.json(); if(data.RecognitionStatus!=="Success")return {silence:true};
     const best=(data.NBest&&data.NBest[0])||{}; const pa=best.PronunciationAssessment||best||{};
     const words=(best.Words||[]).map(w=>{const wpa=w.PronunciationAssessment||w;return{word:String(w.Word||""),acc:Math.round(Number(wpa.AccuracyScore||0)),err:String(wpa.ErrorType||"None")};});
@@ -845,7 +846,7 @@ function bindAB(box,myUrl,model){ box.querySelectorAll(".abtn").forEach(b=>b.onc
 
 /* ═══ STATE / LOG ═══ */
 let ST=loadJSON("esf4",{level:"beginner",onboarded:false,days:0,lastDay:0,heard:0,shadowed:0,clarSum:0,clarN:0,srs:{},found:{}});
-["srs","found"].forEach(k=>{if(!ST[k])ST[k]={};}); if(ST.journeyIdx==null)ST.journeyIdx=0;
+["srs","found"].forEach(k=>{if(!ST[k])ST[k]={};}); if(ST.journeyIdx==null)ST.journeyIdx=0; if(ST.jv!==2){ST.journeyIdx=Math.min(ST.journeyIdx||0,ST.level==="beginner"?1:0);ST.jv=2;} /* 23/11: a jornada ganhou as fases de série na frente; quem já tinha começado volta pro treino com série */
 function save(){try{localStorage.setItem("esf4",JSON.stringify(ST));}catch(e){} try{if(typeof syncSoon==="function")syncSoon();}catch(e){}}
 const DAY=86400000,dayNum=ts=>Math.floor((ts-new Date().getTimezoneOffset()*60000)/DAY);
 function markTrained(){const t=dayNum(Date.now());if(ST.lastDay!==t){ST.days=(ST.lastDay===t-1)?ST.days+1:1;ST.lastDay=t;}}
@@ -903,13 +904,15 @@ function learnedWords(){ let n=0; VOCAB.forEach(w=>{const s=ST.srs["v:"+w.es]; i
 function masteredWords(){ let n=0; VOCAB.forEach(w=>{const s=ST.srs["v:"+w.es]; if(s&&s.n>=4)n++;}); return n; }
 function dueCount(){ const now=Date.now(); let n=0; for(const k in ST.srs){ if(ST.srs[k].due&&ST.srs[k].due<=now)n++; } return n; }
 function journeySteps(){ const base=[
+  {k:"s1",phase:"Phase 1 · Ear training",title:"Real scenes, no subtitles",mode:"series",icon:"👂",desc:"The Netflix trick: one scene at a time until you get it."},
+  {k:"s2",phase:"Phase 2 · Speech training",title:"Talk like the characters",mode:"series",icon:"🎙️",desc:"Shadowing with A.I. pronunciation feedback."},
   {k:"p1",phase:"Phase 1 · Perception",title:"Tune your ear",mode:"listening",icon:"👂",desc:"Catch real Spanish by ear."},
   {k:"p2",phase:"Phase 2 · Conversational",title:"Understand & reply",mode:"conversation",icon:"💬",desc:"Real exchanges — your response."},
   {k:"p3",phase:"Phase 3 · Shadowing",title:"Sharpen your accent",mode:"shadowing",icon:"🎙️",desc:"Repeat each line until it's automatic."},
   {k:"ted",phase:"Milestone · TED",title:"El enigma de la motivación",mode:"ted",icon:"🎤",desc:"Train on a real native talk."},
   {k:"p4",phase:"Phase 4 · Immersion",title:"Live in Spanish",mode:"immersion",icon:"🌊",desc:"Whole dialogues, no subtitles."}];
   return beginner()?[{k:"f0",phase:"Foundations",title:"Sounds & survival kit",mode:"foundations",icon:"🔤",desc:"Start from absolute zero."},...base]:base; }
-function openStep(st,i){ pendingStep=i; openMode(st.mode); }
+function openStep(st,i){ if(st.mode==="series"){ const x=(typeof serStats==="function")?serStats():null; if(x&&((st.k==="s1"&&x.ear>=40)||(st.k==="s2"&&x.talk>=15))&&(ST.journeyIdx||0)===i){ST.journeyIdx=i+1;save();} if(typeof serOpen==="function")serOpen(); return; } pendingStep=i; openMode(st.mode); }
 function renderHome(){
   $("lvlChip").textContent=beginner()?"Beginner":"Intermediate";
   // o anel media sobre 500 palavras, mas o app só tem VOCAB.length (200): nem o aluno
@@ -923,7 +926,7 @@ function renderHome(){
     <div class="mastery"><div class="mring"><svg viewBox="0 0 80 80"><circle class="mb" cx="40" cy="40" r="34"/><circle class="mf" cx="40" cy="40" r="34" style="stroke-dashoffset:${off}"/></svg><b>${pct}%</b></div>
       <div class="mtxt"><b>${words}</b><span>of ${META} essential<br>words started</span></div></div>
   </div>`;
-  h+=syncNagHtml();
+  h+=syncNagHtml(); if(typeof serHomeHtml==="function")h+=serHomeHtml();
   if(jIdx<steps.length){ const s=steps[jIdx];
     h+=`<button class="jhero" id="jgo"><div class="k">Continue your journey · ${s.phase}</div><h2>${s.icon} ${s.title}</h2><p>${s.desc}</p><span class="startbtn">Continue ${SVG.arw}</span></button>`;
   } else {
@@ -934,7 +937,7 @@ function renderHome(){
     h+=`<button class="jstep ${state}" data-i="${i}"><div class="jnode">${i<jIdx?'✓':s.icon}</div><div class="jmid"><div class="jn">${s.phase}</div><div class="jt">${s.title}</div></div><span class="jarw">${SVG.arw}</span></button>`; });
   h+=`</div><div class="k sec-k">Practice freely${dueN?` · <span class="reviewlink" id="rev">review ${dueN} due</span>`:''}</div><div class="modes" id="modes"></div>`;
   $("homeBody").innerHTML=h;
-  bindSyncNag();
+  bindSyncNag(); if(typeof serBindHome==="function")serBindHome();
   $("jgo").onclick=()=>{ if(jIdx<steps.length)openStep(steps[jIdx],jIdx); else openMode("today"); };
   document.querySelectorAll(".jstep").forEach(el=>el.onclick=()=>{const i=+el.dataset.i;openStep(steps[i],i);});
   const rv=$("rev"); if(rv)rv.onclick=(e)=>{e.stopPropagation();openMode("review");};
@@ -962,7 +965,7 @@ function buildReview(withNew){ const now=Date.now();
   let cards=shuffle(due).slice(0,10).map(cardFromId).filter(Boolean);
   if(withNew&&cards.length<8)cards=cards.concat(buildListening().slice(0,8-cards.length));
   return cards; }
-function openMode(key){ac();stopAudio();
+function openMode(key){ac();stopAudio(); if(key==="series"){ if(typeof serOpen==="function")serOpen(); return; }
   let cards=[];
   if(key==="foundations")cards=buildFoundations();
   else if(key==="listening")cards=buildListening();
