@@ -12,6 +12,10 @@ import { useEffect } from 'react'
 export default function PageViewTracker() {
   useEffect(() => {
     if (typeof window === 'undefined') return
+    // 23/11: páginas do ESPANHOL (público americano) não mandam PageView pro pixel do INGLÊS (938) nem pro CAPI dele.
+    // Antes a campanha de espanhol nos EUA enchia o pixel do inglês BR de visitante que nunca vai comprar inglês.
+    // O pixel do espanhol (690) segue disparando pela própria página.
+    if (/^\/(netflix|trick|spanish)(\/|$|\d)/.test(window.location.pathname)) return
 
     // Build a unique event id for this page view
     const eid = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`

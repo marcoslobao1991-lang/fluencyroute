@@ -78,6 +78,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             page_view dispara aqui (base); Lead/Purchase são disparados via _tfa.push nos
             pontos de conversão (Lead em PageViewTracker; Purchase será server-to-server). */}
         <Script id="taboola-pixel" strategy="afterInteractive">{`
+          if (/^\\/(netflix|trick|spanish)(\\/|$|\\d)/.test(location.pathname)) { /* 23/11: espanhol (EUA) não carrega Taboola */ } else {
           window._tfa = window._tfa || [];
           window._tfa.push({notify: 'event', name: 'page_view', id: 1899594});
           !function (t, f, a, x) {
@@ -88,6 +89,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           document.getElementsByTagName('script')[0],
           '//cdn.taboola.com/libtrc/unip/1899594/tfa.js',
           'tb_tfa_script');
+          }
         `}</Script>
         {/* go.fluencyroute.com.br não é usado direto pelo browser nas rotas atuais
             (apenas server-side em webhooks). Preconnect/dns-prefetch removido —
