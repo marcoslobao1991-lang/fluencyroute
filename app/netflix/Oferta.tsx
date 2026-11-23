@@ -5,6 +5,7 @@
 // aqui é fechar. Tudo que aparece é REAL: gravação do app, contagem do acervo (public/es-series.json),
 // fases e garantias com as palavras da VSL.
 import React, { useEffect, useRef, useState } from 'react'
+import Iphone from './Iphone'
 
 const RX = '#6D3FF2'
 const RX2 = '#9D7BFF'
@@ -32,17 +33,15 @@ const PASSOS: [string, string, string, string][] = [
 
 function Passo({ i, p }: { i: number; p: [string, string, string, string] }) {
   const ref = useRef<HTMLDivElement>(null)
-  const vid = useRef<HTMLVideoElement>(null)
   const [on, setOn] = useState(false)
+  const [visivel, setVisivel] = useState(false)
   useEffect(() => {
     const el = ref.current
-    if (!el || typeof IntersectionObserver === 'undefined') { setOn(true); return }
+    if (!el || typeof IntersectionObserver === 'undefined') { setOn(true); setVisivel(true); return }
     // o vídeo só toca enquanto a etapa está na tela (7 vídeos tocando juntos pesam no celular)
     const io = new IntersectionObserver(([e]) => {
       if (e.isIntersecting) setOn(true)
-      const v = vid.current
-      if (!v) return
-      if (e.isIntersecting) { v.play().catch(() => {}) } else { v.pause() }
+      setVisivel(e.isIntersecting)
     }, { threshold: 0.35 })
     io.observe(el)
     return () => io.disconnect()
@@ -51,10 +50,8 @@ function Passo({ i, p }: { i: number; p: [string, string, string, string] }) {
     <div ref={ref} className={`nt-passo${on ? ' on' : ''}`}>
       <div className="nt-passo-n"><span>STEP</span><b>{String(i + 1).padStart(2, '0')}</b><i /></div>
       <h3>{p[0]}</h3>
-      <div className="nt-fone">
-        <Mira />
-        <video ref={vid} src={`/netflix/step${i + 1}.mp4`} poster={`/netflix/step${i + 1}.jpg`} muted loop playsInline preload="none" />
-      </div>
+      {/* mesmo iPhone ultrarrealista da presell (moldura renderizada + app real na tela) */}
+      <div className="nt-iphone"><Iphone src={`/netflix/step${i + 1}.mp4`} poster={`/netflix/step${i + 1}.jpg`} w={240} tocar={visivel} /></div>
       <p className="nt-passo-t">{p[1]}</p>
       <div className="nt-porque"><span>{p[2]}</span>{p[3]}</div>
     </div>
@@ -111,16 +108,17 @@ function Mira() {
   return <><b className="nt-m tl" /><b className="nt-m tr" /><b className="nt-m bl" /><b className="nt-m br" /></>
 }
 
-// parcela em 3x: lida no checkout da Hotmart com Estados Unidos selecionado, em 23/11/2026:
-// 197 dólares = 3 payments of 70.70 (2x de 103.46). 97 e 297 ainda não têm oferta na Hotmart:
-// usam a mesma proporção até existir o checkout pra conferir.
-const parcela = (pay: string) => (pay === '$197' ? '$70.70' : '$' + ((parseInt(pay.replace(/[^0-9]/g, ''), 10) * 70.7) / 197).toFixed(2))
-const DE = '$497' // o máximo que o Marcos já cobrou por este treinamento
+// parcela em 3x lida na Hotmart (Estados Unidos selecionado) em 23/11/2026: US$ 197 = 3x 70,70 · US$ 97 = 3x 34,81
+const PARCELA_HOTMART: Record<string, string> = { '$197': '$70.70', '$97': '$34.81' }
+const parcela = (pay: string) => PARCELA_HOTMART[pay] || pay
+// âncora = o preço que a VSL fala (US$ 197); o site dá o desconto pra 97 (estratégia do Marcos, 23/11). Antes: 497.
+const DE = (pay: string) => (pay === '$97' ? '$197' : '$497')
 
 function Preco({ pay }: { pay: string }) {
   return (
     <div className="nt-preco">
-      <div className="nt-de">from <s>{DE}</s> for</div>
+      <p className="nt-vagas">*Last spots at a special discount</p>
+      <div className="nt-de">from <s>{DE(pay)}</s> for</div>
       <div className="nt-num">{pay}</div>
       <Regua />
       <p className="nt-unico">single payment</p>
@@ -284,6 +282,8 @@ export default function NetflixOferta({ pay, cta }: { pay: string; cta: (texto: 
 .nt-fone .nt-m{border-color:#9D7BFF;width:18px;height:18px}
 .nt-fone .nt-m.tl,.nt-fone .nt-m.bl{left:-14px}.nt-fone .nt-m.tr,.nt-fone .nt-m.br{right:-14px}
 .nt-fone .nt-m.tl,.nt-fone .nt-m.tr{top:-14px}.nt-fone .nt-m.bl,.nt-fone .nt-m.br{bottom:-14px}
+.nt-iphone{margin:0 auto 22px}
+.nt-vagas{font-size:13px;font-weight:600;color:#C9B6FF;margin:0 0 18px;letter-spacing:.01em}
 .nt-lead{font-size:17px;line-height:1.45;color:var(--tx2);margin:-12px auto 34px;max-width:420px}
 .nt-passos7{display:grid;gap:18px}
 .nt-passo{position:relative;padding:26px 20px 22px;background:var(--pn);border:1.5px solid var(--fio);border-radius:14px;box-shadow:0 22px 50px -36px rgba(20,17,31,.55);opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.7,.2,1)}

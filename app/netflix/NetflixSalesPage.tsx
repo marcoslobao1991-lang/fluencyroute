@@ -34,13 +34,14 @@ const COURSE = 'Essential Spanish Fluency'
 // propósito: o botão não abre nada até a oferta ser criada na Hotmart e o link entrar aqui.
 type Oferta = { pay: string; valor: number; checkout: string; media: string; reveal: number; tag: string }
 const OFERTAS: Record<string, Oferta> = {
-  '197': { pay: '$197', valor: 197, checkout: 'https://pay.hotmart.com/M94188676L?off=qp698at2', media: 'vsl-netflix-trick-197', reveal: 724, tag: 'vsl_nt197' },
+  // 23/11 estratégia do Marcos: a VSL fala US$ 197 e o SITE dá o desconto pra US$ 97 (checkout Hotmart mudou pra 97, mesmo link)
+  '197': { pay: '$97', valor: 97, checkout: 'https://pay.hotmart.com/M94188676L?off=qp698at2', media: 'vsl-netflix-trick-197', reveal: 724, tag: 'vsl_nt197d97' },
   '97': { pay: '$97', valor: 97, checkout: '', media: 'vsl-netflix-trick-97', reveal: 724, tag: 'vsl_nt97' },
   '297': { pay: '$297', valor: 297, checkout: '', media: 'vsl-netflix-trick-297', reveal: 724, tag: 'vsl_nt297' },
 }
-let PAY = '$197'
+let PAY = OFERTAS['197'].pay  // valor inicial vem da oferta padrão (23/11: o site cobra 97 com a VSL de 197)
 const FROM = '$497'          // âncora (preço cheio, riscado)
-let PURCHASE_VALUE = 197
+let PURCHASE_VALUE = OFERTAS['197'].valor
 let CHECKOUT = OFERTAS['197'].checkout
 
 // UTMs propagados ad → bridge → VSL → checkout Hotmart (o Hotmart captura UTM
