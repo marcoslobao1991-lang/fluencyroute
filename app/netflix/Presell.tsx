@@ -25,7 +25,9 @@ export default function NetflixPresell({ track, posKey, revealKey }: { track: (e
     try {
       const q = new URLSearchParams(location.search)
       const modo = q.get('modo')
-      if (modo && modo !== 'quiz' && modo !== 'presell') ver = false
+      // 23/11 (Marcos: "volta pra aquela de blocked content simples"): a presell sai do padrão, a página abre no cadeado
+      // ("Content locked · Tap to unlock"). A presell só aparece com ?modo=presell.
+      if (modo !== 'presell') ver = false
       if (q.get('reveal') === '1') ver = false
       if ((parseFloat(localStorage.getItem(posKey) || '0') || 0) > 0) ver = false
       if (localStorage.getItem(revealKey) === '1') ver = false
