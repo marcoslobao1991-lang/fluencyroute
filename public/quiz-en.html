@@ -183,7 +183,8 @@ html,body{background:#F5F6F8}
 .c-h .fr i{font-style:normal;color:#E53935;margin:0 .03em}.c-h .fr i:nth-of-type(2n){color:#F2B01E}.c-h .fr i:nth-of-type(3n){color:#1E88E5}
 .b.vid{width:92%;max-width:92%;padding:8px}.b.vid video{display:block;width:100%;border-radius:10px;aspect-ratio:16/9;object-fit:cover;background:#000}
 .b.vid .emb{display:block;margin-top:8px;font:600 14px/1.2 Geist,sans-serif;color:#0A0A0A;filter:blur(2.4px);white-space:nowrap;overflow:hidden}
-.cab .av b{font:800 13px/1 Geist,sans-serif;color:#fff;letter-spacing:.02em}.cab .av{background:#12B5AC!important}
+.cab .av b{font:800 13px/1 Geist,sans-serif;color:#fff;letter-spacing:.02em}.cab .av{background:#fff!important;box-shadow:0 0 0 1px #E3E6EA}.cab .av img{width:70%;height:70%;object-fit:contain}
+.marca{display:flex;align-items:center;gap:8px;margin:0 0 10px}.marca img{width:30px;height:30px}.marca b{font:800 17px/1 Geist,sans-serif;letter-spacing:-.02em;color:#0A0A0A}
 .b.midia{width:94%;max-width:94%;padding:8px;background:#fff}
 .fone{width:62%;margin:2px auto 0;border-radius:22px;overflow:hidden;box-shadow:0 0 0 5px #0A0A0A,0 16px 30px -18px rgba(10,10,10,.6);background:#fff}
 .fone img,.fone video{display:block;width:100%;height:auto}
@@ -197,12 +198,13 @@ html,body{background:#F5F6F8}
 .voz{display:flex;align-items:center;gap:10px;padding:6px 4px}.vp{flex:none;width:44px;height:44px;border-radius:50%;border:0;background:#12B5AC;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .vp.on svg{opacity:.5}.vw{flex:1;display:flex;align-items:center;gap:2px;height:32px}.vw i{flex:1;border-radius:2px;background:#C9CED6}.vw i.on{background:#12B5AC}
 .vt{flex:none;font:500 12px/1 Geist,sans-serif;color:#6B7280;font-variant-numeric:tabular-nums}
-.c-ops.tres{grid-template-columns:1.15fr 1fr 1fr}.c-ops.tres button{font-size:16px;padding-left:6px;padding-right:6px}
+.c-ops.tres button:nth-child(n+2){background:#fff;color:#0A0A0A;box-shadow:inset 0 0 0 1px rgba(10,10,10,.18)}.c-ops.tres{grid-template-columns:1.15fr 1fr 1fr}.c-ops.tres button{font-size:16px;padding-left:6px;padding-right:6px}
 </style>
 </head>
 <body>
 <div class="papel"></div>
 <section id="capa">
+  <div class="marca"><img src="/logo.png" alt="" width="30" height="30"><b>Fluency Route</b></div>
   <p class="c-meta">Demonstração grátis, leva 2 minutos</p>
   <h1 class="c-h">O truque simples pra entender <span class="fr">F<i>·</i>R<i>·</i>I<i>·</i>E<i>·</i>N<i>·</i>D<i>·</i>S</span> sem legenda</h1>
   <div class="c-chat" aria-hidden="true">
@@ -215,7 +217,7 @@ html,body{background:#F5F6F8}
 </section>
 
 <section id="chat" aria-live="polite">
-  <header class="cab"><span class="av"><b>FR</b></span><div><b>Fluency Route</b><span id="st">online</span></div><div class="pr" id="pr"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></header>
+  <header class="cab"><span class="av"><img src="/logo.png" alt="Fluency Route"></span><div><b>Fluency Route</b><span id="st">online</span></div><div class="pr" id="pr"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></header>
   <div id="msgs"><span class="dia">Hoje</span></div>
   <div id="resp"></div>
 </section>
