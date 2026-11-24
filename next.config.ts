@@ -35,6 +35,8 @@ const nextConfig: NextConfig = {
         { source: '/vsl', destination: '/vsl.html' },
         // 17/11: site novo da VSL de Friends (gerado por scripts/gerar-vsl-friends.js), R$19/mês, checkout ESzq5JN (R$193). Não toca a /vsl
         { source: '/friends', destination: '/vsl-friends.html' },
+        // 24/11: TESTE PARALELO = a /friends com o quiz demo-app por cima (scripts/gerar-friends-quiz.js). A /friends não muda.
+        { source: '/friends-quiz', destination: '/vsl-friends-quiz.html' },
         // 23/11: cópia da /friends pro LINK DA BIO do Instagram (oferta aberta, sem presell, UTM de bio automática). Gerada por scripts/gerar-vsl-friends-bio.js
         { source: '/bio', destination: '/vsl-friends-bio.html' },
         // 23/11 (Marcos): o link da bio do Instagram é a /aberta; ela passa a ser a versão aberta da /friends (antes: app/aberta = VSL antiga com alwaysOpen). Pra voltar: apagar esta linha.
