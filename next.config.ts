@@ -40,7 +40,8 @@ const nextConfig: NextConfig = {
         // 23/11: cópia da /friends pro LINK DA BIO do Instagram (oferta aberta, sem presell, UTM de bio automática). Gerada por scripts/gerar-vsl-friends-bio.js
         { source: '/bio', destination: '/vsl-friends-bio.html' },
         // 23/11 (Marcos): o link da bio do Instagram é a /aberta; ela passa a ser a versão aberta da /friends (antes: app/aberta = VSL antiga com alwaysOpen). Pra voltar: apagar esta linha.
-        { source: '/aberta', destination: '/vsl-friends-bio.html' },
+        // 24/11 (Marcos): /aberta (bio) = TYPEBOT do inglês com rastreio de bio (scripts/gerar-friends-quiz-bio.js). Antes: /vsl-friends-bio.html.
+        { source: '/aberta', destination: '/vsl-friends-quiz-bio.html' },
         // oferta R$99/mês anual (checkout 6Fftr2I) — página nova, não toca a /vsl
         { source: '/vsl3', destination: '/vsl3.html' },
         // 14/11: página paralela pro afiliado, sem lead (fk1), checkout jTO3lIy 12x R$49 — não toca a /vsl
