@@ -10,6 +10,8 @@ const troca = (a, b, nome) => { if (!s.includes(a)) throw new Error('não achei:
 
 // 1) modo do player: AUTO sempre (vídeo nítido, sem presell nem cadeado)
 troca("var MODO=(new URLSearchParams(location.search).get('modo')||'quiz')", "var MODO='auto'", 'MODO');
+// 1b) o script do <head> da /friends esconde a página inteira pro presell (classe ps-on) quando não tem ?modo. Aqui não tem presell: tirar, senão o vídeo toca INVISÍVEL (bug 24/11)
+troca("if((new URLSearchParams(location.search).get('modo')||'quiz')==='quiz')document.documentElement.className+=' ps-on'", "if(0)document.documentElement.className+=' ps-on'", 'ps-on');
 // 2) versão própria no painel
 troca("var VTAG=(qp().get('af')?'af_':'')+'vsl_'+VSLV", "var VTAG=(qp().get('af')?'af_':'')+'vsl_quiz_'+VSLV", 'VTAG');
 // 3) enquanto o quiz está aberto, segura os eventos da página do vídeo (só a entrada passa)
