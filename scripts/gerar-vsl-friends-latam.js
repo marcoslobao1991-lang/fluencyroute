@@ -37,7 +37,7 @@ todas("https://pay.kiwify.com.br/DlmRal3", HOTMART);
 // 25/11 A/B (Marcos: "teste a/b refazendo a vsl latam SEM música de fundo só a narradora falando"): latam = com a trilha,
 // latamsm = mesma imagem, áudio sem a trilha (vsl-friends-latam-sm). Sorteio 50/50 fixo por aparelho; ?vsl=latam|latamsm força.
 troca("var VSLS={friends:{dir:'vsl-ingles-friends',delay:745,scroll:955,rate:1},", "var VSLS={latam:{dir:'vsl-friends-latam',delay:759,scroll:969,rate:1},latamsm:{dir:'vsl-friends-latam-sm',delay:759,scroll:969,rate:1},friends:{dir:'vsl-ingles-friends',delay:745,scroll:955,rate:1},");
-troca("return 'friends'})();", "return (function(){try{var k='fr_ab_latam_sm',v=localStorage.getItem(k);if(v!=='latam'&&v!=='latamsm'){v=/(^|; )_fluency_latam_uid=/.test(document.cookie)?'latam':(Math.random()<0.5?'latam':'latamsm');localStorage.setItem(k,v)}return v}catch(e){return 'latam'}})()})(); /* 25/11: VSL Friends LATAM (Manuela) · A/B com × sem música */");
+troca("return 'friends'})();", "return 'latam'})(); /* 25/11 20h (Marcos: 'deixa só com música, amassou em 5 IC e 1 venda'): A/B com × sem música ENCERRADO, 100% com música; ?vsl=latamsm ainda abre a sem música pra conferir */");
 todas("vsl-ingles-friends/thumbnail.jpg", "vsl-friends-latam/thumbnail.jpg");
 troca("var key='friends_revealed';", "var key='friends_latam_revealed';");
 troca("track('video_reveal','friends')", "track('video_reveal','friends_latam')");
