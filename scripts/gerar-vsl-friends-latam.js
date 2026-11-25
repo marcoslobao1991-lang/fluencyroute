@@ -176,5 +176,12 @@ const T = [
 ];
 for (const [a, b] of T) { if (a === b) continue; todas(a, b); }
 
+// 25/11 (Marcos: "tem que comunicar a mesma identidade visual é óbvio!"): a página LATAM usa o ROXO da VSL da Manuela
+// (src/friends-latam/tema.tsx: #9D7BFF acento no escuro, #6D3FF2 campo chapado, texto escuro #14111F por cima) no lugar do verde-água da BR.
+s = s
+  .replace(/#4ecdc4/gi, "#9D7BFF").replace(/78, ?205, ?196/g, "157,123,255")
+  .replace(/#12b5ac/gi, "#6D3FF2").replace(/18, ?181, ?172/g, "109,63,242")
+  .replace(/#0b6e68/gi, "#4A2BB0").replace(/#03201d/gi, "#14111F")
+  .replace(/#a78bfa/gi, "#C9B8FF").replace(/167, ?139, ?250/g, "201,184,255");
 fs.writeFileSync(path.join(PUB, "es-friends.html"), s);
 console.log("ok public/es-friends.html", s.length);
