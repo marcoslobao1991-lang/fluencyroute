@@ -128,7 +128,7 @@ const oferta = `
   <p class="kb-de">de <s>12x R$29</s> por apenas</p>
   <div class="kb-preco"><span class="x"><span>12x</span><span class="rs">R$</span></span><span class="v">9<span class="c">,93</span></span></div>
   <p class="kb-vista">ou à vista com desconto · uma vez só</p>
-  <div id="kiwify-upsell-${OFERTA}" data-upsell-url="" data-downsell-url="">
+  <div id="kiwify-upsell-${OFERTA}" data-upsell-url="https://fluencyroute.com.br/premium" data-downsell-url="https://fluencyroute.com.br/vitalicio-especial">
     <button type="button" class="kb-btn" id="kiwify-upsell-trigger-${OFERTA}">Quero meu acesso vitalício</button>
     <div class="kb-nao" id="kiwify-upsell-cancel-trigger-${OFERTA}">Não, obrigado. Prefiro ficar sem o acesso vitalício.</div>
   </div>
