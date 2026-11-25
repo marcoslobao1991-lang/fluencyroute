@@ -56,6 +56,8 @@ const nextConfig: NextConfig = {
         { source: '/spanish/bridge', destination: '/spanish-bridge.html' },
         // funil LATAM ES como subpasta (padrão /spanish): bridge estática portada
         { source: '/es/bridge', destination: '/es-bridge.html' },
+        // 25/11: /friends versão LATAM (VSL Friends da profesora Manuela, USD 49 Hotmart). Gerada por scripts/gerar-vsl-friends-latam.js. Não toca a /es/vsl
+        { source: '/es/friends', destination: '/es-friends.html' },
       ],
       afterFiles: [
         { source: '/manu', destination: '/manu.html' },
