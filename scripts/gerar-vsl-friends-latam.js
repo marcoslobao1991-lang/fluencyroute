@@ -2,7 +2,7 @@
 // "sobe no ar no site da fluency latam modelando o site da fluency br").
 // Mesmo layout, player, presell e seções da /friends; troca:
 //  - VSL = Friends LATAM da profesora Manuela (HLS em video.fluencyroute.com.br/vsl-friends-latam), botão aos 759 s ("haz clic en el botón")
-//  - oferta LATAM no ar: USD 49 pago único, Hotmart P94218659Y off eun6d9uv (mesma da /es/vsl), âncora "De USD 197"
+//  - oferta LATAM no ar: USD 47 pago único, Hotmart P94218659Y off eun6d9uv (mesma da /es/vsl), âncora "De USD 197"
 //  - pixel LATAM 604755389004843 + CAPI /api/track-latam, funnel_events 'ingles-latam', cookie _fluency_latam_uid (host-only)
 //  - textos em espanhol neutro; sem Brasil, sem o áudio do aluno (ele fala português), sem gtag do BR
 //  - app mostrado = o app RECRIADO em espanhol da VSL (recorte do próprio vídeo), não a gravação real (interface em português)
@@ -23,7 +23,7 @@ const HOTMART_JS = "https://pay.hotmart.com/P94218659Y?off=eun6d9uv&checkoutMode
 todas('lang="pt-BR"', 'lang="es"');
 troca("var PIXEL='938768337634102';", "var PIXEL='604755389004843'; /* pixel LATAM */");
 troca("var CHECKOUT='https://pay.kiwify.com.br/DlmRal3';", "var CHECKOUT='" + HOTMART_JS + "';");
-troca("var VALUE=289.00;", "var VALUE=49.00;");
+troca("var VALUE=289.00;", "var VALUE=47.00;");
 troca("content_name:'Rota da Fluência Essencial',currency:'BRL',value:VALUE,content_ids:['fluency-annual']", "content_name:'Ruta de la Fluidez Esencial',currency:'USD',value:VALUE,content_ids:['fluency-latam-annual']");
 todas("currency:'BRL'", "currency:'USD'");
 todas("beacon('/api/track',", "beacon('/api/track-latam',");
@@ -48,7 +48,7 @@ troca("fetch('/yt-comentarios.json')", "fetch('/es-yt-comentarios.json')");
 
 // ── 2) preço (2 blocos: topo e final) ──
 todas('<span class="fr-de">De <span style="text-decoration: line-through; color: rgb(255, 107, 107);">R$497</span></span>', '<span class="fr-de">De <span style="text-decoration: line-through; color: rgb(255, 107, 107);">USD 197</span></span>');
-todas('<span class="fr-v">R$29</span><span style="font-size: 0.45em; font-weight: 700;">/mês</span>', '<span class="fr-v">USD 49</span>');
+todas('<span class="fr-v">R$29</span><span style="font-size: 0.45em; font-weight: 700;">/mês</span>', '<span class="fr-v">USD 47</span>');
 todas('<span class="fr-parc">12x no cartão ou R$289 no Pix</span>', '<span class="fr-parc">Plan Anual · pago único</span>');
 todas("Hoje por apenas:", "Hoy por solo:");
 

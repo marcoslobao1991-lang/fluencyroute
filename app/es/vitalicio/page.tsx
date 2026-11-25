@@ -3,7 +3,7 @@ import Script from 'next/script'
 import MontaWidget from './MontaWidget'
 
 // 25/11/2026 (Marcos): UPSELL da LATAM = a mesma carta do upsell do inglês BR (app/obrigado, ACESSO VITALÍCIO), traduzida pro espanhol.
-// O principal vira "Plan Anual" (US$49, pago único) e aqui vende o ACCESO DE POR VIDA por US$19.
+// O principal vira "Plan Anual" (US$47, pago único) e aqui vende o ACCESO DE POR VIDA por US$19.
 // Hotmart: funil TRANSFER LANGUAGE (144304), produto Ruta hacia la Fluidez Esencial -> up1 = produto Fluency Route - Premium Coaching
 // (2066736), oferta ijncy7j7 "LATAM VITALICIO 19" (US$19 à vista); aceitar/recusar -> /es/gracias.
 // Os botões são o widget do funil da Hotmart (#hotmart-sales-funnel), igual ao /spanish/obrigado.
@@ -130,7 +130,7 @@ const oferta = `
   <span class="kb-tag">Solo en esta página</span>
   <p class="kb-h">Ruta de la Fluidez <span class="kb-pill">de por vida</span></p>
   <p class="kb-sub"><span>la app ahí, siempre que la quieras</span></p>
-  <p class="kb-de">de <s>US$49 cada año</s> por solo</p>
+  <p class="kb-de">de <s>US$47 cada año</s> por solo</p>
   <div class="kb-preco"><span class="x"><span>pago</span><span class="rs">US$</span></span><span class="v">19</span></div>
   <p class="kb-vista">pago único · una sola vez</p>
   <div id="hotmart-sales-funnel" class="hm-widget"></div>
@@ -173,9 +173,9 @@ const carta = `
   <div class="conta">
     <div class="bloco">
       <p class="tit">Sin el acceso de por vida</p>
-      <div class="ano"><span class="a">Año 1</span><span class="b r">US$49</span></div>
-      <div class="ano"><span class="a">Año 2</span><span class="b r">US$49</span></div>
-      <div class="ano"><span class="a">Año 3</span><span class="b r">US$49</span></div>
+      <div class="ano"><span class="a">Año 1</span><span class="b r">US$47</span></div>
+      <div class="ano"><span class="a">Año 2</span><span class="b r">US$47</span></div>
+      <div class="ano"><span class="a">Año 3</span><span class="b r">US$47</span></div>
     </div>
     <div class="bloco">
       <p class="tit">Con el acceso de por vida</p>
