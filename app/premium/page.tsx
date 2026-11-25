@@ -1,4 +1,4 @@
-// 25/11 UPSELL 2 = Acompanhamento Premium (mentoria) R$300, oferta q4Q6xBc no produto MENTORIA FLUENCY ROUTE (a2797d30). Base: obrigado/page.tsx.bak-mentoria186-20261123.
+// 25/11 UPSELL 2 = Acompanhamento Premium (mentoria) R$286 (era 300, Marcos 25/11), oferta q4Q6xBc no produto MENTORIA FLUENCY ROUTE (a2797d30). Base: obrigado/page.tsx.bak-mentoria186-20261123.
 import type { Metadata } from 'next'
 import Script from 'next/script'
 import UpsellPlayer from '../obrigado/UpsellPlayer'
@@ -156,7 +156,7 @@ const upsellHtml = `
       </div>
       <div class="price-final">
         <div class="label">Hoje, à vista, somente nesta página</div>
-        <div class="value"><sup>R$</sup>300</div>
+        <div class="value"><sup>R$</sup>286</div>
       </div>
       <p class="price-note">ou parcelado no checkout · acesso anual completo</p>
 
