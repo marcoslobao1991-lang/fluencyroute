@@ -47,7 +47,7 @@ troca("fetch('/yt-comentarios.json')", "fetch('/es-yt-comentarios.json')");
 // ── 2) preço (2 blocos: topo e final) ──
 todas('<span class="fr-de">De <span style="text-decoration: line-through; color: rgb(255, 107, 107);">R$497</span></span>', '<span class="fr-de">De <span style="text-decoration: line-through; color: rgb(255, 107, 107);">USD 197</span></span>');
 todas('<span class="fr-v">R$29</span><span style="font-size: 0.45em; font-weight: 700;">/mês</span>', '<span class="fr-v">USD 49</span>');
-todas('<span class="fr-parc">12x no cartão ou R$289 no Pix</span>', '<span class="fr-parc">pago único · acceso de por vida</span>');
+todas('<span class="fr-parc">12x no cartão ou R$289 no Pix</span>', '<span class="fr-parc">Plan Anual · pago único</span>');
 todas("Hoje por apenas:", "Hoy por solo:");
 
 // ── 3) seção da prova: sai o áudio do aluno (português); a nota e os comentários ficam ──
