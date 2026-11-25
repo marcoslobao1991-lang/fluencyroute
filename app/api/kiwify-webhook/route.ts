@@ -169,9 +169,37 @@ async function createSubscription(userId: string, orderId: string) {
 async function sendWelcomeEmail(email: string, name: string, password: string | null, isNew: boolean) {
   if (!RESEND_API_KEY) return
   const firstName = (name || '').split(' ')[0] || 'aluno'
-  // 24/08/2026: INVERSÃO. O curso volta a ser entregue na área de membros da
-  // Kiwify (7% de reembolso histórico vs 11-20% com o app na frente). O app
-  // (Manu: Listening + Shadowing) vira BÔNUS de nível intermediário.
+  // 25/11/2026: o APP volta a ser a entrega principal. Os pedidos de reembolso de nov/26 diziam
+  // "o produto do vídeo é um, na compra é outro" e "vende como app no celular, só tenho acesso pelo
+  // computador": a VSL vende o app de Friends (a Rota) e o e-mail mandava pro curso da Kiwify com o app
+  // como bônus. A Rota (com o treino livre da Manu junto) foi publicada no app.fluencyroute.com.br hoje.
+  const htmlApp = `
+    <div style="font-family:'Inter',sans-serif;max-width:520px;margin:0 auto;background:#0A0A0A;border-radius:16px;overflow:hidden">
+      <div style="padding:36px 32px 28px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06)">
+        <h1 style="color:#fff;font-size:23px;margin:0">Seu app <span style="color:#4ECDC4">Fluency Route</span> chegou</h1>
+        <p style="color:rgba(255,255,255,0.6);font-size:14px;margin-top:8px">${firstName}, seu acesso está liberado. É só abrir no celular 👇</p>
+      </div>
+      <div style="padding:28px 32px 32px">
+        <table style="width:100%;border-collapse:collapse;margin:0 0 22px">
+          <tr><td style="vertical-align:top;padding:0 12px 14px 0;color:#4ECDC4;font-weight:800;font-size:16px">1.</td>
+            <td style="padding-bottom:14px;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.6">Abra o app pelo <b>celular</b> (botão abaixo) e entre com o e-mail e a senha deste e-mail.</td></tr>
+          <tr><td style="vertical-align:top;padding:0 12px 14px 0;color:#4ECDC4;font-weight:800;font-size:16px">2.</td>
+            <td style="padding-bottom:14px;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.6">Comece pelo <b>minuto 1 de Friends</b>: ouve sem legenda, repete até o som grudar na palavra e faz o teste. Uns 10 minutos por dia já fazem diferença.</td></tr>
+          <tr><td style="vertical-align:top;padding:0 12px 0 0;color:#4ECDC4;font-weight:800;font-size:16px">3.</td>
+            <td style="color:rgba(255,255,255,0.85);font-size:14px;line-height:1.6">No celular, toque em <b>Compartilhar → Adicionar à Tela de Início</b> e o app fica com ícone, igual a qualquer outro.</td></tr>
+        </table>
+        ${isNew && password ? `
+        <div style="background:rgba(78,205,196,0.07);border:1px solid rgba(78,205,196,0.3);border-radius:12px;padding:18px 20px;margin-bottom:18px">
+          <p style="color:rgba(255,255,255,0.45);font-size:11px;text-transform:uppercase;letter-spacing:1px;margin:0 0 10px">Seus dados de acesso</p>
+          <p style="color:#fff;font-size:14px;margin:0 0 6px"><strong>E-mail:</strong> ${email}</p>
+          <p style="color:#fff;font-size:14px;margin:0"><strong>Senha:</strong> <code style="background:rgba(78,205,196,0.15);color:#4ECDC4;padding:2px 8px;border-radius:4px;font-size:16px;letter-spacing:1px">${password}</code></p>
+        </div>` : `
+        <p style="color:rgba(255,255,255,0.7);font-size:13.5px;line-height:1.6;margin:0 0 18px">Entre com o mesmo e-mail e a senha que você já tem.</p>`}
+        <a href="https://app.fluencyroute.com.br/manu" style="display:block;text-align:center;padding:17px;background:#4ECDC4;color:#000;font-weight:800;font-size:15px;border-radius:10px;text-decoration:none;margin-bottom:12px">ENTRAR NO APP →</a>
+        <p style="color:rgba(255,255,255,0.45);font-size:12.5px;line-height:1.6;text-align:center;margin:0 0 20px">Esqueceu a senha? Entre <b>sem senha</b> em <a href="https://fluencyroute.com.br/acesso" style="color:#4ECDC4">fluencyroute.com.br/acesso</a></p>
+        <p style="color:rgba(255,255,255,0.55);font-size:12.5px;line-height:1.6;text-align:center;margin:0">Também tem as aulas do Marcos na área de membros: <a href="${KIWIFY_COURSE_URL}" style="color:#A78BFA">abrir as aulas</a>.<br>Qualquer dúvida, responda este e-mail.</p>
+      </div>
+    </div>`
   const html = `
     <div style="font-family:'Inter',sans-serif;max-width:520px;margin:0 auto;background:#0A0A0A;border-radius:16px;overflow:hidden">
       <div style="padding:36px 32px 28px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06)">
@@ -212,8 +240,8 @@ async function sendWelcomeEmail(email: string, name: string, password: string | 
     body: JSON.stringify({
       from: 'Rota da Fluência <contato@acesso.fluencyroute.com.br>',
       to: email,
-      subject: isNew ? 'Seu acesso chegou: comece pela aula inaugural' : 'Pagamento confirmado: Fluency Route',
-      html,
+      subject: isNew ? 'Seu app chegou: entre pelo celular' : 'Pagamento confirmado: seu app Fluency Route',
+      html: htmlApp, // 25/11: app como entrega principal (o html antigo, curso Kiwify + app bônus, ficou acima só de referência)
     }),
   }).catch(e => console.error('[Kiwify] Email failed:', e.message))
 }
