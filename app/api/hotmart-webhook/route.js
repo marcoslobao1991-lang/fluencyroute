@@ -260,6 +260,15 @@ export async function POST(request) {
     const currency = pick(body, 'data.purchase.price.currency_value', 'data.purchase.price.currency_code', 'currency', 'currency_code') || 'USD'
     const productName = pick(body, 'data.product.name', 'product.name', 'prod_name') || 'Essential Spanish Fluency'
 
+    // 26/11: o produto "Premium Coaching" é COMPARTILHADO com o funil LATAM (Ruta hacia la Fluidez, outra oferta e outro preço).
+    // Este webhook é do ESPANHOL: só a oferta do Fast-Track (ewtgb4zl, US$127) entra aqui. O resto do Premium Coaching é ignorado
+    // (nada de acesso, e-mail, painel ou pixel do espanhol). Sem código de oferta no payload: só aceita se o valor for de Fast-Track (≥ US$90).
+    const offerCode = String(pick(body, 'data.purchase.offer.code', 'purchase.offer.code', 'off') || '').toLowerCase()
+    if (/coaching|upsell|mentor/i.test(String(productName))) {
+      const ehFastTrack = offerCode ? offerCode === 'ewtgb4zl' : (Number(value) || 0) >= 90
+      if (!ehFastTrack) return new Response(JSON.stringify({ ok: true, ignored: 'coaching-de-outro-funil', offer: offerCode || null }), { status: 200 })
+    }
+
     // buyer PII → EMQ
     const email = pick(body, 'data.buyer.email', 'buyer.email', 'email')
     const name = pick(body, 'data.buyer.name', 'buyer.name', 'name')
