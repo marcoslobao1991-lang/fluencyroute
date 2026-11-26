@@ -35,7 +35,10 @@ const COURSE = 'Essential Spanish Fluency'
 type Oferta = { pay: string; valor: number; checkout: string; media: string; reveal: number; tag: string }
 const OFERTAS: Record<string, Oferta> = {
   // 23/11 estratégia do Marcos: a VSL fala US$ 197 e o SITE dá o desconto pra US$ 97 (checkout Hotmart mudou pra 97, mesmo link)
-  '197': { pay: '$97', valor: 97, checkout: 'https://pay.hotmart.com/M94188676L?off=qp698at2', media: 'vsl-netflix-trick-197', reveal: 724, tag: 'vsl_nt197d97' },
+  // 26/11 VSL nova da SOPHIA (narradora, avatar IA) a US$ 147: Hotmart qp698at2 em 147, botão no 'click the button below' (10:42).
+  '197': { pay: '$147', valor: 147, checkout: 'https://pay.hotmart.com/M94188676L?off=qp698at2', media: 'vsl-netflix-sophia-147', reveal: 642, tag: 'vsl_ns147' },
+  // rollback (VSL antiga do Marcos, site a 97): trocar a chave '197' por esta
+  '197antiga': { pay: '$97', valor: 97, checkout: 'https://pay.hotmart.com/M94188676L?off=qp698at2', media: 'vsl-netflix-trick-197', reveal: 724, tag: 'vsl_nt197d97' },
   '97': { pay: '$97', valor: 97, checkout: '', media: 'vsl-netflix-trick-97', reveal: 724, tag: 'vsl_nt97' },
   '297': { pay: '$297', valor: 297, checkout: '', media: 'vsl-netflix-trick-297', reveal: 724, tag: 'vsl_nt297' },
 }
@@ -195,8 +198,8 @@ const VTURB_PLAYER_ID = '6a6013fbc99e7e122a46664a'
 // Oferta original aos 1050 s caiu pra 1005 s (corte em ~/my-video/work/spanish-sem-lead/MAPA.md).
 let MEDIA = OFERTAS['197'].media
 let REVEAL_AT = OFERTAS['197'].reveal
-let REVEAL_KEY = 'es_reveal_nt197'
-let POS_KEY = 'vsl_pos_es_nt197'
+let REVEAL_KEY = 'es_reveal_ns147'
+let POS_KEY = 'vsl_pos_es_ns147'
 
 // Skin "post de Instagram" igual à /vsl BR (07/11). ?skin=0 mostra o player antigo (prévia, não salva).
 const SKIN_POST = (() => {
@@ -208,7 +211,7 @@ const RATE = (() => {
   if (typeof window === 'undefined') return 1
   try { const q = parseFloat(new URLSearchParams(location.search).get('vel') || ''); return Math.min(2, Math.max(0.5, q || 1)) } catch { return 1 }
 })()
-let VTAG = 'vsl_nt197' + (RATE !== 1 ? '_x' + Math.round(RATE * 100) : '') + (SKIN_POST ? '_ig' : '')
+let VTAG = 'vsl_ns147' + (RATE !== 1 ? '_x' + Math.round(RATE * 100) : '') + (SKIN_POST ? '_ig' : '')
 
 // Log interno (funnel_events) — retenção do vídeo no stats, funil spanish
 let frTrack = createTracker({ funnel: 'spanish', page: 'vsl', variant: VTAG })

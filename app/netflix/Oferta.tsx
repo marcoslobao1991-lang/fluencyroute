@@ -109,8 +109,9 @@ function Mira() {
 }
 
 // parcela em 3x lida na Hotmart (Estados Unidos selecionado) em 23/11/2026: US$ 197 = 3x 70,70 · US$ 97 = 3x 34,81
-const PARCELA_HOTMART: Record<string, string> = { '$197': '$70.70', '$97': '$34.81' }
+const PARCELA_HOTMART: Record<string, string> = { '$197': '$70.70', '$97': '$34.81', '$147': '$52.75' }  // 147 = 3x 52,75 (Hotmart, 26/11)
 const parcela = (pay: string) => PARCELA_HOTMART[pay] || pay
+// 26/11: VSL da Sophia fala US$ 147 (âncoras 3.000/1.500 na própria VSL); site = de 497 por 147. Parcela de 147: ler no checkout e pôr no PARCELA_HOTMART (sem valor a linha some).
 // âncora = o preço que a VSL fala (US$ 197); o site dá o desconto pra 97 (estratégia do Marcos, 23/11). Antes: 497.
 const DE = (pay: string) => (pay === '$97' ? '$197' : '$497')
 
@@ -122,7 +123,7 @@ function Preco({ pay }: { pay: string }) {
       <div className="nt-num">{pay}</div>
       <Regua />
       <p className="nt-unico">single payment</p>
-      <p className="nt-parc">or <b>3 payments of {parcela(pay)}</b></p>
+      {PARCELA_HOTMART[pay] && <p className="nt-parc">or <b>3 payments of {parcela(pay)}</b></p>}
     </div>
   )
 }
