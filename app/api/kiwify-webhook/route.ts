@@ -672,10 +672,11 @@ Investigar: Meta Events Manager → Diagnóstico`
     // Mensagem antiga mandava o aluno "esperar o acesso da Kiwify" — era
     // parte da confusão. O template novo aponta SÓ pra plataforma + MANU.
     if (phone) {
-      await sendWhatsAppTemplate(phone, 'acesso_d0', [
-        firstName,
+      // 26/11/2026: acesso_d0 (com senha) foi recusado pela Meta (categoria). Template novo sem senha,
+      // botão → fluencyroute.com.br/acesso (entra só com o e-mail). Número oficial +55 11 95609-1942.
+      await sendWhatsAppTemplate(phone, 'pedido_acesso_liberado', [
+        firstName || 'tudo bem',
         email,
-        password || 'a que você já usa (ou entre sem senha: fluencyroute.com.br/acesso)',
       ]).catch(e => console.error(`[WhatsApp] Falha aluno ${phone}:`, e.message))
     }
 
