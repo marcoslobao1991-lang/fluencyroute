@@ -15,7 +15,7 @@ const OFFER = 'Fluency Fast-Track'
 const PRICE = '$127'           // = preço da oferta de upsell no Hotmart
 const FROM = '$497'            // âncora
 const VALUE = '$1,994'         // soma do stack
-const FRONT = '$97'            // o que a pessoa acabou de pagar (23/11: site cobra 97)
+const FRONT = '$147'           // o que a pessoa acabou de pagar (26/11: VSL Sophia US$147); não aparece mais na conta da oferta
 const PRICE_NUM = 127
 
 const RX = '#6D3FF2'
@@ -181,8 +181,8 @@ export default function ThankYou() {
         <div className="up-conta">
           <div><span>Premium Coaching, normally</span><b>{FROM}</b></div>
           <div><span>Your 50% buyer discount</span><b className="menos">−$248.50</b></div>
-          <div><span>Minus the {FRONT} you just invested</span><b className="menos">−{FRONT}</b></div>
-          <div className="sub"><span>Your price</span><b><s>$151.50</s></b></div>
+          {/* 26/11: o front agora é US$147 (VSL Sophia) e 497−248,50−147 dava menos que o preço final; a linha "minus what you invested" saiu */}
+          <div className="sub"><span>Your price</span><b><s>$248.50</s></b></div>
         </div>
         <p className="up-front">Only on this page, today:</p>
         <div className="up-num">{PRICE}</div>
