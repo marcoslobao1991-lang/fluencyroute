@@ -145,6 +145,49 @@ async function sendDelivery(email, name) {
   } catch (e) { console.error('[HOTMART-WEBHOOK] resend err:', e) }
 }
 
+// ── Fluency Fast-Track (upsell): libera o acompanhamento e manda o link da página do coach ──
+const COACH_URL = 'https://fluencyroute.com.br/spanish-coach.html'
+function coachHtml(name, token) {
+  const hi = name ? `Hey ${String(name).split(' ')[0]},` : 'Hey there,'
+  const link = token ? `${COACH_URL}?k=${token}` : COACH_URL
+  return `<!doctype html><html><body style="margin:0;background:#0C1219;font-family:-apple-system,'Segoe UI',sans-serif;color:#E9EEF6">
+  <div style="max-width:480px;margin:0 auto;padding:32px 24px">
+    <p style="font-weight:900;letter-spacing:3px;font-size:12px;color:#8A98AD">FLUENCY <span style="color:#F4B740">ROUTE</span> · FAST-TRACK</p>
+    <h1 style="font-size:26px;font-weight:900;line-height:1.25;margin:20px 0 8px">${hi} your Fast-Track is unlocked.</h1>
+    <p style="font-size:16px;color:#BCC7D8;line-height:1.6">Here is what you get, starting today:</p>
+    <ul style="font-size:15px;color:#BCC7D8;line-height:1.7;padding-left:18px">
+      <li><b style="color:#E9EEF6">Your 90-Day Speaking Plan</b>, one mission a day, built around your level and your time.</li>
+      <li><b style="color:#E9EEF6">Weekly Accent Check</b>: you record a few lines and our A.I. pronunciation coach scores every word and shows you what to fix.</li>
+      <li><b style="color:#E9EEF6">A new challenge every week</b> to keep you speaking.</li>
+      <li><b style="color:#E9EEF6">Everything unlocked</b> in your app, plus every update we ever ship.</li>
+    </ul>
+    <a href="${link}" style="display:inline-block;margin:22px 0;background:#F4B740;color:#2A1C00;font-weight:900;font-size:16px;padding:16px 30px;border-radius:12px;text-decoration:none">START MY 90-DAY PLAN ▶</a>
+    <p style="font-size:14px;color:#8A98AD;line-height:1.6">It takes 1 minute to set up. Keep this email: the button always brings you back to your plan.</p>
+    <p style="font-size:14px;color:#BCC7D8;margin-top:24px">— Fluency Route</p>
+  </div></body></html>`
+}
+async function sendCoachDelivery(email, name, transaction) {
+  if (!RESEND_KEY || !email) return
+  const mail = String(email).trim().toLowerCase()
+  if (/@(example\.com|hotmart\.com(\.br)?)$/i.test(mail)) return
+  const token = await prepararAcesso(mail)
+  try {
+    await fetch(`${SUPA_URL}/rest/v1/spanish_coach`, {
+      method: 'POST',
+      headers: { apikey: SUPA_SERVICE_KEY, Authorization: `Bearer ${SUPA_SERVICE_KEY}`, 'Content-Type': 'application/json', Prefer: 'resolution=ignore-duplicates,return=minimal' },
+      body: JSON.stringify({ email: mail, transaction: transaction || null }),
+    })
+  } catch (e) { console.error('[HOTMART-WEBHOOK] coach insert', e?.message) }
+  try {
+    const r = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${RESEND_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ from: 'Fluency Route <access@acesso.fluencyroute.com.br>', to: [mail], subject: '🚀 Your Fast-Track is unlocked: start your 90-day plan', html: coachHtml(name, token) }),
+    })
+    if (!r.ok) console.error('[HOTMART-WEBHOOK] resend coach:', r.status, await r.text())
+  } catch (e) { console.error('[HOTMART-WEBHOOK] resend coach err:', e) }
+}
+
 export async function POST(request) {
   try {
     const headerHottok = request.headers.get('x-hotmart-hottok') || ''
@@ -255,6 +298,10 @@ export async function POST(request) {
     }
     if (event === 'PURCHASE_APPROVED' && !isUpsell) {
       await sendDelivery(email, name)
+    }
+    // 26/11: upsell (Fluency Fast-Track / Premium Coaching) = acompanhamento entregue por IA em /spanish-coach.html
+    if (event === 'PURCHASE_APPROVED' && isUpsell) {
+      await sendCoachDelivery(email, name, transaction)
     }
 
     const debug = request.headers.get('x-debug') === '1'

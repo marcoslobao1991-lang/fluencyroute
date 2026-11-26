@@ -56,7 +56,7 @@ async function trackEs(event: string, extra?: Record<string, unknown>, determini
 const STACK = [
   { n: '01', t: 'Everything unlocked', v: '$997', d: 'Every series, every real-content episode, now and every one we add. The full native-content library, not the starter set.' },
   { n: '02', t: 'Your 90-Day Speaking Plan', v: '$297', d: 'The exact day-by-day path from drilling to actually talking. No guessing what to do next: just open it and train.' },
-  { n: '03', t: 'Pronunciation feedback', v: '$400', d: 'Send your recordings, get your accent fixed by a specialist. The small corrections you literally cannot hear on your own.' },
+  { n: '03', t: 'Pronunciation feedback', v: '$400', d: 'Every week you record a few lines and our A.I. pronunciation coach scores every single word and shows you exactly what to fix. The small corrections you literally cannot hear on your own.' },
   { n: '04', t: 'Private accountability group', v: '$300', d: 'A small, closed room of serious learners plus weekly challenges. When someone is watching, you show up, and showing up is 90% of it.' },
   { n: '05', t: 'Lifetime updates', v: 'priceless', d: 'Everything we ever build lands in your account automatically. You pay once, today, and never again.' },
 ]

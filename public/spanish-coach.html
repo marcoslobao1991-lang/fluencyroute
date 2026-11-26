@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Fluency Fast-Track</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
+<style>
+/* Fluency Fast-Track (upsell do espanhol, 26/11/2026) · mesma cara do spanish-app (escuro + dourado) · gerado por scripts/gerar-coach.cjs */
+:root{--bg:#0C1219;--card:#141C26;--card2:#1A2431;--ink:#E9EEF6;--soft:#9AA7BA;--mut:#6B7789;--gold:#F4B740;--gold2:#2A1C00;--ok:#3DDC97;--bad:#FF6B6B;--mid:#FFC857;--rule:#243042}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,-apple-system,"Segoe UI",sans-serif}
+.w{max-width:560px;margin:0 auto;padding:calc(18px + env(safe-area-inset-top)) 16px calc(40px + env(safe-area-inset-bottom));display:grid;gap:14px}
+.brand{font:900 12px/1 Inter;letter-spacing:3px;color:var(--soft)}.brand b{color:var(--gold)}
+h1{font:900 26px/1.15 Inter;margin:0;letter-spacing:-.02em}h2{font:800 18px/1.2 Inter;margin:0}
+p{margin:0}.soft{color:var(--soft)}.mut{color:var(--mut);font-size:13px}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:18px;padding:18px;display:grid;gap:12px}
+.k{font:800 11px/1 Inter;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:16px;font:800 16px Inter;cursor:pointer;text-align:center;text-decoration:none}
+.btn.g{background:var(--gold);color:var(--gold2)}.btn.s{background:var(--card2);color:var(--ink);border:1px solid var(--rule)}
+.btn:disabled{opacity:.5}
+.ops{display:grid;gap:8px}.op{background:var(--card2);border:1.5px solid var(--rule);border-radius:14px;padding:14px;font:700 15px Inter;color:var(--ink);text-align:left;cursor:pointer}
+.op.on{border-color:var(--gold);background:#2A2412}
+.bar{height:10px;border-radius:6px;background:var(--card2);overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#F4B740,#FFD27A)}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.big{font:900 40px/1 Inter;letter-spacing:-.03em}
+.tasks{display:grid;gap:8px;margin:0;padding:0;list-style:none}.tasks li{display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:start;background:var(--card2);border-radius:12px;padding:12px}
+.tasks li b{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--gold);color:var(--gold2);font:900 13px Inter}
+.done{color:var(--ok);font-weight:800}
+.sent{background:var(--card2);border-radius:14px;padding:14px;display:grid;gap:10px}
+.sent .es{font:700 18px/1.35 Inter}.sent .en{color:var(--soft);font-size:14px}
+.sent .acts{display:flex;gap:8px}.sent .acts button{flex:1;border:0;border-radius:12px;padding:12px;font:800 14px Inter;cursor:pointer}
+.play{background:#22303F;color:var(--ink)}.rec{background:var(--gold);color:var(--gold2)}.rec.on{background:var(--bad);color:#fff}
+.res{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.res .sc{font:900 22px Inter;margin-right:6px}
+.wd{padding:3px 7px;border-radius:7px;font:700 14px Inter}.wd.g{background:rgba(61,220,151,.16);color:var(--ok)}.wd.m{background:rgba(255,200,87,.16);color:var(--mid)}.wd.b{background:rgba(255,107,107,.18);color:var(--bad)}
+.tip{font-size:14px;color:var(--soft)}
+.trend{display:flex;gap:6px;align-items:flex-end;height:90px}.trend div{flex:1;background:var(--card2);border-radius:6px 6px 2px 2px;position:relative;min-width:0}.trend div i{position:absolute;left:0;right:0;bottom:0;background:var(--gold);border-radius:6px 6px 2px 2px}
+.trend span{position:absolute;left:0;right:0;top:-18px;text-align:center;font:700 11px Inter;color:var(--soft)}
+.wk{display:flex;gap:6px;flex-wrap:wrap}.wk i{width:30px;height:30px;border-radius:8px;background:var(--card2);display:grid;place-items:center;font:700 12px Inter;color:var(--mut);font-style:normal}.wk i.d{background:var(--ok);color:#06281F}.wk i.t{outline:2px solid var(--gold)}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="w" id="w">
+  <p class="brand">FLUENCY <b>ROUTE</b> · FAST-TRACK</p>
+  <div id="load" class="card"><p class="soft">Loading your plan…</p></div>
+  <div id="erro" class="card" hidden><h2>We couldn't open your plan</h2><p class="soft" id="erroTx">Open the link from your Fast-Track email again. If it keeps happening, just reply to that email and we'll fix it.</p></div>
+
+  <!-- onboarding -->
+  <div id="onb" hidden>
+    <div class="card">
+      <span class="k" id="onbK">Step 1 of 3</span>
+      <h1 id="onbQ"></h1>
+      <div class="ops" id="onbOps"></div>
+    </div>
+  </div>
+
+  <!-- painel -->
+  <div id="dash" hidden style="display:grid;gap:14px">
+    <div class="card">
+      <div class="row"><span class="k" id="fase"></span><span class="mut" id="streak"></span></div>
+      <div class="row"><span class="big" id="dia"></span><span class="soft">of 90</span></div>
+      <div class="bar"><i id="barra" style="width:0"></i></div>
+      <div class="wk" id="semana"></div>
+    </div>
+    <div class="card">
+      <span class="k">Today's mission</span>
+      <h2 id="mTit"></h2>
+      <ul class="tasks" id="mTasks"></ul>
+      <a class="btn g" id="abreApp" href="#">Open my Spanish app ▶</a>
+      <button class="btn s" id="feito" type="button">Mark today as done</button>
+      <p class="done" id="feitoOk" hidden>✓ Day done. See you tomorrow.</p>
+    </div>
+    <div class="card">
+      <span class="k" id="chK">This week's challenge</span>
+      <h2 id="chTit"></h2>
+      <p class="soft" id="chTx"></p>
+    </div>
+    <div class="card">
+      <span class="k" id="acK">Weekly Accent Check</span>
+      <h2>Say these 5 lines. Our A.I. coach scores every word.</h2>
+      <p class="mut">Tap ▶ to hear it, then 🎙 and read it out loud. Green is good, yellow is close, red needs work.</p>
+      <div id="frases" style="display:grid;gap:10px"></div>
+      <div id="acRes" hidden class="sent"><span class="k">This week's score</span><div class="big" id="acMedia"></div><p class="tip" id="acTip"></p></div>
+      <div id="trendBox" hidden><span class="k">Your accent, week by week</span><div class="trend" id="trend" style="margin-top:24px"></div></div>
+    </div>
+    <div class="card">
+      <span class="k">Also included</span>
+      <p class="soft">Everything in your app is unlocked, every series and every scene we add. And every update we ever ship lands in your account automatically.</p>
+      <p class="mut">Questions? Reply to your Fast-Track email. A real person reads it.</p>
+    </div>
+  </div>
+</div>
+<script>
+/* ═══ PRONUNCIATION — grava WAV + Azure Pronunciation Assessment (es-MX) ═══ */
+const PRON={stream:null,ctx:null,proc:null,samples:[],rate:16000,resolve:null,timer:null,tok:null,tokTs:0};
+async function pronEnsure(){ const s=PRON.stream; if(s&&s.getAudioTracks().some(t=>t.readyState==="live"&&t.enabled&&!t.muted))return s;
+  try{ PRON.stream=await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,echoCancellation:true,noiseSuppression:true}}); return PRON.stream; }catch(e){ return null; } }
+function pronStop(){ if(PRON.timer){clearTimeout(PRON.timer);PRON.timer=null;} if(PRON.proc){try{PRON.proc.disconnect();}catch(e){}PRON.proc=null;} if(PRON.ctx&&PRON.ctx.state!=="closed"){try{PRON.ctx.close();}catch(e){}PRON.ctx=null;}
+  if(PRON.resolve){ const all=PRON.samples,total=all.reduce((s,c)=>s+c.length,0);
+    if(total<PRON.rate*0.15)PRON.resolve(null);
+    else{ const merged=new Float32Array(total);let off=0;for(const c of all){merged.set(c,off);off+=c.length;} PRON.resolve(float32ToWav(resampleTo16k(merged,PRON.rate),16000)); }
+    PRON.resolve=null; }
+  PRON.samples=[]; }
+async function pronRecord(maxMs){ const stream=await pronEnsure(); if(!stream)return "denied";
+  try{ const Ctx=window.AudioContext||window.webkitAudioContext; const ctx=new Ctx(); PRON.ctx=ctx; PRON.rate=ctx.sampleRate||48000; if(ctx.state==="suspended"){try{await ctx.resume();}catch(e){}}
+    const src=ctx.createMediaStreamSource(stream); const proc=ctx.createScriptProcessor(4096,1,1); PRON.proc=proc; PRON.samples=[];
+    let silent=0,spoke=0; const SIL=0.006,SILLIM=7,SPMIN=5;
+    proc.onaudioprocess=e=>{ const input=e.inputBuffer.getChannelData(0); PRON.samples.push(new Float32Array(input));
+      let sum=0;for(let i=0;i<input.length;i++)sum+=input[i]*input[i]; const rms=Math.sqrt(sum/input.length);
+      if(rms>SIL){spoke++;silent=0;}else if(spoke>=SPMIN){silent++;if(silent>=SILLIM)pronStop();} };
+    const zero=ctx.createGain(); zero.gain.value=0; src.connect(proc); proc.connect(zero); zero.connect(ctx.destination);
+    return await new Promise(res=>{ PRON.resolve=res; PRON.timer=setTimeout(()=>{if(PRON.resolve)pronStop();},maxMs); });
+  }catch(e){ return null; } }
+async function pronGetToken(){ const now=Date.now(); if(PRON.tok&&now-PRON.tokTs<540000)return PRON.tok;
+  try{ const r=await fetch("/api/pron-token"); const d=await r.json(); if(!d||d.error)return null; PRON.tok={token:d.token,region:d.region}; PRON.tokTs=now; return PRON.tok; }catch(e){ return null; } }
+function b64utf8(s){ try{ const b=new TextEncoder().encode(s); let bin="";for(let i=0;i<b.length;i++)bin+=String.fromCharCode(b[i]); return btoa(bin); }catch(e){ return btoa(unescape(encodeURIComponent(s))); } }
+async function pronAssess(wav,ref,lang){ const tok=await pronGetToken(); if(!tok)return null;
+  const cfg={ReferenceText:ref,GradingSystem:"HundredMark",Granularity:"Phoneme",Dimension:"Comprehensive",EnableMiscue:false,EnableProsodyAssessment:true};
+  try{ const res=await fetch("https://"+tok.region+".stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1?language="+(lang||"es-MX"),{method:"POST",headers:{Authorization:"Bearer "+tok.token,"Content-Type":"audio/wav; codecs=audio/pcm; samplerate=16000","Pronunciation-Assessment":b64utf8(JSON.stringify(cfg)),Accept:"application/json"},body:wav});
+    if(!res.ok)return null; const data=await res.json(); if(data.RecognitionStatus!=="Success")return {silence:true};
+    const best=(data.NBest&&data.NBest[0])||{}; const pa=best.PronunciationAssessment||best||{};
+    const words=(best.Words||[]).map(w=>{const wpa=w.PronunciationAssessment||w;return{word:String(w.Word||""),acc:Math.round(Number(wpa.AccuracyScore||0)),err:String(wpa.ErrorType||"None")};});
+    return {score:Math.round(Number(pa.PronScore||0)),accuracy:Math.round(Number(pa.AccuracyScore||0)),fluency:Math.round(Number(pa.FluencyScore||0)),prosody:Math.round(Number(pa.ProsodyScore||0)),words,heard:data.DisplayText||""};
+  }catch(e){ return null; } }
+function resampleTo16k(input,src){ if(!src||src===16000||input.length===0)return input; const ratio=src/16000,outLen=Math.max(1,Math.floor(input.length/ratio)),out=new Float32Array(outLen);
+  for(let i=0;i<outLen;i++){const pos=i*ratio,i0=Math.floor(pos),i1=Math.min(i0+1,input.length-1),frac=pos-i0;out[i]=input[i0]*(1-frac)+input[i1]*frac;} return out; }
+function float32ToWav(samples,rate){ const int16=new Int16Array(samples.length);
+  for(let i=0;i<samples.length;i++){const s=Math.max(-1,Math.min(1,samples[i]));int16[i]=s<0?s*0x8000:s*0x7fff;}
+  const buf=new ArrayBuffer(44+int16.length*2),v=new DataView(buf),ws=(o,str)=>{for(let i=0;i<str.length;i++)v.setUint8(o+i,str.charCodeAt(i));};
+  ws(0,"RIFF");v.setUint32(4,36+int16.length*2,true);ws(8,"WAVE");ws(12,"fmt ");v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,rate,true);v.setUint32(28,rate*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);ws(36,"data");v.setUint32(40,int16.length*2,true);
+  for(let i=0;i<int16.length;i++)v.setInt16(44+i*2,int16[i],true); return new Blob([buf],{type:"audio/wav"}); }
+
+(function(){
+var $=function(i){return document.getElementById(i)};
+var q=new URLSearchParams(location.search),K=q.get('k')||'';
+try{if(K)localStorage.setItem('coach_k',K);else K=localStorage.getItem('coach_k')||''}catch(e){}
+var S={data:{}},salvaT=null;
+function salva(){clearTimeout(salvaT);salvaT=setTimeout(function(){fetch('/api/spanish-coach',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({k:K,data:S.data})}).catch(function(){})},400)}
+
+// ── plano de 90 dias: 5 fases, missão diária escala com os minutos do aluno ──
+var FASES=[
+ {de:1,ate:21,nome:'Phase 1 · Train your ear',m:['Watch 1 scene in the app with NO subtitles, 3 times in a row.','Turn on Spanish subtitles and watch it again. Notice the words you missed.','Play it one last time with no subtitles. Count how many more words you catch.']},
+ {de:22,ate:42,nome:'Phase 2 · Train your mouth',m:['Pick 1 scene and shadow it: play a line, pause, repeat it out loud.','Do the A.I. pronunciation drill on 5 lines of that scene.','Record yourself saying the whole scene once, without stopping.']},
+ {de:43,ate:63,nome:'Phase 3 · Real conversations',m:['Do 1 conversation lesson in the app and say every answer out loud.','Take the 3 most useful phrases of the day and use each one in your own sentence.','Narrate 2 minutes of your day in Spanish, out loud, while you do something else.']},
+ {de:64,ate:84,nome:'Phase 4 · Immersion',m:['Watch a full episode chunk (10 minutes) in Spanish with Spanish subtitles only.','Pause 3 times and say what just happened, in Spanish.','Think in Spanish for 5 minutes: describe what you see around you, no English allowed.']},
+ {de:85,ate:90,nome:'Phase 5 · Graduation',m:['Watch your first scene again with no subtitles and see how much you understand now.','Record a 2-minute monologue about yourself in Spanish.','Do this week\'s Accent Check and compare it with week 1.']}
+];
+var DESAFIOS=['Say "buenos días" to yourself in the mirror every morning this week, with the right accent.','Change your phone to Spanish for 3 days. Yes, really.','Learn the opening line of your favorite scene by heart and say it 10 times a day.','Order your coffee in Spanish in your head, every single day.','Shadow the same 30 seconds of a scene until you can say it at full speed.','Write 3 sentences a day about your day, in Spanish, and read them out loud.','Watch one scene with the sound only (no screen) and tell yourself what happened.','Call or voice-message someone (or yourself) and talk 1 minute in Spanish.','Describe your home out loud in Spanish: every room, every object you know.','Sing along to one Spanish song until you know the chorus.','Have a 3-minute "conversation" with yourself: ask questions and answer them.','Retell the plot of a series episode in Spanish, in under 2 minutes.','Record a 2-minute video introducing yourself in Spanish. Compare it with day 1.'];
+var FRASES=[
+ [['Buenos días, ¿cómo estás?','Good morning, how are you?'],['Me llamo y vivo en Estados Unidos.','My name is... and I live in the United States.'],['¿Qué quieres hacer hoy?','What do you want to do today?'],['No entiendo, ¿puedes repetir?','I don\'t understand, can you repeat?'],['Estoy aprendiendo español.','I\'m learning Spanish.']],
+ [['¿Dónde está el baño?','Where is the bathroom?'],['Quiero un café, por favor.','I want a coffee, please.'],['¿Cuánto cuesta esto?','How much is this?'],['Tengo mucha hambre.','I\'m really hungry.'],['Nos vemos mañana.','See you tomorrow.']],
+ [['¿Qué pasó anoche?','What happened last night?'],['No tengo idea.','I have no idea.'],['Eso no es lo que quise decir.','That\'s not what I meant.'],['Vamos a ver qué pasa.','Let\'s see what happens.'],['Tienes toda la razón.','You\'re totally right.']],
+ [['Estoy planeando viajar a México.','I\'m planning to travel to Mexico.'],['¿Te puedo hacer una pregunta?','Can I ask you a question?'],['Me encanta esta ciudad.','I love this city.'],['Hace mucho calor hoy.','It\'s really hot today.'],['¿A qué te dedicas?','What do you do for a living?']],
+ [['Lo siento, llegué tarde.','Sorry, I\'m late.'],['¿Qué me recomiendas?','What do you recommend?'],['Estoy muy cansado.','I\'m really tired.'],['Ya casi terminamos.','We\'re almost done.'],['No te preocupes.','Don\'t worry.']],
+ [['¿Cuál es tu serie favorita?','What\'s your favorite series?'],['La verdad es que no me gusta.','The truth is I don\'t like it.'],['Necesito pensarlo un poco.','I need to think about it a bit.'],['¡Qué buena idea!','What a great idea!'],['Mañana empiezo de nuevo.','Tomorrow I start again.']],
+ [['¿Puedes hablar más despacio?','Can you speak more slowly?'],['Estoy de acuerdo contigo.','I agree with you.'],['Depende de lo que quieras.','It depends on what you want.'],['Me parece perfecto.','Sounds perfect to me.'],['¿Por qué no vamos juntos?','Why don\'t we go together?']],
+ [['Ayer fui al supermercado.','Yesterday I went to the supermarket.'],['Nunca había visto algo así.','I had never seen anything like that.'],['Si tuviera tiempo, iría.','If I had time, I would go.'],['Ojalá que llueva mañana.','I hope it rains tomorrow.'],['Lo que quiero decir es que sí.','What I mean is yes.']],
+ [['Me gustaría reservar una mesa.','I\'d like to book a table.'],['¿Cuánto tiempo llevas aquí?','How long have you been here?'],['Todavía no lo he decidido.','I still haven\'t decided.'],['Fue un placer conocerte.','It was a pleasure meeting you.'],['Cuídate mucho.','Take good care.']],
+ [['¿Qué harías en mi lugar?','What would you do in my place?'],['Siempre he querido aprender español.','I\'ve always wanted to learn Spanish.'],['Se me olvidó por completo.','I completely forgot.'],['No es tan difícil como parece.','It\'s not as hard as it looks.'],['Hablemos de otra cosa.','Let\'s talk about something else.']],
+ [['Estaba a punto de llamarte.','I was about to call you.'],['Me di cuenta demasiado tarde.','I realized too late.'],['¿Te acuerdas de aquel día?','Do you remember that day?'],['No me lo puedo creer.','I can\'t believe it.'],['Al final todo salió bien.','In the end everything turned out fine.']],
+ [['Cada vez entiendo más.','I understand more every time.'],['Ya no necesito subtítulos.','I don\'t need subtitles anymore.'],['Hablo un poco más rápido ahora.','I speak a little faster now.'],['Me siento mucho más seguro.','I feel much more confident.'],['Quiero seguir practicando.','I want to keep practicing.']],
+ [['Hace noventa días no entendía nada.','Ninety days ago I understood nothing.'],['Ahora puedo ver series en español.','Now I can watch series in Spanish.'],['Lo logré, paso a paso.','I did it, step by step.'],['El secreto fue practicar todos los días.','The secret was practicing every day.'],['Esto es solo el comienzo.','This is just the beginning.']]
+];
+var ONB=[
+ {k:'nivel',q:'Where is your Spanish today?',o:[['zero','I\'m starting from (almost) zero'],['basico','I know some words, but can\'t follow a conversation'],['medio','I understand some, but freeze when I have to speak']]},
+ {k:'min',q:'How much time can you give it per day?',o:[['10','10 minutes'],['20','20 minutes'],['30','30 minutes or more']]},
+ {k:'meta',q:'What is your Spanish for?',o:[['viagem','Traveling'],['trabalho','Work'],['familia','Family and friends'],['series','Watching series without subtitles']]}
+];
+function dia0(){var s=S.data.inicio?new Date(S.data.inicio+'T12:00:00'):new Date();var d=Math.floor((Date.now()-s.getTime())/864e5)+1;return Math.max(1,Math.min(90,d))}
+function hojeISO(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function fase(d){for(var i=0;i<FASES.length;i++)if(d>=FASES[i].de&&d<=FASES[i].ate)return FASES[i];return FASES[0]}
+function onb(i){$('load').hidden=true;$('onb').hidden=false;var o=ONB[i];$('onbK').textContent='Step '+(i+1)+' of 3';$('onbQ').textContent=o.q;
+  $('onbOps').innerHTML=o.o.map(function(x){return '<button class="op" type="button" data-v="'+x[0]+'">'+x[1]+'</button>'}).join('');
+  [].forEach.call($('onbOps').children,function(b){b.onclick=function(){b.classList.add('on');S.data.onb=S.data.onb||{};S.data.onb[o.k]=b.getAttribute('data-v');setTimeout(function(){if(i<2)onb(i+1);else{S.data.inicio=hojeISO();S.data.feitos={};S.data.checks={};salva();painel()}},220)}})}
+function painel(){
+  $('load').hidden=true;$('onb').hidden=true;$('dash').hidden=false;
+  var d=dia0(),f=fase(d),sem=Math.min(13,Math.ceil(d/7)),min=+((S.data.onb||{}).min||10);
+  $('fase').textContent=f.nome;$('dia').textContent='Day '+d;$('barra').style.width=Math.round(d/90*100)+'%';
+  var feitos=S.data.feitos||{},seq=0;for(var x=d;x>=1;x--){if(feitos[x])seq++;else if(x<d)break}
+  $('streak').textContent=seq?('🔥 '+seq+' day'+(seq>1?'s':'')+' in a row'):'';
+  var ini=(sem-1)*7+1,h='';for(var y=ini;y<ini+7&&y<=90;y++)h+='<i class="'+(feitos[y]?'d ':'')+(y===d?'t':'')+'">'+y+'</i>';$('semana').innerHTML=h;
+  var n=min>=30?3:min>=20?2:1;$('mTit').textContent=n===1?'10 minutes today':n===2?'20 minutes today':'30 minutes today';
+  $('mTasks').innerHTML=f.m.slice(0,n).map(function(t,i){return '<li><b>'+(i+1)+'</b><span>'+t+'</span></li>'}).join('');
+  $('abreApp').href='/spanish-app.html'+(K?'?k='+encodeURIComponent(K):'');
+  var fz=!!feitos[d];$('feito').hidden=fz;$('feitoOk').hidden=!fz;
+  $('feito').onclick=function(){S.data.feitos=S.data.feitos||{};S.data.feitos[d]=hojeISO();salva();painel()};
+  $('chK').textContent='Week '+sem+' challenge';$('chTit').textContent=DESAFIOS[sem-1].split(':')[0].split('.')[0]+'.';$('chTx').textContent=DESAFIOS[sem-1];
+  $('acK').textContent='Weekly Accent Check · week '+sem;
+  accent(sem);
+}
+// ── Accent Check: 5 frases por semana, nota da Azure (es-MX) por palavra ──
+var VOZ=null;function fala(t){try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang='es-MX';u.rate=.85;var vs=speechSynthesis.getVoices();VOZ=VOZ||vs.filter(function(v){return /es[-_]MX/i.test(v.lang)})[0]||vs.filter(function(v){return /^es/i.test(v.lang)})[0];if(VOZ)u.voice=VOZ;speechSynthesis.speak(u)}catch(e){}}
+function accent(sem){
+  var L=FRASES[sem-1],ck=(S.data.checks=S.data.checks||{}),cur=ck[sem]=ck[sem]||{s:{}};
+  $('frases').innerHTML=L.map(function(p,i){var r=cur.s[i];return '<div class="sent"><div class="es">'+p[0]+'</div><div class="en">'+p[1]+'</div><div class="acts"><button class="play" type="button" data-i="'+i+'">▶ Listen</button><button class="rec" type="button" data-i="'+i+'">🎙 Say it</button></div><div class="res" id="r'+i+'">'+(r?resHtml(r):'')+'</div></div>'}).join('');
+  [].forEach.call($('frases').querySelectorAll('.play'),function(b){b.onclick=function(){fala(L[+b.getAttribute('data-i')][0])}});
+  [].forEach.call($('frases').querySelectorAll('.rec'),function(b){b.onclick=async function(){
+    var i=+b.getAttribute('data-i');if(b.classList.contains('on')){pronStop();return}
+    b.classList.add('on');b.textContent='■ Stop';$('r'+i).innerHTML='<span class="mut">Listening… read the line out loud.</span>';
+    var wav=await pronRecord(9000);b.classList.remove('on');b.textContent='🎙 Say it again';
+    if(wav==='denied'){$('r'+i).innerHTML='<span class="mut">Allow the microphone in your browser and try again.</span>';return}
+    if(!wav){$('r'+i).innerHTML='<span class="mut">I didn\'t hear you. Try again a little louder.</span>';return}
+    $('r'+i).innerHTML='<span class="mut">Scoring…</span>';
+    var r=await pronAssess(wav,L[i][0],'es-MX');
+    if(!r||r.silence){$('r'+i).innerHTML='<span class="mut">I couldn\'t score that one. Try again in a quiet place.</span>';return}
+    cur.s[i]={sc:r.score,w:r.words.map(function(w){return [w.word,w.acc]})};salva();$('r'+i).innerHTML=resHtml(cur.s[i]);media(sem)}});
+  media(sem);
+}
+function resHtml(r){return '<span class="sc">'+r.sc+'</span>'+r.w.map(function(w){return '<span class="wd '+(w[1]>=80?'g':w[1]>=60?'m':'b')+'">'+w[0]+'</span>'}).join('')}
+function media(sem){
+  var ck=S.data.checks||{},cur=ck[sem]||{s:{}},v=Object.keys(cur.s).map(function(k){return cur.s[k].sc});
+  if(v.length){var m=Math.round(v.reduce(function(a,b){return a+b},0)/v.length);cur.m=m;$('acRes').hidden=false;$('acMedia').textContent=m+'/100';
+    var ruins=[];Object.keys(cur.s).forEach(function(k){cur.s[k].w.forEach(function(w){if(w[1]<60&&ruins.indexOf(w[0])<0)ruins.push(w[0])})});
+    $('acTip').textContent=ruins.length?('Work on: '+ruins.slice(0,5).join(', ')+'. Listen to the line again, then say those words slower and open your mouth more on the vowels. Spanish vowels are short and always sound the same.'):(v.length<5?'Keep going: '+(5-v.length)+' line'+(5-v.length>1?'s':'')+' left this week.':'Clean week. Next week the lines get a little harder.')}
+  var sems=Object.keys(ck).map(Number).filter(function(s){return ck[s].m}).sort(function(a,b){return a-b});
+  if(sems.length){$('trendBox').hidden=false;$('trend').innerHTML=sems.map(function(s){return '<div style="height:100%"><i style="height:'+ck[s].m+'%"></i><span>'+ck[s].m+'</span></div>'}).join('')}
+}
+if(!K){$('load').hidden=true;$('erro').hidden=false}
+else fetch('/api/spanish-coach?k='+encodeURIComponent(K),{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){
+  if(!j.ok){$('load').hidden=true;$('erro').hidden=false;if(j.error==='not_coach')$('erroTx').textContent='This link opens your Spanish app, but the Fast-Track isn\'t active on it yet. Reply to your purchase email and we\'ll turn it on.';return}
+  S.data=j.data||{};if(!S.data.inicio)onb(0);else painel();
+}).catch(function(){$('load').hidden=true;$('erro').hidden=false});
+})();
+</script>
+</body>
+</html>
