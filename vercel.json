@@ -9,6 +9,10 @@
       "schedule": "30 13 * * *"
     },
     {
+      "path": "/api/recuperacao",
+      "schedule": "*/5 * * * *"
+    },
+    {
       "path": "/api/video-watch",
       "schedule": "*/5 * * * *"
     }

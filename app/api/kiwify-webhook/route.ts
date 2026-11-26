@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import crypto from 'crypto'
+import { tipoDo, capturar, pagou } from '../../lib/recuperacao'
 
 // ── Meta CAPI ──
 const PIXEL_ID = '938768337634102'
@@ -384,6 +385,12 @@ export async function POST(req: NextRequest) {
     }
 
     if (status !== 'paid') {
+      // 26/11/2026: pix gerado / boleto / cartão recusado / carrinho abandonado → fila de recuperação (WhatsApp oficial)
+      const tipoRec = tipoDo(body)
+      if (tipoRec) {
+        await capturar(body, tipoRec).catch(e => console.error('[recuperacao] captura', e?.message))
+        return NextResponse.json({ ok: true, recuperacao: tipoRec })
+      }
       return NextResponse.json({ ok: true, skipped: status })
     }
 
@@ -393,6 +400,7 @@ export async function POST(req: NextRequest) {
     const firstName = name.split(' ')[0] || 'aluno'
     const phone = (customer.mobile || customer.phone || '').replace(/\D/g, '')
     const orderId = body.order_id || body.subscription_id || String(Date.now())
+    await pagou(email, phone).catch(() => {})
 
     // Kiwify sends monetary values in CENTS (integer). Normalize both units.
     const rawValue = body.Commissions?.charge_amount ?? body.Product?.price ?? 0
