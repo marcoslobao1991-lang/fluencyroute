@@ -78,6 +78,13 @@ p{margin:0}.soft{color:var(--soft)}.mut{color:var(--mut);font-size:13px}
       <p class="soft" id="chTx"></p>
     </div>
     <div class="card">
+      <span class="k">Your coach on WhatsApp</span>
+      <h2>Talk to Manuela, your Spanish coach</h2>
+      <p class="soft">Text or send voice messages in Spanish any time. Manuela already knows your plan and your Accent Check, keeps you talking, corrects you and scores your progress.</p>
+      <a class="btn g" id="waBtn" href="#" target="_blank" rel="noopener" style="background:#25D366;color:#06281F">Chat with Manuela on WhatsApp</a>
+      <div id="notasBox" hidden><span class="k">Manuela's notes</span><div id="notas" style="display:grid;gap:8px;margin-top:8px"></div></div>
+    </div>
+    <div class="card">
       <span class="k" id="acK">Weekly Accent Check</span>
       <h2>Say these 5 lines. Our A.I. coach scores every word.</h2>
       <p class="mut">Tap ▶ to hear it, then 🎙 and read it out loud. Green is good, yellow is close, red needs work.</p>
@@ -188,6 +195,10 @@ function painel(){
   $('feito').onclick=function(){S.data.feitos=S.data.feitos||{};S.data.feitos[d]=hojeISO();salva();painel()};
   $('chK').textContent='Week '+sem+' challenge';$('chTit').textContent=DESAFIOS[sem-1];$('chTx').textContent='Do it every day this week. Small, silly, and it works: it gets Spanish out of your head and into your mouth.';
   $('acK').textContent='Weekly Accent Check · week '+sem;
+  // WhatsApp da Manuela: o código FT- liga o número do aluno à conta dele no robô
+  $('waBtn').href='https://wa.me/5511956091942?text='+encodeURIComponent('¡Hola Manuela! I just joined the Fast-Track. Código: FT-'+K.slice(0,8));
+  var nt=(S.data.manuela||[]).slice(-5).reverse();
+  if(nt.length){$('notasBox').hidden=false;$('notas').innerHTML=nt.map(function(a){return '<div class="sent" style="grid-template-columns:auto 1fr;align-items:center;display:grid;gap:12px"><b style="font:900 22px Inter;color:var(--gold)">'+a.nota+'/10</b><span class="soft" style="font-size:14px">'+a.data+'</span></div>'}).join('')}
   accent(sem);
 }
 // ── Accent Check: 5 frases por semana, nota da Azure (es-MX) por palavra ──

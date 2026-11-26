@@ -61,8 +61,87 @@ async function senhaNova(uid: string) {
   return up.ok ? pass : null;
 }
 
+// ───────── MANUELA · coach do Fluency Fast-Track (upsell do espanhol, 26/11) ─────────
+// O aluno chega pelo botão da /spanish-coach.html com "Código: FT-xxxxxxxx" (8 primeiros caracteres do token).
+// O robô liga o número à linha de spanish_coach e, dali pra frente, quem responde esse número é a Manuela.
+type Coach = { email: string; phone: string | null; data: Record<string, any> };
+async function coachPorTelefone(tel: string): Promise<Coach | null> {
+  const r = await fetch(`${SUPA}/rest/v1/spanish_coach?select=email,phone,data&phone=eq.${tel}&limit=1`, { headers: sb() });
+  const j = await r.json().catch(() => []);
+  return Array.isArray(j) && j[0] ? j[0] : null;
+}
+async function coachPorCodigo(texto: string, tel: string): Promise<Coach | null> {
+  const cod = texto.match(/FT-([a-f0-9]{8})/i)?.[1]?.toLowerCase();
+  if (!cod) return null;
+  const a = await (await fetch(`${SUPA}/rest/v1/spanish_access?select=email&token=like.${cod}*&limit=2`, { headers: sb() })).json().catch(() => []);
+  if (!Array.isArray(a) || a.length !== 1) return null;
+  const email = String(a[0].email).toLowerCase();
+  const up = await fetch(`${SUPA}/rest/v1/spanish_coach?email=eq.${encodeURIComponent(email)}`, {
+    method: "PATCH", headers: { ...sb(), Prefer: "return=representation" }, body: JSON.stringify({ phone: tel, updated_at: new Date().toISOString() }),
+  });
+  const j = await up.json().catch(() => []);
+  return Array.isArray(j) && j[0] ? { email, phone: tel, data: j[0].data || {} } : null;
+}
+function contextoCoach(c: Coach) {
+  const d = c.data || {}, o = d.onb || {};
+  const ini = d.inicio ? new Date(d.inicio + "T12:00:00") : null;
+  const dia = ini ? Math.max(1, Math.min(90, Math.floor((Date.now() - ini.getTime()) / 864e5) + 1)) : null;
+  const nivel: Record<string, string> = { zero: "começando do zero", basico: "sabe algumas palavras, não acompanha conversa", medio: "entende um pouco mas trava pra falar" };
+  const meta: Record<string, string> = { viagem: "viajar", trabalho: "trabalho", familia: "família e amigos", series: "ver séries sem legenda" };
+  const ck = d.checks || {}, sems = Object.keys(ck).filter((s) => ck[s]?.m).sort((a, b) => +a - +b);
+  const notas = sems.map((s) => `semana ${s}: ${ck[s].m}/100`).join(", ");
+  const fracas: string[] = [];
+  for (const s of sems.slice(-2)) for (const k of Object.keys(ck[s].s || {})) for (const w of ck[s].s[k].w || []) if (w[1] < 60 && !fracas.includes(w[0])) fracas.push(w[0]);
+  const aval = (d.manuela || []).slice(-3).map((a: any) => `${a.data}: ${a.nota}/10 (${a.obs})`).join(" | ");
+  const dias = Object.keys(d.feitos || {}).length;
+  return `Nível declarado: ${nivel[o.nivel] || "não informado"}. Objetivo: ${meta[o.meta] || "não informado"}. Tempo por dia: ${o.min || "?"} min.
+Plano de 90 dias: ${dia ? "dia " + dia : "ainda não começou (mande ele abrir a página do plano)"}; dias marcados como feitos: ${dias}.
+Accent Check (nota de pronúncia da IA): ${notas || "ainda não fez"}${fracas.length ? `; palavras que ele erra: ${fracas.slice(0, 8).join(", ")}` : ""}.
+Suas últimas avaliações dele: ${aval || "nenhuma ainda"}.`;
+}
+function sistemaCoach(c: Coach) {
+  return `You are MANUELA, the Spanish coach of Fluency Route's "Fast-Track" program, chatting on WhatsApp with a student (an English speaker learning Spanish, Mexican Spanish). He bought the Fast-Track mentorship: your job is to make him SPEAK, test and measure his Spanish, and keep him motivated.
+
+HOW YOU TALK:
+- Like a warm, upbeat human coach on WhatsApp. Short messages (1 to 4 lines). No lists, no emoji spam (one emoji now and then is fine), no long lectures.
+- Use Spanish as much as his level allows: beginner = mostly English with short simple Spanish lines and their translation; intermediate = mostly Spanish, English only to explain a correction.
+- Every reply: (1) react to what he said like a person, (2) if he wrote/spoke Spanish with mistakes, show ONE or two corrections gently ("Casi! Se dice: ..."), (3) end with a short question in Spanish that makes him answer in Spanish.
+- Voice messages arrive transcribed: praise him for speaking out loud, and if the transcript shows words that came out wrong, point them out.
+- Cheer real progress specifically (not generic "great job").
+- Connect to his plan when useful: today's mission, his Accent Check words, the app scenes. Don't push it every message.
+- If he asks whether you are a real person or an AI, do NOT lie: you are Fluency Route's A.I. coach, trained on the method, and the team reads the conversations.
+- Price, refunds, billing, access problems you can't solve: reply kindly and set "revisar": true.
+
+MEASURING: about every 6 to 8 of his messages in Spanish, or whenever he asks "how am I doing", give him a quick evaluation in the reply (score 0 to 10, one strength, one thing to fix) and also fill "avaliacao". Otherwise leave "avaliacao" null.
+
+WHAT YOU KNOW ABOUT HIM:
+${contextoCoach(c)}
+
+Answer ONLY with JSON: {"resposta": "message text", "avaliacao": null or {"nota": 0-10, "obs": "max 12 words in Portuguese, for the team"}, "revisar": false, "motivo": "short, only if revisar"}`;
+}
+async function redigirCoach(texto: string, c: Coach, historico: { role: "user" | "assistant"; content: string }[]) {
+  const r = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ model: "gpt-4.1", temperature: 0.6, response_format: { type: "json_object" }, messages: [{ role: "system", content: sistemaCoach(c) }, ...historico, { role: "user", content: texto }] }),
+  });
+  const j = await r.json().catch(() => ({}));
+  try {
+    const o = JSON.parse(j?.choices?.[0]?.message?.content || "{}");
+    return { resposta: String(o.resposta || "").trim(), avaliacao: o.avaliacao && typeof o.avaliacao.nota === "number" ? o.avaliacao : null, revisar: !!o.revisar, motivo: String(o.motivo || "") };
+  } catch {
+    return { resposta: "", avaliacao: null, revisar: true, motivo: "IA sem resposta (coach)" };
+  }
+}
+async function guardaAvaliacao(c: Coach, av: { nota: number; obs: string }) {
+  const d = c.data || {};
+  const hoje = new Date().toLocaleDateString("pt-BR", { timeZone: "America/Sao_Paulo" });
+  d.manuela = [...(d.manuela || []), { data: hoje, nota: Math.max(0, Math.min(10, Math.round(av.nota))), obs: String(av.obs || "").slice(0, 120) }].slice(-30);
+  await fetch(`${SUPA}/rest/v1/spanish_coach?email=eq.${encodeURIComponent(c.email)}`, { method: "PATCH", headers: sb(), body: JSON.stringify({ data: d, updated_at: new Date().toISOString() }) });
+}
+
 // áudio do WhatsApp → texto
-async function transcrever(mediaId: string) {
+async function transcrever(mediaId: string, lang = "pt") {
   try {
     const meta = await (await fetch(`https://graph.facebook.com/v21.0/${mediaId}`, { headers: { Authorization: `Bearer ${TOKEN}` } })).json();
     if (!meta?.url) return null;
@@ -70,7 +149,7 @@ async function transcrever(mediaId: string) {
     const fd = new FormData();
     fd.append("file", new Blob([bin], { type: meta.mime_type || "audio/ogg" }), "audio.ogg");
     fd.append("model", "gpt-4o-mini-transcribe");
-    fd.append("language", "pt");
+    fd.append("language", lang);
     const r = await (await fetch("https://api.openai.com/v1/audio/transcriptions", { method: "POST", headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}` }, body: fd })).json();
     return (r?.text || "").trim() || null;
   } catch {
@@ -166,7 +245,10 @@ export async function POST(req: Request) {
   for (const m of msgs) {
     const tel = m.from.replace(/\D/g, "");
     let texto = m.text?.body || m.button?.text || m.interactive?.button_reply?.title || "";
-    if (!texto && (m.audio?.id || m.voice?.id)) texto = (await transcrever((m.audio?.id || m.voice?.id)!)) || "";
+    // aluno do Fast-Track: número já ligado, ou chegando agora com o código FT- (a Manuela ouve áudio em espanhol)
+    let coach = await coachPorTelefone(tel);
+    if (!coach && texto) coach = await coachPorCodigo(texto, tel);
+    if (!texto && (m.audio?.id || m.voice?.id)) texto = (await transcrever((m.audio?.id || m.voice?.id)!, coach ? "es" : "pt")) || "";
     const ehAudio = !!(m.audio?.id || m.voice?.id);
     if (!texto) texto = ehAudio ? "[mandou um áudio que não deu pra transcrever]" : `[mandou ${m.type}]`;
 
@@ -182,6 +264,20 @@ export async function POST(req: Request) {
     const n = await sql<{ n: number }>(`select count(*)::int n from wa_mensagens where tel='${tel}' and direcao='out' and criado_em > now() - interval '1 hour'`);
     if ((n[0]?.n || 0) >= 30) {
       await marcar(linha.id, { status: "revisar" });
+      continue;
+    }
+
+    if (coach) {
+      const histC = await sql<{ direcao: string; texto: string }>(
+        `select direcao, texto from wa_mensagens where tel='${tel}' and id < ${Number(linha.id)} order by id desc limit 16`,
+      );
+      const historicoC = histC.reverse().map((h) => ({ role: (h.direcao === "in" ? "user" : "assistant") as "user" | "assistant", content: h.texto }));
+      const rc = await redigirCoach(texto, coach, historicoC);
+      if (!rc.resposta) { await marcar(linha.id, { status: "revisar", comprador: true }); continue; }
+      if (rc.avaliacao) await guardaAvaliacao(coach, rc.avaliacao);
+      const okC = await enviar(m.from, rc.resposta);
+      await fetch(`${SUPA}/rest/v1/wa_mensagens`, { method: "POST", headers: sb(), body: JSON.stringify({ tel, direcao: "out", texto: rc.resposta, status: okC ? "enviado" : "falhou" }) });
+      await marcar(linha.id, { status: rc.revisar ? "revisar" : okC ? "coach" : "revisar", comprador: true, ...(rc.revisar ? { texto: (ehAudio ? "[áudio] " : "") + texto + `\n[REVISAR coach: ${rc.motivo}]` } : {}) });
       continue;
     }
 
