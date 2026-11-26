@@ -45,6 +45,8 @@ export async function POST(request: Request) {
   });
   const glJson: any = await gl.json().catch(() => null);
   const tokenHash = glJson?.hashed_token || glJson?.properties?.hashed_token;
+  // 26/11 Marcos ("para de gastar e-mail que nem um louco"): o backup por e-mail só vai no PRIMEIRO acesso (lido antes do verify, que atualiza o login)
+  const jaEntrouAntes = Boolean(glJson?.last_sign_in_at || glJson?.user?.last_sign_in_at);
   if (!gl.ok || !tokenHash) {
     console.error("[acesso-magico] generate_link falhou:", gl.status, JSON.stringify(glJson).slice(0, 200));
     return NextResponse.json({ ok: false, motivo: "erro_link" }, { status: 500 });
@@ -78,7 +80,7 @@ export async function POST(request: Request) {
     <p style="font-size:16px;color:#3D4A49;line-height:1.65">Você acabou de entrar no seu app de treino (Listening e Shadowing com cenas de série). Pra entrar de novo qualquer dia, use o botão abaixo: ele te leva pra entrada sem senha. As aulas do curso continuam na área de membros da Kiwify.</p>
     <a href="${emailLink}" style="display:inline-block;margin:16px 0 8px;background:#0B6E68;color:#fff;font-weight:900;font-size:16px;padding:16px 28px;border-radius:12px;text-decoration:none">ENTRAR NO APP DE TREINO</a>
   </div></body></html>`;
-  fetch("https://api.resend.com/emails", {
+  if (!jaEntrouAntes) fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${RESEND}`, "Content-Type": "application/json" },
     body: JSON.stringify({ from: FROM, to: email, subject: "Seu atalho pro app de treino (bônus)", html }),

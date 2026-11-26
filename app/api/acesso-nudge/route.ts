@@ -88,11 +88,12 @@ export async function GET(request: Request) {
   const agora = Date.now();
   const fila = todos.filter((c) => {
     if (testEmail) return c.email === testEmail;
-    if (c.nudges >= 3) return false;
+    // 26/11 Marcos ("para de gastar e-mail que nem um louco"): no máximo 2 lembretes (D+1 e D+3), só pra quem comprou há até 10 dias
+    if (c.nudges >= 2) return false;
     const dias = (agora - new Date(c.comprou_em).getTime()) / 864e5;
     const gapOk = !c.last_nudge || agora - new Date(c.last_nudge).getTime() > 20 * 3600e3;
     const devido =
-      (c.nudges === 0 && dias >= 1) || (c.nudges === 1 && dias >= 3) || (c.nudges === 2 && dias >= 7);
+      dias <= 10 && ((c.nudges === 0 && dias >= 1) || (c.nudges === 1 && dias >= 3));
     return devido && gapOk;
   }).slice(0, 40);
 
