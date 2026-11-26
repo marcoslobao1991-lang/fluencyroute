@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<link rel="prefetch" href="/friends">
+<meta name="theme-color" content="#FFFFFF">
+<title>O truque simples pra entender Friends sem legenda</title>
+<script>
+(function(){
+  var URL_='https://petrtewismhpzidcmmwb.supabase.co/rest/v1/funnel_events';
+  var ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBldHJ0ZXdpc21ocHppZGNtbXdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4MDg3NDYsImV4cCI6MjA4OTM4NDc0Nn0.CTGC11dPKawf3tFWrEu9jXgxn2oPmPMXQS9bFcN4o10';
+  var q;try{q=new URLSearchParams(location.search)}catch(e){q={get:function(){return null}}}
+  var off=/[?&]hm_qa=1/.test(location.search);
+  try{off=off||localStorage.getItem('fr_no_track')==='1'}catch(e){}
+  if(off){window.frTrack=function(){};return} /* sorteado pro vídeo: está saindo desta página, não conta como visita do quiz */
+  var sid;try{sid=localStorage.getItem('fr_sid');if(!sid){sid=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():'x'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10);localStorage.setItem('fr_sid',sid)}}catch(e){sid='ns-'+Date.now().toString(36)}
+  window.frTrack=function(event,detail){try{fetch(URL_,{method:'POST',keepalive:true,headers:{apikey:ANON,Authorization:'Bearer '+ANON,'Content-Type':'application/json',Prefer:'return=minimal'},
+    body:JSON.stringify({funnel:'ingles',page:'quiz-en',event:event,variant:'quiz_demo_en',detail:(detail==null?null:String(detail).slice(0,200)),session_id:sid,
+      utm_source:q.get('utm_source'),utm_medium:q.get('utm_medium'),utm_campaign:q.get('utm_campaign'),utm_content:q.get('utm_content'),utm_term:q.get('utm_term'),fbclid:q.get('fbclid'),
+      referrer:document.referrer||null,path:(location.pathname+location.search).slice(0,500),user_agent:(navigator.userAgent||'').slice(0,500)})}).catch(function(){})}catch(e){}};
+  window.frTrack('pageview');
+  
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* QUIZ 7 (24/11) · o quiz inteiro é uma CONVERSA de WhatsApp no modo escuro. Paleta, balões e tiques do próprio app:
+   fundo #0B141A · balão dela/do teste #202C33 · balão dele #005C4B · verde #25D366/#00A884 · texto #E9EDEF · apoio #8696A0 · lido #53BDEB.
+   A capa carrega a única peça de tipo grande; dali em diante cada pergunta chega como mensagem e cada resposta sai como balão dele. */
+:root{--bg:#0B141A;--in:#202C33;--out:#005C4B;--g:#25D366;--g2:#00A884;--tx:#E9EDEF;--mut:#8696A0;--lido:#53BDEB}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--tx)}
+body{font-family:Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:3px solid var(--lido);outline-offset:2px}
+.papel{position:fixed;inset:0;pointer-events:none;background:url(wa-doodle.svg) center/420px;opacity:.055;filter:invert(1)}
+
+/* ── capa ── */
+#capa{position:fixed;inset:0;display:flex;flex-direction:column;padding:calc(26px + env(safe-area-inset-top)) 22px calc(22px + env(safe-area-inset-bottom));max-width:520px;margin:0 auto;transition:opacity .3s,transform .35s cubic-bezier(.2,.7,.2,1)}
+#capa.sai{opacity:0;transform:translateY(-18px);pointer-events:none}
+.c-meta{font:500 14px/1.3 Geist,sans-serif;color:var(--mut)}
+.c-h{font:800 clamp(38px,10.9vw,50px)/1.02 "Bricolage Grotesque",Geist,sans-serif;letter-spacing:-.035em;margin-top:14px;text-wrap:balance}
+.wa{display:inline-flex;align-items:center;gap:.12em;color:var(--g);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:700;letter-spacing:-.03em;white-space:nowrap}
+.wa svg{width:.86em;height:.86em}.wa i{font-style:normal;color:var(--tx);font-family:"Bricolage Grotesque",Geist,sans-serif;font-weight:800}
+.c-chat{display:flex;flex-direction:column;gap:10px;padding-top:22px}
+.c-per{margin-top:26px}.c-per h2{font:700 22px/1.15 Geist,sans-serif;letter-spacing:-.03em}
+.c-ops{display:grid;grid-template-columns:1.25fr 1fr;gap:10px;margin-top:14px}
+.c-ops button{padding:21px 8px;border-radius:16px;font:700 19px/1 Geist,sans-serif;background:var(--g2);color:#06281F}
+.c-ops button:last-child{background:transparent;color:var(--tx);box-shadow:inset 0 0 0 1.5px rgba(233,237,239,.28)}
+.c-ops button:active{transform:scale(.98)}
+
+/* ── balões (capa e conversa usam os mesmos) ── */
+.b{position:relative;max-width:86%;border-radius:16px;padding:9px 12px 10px;font:400 16.5px/1.38 Geist,sans-serif;box-shadow:0 1px 1px rgba(0,0,0,.35);animation:entra .32s cubic-bezier(.2,.8,.2,1) both}
+@keyframes entra{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
+.b.in{align-self:flex-start;background:var(--in);border-top-left-radius:4px}
+.b.out{align-self:flex-end;background:var(--out);border-top-right-radius:4px}
+.b .nm{display:block;font:600 13px/1 Geist,sans-serif;color:var(--g);margin-bottom:7px}
+.b .hr{float:right;margin:8px 0 -3px 12px;display:inline-flex;align-items:center;gap:4px;font:400 11px/1 Geist,sans-serif;color:rgba(233,237,239,.6)}
+.b .hr svg{stroke:var(--lido)}
+.b b{font-weight:700}
+.b.bl{width:74%;padding:13px 13px 24px;display:grid;gap:8px}
+.b.bl .ln{display:block;height:10px;border-radius:5px;background:rgba(233,237,239,.6);filter:blur(3.5px)}.b.bl .ln.c{width:58%}
+.b.bl .tag{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:6px;font:700 13px/1 Geist,sans-serif;color:#0B141A;background:var(--tx);border-radius:999px;padding:8px 13px;white-space:nowrap}
+.b.bl .hr{position:absolute;right:10px;bottom:6px;margin:0}
+.dt{display:inline-flex;gap:5px;padding:5px 2px}.dt i{width:8px;height:8px;border-radius:50%;background:var(--mut);animation:pula 1.2s ease-in-out infinite}.dt i:nth-child(2){animation-delay:.15s}.dt i:nth-child(3){animation-delay:.3s}
+@keyframes pula{0%,60%,100%{transform:none;opacity:.5}30%{transform:translateY(-5px);opacity:1}}
+
+/* ── conversa ── */
+#chat{position:fixed;inset:0;display:none;flex-direction:column;max-width:520px;margin:0 auto}
+#chat.on{display:flex;animation:sobe .35s cubic-bezier(.2,.7,.2,1)}
+@keyframes sobe{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.cab{flex:none;display:flex;align-items:center;gap:11px;padding:calc(10px + env(safe-area-inset-top)) 14px 10px;background:#111B21;box-shadow:0 1px 0 rgba(255,255,255,.06)}
+.cab .av{flex:none;width:40px;height:40px;border-radius:50%;background:var(--g2);display:flex;align-items:center;justify-content:center}
+.cab b{display:block;font:600 16px/1.1 Geist,sans-serif}.cab span{display:block;font:400 13px/1.2 Geist,sans-serif;color:var(--mut);margin-top:3px}
+.cab .pr{margin-left:auto;display:flex;gap:4px}.cab .pr i{width:9px;height:4px;border-radius:2px;background:rgba(233,237,239,.16);transition:background .3s}.cab .pr i.on{background:var(--g)}
+#msgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding:16px 12px 14px;scroll-behavior:smooth;overscroll-behavior:contain}
+#msgs .dia{align-self:center;font:500 12px/1 Geist,sans-serif;color:var(--mut);background:#182229;border-radius:8px;padding:6px 11px;margin-bottom:4px}
+#resp{flex:none;padding:10px 12px calc(12px + env(safe-area-inset-bottom));background:#111B21;box-shadow:0 -1px 0 rgba(255,255,255,.06);display:grid;gap:8px}
+#resp:empty{display:none}
+#resp.g2{grid-template-columns:1fr 1fr}
+#resp button{padding:15px 14px;border-radius:14px;font:600 16px/1.25 Geist,sans-serif;background:#1F2C34;box-shadow:inset 0 0 0 1px rgba(37,211,102,.45);color:var(--tx);text-align:center;animation:entra .28s ease-out both}
+#resp button:active{background:var(--out)}
+#resp button.cta{background:var(--g2);color:#06281F;font-weight:700;box-shadow:none;padding:19px 14px;font-size:17px}
+.rtop{display:flex;align-items:center;gap:14px}.tomada{flex:none;width:84px;height:84px}
+.rico .rn em{font-style:normal;text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:4px}
+.pinos{list-style:none;margin-top:14px;display:grid;gap:8px}
+.pinos li{display:flex;align-items:flex-start;gap:10px;padding:12px;border-radius:12px;background:#F7F8F9}
+.pinos li i{flex:none;width:12px;height:12px;border-radius:50%;margin-top:4px;background:#1DAA61}
+.pinos li.f i{background:#fff;box-shadow:inset 0 0 0 2px #0A0A0A}
+.pinos li div{flex:1}.pinos li b{font:700 16px/1.2 Geist,sans-serif}
+.pinos li p{font:400 14.5px/1.42 Geist,sans-serif;color:#374151;margin-top:5px}
+.pinos li span{flex:none;font:600 12px/1 Geist,sans-serif;padding:6px 9px;border-radius:999px;background:rgba(29,170,97,.14);color:#0E7A43}
+.pinos li.f span{background:#0A0A0A;color:#fff}
+#resp.mult button.on{background:#0A0A0A;color:#fff;box-shadow:none}
+#resp.mult .env{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:10px;background:#0A0A0A;color:#fff;box-shadow:none;font-weight:700;padding:17px 14px}
+#resp.mult .env:disabled{background:#E5E7EB;color:#9CA3AF}
+/* BOTÃO DE RESPOSTA (24/11): cara de tecla. Base preta de 3px (afunda no toque) e duas miras de canto. Sem enfeite além disso. */
+#resp button:not(.cta):not(.env){position:relative;background:#fff;box-shadow:inset 0 0 0 1px rgba(10,10,10,.22),0 3px 0 #0A0A0A;margin-bottom:3px;transition:transform .08s,box-shadow .08s}
+#resp button:not(.cta):not(.env)::before,#resp button:not(.cta):not(.env)::after{content:'';position:absolute;width:7px;height:7px;border:1.5px solid #0A0A0A;opacity:.55;pointer-events:none}
+#resp button:not(.cta):not(.env)::before{left:7px;top:7px;border-right:0;border-bottom:0}
+#resp button:not(.cta):not(.env)::after{right:7px;bottom:7px;border-left:0;border-top:0}
+#resp button:not(.cta):not(.env):active{transform:translateY(3px);box-shadow:inset 0 0 0 1px rgba(10,10,10,.22),0 0 0 #0A0A0A;background:#fff;color:#0A0A0A}
+#resp.mult button.on:not(.env){background:#0A0A0A;color:#fff;box-shadow:0 3px 0 #1DAA61}
+#resp.mult button.on:not(.env)::before,#resp.mult button.on:not(.env)::after{border-color:#fff}
+/* mídia e cartões dentro de balão */
+.capas{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:-3px -6px 9px}.capas img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:9px;display:block}
+.b.rico{max-width:94%;width:94%;padding:14px}
+.rico .rt{font:500 13px/1 Geist,sans-serif;color:var(--mut)}
+.rico .rn{font:800 clamp(30px,8.6vw,36px)/1.02 "Bricolage Grotesque",Geist,sans-serif;letter-spacing:-.03em;color:var(--g);margin-top:8px}
+.rico .rd{font:400 15.5px/1.45 Geist,sans-serif;color:rgba(233,237,239,.86);margin-top:9px}
+.rico .duo{display:grid;grid-template-columns:1.1fr 1fr;gap:8px;margin-top:12px}
+.rico .cx{background:#111B21;border-radius:12px;padding:11px}
+.rico .cx p{font:500 12px/1.25 Geist,sans-serif;color:var(--mut)}
+.rico .radar{display:block;width:100%;margin-top:2px}.rico .radar text{font:500 8.5px Geist,sans-serif;fill:var(--mut)}
+.rico .pc{font:800 44px/1 "Bricolage Grotesque",Geist,sans-serif;letter-spacing:-.04em;margin-top:8px;font-variant-numeric:tabular-nums}
+.rico .rg{height:8px;border-radius:4px;background:rgba(233,237,239,.12);margin-top:10px;overflow:hidden}.rico .rg i{display:block;height:100%;width:0;background:var(--g);border-radius:4px;transition:width 1.3s cubic-bezier(.2,.7,.2,1)}
+.rico .ob{font:400 11.5px/1.3 Geist,sans-serif;color:var(--mut);margin-top:8px}
+
+/* ══ TEMA CLARO (24/11, Marcos: "claro seria melhor, MODERNO MINIMALISTA HIGH TECH") ══
+   Branco puro, preto de verdade, cinza frio e UM verde (só na marca do WhatsApp e no que está "ativo"). Sem papel de parede, sem sombra decorativa:
+   linha fina de 1px, vidro fosco no cabeçalho, números tabulares. O balão dele é preto; o do teste é cinza claro. */
+:root{--bg:#FFFFFF;--in:#F2F3F5;--out:#0A0A0A;--g:#1DAA61;--g2:#0A0A0A;--tx:#0A0A0A;--mut:#6B7280;--lido:#53BDEB}
+.papel{display:block;opacity:1;filter:none;background:
+  radial-gradient(38vmax 38vmax at var(--fx,78%) var(--fy,12%),rgba(37,211,102,.20),rgba(37,211,102,0) 62%),
+  radial-gradient(44vmax 44vmax at calc(100% - var(--fx,78%)) calc(100% - var(--fy,12%)),rgba(83,189,235,.18),rgba(83,189,235,0) 62%),
+  #F5F6F8;animation:passeia 16s ease-in-out infinite alternate}
+.papel::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(10,10,10,.20) 1px,transparent 1.2px);background-size:18px 18px;-webkit-mask-image:radial-gradient(60vmax 60vmax at var(--fx,78%) var(--fy,12%),#000,rgba(0,0,0,.25) 70%);mask-image:radial-gradient(60vmax 60vmax at var(--fx,78%) var(--fy,12%),#000,rgba(0,0,0,.25) 70%)}
+@property --fx{syntax:'<percentage>';inherits:true;initial-value:78%}
+@property --fy{syntax:'<percentage>';inherits:true;initial-value:12%}
+@keyframes passeia{0%{--fx:78%;--fy:12%}50%{--fx:30%;--fy:38%}100%{--fx:70%;--fy:74%}}
+@keyframes varre{from{transform:translateY(0);opacity:0}8%{opacity:1}92%{opacity:1}to{transform:translateY(100vh);opacity:0}}
+html,body{background:#F5F6F8}
+.c-meta{color:var(--mut)}
+.wa{color:#25D366}.wa i{color:var(--tx)}
+.b{box-shadow:none}
+.b.in{color:var(--tx);background:#fff;box-shadow:0 1px 0 rgba(10,10,10,.06),0 0 0 1px rgba(10,10,10,.06)}
+.b.out{color:#fff}
+.b.out .hr{color:rgba(255,255,255,.6)}.b.in .hr{color:var(--mut)}
+.b .nm{color:#1DAA61}
+.b.bl .ln{background:rgba(255,255,255,.7)}
+.b.bl .tag{background:#fff;color:#0A0A0A}
+.c-ops button{background:#0A0A0A;color:#fff}
+.c-ops button:last-child{background:#fff;color:#0A0A0A;box-shadow:inset 0 0 0 1px rgba(10,10,10,.18)}
+.cab{background:rgba(255,255,255,.82);-webkit-backdrop-filter:saturate(1.6) blur(18px);backdrop-filter:saturate(1.6) blur(18px);box-shadow:0 1px 0 rgba(10,10,10,.08)}
+.cab .av{background:#0A0A0A}.cab .av svg rect{fill:#fff}.cab .av svg path{stroke:#fff}
+.cab span{color:var(--mut)}
+.cab .pr i{background:rgba(10,10,10,.12)}.cab .pr i.on{background:#0A0A0A}
+#msgs .dia{background:#F2F3F5;color:var(--mut)}
+#resp{background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);box-shadow:0 -1px 0 rgba(10,10,10,.08)}
+#resp button{background:#fff;color:#0A0A0A;box-shadow:inset 0 0 0 1px rgba(10,10,10,.16)}
+#resp button:active{background:#0A0A0A;color:#fff}
+#resp button.cta{background:#0A0A0A;color:#fff;box-shadow:none}
+.b.rico{background:#fff;box-shadow:inset 0 0 0 1px rgba(10,10,10,.12)}
+.rico .rn{color:#0A0A0A}
+.rico .rd{color:#374151}
+.rico .cx{background:#F7F8F9}
+.rico .radar text{fill:var(--mut)}
+.rico .radar g{stroke:rgba(10,10,10,.14)}
+.rico .radar polygon:last-of-type{fill:rgba(10,10,10,.08);stroke:#0A0A0A}
+.rico .rg{background:rgba(10,10,10,.1)}.rico .rg i{background:#0A0A0A}
+.rico .pc{font-variant-numeric:tabular-nums}
+/* GARANTIA DE TELA (24/11): as respostas SEMPRE cabem sem rolar, em qualquer celular e com a barra do navegador aberta.
+   Altura = a parte visível de verdade (dvh). Na capa, a headline e os balões encolhem em tela baixa; na conversa, a base das respostas é fixa
+   e a lista de mensagens é que rola por trás. */
+#capa,#chat{inset:0 0 auto 0;height:100vh;height:100dvh}
+#capa{padding-top:calc(min(26px,3dvh) + env(safe-area-inset-top))}
+.c-h{font-size:clamp(27px,min(10.9vw,6.1dvh),50px)}
+.c-chat{flex:0 1 auto;min-height:0;overflow:hidden;padding-top:min(22px,2.6dvh)}
+.c-per{flex:none;margin-top:min(26px,3dvh)}
+.c-ops button{padding:min(21px,2.8dvh) 8px}
+#resp{max-height:62dvh;overflow-y:auto}
+#resp button{padding:min(15px,1.9dvh) 14px}
+@media (max-height:600px){.b{font-size:15.5px}#resp button{font-size:15px}.cab{padding-bottom:8px}}
+@media (prefers-reduced-motion:reduce){.papel,.papel::after{animation:none}.b,#resp button,#chat.on{animation:none}.dt i{animation:none}#msgs{scroll-behavior:auto}}
+</style>
+<style>
+/* QUIZ DEMO-APP DO INGLÊS: mesma identidade do quiz do Leve Ela (claro, minimalista), com o verde-água da Fluency no lugar do verde do WhatsApp */
+:root{--g:#12B5AC}
+.c-h .fr{display:inline-block;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.02em;color:#0A0A0A;white-space:nowrap}
+.c-h .fr i{font-style:normal;color:#E53935;margin:0 .03em}.c-h .fr i:nth-of-type(2n){color:#F2B01E}.c-h .fr i:nth-of-type(3n){color:#1E88E5}
+.b.vid{width:92%;max-width:92%;padding:8px}.b.vid video{display:block;width:100%;border-radius:10px;aspect-ratio:16/9;object-fit:cover;background:#000}
+.b.vid .emb{display:block;margin-top:8px;font:600 14px/1.2 Geist,sans-serif;color:#0A0A0A;filter:blur(2.4px);white-space:nowrap;overflow:hidden}
+.cab .av b{font:800 13px/1 Geist,sans-serif;color:#fff;letter-spacing:.02em}.cab .av{background:#fff!important;box-shadow:0 0 0 1px #E3E6EA}.cab .av img{width:70%;height:70%;object-fit:contain}
+.marca{display:flex;align-items:center;gap:8px;margin:0 0 10px}.marca img{width:30px;height:30px}.marca b{font:800 17px/1 Geist,sans-serif;letter-spacing:-.02em;color:#0A0A0A}
+.b.midia{width:94%;max-width:94%;padding:8px;background:#fff}
+.fone{width:62%;margin:2px auto 0;border-radius:22px;overflow:hidden;box-shadow:0 0 0 5px #0A0A0A,0 16px 30px -18px rgba(10,10,10,.6);background:#fff}
+.fone img,.fone video{display:block;width:100%;height:auto}
+.b .lg{font:500 14px/1.35 Geist,sans-serif;color:#4B5563;text-align:center;margin:12px 4px 2px}
+.vbox{position:relative;border-radius:12px;overflow:hidden;background:#000}.vbox video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.vbox .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:62px;height:62px;border-radius:50%;border:0;background:rgba(10,10,10,.72);box-shadow:0 0 0 2px rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:opacity .2s}
+.b.frase{width:92%;max-width:92%}.b.frase .en{font:700 18px/1.3 Geist,sans-serif;color:#0A0A0A}.b.frase .pt{font:400 15px/1.4 Geist,sans-serif;color:#4B5563;margin-top:6px}
+.b.dado{width:92%;max-width:92%}.num{display:flex;align-items:baseline;gap:10px}.num b{font:800 52px/1 "Bricolage Grotesque",Geist,sans-serif;letter-spacing:-.04em}.num span{font:500 14px/1.3 Geist,sans-serif;color:#4B5563}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.tags i{font:700 15px/1 Geist,sans-serif;font-style:normal;padding:8px 12px;border-radius:999px;background:#0A0A0A;color:#fff}
+.bts{display:block;width:100%;border-radius:10px}
+.voz{display:flex;align-items:center;gap:10px;padding:6px 4px}.vp{flex:none;width:44px;height:44px;border-radius:50%;border:0;background:#12B5AC;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.vp.on svg{opacity:.5}.vw{flex:1;display:flex;align-items:center;gap:2px;height:32px}.vw i{flex:1;border-radius:2px;background:#C9CED6}.vw i.on{background:#12B5AC}
+.vt{flex:none;font:500 12px/1 Geist,sans-serif;color:#6B7280;font-variant-numeric:tabular-nums}
+.c-ops.tres button:nth-child(n+2){background:#fff;color:#0A0A0A;box-shadow:inset 0 0 0 1px rgba(10,10,10,.18)}.c-ops.tres{grid-template-columns:1.15fr 1fr 1fr}.c-ops.tres button{font-size:16px;padding-left:6px;padding-right:6px}
+</style>
+</head>
+<body>
+<div class="papel"></div>
+<section id="capa">
+  <div class="marca"><img src="/logo.png" alt="" width="30" height="30"><b>Fluency Route</b></div>
+  <p class="c-meta">Demonstração grátis, leva 2 minutos</p>
+  <h1 class="c-h">O truque simples pra entender <span class="fr">F<i>·</i>R<i>·</i>I<i>·</i>E<i>·</i>N<i>·</i>D<i>·</i>S</span> sem legenda</h1>
+  <div class="c-chat" aria-hidden="true">
+    <div class="b in vid"><span class="nm">Cena 1 · Piloto</span><video src="app/c1.mp4" poster="app/c1.jpg" muted playsinline autoplay loop></video><span class="emb">theresnothingtotellitsjustsomeguyiworkwith</span></div>
+  </div>
+  <div class="c-per">
+    <h2>Você entende inglês falado sem legenda?</h2>
+    <div class="c-ops tres"><button data-v="Mais ou menos">Mais ou menos</button><button data-v="Não">Não</button><button data-v="Entendo bem">Entendo bem</button></div>
+  </div>
+</section>
+
+<section id="chat" aria-live="polite">
+  <header class="cab"><span class="av"><img src="/logo.png" alt="Fluency Route"></span><div><b>Fluency Route</b><span id="st">online</span></div><div class="pr" id="pr"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></header>
+  <div id="msgs"><span class="dia">Hoje</span></div>
+  <div id="resp"></div>
+</section>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)},msgs=$('msgs'),resp=$('resp'),st=$('st');
+  var R={},E='',semF=false,P={mae:0,aut:0,ado:0,rot:0},pct=0;
+  var NOME={mae:'Modo Mãe',aut:'Autoestima',ado:'Desejo Adormecido',rot:'Rotina Congelada'};
+  var DESC={mae:'O desejo dela não sumiu. Está soterrado debaixo da função de mãe: casa, filho, cansaço. Faz tempo que ela não se sente mulher.',
+    aut:'Ela até quer, mas está em guerra com o próprio corpo. Enquanto se esconder do espelho, vai se esconder de você.',
+    ado:'Anos juntos e o tesão dela entrou no automático. Não é falta de amor: é falta de história.',
+    rot:'O WhatsApp de vocês virou lugar de boleto e recado. Hoje ela não tem nenhum lugar onde possa ser desejada.'};
+  function tr(e,d){try{window.frTrack&&window.frTrack(e,d)}catch(x){}}
+  function hora(){var d=new Date();return ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)}
+  function fim(){msgs.scrollTop=msgs.scrollHeight}
+  function espera(ms){return new Promise(function(r){setTimeout(r,ms)})}
+  var rapido=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function balao(cls,html){var d=document.createElement('div');d.className='b '+cls;d.innerHTML=html;msgs.appendChild(d);fim();return d}
+  function eu(txt){return balao('out',txt+'<span class="hr">'+hora()+'<svg width="17" height="11" viewBox="0 0 17 11"><path d="M1 6l3 3 6-7M7 9l1 .8 6.5-7.8" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>')}
+  async function ele(html,cls,ms){st.textContent='digitando…';var t=balao('in','<span class="dt"><i></i><i></i><i></i></span>');await espera(rapido?0:(ms||650));t.remove();st.textContent='online';var d=balao('in'+(cls?' '+cls:''),html);fim();return d}
+  function opcoes(lista,dois){return new Promise(function(ok){resp.className=dois?'g2':'';resp.innerHTML='';lista.forEach(function(o,i){var b=document.createElement('button');b.textContent=o.t;if(o.cta)b.className='cta';b.style.animationDelay=(i*50)+'ms';b.onclick=function(){resp.innerHTML='';ok(o)};resp.appendChild(b)});fim()})}
+  function prog(n){[].slice.call($('pr').children).forEach(function(s,i){s.classList.toggle('on',i<n)})}
+  // QUIZ DEMO-APP DO INGLÊS (24/11). A copy é a da VSL que roda na /friends, em conversa; o app aparece FAZENDO (telas reais,
+  // gravação real, cena com som, áudio real do aluno). 1 botão de reação por parada. Fim → /friends?de=quiz.
+  async function seg(t,n){var o=await opcoes([{t:t}]);eu(o.t);if(n)prog(n);return o}
+  function fone(src,leg,video){return '<div class="fone">'+(video?'<video src="'+src+'" muted playsinline autoplay loop></video>':'<img src="'+src+'" alt="">')+'</div>'+(leg?'<p class="lg">'+leg+'</p>':'')}
+  function cena(){return '<div class="vbox"><video id="cn" src="app/c1.mp4" poster="app/c1.jpg" playsinline preload="auto"></video><button class="play" id="cnp" aria-label="Tocar a cena"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#fff"/></svg></button></div>'}
+  function audio(){var bars='';for(var i=0;i<34;i++){var h=6+Math.round(Math.abs(Math.sin(i*1.7)+Math.sin(i*.6))*9);bars+='<i style="height:'+h+'px"></i>'}
+    return '<div class="voz"><button class="vp" id="vp" aria-label="Ouvir o áudio"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#fff"/></svg></button><div class="vw" id="vw">'+bars+'</div><span class="vt" id="vt">1:02</span><audio id="va" src="app/aluno.m4a" preload="metadata"></audio></div>'}
+  function ligaCena(){var v=$('cn'),b=$('cnp');if(!v)return;b.onclick=function(){v.currentTime=0;v.muted=false;var p=v.play();if(p&&p.catch)p.catch(function(){});b.style.opacity=0;tr('en_cena','play')};v.onended=function(){b.style.opacity=1}}
+  function ligaAudio(){var a=$('va'),b=$('vp'),w=$('vw'),t=$('vt');if(!a)return;var barras=[].slice.call(w.children);
+    b.onclick=function(){if(a.paused){var p=a.play();if(p&&p.catch)p.catch(function(){});b.classList.add('on');tr('en_aluno','play')}else{a.pause();b.classList.remove('on')}};
+    a.ontimeupdate=function(){var p=a.currentTime/(a.duration||62);barras.forEach(function(x,i){x.classList.toggle('on',i/barras.length<p)});var r=Math.max(0,Math.round((a.duration||62)-a.currentTime));t.textContent=Math.floor(r/60)+':'+('0'+r%60).slice(-2)};
+    a.onended=function(){b.classList.remove('on')}}
+
+  // 26/11 Marcos: no lugar do appzinho pequeno, o APP REAL pula em tela cheia com guia (app.fluencyroute.com.br/manu/demo-cena).
+  function abreApp(){return new Promise(function(ok){
+    try{var a=$('va');if(a)a.pause();var c=$('cn');if(c)c.pause()}catch(e){}
+    var APP='https://app.fluencyroute.com.br';
+    var w=document.createElement('div');w.id='appw';w.setAttribute('style','position:fixed;inset:0;z-index:2147483646;background:#fff;opacity:0;transform:scale(.96);transition:opacity .25s ease,transform .25s ease');
+    var f=document.createElement('iframe');f.title='App Fluency Route';f.allow='autoplay; microphone; fullscreen';f.src=APP+'/manu/demo-cena';f.setAttribute('style','position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff');
+    w.appendChild(f);document.body.appendChild(w);requestAnimationFrame(function(){w.style.opacity='1';w.style.transform='none'});
+    tr('demo_app','abriu');var vivo=false,fechou=false;
+    function fecha(como){if(fechou)return;fechou=true;window.removeEventListener('message',msg);w.style.opacity='0';setTimeout(function(){w.remove()},260);tr('demo_app','fim:'+como);ok(como)}
+    function msg(e){if(e.origin!==APP||!e.data||e.data.fr!=='demo')return;vivo=true;if(e.data.passo)tr('demo_app','passo:'+e.data.passo);if(e.data.fim)fecha(e.data.fim)}
+    window.addEventListener('message',msg);
+    // o app não respondeu em 15 s (rede ruim): volta pra conversa com a gravação de antes
+    setTimeout(function(){if(!vivo&&!fechou){fecha('falhou');ele(fone('app/demo-real.mp4','O app funcionando: série, episódio e uma cena por vez',true),'midia',300)}},15000);
+  })}
+  async function conversa(){
+    // 1 · o truque
+    await ele('Tem um truque simples pra aprender inglês com <b>Friends</b>, que você faz enquanto faz outras coisas no seu dia, usando só o fone de ouvido.');
+    await ele('E funciona justamente porque, quando você tá fazendo outras coisas, você <b>desliga a tradução mental</b> e deixa o cérebro adquirir o idioma de verdade.',null,1000);
+    await seg('Como assim?',1);tr('mec','1-truque');
+    // 2 · o embolado (cena real com som)
+    await ele('Escuta essa cena aqui. Sem legenda.');
+    await ele(cena(),'midia',600);ligaCena();
+    await ele('Conseguiu entender o que ele falou?',null,700);
+    var en=await opcoes([{t:'Quase nada'},{t:'Algumas palavras'},{t:'Entendi tudo'}]);eu(en.t);prog(2);tr('mec','2-embolado:'+en.t);
+    await ele(en.t==='Entendi tudo'?'Boa. Agora imagina um episódio inteiro assim, 20 minutos sem pausa e sem legenda. É aí que o inglês embola.':'Normal. Parece que eles falam tudo grudado e rápido demais.');
+    await ele('<p class="en">There’s nothing to tell. It’s just some guy I work with.</p><p class="pt">Não tem nada pra contar. É só um cara do trabalho.</p>','frase',700);
+    await ele('Lendo é fácil. Aposto que você conhece quase todas essas palavras.',null,700);
+    await ele('Se você já estudou pelo menos um pouco de inglês, <b>seu problema não é vocabulário. É falta de treino.</b>',null,600);
+    await seg('E como é esse treino?',3);tr('mec','3-ouvido');
+    // 3 · fluência essencial
+    await ele('Um linguista muito famoso, o <b>Paul Nation</b>, mostrou que se você for fluente em <b>500 palavras</b>, já é mais do que suficiente pra conversar em inglês pelo resto da vida.');
+    await ele('Eu peguei o script de uma temporada inteira de Friends e coloquei numa calculadora de palavras.',null,800);
+    await ele('<div class="num"><b>800</b><span>palavras diferentes numa temporada inteira</span></div><div class="tags"><i>you</i><i>that</i><i>me</i><i>what</i><i>I</i></div><p class="lg">Essas aparecem mais de 100 vezes num único episódio.</p>','dado',900);
+    await seg('Sério?',4);tr('mec','4-essencial');
+    await ele('Se você já estudou pelo menos um pouco de inglês, você provavelmente já conhece essas palavras.');
+    await ele('Você só <b>não é fluente nelas</b>. Por isso não adianta ficar aprendendo uma palavra nova todo dia.',null,800);
+    await ele('Eu chamo isso de <b>fluência essencial</b>: ser fluente no inglês mais falado 90% do tempo nas conversas.',null,800);
+    await seg('E como eu fico fluente nelas?',5);tr('mec','5-fluencia');
+    // 4 · treino concentrado + DEMO do app
+    await ele('Com <b>treino concentrado</b>. O idioma inteiro é muita coisa. A gente reduz pro inglês essencial, depois pra 1 episódio de Friends, depois pra <b>uma única cena</b>.');
+    await ele('Deixa eu te mostrar. Vou abrir o <b>app de verdade</b> aqui pra você treinar uma cena.',null,600);
+    await seg('Abrir o app',6);tr('mec','6-app');
+    var comoVoltou=await abreApp();
+    if(comoVoltou==='guia'){
+      await ele('Viu? Isso que você acabou de fazer é o <b>treino concentrado</b>: escutou, repetiu, abriu a legenda só quando precisou e marcou como foi.');
+      await ele('E o app traz essa cena de volta na hora certa, pra você não esquecer.',null,800);
+    }else{
+      await ele('Tranquilo. Resumindo o treino: você escuta a cena sem legenda. Não entendeu? <b>Repete.</b> Ainda travou? Abre a legenda em inglês. Se precisar, a tradução.');
+      await ele('No fim você marca como foi, e o app traz a cena de volta na hora certa pra você não esquecer.',null,800);
+    }
+    await seg('E o que acontece depois?',7);tr('mec','7-repeticao');
+    // 5 · bola de neve
+    await ele('Aí o embolado começa a ficar nítido. Você percebe que eles falam numa <b>velocidade normal</b>.');
+    await ele('E a segunda cena fica muito mais fácil, porque o inglês se repete o tempo inteiro.',null,800);
+    await ele('Cena por cena, até a sua primeira meta: <b>entender o primeiro episódio 100% em inglês, sem legenda</b>. Em questão de dias, e não de anos.',null,1000);
+    await seg('E a parte de falar?',8);tr('mec','8-meta');
+    // 6 · fala + IA
+    await ele('Pra destravar a boca: você segura o microfone e <b>imita a fala da cena</b>. É o shadowing.');
+    await ele(fone('app/app-shad.jpg','Grava, compara com a voz original e recebe nota'),'midia',800);
+    await ele('E a IA te dá <b>nota de pronúncia</b>, mostrando onde você tá bem e onde precisa melhorar.',null,800);
+    await seg('Isso funciona mesmo?',9);tr('mec','9-fala');
+    // 7 · prova real
+    await ele('Olha o que um aluno me mandou. Detalhe: ele <b>mora nos Estados Unidos</b> e estava fazendo aula presencial lá.');
+    await ele(audio(),'midia',700);ligaAudio();
+    await ele('Ele saiu do curso presencial pra treinar com a gente. E a esposa dele também.',null,900);
+    // fim: transição pra demonstração
+    await ele('A gente gravou uma demonstração pra te apresentar tudo em detalhes: as metas, as fases do treino e como você começa hoje.',null,1000);
+    await seg('Quero assistir',10);tr('mec','10-prova');
+    await opcoes([{t:'Assistir demonstração',cta:true}]);
+    tr('quiz_fim','vsl');
+    try{var a=$('va');if(a)a.pause();var c=$('cn');if(c)c.pause()}catch(e){}
+    try{if(window.parent!==window&&window.parent.frComecar){window.parent.frComecar();return}}catch(e){}
+    var qs=location.search?location.search+'&':'?';location.href='/friends'+qs+'modo=auto&de=quiz';
+  }
+
+  [].slice.call(document.querySelectorAll('.c-ops button')).forEach(function(b){b.onclick=function(){
+    var v=b.getAttribute('data-v');tr('quiz_capa',v);$('capa').classList.add('sai');
+    setTimeout(function(){$('capa').style.display='none';$('chat').classList.add('on');eu(v==='Não'?'Não entendo':v);if(v==='Entendo bem'){ele('Então você já tá na frente da maioria. O truque é o que te leva de entender bem pra entender um episódio inteiro, sem legenda.').then(conversa)}else conversa()},260)}});
+  tr('quiz_view','1');
+})();
+</script>
+</body>
+</html>
