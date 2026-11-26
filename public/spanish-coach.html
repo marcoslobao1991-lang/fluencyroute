@@ -149,7 +149,7 @@ var FASES=[
 ];
 var DESAFIOS=['Say "buenos días" to yourself in the mirror every morning this week, with the right accent.','Change your phone to Spanish for 3 days. Yes, really.','Learn the opening line of your favorite scene by heart and say it 10 times a day.','Order your coffee in Spanish in your head, every single day.','Shadow the same 30 seconds of a scene until you can say it at full speed.','Write 3 sentences a day about your day, in Spanish, and read them out loud.','Watch one scene with the sound only (no screen) and tell yourself what happened.','Call or voice-message someone (or yourself) and talk 1 minute in Spanish.','Describe your home out loud in Spanish: every room, every object you know.','Sing along to one Spanish song until you know the chorus.','Have a 3-minute "conversation" with yourself: ask questions and answer them.','Retell the plot of a series episode in Spanish, in under 2 minutes.','Record a 2-minute video introducing yourself in Spanish. Compare it with day 1.'];
 var FRASES=[
- [['Buenos días, ¿cómo estás?','Good morning, how are you?'],['Me llamo y vivo en Estados Unidos.','My name is... and I live in the United States.'],['¿Qué quieres hacer hoy?','What do you want to do today?'],['No entiendo, ¿puedes repetir?','I don\'t understand, can you repeat?'],['Estoy aprendiendo español.','I\'m learning Spanish.']],
+ [['Buenos días, ¿cómo estás?','Good morning, how are you?'],['Me llamo Ana y vivo en Estados Unidos.','My name is Ana and I live in the United States.'],['¿Qué quieres hacer hoy?','What do you want to do today?'],['No entiendo, ¿puedes repetir?','I don\'t understand, can you repeat?'],['Estoy aprendiendo español.','I\'m learning Spanish.']],
  [['¿Dónde está el baño?','Where is the bathroom?'],['Quiero un café, por favor.','I want a coffee, please.'],['¿Cuánto cuesta esto?','How much is this?'],['Tengo mucha hambre.','I\'m really hungry.'],['Nos vemos mañana.','See you tomorrow.']],
  [['¿Qué pasó anoche?','What happened last night?'],['No tengo idea.','I have no idea.'],['Eso no es lo que quise decir.','That\'s not what I meant.'],['Vamos a ver qué pasa.','Let\'s see what happens.'],['Tienes toda la razón.','You\'re totally right.']],
  [['Estoy planeando viajar a México.','I\'m planning to travel to Mexico.'],['¿Te puedo hacer una pregunta?','Can I ask you a question?'],['Me encanta esta ciudad.','I love this city.'],['Hace mucho calor hoy.','It\'s really hot today.'],['¿A qué te dedicas?','What do you do for a living?']],
@@ -186,7 +186,7 @@ function painel(){
   $('abreApp').href='/spanish-app.html'+(K?'?k='+encodeURIComponent(K):'');
   var fz=!!feitos[d];$('feito').hidden=fz;$('feitoOk').hidden=!fz;
   $('feito').onclick=function(){S.data.feitos=S.data.feitos||{};S.data.feitos[d]=hojeISO();salva();painel()};
-  $('chK').textContent='Week '+sem+' challenge';$('chTit').textContent=DESAFIOS[sem-1].split(':')[0].split('.')[0]+'.';$('chTx').textContent=DESAFIOS[sem-1];
+  $('chK').textContent='Week '+sem+' challenge';$('chTit').textContent=DESAFIOS[sem-1];$('chTx').textContent='Do it every day this week. Small, silly, and it works: it gets Spanish out of your head and into your mouth.';
   $('acK').textContent='Weekly Accent Check · week '+sem;
   accent(sem);
 }
