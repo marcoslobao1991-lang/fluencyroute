@@ -38,7 +38,8 @@ function montar(l: Linha) {
   const body = { type: "body", parameters: [nome, prod].map((t) => ({ type: "text", text: t })) };
   if (l.tipo === "pix" && l.etapa === 0) return { name: "rec_carrinho", components: [body, ...botao] }; // sem código no payload
   if (l.tipo === "pix" || l.tipo === "boleto") return { name: "rec_pix_expirou", components: [body, ...botao] };
-  if (l.tipo === "cartao") return { name: "rec_cartao", components: [body, ...botao] };
+  // 26/11 Marcos: cartão recusado assusta, a mensagem tem que devolver a confiança (nada cobrado, Kiwify, garantia 7 dias)
+  if (l.tipo === "cartao") return { name: "rec_cartao_seguro", components: [body, ...botao] };
   return { name: "rec_carrinho", components: [body, ...botao] };
 }
 
