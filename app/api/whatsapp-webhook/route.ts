@@ -302,6 +302,8 @@ export async function POST(req: Request) {
       if (rc.avaliacao && coach.fastTrack) await guardaAvaliacao(coach, rc.avaliacao);
       const okC = await enviar(m.from, rc.resposta);
       await fetch(`${SUPA}/rest/v1/wa_mensagens`, { method: "POST", headers: sb(), body: JSON.stringify({ tel, direcao: "out", texto: rc.resposta, status: okC ? "enviado" : "falhou" }) });
+      // pedido de reembolso/cancelamento SEMPRE vai pra revisão (a Manuela acolhe, o Marcos fica sabendo)
+      if (/refund|money back|reembols|cancel|chargeback|devolu/i.test(texto)) rc.revisar = true, rc.motivo = rc.motivo || "pedido de reembolso";
       await marcar(linha.id, { status: rc.revisar ? "revisar" : okC ? "coach" : "revisar", comprador: true, ...(rc.revisar ? { texto: (ehAudio ? "[áudio] " : "") + texto + `\n[REVISAR coach: ${rc.motivo}]` } : {}) });
       continue;
     }
