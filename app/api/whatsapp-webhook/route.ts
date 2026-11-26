@@ -64,11 +64,21 @@ async function senhaNova(uid: string) {
 // ───────── MANUELA · coach do Fluency Fast-Track (upsell do espanhol, 26/11) ─────────
 // O aluno chega pelo botão da /spanish-coach.html com "Código: FT-xxxxxxxx" (8 primeiros caracteres do token).
 // O robô liga o número à linha de spanish_coach e, dali pra frente, quem responde esse número é a Manuela.
-type Coach = { email: string; phone: string | null; data: Record<string, any> };
+// 26/11 tarde: a Manuela atende TODO comprador do espanhol (Netflix Trick). fastTrack = comprou o upsell (avalia e dá nota).
+type Coach = { email: string; phone: string | null; data: Record<string, any>; fastTrack: boolean; token: string | null };
+async function montaAluno(email: string, tel: string): Promise<Coach | null> {
+  const em = encodeURIComponent(email);
+  const a = await (await fetch(`${SUPA}/rest/v1/spanish_access?select=token&email=eq.${em}&limit=1`, { headers: sb() })).json().catch(() => []);
+  const c = await (await fetch(`${SUPA}/rest/v1/spanish_coach?select=data,phone&email=eq.${em}&limit=1`, { headers: sb() })).json().catch(() => []);
+  const ft = Array.isArray(c) && !!c[0];
+  if (ft && c[0].phone !== tel) await fetch(`${SUPA}/rest/v1/spanish_coach?email=eq.${em}`, { method: "PATCH", headers: sb(), body: JSON.stringify({ phone: tel }) });
+  return { email, phone: tel, data: ft ? c[0].data || {} : {}, fastTrack: ft, token: Array.isArray(a) && a[0] ? a[0].token : null };
+}
 async function coachPorTelefone(tel: string): Promise<Coach | null> {
-  const r = await fetch(`${SUPA}/rest/v1/spanish_coach?select=email,phone,data&phone=eq.${tel}&limit=1`, { headers: sb() });
-  const j = await r.json().catch(() => []);
-  return Array.isArray(j) && j[0] ? j[0] : null;
+  const c = await (await fetch(`${SUPA}/rest/v1/spanish_coach?select=email&phone=eq.${tel}&limit=1`, { headers: sb() })).json().catch(() => []);
+  if (Array.isArray(c) && c[0]) return montaAluno(String(c[0].email).toLowerCase(), tel);
+  const a = await (await fetch(`${SUPA}/rest/v1/spanish_access?select=email&phone=eq.${tel}&limit=1`, { headers: sb() })).json().catch(() => []);
+  return Array.isArray(a) && a[0] ? montaAluno(String(a[0].email).toLowerCase(), tel) : null;
 }
 async function coachPorCodigo(texto: string, tel: string): Promise<Coach | null> {
   const cod = texto.match(/FT-([a-f0-9]{8})/i)?.[1]?.toLowerCase();
@@ -76,11 +86,8 @@ async function coachPorCodigo(texto: string, tel: string): Promise<Coach | null>
   const a = await (await fetch(`${SUPA}/rest/v1/spanish_access?select=email&token=like.${cod}*&limit=2`, { headers: sb() })).json().catch(() => []);
   if (!Array.isArray(a) || a.length !== 1) return null;
   const email = String(a[0].email).toLowerCase();
-  const up = await fetch(`${SUPA}/rest/v1/spanish_coach?email=eq.${encodeURIComponent(email)}`, {
-    method: "PATCH", headers: { ...sb(), Prefer: "return=representation" }, body: JSON.stringify({ phone: tel, updated_at: new Date().toISOString() }),
-  });
-  const j = await up.json().catch(() => []);
-  return Array.isArray(j) && j[0] ? { email, phone: tel, data: j[0].data || {} } : null;
+  await fetch(`${SUPA}/rest/v1/spanish_access?email=eq.${encodeURIComponent(email)}`, { method: "PATCH", headers: sb(), body: JSON.stringify({ phone: tel }) });
+  return montaAluno(email, tel);
 }
 function contextoCoach(c: Coach) {
   const d = c.data || {}, o = d.onb || {};
@@ -100,21 +107,37 @@ Accent Check (nota de pronúncia da IA): ${notas || "ainda não fez"}${fracas.le
 Suas últimas avaliações dele: ${aval || "nenhuma ainda"}.`;
 }
 function sistemaCoach(c: Coach) {
-  return `You are MANUELA, the Spanish coach of Fluency Route's "Fast-Track" program, chatting on WhatsApp with a student (an English speaker learning Spanish, Mexican Spanish). He bought the Fast-Track mentorship: your job is to make him SPEAK, test and measure his Spanish, and keep him motivated.
+  const link = c.token ? `https://fluencyroute.com.br/spanish-app.html?k=${c.token}` : "https://fluencyroute.com.br/spanish-app.html";
+  const comum = `You are MANUELA, the Spanish guide of Fluency Route, chatting on WhatsApp with someone who just bought Essential Spanish Fluency (the "Netflix trick" to learn Spanish with real series scenes). The student is an English speaker learning Mexican Spanish.
+
+YOUR MISSION: make every student feel like royalty. They made a great decision and you are genuinely happy they are here. Warm, upbeat, personal, never salesy. Use their first name when you know it. A happy, supported student never wants a refund.
 
 HOW YOU TALK:
-- Like a warm, upbeat human coach on WhatsApp. Short messages (1 to 4 lines). No lists, no emoji spam (one emoji now and then is fine), no long lectures.
-- Use Spanish as much as his level allows: beginner = mostly English with short simple Spanish lines and their translation; intermediate = mostly Spanish, English only to explain a correction.
-- Every reply: (1) react to what he said like a person, (2) if he wrote/spoke Spanish with mistakes, show ONE or two corrections gently ("Casi! Se dice: ..."), (3) end with a short question in Spanish that makes him answer in Spanish.
-- Voice messages arrive transcribed: praise him for speaking out loud, and if the transcript shows words that came out wrong, point them out.
-- Cheer real progress specifically (not generic "great job").
-- Connect to his plan when useful: today's mission, his Accent Check words, the app scenes. Don't push it every message.
-- If he asks whether you are a real person or an AI, do NOT lie: you are Fluency Route's A.I. coach, trained on the method, and the team reads the conversations.
-- Price, refunds, billing, access problems you can't solve: reply kindly and set "revisar": true.
+- Like a warm human on WhatsApp. Short messages (1 to 4 lines). No lists, no lectures, one emoji now and then at most.
+- Answer what they said first. Never push.
+- Sprinkle easy Spanish with the translation, adjusted to their level, and invite them to answer in Spanish when the moment is right ("¿Cómo estás hoy? (How are you today?)").
+- If they write or speak Spanish, celebrate it and gently correct one thing at most ("¡Casi! Se dice: ...").
+- Voice messages arrive transcribed: praise them for speaking out loud.
+- If they ask whether you are a real person or an AI, do NOT lie: you are Fluency Route's A.I. guide, trained on the method, and the team reads the conversations.
 
-MEASURING: about every 6 to 8 of his messages in Spanish, or whenever he asks "how am I doing", give him a quick evaluation in the reply (score 0 to 10, one strength, one thing to fix) and also fill "avaliacao". Otherwise leave "avaliacao" null.
+ACCESS HELP: their personal app link is ${link} (it logs them in with their progress). Give it whenever they can't find the app or the email. Best on the phone, with headphones. The first step is Phase 1: one real scene, no subtitles, 3 times.
 
-WHAT YOU KNOW ABOUT HIM:
+REFUNDS OR "IT'S NOT FOR ME": never argue, never deny, never promise. Be kind, ask what happened and try to fix the real problem (access, not knowing where to start, too hard). If they still want it, tell them the request is made through Hotmart (the purchase email has the link) within the 7-day guarantee, and set "revisar": true. Billing, double charge, chargeback threats, anything you are unsure about: answer kindly and set "revisar": true.`;
+  if (!c.fastTrack) {
+    return `${comum}
+
+This student has the app (not the Fast-Track mentorship). Do not offer or mention paid upgrades.
+
+Answer ONLY with JSON: {"resposta": "message text", "avaliacao": null, "revisar": false, "motivo": "short, only if revisar"}`;
+  }
+  return `${comum}
+
+THIS STUDENT ALSO BOUGHT THE FAST-TRACK MENTORSHIP: you are their personal coach. Make them SPEAK, test and measure their Spanish, keep them motivated.
+- Every reply: react like a person, correct one or two mistakes gently, and end with a short question in Spanish that makes them answer in Spanish.
+- Connect to their 90-day plan when useful (today's mission, their Accent Check words, the app scenes). Their plan page: https://fluencyroute.com.br/spanish-coach.html${c.token ? `?k=${c.token}` : ""}
+- MEASURING: about every 6 to 8 of their messages in Spanish, or whenever they ask "how am I doing", give a quick evaluation in the reply (score 0 to 10, one strength, one thing to fix) and fill "avaliacao". Otherwise "avaliacao" is null.
+
+WHAT YOU KNOW ABOUT THEM:
 ${contextoCoach(c)}
 
 Answer ONLY with JSON: {"resposta": "message text", "avaliacao": null or {"nota": 0-10, "obs": "max 12 words in Portuguese, for the team"}, "revisar": false, "motivo": "short, only if revisar"}`;
@@ -149,7 +172,7 @@ async function transcrever(mediaId: string, lang = "pt") {
     const fd = new FormData();
     fd.append("file", new Blob([bin], { type: meta.mime_type || "audio/ogg" }), "audio.ogg");
     fd.append("model", "gpt-4o-mini-transcribe");
-    fd.append("language", lang);
+    if (lang) fd.append("language", lang); // aluno do espanhol: idioma detectado sozinho (fala inglês e espanhol)
     const r = await (await fetch("https://api.openai.com/v1/audio/transcriptions", { method: "POST", headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}` }, body: fd })).json();
     return (r?.text || "").trim() || null;
   } catch {
@@ -248,7 +271,7 @@ export async function POST(req: Request) {
     // aluno do Fast-Track: número já ligado, ou chegando agora com o código FT- (a Manuela ouve áudio em espanhol)
     let coach = await coachPorTelefone(tel);
     if (!coach && texto) coach = await coachPorCodigo(texto, tel);
-    if (!texto && (m.audio?.id || m.voice?.id)) texto = (await transcrever((m.audio?.id || m.voice?.id)!, coach ? "es" : "pt")) || "";
+    if (!texto && (m.audio?.id || m.voice?.id)) texto = (await transcrever((m.audio?.id || m.voice?.id)!, coach ? "" : "pt")) || "";
     const ehAudio = !!(m.audio?.id || m.voice?.id);
     if (!texto) texto = ehAudio ? "[mandou um áudio que não deu pra transcrever]" : `[mandou ${m.type}]`;
 
@@ -274,7 +297,7 @@ export async function POST(req: Request) {
       const historicoC = histC.reverse().map((h) => ({ role: (h.direcao === "in" ? "user" : "assistant") as "user" | "assistant", content: h.texto }));
       const rc = await redigirCoach(texto, coach, historicoC);
       if (!rc.resposta) { await marcar(linha.id, { status: "revisar", comprador: true }); continue; }
-      if (rc.avaliacao) await guardaAvaliacao(coach, rc.avaliacao);
+      if (rc.avaliacao && coach.fastTrack) await guardaAvaliacao(coach, rc.avaliacao);
       const okC = await enviar(m.from, rc.resposta);
       await fetch(`${SUPA}/rest/v1/wa_mensagens`, { method: "POST", headers: sb(), body: JSON.stringify({ tel, direcao: "out", texto: rc.resposta, status: okC ? "enviado" : "falhou" }) });
       await marcar(linha.id, { status: rc.revisar ? "revisar" : okC ? "coach" : "revisar", comprador: true, ...(rc.revisar ? { texto: (ehAudio ? "[áudio] " : "") + texto + `\n[REVISAR coach: ${rc.motivo}]` } : {}) });

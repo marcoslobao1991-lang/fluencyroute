@@ -69,6 +69,7 @@ function deliveryHtml(name, token) {
     <h1 style="font-size:26px;font-weight:900;line-height:1.25;margin:20px 0 8px">🎉 ${hi} your access to Essential Spanish Fluency is ready.</h1>
     <p style="font-size:16px;color:#BCC7D8;line-height:1.6">Your training app is live. It walks you through the 4 phases — Auditory Perception, Conversational, Shadowing, and Simulated Immersion — with spaced repetition that wires Spanish into your subconscious. Best on your phone with headphones.</p>
     <a href="${link}" style="display:inline-block;margin:24px 0;background:#F4B740;color:#2A1C00;font-weight:900;font-size:16px;padding:16px 30px;border-radius:12px;text-decoration:none">OPEN MY SPANISH APP ▶</a>
+    ${token ? `<p style="font-size:15px;color:#BCC7D8;line-height:1.6;margin:0 0 10px">Want a hand getting started? Manuela, your Spanish guide, is one message away:</p><a href="https://wa.me/5511956091942?text=${encodeURIComponent('¡Hola Manuela! I just got my Essential Spanish app. Code: FT-' + token.slice(0, 8))}" style="display:inline-block;margin:0 0 22px;background:#25D366;color:#06281F;font-weight:800;font-size:15px;padding:14px 24px;border-radius:12px;text-decoration:none">Say hi to Manuela on WhatsApp</a>` : ''}
     <p style="font-size:14px;color:#8A98AD;line-height:1.6">Do a session every day — even 10 minutes keeps your streak alive and your progress compounding. Any questions, just reply to this email.</p>
     ${token ? `<p style="font-size:13px;color:#8A98AD;line-height:1.6;background:#141C26;border-radius:10px;padding:14px 16px;margin-top:20px"><b style="color:#E9EEF6">Keep this email.</b> The button above is your personal link — open it on your phone, your laptop, wherever. Your streak, your words and your talks follow you to every device automatically.</p>` : ''}
     <p style="font-size:14px;color:#BCC7D8;margin-top:24px">— Fluency Route</p>
@@ -126,7 +127,45 @@ async function prepararAcesso(email) {
   }
 }
 
-async function sendDelivery(email, name) {
+// ── Manuela no WhatsApp (26/11, Marcos: "dar aquele punch no cara… fazer todo mundo se sentir um rei e uma rainha") ──
+// Na compra: guarda o telefone na conta do app (é por ele que a Manuela reconhece o aluno) e manda o modelo
+// aprovado spanish_access_welcome (nome + botão com o link pessoal do app). Responder abre a conversa com ela.
+function telWhats(phone, country) {
+  let d = String(phone || '').replace(/\D/g, '')
+  if (!d) return null
+  const c = String(country || '').toLowerCase()
+  if (d.length === 10 && (c === 'us' || c === 'ca' || !c)) d = '1' + d
+  if (c === 'br' && !d.startsWith('55') && d.length <= 11) d = '55' + d
+  return d.length >= 11 && d.length <= 15 ? d : null
+}
+async function manuelaBoasVindas(email, name, phone, country, token) {
+  const tel = telWhats(phone, country)
+  if (!tel || !SUPA_SERVICE_KEY) return
+  try {
+    await fetch(`${SUPA_URL}/rest/v1/spanish_access?email=eq.${encodeURIComponent(String(email).trim().toLowerCase())}`, {
+      method: 'PATCH', headers: { apikey: SUPA_SERVICE_KEY, Authorization: `Bearer ${SUPA_SERVICE_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone: tel }),
+    })
+  } catch {}
+  const PH = process.env.WA_CLOUD_PHONE_ID, WT = process.env.WA_CLOUD_TOKEN
+  if (!PH || !WT || !token) return
+  const first = name ? String(name).trim().split(/\s+/)[0] : 'there'
+  try {
+    const r = await fetch(`https://graph.facebook.com/v21.0/${PH}/messages`, {
+      method: 'POST', headers: { Authorization: `Bearer ${WT}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messaging_product: 'whatsapp', to: tel, type: 'template', template: { name: 'spanish_access_welcome', language: { code: 'en_US' },
+        components: [{ type: 'body', parameters: [{ type: 'text', text: first }] }, { type: 'button', sub_type: 'url', index: '0', parameters: [{ type: 'text', text: token }] }] } }),
+    })
+    const j = await r.json().catch(() => ({}))
+    await fetch(`${SUPA_URL}/rest/v1/wa_mensagens`, {
+      method: 'POST', headers: { apikey: SUPA_SERVICE_KEY, Authorization: `Bearer ${SUPA_SERVICE_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tel, direcao: 'out', texto: `[modelo spanish_access_welcome] Hi ${first}, your access to Essential Spanish Fluency is ready! I am Manuela…`, status: r.ok ? 'enviado' : 'falhou' }),
+    }).catch(() => {})
+    if (!r.ok) console.error('[HOTMART-WEBHOOK] whats boas-vindas:', r.status, JSON.stringify(j).slice(0, 300))
+  } catch (e) { console.error('[HOTMART-WEBHOOK] whats err:', e?.message) }
+}
+
+async function sendDelivery(email, name, phone, country) {
   if (!RESEND_KEY || !email) return
   if (/@(example\.com|hotmart\.com(\.br)?)$/i.test(email)) return
   const token = await prepararAcesso(String(email).trim().toLowerCase())
@@ -143,6 +182,7 @@ async function sendDelivery(email, name) {
     })
     if (!r.ok) console.error('[HOTMART-WEBHOOK] resend:', r.status, await r.text())
   } catch (e) { console.error('[HOTMART-WEBHOOK] resend err:', e) }
+  await manuelaBoasVindas(email, name, phone, country, token)
 }
 
 // ── Fluency Fast-Track (upsell): libera o acompanhamento e manda o link da página do coach ──
@@ -297,7 +337,7 @@ export async function POST(request) {
       } catch (e) { console.error('[HOTMART-WEBHOOK] stats', e?.message) }
     }
     if (event === 'PURCHASE_APPROVED' && !isUpsell) {
-      await sendDelivery(email, name)
+      await sendDelivery(email, name, phone, country)
     }
     // 26/11: upsell (Fluency Fast-Track / Premium Coaching) = acompanhamento entregue por IA em /spanish-coach.html
     if (event === 'PURCHASE_APPROVED' && isUpsell) {
