@@ -16,10 +16,12 @@ const SUPA = "https://petrtewismhpzidcmmwb.supabase.co";
 const APP_URL = process.env.APP_URL || "https://app.fluencyroute.com.br";
 const FROM = "Rota da Fluência <contato@acesso.fluencyroute.com.br>";
 
+// 25/11/2026: RELIGADO com o app como entrega principal (curso Kiwify = versão antiga).
+// Reembolsos diziam "não consegui acessar" / "só acesso pelo computador".
 const ASSUNTOS = [
-  "Sua teacher MANU está te esperando (login e senha novos aqui)",
-  "A MANU perguntou por você 💜 — senha nova nesse e-mail",
-  "Último lembrete: seu acesso (e sua teacher) continuam aqui",
+  "Seu app de inglês ainda não foi aberto (login e senha aqui)",
+  "Seu acesso ao app continua aqui: senha nova nesse e-mail",
+  "Último lembrete: seu app de inglês te espera",
 ];
 
 function novaSenha() {
@@ -27,29 +29,28 @@ function novaSenha() {
 }
 
 function emailHtml(nome: string, email: string, senha: string, n: number) {
-  const oi = nome ? nome.split(" ")[0] + ", s" : "S";
+  const oi = nome ? nome.split(" ")[0] + ", " : "";
   const intro =
     n === 0
-      ? `${oi}ua compra está confirmada. O curso fica na <b>área de membros da Kiwify</b> (login com este e-mail): comece pelo módulo COMECE AQUI e a aula inaugural. Abaixo, os dados do seu <b>bônus</b>, o app de treino:`
+      ? `${oi}sua compra está confirmada, mas você ainda não abriu o seu app. É nele que está o treino: Friends minuto a minuto, até entender o episódio sem legenda. Funciona no <b>celular</b>.`
       : n === 1
-        ? `${oi}eguindo? Na área do curso a ordem é Fase Zero → Fase 1 → Treinos Concentrados. Quando bater a primeira meta, o app de treino (bônus) te espera com estes dados:`
-        : `${oi}esse é o último lembrete automático. Seu curso está na área da Kiwify e o bônus (app de treino) é seu, com os dados abaixo:`;
+        ? `${oi}você ainda não entrou no app. Leva 1 minuto: toque no botão, entre com os dados abaixo e faça o minuto 1 de Friends hoje.`
+        : `${oi}esse é o último lembrete automático. O seu app continua liberado, com os dados abaixo.`;
   return `<!doctype html><html><body style="margin:0;background:#FAFAF6;font-family:-apple-system,'Segoe UI',sans-serif;color:#15201E">
   <div style="max-width:480px;margin:0 auto;padding:32px 24px">
     <p style="font-weight:900;letter-spacing:3px;font-size:12px">FLUENCY <span style="color:#12B5AC">ROUTE</span></p>
-    <h1 style="font-size:24px;font-weight:900;letter-spacing:-1px;line-height:1.25;margin:18px 0 10px">Seu curso está te esperando.</h1>
+    <h1 style="font-size:24px;font-weight:900;letter-spacing:-1px;line-height:1.25;margin:18px 0 10px">Seu app está te esperando.</h1>
     <p style="font-size:16px;color:#3D4A49;line-height:1.65">${intro}</p>
     <div style="background:#0F2B28;border-radius:12px;padding:18px 20px;margin:18px 0">
-      <p style="color:#9fd8d3;font-size:12px;letter-spacing:1px;margin:0 0 8px">BÔNUS · APP DE TREINO (app.fluencyroute.com.br)</p>
+      <p style="color:#9fd8d3;font-size:12px;letter-spacing:1px;margin:0 0 8px">SEU APP · abra pelo celular</p>
       <p style="color:#fff;font-size:15px;margin:0 0 6px"><b>E-mail:</b> ${email}</p>
       <p style="color:#fff;font-size:15px;margin:0"><b>Senha:</b> ${senha}</p>
     </div>
-    <p style="font-size:15px;color:#3D4A49;line-height:1.65;margin:4px 0 14px">No app, a <b style="color:#7C5CFF">MANU</b> treina seu <b>ouvido</b> e sua <b>fala</b> com cenas reais de série (Listening e Shadowing). É nível intermediário: entra quando o curso te mandar.</p>
-    <a href="https://dashboard.kiwify.com.br/course/a9510c15-b1f7-49a5-9004-ecfbe5561311" style="display:inline-block;margin:6px 8px 8px 0;background:#0B6E68;color:#fff;font-weight:900;font-size:16px;padding:16px 28px;border-radius:12px;text-decoration:none">ENTRAR NA ÁREA DO CURSO ▶</a>
-    <a href="${APP_URL}" style="display:inline-block;margin:6px 0 8px;background:#7C5CFF;color:#fff;font-weight:900;font-size:16px;padding:16px 28px;border-radius:12px;text-decoration:none">ABRIR O APP (BÔNUS)</a>
+    <a href="${APP_URL}/manu" style="display:block;text-align:center;margin:6px 0 10px;background:#12B5AC;color:#fff;font-weight:900;font-size:16px;padding:16px 28px;border-radius:12px;text-decoration:none">ENTRAR NO APP ▶</a>
+    <p style="font-size:14px;color:#3D4A49;line-height:1.6;margin-top:10px">No celular, toque em <b>Compartilhar → Adicionar à Tela de Início</b> e o app fica com ícone.</p>
         <p style="font-size:14px;color:#3D4A49;line-height:1.6;margin-top:14px">Prefere entrar <b>sem senha</b>? Acesse <a href="https://fluencyroute.com.br/acesso" style="color:#0B6E68;font-weight:700">fluencyroute.com.br/acesso</a>, digite este e-mail e você entra na hora.</p>
     <p style="font-size:13px;color:#7a8a88;line-height:1.6;margin-top:10px">Qualquer dificuldade, responde este e-mail que a gente resolve com você.</p>
-    <p style="font-size:11px;color:#9aa;margin-top:28px">Fluency Route · você recebeu porque sua compra foi aprovada e o app de treino (bônus) ainda não foi aberto.</p>
+    <p style="font-size:11px;color:#9aa;margin-top:28px">Fluency Route · você recebeu porque sua compra foi aprovada e o app ainda não foi aberto.</p>
   </div></body></html>`;
 }
 
