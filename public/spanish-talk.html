@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Real Time Talk · Manuela</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
+<style>
+/* Real Time Talk (upsell 2 do Netflix Trick, 26/11/2026): aula FALADA ao vivo com a Manuela (OpenAI Realtime via WebRTC). Mesma cara do spanish-app (escuro + dourado). */
+:root{--bg:#0C1219;--card:#141C26;--card2:#1A2431;--ink:#E9EEF6;--soft:#9AA7BA;--mut:#6B7789;--gold:#F4B740;--gold2:#2A1C00;--ok:#3DDC97;--bad:#FF6B6B;--rule:#243042;--rx:#8F6BFF}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,-apple-system,"Segoe UI",sans-serif}
+.w{max-width:560px;margin:0 auto;padding:calc(18px + env(safe-area-inset-top)) 16px calc(40px + env(safe-area-inset-bottom));display:grid;gap:14px}
+.brand{font:900 12px/1 Inter;letter-spacing:3px;color:var(--soft)}.brand b{color:var(--gold)}
+h1{font:900 26px/1.15 Inter;margin:0;letter-spacing:-.02em}h2{font:800 18px/1.2 Inter;margin:0}p{margin:0}
+.soft{color:var(--soft)}.mut{color:var(--mut);font-size:13px}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:18px;padding:18px;display:grid;gap:12px}
+.k{font:800 11px/1 Inter;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.cenas{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cena{background:var(--card2);border:1.5px solid var(--rule);border-radius:14px;padding:14px 12px;font:700 15px/1.25 Inter;color:var(--ink);text-align:left;cursor:pointer}
+.cena:active{border-color:var(--gold)}.cena:disabled{opacity:.45}
+.cota{display:flex;gap:6px}.cota i{flex:1;height:8px;border-radius:4px;background:var(--card2)}.cota i.u{background:var(--gold)}
+/* chamada */
+#call{position:fixed;inset:0;background:linear-gradient(180deg,#1B1430,#0C1219);display:none;flex-direction:column;z-index:10;padding:calc(18px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom))}
+#call.on{display:flex}
+.ctop{display:flex;align-items:center;gap:12px;max-width:560px;width:100%;margin:0 auto}
+.av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--rx),#FF5C7A);font:900 22px Inter;color:#fff;position:relative}
+.av.fala::after{content:'';position:absolute;inset:-6px;border-radius:50%;border:3px solid var(--rx);animation:pul 1s ease-out infinite}
+@keyframes pul{from{opacity:1;transform:scale(.9)}to{opacity:0;transform:scale(1.25)}}
+.ctop b{display:block;font:800 18px Inter}.ctop small{display:block;color:var(--soft);font-size:13px}
+.timer{margin-left:auto;font:800 18px ui-monospace,monospace;color:var(--gold)}
+.falas{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding:16px 2px;max-width:560px;width:100%;margin:0 auto}
+.f{max-width:86%;padding:10px 13px;border-radius:16px;font-size:15px;line-height:1.4}
+.f.m{align-self:flex-start;background:rgba(255,255,255,.08);border-top-left-radius:5px}
+.f.u{align-self:flex-end;background:var(--rx);border-top-right-radius:5px;color:#fff}
+.est{text-align:center;color:var(--soft);font-size:14px;padding:6px}
+.cbts{display:flex;gap:10px;max-width:560px;width:100%;margin:0 auto}
+.cbts button{flex:1;border:0;border-radius:999px;padding:16px;font:800 16px Inter;cursor:pointer}
+#mute{background:#fff;color:#0C1219}#mute.on{background:var(--gold);color:var(--gold2)}#fim{background:var(--bad);color:#fff}
+.rel{background:var(--card2);border-radius:14px;padding:14px;display:grid;gap:6px}
+.rel .n{font:900 30px Inter;color:var(--gold)}.rel b{font-size:13px;color:var(--soft);text-transform:uppercase;letter-spacing:.08em}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="w">
+  <p class="brand">FLUENCY <b>ROUTE</b> · REAL TIME TALK</p>
+  <div id="load" class="card"><p class="soft">Loading…</p></div>
+  <div id="erro" class="card" hidden><h2>We couldn't open your lessons</h2><p class="soft" id="erroTx">Open the link from your Real Time Talk email again. If it keeps happening, reply to that email and we'll fix it.</p></div>
+  <div id="app" hidden style="display:grid;gap:14px">
+    <div class="card">
+      <span class="k">Your private tutor</span>
+      <h1>Talk with Manuela, live.</h1>
+      <p class="soft">Pick a scene, put your headphones on and talk out loud for up to 15 minutes. She plays the other person, corrects you on the spot and keeps you talking.</p>
+      <div><div class="mut" id="cotaTx" style="margin-bottom:6px"></div><div class="cota" id="cota"></div></div>
+    </div>
+    <div class="card"><span class="k">Choose a scene</span><div class="cenas" id="cenas"></div></div>
+    <div class="card" id="relBox" hidden><span class="k">Your lesson reports</span><div id="rels" style="display:grid;gap:10px"></div></div>
+    <p class="mut">Manuela is Fluency Route's A.I. tutor. Your access is active until <span id="ate"></span>.</p>
+  </div>
+</div>
+<div id="call">
+  <div class="ctop"><div class="av" id="av">M</div><div><b>Manuela</b><small id="cenaTx"></small></div><span class="timer" id="timer">15:00</span></div>
+  <div class="falas" id="falas"><p class="est" id="est">Connecting… allow the microphone when asked.</p></div>
+  <div class="cbts"><button id="mute" type="button">🎙 Mute</button><button id="fim" type="button">End lesson</button></div>
+</div>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var q=new URLSearchParams(location.search),K=q.get('k')||'';
+try{if(K)localStorage.setItem('talk_k',K);else K=localStorage.getItem('talk_k')||''}catch(e){}
+var S={},pc=null,dc=null,stream=null,tick=null,restam=900,cenaId='',tr=[],falaAtual=null;
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function carrega(){fetch('/api/spanish-talk?k='+encodeURIComponent(K),{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){
+  $('load').hidden=true;if(!j.ok){$('erro').hidden=false;if(j.error==='not_talk')$('erroTx').textContent='Real Time Talk is not active on this link yet. Reply to your purchase email and we will turn it on.';return}
+  S=j;$('app').hidden=false;desenha()}).catch(function(){$('load').hidden=true;$('erro').hidden=false})}
+function desenha(){
+  var livres=S.porSemana-S.usadas;$('cotaTx').textContent=livres>0?(livres+' of '+S.porSemana+' lessons left this week'):'You used your 3 lessons this week. New ones unlock every 7 days.';
+  var h='';for(var i=0;i<S.porSemana;i++)h+='<i class="'+(i<S.usadas?'u':'')+'"></i>';$('cota').innerHTML=h;
+  $('cenas').innerHTML=S.cenas.map(function(c){return '<button class="cena" type="button" data-c="'+c.id+'"'+(livres>0?'':' disabled')+'>'+esc(c.t)+'</button>'}).join('');
+  [].forEach.call($('cenas').children,function(b){b.onclick=function(){inicia(b.getAttribute('data-c'),b.textContent)}});
+  $('ate').textContent=S.ate?new Date(S.ate).toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'}):'';
+  var R=S.relatorios||[];$('relBox').hidden=!R.length;$('rels').innerHTML=R.map(relHtml).join('');
+}
+function relHtml(r){return '<div class="rel"><div style="display:flex;justify-content:space-between;align-items:baseline"><span class="n">'+(r.nota!=null?r.nota+'/10':'·')+'</span><span class="mut">'+esc(r.cena)+' · '+esc(r.data)+'</span></div>'+(r.bom?'<b>What you nailed</b><p>'+esc(r.bom)+'</p>':'')+(r.corrigir?'<b>Fix next time</b><p>'+esc(r.corrigir)+'</p>':'')+'</div>'}
+function bolha(q,t){var d=document.createElement('div');d.className='f '+q;d.textContent=t;$('falas').appendChild(d);$('falas').scrollTop=$('falas').scrollHeight;return d}
+async function inicia(id,titulo){
+  cenaId=id;tr=[];$('falas').innerHTML='<p class="est" id="est">Connecting… allow the microphone when asked.</p>';$('cenaTx').textContent=titulo+' · live lesson';$('call').classList.add('on');restam=900;$('timer').textContent='15:00';
+  try{stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}})}catch(e){$('est').textContent='We need your microphone to talk. Allow it in your browser and try again.';return}
+  var r=await fetch('/api/spanish-talk',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({k:K,cena:id})}).then(function(x){return x.json()}).catch(function(){return {}});
+  if(!r.ok){$('est').textContent=r.error==='limite'?'You used your 3 lessons this week. New ones unlock every 7 days.':'Could not start the lesson. Check your connection and try again.';para();return}
+  try{
+    pc=new RTCPeerConnection();var au=new Audio();au.autoplay=true;au.setAttribute('playsinline','');pc.ontrack=function(e){au.srcObject=e.streams[0]};
+    stream.getTracks().forEach(function(t){pc.addTrack(t,stream)});
+    dc=pc.createDataChannel('oai-events');dc.onmessage=evento;dc.onopen=function(){$('est').textContent='Manuela is joining…';dc.send(JSON.stringify({type:'response.create'}))};
+    var of=await pc.createOffer();await pc.setLocalDescription(of);
+    var ans=await fetch('https://api.openai.com/v1/realtime/calls?model='+encodeURIComponent(r.model),{method:'POST',body:of.sdp,headers:{Authorization:'Bearer '+r.ek,'Content-Type':'application/sdp'}});
+    if(!ans.ok)throw new Error('sdp '+ans.status);
+    await pc.setRemoteDescription({type:'answer',sdp:await ans.text()});
+    tick=setInterval(function(){restam--;var m=Math.max(0,Math.floor(restam/60)),s=Math.max(0,restam%60);$('timer').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');if(restam<=0)encerra()},1000);
+  }catch(e){$('est').textContent='The call dropped before it started. Check your connection and try again.';para()}
+}
+function evento(ev){var e;try{e=JSON.parse(ev.data)}catch(x){return}
+  var est=$('est');if(est&&/response|transcript|speech/.test(e.type))est.remove();
+  if(e.type==='output_audio_buffer.started'||e.type==='response.output_audio.delta')$('av').classList.add('fala');
+  if(e.type==='output_audio_buffer.stopped'||e.type==='response.done')$('av').classList.remove('fala');
+  if(e.type==='response.output_audio_transcript.delta'||e.type==='response.audio_transcript.delta'){if(!falaAtual)falaAtual=bolha('m','');falaAtual.textContent+=e.delta||'';$('falas').scrollTop=$('falas').scrollHeight}
+  if(e.type==='response.output_audio_transcript.done'||e.type==='response.audio_transcript.done'){var t=e.transcript||(falaAtual&&falaAtual.textContent)||'';if(!falaAtual)bolha('m',t);else falaAtual.textContent=t;falaAtual=null;if(t)tr.push('Manuela: '+t)}
+  if(e.type==='conversation.item.input_audio_transcription.completed'&&e.transcript){bolha('u',e.transcript);tr.push('Student: '+e.transcript)}
+}
+function para(){clearInterval(tick);tick=null;try{dc&&dc.close()}catch(e){}try{pc&&pc.close()}catch(e){}try{stream&&stream.getTracks().forEach(function(t){t.stop()})}catch(e){}pc=dc=stream=null;$('av').classList.remove('fala')}
+async function encerra(){
+  if(!$('call').classList.contains('on'))return;para();
+  $('falas').innerHTML='<p class="est">Writing your lesson report…</p>';
+  var r=await fetch('/api/spanish-talk',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({k:K,fim:true,cena:cenaId,transcript:tr.join('\n')})}).then(function(x){return x.json()}).catch(function(){return {}});
+  $('falas').innerHTML=(r.relatorio?relHtml(r.relatorio):'<p class="est">Lesson saved.</p>')+'<button class="cena" type="button" id="voltar" style="margin-top:12px;text-align:center">Back to my lessons</button>';
+  $('voltar').onclick=function(){$('call').classList.remove('on');carrega()};
+}
+$('fim').onclick=encerra;
+$('mute').onclick=function(){if(!stream)return;var t=stream.getAudioTracks()[0];t.enabled=!t.enabled;this.classList.toggle('on',!t.enabled);this.textContent=t.enabled?'🎙 Mute':'🔇 Unmute'};
+if(!K){$('load').hidden=true;$('erro').hidden=false}else carrega();
+})();
+</script>
+</body>
+</html>

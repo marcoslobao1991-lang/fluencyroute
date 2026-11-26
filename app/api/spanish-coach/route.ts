@@ -18,10 +18,10 @@ export async function GET(req: NextRequest) {
   if (!key) return NextResponse.json({ ok: false, error: 'config' }, { status: 500 })
   const email = await emailDoToken(key, req.nextUrl.searchParams.get('k') || '')
   if (!email) return NextResponse.json({ ok: false, error: 'link' }, { status: 401 })
-  const r = await fetch(`${SUPA_URL}/rest/v1/spanish_coach?select=created_at,data&email=eq.${encodeURIComponent(email)}&limit=1`, { headers: H(key), cache: 'no-store' })
+  const r = await fetch(`${SUPA_URL}/rest/v1/spanish_coach?select=created_at,data,plano,talk_ate&email=eq.${encodeURIComponent(email)}&limit=1`, { headers: H(key), cache: 'no-store' })
   const j = await r.json().catch(() => [])
   if (!Array.isArray(j) || !j[0]) return NextResponse.json({ ok: false, error: 'not_coach' }, { status: 403 })
-  return NextResponse.json({ ok: true, since: j[0].created_at, data: j[0].data || {}, first: email.split('@')[0] }, { headers: { 'Cache-Control': 'no-store' } })
+  return NextResponse.json({ ok: true, since: j[0].created_at, data: j[0].data || {}, plano: j[0].plano || 'fast', talk: !!j[0].talk_ate && new Date(j[0].talk_ate).getTime() > Date.now(), first: email.split('@')[0] }, { headers: { 'Cache-Control': 'no-store' } })
 }
 
 export async function POST(req: NextRequest) {

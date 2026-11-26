@@ -69,8 +69,8 @@ type Coach = { email: string; phone: string | null; data: Record<string, any>; f
 async function montaAluno(email: string, tel: string): Promise<Coach | null> {
   const em = encodeURIComponent(email);
   const a = await (await fetch(`${SUPA}/rest/v1/spanish_access?select=token&email=eq.${em}&limit=1`, { headers: sb() })).json().catch(() => []);
-  const c = await (await fetch(`${SUPA}/rest/v1/spanish_coach?select=data,phone&email=eq.${em}&limit=1`, { headers: sb() })).json().catch(() => []);
-  const ft = Array.isArray(c) && !!c[0];
+  const c = await (await fetch(`${SUPA}/rest/v1/spanish_coach?select=data,phone,plano&email=eq.${em}&limit=1`, { headers: sb() })).json().catch(() => []);
+  const ft = Array.isArray(c) && !!c[0] && c[0].plano !== "lite"; // Lite (downsell) não tem a Manuela coach
   if (ft && c[0].phone !== tel) await fetch(`${SUPA}/rest/v1/spanish_coach?email=eq.${em}`, { method: "PATCH", headers: sb(), body: JSON.stringify({ phone: tel }) });
   return { email, phone: tel, data: ft ? c[0].data || {} : {}, fastTrack: ft, token: Array.isArray(a) && a[0] ? a[0].token : null };
 }

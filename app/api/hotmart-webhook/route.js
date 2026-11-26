@@ -206,23 +206,52 @@ function coachHtml(name, token) {
     <p style="font-size:14px;color:#BCC7D8;margin-top:24px">— Fluency Route</p>
   </div></body></html>`
 }
-async function sendCoachDelivery(email, name, transaction) {
+// Real Time Talk (upsell 2): e-mail com o link das aulas faladas
+const TALK_URL = 'https://fluencyroute.com.br/spanish-talk.html'
+function talkHtml(name, token) {
+  const hi = name ? `Hey ${String(name).split(' ')[0]},` : 'Hey there,'
+  const link = token ? `${TALK_URL}?k=${token}` : TALK_URL
+  return `<!doctype html><html><body style="margin:0;background:#0C1219;font-family:-apple-system,'Segoe UI',sans-serif;color:#E9EEF6">
+  <div style="max-width:480px;margin:0 auto;padding:32px 24px">
+    <p style="font-weight:900;letter-spacing:3px;font-size:12px;color:#8A98AD">FLUENCY <span style="color:#F4B740">ROUTE</span> · REAL TIME TALK</p>
+    <h1 style="font-size:26px;font-weight:900;line-height:1.25;margin:20px 0 8px">${hi} your private tutor is ready.</h1>
+    <p style="font-size:16px;color:#BCC7D8;line-height:1.6">For the next 12 months you have 3 live spoken lessons a week with Manuela. Pick a scene (tacos, a hotel, a first date, a job interview), put your headphones on and talk out loud. She corrects you on the spot and sends you a report after every lesson.</p>
+    <a href="${link}" style="display:inline-block;margin:24px 0;background:#F4B740;color:#2A1C00;font-weight:900;font-size:16px;padding:16px 30px;border-radius:12px;text-decoration:none">START MY FIRST LESSON ▶</a>
+    <p style="font-size:14px;color:#8A98AD;line-height:1.6">Best on your phone, with headphones, in a quiet place. Keep this email: the button always brings you back to your lessons.</p>
+    <p style="font-size:14px;color:#BCC7D8;margin-top:24px">— Fluency Route</p>
+  </div></body></html>`
+}
+
+// plano: 'fast' (Fast-Track US$127) · 'lite' (Fast-Track Lite US$47, sem a Manuela coach) · 'talk' (Real Time Talk US$297/ano)
+async function sendCoachDelivery(email, name, transaction, plano = 'fast') {
   if (!RESEND_KEY || !email) return
   const mail = String(email).trim().toLowerCase()
   if (/@(example\.com|hotmart\.com(\.br)?)$/i.test(mail)) return
   const token = await prepararAcesso(mail)
+  const H = { apikey: SUPA_SERVICE_KEY, Authorization: `Bearer ${SUPA_SERVICE_KEY}`, 'Content-Type': 'application/json' }
   try {
+    // cria a linha se não existir (quem compra o Real Time Talk normalmente já tem o Fast-Track)
     await fetch(`${SUPA_URL}/rest/v1/spanish_coach`, {
-      method: 'POST',
-      headers: { apikey: SUPA_SERVICE_KEY, Authorization: `Bearer ${SUPA_SERVICE_KEY}`, 'Content-Type': 'application/json', Prefer: 'resolution=ignore-duplicates,return=minimal' },
-      body: JSON.stringify({ email: mail, transaction: transaction || null }),
+      method: 'POST', headers: { ...H, Prefer: 'resolution=ignore-duplicates,return=minimal' },
+      body: JSON.stringify({ email: mail, transaction: transaction || null, plano: plano === 'talk' ? 'fast' : plano }),
     })
+    if (plano === 'talk') {
+      await fetch(`${SUPA_URL}/rest/v1/spanish_coach?email=eq.${encodeURIComponent(mail)}`, {
+        method: 'PATCH', headers: H, body: JSON.stringify({ talk_ate: new Date(Date.now() + 365 * 864e5).toISOString(), updated_at: new Date().toISOString() }),
+      })
+    } else if (plano === 'fast') {
+      // quem tinha o Lite e compra o Fast-Track sobe de plano
+      await fetch(`${SUPA_URL}/rest/v1/spanish_coach?email=eq.${encodeURIComponent(mail)}&plano=eq.lite`, { method: 'PATCH', headers: H, body: JSON.stringify({ plano: 'fast' }) })
+    }
   } catch (e) { console.error('[HOTMART-WEBHOOK] coach insert', e?.message) }
+  const assunto = plano === 'talk' ? '🎙️ Your private tutor is ready: start your first live lesson'
+    : plano === 'lite' ? '🚀 Your Fast-Track Lite is unlocked: start your 90-day plan'
+    : '🚀 Your Fast-Track is unlocked: start your 90-day plan'
   try {
     const r = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: { Authorization: `Bearer ${RESEND_KEY}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ from: 'Fluency Route <access@acesso.fluencyroute.com.br>', to: [mail], subject: '🚀 Your Fast-Track is unlocked: start your 90-day plan', html: coachHtml(name, token) }),
+      body: JSON.stringify({ from: 'Fluency Route <access@acesso.fluencyroute.com.br>', to: [mail], subject: assunto, html: plano === 'talk' ? talkHtml(name, token) : coachHtml(name, token) }),
     })
     if (!r.ok) console.error('[HOTMART-WEBHOOK] resend coach:', r.status, await r.text())
   } catch (e) { console.error('[HOTMART-WEBHOOK] resend coach err:', e) }
@@ -264,9 +293,12 @@ export async function POST(request) {
     // Este webhook é do ESPANHOL: só a oferta do Fast-Track (ewtgb4zl, US$127) entra aqui. O resto do Premium Coaching é ignorado
     // (nada de acesso, e-mail, painel ou pixel do espanhol). Sem código de oferta no payload: só aceita se o valor for de Fast-Track (≥ US$90).
     const offerCode = String(pick(body, 'data.purchase.offer.code', 'purchase.offer.code', 'off') || '').toLowerCase()
+    // 26/11 tarde: ofertas do ESPANHOL no Premium Coaching = Fast-Track (ewtgb4zl), Lite/downsell (x6ymozzb), Real Time Talk/upsell 2 (1sq74hea)
+    const PLANO_POR_OFERTA = { ewtgb4zl: 'fast', x6ymozzb: 'lite', '1sq74hea': 'talk' }
+    let planoUpsell = null
     if (/coaching|upsell|mentor/i.test(String(productName))) {
-      const ehFastTrack = offerCode ? offerCode === 'ewtgb4zl' : (Number(value) || 0) >= 90
-      if (!ehFastTrack) return new Response(JSON.stringify({ ok: true, ignored: 'coaching-de-outro-funil', offer: offerCode || null }), { status: 200 })
+      planoUpsell = offerCode ? (PLANO_POR_OFERTA[offerCode] || null) : ((Number(value) || 0) >= 90 ? 'fast' : null)
+      if (!planoUpsell) return new Response(JSON.stringify({ ok: true, ignored: 'coaching-de-outro-funil', offer: offerCode || null }), { status: 200 })
     }
 
     // buyer PII → EMQ
@@ -329,7 +361,7 @@ export async function POST(request) {
     // value em USD (moeda da oferta). Upsell entra como item ':coaching' (não conta como venda nova). Dedup pelo detail.
     if (event === 'PURCHASE_APPROVED' && transaction) {
       try {
-        const detail = `hotmart:${transaction}${isUpsell ? ':coaching' : ''}`
+        const detail = `hotmart:${transaction}${isUpsell ? (planoUpsell === 'lite' ? ':lite' : planoUpsell === 'talk' ? ':talk' : ':coaching') : ''}`
         const H = { apikey: SUPA_SERVICE_KEY, Authorization: `Bearer ${SUPA_SERVICE_KEY}`, 'Content-Type': 'application/json' }
         const ja = await fetch(`${SUPA_URL}/rest/v1/funnel_events?event=eq.purchase&detail=eq.${encodeURIComponent(detail)}&select=id&limit=1`, { headers: H }).then((r) => r.json()).catch(() => [])
         if (!Array.isArray(ja) || ja.length === 0) {
@@ -350,7 +382,7 @@ export async function POST(request) {
     }
     // 26/11: upsell (Fluency Fast-Track / Premium Coaching) = acompanhamento entregue por IA em /spanish-coach.html
     if (event === 'PURCHASE_APPROVED' && isUpsell) {
-      await sendCoachDelivery(email, name, transaction)
+      await sendCoachDelivery(email, name, transaction, planoUpsell || 'fast')
     }
 
     const debug = request.headers.get('x-debug') === '1'

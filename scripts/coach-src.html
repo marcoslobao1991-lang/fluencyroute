@@ -77,7 +77,13 @@ p{margin:0}.soft{color:var(--soft)}.mut{color:var(--mut);font-size:13px}
       <h2 id="chTit"></h2>
       <p class="soft" id="chTx"></p>
     </div>
-    <div class="card">
+    <div class="card" id="talkCard" hidden>
+      <span class="k">Real Time Talk</span>
+      <h2>Your live lessons with Manuela</h2>
+      <p class="soft">3 spoken lessons a week, by voice, in real time. Pick a scene and talk.</p>
+      <a class="btn g" id="talkBtn" href="#">Start a live lesson 🎙</a>
+    </div>
+    <div class="card" id="waCard">
       <span class="k">Your coach on WhatsApp</span>
       <h2>Talk to Manuela, your Spanish coach</h2>
       <p class="soft">Text or send voice messages in Spanish any time. Manuela already knows your plan and your Accent Check, keeps you talking, corrects you and scores your progress.</p>
@@ -157,6 +163,8 @@ function painel(){
   $('feito').onclick=function(){S.data.feitos=S.data.feitos||{};S.data.feitos[d]=hojeISO();salva();painel()};
   $('chK').textContent='Week '+sem+' challenge';$('chTit').textContent=DESAFIOS[sem-1];$('chTx').textContent='Do it every day this week. Small, silly, and it works: it gets Spanish out of your head and into your mouth.';
   $('acK').textContent='Weekly Accent Check · week '+sem;
+  // Lite (downsell) não tem a Manuela coach; Real Time Talk (upsell 2) ganha o atalho pras aulas faladas
+  $('waCard').hidden=S.plano==='lite';$('talkCard').hidden=!S.talk;$('talkBtn').href='/spanish-talk.html?k='+encodeURIComponent(K);
   // WhatsApp da Manuela: o código FT- liga o número do aluno à conta dele no robô
   $('waBtn').href='https://wa.me/5511956091942?text='+encodeURIComponent('¡Hola Manuela! I just joined the Fast-Track. Código: FT-'+K.slice(0,8));
   var nt=(S.data.manuela||[]).slice(-5).reverse();
@@ -193,7 +201,7 @@ function media(sem){
 if(!K){$('load').hidden=true;$('erro').hidden=false}
 else fetch('/api/spanish-coach?k='+encodeURIComponent(K),{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){
   if(!j.ok){$('load').hidden=true;$('erro').hidden=false;if(j.error==='not_coach')$('erroTx').textContent='This link opens your Spanish app, but the Fast-Track isn\'t active on it yet. Reply to your purchase email and we\'ll turn it on.';return}
-  S.data=j.data||{};if(!S.data.inicio)onb(0);else painel();
+  S.data=j.data||{};S.plano=j.plano||'fast';S.talk=!!j.talk;if(!S.data.inicio)onb(0);else painel();
 }).catch(function(){$('load').hidden=true;$('erro').hidden=false});
 })();
 </script>
