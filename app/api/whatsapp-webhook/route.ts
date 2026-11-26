@@ -106,7 +106,7 @@ Plano de 90 dias: ${dia ? "dia " + dia : "ainda não começou (mande ele abrir a
 Accent Check (nota de pronúncia da IA): ${notas || "ainda não fez"}${fracas.length ? `; palavras que ele erra: ${fracas.slice(0, 8).join(", ")}` : ""}.
 Suas últimas avaliações dele: ${aval || "nenhuma ainda"}.`;
 }
-function sistemaCoach(c: Coach) {
+function sistemaCoach(c: Coach, nome?: string) {
   const link = c.token ? `https://fluencyroute.com.br/spanish-app.html?k=${c.token}` : "https://fluencyroute.com.br/spanish-app.html";
   const comum = `You are MANUELA, the Spanish guide of Fluency Route, chatting on WhatsApp with someone who just bought Essential Spanish Fluency (the "Netflix trick" to learn Spanish with real series scenes). The student is an English speaker learning Mexican Spanish.
 
@@ -114,15 +114,17 @@ YOUR MISSION: make every student feel like royalty. They made a great decision a
 
 HOW YOU TALK:
 - Like a warm human on WhatsApp. Short messages (1 to 4 lines). No lists, no lectures, one emoji now and then at most.
+- Their WhatsApp name is: ${nome ? nome : "unknown"}. Call them by their first name only if it looks like a real name. The "FT-" code in their first message is just a link code: never repeat it and never use it as a name.
+- Reply in the language they write in. Spanish sprinkles only when the mood is light and they are enjoying it; in complaints, doubts, access or refund talk, use only their language.
 - Answer what they said first. Never push.
-- Sprinkle easy Spanish with the translation, adjusted to their level, and invite them to answer in Spanish when the moment is right ("¿Cómo estás hoy? (How are you today?)").
+- When the mood is light, sprinkle easy Spanish with the translation, adjusted to their level, and invite them to answer in Spanish when the moment is right ("¿Cómo estás hoy? (How are you today?)").
 - If they write or speak Spanish, celebrate it and gently correct one thing at most ("¡Casi! Se dice: ...").
 - Voice messages arrive transcribed: praise them for speaking out loud.
 - If they ask whether you are a real person or an AI, do NOT lie: you are Fluency Route's A.I. guide, trained on the method, and the team reads the conversations.
 
 ACCESS HELP: their personal app link is ${link} (it logs them in with their progress). Give it whenever they can't find the app or the email. Best on the phone, with headphones. The first step is Phase 1: one real scene, no subtitles, 3 times.
 
-REFUNDS OR "IT'S NOT FOR ME": never argue, never deny, never promise. Be kind, ask what happened and try to fix the real problem (access, not knowing where to start, too hard). If they still want it, tell them the request is made through Hotmart (the purchase email has the link) within the 7-day guarantee, and set "revisar": true. Billing, double charge, chargeback threats, anything you are unsure about: answer kindly and set "revisar": true.`;
+REFUNDS OR "IT'S NOT FOR ME": never argue, never deny, never promise. FIRST reply: only acknowledge kindly, ask what happened and offer to help with the real problem (access, not knowing where to start, too hard, no time). Do NOT explain the refund path yet. Only if they insist after that, tell them the request is made through Hotmart (the purchase email has the link) within the 7-day guarantee, and set "revisar": true. Billing, double charge, chargeback threats, anything you are unsure about: answer kindly and set "revisar": true.`;
   if (!c.fastTrack) {
     return `${comum}
 
@@ -142,11 +144,11 @@ ${contextoCoach(c)}
 
 Answer ONLY with JSON: {"resposta": "message text", "avaliacao": null or {"nota": 0-10, "obs": "max 12 words in Portuguese, for the team"}, "revisar": false, "motivo": "short, only if revisar"}`;
 }
-async function redigirCoach(texto: string, c: Coach, historico: { role: "user" | "assistant"; content: string }[]) {
+async function redigirCoach(texto: string, c: Coach, historico: { role: "user" | "assistant"; content: string }[], nome?: string) {
   const r = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ model: "gpt-4.1", temperature: 0.6, response_format: { type: "json_object" }, messages: [{ role: "system", content: sistemaCoach(c) }, ...historico, { role: "user", content: texto }] }),
+    body: JSON.stringify({ model: "gpt-4.1", temperature: 0.6, response_format: { type: "json_object" }, messages: [{ role: "system", content: sistemaCoach(c, nome) }, ...historico, { role: "user", content: texto }] }),
   });
   const j = await r.json().catch(() => ({}));
   try {
@@ -295,7 +297,7 @@ export async function POST(req: Request) {
         `select direcao, texto from wa_mensagens where tel='${tel}' and id < ${Number(linha.id)} order by id desc limit 16`,
       );
       const historicoC = histC.reverse().map((h) => ({ role: (h.direcao === "in" ? "user" : "assistant") as "user" | "assistant", content: h.texto }));
-      const rc = await redigirCoach(texto, coach, historicoC);
+      const rc = await redigirCoach(texto, coach, historicoC, m.nome);
       if (!rc.resposta) { await marcar(linha.id, { status: "revisar", comprador: true }); continue; }
       if (rc.avaliacao && coach.fastTrack) await guardaAvaliacao(coach, rc.avaliacao);
       const okC = await enviar(m.from, rc.resposta);
