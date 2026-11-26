@@ -3,7 +3,7 @@
 // tela clara de quiz cobrindo a página, "Netflix Trick" no topo, iPhone com a gravação real do app, um botão.
 // Qualquer toque na tela = VSL do início COM SOM (evento window 'vsl:start', ouvido pelo VslPlayer).
 // Não pode parecer que tem VSL por baixo: sem pergunta, sem player à vista, só o botão.
-// Quem já começou a assistir (posição salva) ou já abriu a oferta não vê a presell. `?modo=cadeado` desliga.
+// Quem já começou a assistir (posição salva) ou já abriu a oferta não vê a presell. `?modo=cadeado` desliga (26/11: presell é o PADRÃO de novo).
 //
 // iPhone: moldura RENDERIZADA no Blender/Cycles (~/netflix-trick/mock/iphone.py → public/netflix/iphone.webp, tela
 // transparente). O vídeo do app fica POR BAIXO, deformado pela mesma perspectiva da tela (matrix3d calculado por
@@ -27,7 +27,9 @@ export default function NetflixPresell({ track, posKey, revealKey }: { track: (e
       const modo = q.get('modo')
       // 23/11 (Marcos: "volta pra aquela de blocked content simples"): a presell sai do padrão, a página abre no cadeado
       // ("Content locked · Tap to unlock"). A presell só aparece com ?modo=presell.
-      if (modo !== 'presell') ver = false
+      // 26/11 (Marcos: "volta com a CAPA que dá o play automático na VSL igual das outras"): presell de novo no PADRÃO
+      // (VSL da Sophia US$147). ?modo=cadeado volta pro "Content locked".
+      if (modo === 'cadeado') ver = false
       if (q.get('reveal') === '1') ver = false
       if ((parseFloat(localStorage.getItem(posKey) || '0') || 0) > 0) ver = false
       if (localStorage.getItem(revealKey) === '1') ver = false
