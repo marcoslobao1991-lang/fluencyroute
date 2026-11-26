@@ -110,7 +110,17 @@ export async function POST(req: Request) {
       continue;
     }
 
-    const comprador = await acharComprador(m.from);
+    let comprador = await acharComprador(m.from);
+    // a pessoa mandou o e-mail da compra (telefone do checkout era outro): acha por e-mail
+    const em = texto.match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/)?.[0]?.toLowerCase().replace(/'/g, "");
+    if (!comprador && em) {
+      const rows = await sql<{ id: string; email: string; nome: string; produtos: string }>(
+        `select u.id, u.email, coalesce(u.raw_user_meta_data->>'full_name','') nome,
+           (select string_agg(distinct o.product, ', ') from orders o where lower(o.customer_email)=lower(u.email) and o.status='paid') produtos
+         from auth.users u where lower(u.email) = '${em}' limit 1`,
+      );
+      if (rows[0]?.produtos) comprador = rows[0];
+    }
     const hist = await sql<{ direcao: string; texto: string }>(
       `select direcao, texto from wa_mensagens where tel='${m.from.replace(/\D/g, "")}' and id < ${Number(linha.id)} order by id desc limit 6`,
     );
