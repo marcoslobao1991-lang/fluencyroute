@@ -156,7 +156,7 @@ ${pass ? `<p style="margin:0"><b>Senha nova:</b> <span style="font-family:monosp
     : "";
   const html = `<div style="font-family:Inter,Arial,sans-serif;max-width:540px;margin:0 auto;color:#1a1a1a;font-size:15px;line-height:1.65">
 <p>Oi,</p>
-${resposta.split(/\n{2,}|\n/).filter(Boolean).map((p) => `<p>${esc(p)}</p>`).join("\n")}
+${resposta.split(/\n{2,}|\n/).filter(Boolean).map((p: string) => `<p>${esc(p)}</p>`).join("\n")}
 ${bloco}
 <p>Qualquer coisa, é só responder este e-mail.</p>
 <p>Um abraço,<br>Suporte Fluency Route</p>
