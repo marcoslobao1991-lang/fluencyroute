@@ -248,6 +248,9 @@ export default function NetflixSalesPage({ preco = '197' }: { preco?: string }) 
     // Cart stitching: salva fbc/fbp/ip/ua desta sessão pro webhook do Hotmart
     // recuperar no Purchase (EMQ alto). A chave (stitchSid) vai no sck do checkout.
     try {
+      // 26/11: a chave da compra = a MESMA sessão do painel (fr_sid, criada pelo pageview acima). Antes era um UUID
+      // à parte e a venda entrava no painel sem ligação com a visita nem com o anúncio.
+      if (!stitchSid) { try { stitchSid = localStorage.getItem('fr_sid') || '' } catch {} }
       if (!stitchSid) {
         stitchSid = (typeof crypto !== 'undefined' && crypto.randomUUID)
           ? crypto.randomUUID()
@@ -298,6 +301,8 @@ export default function NetflixSalesPage({ preco = '197' }: { preco?: string }) 
     const doReveal = () => {
       setRevealed(true)
       try { localStorage.setItem(REVEAL_KEY, '1') } catch {}
+      // 26/11: o painel conta "chegou na oferta" por este evento; antes a página do espanhol nunca mandava
+      try { frTrack('video_reveal', String(REVEAL_AT)) } catch {}
     }
     let revealTimer: ReturnType<typeof setTimeout> | null = null
     const alreadyRevealed = (() => { try { return localStorage.getItem(REVEAL_KEY) === '1' } catch { return false } })()
@@ -464,6 +469,7 @@ function Btn({ text = 'I WANT IN', compact }: { text?: string; compact?: boolean
       if (!CHECKOUT) { e.preventDefault(); return }
       if (stitchSid) e.currentTarget.href = buildCheckoutUrl(CHECKOUT, { ...getUtmsFromUrl(), sck: stitchSid })
     } catch {}
+    try { frTrack('checkout_click') } catch {} // 26/11: o clique no checkout agora entra no painel
     if (icFired) return
     icFired = true
     trackEs('InitiateCheckout')
