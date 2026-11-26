@@ -83,7 +83,11 @@ button:focus-visible{outline:3px solid var(--lido);outline-offset:2px}
 #resp.g2{grid-template-columns:1fr 1fr}
 #resp button{padding:15px 14px;border-radius:14px;font:600 16px/1.25 Geist,sans-serif;background:#1F2C34;box-shadow:inset 0 0 0 1px rgba(37,211,102,.45);color:var(--tx);text-align:center;animation:entra .28s ease-out both}
 #resp button:active{background:var(--out)}
-#resp button.cta{background:var(--g2);color:#06281F;font-weight:700;box-shadow:none;padding:19px 14px;font-size:17px}
+#resp button.cta{background:var(--g2);color:#06281F;font-weight:700;box-shadow:none;padding:19px 14px;font-size:17px;display:flex;align-items:center;justify-content:center;gap:10px;animation:entra .28s ease-out both,ctaPulso 1.6s ease-in-out .4s infinite}
+#resp button.cta .seta{flex:none;animation:setaVai .9s ease-in-out infinite}
+@keyframes setaVai{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
+@keyframes ctaPulso{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.55)}60%{box-shadow:0 0 0 10px rgba(37,211,102,0)}}
+@media (prefers-reduced-motion:reduce){#resp button.cta,#resp button.cta .seta{animation:none}}
 .rtop{display:flex;align-items:center;gap:14px}.tomada{flex:none;width:84px;height:84px}
 .rico .rn em{font-style:normal;text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:4px}
 .pinos{list-style:none;margin-top:14px;display:grid;gap:8px}
@@ -239,7 +243,7 @@ html,body{background:#F5F6F8}
   function balao(cls,html){var d=document.createElement('div');d.className='b '+cls;d.innerHTML=html;msgs.appendChild(d);fim();return d}
   function eu(txt){return balao('out',txt+'<span class="hr">'+hora()+'<svg width="17" height="11" viewBox="0 0 17 11"><path d="M1 6l3 3 6-7M7 9l1 .8 6.5-7.8" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>')}
   async function ele(html,cls,ms){st.textContent='digitando…';var t=balao('in','<span class="dt"><i></i><i></i><i></i></span>');await espera(rapido?0:(ms||650));t.remove();st.textContent='online';var d=balao('in'+(cls?' '+cls:''),html);fim();return d}
-  function opcoes(lista,dois){return new Promise(function(ok){resp.className=dois?'g2':'';resp.innerHTML='';lista.forEach(function(o,i){var b=document.createElement('button');b.textContent=o.t;if(o.cta)b.className='cta';b.style.animationDelay=(i*50)+'ms';b.onclick=function(){resp.innerHTML='';ok(o)};resp.appendChild(b)});fim()})}
+  function opcoes(lista,dois){return new Promise(function(ok){resp.className=dois?'g2':'';resp.innerHTML='';lista.forEach(function(o,i){var b=document.createElement('button');b.textContent=o.t;if(o.cta){b.className='cta';b.innerHTML='<span>'+o.t+'</span><svg class="seta" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'}b.style.animationDelay=(i*50)+'ms';b.onclick=function(){resp.innerHTML='';ok(o)};resp.appendChild(b)});fim()})}
   function prog(n){[].slice.call($('pr').children).forEach(function(s,i){s.classList.toggle('on',i<n)})}
   // QUIZ DEMO-APP DO INGLÊS (24/11). A copy é a da VSL que roda na /friends, em conversa; o app aparece FAZENDO (telas reais,
   // gravação real, cena com som, áudio real do aluno). 1 botão de reação por parada. Fim → /friends?de=quiz.
