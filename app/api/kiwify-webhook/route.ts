@@ -674,7 +674,7 @@ Investigar: Meta Events Manager → Diagnóstico`
     if (phone) {
       // 26/11/2026: acesso_d0 (com senha) foi recusado pela Meta (categoria). Template novo sem senha,
       // botão → fluencyroute.com.br/acesso (entra só com o e-mail). Número oficial +55 11 95609-1942.
-      await sendWhatsAppTemplate(phone, 'pedido_acesso_liberado', [
+      await sendWhatsAppTemplate(phone, 'acesso_app_e_aulas', [
         firstName || 'tudo bem',
         email,
       ]).catch(e => console.error(`[WhatsApp] Falha aluno ${phone}:`, e.message))
