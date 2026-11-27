@@ -313,6 +313,39 @@ type Msg = { from: string; id: string; type: string; text?: { body: string }; au
 // 27/11/2026: a Meta bloqueou os envios (cartão do WhatsApp com erro, 141006) e ninguém viu por um dia: o envio
 // devolvia id "ok" e a falha só chegava depois, aqui no webhook (statuses[].status = "failed"), e era ignorada.
 // Agora cada falha vira linha em wa_mensagens (status 'falhou_meta') e manda 1 e-mail pro Marcos por hora no máximo.
+// 27/11: a Meta recusou o acesso de 2 compradores (131026: número não recebe WhatsApp). Se a mensagem que caiu era pra
+// um COMPRADOR, o acesso vai por e-mail na hora (link de 1 toque + senha nova), 1 vez por número a cada 24 h.
+async function acessoPorEmail(tel: string) {
+  const KEY = process.env.RESEND_API_KEY;
+  if (!KEY || tel.length < 8) return;
+  const c = await porTelefone(tel);
+  if (!c) return;
+  const ja = await sql<{ n: number }>(`select count(*)::int n from wa_mensagens where tel='${tel}' and status='email_acesso' and criado_em > now() - interval '24 hours'`);
+  if (ja[0]?.n) return;
+  const pass = await senhaNova(c.id);
+  const nm = (c.nome || "").trim().split(/\s+/)[0];
+  const n = nm ? nm.charAt(0).toUpperCase() + nm.slice(1).toLowerCase() : "";
+  const link = `https://fluencyroute.com.br/acesso?email=${encodeURIComponent(c.email)}&auto=1`;
+  const p = (t: string) => `<p style="font-size:15px;color:#3D4A49;line-height:1.65">${t}</p>`;
+  const html = `<!doctype html><html><body style="margin:0;background:#FAFAF6;font-family:-apple-system,'Segoe UI',sans-serif;color:#15201E"><div style="max-width:480px;margin:0 auto;padding:32px 24px">
+<p style="font-weight:900;letter-spacing:3px;font-size:12px">FLUENCY <span style="color:#12B5AC">ROUTE</span></p>
+<h1 style="font-size:24px;font-weight:900;letter-spacing:-1px;line-height:1.25;margin:18px 0 10px">${n ? n + ", seu" : "Seu"} acesso está liberado</h1>
+${p("Tentamos te mandar o acesso pelo WhatsApp, mas a mensagem não chegou no seu número. Então aqui vai tudo por e-mail.")}
+<p style="margin:26px 0"><a href="${link}" style="display:block;text-align:center;background:#0B6E68;color:#fff;font-weight:900;font-size:16px;padding:17px 20px;border-radius:12px;text-decoration:none">ENTRAR NO APP AGORA</a></p>
+${p("O botão já entra direto na sua conta, sem digitar nada. Funciona no navegador do celular, não precisa baixar na loja.")}
+${pass ? `<div style="background:#fff;border:1px solid #DCE5E3;border-radius:12px;padding:16px 18px;margin:22px 0"><p style="margin:0 0 8px;font-size:14px;font-weight:800">Se alguma tela pedir e-mail e senha:</p><p style="margin:0;font-size:15px;line-height:1.8">E-mail: <b>${c.email}</b><br>Senha: <b style="font-family:monospace;font-size:17px">${pass}</b></p></div>` : ""}
+${p('<b>Pra começar hoje (10 minutos):</b> toque em "Treinar o minuto 1", ouça a cena sem legenda, repita com legenda até o som colar e teste sem legenda de novo.')}
+${p("As aulas completas ficam na área de membros da Kiwify, com o mesmo e-mail da compra.")}
+${p("Travou em qualquer coisa? É só responder este e-mail.")}
+${p("Um abraço,<br>Marcos · Fluency Route")}</div></body></html>`;
+  const r = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${KEY}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ from: "Marcos · Fluency Route <contato@acesso.fluencyroute.com.br>", reply_to: "contato@acesso.fluencyroute.com.br", to: c.email, subject: `${n ? n + ", seu" : "Seu"} acesso à Fluency Route está liberado`, html }),
+  });
+  await fetch(`${SUPA}/rest/v1/wa_mensagens`, { method: "POST", headers: sb(), body: JSON.stringify({ tel, direcao: "out", status: "email_acesso", texto: `[acesso por e-mail: WhatsApp recusado] ${r.ok ? "enviado" : "FALHOU"}` }) });
+}
+
 type Falha = { id: string; recipient_id?: string; errors?: { code?: number; title?: string; message?: string; error_data?: { details?: string } }[] };
 async function avisaFalhas(fs: Falha[]) {
   for (const s of fs) {
@@ -323,6 +356,7 @@ async function avisaFalhas(fs: Falha[]) {
       body: JSON.stringify({ wa_id: `falha-${s.id}`, tel: (s.recipient_id || "").replace(/\D/g, ""), direcao: "out", status: "falhou_meta",
         texto: `[FALHA META ${er.code ?? "?"}] ${er.title || ""} ${er.error_data?.details || er.message || ""}`.trim().slice(0, 500) }),
     });
+    await acessoPorEmail((s.recipient_id || "").replace(/\D/g, "")).catch((e) => console.error("[WA] acesso por e-mail:", e?.message));
   }
   const KEY = process.env.RESEND_API_KEY;
   if (!KEY) return;
