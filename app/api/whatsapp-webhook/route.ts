@@ -435,6 +435,14 @@ export async function POST(req: Request) {
       continue;
     }
 
+    // 27/11: negociação feita por gente (ex.: "2 acessos pelo preço de 1") — o bot NÃO responde por 24 h nesse número
+    // (não conhece o combinado e contradiria). Vai pra 'revisar' = e-mail na hora pro Marcos/Claude assumirem.
+    const humano = await sql<{ n: number }>(`select count(*)::int n from wa_mensagens where tel='${tel}' and direcao='out' and texto like '%[2x1 combinado pelo Claude]%' and criado_em > now() - interval '24 hours'`);
+    if (humano[0]?.n) {
+      await marcar(linha.id, { status: "revisar", texto: (ehAudio ? "[áudio] " : "") + texto + "\n[REVISAR: negociação manual em andamento (2x1)]" });
+      continue;
+    }
+
     if (coach) {
       const histC = await sql<{ direcao: string; texto: string }>(
         `select direcao, texto from wa_mensagens where tel='${tel}' and id < ${Number(linha.id)} order by id desc limit 16`,
