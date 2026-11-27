@@ -280,6 +280,33 @@ async function redigir(texto: string, c: Comprador | null, historico: { role: "u
   }
 }
 
+// ── RITMO HUMANO (27/11, Marcos: "tem que ter o tempo de leitura e o tempo de digitação") ──
+// 1) LEITURA: espera proporcional ao que a pessoa escreveu (~4 letras por 100 ms, de 1,5 a 7 s), aí marca como LIDA (✓✓ azul)
+//    e liga o "digitando…". O gpt já vai escrevendo a resposta em paralelo durante esse tempo.
+// 2) DIGITAÇÃO: "digitando…" por um tempo proporcional à resposta (~45 ms por letra, de 2,5 a 16 s), descontando o que já passou.
+// Tudo cabe no maxDuration (8 s da rajada + leitura + digitação < 60 s). O "digitando…" da Meta dura até 25 s ou até a mensagem sair.
+const dorme = (ms: number) => new Promise((r) => setTimeout(r, ms));
+const entre = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
+async function lidaEDigitando(msgId: string) {
+  await fetch(`https://graph.facebook.com/v21.0/${PH}/messages`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${TOKEN}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ messaging_product: "whatsapp", status: "read", message_id: msgId, typing_indicator: { type: "text" } }),
+  }).catch(() => {});
+}
+function comecaLeitura(msgId: string, textoLido: string) {
+  // print vem descrito pelo gpt (texto longo): conta como uma olhada de ~4 s, não como leitura de parágrafo
+  const n = textoLido.replace(/\[print\][^\n]*/g, "x".repeat(160)).length;
+  const tLeitura = entre(n * 25, 1500, 7000);
+  return (async () => { await dorme(tLeitura); await lidaEDigitando(msgId); return Date.now(); })();
+}
+async function pausaHumana(lido: Promise<number>, resposta: string) {
+  const inicioDigitando = await lido;
+  const tDigitacao = entre(resposta.length * 45, 2500, 16000);
+  const falta = inicioDigitando + tDigitacao - Date.now();
+  if (falta > 0) await dorme(falta);
+}
+
 async function enviar(to: string, body: string) {
   const r = await fetch(`https://graph.facebook.com/v21.0/${PH}/messages`, {
     method: "POST",
@@ -443,6 +470,12 @@ export async function POST(req: Request) {
       continue;
     }
 
+    // ritmo humano: lê tudo o que a pessoa mandou desde a última resposta (a rajada inteira), depois "digitando…"
+    const naoLidas = await sql<{ texto: string }>(
+      `select texto from wa_mensagens where tel='${tel}' and direcao='in' and id > coalesce((select max(id) from wa_mensagens where tel='${tel}' and direcao='out'), 0) order by id`,
+    );
+    const lido = comecaLeitura(m.id, naoLidas.map((x) => x.texto).join("\n") || texto);
+
     if (coach) {
       const histC = await sql<{ direcao: string; texto: string }>(
         `select direcao, texto from wa_mensagens where tel='${tel}' and id < ${Number(linha.id)} order by id desc limit 16`,
@@ -451,6 +484,7 @@ export async function POST(req: Request) {
       const rc = await redigirCoach(texto, coach, historicoC, m.nome);
       if (!rc.resposta) { await marcar(linha.id, { status: "revisar", comprador: true }); continue; }
       if (rc.avaliacao && coach.fastTrack) await guardaAvaliacao(coach, rc.avaliacao);
+      await pausaHumana(lido, rc.resposta);
       const okC = await enviar(m.from, rc.resposta);
       await fetch(`${SUPA}/rest/v1/wa_mensagens`, { method: "POST", headers: sb(), body: JSON.stringify({ tel, direcao: "out", texto: rc.resposta, status: okC ? "enviado" : "falhou" }) });
       // pedido de reembolso/cancelamento SEMPRE vai pra revisão (a Manuela acolhe, o Marcos fica sabendo)
@@ -509,6 +543,7 @@ export async function POST(req: Request) {
         `\n\n*Aulas completas (versão anterior):* ${KIWIFY}`;
       final = resposta + extra;
     }
+    await pausaHumana(lido, final);
     const ok = await enviar(m.from, final);
     await fetch(`${SUPA}/rest/v1/wa_mensagens`, {
       method: "POST",
