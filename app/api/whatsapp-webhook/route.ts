@@ -434,7 +434,13 @@ export async function POST(req: Request) {
     // Agora: falou de senha/login → senha nova, e a resposta inteira vira e-mail + senha em destaque (sem texto do modelo contradizendo).
     const pedeSenha = /senha|login|pede.*(e-?mail|cadastr)/i.test(texto);
     let final = resposta;
-    if (comprador && pedeSenha) {
+    // senha mandada há menos de 30 min: NÃO troca (a pessoa pode estar digitando a anterior); só aponta pra ela
+    const senhaRecente = comprador && pedeSenha
+      ? (await sql<{ n: number }>(`select count(*)::int n from wa_mensagens where tel='${tel}' and direcao='out' and texto like '%Senha nova:%' and criado_em > now() - interval '30 minutes'`))[0]?.n
+      : 0;
+    if (comprador && pedeSenha && senhaRecente) {
+      final = `Use a senha que eu te mandei logo acima, junto com o e-mail ${comprador.email} 👆 (copia e cola, ela tem 8 letras e números). Se aparecer alguma mensagem de erro depois de tocar em Entrar, me manda o print que eu resolvo.`;
+    } else if (comprador && pedeSenha) {
       const pass = await senhaNova(comprador.id);
       if (pass) {
         const nm = (comprador.nome || "").trim().split(/\s+/)[0];
