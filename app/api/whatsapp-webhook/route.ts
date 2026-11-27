@@ -256,10 +256,8 @@ ${MANU_KB}`;
 function ofertaAtual() {
   const bf = Date.now() < Date.parse("2026-11-28T02:59:59Z");
   return bf
-    ? "4b. OFERTA VIGENTE (use quando perguntarem preço/promoção/Black Friday ou reclamarem de valor/juros): BLACK FRIDAY no ar HOJE até 23:59 (Brasília) em fluencyroute.com.br/friends (assistir até a oferta abrir). De R$497 por R$289 no Pix (sem juros, o menor valor) ou 12x de R$29 no cartão (o cartão tem juros da plataforma). Garantia de 7 dias. Se a pessoa reclamar dos juros do cartão, mostre que no Pix não tem juros. Não invente outro desconto.
-"
-    : "4b. OFERTA VIGENTE: em fluencyroute.com.br/friends, R$29/mês em 12x no cartão (com juros da plataforma) ou R$289 no Pix (sem juros). Garantia de 7 dias. A Black Friday já acabou (foi até 27/11). Não invente desconto.
-";
+    ? "4b. OFERTA VIGENTE (use quando perguntarem preço/promoção/Black Friday ou reclamarem de valor/juros): BLACK FRIDAY no ar HOJE até 23:59 (Brasília) em fluencyroute.com.br/friends (assistir até a oferta abrir). De R$497 por R$289 no Pix (sem juros, o menor valor) ou 12x de R$29 no cartão (o cartão tem juros da plataforma). Garantia de 7 dias. Se a pessoa reclamar dos juros do cartão, mostre que no Pix não tem juros. Não invente outro desconto.\n"
+    : "4b. OFERTA VIGENTE: em fluencyroute.com.br/friends, R$29/mês em 12x no cartão (com juros da plataforma) ou R$289 no Pix (sem juros). Garantia de 7 dias. A Black Friday já acabou (foi até 27/11). Não invente desconto.\n";
 }
 
 async function redigir(texto: string, c: Comprador | null, historico: { role: "user" | "assistant"; content: string }[]) {
