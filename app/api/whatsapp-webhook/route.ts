@@ -10,6 +10,9 @@ import { NextResponse } from "next/server";
 import crypto from "node:crypto";
 import { MANU_KB } from "../../lib/manu-kb";
 
+// espera de 8 s da rajada + leitura de print + resposta do gpt-4.1: folga pra não cortar no meio
+export const maxDuration = 60;
+
 const SUPA = "https://petrtewismhpzidcmmwb.supabase.co";
 const PH = process.env.WA_CLOUD_PHONE_ID || "";
 const TOKEN = process.env.WA_CLOUD_TOKEN || "";
@@ -370,6 +373,16 @@ export async function POST(req: Request) {
     });
     const linha = ins.ok ? (await ins.json())[0] : null;
     if (!linha) continue; // a Meta reenvia: duplicado
+
+    // 27/11: a cliente mandou 3 prints + 1 texto em sequência e o bot respondeu 4 vezes, se contradizendo.
+    // Agora espera uns segundos: se chegou outra mensagem do mesmo número depois desta, só a ÚLTIMA responde
+    // (e ela enxerga as anteriores no histórico). Uma resposta por rajada.
+    await new Promise((r) => setTimeout(r, 8000));
+    const ult = await sql<{ m: number }>(`select max(id)::int m from wa_mensagens where tel='${tel}' and direcao='in'`);
+    if ((ult[0]?.m || 0) > Number(linha.id)) {
+      await marcar(linha.id, { status: "agrupado" });
+      continue;
+    }
 
     // trava anti-abuso: até 30 respostas automáticas por número por hora
     const n = await sql<{ n: number }>(`select count(*)::int n from wa_mensagens where tel='${tel}' and direcao='out' and criado_em > now() - interval '1 hour'`);
