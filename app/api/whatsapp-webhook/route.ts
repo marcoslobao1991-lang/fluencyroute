@@ -256,16 +256,50 @@ async function marcar(id: number, campos: Record<string, unknown>) {
 
 type Msg = { from: string; id: string; type: string; text?: { body: string }; audio?: { id: string }; voice?: { id: string }; button?: { text: string }; interactive?: { button_reply?: { title: string } }; nome?: string };
 
+// 27/11/2026: a Meta bloqueou os envios (cartão do WhatsApp com erro, 141006) e ninguém viu por um dia: o envio
+// devolvia id "ok" e a falha só chegava depois, aqui no webhook (statuses[].status = "failed"), e era ignorada.
+// Agora cada falha vira linha em wa_mensagens (status 'falhou_meta') e manda 1 e-mail pro Marcos por hora no máximo.
+type Falha = { id: string; recipient_id?: string; errors?: { code?: number; title?: string; message?: string; error_data?: { details?: string } }[] };
+async function avisaFalhas(fs: Falha[]) {
+  for (const s of fs) {
+    const er = s.errors?.[0] || {};
+    await fetch(`${SUPA}/rest/v1/wa_mensagens?on_conflict=wa_id`, {
+      method: "POST",
+      headers: { ...sb(), Prefer: "resolution=ignore-duplicates" },
+      body: JSON.stringify({ wa_id: `falha-${s.id}`, tel: (s.recipient_id || "").replace(/\D/g, ""), direcao: "out", status: "falhou_meta",
+        texto: `[FALHA META ${er.code ?? "?"}] ${er.title || ""} ${er.error_data?.details || er.message || ""}`.trim().slice(0, 500) }),
+    });
+  }
+  const KEY = process.env.RESEND_API_KEY;
+  if (!KEY) return;
+  const rec = await sql<{ n: number }>(`select count(*)::int n from wa_mensagens where status='falhou_meta' and criado_em > now() - interval '1 hour'`);
+  if ((rec[0]?.n || 0) > fs.length) return; // já avisou nesta hora
+  const er = fs[0].errors?.[0] || {};
+  await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${KEY}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      from: "Rota da Fluência <contato@acesso.fluencyroute.com.br>",
+      to: "marcoslobao1991@gmail.com",
+      subject: `⚠️ WhatsApp oficial: a Meta recusou ${fs.length} mensagem(ns) (erro ${er.code ?? "?"})`,
+      html: `<p>A Meta recusou mensagens do WhatsApp oficial da Fluency Route (+55 11 95609-1942).</p><p><b>Erro ${er.code ?? "?"}:</b> ${er.title || ""}<br>${er.error_data?.details || er.message || ""}</p><p>Se for <b>131042</b> ou <b>141006</b>: é a forma de pagamento do WhatsApp (WhatsApp Manager → Configurações de pagamento), separada da conta de anúncios.</p><p>Lista: <code>select * from wa_mensagens where status='falhou_meta' order by id desc</code>. Este aviso sai no máximo 1 vez por hora.</p>`,
+    }),
+  });
+}
+
 export async function POST(req: Request) {
   const ev = await req.json().catch(() => ({}));
   const msgs: Msg[] = [];
+  const falhas: Falha[] = [];
   for (const e of ev.entry || [])
     for (const c of e.changes || []) {
       const v = c.value || {};
       if (v.metadata?.phone_number_id && v.metadata.phone_number_id !== PH) continue;
       const nome = v.contacts?.[0]?.profile?.name;
       for (const m of v.messages || []) msgs.push({ ...m, nome });
+      for (const s of v.statuses || []) if (s.status === "failed") falhas.push(s);
     }
+  if (falhas.length) await avisaFalhas(falhas).catch((e) => console.error("[WA] aviso de falha:", e?.message));
 
   for (const m of msgs) {
     const tel = m.from.replace(/\D/g, "");
