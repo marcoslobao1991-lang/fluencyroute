@@ -364,7 +364,8 @@ export async function POST(req: Request) {
     if (comprador && !jaMandou && falaDeAcesso) {
       const pass = await senhaNova(comprador.id);
       extra =
-        `\n\n*App Friends (celular):* https://fluencyroute.com.br/acesso\nDigite: ${comprador.email}` +
+        // 27/11: compradores diziam "não abre" depois de digitar o e-mail. Link de 1 toque (o mesmo do e-mail de backup) entra direto.
+        `\n\n*App Friends (celular), é só tocar:* https://fluencyroute.com.br/acesso?email=${encodeURIComponent(comprador.email)}&auto=1\nSe abrir estranho dentro do WhatsApp: 3 pontinhos > Abrir no Chrome/Safari.` +
         (pass ? `\nOu entre com e-mail e senha em app.fluencyroute.com.br/manu\nSenha nova: ${pass}` : "") +
         `\n\n*Essential Musics (bônus, mesmo login):* https://app.fluencyroute.com.br/?cantado=1` +
         `\n\n*Aulas completas (versão anterior):* ${KIWIFY}`;
