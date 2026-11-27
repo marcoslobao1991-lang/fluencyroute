@@ -278,6 +278,30 @@ async function enviar(to: string, body: string) {
 
 async function marcar(id: number, campos: Record<string, unknown>) {
   await fetch(`${SUPA}/rest/v1/wa_mensagens?id=eq.${id}`, { method: "PATCH", headers: sb(), body: JSON.stringify(campos) });
+  if (campos.status === "revisar") await avisaRevisar(id).catch(() => {});
+}
+
+// 27/11 (Marcos: "deixa a parada redonda, resolvendo tudo"): o que o bot não resolve sozinho (status 'revisar':
+// reembolso, erro da OpenAI, caso que precisa de gente) chega na hora por e-mail, com a conversa, em vez de ficar parado no banco.
+async function avisaRevisar(id: number) {
+  const KEY = process.env.RESEND_API_KEY;
+  if (!KEY) return;
+  const l = (await sql<{ tel: string; nome: string | null; texto: string }>(`select tel, nome, texto from wa_mensagens where id = ${Number(id)}`))[0];
+  if (!l) return;
+  const hist = await sql<{ direcao: string; texto: string }>(`select direcao, texto from wa_mensagens where tel='${l.tel.replace(/\D/g, "")}' order by id desc limit 8`);
+  const esc = (t: string) => String(t || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/\n/g, "<br>");
+  const conversa = hist.reverse().map((h) => `<p style="margin:6px 0"><b>${h.direcao === "in" ? "Cliente" : "Bot"}:</b> ${esc(h.texto).slice(0, 700)}</p>`).join("");
+  const reembolso = /reembols|cancel|devolu|estorno|refund|chargeback/i.test(l.texto);
+  await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${KEY}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      from: "Rota da Fluência <contato@acesso.fluencyroute.com.br>",
+      to: "marcoslobao1991@gmail.com",
+      subject: `${reembolso ? "🔴 REEMBOLSO" : "🟡 Revisar"} WhatsApp · ${l.nome || l.tel} · ${l.texto.replace(/\s+/g, " ").slice(0, 60)}`,
+      html: `<p>O bot do WhatsApp oficial precisa de você nessa conversa.</p><p><b>${esc(l.nome || "")}</b> · <a href="https://wa.me/${l.tel}">wa.me/${l.tel}</a></p>${conversa}<p style="color:#888;font-size:12px">Pedido de Claude: "olha as conversas em revisar" que eu pego daqui.</p>`,
+    }),
+  });
 }
 
 type Msg = { from: string; id: string; type: string; text?: { body: string }; audio?: { id: string }; voice?: { id: string }; image?: { id: string; caption?: string }; document?: { id: string; caption?: string; mime_type?: string }; button?: { text: string }; interactive?: { button_reply?: { title: string } }; nome?: string };
@@ -378,7 +402,9 @@ export async function POST(req: Request) {
       `select direcao, texto from wa_mensagens where tel='${tel}' and id < ${Number(linha.id)} order by id desc limit 12`,
     );
     const historico = hist.reverse().map((h) => ({ role: (h.direcao === "in" ? "user" : "assistant") as "user" | "assistant", content: h.texto }));
-    const { resposta, revisar, motivo } = await redigir(texto, comprador, historico);
+    let { resposta, revisar, motivo } = await redigir(texto, comprador, historico);
+    // 27/11: reembolso/cancelamento SEMPRE vai pra revisão também aqui (o bot acolhe e resolve o motivo, o Marcos fica sabendo na hora)
+    if (/reembols|cancel|devolu|estorno|chargeback/i.test(texto)) { revisar = true; motivo = motivo || "pedido de reembolso"; }
     if (!resposta) {
       await marcar(linha.id, { status: "revisar", comprador: !!comprador });
       continue;
