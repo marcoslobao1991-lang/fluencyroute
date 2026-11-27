@@ -428,16 +428,29 @@ export async function POST(req: Request) {
     const jaMandou = hist.some((h) => h.direcao === "out" && /Senha nova:/.test(h.texto));
     // 26/11 Marcos: atendimento normal. Dados de acesso só quando a pessoa FALA de acesso, nunca no "oi".
     const falaDeAcesso = /acess|entrar|login|senha|app\b|aplicativo|aula|kiwify|link|n[aã]o consigo|n[aã]o recebi|n[aã]o abre|abrir|carreg|trav|\[print\]/i.test(texto);
-    if (comprador && !jaMandou && falaDeAcesso) {
+    // 27/11: 2 compradores travaram numa tela de login pedindo SENHA (o link abre a conta só no navegador do WhatsApp;
+    // no Safari/Chrome o app pede e-mail+senha). O bot mandava a senha escondida no fim e ainda dizia "não precisa de senha".
+    // Agora: falou de senha/login → senha nova, e a resposta inteira vira e-mail + senha em destaque (sem texto do modelo contradizendo).
+    const pedeSenha = /senha|login|pede.*(e-?mail|cadastr)/i.test(texto);
+    let final = resposta;
+    if (comprador && pedeSenha) {
+      const pass = await senhaNova(comprador.id);
+      if (pass) {
+        const nm = (comprador.nome || "").trim().split(/\s+/)[0];
+        final =
+          `${nm ? nm + ", " : ""}na tela que pede e-mail e senha, digita exatamente isto:\n\n📧 E-mail: ${comprador.email}\n🔒 Senha: ${pass}\n\nE toca em *Entrar*. Vale pro app Friends, pro Essential Musics e pra tela da Manu.` +
+          `\n\nDepois de entrar, adiciona na tela de início (Android: 3 pontinhos > "Adicionar à tela inicial"; iPhone: compartilhar > "Adicionar à Tela de Início"). Aí você entra direto sempre.\n\nMe fala se entrou? 😊\n\nSenha nova: (enviada)`;
+      }
+    } else if (comprador && !jaMandou && falaDeAcesso) {
       const pass = await senhaNova(comprador.id);
       extra =
         // 27/11: compradores diziam "não abre" depois de digitar o e-mail. Link de 1 toque (o mesmo do e-mail de backup) entra direto.
         `\n\n*App Friends (celular), é só tocar:* https://fluencyroute.com.br/acesso?email=${encodeURIComponent(comprador.email)}&auto=1\nSe abrir estranho dentro do WhatsApp: 3 pontinhos > Abrir no Chrome/Safari.` +
-        (pass ? `\nOu entre com e-mail e senha em app.fluencyroute.com.br/manu\nSenha nova: ${pass}` : "") +
+        (pass ? `\n\n*Se alguma tela pedir e-mail e senha:*\n📧 ${comprador.email}\n🔒 ${pass}\nSenha nova: (enviada)` : "") +
         `\n\n*Essential Musics (bônus, mesmo login):* https://app.fluencyroute.com.br/?cantado=1` +
         `\n\n*Aulas completas (versão anterior):* ${KIWIFY}`;
+      final = resposta + extra;
     }
-    const final = resposta + extra;
     const ok = await enviar(m.from, final);
     await fetch(`${SUPA}/rest/v1/wa_mensagens`, {
       method: "POST",
