@@ -166,6 +166,30 @@ async function guardaAvaliacao(c: Coach, av: { nota: number; obs: string }) {
 }
 
 // áudio do WhatsApp → texto
+// 27/11: o bot respondia "vi o print" sem ver nada (inventou um aviso de microfone). Agora ele LÊ o print:
+// baixa a imagem da Meta e o gpt-4.1 descreve o que aparece na tela (texto, erro, botões). A descrição vira a mensagem.
+async function lerImagem(mediaId: string, legenda = "") {
+  try {
+    const meta = await (await fetch(`https://graph.facebook.com/v21.0/${mediaId}`, { headers: { Authorization: `Bearer ${TOKEN}` } })).json();
+    if (!meta?.url) return null;
+    const bin = Buffer.from(await (await fetch(meta.url, { headers: { Authorization: `Bearer ${TOKEN}` } })).arrayBuffer());
+    const url = `data:${meta.mime_type || "image/jpeg"};base64,${bin.toString("base64")}`;
+    const r = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ model: "gpt-4.1", max_tokens: 400, messages: [{ role: "user", content: [
+        { type: "text", text: "Um aluno mandou este print no suporte. Descreva objetivamente o que aparece: qual app/site/tela, todo texto visível (principalmente mensagens de erro, avisos e botões), e se parece travado, em branco ou carregando. Não invente o que não dá pra ler. Português." },
+        { type: "image_url", image_url: { url } },
+      ] }] }),
+    });
+    const j = await r.json().catch(() => ({}));
+    const d = j?.choices?.[0]?.message?.content?.trim();
+    return d ? `[print] ${legenda ? "legenda: " + legenda + " · " : ""}O que aparece na imagem: ${d}` : null;
+  } catch {
+    return null;
+  }
+}
+
 async function transcrever(mediaId: string, lang = "pt") {
   try {
     const meta = await (await fetch(`https://graph.facebook.com/v21.0/${mediaId}`, { headers: { Authorization: `Bearer ${TOKEN}` } })).json();
@@ -200,6 +224,8 @@ O QUE VOCÊ FAZ:
    - Essential Musics (bônus; dentro do app aparece como "Inglês Cantado"): os blocos essenciais do inglês em música. Fica no MESMO app, no card BÔNUS da tela inicial, ou direto em app.fluencyroute.com.br/?cantado=1 com o mesmo login.
    - Acesso Vitalício: é o mesmo app, só que sem prazo de validade. Não tem outro login.
    - Não consegue entrar: pergunte qual e-mail usou NA COMPRA (pode ser diferente do e-mail do dia a dia), peça pra abrir fluencyroute.com.br/acesso no Chrome ou Safari (não dentro do Instagram nem do app de e-mail) e digitar esse e-mail. Se disser que não tem compra nesse e-mail, peça outro e-mail possível; se ainda assim não achar, marque revisar.
+   - "Não abre"/"não consigo acessar" de COMPRADOR: o sistema já anexa no fim da sua resposta um link de 1 toque que entra direto na conta. Diga pra tocar nele (no iPhone, abrir no Safari; no Android, no Chrome se abrir estranho dentro do WhatsApp) e pergunte o que aparece. Nunca encerre sem a pessoa confirmar que entrou.
+   - PRINTS: você só sabe o que está na imagem pelo texto "[print] O que aparece na imagem: ...". Responda com base nisso. Se vier "[mandou uma imagem que não deu pra abrir" ou "[mandou image]", NUNCA diga que viu: peça pra pessoa contar o que aparece na tela.
    OUTROS PRODUTOS (compra pela Hotmart; responda no idioma em que a pessoa escrever):
    - Espanhol (Essential Spanish Fluency / Netflix Trick, pra quem fala inglês): app em fluencyroute.com.br/spanish-app.html; o link pessoal chega no e-mail da Hotmart "Your Essential Spanish Fluency app is ready". Sem conta, o progresso fica salvo só naquele aparelho; pra não perder, usar "Save my progress" dentro do app.
    - Ruta de la Fluidez (inglês pra quem fala espanhol): app em ruta-fluency-es.vercel.app/manu?lang=es com os dados do e-mail "Tu acceso llegó", e a aula "EMPIEZA AQUÍ" na área de membros da Hotmart. Esqueceu a senha ou não achou o e-mail: marque revisar.
@@ -254,7 +280,7 @@ async function marcar(id: number, campos: Record<string, unknown>) {
   await fetch(`${SUPA}/rest/v1/wa_mensagens?id=eq.${id}`, { method: "PATCH", headers: sb(), body: JSON.stringify(campos) });
 }
 
-type Msg = { from: string; id: string; type: string; text?: { body: string }; audio?: { id: string }; voice?: { id: string }; button?: { text: string }; interactive?: { button_reply?: { title: string } }; nome?: string };
+type Msg = { from: string; id: string; type: string; text?: { body: string }; audio?: { id: string }; voice?: { id: string }; image?: { id: string; caption?: string }; document?: { id: string; caption?: string; mime_type?: string }; button?: { text: string }; interactive?: { button_reply?: { title: string } }; nome?: string };
 
 // 27/11/2026: a Meta bloqueou os envios (cartão do WhatsApp com erro, 141006) e ninguém viu por um dia: o envio
 // devolvia id "ok" e a falha só chegava depois, aqui no webhook (statuses[].status = "failed"), e era ignorada.
@@ -307,6 +333,8 @@ export async function POST(req: Request) {
     // aluno do Fast-Track: número já ligado, ou chegando agora com o código FT- (a Manuela ouve áudio em espanhol)
     let coach = await coachPorTelefone(tel);
     if (!coach && texto) coach = await coachPorCodigo(texto, tel);
+    if (!texto && m.image?.id) texto = (await lerImagem(m.image.id, m.image.caption || "")) || "[mandou uma imagem que não deu pra abrir: peça pra descrever o que aparece na tela]";
+    if (!texto && m.document?.id && /image/.test(m.document.mime_type || "")) texto = (await lerImagem(m.document.id, m.document.caption || "")) || "";
     if (!texto && (m.audio?.id || m.voice?.id)) texto = (await transcrever((m.audio?.id || m.voice?.id)!, coach ? "" : "pt")) || "";
     const ehAudio = !!(m.audio?.id || m.voice?.id);
     if (!texto) texto = ehAudio ? "[mandou um áudio que não deu pra transcrever]" : `[mandou ${m.type}]`;
@@ -360,7 +388,7 @@ export async function POST(req: Request) {
     let extra = "";
     const jaMandou = hist.some((h) => h.direcao === "out" && /Senha nova:/.test(h.texto));
     // 26/11 Marcos: atendimento normal. Dados de acesso só quando a pessoa FALA de acesso, nunca no "oi".
-    const falaDeAcesso = /acess|entrar|login|senha|app\b|aplicativo|aula|kiwify|link|n[aã]o consigo|n[aã]o recebi/i.test(texto);
+    const falaDeAcesso = /acess|entrar|login|senha|app\b|aplicativo|aula|kiwify|link|n[aã]o consigo|n[aã]o recebi|n[aã]o abre|abrir|carreg|trav|\[print\]/i.test(texto);
     if (comprador && !jaMandou && falaDeAcesso) {
       const pass = await senhaNova(comprador.id);
       extra =

@@ -284,6 +284,28 @@ async function sendWhatsAppTemplate(phone: string, template: string, params: str
   })
 }
 
+/* acesso_um_toque: {{1}}=nome no corpo, botão 0 = sufixo com o e-mail (entra direto). true se a Meta aceitou. */
+async function sendAcessoUmToque(phone: string, nome: string, email: string): Promise<boolean> {
+  if (!waPronto()) return false
+  const to = phone.startsWith('55') ? phone : `55${phone}`
+  const r = await fetch(`https://graph.facebook.com/v21.0/${WA_PHONE_ID}/messages`, {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${WA_TOKEN}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      messaging_product: 'whatsapp', to, type: 'template',
+      template: {
+        name: 'acesso_um_toque', language: { code: 'pt_BR' },
+        components: [
+          { type: 'body', parameters: [{ type: 'text', text: nome }] },
+          { type: 'button', sub_type: 'url', index: '0', parameters: [{ type: 'text', text: encodeURIComponent(email.toLowerCase()) }] },
+        ],
+      },
+    }),
+  })
+  const j = await r.json().catch(() => ({}))
+  return !!j?.messages?.[0]?.id
+}
+
 // ── HMAC signature verification (Kiwify signs with SHA1) ──
 const KIWIFY_WEBHOOK_TOKEN = process.env.KIWIFY_WEBHOOK_TOKEN || ''
 
@@ -682,7 +704,10 @@ Investigar: Meta Events Manager → Diagnóstico`
     if (phone) {
       // 26/11/2026: acesso_d0 (com senha) foi recusado pela Meta (categoria). Template novo sem senha,
       // botão → fluencyroute.com.br/acesso (entra só com o e-mail). Número oficial +55 11 95609-1942.
-      await sendWhatsAppTemplate(phone, 'acesso_app_e_aulas', [
+      // 27/11/2026: compradores diziam "não abre" (travavam em digitar o e-mail no /acesso). Template novo acesso_um_toque:
+      // o botão já leva /acesso?auto=1&email=<e-mail> e entra direto. Se a Meta recusar (ainda não aprovado etc.), cai no antigo.
+      const okUmToque = await sendAcessoUmToque(phone, firstName || 'tudo bem', email).catch(() => false)
+      if (!okUmToque) await sendWhatsAppTemplate(phone, 'acesso_app_e_aulas', [
         firstName || 'tudo bem',
         email,
       ]).catch(e => console.error(`[WhatsApp] Falha aluno ${phone}:`, e.message))

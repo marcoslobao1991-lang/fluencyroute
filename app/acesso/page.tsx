@@ -106,6 +106,15 @@ export default function AcessoPage() {
                 contato@acesso.fluencyroute.com.br.
               </p>
             )}
+            {/* 27/11: se não achar a compra ou der erro, botão pro WhatsApp oficial (o bot manda o link de 1 toque) */}
+            {(estado === 'nao_achou' || estado === 'erro') && (
+              <a
+                href={'https://wa.me/5511956091942?text=' + encodeURIComponent('Oi! Não consegui entrar no app. Meu e-mail da compra é: ' + email)}
+                style={{ display: 'block', textAlign: 'center', marginTop: 12, background: '#25D366', color: '#fff', fontWeight: 900, fontSize: 15, padding: '14px 18px', borderRadius: 12, textDecoration: 'none' }}
+              >
+                Falar no WhatsApp: a gente libera na hora
+              </a>
+            )}
           </>
         )}
         <p style={{ fontSize: 12, color: '#9aa', marginTop: 26 }}>
