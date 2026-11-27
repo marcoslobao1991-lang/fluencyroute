@@ -238,7 +238,7 @@ O QUE VOCÊ FAZ:
 2b. COMPRADOR FRUSTRADO OU PERDIDO ("difícil", "cansativo", "não entendi como usa", "Anki", "não sei por onde começo"): isso vira reembolso se ficar no ar. NÃO pergunte "quer que eu te mostre?": já mostre. Dê o próximo passo concreto de hoje (abrir o app → "Treinar o minuto 1" → ouvir sem legenda e marcar quanto entendeu → repetir com legenda até colar → testar sem legenda; uns 10 minutos), diga que o Anki NÃO é necessário (o app já faz a repetição espaçada) e termine pedindo pra contar o resultado. Nunca diga que um conteúdo não existe no app se a pessoa diz que está vendo.
 3. Quando a pessoa pedir orientação de estudo ("por onde começo", "como treino", "tô travado"): aí sim oriente pelo método (começa pelo minuto 1 de Friends no app; 70% troca de trecho; 100% fecha a meta).
 4. Reembolso: não negue, não prometa, não discuta, não peça pra cancelar. Diga que o pedido é respeitado e segue normal, e pergunte o que aconteceu pra ajudar. Se for problema de acesso ou de "não sei por onde começar", resolva na hora. Você NÃO processa reembolso e não sabe se a pessoa já pediu: nunca diga "já está encaminhado". Se ela ainda não pediu, explique que o pedido é feito pela plataforma onde comprou (Kiwify: no e-mail de confirmação da compra; Hotmart: pela própria Hotmart), dentro dos 7 dias de garantia.
-5. Interessado que não comprou: responda a dúvida dele. Só mencione fluencyroute.com.br/friends se ele perguntar como comprar ou conhecer o curso. Nunca invente preço, desconto, bônus ou prazo.
+${ofertaAtual()}5. Interessado que não comprou: responda a dúvida dele. Só mencione fluencyroute.com.br/friends se ele perguntar como comprar ou conhecer o curso. Nunca invente preço, desconto, bônus ou prazo.
 
 QUEM ESTÁ FALANDO:
 ${c ? `COMPRADOR (${c.produtos}), comprou em ${c.comprou_em}, último login no app: ${c.ultimo_login || "NUNCA ENTROU"}. Os dados de acesso e os 2 links já vão anexados automaticamente na 1ª resposta da conversa quando necessário: não escreva senha.` : "NÃO identificado como comprador por este número. Se a pessoa disser que comprou, peça o e-mail usado na compra (pode ser outro número no checkout)."}
@@ -249,6 +249,17 @@ Responda SOMENTE em JSON: {"resposta": "texto da mensagem", "revisar": false, "m
 
 ===== CONHECIMENTO: O MÉTODO NAS PALAVRAS DO MARCOS (aulas transcritas) =====
 ${MANU_KB}`;
+}
+
+// 27/11: o bot disse a um lead que "não teve Black Friday", com o banner no ar. O preço vigente agora entra no prompt.
+// Black Friday da /friends: até 27/11 23:59 (Brasília). Depois disso volta ao preço normal (mesmo checkout DlmRal3).
+function ofertaAtual() {
+  const bf = Date.now() < Date.parse("2026-11-28T02:59:59Z");
+  return bf
+    ? "4b. OFERTA VIGENTE (use quando perguntarem preço/promoção/Black Friday ou reclamarem de valor/juros): BLACK FRIDAY no ar HOJE até 23:59 (Brasília) em fluencyroute.com.br/friends (assistir até a oferta abrir). De R$497 por R$289 no Pix (sem juros, o menor valor) ou 12x de R$29 no cartão (o cartão tem juros da plataforma). Garantia de 7 dias. Se a pessoa reclamar dos juros do cartão, mostre que no Pix não tem juros. Não invente outro desconto.
+"
+    : "4b. OFERTA VIGENTE: em fluencyroute.com.br/friends, R$29/mês em 12x no cartão (com juros da plataforma) ou R$289 no Pix (sem juros). Garantia de 7 dias. A Black Friday já acabou (foi até 27/11). Não invente desconto.
+";
 }
 
 async function redigir(texto: string, c: Comprador | null, historico: { role: "user" | "assistant"; content: string }[]) {
