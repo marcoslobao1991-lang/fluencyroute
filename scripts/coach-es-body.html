@@ -1,0 +1,146 @@
+</style>
+</head>
+<body>
+<div class="w" id="w">
+  <p class="brand">FLUENCY <b>ROUTE</b> · <span id="marca">FAST-TRACK</span></p>
+  <div id="load" class="card"><p class="soft">Cargando tu plan…</p></div>
+  <div id="erro" class="card" hidden><h2>No pudimos abrir tu plan</h2><p class="soft" id="erroTx">Abre de nuevo el enlace del correo del Fast-Track. Si sigue pasando, responde ese correo y lo arreglamos.</p></div>
+
+  <div id="onb" hidden>
+    <div class="card">
+      <span class="k" id="onbK">Paso 1 de 3</span>
+      <h1 id="onbQ"></h1>
+      <div class="ops" id="onbOps"></div>
+    </div>
+  </div>
+
+  <div id="dash" hidden style="display:grid;gap:14px">
+    <div class="card">
+      <div class="row"><span class="k" id="fase"></span><span class="mut" id="streak"></span></div>
+      <div class="row"><span class="big" id="dia"></span><span class="soft">de 90</span></div>
+      <div class="bar"><i id="barra" style="width:0"></i></div>
+      <div class="wk" id="semana"></div>
+    </div>
+    <div class="card">
+      <span class="k">Misión de hoy</span>
+      <h2 id="mTit"></h2>
+      <ul class="tasks" id="mTasks"></ul>
+      <a class="btn g" id="abreApp" href="https://ruta-fluency-es.vercel.app" target="_blank" rel="noopener">Abrir mi app de inglés ▶</a>
+      <button class="btn s" id="feito" type="button">Marcar el día como hecho</button>
+      <p class="done" id="feitoOk" hidden>✓ Día completado. Nos vemos mañana.</p>
+    </div>
+    <div class="card">
+      <span class="k" id="chK">Reto de la semana</span>
+      <h2 id="chTit"></h2>
+      <p class="soft" id="chTx"></p>
+    </div>
+    <div class="card" id="acCard">
+      <span class="k" id="acK">Accent Check semanal</span>
+      <h2>Di estas 5 frases. Nuestra I.A. califica cada palabra.</h2>
+      <p class="mut">Toca ▶ para escucharla, luego 🎙 y léela en voz alta. Verde está bien, amarillo casi, rojo hay que practicar.</p>
+      <div id="frases" style="display:grid;gap:10px"></div>
+      <div id="acRes" hidden class="sent"><span class="k">Tu nota de la semana</span><div class="big" id="acMedia"></div><p class="tip" id="acTip"></p></div>
+      <div id="trendBox" hidden><span class="k">Tu pronunciación, semana a semana</span><div class="trend" id="trend" style="margin-top:24px"></div></div>
+    </div>
+    <div class="card">
+      <span class="k">También incluido</span>
+      <p class="soft">Todas las escenas nuevas que agreguemos a la app llegan a tu cuenta automáticamente.</p>
+      <p class="mut">¿Dudas? Responde el correo del Fast-Track. Lo lee una persona de verdad.</p>
+    </div>
+  </div>
+</div>
+<script>
+/*PRON*/
+(function(){
+var $=function(i){return document.getElementById(i)};
+var q=new URLSearchParams(location.search),K=q.get('k')||'';
+try{if(K)localStorage.setItem('coach_es_k',K);else K=localStorage.getItem('coach_es_k')||''}catch(e){}
+var S={data:{}},salvaT=null;
+function salva(){clearTimeout(salvaT);salvaT=setTimeout(function(){fetch('/api/es-coach',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({k:K,data:S.data})}).catch(function(){})},400)}
+
+// ── plan de 90 días (LATAM, 28/11/2026): mismas 5 fases del Fast-Track del español, enseñando INGLÉS ──
+var FASES=[
+ {de:1,ate:21,nome:'Fase 1 · Entrena el oído',m:['Mira 1 escena en la app SIN subtítulos, 3 veces seguidas.','Activa los subtítulos en inglés y mírala otra vez. Fíjate en las palabras que se te escaparon.','Mírala una última vez sin subtítulos. Cuenta cuántas palabras más entiendes.']},
+ {de:22,ate:42,nome:'Fase 2 · Entrena la boca',m:['Elige 1 escena y haz shadowing: reproduce una línea, pausa y repítela en voz alta.','Haz el ejercicio de pronunciación con I.A. en 5 líneas de esa escena.','Grábate diciendo la escena completa una vez, sin parar.']},
+ {de:43,ate:63,nome:'Fase 3 · Conversaciones reales',m:['Haz 1 lección de conversación en la app y di cada respuesta en voz alta.','Toma las 3 frases más útiles del día y usa cada una en una oración tuya.','Narra 2 minutos de tu día en inglés, en voz alta, mientras haces otra cosa.']},
+ {de:64,ate:84,nome:'Fase 4 · Inmersión',m:['Mira 10 minutos seguidos de un episodio en inglés, solo con subtítulos en inglés.','Pausa 3 veces y di lo que acaba de pasar, en inglés.','Piensa en inglés 5 minutos: describe lo que ves a tu alrededor, nada de español.']},
+ {de:85,ate:90,nome:'Fase 5 · Graduación',m:['Mira otra vez tu primera escena sin subtítulos y nota cuánto entiendes ahora.','Grábate 2 minutos hablando de ti en inglés.','Haz el Accent Check de esta semana y compáralo con la semana 1.']}
+];
+var DESAFIOS=['Di "good morning" frente al espejo cada mañana de esta semana, con buen acento.','Pon tu celular en inglés por 3 días. Sí, en serio.','Apréndete de memoria la primera línea de tu escena favorita y dila 10 veces al día.','Pide tu café en inglés en tu cabeza, todos los días.','Haz shadowing de los mismos 30 segundos de una escena hasta decirlos a velocidad normal.','Escribe 3 oraciones al día sobre tu día, en inglés, y léelas en voz alta.','Escucha una escena solo con el audio (sin pantalla) y cuéntate qué pasó.','Mándate un audio de 1 minuto hablando en inglés.','Describe tu casa en voz alta en inglés: cada cuarto, cada objeto que sepas.','Canta una canción en inglés hasta saberte el coro.','Ten una "conversación" de 3 minutos contigo: haz preguntas y respóndelas.','Cuenta la trama de un episodio en inglés, en menos de 2 minutos.','Grábate un video de 2 minutos presentándote en inglés. Compáralo con el día 1.'];
+var FRASES=[
+ [['Good morning, how are you?','Buenos días, ¿cómo estás?'],['My name is Ana and I live in Mexico.','Me llamo Ana y vivo en México.'],['What do you want to do today?','¿Qué quieres hacer hoy?'],['Sorry, can you say that again?','Perdón, ¿puedes repetirlo?'],['I\'m learning English.','Estoy aprendiendo inglés.']],
+ [['Where is the bathroom?','¿Dónde está el baño?'],['Can I get a coffee, please?','¿Me das un café, por favor?'],['How much is this?','¿Cuánto cuesta esto?'],['I\'m really hungry.','Tengo mucha hambre.'],['See you tomorrow.','Nos vemos mañana.']],
+ [['What happened last night?','¿Qué pasó anoche?'],['I have no idea.','No tengo idea.'],['That\'s not what I meant.','Eso no es lo que quise decir.'],['Let\'s see what happens.','Vamos a ver qué pasa.'],['You\'re totally right.','Tienes toda la razón.']],
+ [['I\'m planning a trip to New York.','Estoy planeando un viaje a Nueva York.'],['Can I ask you a question?','¿Te puedo hacer una pregunta?'],['I love this city.','Me encanta esta ciudad.'],['It\'s really hot today.','Hace mucho calor hoy.'],['What do you do for a living?','¿A qué te dedicas?']],
+ [['Sorry I\'m late.','Perdón por llegar tarde.'],['What do you recommend?','¿Qué me recomiendas?'],['I\'m really tired.','Estoy muy cansado.'],['We\'re almost done.','Ya casi terminamos.'],['Don\'t worry about it.','No te preocupes.']],
+ [['What\'s your favorite show?','¿Cuál es tu serie favorita?'],['To be honest, I don\'t like it.','La verdad, no me gusta.'],['I need to think about it.','Necesito pensarlo.'],['That\'s a great idea!','¡Qué buena idea!'],['Tomorrow I\'ll start again.','Mañana empiezo de nuevo.']],
+ [['Could you speak more slowly?','¿Podrías hablar más despacio?'],['I agree with you.','Estoy de acuerdo contigo.'],['It depends on what you want.','Depende de lo que quieras.'],['Sounds perfect to me.','Me parece perfecto.'],['Why don\'t we go together?','¿Por qué no vamos juntos?']],
+ [['Yesterday I went to the supermarket.','Ayer fui al supermercado.'],['I had never seen anything like that.','Nunca había visto algo así.'],['If I had time, I would go.','Si tuviera tiempo, iría.'],['I hope it rains tomorrow.','Ojalá llueva mañana.'],['What I mean is yes.','Lo que quiero decir es que sí.']],
+ [['I\'d like to book a table for two.','Quisiera reservar una mesa para dos.'],['How long have you been here?','¿Cuánto tiempo llevas aquí?'],['I still haven\'t decided.','Todavía no lo he decidido.'],['It was nice meeting you.','Fue un gusto conocerte.'],['Take care.','Cuídate.']],
+ [['What would you do in my shoes?','¿Qué harías en mi lugar?'],['I\'ve always wanted to learn English.','Siempre he querido aprender inglés.'],['I totally forgot.','Se me olvidó por completo.'],['It\'s not as hard as it looks.','No es tan difícil como parece.'],['Let\'s talk about something else.','Hablemos de otra cosa.']],
+ [['I was about to call you.','Estaba a punto de llamarte.'],['I realized it too late.','Me di cuenta demasiado tarde.'],['Do you remember that day?','¿Te acuerdas de aquel día?'],['I can\'t believe it.','No lo puedo creer.'],['In the end, everything worked out.','Al final todo salió bien.']],
+ [['I understand more every day.','Cada día entiendo más.'],['I don\'t need subtitles anymore.','Ya no necesito subtítulos.'],['I speak a little faster now.','Ahora hablo un poco más rápido.'],['I feel much more confident.','Me siento mucho más seguro.'],['I want to keep practicing.','Quiero seguir practicando.']],
+ [['Ninety days ago I understood nothing.','Hace noventa días no entendía nada.'],['Now I can watch shows in English.','Ahora puedo ver series en inglés.'],['I did it, step by step.','Lo logré, paso a paso.'],['The secret was practicing every day.','El secreto fue practicar todos los días.'],['This is just the beginning.','Esto es solo el comienzo.']]
+];
+var ONB=[
+ {k:'nivel',q:'¿Cómo está tu inglés hoy?',o:[['zero','Empiezo (casi) de cero'],['basico','Sé algunas palabras, pero no sigo una conversación'],['medio','Entiendo algo, pero me congelo cuando tengo que hablar']]},
+ {k:'min',q:'¿Cuánto tiempo le puedes dar al día?',o:[['10','10 minutos'],['20','20 minutos'],['30','30 minutos o más']]},
+ {k:'meta',q:'¿Para qué quieres el inglés?',o:[['trabalho','Trabajo'],['viagem','Viajar'],['series','Ver series sin subtítulos'],['familia','Familia y amigos']]}
+];
+function dia0(){var s=S.data.inicio?new Date(S.data.inicio+'T12:00:00'):new Date();var d=Math.floor((Date.now()-s.getTime())/864e5)+1;return Math.max(1,Math.min(90,d))}
+function hojeISO(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function fase(d){for(var i=0;i<FASES.length;i++)if(d>=FASES[i].de&&d<=FASES[i].ate)return FASES[i];return FASES[0]}
+function onb(i){$('load').hidden=true;$('onb').hidden=false;var o=ONB[i];$('onbK').textContent='Paso '+(i+1)+' de 3';$('onbQ').textContent=o.q;
+  $('onbOps').innerHTML=o.o.map(function(x){return '<button class="op" type="button" data-v="'+x[0]+'">'+x[1]+'</button>'}).join('');
+  [].forEach.call($('onbOps').children,function(b){b.onclick=function(){b.classList.add('on');S.data.onb=S.data.onb||{};S.data.onb[o.k]=b.getAttribute('data-v');setTimeout(function(){if(i<2)onb(i+1);else{S.data.inicio=hojeISO();S.data.feitos={};S.data.checks={};salva();painel()}},220)}})}
+function painel(){
+  $('load').hidden=true;$('onb').hidden=true;$('dash').hidden=false;
+  var d=dia0(),f=fase(d),sem=Math.min(13,Math.ceil(d/7)),min=+((S.data.onb||{}).min||10);
+  $('fase').textContent=f.nome;$('dia').textContent='Día '+d;$('barra').style.width=Math.round(d/90*100)+'%';
+  var feitos=S.data.feitos||{},seq=0;for(var x=d;x>=1;x--){if(feitos[x])seq++;else if(x<d)break}
+  $('streak').textContent=seq?('🔥 '+seq+(seq>1?' días seguidos':' día')):'';
+  var ini=(sem-1)*7+1,h='';for(var y=ini;y<ini+7&&y<=90;y++)h+='<i class="'+(feitos[y]?'d ':'')+(y===d?'t':'')+'">'+y+'</i>';$('semana').innerHTML=h;
+  var n=min>=30?3:min>=20?2:1;$('mTit').textContent=n===1?'10 minutos hoy':n===2?'20 minutos hoy':'30 minutos hoy';
+  $('mTasks').innerHTML=f.m.slice(0,n).map(function(t,i){return '<li><b>'+(i+1)+'</b><span>'+t+'</span></li>'}).join('');
+  var fz=!!feitos[d];$('feito').hidden=fz;$('feitoOk').hidden=!fz;
+  $('feito').onclick=function(){S.data.feitos=S.data.feitos||{};S.data.feitos[d]=hojeISO();salva();painel()};
+  $('chK').textContent='Reto de la semana '+sem;$('chTit').textContent=DESAFIOS[sem-1];$('chTx').textContent='Hazlo todos los días de esta semana. Es pequeño y parece tonto, pero funciona: saca el inglés de tu cabeza y lo pone en tu boca.';
+  // Lite (downsell) no trae el Accent Check semanal
+  var lite=S.plano==='lite';$('acCard').hidden=lite;$('marca').textContent=lite?'FAST-TRACK LITE':'FAST-TRACK';
+  if(!lite){$('acK').textContent='Accent Check semanal · semana '+sem;accent(sem)}
+}
+var VOZ=null;function fala(t){try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=.85;var vs=speechSynthesis.getVoices();VOZ=VOZ||vs.filter(function(v){return /en[-_]US/i.test(v.lang)})[0]||vs.filter(function(v){return /^en/i.test(v.lang)})[0];if(VOZ)u.voice=VOZ;speechSynthesis.speak(u)}catch(e){}}
+function accent(sem){
+  var L=FRASES[sem-1],ck=(S.data.checks=S.data.checks||{}),cur=ck[sem]=ck[sem]||{s:{}};
+  $('frases').innerHTML=L.map(function(p,i){var r=cur.s[i];return '<div class="sent"><div class="es">'+p[0]+'</div><div class="en">'+p[1]+'</div><div class="acts"><button class="play" type="button" data-i="'+i+'">▶ Escuchar</button><button class="rec" type="button" data-i="'+i+'">🎙 Decirla</button></div><div class="res" id="r'+i+'">'+(r?resHtml(r):'')+'</div></div>'}).join('');
+  [].forEach.call($('frases').querySelectorAll('.play'),function(b){b.onclick=function(){fala(L[+b.getAttribute('data-i')][0])}});
+  [].forEach.call($('frases').querySelectorAll('.rec'),function(b){b.onclick=async function(){
+    var i=+b.getAttribute('data-i');if(b.classList.contains('on')){pronStop();return}
+    b.classList.add('on');b.textContent='■ Parar';$('r'+i).innerHTML='<span class="mut">Escuchando… lee la frase en voz alta.</span>';
+    var wav=await pronRecord(9000);b.classList.remove('on');b.textContent='🎙 Decirla otra vez';
+    if(wav==='denied'){$('r'+i).innerHTML='<span class="mut">Permite el micrófono en tu navegador e inténtalo de nuevo.</span>';return}
+    if(!wav){$('r'+i).innerHTML='<span class="mut">No te escuché. Inténtalo un poco más fuerte.</span>';return}
+    $('r'+i).innerHTML='<span class="mut">Calificando…</span>';
+    var r=await pronAssess(wav,L[i][0],'en-US');
+    if(!r||r.silence){$('r'+i).innerHTML='<span class="mut">No pude calificar esa. Inténtalo en un lugar sin ruido.</span>';return}
+    cur.s[i]={sc:r.score,w:r.words.map(function(w){return [w.word,w.acc]})};salva();$('r'+i).innerHTML=resHtml(cur.s[i]);media(sem)}});
+  media(sem);
+}
+function resHtml(r){return '<span class="sc">'+r.sc+'</span>'+r.w.map(function(w){return '<span class="wd '+(w[1]>=80?'g':w[1]>=60?'m':'b')+'">'+w[0]+'</span>'}).join('')}
+function media(sem){
+  var ck=S.data.checks||{},cur=ck[sem]||{s:{}},v=Object.keys(cur.s).map(function(k){return cur.s[k].sc});
+  if(v.length){var m=Math.round(v.reduce(function(a,b){return a+b},0)/v.length);cur.m=m;$('acRes').hidden=false;$('acMedia').textContent=m+'/100';
+    var ruins=[];Object.keys(cur.s).forEach(function(k){cur.s[k].w.forEach(function(w){if(w[1]<60&&ruins.indexOf(w[0])<0)ruins.push(w[0])})});
+    $('acTip').textContent=ruins.length?('Practica: '+ruins.slice(0,5).join(', ')+'. Escucha la frase otra vez y di esas palabras más lento. En inglés las vocales cambian de sonido y muchas palabras se "comen" el final: imita la voz, no la escritura.'):(v.length<5?'Sigue: te '+(5-v.length>1?'faltan ':'falta ')+(5-v.length)+(5-v.length>1?' frases':' frase')+' esta semana.':'Semana limpia. La próxima semana las frases suben un poco de nivel.')}
+  var sems=Object.keys(ck).map(Number).filter(function(s){return ck[s].m}).sort(function(a,b){return a-b});
+  if(sems.length){$('trendBox').hidden=false;$('trend').innerHTML=sems.map(function(s){return '<div style="height:100%"><i style="height:'+ck[s].m+'%"></i><span>'+ck[s].m+'</span></div>'}).join('')}
+}
+if(!K){$('load').hidden=true;$('erro').hidden=false}
+else fetch('/api/es-coach?k='+encodeURIComponent(K),{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){
+  if(!j.ok){$('load').hidden=true;$('erro').hidden=false;if(j.error==='not_coach')$('erroTx').textContent='Este enlace todavía no tiene el Fast-Track activo. Responde el correo de tu compra y lo activamos.';return}
+  S.data=j.data||{};S.plano=j.plano||'fast';if(!S.data.inicio)onb(0);else painel();
+}).catch(function(){$('load').hidden=true;$('erro').hidden=false});
+})();
+</script>
+</body>
+</html>
