@@ -14,7 +14,7 @@ function emailDoToken(key: string, k: string): string | null {
   if (!b || !sig) return null
   let email = ''
   try { email = Buffer.from(b, 'base64url').toString('utf8').trim().toLowerCase() } catch { return null }
-  const ok = crypto.createHmac('sha256', key).update('latam-coach:' + email).digest('hex').slice(0, 24)
+  const ok = crypto.createHmac('sha256', key.trim()).update('latam-coach:' + email).digest('hex').slice(0, 24)
   if (sig.length !== ok.length || !crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(ok))) return null
   return /^[^@\s]+@[^@\s]+$/.test(email) ? email : null
 }
