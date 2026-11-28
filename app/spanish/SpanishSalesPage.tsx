@@ -146,7 +146,7 @@ const FAQ = [
   },
   {
     q: 'How long do I have access?',
-    a: 'Access is lifetime. You’ll have unlimited access to the content and can study at your own pace.',
+    a: 'You get 1 full year of access, with unlimited use of the content at your own pace. One payment, no automatic renewal.',
   },
   {
     q: 'Do I need prior knowledge of Spanish?',
@@ -855,7 +855,7 @@ function PriceBlock() {
         {PAY}
       </p>
       <p style={{ fontSize: 14, color: C.t1, marginTop: 2, fontWeight: 600 }}>
-        One-time payment · lifetime access
+        One-time payment · 1 year of access
       </p>
       <p style={{ fontSize: 12, color: C.t3, marginTop: 6 }}>No subscription · secure checkout</p>
     </div>

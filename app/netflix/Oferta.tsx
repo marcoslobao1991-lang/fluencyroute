@@ -67,7 +67,7 @@ const FASES = [
 const FAQ = [
   ['Do I need to know any Spanish?', 'No. It works from zero, and it works if you studied before and still freeze in a conversation.'],
   ['How much time do I need?', 'About 30 minutes a day. The audio mode lets you train with just your earbuds while you do other things.'],
-  ['Is it a subscription?', 'No. One single payment. Access is lifetime.'],
+  ['Is it a subscription?', 'No. One single payment for 1 full year of access. Nothing renews automatically.'],
   ['Does it work on my phone?', 'Yes. Phone, tablet or computer.'],
   ['How do I get a refund?', 'Inside Hotmart, with a single click, within 7 days. No questions and no forms.'],
 ]

@@ -74,7 +74,7 @@ function deliveryHtml(name, token) {
     <p style="font-size:14px;color:#8A98AD;line-height:1.6">Do a session every day — even 10 minutes keeps your streak alive and your progress compounding. Any questions, just reply to this email.</p>
     ${token ? `<p style="font-size:13px;color:#8A98AD;line-height:1.6;background:#141C26;border-radius:10px;padding:14px 16px;margin-top:20px"><b style="color:#E9EEF6">Keep this email.</b> The button above is your personal link — open it on your phone, your laptop, wherever. Your streak, your words and your talks follow you to every device automatically.</p>` : ''}
     <p style="font-size:14px;color:#BCC7D8;margin-top:24px">— Fluency Route</p>
-    <p style="font-size:11px;color:#5A6572;margin-top:28px">You received this because you purchased Essential Spanish Fluency. Lifetime access — bookmark the link above.</p>
+    <p style="font-size:11px;color:#5A6572;margin-top:28px">You received this because you purchased Essential Spanish Fluency. Your plan includes 1 year of access — bookmark the link above.</p>
   </div></body></html>`
 }
 
@@ -254,6 +254,34 @@ function talkHtml(name, token) {
 }
 
 // plano: 'fast' (Fast-Track US$127) · 'lite' (Fast-Track Lite US$47, sem a Manuela coach) · 'talk' (Real Time Talk US$297/ano)
+// 28/11 · upgrade vitalício (oferta 4em11ywm): marca o aluno como vitalício no auth (app_metadata.spanish_lifetime),
+// que é o que /api/spanish-status lê pra liberar o app sem data de vencimento. Tenta de novo se a compra principal
+// ainda não criou o acesso (o webhook do upsell pode chegar segundos depois do principal).
+async function marcaVitalicio(email, name, transaction) {
+  const mail = String(email || '').trim().toLowerCase()
+  if (!mail || !SUPA_SERVICE_KEY) return
+  const admin = { apikey: SUPA_SERVICE_KEY, Authorization: `Bearer ${SUPA_SERVICE_KEY}`, 'Content-Type': 'application/json' }
+  let uid = null
+  for (let i = 0; i < 4 && !uid; i++) {
+    const r = await fetch(`${SUPA_URL}/rest/v1/spanish_access?select=user_id&email=eq.${encodeURIComponent(mail)}&limit=1`, { headers: admin }).then((x) => x.json()).catch(() => [])
+    uid = Array.isArray(r) && r[0]?.user_id
+    if (!uid && i === 1) await prepararAcesso(mail)
+    if (!uid) await new Promise((ok) => setTimeout(ok, 2500))
+  }
+  if (!uid) { console.error('[HOTMART-WEBHOOK] vitalício sem acesso pra', mail, transaction); return }
+  const u = await fetch(`${SUPA_URL}/auth/v1/admin/users/${uid}`, { headers: admin }).then((x) => x.json()).catch(() => ({}))
+  const meta = { ...(u.app_metadata || {}), spanish_lifetime: true, spanish_lifetime_tx: transaction || null }
+  const up = await fetch(`${SUPA_URL}/auth/v1/admin/users/${uid}`, { method: 'PUT', headers: admin, body: JSON.stringify({ app_metadata: meta }) })
+  console.log('[HOTMART-WEBHOOK] vitalício', mail, up.status)
+  if (!RESEND_KEY) return
+  const hi = name ? `Hey ${String(name).split(' ')[0]},` : 'Hey there,'
+  await fetch('https://api.resend.com/emails', {
+    method: 'POST', headers: { Authorization: `Bearer ${RESEND_KEY}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ from: 'Fluency Route <access@acesso.fluencyroute.com.br>', to: [mail], subject: '♾️ Lifetime access added to your Spanish app',
+      html: `<div style="font-family:-apple-system,'Segoe UI',sans-serif;max-width:480px;margin:0 auto;padding:28px 22px;color:#1d1b18"><h1 style="font-size:24px">${hi} your access is now for life.</h1><p style="font-size:16px;line-height:1.6">Essential Spanish Fluency is yours with no expiration date, including every new series and scene we add. Keep using the same link from your welcome email.</p><p style="font-size:14px;color:#7a746a">— Fluency Route</p></div>` }),
+  }).catch(() => {})
+}
+
 async function sendCoachDelivery(email, name, transaction, plano = 'fast') {
   if (!RESEND_KEY || !email) return
   const mail = String(email).trim().toLowerCase()
@@ -325,7 +353,8 @@ export async function POST(request) {
     // (nada de acesso, e-mail, painel ou pixel do espanhol). Sem código de oferta no payload: só aceita se o valor for de Fast-Track (≥ US$90).
     const offerCode = String(pick(body, 'data.purchase.offer.code', 'purchase.offer.code', 'off') || '').toLowerCase()
     // 26/11 tarde: ofertas do ESPANHOL no Premium Coaching = Fast-Track (ewtgb4zl), Lite/downsell (x6ymozzb), Real Time Talk/upsell 2 (1sq74hea)
-    const PLANO_POR_OFERTA = { ewtgb4zl: 'fast', x6ymozzb: 'lite', '1sq74hea': 'talk' }
+    // 28/11: 4em11ywm = upsell 1 "LIFETIME 47" (o principal virou 1 ano; o vitalício é vendido aqui, modelo LATAM)
+    const PLANO_POR_OFERTA = { ewtgb4zl: 'fast', x6ymozzb: 'lite', '1sq74hea': 'talk', '4em11ywm': 'vitalicio' }
     let planoUpsell = null
     if (/coaching|upsell|mentor/i.test(String(productName))) {
       planoUpsell = offerCode ? (PLANO_POR_OFERTA[offerCode] || null) : ((Number(value) || 0) >= 90 ? 'fast' : null)
@@ -407,7 +436,7 @@ export async function POST(request) {
     // value em USD (moeda da oferta). Upsell entra como item ':coaching' (não conta como venda nova). Dedup pelo detail.
     if (event === 'PURCHASE_APPROVED' && transaction) {
       try {
-        const detail = `hotmart:${transaction}${isUpsell ? (planoUpsell === 'lite' ? ':lite' : planoUpsell === 'talk' ? ':talk' : ':coaching') : ''}`
+        const detail = `hotmart:${transaction}${isUpsell ? (planoUpsell === 'lite' ? ':lite' : planoUpsell === 'talk' ? ':talk' : planoUpsell === 'vitalicio' ? ':vitalicio' : ':coaching') : ''}`
         const H = { apikey: SUPA_SERVICE_KEY, Authorization: `Bearer ${SUPA_SERVICE_KEY}`, 'Content-Type': 'application/json' }
         const ja = await fetch(`${SUPA_URL}/rest/v1/funnel_events?event=eq.purchase&detail=eq.${encodeURIComponent(detail)}&select=id&limit=1`, { headers: H }).then((r) => r.json()).catch(() => [])
         if (!Array.isArray(ja) || ja.length === 0) {
@@ -428,7 +457,8 @@ export async function POST(request) {
     }
     // 26/11: upsell (Fluency Fast-Track / Premium Coaching) = acompanhamento entregue por IA em /spanish-coach.html
     if (event === 'PURCHASE_APPROVED' && isUpsell) {
-      await sendCoachDelivery(email, name, transaction, planoUpsell || 'fast')
+      if (planoUpsell === 'vitalicio') await marcaVitalicio(email, name, transaction)
+      else await sendCoachDelivery(email, name, transaction, planoUpsell || 'fast')
     }
 
     const debug = request.headers.get('x-debug') === '1'
