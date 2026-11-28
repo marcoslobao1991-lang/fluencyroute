@@ -354,8 +354,10 @@ export async function POST(request) {
     }
 
     // tracking (a landing injeta nosso session_id no sck do checkout)
-    const sck = pick(body, 'data.purchase.tracking.source_sck', 'purchase.tracking.source_sck', 'tracking.source_sck', 'sck', 'src_sck')
-    const src = pick(body, 'data.purchase.tracking.source', 'purchase.tracking.source', 'tracking.source', 'src')
+    // 28/11: a Hotmart (webhook v2) devolve o sck em data.purchase.origin.sck — é o campo que o webhook da LATAM lê
+    // (21/23 compras ligadas à visita). Sem ele, nenhuma compra do espanhol desde 27/11 achou a sessão → Purchase sem fbc/fbp/ip/ua.
+    const sck = pick(body, 'data.purchase.origin.sck', 'purchase.origin.sck', 'data.purchase.tracking.source_sck', 'purchase.tracking.source_sck', 'tracking.source_sck', 'sck', 'src_sck')
+    const src = pick(body, 'data.purchase.origin.src', 'purchase.origin.src', 'data.purchase.tracking.source', 'purchase.tracking.source', 'tracking.source', 'src')
     const fbclid = pick(body, 'data.purchase.tracking.fbclid', 'tracking.fbclid', 'fbclid')
 
     // ── cart stitch: sck (nosso session_id) → session_id → sck → fbclid ──
