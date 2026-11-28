@@ -8,7 +8,8 @@
 // Aplica por cima do public/vsl-friends.html que está no ar (ele tem ajustes manuais que o gerar-vsl-friends.js não tem).
 // Preço e checkout NÃO mudam: De R$497 → R$29/mês (12x) ou R$289 no Pix, checkout DlmRal3.
 // Depois rodar: gerar-friends-quiz.js, gerar-friends-quiz-bio.js, gerar-vsl-friends-bio.js (derivam deste arquivo).
-// 27/11 v3 (Marcos): "vamos fazer ele renovar para amanhã" → prorrogada, contagem até SÁB 28/11 23:59 (Brasília).
+// 27/11 v3 (Marcos): "simplifica, ao invés de contagem regressiva e data coloca ÚLTIMAS VAGAS com desconto da Black Friday" → sem contagem, sem data.
+//  Ao tirar (--tirar), desligar também BLACK_FRIDAY em app/api/whatsapp-webhook/route.ts.
 // Pra tirar: node scripts/black-friday-friends.js --tirar
 const fs = require('fs');
 const path = require('path');
@@ -43,16 +44,14 @@ if (!process.argv.includes('--tirar')) {
 .bf-off{display:inline-block;margin-top:14px;background:#ff2d2d;color:#fff;font:900 clamp(22px,6.4vw,30px)/1 Inter,-apple-system,sans-serif;letter-spacing:.02em;padding:9px 16px;border-radius:8px;transform:rotate(-2deg);box-shadow:0 6px 20px rgba(255,45,45,.35)}
 .bf-s{margin-top:14px;font:700 clamp(16px,4.6vw,20px)/1.3 Inter,-apple-system,sans-serif;color:rgba(255,255,255,.85)}
 .bf-s s{color:#ff6b6b}.bf-s b{color:#FFD400;font-weight:900}
+.bf-uv{margin:20px auto 0;display:inline-block;background:#FFD400;color:#000;font:900 clamp(13px,3.8vw,16px)/1.25 Inter,-apple-system,sans-serif;letter-spacing:.04em;text-transform:uppercase;padding:10px 16px;border-radius:8px}
 .bf-cd{margin-top:20px}.bf-cd p{font:700 11px/1 Inter,-apple-system,sans-serif;letter-spacing:.22em;color:rgba(255,255,255,.55);text-transform:uppercase;margin-bottom:10px}
 .bf-cd-g{display:flex;justify-content:center;gap:8px}
 .bf-cd-g div{min-width:62px;background:#141414;border:1px solid #2c2c2c;border-radius:10px;padding:10px 4px 8px}
 .bf-cd-g b{display:block;font:900 28px/1 "JetBrains Mono",monospace;color:#fff}
 .bf-cd-g small{display:block;margin-top:5px;font:700 9px/1 Inter,-apple-system,sans-serif;letter-spacing:.14em;color:#FFD400;text-transform:uppercase}
 </style>`;
-  const CD = '<div class="bf-cd" id="bf-cd"><p>A Black Friday acaba em</p><div class="bf-cd-g">'
-    + [['d','dias'],['h','horas'],['m','min'],['s','seg']].map(([k, n]) => '<div><b data-bf="' + k + '">00</b><small>' + n + '</small></div>').join('')
-    + '</div></div>'
-    + '<script>(function(){var fim=Date.parse("2026-11-28T23:59:59-03:00"),el=document.getElementById("bf-cd");if(!el)return;var q=function(k){return el.querySelector("[data-bf="+k+"]")},p=function(n){return n<10?"0"+n:""+n};function t(){var r=Math.max(0,fim-Date.now());if(!r){el.style.display="none";return}var x=Math.floor(r/1e3);q("d").textContent=p(Math.floor(x/86400));q("h").textContent=p(Math.floor(x%86400/3600));q("m").textContent=p(Math.floor(x%3600/60));q("s").textContent=p(x%60);setTimeout(t,1e3)}t()})()</script>';
+  const CD = '<div class="bf-uv">Últimas vagas com desconto da Black Friday</div>';
   const BANNER = `<!--bf-banner--><div class="bf-banner"><div class="bf-fita"><div>${corre}</div></div>
 <div class="bf-main"><div class="bf-k">OFERTA LIBERADA</div><div class="bf-t">Black<br><span>Friday</span></div>
 <div class="bf-off">42% OFF</div>
