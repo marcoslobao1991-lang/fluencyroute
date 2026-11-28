@@ -7,7 +7,8 @@
 //   2. Cart stitching: recupera fbc/fbp/ip/ua da sessão original (checkout_sessions,
 //      chave = sck que a landing injeta no checkout Hotmart) → EMQ alto.
 //   3. user_data completo (em, ph, fn, ln, ct, st, zp, country, external_id) do payload.
-//   4. Purchase CAPI (meta-capi-es hasheia) com eventId es-purchase-<transaction>.
+//   4. Purchase CAPI (meta-capi-es hasheia) com eventId es-purchase-<transaction>. Upsell/coaching vai como
+//      UpsellPurchase (es-upsell-<transaction>), pra não contar como venda nova no Meta.
 //   5. Entrega: e-mail com o link do app pro comprador (só front, não upsell).
 //
 // Dedup: eventId determinístico por transação → retries do mesmo pedido
@@ -369,9 +370,13 @@ export async function POST(request) {
       fbc = fbcFromFbclid(effectiveFbclid, clickTs)
     }
 
-    const eventId = `es-purchase-${transaction}`
+    // 28/11: upsell/coaching NÃO é Purchase. Transação própria na Hotmart virava uma "venda" a mais no Meta
+    // (ex.: Joel Laing 28/11 = 1 venda + Lite → a SPANISH TRICK marcou 2 compras dele), inflando CPA/ROAS e a
+    // otimização da campanha. Upsell vai como evento próprio (UpsellPurchase), com eventId próprio.
+    const isUpsell = /coaching|upsell|mentor/i.test(String(productName))
+    const eventId = isUpsell ? `es-upsell-${transaction}` : `es-purchase-${transaction}`
     const result = await sendServerEvent(
-      'Purchase',
+      isUpsell ? 'UpsellPurchase' : 'Purchase',
       {
         email, name, phone,
         city, state, zip, country,
@@ -393,8 +398,7 @@ export async function POST(request) {
       ''
     )
 
-    // ── entrega: só no primeiro approved e só do produto principal (não do upsell/coaching) ──
-    const isUpsell = /coaching|upsell|mentor/i.test(String(productName))
+    // ── entrega: só no primeiro approved e só do produto principal (não do upsell/coaching; isUpsell definido antes da CAPI) ──
 
     // ── stats (23/11): a venda entra no funil 'spanish' do painel, ligada à visita pelo stitch (sck → session_id)
     // e com a origem do anúncio. Antes o webhook só mandava pra Meta e o painel nunca via venda de espanhol.
