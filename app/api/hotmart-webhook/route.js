@@ -130,16 +130,20 @@ async function prepararAcesso(email) {
 // ── Manuela no WhatsApp (26/11, Marcos: "dar aquele punch no cara… fazer todo mundo se sentir um rei e uma rainha") ──
 // Na compra: guarda o telefone na conta do app (é por ele que a Manuela reconhece o aluno) e manda o modelo
 // aprovado spanish_access_welcome (nome + botão com o link pessoal do app). Responder abre a conversa com ela.
-function telWhats(phone, country) {
+function telWhats(phone, country, ddi) {
   let d = String(phone || '').replace(/\D/g, '')
   if (!d) return null
+  // 28/11: a Hotmart pode mandar o DDI separado (checkout_phone_code); junta se o número ainda não começa com ele
+  const cc = String(ddi || '').replace(/\D/g, '')
+  if (cc && cc.length <= 3 && !d.startsWith(cc) && d.length <= 11) d = cc + d
   const c = String(country || '').toLowerCase()
   if (d.length === 10 && (c === 'us' || c === 'ca' || !c)) d = '1' + d
   if (c === 'br' && !d.startsWith('55') && d.length <= 11) d = '55' + d
   return d.length >= 11 && d.length <= 15 ? d : null
 }
-async function manuelaBoasVindas(email, name, phone, country, token) {
-  const tel = telWhats(phone, country)
+async function manuelaBoasVindas(email, name, phone, country, token, ddi) {
+  const tel = telWhats(phone, country, ddi)
+  if (!tel) console.log('[HOTMART-WEBHOOK] espanhol sem telefone válido na compra:', phone ? String(phone).replace(/\d(?=\d{3})/g, '•') : 'vazio')
   if (!tel || !SUPA_SERVICE_KEY) return
   try {
     await fetch(`${SUPA_URL}/rest/v1/spanish_access?email=eq.${encodeURIComponent(String(email).trim().toLowerCase())}`, {
@@ -165,7 +169,33 @@ async function manuelaBoasVindas(email, name, phone, country, token) {
   } catch (e) { console.error('[HOTMART-WEBHOOK] whats err:', e?.message) }
 }
 
-async function sendDelivery(email, name, phone, country) {
+// 28/11 LATAM: boas-vindas da Manuela em espanhol (modelo ruta_bienvenida). Dedup pela transação (a Hotmart reenvia o webhook).
+async function rutaBoasVindas(name, phone, country, ddi, transaction) {
+  const tel = telWhats(phone, country, ddi)
+  if (!tel) { console.log('[HOTMART-WEBHOOK] latam sem telefone na compra', transaction); return }
+  const PH = process.env.WA_CLOUD_PHONE_ID, WT = process.env.WA_CLOUD_TOKEN
+  if (!PH || !WT || !SUPA_SERVICE_KEY) return
+  const H = { apikey: SUPA_SERVICE_KEY, Authorization: `Bearer ${SUPA_SERVICE_KEY}`, 'Content-Type': 'application/json' }
+  const marca = `[modelo ruta_bienvenida ${transaction}]`
+  const ja = await fetch(`${SUPA_URL}/rest/v1/wa_mensagens?texto=like.${encodeURIComponent(marca + '*')}&select=id&limit=1`, { headers: H }).then((r) => r.json()).catch(() => [])
+  if (Array.isArray(ja) && ja.length) return
+  const first = name ? String(name).trim().split(/\s+/)[0] : 'hola'
+  try {
+    const r = await fetch(`https://graph.facebook.com/v21.0/${PH}/messages`, {
+      method: 'POST', headers: { Authorization: `Bearer ${WT}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messaging_product: 'whatsapp', to: tel, type: 'template', template: { name: 'ruta_bienvenida', language: { code: 'es' },
+        components: [{ type: 'body', parameters: [{ type: 'text', text: first }] }] } }),
+    })
+    const j = await r.json().catch(() => ({}))
+    await fetch(`${SUPA_URL}/rest/v1/wa_mensagens`, {
+      method: 'POST', headers: H,
+      body: JSON.stringify({ tel, direcao: 'out', texto: `${marca} ¡Hola ${first}! Tu acceso a Ruta de la Fluidez ya está listo… Soy Manuela`, status: r.ok ? 'enviado' : 'falhou' }),
+    }).catch(() => {})
+    if (!r.ok) console.error('[HOTMART-WEBHOOK] latam whats:', r.status, JSON.stringify(j).slice(0, 300))
+  } catch (e) { console.error('[HOTMART-WEBHOOK] latam whats err:', e?.message) }
+}
+
+async function sendDelivery(email, name, phone, country, ddi) {
   if (!RESEND_KEY || !email) return
   if (/@(example\.com|hotmart\.com(\.br)?)$/i.test(email)) return
   const token = await prepararAcesso(String(email).trim().toLowerCase())
@@ -182,7 +212,7 @@ async function sendDelivery(email, name, phone, country) {
     })
     if (!r.ok) console.error('[HOTMART-WEBHOOK] resend:', r.status, await r.text())
   } catch (e) { console.error('[HOTMART-WEBHOOK] resend err:', e) }
-  await manuelaBoasVindas(email, name, phone, country, token)
+  await manuelaBoasVindas(email, name, phone, country, token, ddi)
 }
 
 // ── Fluency Fast-Track (upsell): libera o acompanhamento e manda o link da página do coach ──
@@ -312,6 +342,16 @@ export async function POST(request) {
     const countryRaw = pick(body, 'data.buyer.address.country_iso', 'data.buyer.address.country', 'buyer.address.country_iso', 'buyer.address.country')
     const country = typeof countryRaw === 'string' && /^[a-z]{2}$/i.test(countryRaw.trim()) ? countryRaw.trim().toLowerCase() : undefined
 
+    const ddi = pick(body, 'data.buyer.checkout_phone_code', 'buyer.checkout_phone_code')
+
+    // ── 28/11 LATAM (Ruta de la Fluidez, inglês pra quem fala espanhol): acesso, e-mail "Tu acceso llegó" e pixel são de OUTRO
+    // webhook. Aqui só entra a boas-vindas da Manuela no WhatsApp. Nada de acesso do espanhol, CAPI ou painel. Upsell não manda de novo.
+    if (/ruta|fluidez|ingl[eé]s/i.test(String(productName))) {
+      const ehUpsell = /vital|lifetime|por vida|coaching|upsell|mentor/i.test(String(productName))
+      if (!ehUpsell) await rutaBoasVindas(name, phone, country, ddi, transaction)
+      return new Response(JSON.stringify({ ok: true, latam: true, upsell: ehUpsell }), { status: 200 })
+    }
+
     // tracking (a landing injeta nosso session_id no sck do checkout)
     const sck = pick(body, 'data.purchase.tracking.source_sck', 'purchase.tracking.source_sck', 'tracking.source_sck', 'sck', 'src_sck')
     const src = pick(body, 'data.purchase.tracking.source', 'purchase.tracking.source', 'tracking.source', 'src')
@@ -378,7 +418,7 @@ export async function POST(request) {
       } catch (e) { console.error('[HOTMART-WEBHOOK] stats', e?.message) }
     }
     if (event === 'PURCHASE_APPROVED' && !isUpsell) {
-      await sendDelivery(email, name, phone, country)
+      await sendDelivery(email, name, phone, country, ddi)
     }
     // 26/11: upsell (Fluency Fast-Track / Premium Coaching) = acompanhamento entregue por IA em /spanish-coach.html
     if (event === 'PURCHASE_APPROVED' && isUpsell) {
